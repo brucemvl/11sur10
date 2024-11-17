@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
+import Filtres from "../components/Filtres";
+
 import banner3 from "../assets/banner4.jpg";
 import banner4 from "../assets/banner5.jpg";
 import banner5 from "../assets/banner6.jpg";
@@ -57,7 +59,7 @@ function Home() {
           <Text style={styles.bannerSubtitle}>Toutes vos infos Football en un clic</Text>
         </View>
       </View>
-      
+      <Filtres />
     </View>
   );
 }
