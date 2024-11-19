@@ -25,7 +25,11 @@
       "favicon": "./src/assets/favicon.png"
     },
     "plugins": [
-      "expo-font"
+      [
+      "expo-font", {
+        "fonts": ["./src/assets/fonts/Kanit/Kanit-Regular.ttf"]
+      }
+    ]
     ]
   }
 }

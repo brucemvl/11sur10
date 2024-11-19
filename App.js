@@ -6,7 +6,7 @@ import { useFonts } from 'expo-font';  // Importer le hook useFonts d'Expo
 export default function App() {
   // Charger les polices avec le hook useFonts
   const [fontsLoaded] = useFonts({
-    'Kanit-Regular': require('./src/assets/fonts/Kanit/Kanit-Regular.ttf'),
+    'Kanitt': require('./src/assets/fonts/Kanit/Kanit-Regular.ttf'),
     'Kanit-Bold': require('./src/assets/fonts/Kanit/Kanit-Bold.ttf'),
   });
 
@@ -31,7 +31,7 @@ export default function App() {
 const styles = StyleSheet.create({
   app: {
     flex: 1,  // Assurer que le style s'étend sur tout l'écran
-    fontFamily: 'Kanit-Regular',  // Appliquer la police par défaut à l'ensemble de l'application
+    fontFamily: 'Kanitt',  // Appliquer la police par défaut à l'ensemble de l'application
   },
   loading: {
     flex: 1,

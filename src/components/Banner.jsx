@@ -16,9 +16,15 @@ import banner17 from "../assets/banner18.jpg";
 
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
+import { useFonts } from "expo-font";
 
 
 function Banner(){
+
+    const [fontsLoaded] = useFonts({
+        "Kanitt": require("../assets/fonts/Kanit/Kanit-ExtraBold.ttf"),
+        
+      });
 
     const photosBan = [
         banner3, banner4, banner5, banner6, banner7, banner8, banner9,
@@ -106,12 +112,16 @@ banner: {
     fontWeight: "900",
     fontSize: 32,
     color: "white",
+    fontFamily: "Kanitt"
+
   },
 
   bannerSubtitle: {
     fontWeight: "900",
     fontSize: 18,
-    color: "white"
+    color: "white",
+    fontFamily: "Kanitt"
+
   },
 })
 

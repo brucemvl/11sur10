@@ -3,9 +3,16 @@ import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView, useWindowD
 import { LinearGradient } from 'expo-linear-gradient';  // Pour le dégradé
 import { useNavigation } from '@react-navigation/native'; // Pour la navigation
 import { championnats, europe } from '../datas/Leagues'; // Import des données
+import { useFonts } from 'expo-font';  // Importer le hook useFonts d'Expo
+
 
 function Filtres() {
     const navigation = useNavigation();
+
+    const [fontsLoaded] = useFonts({
+        "Kanitt": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
+        "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf")
+      });
 
     // Utilisation du hook useWindowDimensions pour obtenir les dimensions de l'écran
     const { width } = useWindowDimensions();
@@ -71,7 +78,6 @@ const styles = StyleSheet.create({
     competitions: {
         paddingBottom: 20,
         width: "100%",
-        fontFamily: "PermanentMarker-Regular",
     },
     conteneur: {
         marginBottom: 30,
@@ -88,11 +94,14 @@ const styles = StyleSheet.create({
         width: '60%',
         alignSelf: 'center',
         backgroundColor: "midnightblue",
-    },
+        fontFamily: "Permanent",
+        },
     titleText: {
         fontSize: 18,
         color: 'white',
         fontWeight: 'bold',
+        fontFamily: "Kanitt",
+
     },
     filtres: {
         flexDirection: 'row',
@@ -120,8 +129,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     logoContainer: {
-        width: "90%",
-        height: "90%",
+        width: "85%",
+        height: "85%",
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -135,11 +144,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#19721b',
         width: '100%',
         textAlign: 'center',
-        fontWeight: '600',
+        fontWeight: '400',
         paddingBlock: 5,
         fontSize: 12,
         flex: 1,
         alignItems: "center",
+        fontFamily: "Permanent",
+
     },
     europeText: {
         color: 'white',
