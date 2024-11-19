@@ -22,7 +22,7 @@ import { useFonts } from "expo-font";
 function Banner(){
 
     const [fontsLoaded] = useFonts({
-        "Kanitt": require("../assets/fonts/Kanit/Kanit-ExtraBold.ttf"),
+        "Kanitt": require("../assets/fonts/Kanit/Kanit-Black.ttf"),
         
       });
 
@@ -60,7 +60,7 @@ function Banner(){
           style={[styles.bannerImage, isActive && styles.active]}
         />
         <View style={styles.bannerText}>
-          <Text style={styles.bannerTitle}>100% FOOT</Text>
+          <Text style={{fontFamily: "Kanitt", fontWeight: 900, color: "white", fontSize: 32}}>100% FOOT</Text>
           <Text style={styles.bannerSubtitle}>Toutes vos infos Football en un clic</Text>
         </View>
       </View>
@@ -98,8 +98,8 @@ banner: {
 
   bannerText: {
     position: "absolute",
-    bottom: "40%",
-    left: "10%",
+    bottom: "35%",
+    left: "13%",
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
@@ -122,6 +122,25 @@ banner: {
     color: "white",
     fontFamily: "Kanitt"
 
+  },
+
+  "@media (max-width: 767px)": {
+    blocpage: {
+      banner: {
+        height: 80,
+        bannerImage: {
+          objectPosition: "0 -25px",
+        },
+        bannerText: {
+          bannerTitle: {
+            fontSize: 16,
+          },
+          bannerSubtitle: {
+            fontSize: 12,
+          },
+        },
+      },
+    },
   },
 })
 

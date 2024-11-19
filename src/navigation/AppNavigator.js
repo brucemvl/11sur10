@@ -1,25 +1,26 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import Home from '../screens/Home';  // Exemple de page
-//import AnotherPage from '../screens/AnotherPage'; // Exemple d'une autre page
-import Header from '../components/Header'; // Ton composant Header
+import { createStackNavigator } from '@react-navigation/stack';
+import Home from '../screens/Home';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const Stack = createStackNavigator();
 
-function AppNavigator() {
+export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Home"
         screenOptions={{
-          header: () => <Header />  // Définir ton Header global ici
+          header: () => <Header />,
         }}
       >
         <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
+
+      {/* Footer global */}
+      <Footer />
     </NavigationContainer>
   );
 }
-
-export default AppNavigator;

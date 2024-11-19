@@ -30,24 +30,7 @@ const styles = StyleSheet.create({
 
 
   // Styles pour les petites tailles d'écran
-  "@media (max-width: 767px)": {
-    blocpage: {
-      banner: {
-        height: 80,
-        bannerImage: {
-          objectPosition: "0 -25px",
-        },
-        bannerText: {
-          bannerTitle: {
-            fontSize: 16,
-          },
-          bannerSubtitle: {
-            fontSize: 12,
-          },
-        },
-      },
-    },
-  },
+ 
 });
 
 export default Home;

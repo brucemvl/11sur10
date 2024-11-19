@@ -10,7 +10,7 @@ function Filtres() {
     const navigation = useNavigation();
 
     const [fontsLoaded] = useFonts({
-        "Kanitt": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
+        "Kanitt": require("../assets/fonts/Kanit/Kanit-ExtraBold.ttf"),
         "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf")
       });
 
@@ -65,7 +65,6 @@ function Filtres() {
                             <View style={styles.logoContainer}>
                                 <Image source={{ uri: logo }} style={styles.logo} />
                             </View>
-                            <Text style={styles.europeText}>{name}</Text>
                         </TouchableOpacity>
                     ))}
                 </View>
@@ -84,6 +83,11 @@ const styles = StyleSheet.create({
         width: "100%",
         backgroundColor: "#b0c4de",
         borderRadius: 15,
+        flex: 1,
+        flexDirection: "column",
+        justifyContent:"center",
+        alignItems:"center",
+        padding: 5
     },
     title: {
         padding: 10,
@@ -91,11 +95,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginVertical: 20,
-        width: '60%',
+        width: '65%',
         alignSelf: 'center',
         backgroundColor: "midnightblue",
-        fontFamily: "Permanent",
-        },
+      },
     titleText: {
         fontSize: 18,
         color: 'white',
@@ -115,7 +118,7 @@ const styles = StyleSheet.create({
         width: 100,  // Utilise une largeur fixe pour la petite taille d'écran
         height: 125,
         alignItems: 'center',
-        marginBottom: 20,
+        marginBottom: 10,
         flexDirection: "column-reverse",
         borderWidth: 8,
         borderRadius: 15,
@@ -126,13 +129,22 @@ const styles = StyleSheet.create({
     lienEurope: {
         width: '30%',
         alignItems: 'center',
+        justifyContent: "center",
         marginBottom: 20,
+        flexDirection: "column-reverse",
+        borderWidth: 8,
+        borderRadius: 15,
+        borderColor: "midnightblue",
+        paddingBlock: 6,
+        backgroundColor: "aliceblue",
+        height: 125
     },
     logoContainer: {
         width: "85%",
         height: "85%",
         justifyContent: 'center',
         alignItems: 'center',
+        height: "70%",
     },
     logo: {
         width: "75%",
@@ -146,18 +158,14 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: '400',
         paddingBlock: 5,
-        fontSize: 12,
+        fontSize: 12.1,
         flex: 1,
         alignItems: "center",
         fontFamily: "Permanent",
 
+
     },
-    europeText: {
-        color: 'white',
-        textAlign: 'center',
-        paddingVertical: 5,
-        fontSize: 12,
-    },
+   
     // Styles spécifiques à l'écran mobile
     lienMobile: {
         width: 120, // Sur petits écrans, on ajuste la largeur

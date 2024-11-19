@@ -27,7 +27,8 @@
     "plugins": [
       [
       "expo-font", {
-        "fonts": ["./src/assets/fonts/Kanit/Kanit-Regular.ttf"]
+        "fonts": ["./src/assets/fonts/Kanit/Kanit-Black.ttf",
+                  "./src/assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf"]
       }
     ]
     ]
