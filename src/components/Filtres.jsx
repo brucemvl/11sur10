@@ -75,8 +75,8 @@ function Filtres() {
 
 const styles = StyleSheet.create({
     competitions: {
-        paddingBottom: 20,
         width: "100%",
+        marginTop: 20
     },
     conteneur: {
         marginBottom: 30,
@@ -87,7 +87,8 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent:"center",
         alignItems:"center",
-        padding: 5
+        padding: 5,
+        
     },
     title: {
         padding: 10,
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginVertical: 20,
-        width: '65%',
+        width: '75%',
         alignSelf: 'center',
         backgroundColor: "midnightblue",
       },

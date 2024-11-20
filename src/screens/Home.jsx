@@ -1,7 +1,7 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import Filtres from "../components/Filtres";
 import Banner from "../components/Banner";
-
+import Footer from "../components/Footer";
 
 
 
@@ -10,10 +10,13 @@ function Home() {
   
 
   return (
+    <ScrollView >
     <View style={styles.blocpage}>
       <Banner />
       <Filtres />
+      <Footer />
     </View>
+    </ScrollView>
   );
 }
 
@@ -24,7 +27,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "98%",
     paddingStart: "2%",
-    gap: 20,
     marginTop: 20,
   },
 

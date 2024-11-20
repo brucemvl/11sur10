@@ -8,7 +8,7 @@ import { useFonts } from "expo-font";
 function Apropos() {
 
     const [fontsLoaded] = useFonts({
-        "Kanitt": require("../assets/fonts/Kanit/Kanit-Light.ttf"),
+        "Kanitt": require("../assets/fonts/Kanit/Kanit-Black.ttf"),
         
       });
 
