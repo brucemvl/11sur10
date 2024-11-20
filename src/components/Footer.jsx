@@ -1,11 +1,14 @@
 import bm from "../assets/bm.png"
 import { View, Text, Image, TouchableOpacity} from "react-native"
 import { StyleSheet } from "react-native"
+import { useNavigation } from "@react-navigation/native"
 
 function Footer(){
+
+    const navigation = useNavigation()
     return (
         <View style={styles.footer}>
-           <TouchableOpacity ><Text style={{color: "white"}}>A propos</Text></TouchableOpacity>
+           <TouchableOpacity onPress={() => navigation.navigate('Apropos')} ><Text style={{color: "white"}}>A propos</Text></TouchableOpacity>
            <TouchableOpacity ><Text style={{color: "white"}}>Nous contacter</Text></TouchableOpacity>
             <View><Image source={bm} alt="logo developpeur" style={styles.logo}/><Text style={{color: "white"}}>© 2024 BM Development. Tous droits réservés.</Text></View>
 

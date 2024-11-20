@@ -4,23 +4,18 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from './src/screens/Home';
 import Header from './src/components/Header';
 import Footer from './src/components/Footer';
+import Apropos from './src/screens/Apropos';
+import AppNavigator from './src/navigation/AppNavigator';
+
 
 const Stack = createStackNavigator();
 
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          header: () => <Header />,
-        }}
-      >
-        <Stack.Screen name="Home" component={Home} />
-      </Stack.Navigator>
 
-      {/* Footer global */}
-      <Footer />
-    </NavigationContainer>
+
+function App() {
+  return (
+   <AppNavigator />
   );
 }
+
+export default App

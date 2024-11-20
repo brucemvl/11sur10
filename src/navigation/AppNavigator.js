@@ -4,10 +4,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screens/Home';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Apropos from '../screens/Apropos';
 
 const Stack = createStackNavigator();
 
-export default function App() {
+export default function AppNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -17,6 +18,8 @@ export default function App() {
         }}
       >
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Apropos" component={Apropos} />
+
       </Stack.Navigator>
 
       {/* Footer global */}

@@ -14,7 +14,7 @@ import banner15 from "../assets/banner16.jpg";
 import banner16 from "../assets/banner17.webp";
 import banner17 from "../assets/banner18.jpg";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
 
@@ -60,7 +60,7 @@ function Banner(){
           style={[styles.bannerImage, isActive && styles.active]}
         />
         <View style={styles.bannerText}>
-          <Text style={{fontFamily: "Kanitt", fontWeight: 900, color: "white", fontSize: 32}}>100% FOOT</Text>
+          <Text style={{fontFamily: "Kanitt", color: "white", fontSize: 32,}}>100% FOOT</Text>
           <Text style={styles.bannerSubtitle}>Toutes vos infos Football en un clic</Text>
         </View>
       </View>
