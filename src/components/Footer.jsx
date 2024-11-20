@@ -14,7 +14,7 @@ function Footer(){
     return (
         <View style={styles.footer}>
            <TouchableOpacity onPress={() => navigation.navigate('Apropos')} ><Text style={styles.lien}>A propos</Text></TouchableOpacity>
-           <TouchableOpacity ><Text style={styles.lien}>Nous contacter</Text></TouchableOpacity>
+           <TouchableOpacity onPress={()=> navigation.navigate("Contact")}><Text style={styles.lien}>Nous contacter</Text></TouchableOpacity>
             <View style={styles.droits}><Image source={bm} alt="logo developpeur" style={styles.logo}/><Text style={{color: "white", fontFamily: "Kanitt"}}>© 2024 BM Development. Tous droits réservés.</Text></View>
 
 
