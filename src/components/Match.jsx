@@ -1,8 +1,14 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
+import { useFonts } from 'expo-font';
 
 function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id, date, navigation }) {
+
+    const [fontsLoaded] = useFonts({
+        "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
+        
+      });
 
   const dateh = new Date(date);
   const formattedDate = `${dateh.getDate().toString().padStart(2, '0')}/${(dateh.getMonth() + 1).toString().padStart(2, '0')}`;
@@ -60,7 +66,7 @@ const styles = StyleSheet.create({
   match: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
+    paddingBlock: 6,
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
     width: "100%"
@@ -68,17 +74,17 @@ const styles = StyleSheet.create({
   dateheure: {
     flex: 1,
     alignItems: 'flex-start',
-    width: "14%"
+    width: "12%"
   },
   equipeDom: {
     fontSize: 12,
     width: "28%",
 textAlign: "center",
-fontFamily: "Kanitt"
+fontFamily: "Kanito"
 
   },
   logoDom: {
-    width: "8%",
+    width: "9%",
     height: 35,
     marginRight: 10,
     objectFit: "contain"
@@ -98,7 +104,7 @@ fontFamily: "Kanitt"
     width: 20,
     borderRadius: 5,
     textAlign: "center",
-    fontFamily: "Kanitt"
+    fontFamily: "Kanito"
 
   },
   winner: {
@@ -109,7 +115,7 @@ fontFamily: "Kanitt"
     width: 20,
     borderRadius: 5,
     textAlign: "center",
-    fontFamily: "Kanitt"
+    fontFamily: "Kanito"
 
   },
   looser: {
@@ -120,20 +126,20 @@ fontFamily: "Kanitt"
     width: 20,
     borderRadius: 5,
 textAlign: "center",
-fontFamily: "Kanitt"
+fontFamily: "Kanito"
 
   },
   logoExt: {
-    width: "8%",
+    width: "9%",
     height: 35,
     marginLeft: 10,
-    objectFit: "contain"
+    objectFit: "contain",
   },
   equipeExt: {
     fontSize: 12,
     width: "28%",
 textAlign: "center",
-fontFamily: "Kanitt"
+fontFamily: "Kanito"
 },
 
 });
