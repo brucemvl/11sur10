@@ -19,8 +19,8 @@ function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id,
       onPress={() => navigation.navigate('FicheMatch', { id })}  // Naviguer vers la fiche du match
     >
       <View style={styles.dateheure}>
-        <Text>{formattedDate}</Text>
-        <Text>{formattedHour}</Text>
+        <Text style={{fontSize: 9}}>{formattedDate}</Text>
+        <Text style={{fontSize: 9}}>{formattedHour}</Text>
       </View>
 
       <Text style={styles.equipeDom}>{equipeDom}</Text>
@@ -63,45 +63,79 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
+    width: "100%"
   },
   dateheure: {
     flex: 1,
     alignItems: 'flex-start',
+    width: "14%"
   },
   equipeDom: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 12,
+    width: "28%",
+textAlign: "center",
+fontFamily: "Kanitt"
+
   },
   logoDom: {
-    width: 40,
-    height: 40,
+    width: "8%",
+    height: 35,
     marginRight: 10,
+    objectFit: "contain"
   },
   matchScore: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 5,
+    width: "14%",
+    justifyContent: "center"
   },
   nul: {
     fontSize: 16,
-    color: 'gray',
+    backgroundColor: 'gray',
+    color: "white",
+    height: 28,
+    width: 20,
+    borderRadius: 5,
+    textAlign: "center",
+    fontFamily: "Kanitt"
+
   },
   winner: {
     fontSize: 16,
-    color: 'green',
+    backgroundColor: 'green',
+    color: "white",
+    height: 25,
+    width: 20,
+    borderRadius: 5,
+    textAlign: "center",
+    fontFamily: "Kanitt"
+
   },
   looser: {
     fontSize: 16,
-    color: 'red',
+    backgroundColor: 'red',
+    color: "white",
+    height: 25,
+    width: 20,
+    borderRadius: 5,
+textAlign: "center",
+fontFamily: "Kanitt"
+
   },
   logoExt: {
-    width: 40,
-    height: 40,
+    width: "8%",
+    height: 35,
     marginLeft: 10,
+    objectFit: "contain"
   },
   equipeExt: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
+    fontSize: 12,
+    width: "28%",
+textAlign: "center",
+fontFamily: "Kanitt"
+},
+
 });
 
 export default Match;

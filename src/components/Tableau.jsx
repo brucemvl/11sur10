@@ -2,8 +2,14 @@ import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import Match from "./Match";
 import Journees from "./Journees";
+import { useFonts } from "expo-font";
 
 function Tableau({ id }) {
+
+    const [fontsLoaded] = useFonts({
+        "Kanitt": require("../assets/fonts/Kanit/Kanit-Black.ttf"),
+        
+      });
 
   const [team, setTeam] = useState([]);
 
@@ -128,14 +134,18 @@ function Tableau({ id }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingHorizontal: 20,
+    flex: 3,
+    paddingHorizontal: 6,
     paddingVertical: 10,
   },
   title: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: "400",
     marginBottom: 10,
+    textAlign: "center",
+    fontFamily: "Kanitt"
+
+    
   },
 });
 

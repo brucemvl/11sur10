@@ -24,6 +24,8 @@ const styles = StyleSheet.create({
     blocChamp: {
         flex: 1,
         padding: 20,
+        justifyContent: "center",
+        width: "100%"
     },
 });
 

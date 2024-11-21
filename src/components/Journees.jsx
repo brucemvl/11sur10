@@ -34,7 +34,7 @@ function Journees({ setFilter, round, currentIndex, newround }) {
   
         {/* Sélecteur de journée */}
         <View style={styles.headInfo}>
-          <Text>{`Journée ${index + 1}`}</Text>
+          <Text style={{fontFamily: "Permanent"}}>{`Journée ${index + 1}`}</Text>
         </View>
   
         {/* Bouton suivant */}
