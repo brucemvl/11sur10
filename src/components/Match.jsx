@@ -25,8 +25,8 @@ function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id,
       onPress={() => navigation.navigate('FicheMatch', { id })}  // Naviguer vers la fiche du match
     >
       <View style={styles.dateheure}>
-        <Text style={{fontSize: 9}}>{formattedDate}</Text>
-        <Text style={{fontSize: 9}}>{formattedHour}</Text>
+        <Text style={{fontSize: 8.5}}>{formattedDate}</Text>
+        <Text style={{fontSize: 8.5}}>{formattedHour}</Text>
       </View>
 
       <Text style={styles.equipeDom}>{equipeDom}</Text>
@@ -78,14 +78,14 @@ const styles = StyleSheet.create({
   },
   equipeDom: {
     fontSize: 12,
-    width: "28%",
+    width: "27%",
 textAlign: "center",
 fontFamily: "Kanito"
 
   },
   logoDom: {
     width: "9%",
-    height: 35,
+    height: 30,
     marginRight: 10,
     objectFit: "contain"
   },
@@ -94,7 +94,7 @@ fontFamily: "Kanito"
     alignItems: 'center',
     gap: 5,
     width: "14%",
-    justifyContent: "center"
+    justifyContent: "space-evenly"
   },
   nul: {
     fontSize: 16,
@@ -131,7 +131,7 @@ fontFamily: "Kanito"
   },
   logoExt: {
     width: "9%",
-    height: 35,
+    height: 30,
     marginLeft: 10,
     objectFit: "contain",
   },

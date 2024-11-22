@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker"; // Picker pour la sélection
 
-function Journees({ setFilter, round, currentIndex, newround }) {
+function Journees({ setFilter, round, currentIndex, roundd, filter }) {
     const [index, setIndex] = useState(currentIndex);
   
     useEffect(() => {
@@ -24,6 +24,10 @@ function Journees({ setFilter, round, currentIndex, newround }) {
       // Mettre à jour le filtre avec la journée sélectionnée
       setFilter(round[index]);
     }, [index, round, setFilter]);
+
+    console.log("Index:", index);
+console.log("Current Round:", roundd[index]);
+console.log("Filter:", filter);
   
     return (
       <View style={styles.container}>
@@ -44,6 +48,7 @@ function Journees({ setFilter, round, currentIndex, newround }) {
       </View>
     );
   }
+
 
 const styles = StyleSheet.create({
   container: {
