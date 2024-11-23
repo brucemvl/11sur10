@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { Picker } from "@react-native-picker/picker"; // Picker pour la sélection
 
 function Journees({ setFilter, round, currentIndex, roundd, filter }) {
     const [index, setIndex] = useState(currentIndex);

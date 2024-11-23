@@ -57,9 +57,8 @@ Match.propTypes = {
   logoExt: PropTypes.string.isRequired,
   scoreDom: PropTypes.number.isRequired,
   scoreExt: PropTypes.number.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   date: PropTypes.string.isRequired,
-  navigation: PropTypes.object.isRequired,  // Assurez-vous que la navigation est passée en prop
 };
 
 const styles = StyleSheet.create({

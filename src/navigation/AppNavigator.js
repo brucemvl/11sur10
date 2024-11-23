@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 import Apropos from '../screens/Apropos';
 import Contact from '../screens/Contact';
 import FicheChampionnat from '../screens/FicheChampionnat';
+import FicheEurope from "../screens/FicheEurope"
 
 
 const Stack = createStackNavigator();
@@ -25,6 +26,8 @@ export default function AppNavigator() {
         <Stack.Screen name="Apropos" component={Apropos} />
         <Stack.Screen name='Contact' component={Contact} />
         <Stack.Screen name="FicheChampionnat" component={FicheChampionnat} />
+        <Stack.Screen name="FicheEurope" component={FicheEurope} />
+
 
 
       </Stack.Navigator>

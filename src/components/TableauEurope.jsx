@@ -5,7 +5,7 @@ import { StyleSheet } from "react-native";
 import Journees from "./Journees";
 import Match from "./Match";
 
-function Tableau({ id, index, setFilter, filter }) {
+function TableauEurope({ id, index, setFilter, filter }) {
   const [fontsLoaded] = useFonts({
     "Kanitt": require("../assets/fonts/Kanit/Kanit-Black.ttf"),
   });
@@ -26,7 +26,7 @@ function Tableau({ id, index, setFilter, filter }) {
       })
         .then((response) => response.json())
         .then((json) => {
-          setTeam(json.response);
+          setTeam(json.response.slice(90, json.response.length));
           setLoading(false);
         })
         .catch((error) => {
@@ -36,6 +36,8 @@ function Tableau({ id, index, setFilter, filter }) {
     };
     fetchData();
   }, [id]);
+
+  console.log(team)
 
   // Récupérer les rounds
   const round = team.reduce((acc, elem) => {
@@ -124,7 +126,7 @@ function Tableau({ id, index, setFilter, filter }) {
 
   const styles = StyleSheet.create({
     container: {
-      flex: 5.5,
+      flex: 1,
       paddingHorizontal: 6,
       paddingVertical: 10,
     },
@@ -137,4 +139,4 @@ function Tableau({ id, index, setFilter, filter }) {
     },
   });
 
-  export default Tableau
+  export default TableauEurope

@@ -155,13 +155,12 @@ function Classement({ id }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 10,
   },
   header: {
     padding: 10,
     backgroundColor: '#ddd',
-    marginBottom: 5,
+    marginBlock: 5,
     borderRadius: 5,
   },
   item: {
