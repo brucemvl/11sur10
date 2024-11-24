@@ -10,7 +10,8 @@ function Filtres() {
     const navigation = useNavigation();
 
     const [fontsLoaded] = useFonts({
-        "Kanitt": require("../assets/fonts/Kanit/Kanit-ExtraBold.ttf"),
+        "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
+        "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
         "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf")
       });
 
