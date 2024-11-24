@@ -7,7 +7,7 @@ function Live({ navigation }) {
   useEffect(() => {
     const fetchLive = () => {
       try {
-        fetch('https://v3.football.api-sports.io/fixtures?live=2-3-5-61-39-140-78-135', {
+        fetch('https://v3.football.api-sports.io/fixtures?live=all', {
           method: 'GET',
           headers: {
             'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
@@ -38,7 +38,7 @@ function Live({ navigation }) {
           style={styles.competitionLogo}
           resizeMode="contain"
         />
-        <View style={styles.teamContainer}>
+        <View style={styles.teamContainerDom}>
           <Image
             source={{ uri: item.teams.home.logo }}
             style={styles.teamLogo}
@@ -130,6 +130,14 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     fontFamily: "Kanitt"
   },
+  match: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingBlock: 6,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+    width: "100%"
+  },
   noMatch: {
     marginTop: 0,
     alignSelf: 'center',
@@ -157,58 +165,88 @@ flexDirection: "row",
     padding: 10,
     marginBottom: 20,
     borderRadius: 15,
-    width: "100%"
   },
   competitionLogo: {
     height: 40,
-    width: "15%",
+    width: "8%",
     objectFit: 'contain',
   },
   teamContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: "100%",
+    width: "35%",
+    justifyContent: "flex-start",
+    gap: 4
+
+    
+  },
+  teamContainerDom: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: "35%",
+    flexDirection: "row-reverse",
+    justifyContent: "flex-start",
+    gap: 4
+    
     
   },
   teamLogo: {
     height: 30,
-    width: "15%",
+    width: "20%",
     objectFit: 'contain',
-    marginRight: 8,
+    alignItems: "center"
   },
   teamName: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    width: "100%"
+    fontSize: 13,
+    fontFamily: "Kanito"
   },
   scoreContainer: {
-    flex: 1,
     alignItems: 'center',
-    width: "20%",
+    width: "15%",
   },
   score: {
     flexDirection: 'row',
     alignItems: 'center',
+    
   },
   scoreText: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    flex: 1,
+    backgroundColor: 'grey',
+    color: 'white',
+    borderRadius: 5,
+    height: 30,
+    width: 20,
+    fontFamily: "Kanito",
+    alignItems: "center",
+    textAlign: "center",
+    paddingTop: 4
   },
   time: {
     fontSize: 12,
-    marginHorizontal: 8,
+    marginHorizontal: 5,
   },
   winner: {
     backgroundColor: '#32b642',
     color: 'white',
-    padding: 4,
     borderRadius: 5,
+    height: 30,
+    width: 20,
+    fontFamily: "Kanito",
+    alignItems: "center",
+    textAlign: "center",
+    paddingTop: 4
+    
   },
   loser: {
     backgroundColor: '#ff2e2e',
     color: 'white',
-    padding: 4,
     borderRadius: 5,
+    height: 30,
+    width: 20,
+    fontFamily: "Kanito",
+    alignItems: "center",
+    textAlign: "center",
+    paddingTop: 4
   },
   liveSticker: {
     color: 'white',
@@ -217,7 +255,6 @@ flexDirection: "row",
     textAlign: 'center',
     transform: 'rotate(45deg)',
     fontSize: 12,
-    marginTop: 8,
   },
 });
 
