@@ -34,8 +34,8 @@ function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id,
 
       {scoreDomNum === scoreExtNum ? (
         <View style={styles.matchScore}>
-          <Text style={styles.nul}>{scoreDomNum}</Text>
-          <Text style={styles.nul}>{scoreExtNum}</Text>
+          <Text style={styles.nul}>{scoreDomNum === null ? "" : scoreDomNum}</Text>
+          <Text style={styles.nul}>{scoreExtNum === null ? "" : scoreExtNum}</Text>
         </View>
       ) : (
         <View style={styles.matchScore}>

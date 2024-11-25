@@ -48,13 +48,13 @@ function Live({ navigation }) {
         </View>
         <View style={styles.scoreContainer}>
           {item.goals.home === item.goals.away ? (
-            <Text style={styles.score}>
+            <View style={styles.score}>
               <Text style={styles.scoreText}>{item.goals.home}</Text>
               <Text style={styles.time}>
                 <Text>{item.fixture.status.elapsed}'</Text>
               </Text>
               <Text style={styles.scoreText}>{item.goals.away}</Text>
-            </Text>
+            </View>
           ) : (
             <View style={styles.score}>
               <Text
@@ -161,10 +161,7 @@ flexDirection: "row",
     justifyItems: 'center',
     alignItems: 'center',
     backgroundColor: '#F4F0F0',
-    borderRadius: 15,
     padding: 10,
-    marginBottom: 20,
-    borderRadius: 15,
   },
   competitionLogo: {
     height: 40,
@@ -174,19 +171,22 @@ flexDirection: "row",
   teamContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: "35%",
+    width: "32%",
     justifyContent: "flex-start",
-    gap: 4
+    gap: 4,
+    marginInline: 1
+
 
     
   },
   teamContainerDom: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: "35%",
+    width: "32%",
     flexDirection: "row-reverse",
     justifyContent: "flex-start",
-    gap: 4
+    gap: 4,
+    marginInline: 1
     
     
   },
@@ -197,16 +197,17 @@ flexDirection: "row",
     alignItems: "center"
   },
   teamName: {
-    fontSize: 13,
+    fontSize: 12,
     fontFamily: "Kanito"
   },
   scoreContainer: {
     alignItems: 'center',
-    width: "15%",
+    width: "18%",
   },
   score: {
     flexDirection: 'row',
     alignItems: 'center',
+    width: "100%"
     
   },
   scoreText: {
@@ -226,6 +227,7 @@ flexDirection: "row",
     marginHorizontal: 5,
   },
   winner: {
+    flex: 1,
     backgroundColor: '#32b642',
     color: 'white',
     borderRadius: 5,
@@ -238,6 +240,7 @@ flexDirection: "row",
     
   },
   loser: {
+    flex: 1,
     backgroundColor: '#ff2e2e',
     color: 'white',
     borderRadius: 5,
@@ -251,10 +254,20 @@ flexDirection: "row",
   liveSticker: {
     color: 'white',
     backgroundColor: 'red',
-    fontFamily: 'Permanent Marker',
-    textAlign: 'center',
-    transform: 'rotate(45deg)',
+    fontFamily: 'Permanent',
+    transform: [
+        { rotate: '45deg' },
+        { translateX: -15 },
+      ],
     fontSize: 12,
+    position: "relative",
+    right: 55,
+    height: 25,
+    paddingInline: 50,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    overflow: "hidden",
   },
 });
 
