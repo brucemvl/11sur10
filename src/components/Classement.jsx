@@ -77,26 +77,25 @@ function Classement({ id }) {
 
   const renderClassementItem = ({ item }) => (
     <View style={styles.item}>
-      <Text>{item.rank}</Text>
+      <Text style={{width: "5%"}}>{item.rank}</Text>
       <Image source={{ uri: item.team.logo }} style={styles.logo} />
-      <Text>{item.team.name}</Text>
-      <Text>{item.all.played}</Text>
-      <Text>{item.all.win}</Text>
-      <Text>{item.all.draw}</Text>
-      <Text>{item.all.lose}</Text>
-      <Text>{item.all.goals.for}</Text>
-      <Text>{item.all.goals.against}</Text>
-      <Text>{item.points}</Text>
+      <Text style={{fontFamily: "Kanito", width: "30%"}}>{item.team.name}</Text>
+      <Text style={{fontFamily: "Kanito", width: "9%", textAlign: "center"}}>{item.all.played}</Text>
+      <Text style={{fontFamily: "Kanito", width: "9%", textAlign: "center"}}>{item.all.win}</Text>
+      <Text style={{fontFamily: "Kanito", width: "9%", textAlign: "center"}}>{item.all.draw}</Text>
+      <Text style={{fontFamily: "Kanito", width: "9%", textAlign: "center"}}>{item.all.lose}</Text>
+      <Text style={{fontFamily: "Kanito", width: "9%", textAlign: "center"}}>{item.all.goals.for - item.all.goals.against}</Text>
+      <Text style={{fontFamily: "Kanitt", width: "9%", textAlign: "center"}}>{item.points}</Text>
     </View>
   );
 
   const renderButeursItem = ({ item }) => (
     <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { playerId: item.player.id })}>
       <View style={styles.item}>
-        <Text>{item.player.name}</Text>
+        <Text style={{fontFamily: "Kanito"}}>{item.player.name}</Text>
         <Image source={{ uri: item.statistics[0].team.logo }} style={styles.logo} />
-        <Text>{item.statistics[0].goals.total}</Text>
-        <Text>{item.statistics[0].games.appearences}</Text>
+        <Text style={{fontFamily: "Kanito"}}>{item.statistics[0].goals.total}</Text>
+        <Text style={{fontFamily: "Kanito"}}>{item.statistics[0].games.appearences}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -104,10 +103,10 @@ function Classement({ id }) {
   const renderPasseursItem = ({ item }) => (
     <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { playerId: item.player.id })}>
       <View style={styles.item}>
-        <Text>{item.player.name}</Text>
+        <Text style={{fontFamily: "Kanito"}}>{item.player.name}</Text>
         <Image source={{ uri: item.statistics[0].team.logo }} style={styles.logo} />
-        <Text>{item.statistics[0].goals.assists}</Text>
-        <Text>{item.statistics[0].games.appearences}</Text>
+        <Text style={{fontFamily: "Kanito"}}>{item.statistics[0].goals.assists}</Text>
+        <Text style={{fontFamily: "Kanito"}}>{item.statistics[0].games.appearences}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -116,37 +115,53 @@ function Classement({ id }) {
     <View style={styles.container}>
       {/* Classement */}
       <TouchableOpacity onPress={collapseClassement} style={styles.header}>
-        <Text>Classement</Text>
+        <Text style={styles.title}>Classement</Text>
       </TouchableOpacity>
       {openClassement && (
+        <View>
+          <View style={styles.barre}>
+            <Text style={{width: "10%"}}>Rang</Text>
+            <Text style={{width: "36%", textAlign: "center", marginRight: 2}}>Equipe</Text>
+            <Text style={{width: "9%"}}>J</Text>
+            <Text style={{width: "9%"}}>V</Text>
+            <Text style={{width: "9%"}}>N</Text>
+            <Text style={{width: "9%"}}>D</Text>
+            <Text style={{width: "9%"}}>GA</Text>
+            <Text style={{width: "9%"}}>Pts</Text>
+          </View>
         <FlatList
           data={tab}
           renderItem={renderClassementItem}
           keyExtractor={(item) => item.team.id.toString()}
+          style={styles.list} // Ensure the list has proper styling
         />
+        </View>
+
       )}
 
       {/* Meilleurs Buteurs */}
       <TouchableOpacity onPress={collapseButeurs} style={styles.header}>
-        <Text>Meilleurs Buteurs</Text>
+        <Text style={styles.title}>Meilleurs Buteurs</Text>
       </TouchableOpacity>
       {openButeurs && (
         <FlatList
           data={buteurs}
           renderItem={renderButeursItem}
           keyExtractor={(item) => item.player.id.toString()}
+          style={styles.list} // Ensure the list has proper styling
         />
       )}
 
       {/* Meilleurs Passeurs */}
       <TouchableOpacity onPress={collapsePasseurs} style={styles.header}>
-        <Text>Meilleurs Passeurs</Text>
+        <Text style={styles.title}>Meilleurs Passeurs</Text>
       </TouchableOpacity>
       {openPasseurs && (
         <FlatList
           data={passeurs}
           renderItem={renderPasseursItem}
           keyExtractor={(item) => item.player.id.toString()}
+          style={styles.list} // Ensure the list has proper styling
         />
       )}
     </View>
@@ -155,26 +170,47 @@ function Classement({ id }) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    padding: 5,
+    flex: 1,
   },
   header: {
     padding: 10,
-    backgroundColor: '#ddd',
-    marginBlock: 5,
+    backgroundColor: 'midnightblue',
+    marginBlock: 20,
     borderRadius: 5,
+    flexDirection: 'row',
+  },
+  title: {
+    fontFamily: "Kanitt",
+    textAlign: "center",
+    color: "white",
+
+  },
+  barre: {
+    flexDirection: "row",
+    width: "100%",
   },
   item: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems:"center",
+    alignItems: "center",
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
+    width: "100%"
   },
   logo: {
-    width: 30,
-    height: 30,
+    width: "6%",
+    height: 25,
+    objectFit: "contain",
+    marginRight: 4
+
   },
+  list: {
+    flex: 1,
+    marginTop: 10,
+    paddingBottom: 20, // Ensure the content doesn't overlap with other elements
+  }
 });
 
 export default Classement;
