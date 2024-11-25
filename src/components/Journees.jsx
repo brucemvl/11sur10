@@ -58,13 +58,12 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 10,
-    backgroundColor: "#007bff",
     borderRadius: 5,
     marginHorizontal: 10,
   },
   buttonText: {
     fontSize: 24,
-    color: "white",
+    color: "black",
   },
   headInfo: {
     flexDirection: "row",

@@ -92,10 +92,11 @@ function Classement({ id }) {
   const renderButeursItem = ({ item }) => (
     <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { playerId: item.player.id })}>
       <View style={styles.item}>
-        <Text style={{fontFamily: "Kanito"}}>{item.player.name}</Text>
+        <Text style={{fontFamily: "Kanito", width: "45%"}}>{item.player.name}</Text>
         <Image source={{ uri: item.statistics[0].team.logo }} style={styles.logo} />
-        <Text style={{fontFamily: "Kanito"}}>{item.statistics[0].goals.total}</Text>
-        <Text style={{fontFamily: "Kanito"}}>{item.statistics[0].games.appearences}</Text>
+        <Text style={{fontFamily: "Kanito", width: "30%", textAlign: "center"}}>{item.statistics[0].games.appearences}</Text>
+        <Text style={{fontFamily: "Kanitt", width: "15%", textAlign:"center"}}>{item.statistics[0].goals.total}</Text>
+
       </View>
     </TouchableOpacity>
   );
@@ -103,10 +104,11 @@ function Classement({ id }) {
   const renderPasseursItem = ({ item }) => (
     <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { playerId: item.player.id })}>
       <View style={styles.item}>
-        <Text style={{fontFamily: "Kanito"}}>{item.player.name}</Text>
+        <Text style={{fontFamily: "Kanito", width: "45%"}}>{item.player.name}</Text>
         <Image source={{ uri: item.statistics[0].team.logo }} style={styles.logo} />
-        <Text style={{fontFamily: "Kanito"}}>{item.statistics[0].goals.assists}</Text>
-        <Text style={{fontFamily: "Kanito"}}>{item.statistics[0].games.appearences}</Text>
+        <Text style={{fontFamily: "Kanito", width: "30%", textAlign: "center"}}>{item.statistics[0].games.appearences}</Text>
+        <Text style={{fontFamily: "Kanitt", width: "15%", textAlign: "center"}}>{item.statistics[0].goals.assists}</Text>
+
       </View>
     </TouchableOpacity>
   );
@@ -120,14 +122,14 @@ function Classement({ id }) {
       {openClassement && (
         <View>
           <View style={styles.barre}>
-            <Text style={{width: "10%"}}>Rang</Text>
-            <Text style={{width: "36%", textAlign: "center", marginRight: 2}}>Equipe</Text>
-            <Text style={{width: "9%"}}>J</Text>
-            <Text style={{width: "9%"}}>V</Text>
-            <Text style={{width: "9%"}}>N</Text>
-            <Text style={{width: "9%"}}>D</Text>
-            <Text style={{width: "9%"}}>GA</Text>
-            <Text style={{width: "9%"}}>Pts</Text>
+            <Text style={{width: "10%", color: "white"}}>Rang</Text>
+            <Text style={{width: "36%", textAlign: "center", marginRight: 2, color: "white"}}>Equipe</Text>
+            <Text style={{width: "9%", color: "white"}}>J</Text>
+            <Text style={{width: "9%", color: "white"}}>V</Text>
+            <Text style={{width: "9%", color: "white"}}>N</Text>
+            <Text style={{width: "9%", color: "white"}}>D</Text>
+            <Text style={{width: "9%", color: "white"}}>GA</Text>
+            <Text style={{width: "9%", color: "white"}}>Pts</Text>
           </View>
         <FlatList
           data={tab}
@@ -144,12 +146,20 @@ function Classement({ id }) {
         <Text style={styles.title}>Meilleurs Buteurs</Text>
       </TouchableOpacity>
       {openButeurs && (
+        <View>
+        <View style={styles.barre}>
+        <Text style={{width: "50%", color: "white", textAlign: "center"}}>Joueur</Text>
+        <Text style={{width: "30%", color: "white", textAlign: "center"}}>Matchs Joués</Text>
+        <Text style={{width: "20%", color: "white", textAlign: "center"}}>Buts</Text>
+        
+      </View>
         <FlatList
           data={buteurs}
           renderItem={renderButeursItem}
           keyExtractor={(item) => item.player.id.toString()}
           style={styles.list} // Ensure the list has proper styling
         />
+        </View>
       )}
 
       {/* Meilleurs Passeurs */}
@@ -157,12 +167,19 @@ function Classement({ id }) {
         <Text style={styles.title}>Meilleurs Passeurs</Text>
       </TouchableOpacity>
       {openPasseurs && (
+        <View>
+        <View style={styles.barre}>
+        <Text style={{width: "50%", color: "white", textAlign: "center"}}>Joueur</Text>
+        <Text style={{width: "30%", color: "white", textAlign: "center"}}>Matchs Joués</Text>
+        <Text style={{width: "20%", color: "white", textAlign: "center"}}>Passes D</Text>  
+      </View>
         <FlatList
           data={passeurs}
           renderItem={renderPasseursItem}
           keyExtractor={(item) => item.player.id.toString()}
           style={styles.list} // Ensure the list has proper styling
         />
+        </View>
       )}
     </View>
   );
@@ -189,6 +206,9 @@ const styles = StyleSheet.create({
   barre: {
     flexDirection: "row",
     width: "100%",
+    backgroundColor: "black",
+    paddingBlock: 4,
+    borderRadius: 5
   },
   item: {
     flexDirection: 'row',

@@ -23,10 +23,10 @@ function FicheEurope({ route }) {
 
 const styles = StyleSheet.create({
     blocChamp: {
-        flex: 1,
+        flexGrow: 1, // Cette ligne garantit que le contenu du ScrollView occupe l'espace disponible
         padding: 20,
-        justifyContent: "center",
-        width: "100%"
+        justifyContent: "flex-start", // Cela assure que le contenu commence en haut
+        width: "100%",
     },
 });
 
