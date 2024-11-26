@@ -34,8 +34,8 @@ function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id,
 
       {scoreDomNum === scoreExtNum ? (
         <View style={styles.matchScore}>
-          <Text style={styles.nul}>{scoreDomNum === null ? "" : scoreDomNum}</Text>
-          <Text style={styles.nul}>{scoreExtNum === null ? "" : scoreExtNum}</Text>
+          <Text style={styles.nul}>{scoreDom === null ? "-" : scoreDomNum}</Text>
+          <Text style={styles.nul}>{scoreExt === null ? "-" : scoreExtNum}</Text>
         </View>
       ) : (
         <View style={styles.matchScore}>
@@ -99,7 +99,7 @@ fontFamily: "Kanito"
     fontSize: 16,
     backgroundColor: 'gray',
     color: "white",
-    height: 28,
+    height: 25,
     width: 20,
     borderRadius: 5,
     textAlign: "center",

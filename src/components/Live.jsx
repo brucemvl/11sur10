@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     width: "100%"
   },
   noMatch: {
-    marginTop: 0,
+    marginTop: 20,
     alignSelf: 'center',
     backgroundColor: 'red',
     color: 'white',
@@ -147,9 +147,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Permanent Marker',
     borderRadius: 5,
-    height: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
+    height: 35,
+    paddingTop: 6,
+    
   },
   live__tableau: {
     padding: '1%',

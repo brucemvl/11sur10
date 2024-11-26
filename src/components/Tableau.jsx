@@ -37,6 +37,7 @@ function Tableau({ id, index, setFilter, filter }) {
     fetchData();
   }, [id]);
 
+  console.log(team)
   // Récupérer les rounds
   const round = team.reduce((acc, elem) => {
     if (elem.league.round && !acc.includes(elem.league.round)) {
