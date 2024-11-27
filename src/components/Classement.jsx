@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, FlatList, Image, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, FlatList, Image, Animated, StyleSheet } from "react-native";
 import { useNavigation } from '@react-navigation/native';
+import chevron from "../assets/chevron.png"
 
 function Classement({ id }) {
   const [openButeurs, setOpenButeurs] = useState(false);
@@ -75,6 +76,22 @@ function Classement({ id }) {
     setRotationP(!rotatePasseurs);
   };
 
+  const rotateAnim = useState(new Animated.Value(0))[0]; 
+
+  useEffect(() => {
+    // Démarrer l'animation à chaque fois que l'état `rotateClassement` change
+    Animated.timing(rotateAnim, {
+      toValue: rotateClassement ? 1 : 0, // Rotation à 180deg ou 0deg
+      duration: 300, // Durée de l'animation
+      useNativeDriver: true, // Utiliser le moteur natif pour de meilleures performances
+    }).start();
+  }, [rotateClassement]);
+
+  const rotateInterpolation = rotateAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['180deg', '0deg'], 
+  });
+
   const renderClassementItem = ({ item }) => (
     <View style={styles.item}>
       <Text style={{width: "5%"}}>{item.rank}</Text>
@@ -118,6 +135,7 @@ function Classement({ id }) {
       {/* Classement */}
       <TouchableOpacity onPress={collapseClassement} style={styles.header}>
         <Text style={styles.title}>Classement</Text>
+        {rotateClassement ? <Image source={chevron}/> : <Animated.Image source={chevron} style={{transform:[{rotate: rotateInterpolation}]}}/>}
       </TouchableOpacity>
       {openClassement && (
         <View>
@@ -196,6 +214,7 @@ const styles = StyleSheet.create({
     marginBlock: 20,
     borderRadius: 5,
     flexDirection: 'row',
+    justifyContent: "space-between"
   },
   title: {
     fontFamily: "Kanitt",

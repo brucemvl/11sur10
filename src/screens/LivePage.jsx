@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 
-function Live({ navigation }) {
+function LivePage({ navigation }) {
   const [live, setLive] = useState([]);
 
   useEffect(() => {
@@ -91,6 +91,7 @@ function Live({ navigation }) {
   );
 
   return (
+    <View style={{width: "98%",paddingStart: "2%", marginBlock: 10, flex: 1}}>
     <View style={styles.container}>
       <Text style={styles.title}>LIVE</Text>
       {live.length === 0 ? (
@@ -102,6 +103,7 @@ function Live({ navigation }) {
           keyExtractor={(item) => item.fixture.id.toString()}
         />
       )}
+    </View>
     </View>
   );
 }
@@ -272,4 +274,4 @@ flexDirection: "row",
   },
 });
 
-export default Live;
+export default LivePage;

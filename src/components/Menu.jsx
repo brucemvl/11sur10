@@ -4,19 +4,23 @@ import home from "../assets/home.png"
 import live from "../assets/live.png"
 import flag from "../assets/flag.png"
 import shield from "../assets/shield.png"
+import { useNavigation } from "@react-navigation/native"
 
 function Menu(){
 
+    const navigation = useNavigation();
+
+
     return(
     <View style={styles.Menu}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity onPress={()=> navigation.navigate("Home")} style={styles.button}>
         <View style={{alignItems: "center", gap: 5}}>
             <Text style={styles.text}>Accueil</Text>
             <Image source={home} style={styles.img} />
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity onPress={()=> navigation.navigate("LivePage")} style={styles.button}>
         <View style={{alignItems: "center", gap: 5}}>
             <Text style={styles.text}>Live</Text>
             <Image source={live} style={styles.img} />
@@ -48,7 +52,8 @@ const styles = StyleSheet.create({
         flex: 0.09,
         justifyContent: "space-around",
         paddingTop: 10,
-        paddingBottom: 10,        backgroundColor: "grey",
+        paddingBottom: 10,
+        backgroundColor: "grey",
         borderTopWidth: 5,
     },
     button: {
