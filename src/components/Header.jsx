@@ -10,7 +10,7 @@ function Header() {
 
   return (
     <LinearGradient
-      colors={['#000000', 'rgba(251, 247, 247, 0)', 'rgba(4, 4, 4, 0.205)', 'rgba(246, 246, 246, 0.5)']}
+      colors={['rgba(255,255,255, 45)', 'rgba(17, 27, 101, 100)', 'rgba(0, 0, 0, 75)']}
       style={styles.header}
     >
       <Image source={logo} style={styles.logo} />
@@ -32,10 +32,10 @@ const styles = StyleSheet.create({
     width: 100, 
     height: 100, 
     borderBottomColor: "white",
-    borderBottomWidth: 5,
+    borderBottomWidth: 6,
     borderTopColor: "white",
-    borderTopWidth: 5,
-    margin: 8, 
+    borderTopWidth: 6,
+    marginInline: 8, 
     resizeMode: "contain"
   },
   // Tu peux ajouter un style pour mobile avec la largeur de l'écran

@@ -33,7 +33,7 @@ function ClubPage() {
                     <Text style={styles.titleText}>Championnats</Text>
                 </LinearGradient>
                 <View style={styles.filtres}>
-                    {championnats.map(({ name, id, logo }) => (
+                    {championnats.map(({ name, id, logo, flag }) => (
                         <TouchableOpacity
                             key={"lien" + id}
                             style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
@@ -43,6 +43,7 @@ function ClubPage() {
                             <View style={styles.logoContainer}>
                                 <Image source={{ uri: logo }} style={styles.logo} />
                             </View>
+                            <Image source={{ uri: flag }} style={styles.flag} />
                         </TouchableOpacity>
                     ))}
                     {autres.map(({ name, id, logo }) => (
@@ -89,8 +90,9 @@ function ClubPage() {
 
 const styles = StyleSheet.create({
     competitions: {
-        width: "100%",
-        marginTop: 20
+        width: "98%",
+        marginTop: 20,
+        paddingInlineStart: "2%"
     },
     conteneur: {
         marginBottom: 30,
@@ -156,7 +158,6 @@ const styles = StyleSheet.create({
     },
     logoContainer: {
         width: "85%",
-        height: "85%",
         justifyContent: 'center',
         alignItems: 'center',
         height: "70%",
@@ -177,7 +178,8 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         fontFamily: "Permanent",
-
+    },
+    flag: {
 
     },
    
