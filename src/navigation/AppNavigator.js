@@ -10,6 +10,7 @@ import FicheChampionnat from '../screens/FicheChampionnat';
 import FicheEurope from "../screens/FicheEurope"
 import Menu from '../components/Menu';
 import LivePage from '../screens/LivePage';
+import ClubPage from '../screens/ClubPage';
 
 
 const Stack = createStackNavigator();
@@ -30,6 +31,7 @@ export default function AppNavigator() {
         <Stack.Screen name="FicheChampionnat" component={FicheChampionnat} />
         <Stack.Screen name="FicheEurope" component={FicheEurope} />
         <Stack.Screen name="LivePage" component={LivePage} />
+        <Stack.Screen name="ClubPage" component={ClubPage} />
 
       </Stack.Navigator>
       <Menu component={Menu}/>

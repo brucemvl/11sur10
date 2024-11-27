@@ -27,7 +27,7 @@ function Menu(){
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity onPress={()=> navigation.navigate("ClubPage")} style={styles.button}>
         <View style={{alignItems: "center", gap: 5}}>
             <Text style={styles.text}>Clubs</Text>
             <Image source={shield} style={styles.img} />
