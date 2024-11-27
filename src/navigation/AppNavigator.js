@@ -8,6 +8,7 @@ import Apropos from '../screens/Apropos';
 import Contact from '../screens/Contact';
 import FicheChampionnat from '../screens/FicheChampionnat';
 import FicheEurope from "../screens/FicheEurope"
+import Menu from '../components/Menu';
 
 
 const Stack = createStackNavigator();
@@ -31,6 +32,7 @@ export default function AppNavigator() {
 
 
       </Stack.Navigator>
+      <Menu component={Menu}/>
     </NavigationContainer>
   );
 
