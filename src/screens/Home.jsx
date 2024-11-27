@@ -1,7 +1,6 @@
 import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import Filtres from "../components/Filtres";
 import Banner from "../components/Banner";
-import Footer from "../components/Footer";
 import Live from "../components/Live";
 
 
@@ -16,7 +15,6 @@ function Home() {
       <Banner />
       <Live />
       <Filtres />
-      <Footer />
     </View>
     </ScrollView>
   );

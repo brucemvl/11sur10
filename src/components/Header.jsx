@@ -1,12 +1,20 @@
 import React from 'react';
-import { View, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity, Linking } from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient'; // Importation du dégradé
+import { useNavigation } from '@react-navigation/native';
 
-import logo from '../assets/logoblanc.png';  // Assure-toi que l'image est bien dans ton projet
+import logo from '../assets/logoblanc.png';
+import insta from "../assets/insta.png"
 
 function Header() {
   // Récupération des dimensions de l'écran
   const screenWidth = Dimensions.get('window').width;
+  const navigation = useNavigation()
+
+
+  const openExternalLink = (url) => {
+    Linking.openURL(url).catch((err) => console.error("Error opening URL:", err));
+  };
 
   return (
     <LinearGradient
@@ -15,6 +23,14 @@ function Header() {
     >
       <Image source={logo} style={styles.logo} />
       {/* Ici, tu peux ajouter ton menu ou d'autres éléments */}
+      <View style={{alignItems: "center", gap: 25, paddingTop: 30}}>
+      <TouchableOpacity onPress={()=>openExternalLink("https://www.instagram.com/11_sur_10/")}>
+      <Image source={insta} style={{height: 40, width: 40}}/>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={()=> navigation.navigate("Apropos")}>
+        <Text style={{fontFamily: "Kanito", color: "white", textDecorationLine: "underline"}}>A Propos</Text>
+      </TouchableOpacity>
+      </View>
     </LinearGradient>
   );
 }

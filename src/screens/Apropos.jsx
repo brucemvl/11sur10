@@ -22,7 +22,7 @@ function Apropos() {
                 <Text style={styles.text}>L'application est nouvelle et encore en construction, n'hesitez donc pas à venir nous rendre visite regulierement pour voir les dernieres mises a jour. Vous pouvez aussi nous faire part de vos suggestions afin d'ameliorer 11/10 via le <TouchableOpacity><Text style={styles.lien}>formulaire de contact</Text></TouchableOpacity> ; positive ou negative, toute critique est bonne a prendre! </Text>
                 <Text style={styles.text}>Bonne visite à Tous!</Text>
             </View>
-           
+            <Footer />
         </View>
     )
 

@@ -13,10 +13,8 @@ function Footer(){
     const navigation = useNavigation()
     return (
         <View style={styles.footer}>
-           <TouchableOpacity onPress={() => navigation.navigate('Apropos')} ><Text style={styles.lien}>A propos</Text></TouchableOpacity>
            <TouchableOpacity onPress={()=> navigation.navigate("Contact")}><Text style={styles.lien}>Nous contacter</Text></TouchableOpacity>
             <View style={styles.droits}><Image source={bm} alt="logo developpeur" style={styles.logo}/><Text style={{color: "white", fontFamily: "Kanito"}}>© 2024 BM Development. Tous droits réservés.</Text></View>
-
 
         </View>
     )
@@ -26,11 +24,10 @@ function Footer(){
 
 const styles = StyleSheet.create({
     footer: {
-        flex: 0.2,
         backgroundColor: "black",
         alignItems: "center",
         justifyContent: "space-evenly", 
-        width: "110%",
+        width: "100%",
         height: 150
     },
 
