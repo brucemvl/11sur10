@@ -37,7 +37,7 @@ console.log("Filter:", filter);
   
         {/* Sélecteur de journée */}
         <View style={styles.headInfo}>
-          <Text style={{fontFamily: "Permanent"}}>{`Journée ${index + 1}`}</Text>
+          <Text style={{fontFamily: "Permanent", fontSize: 18}}>{`Journée ${index + 1}`}</Text>
         </View>
   
         {/* Bouton suivant */}
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   buttonText: {
-    fontSize: 24,
+    fontSize: 28,
     color: "black",
   },
   headInfo: {

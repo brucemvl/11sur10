@@ -13,7 +13,7 @@ function ClubPage() {
         "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
         "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
         "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf")
-      });
+    });
 
     // Utilisation du hook useWindowDimensions pour obtenir les dimensions de l'écran
     const { width } = useWindowDimensions();
@@ -25,9 +25,8 @@ function ClubPage() {
     return (
         <ScrollView contentContainerStyle={styles.competitions}>
             {/* Section Championnats */}
-            <View style={styles.conteneur}>
-                <LinearGradient
-                    colors={['rgba(60, 60, 60, 0)', 'rgba(4, 4, 4, 0.2)']}
+            <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.4)']} style={styles.conteneur} >
+                <LinearGradient colors={['rgba(26, 46, 127, 100)', 'rgba(39, 54, 50, 75)']}
                     style={styles.title}
                 >
                     <Text style={styles.titleText}>Championnats</Text>
@@ -59,13 +58,11 @@ function ClubPage() {
                         </TouchableOpacity>
                     ))}
                 </View>
-            </View>
+            </LinearGradient>
 
             {/* Section Compétitions Européennes */}
-            <View style={styles.conteneur}>
-                <LinearGradient
-                    colors={['rgb(255, 255, 255, 0.3)', 'rgba(4, 4, 4, 1)']}
-                    style={styles.title}
+            <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.4)']} style={styles.conteneur} >
+                <LinearGradient colors={['rgba(26, 46, 127, 100)', 'rgba(39, 54, 50, 75)']} style={styles.title}
                 >
                     <Text style={styles.titleText}>Compétitions Européennes</Text>
                 </LinearGradient>
@@ -81,9 +78,9 @@ function ClubPage() {
                             </View>
                         </TouchableOpacity>
                     ))}
-                    
+
                 </View>
-            </View>
+            </LinearGradient>
         </ScrollView>
     );
 }
@@ -101,10 +98,10 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         flex: 1,
         flexDirection: "column",
-        justifyContent:"center",
-        alignItems:"center",
+        justifyContent: "center",
+        alignItems: "center",
         padding: 5,
-        
+
     },
     title: {
         padding: 10,
@@ -115,7 +112,7 @@ const styles = StyleSheet.create({
         width: '75%',
         alignSelf: 'center',
         backgroundColor: "midnightblue",
-      },
+    },
     titleText: {
         fontSize: 18,
         color: 'white',
@@ -182,7 +179,7 @@ const styles = StyleSheet.create({
     flag: {
 
     },
-   
+
     // Styles spécifiques à l'écran mobile
     lienMobile: {
         width: 120, // Sur petits écrans, on ajuste la largeur

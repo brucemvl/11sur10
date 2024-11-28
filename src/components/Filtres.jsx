@@ -25,11 +25,11 @@ function Filtres() {
     return (
         <ScrollView contentContainerStyle={styles.competitions}>
             {/* Section Championnats */}
-            <View style={styles.conteneur}>
-                <LinearGradient
-                    colors={['rgba(60, 60, 60, 0)', 'rgba(4, 4, 4, 0.2)']}
-                    style={styles.title}
-                >
+            <LinearGradient       colors={[ "rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.4)']}
+      style={styles.conteneur}
+        >            <LinearGradient       colors={[ 'rgba(26, 46, 127, 100)', 'rgba(39, 54, 50, 75)']}
+      style={styles.title}
+        >
                     <Text style={styles.titleText}>Championnats</Text>
                 </LinearGradient>
                 <View style={styles.filtres}>
@@ -46,14 +46,15 @@ function Filtres() {
                         </TouchableOpacity>
                     ))}
                 </View>
-            </View>
+            </LinearGradient>
 
             {/* Section Compétitions Européennes */}
-            <View style={styles.conteneur}>
-                <LinearGradient
-                    colors={['rgb(255, 255, 255, 0.3)', 'rgba(4, 4, 4, 1)']}
-                    style={styles.title}
-                >
+            <LinearGradient       colors={[ "rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.4)']}
+      style={styles.conteneur}
+        >
+            <LinearGradient       colors={[ 'rgba(26, 46, 127, 100)', 'rgba(39, 54, 50, 75)']}
+      style={styles.title}
+        >
                     <Text style={styles.titleText}>Compétitions Européennes</Text>
                 </LinearGradient>
                 <View style={styles.filtres}>
@@ -69,7 +70,7 @@ function Filtres() {
                         </TouchableOpacity>
                     ))}
                 </View>
-            </View>
+            </LinearGradient>
         </ScrollView>
     );
 }
@@ -82,7 +83,6 @@ const styles = StyleSheet.create({
     conteneur: {
         marginBottom: 30,
         width: "100%",
-        backgroundColor: "#b0c4de",
         borderRadius: 15,
         flex: 1,
         flexDirection: "column",

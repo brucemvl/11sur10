@@ -18,7 +18,7 @@ function Header() {
 
   return (
     <LinearGradient
-      colors={['rgba(255,255,255, 45)', 'rgba(17, 27, 101, 100)', 'rgba(0, 0, 0, 75)']}
+      colors={['rgba(25, 27, 112, 0.6)', 'rgba(255, 255, 255, 0.2)', 'rgba(0, 0, 0, 0.6)']}
       style={styles.header}
     >
       <Image source={logo} style={styles.logo} />
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',  // Centrer verticalement
     justifyContent: 'space-between',
     paddingHorizontal: '2%',  // Utilisation de pourcentage
-    backgroundColor: 'midnightblue', 
+    backgroundColor: "midnightblue"
   },
   logo: {
     width: 100, 
@@ -52,7 +52,8 @@ const styles = StyleSheet.create({
     borderTopColor: "white",
     borderTopWidth: 6,
     marginInline: 8, 
-    resizeMode: "contain"
+    resizeMode: "contain",
+    marginTop: 10
   },
   // Tu peux ajouter un style pour mobile avec la largeur de l'écran
   logoSmall: {

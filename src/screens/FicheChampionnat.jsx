@@ -21,7 +21,7 @@ function FicheChampionnat({ route }) {
 const styles = StyleSheet.create({
     blocChamp: {
         flexGrow: 1, // Cette ligne garantit que le contenu du ScrollView occupe l'espace disponible
-        padding: 20,
+        padding: 10,
         justifyContent: "flex-start", // Cela assure que le contenu commence en haut
         width: "100%",
     },

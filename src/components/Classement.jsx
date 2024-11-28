@@ -111,6 +111,8 @@ function Classement({ id }) {
     outputRange: ['180deg', '0deg'], 
   });
 
+
+
   const renderClassementItem = ({ item }) => (
     <View style={styles.item}>
       <Text style={{width: "5%"}}>{item.rank}</Text>
@@ -153,7 +155,7 @@ function Classement({ id }) {
     <View style={styles.container}>
       {/* Classement */}
       <LinearGradient       colors={[ 'rgba(26, 46, 127, 100)', 'rgba(39, 54, 50, 75)']}
-      style={{ marginBlock: 20, height: 40, justifyContent: "center", borderRadius: 10}}
+      style={{ marginBlock: 10, height: 40, justifyContent: "center", borderRadius: 10}}
         >
       <TouchableOpacity onPress={collapseClassement} style={styles.header}>
         <Text style={styles.title}>Classement</Text>
@@ -184,7 +186,7 @@ function Classement({ id }) {
 
       {/* Meilleurs Buteurs */}
       <LinearGradient       colors={[ 'rgba(26, 46, 127, 100)', 'rgba(39, 54, 50, 75)']}
-      style={{ marginBlock: 20, height: 40, justifyContent: "center", borderRadius: 10}}
+      style={{ marginBlock: 10, height: 40, justifyContent: "center", borderRadius: 10}}
         >
       <TouchableOpacity onPress={collapseButeurs} style={styles.header}>
 
@@ -211,7 +213,7 @@ function Classement({ id }) {
 
       {/* Meilleurs Passeurs */}
       <LinearGradient       colors={[ 'rgba(26, 46, 127, 100)', 'rgba(39, 54, 50, 75)']}
-      style={{ marginBlock: 20, height: 40, justifyContent: "center", borderRadius: 10}}
+      style={{ marginBlock: 10, height: 40, justifyContent: "center", borderRadius: 10}}
         >
       <TouchableOpacity onPress={collapsePasseurs} style={styles.header}>
         <Text style={styles.title}>Meilleurs Passeurs</Text>

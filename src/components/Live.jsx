@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 function Live({ navigation }) {
   const [live, setLive] = useState([]);
@@ -92,7 +93,12 @@ function Live({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>LIVE</Text>
+      <LinearGradient       colors={[ 'rgba(26, 46, 127, 100)', 'rgba(39, 54, 50, 75)']}
+      style={styles.title}
+      
+        >
+      <Text style={{color: "white", fontFamily: "Kanitt"}}>LIVE</Text>
+      </LinearGradient>
       {live.length === 0 ? (
         <Text style={styles.noMatch}>Aucun match pour le moment</Text>
       ) : (
@@ -117,9 +123,6 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   title: {
-    color: 'white',
-    backgroundColor: 'midnightblue',
-    justifyContent: 'center',
     marginHorizontal: '35%',
     height: 30,
     alignItems: 'center',
@@ -128,7 +131,6 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     textAlign: 'center',
     paddingTop: 5,
-    fontFamily: "Kanitt",
     marginBottom: 15
   },
   match: {
