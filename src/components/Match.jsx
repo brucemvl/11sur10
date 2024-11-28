@@ -2,13 +2,16 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { useFonts } from 'expo-font';
+import { useNavigation } from '@react-navigation/native';
 
-function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id, date, navigation }) {
+function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id, date}) {
 
     const [fontsLoaded] = useFonts({
         "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
         
       });
+
+      const navigation = useNavigation();
 
   const dateh = new Date(date);
   const formattedDate = `${dateh.getDate().toString().padStart(2, '0')}/${(dateh.getMonth() + 1).toString().padStart(2, '0')}`;
@@ -16,8 +19,7 @@ function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id,
 
 
   // Convert scores to numbers for accurate comparison
-  const scoreDomNum = Number(scoreDom);
-  const scoreExtNum = Number(scoreExt);
+  
 
   return (
     <TouchableOpacity
@@ -32,15 +34,15 @@ function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id,
       <Text style={styles.equipeDom}>{equipeDom}</Text>
       <Image style={styles.logoDom} source={{ uri: logoDom }} />
 
-      {scoreDomNum === scoreExtNum ? (
+      {scoreDom === scoreExt ? (
         <View style={styles.matchScore}>
-          <Text style={styles.nul}>{scoreDom === null ? "-" : scoreDomNum}</Text>
-          <Text style={styles.nul}>{scoreExt === null ? "-" : scoreExtNum}</Text>
+          <Text style={styles.nul}>{scoreDom === null ? "-" : scoreDom}</Text>
+          <Text style={styles.nul}>{scoreExt === null ? "-" : scoreExt}</Text>
         </View>
       ) : (
         <View style={styles.matchScore}>
-          <Text style={scoreDomNum > scoreExtNum ? styles.winner : styles.looser}>{scoreDomNum}</Text>
-          <Text style={scoreExtNum > scoreDomNum ? styles.winner : styles.looser}>{scoreExtNum}</Text>
+          <Text style={scoreDom > scoreExt ? styles.winner : styles.looser}>{scoreDom}</Text>
+          <Text style={scoreExt > scoreDom ? styles.winner : styles.looser}>{scoreExt}</Text>
         </View>
       )}
 
