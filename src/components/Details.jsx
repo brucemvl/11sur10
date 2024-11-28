@@ -65,11 +65,11 @@ const styles = StyleSheet.create({
     width: '95%',
     alignItems: 'center',
     flexDirection: 'column',
-    marginTop: 20,
+    marginTop: 10,
   },
   title: {
     fontSize: 22,
-    fontWeight: 'bold',
+fontFamily: "Kanito",
     marginBottom: 20,
     color: '#000',
   },
@@ -91,11 +91,12 @@ const styles = StyleSheet.create({
   value: {
     color: 'white',
     fontSize: 16,
-    fontWeight: 'bold',
+fontFamily: "Kanito",
   },
   label: {
     color: 'white',
-    fontSize: 14,
+    fontSize: 15,
+    fontFamily: "Kanitus"
   },
 });
 

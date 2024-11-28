@@ -174,7 +174,7 @@ const stats = match.statistics.filter((element)=>
 
 const styles = StyleSheet.create({
     bloc: {
-        flex: 1,
+        flexGrow: 1,
         alignItems: 'center',
         padding: 10,
     },

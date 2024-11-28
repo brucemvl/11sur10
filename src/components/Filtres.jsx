@@ -12,6 +12,7 @@ function Filtres() {
     const [fontsLoaded] = useFonts({
         "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
         "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
+        "Kanitus": require("../assets/fonts/Kanit/Kanit-Light.ttf"),
         "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf")
       });
 
