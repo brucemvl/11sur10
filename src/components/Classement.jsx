@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, FlatList, Image, Animated, StyleSheet } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import chevron from "../assets/chevron.png"
+import { LinearGradient } from "expo-linear-gradient";
 
 function Classement({ id }) {
   const [openButeurs, setOpenButeurs] = useState(false);
@@ -81,11 +82,29 @@ function Classement({ id }) {
   useEffect(() => {
     // Démarrer l'animation à chaque fois que l'état `rotateClassement` change
     Animated.timing(rotateAnim, {
-      toValue: rotateClassement ? 1 : 0, // Rotation à 180deg ou 0deg
+      toValue: rotateClassement  ? 1 : 0, // Rotation à 180deg ou 0deg
       duration: 300, // Durée de l'animation
       useNativeDriver: true, // Utiliser le moteur natif pour de meilleures performances
     }).start();
   }, [rotateClassement]);
+
+  useEffect(() => {
+    // Démarrer l'animation à chaque fois que l'état `rotateClassement` change
+    Animated.timing(rotateAnim, {
+      toValue: rotateButeurs  ? 1 : 0, // Rotation à 180deg ou 0deg
+      duration: 300, // Durée de l'animation
+      useNativeDriver: true, // Utiliser le moteur natif pour de meilleures performances
+    }).start();
+  }, [rotateButeurs]);
+
+  useEffect(() => {
+    // Démarrer l'animation à chaque fois que l'état `rotateClassement` change
+    Animated.timing(rotateAnim, {
+      toValue: rotatePasseurs  ? 1 : 0, // Rotation à 180deg ou 0deg
+      duration: 300, // Durée de l'animation
+      useNativeDriver: true, // Utiliser le moteur natif pour de meilleures performances
+    }).start();
+  }, [rotatePasseurs]);
 
   const rotateInterpolation = rotateAnim.interpolate({
     inputRange: [0, 1],
@@ -133,10 +152,14 @@ function Classement({ id }) {
   return (
     <View style={styles.container}>
       {/* Classement */}
+      <LinearGradient       colors={[ 'rgba(26, 46, 127, 100)', 'rgba(39, 54, 50, 75)']}
+      style={{ marginBlock: 20, height: 40, justifyContent: "center", borderRadius: 10}}
+        >
       <TouchableOpacity onPress={collapseClassement} style={styles.header}>
         <Text style={styles.title}>Classement</Text>
         {rotateClassement ? <Image source={chevron}/> : <Animated.Image source={chevron} style={{transform:[{rotate: rotateInterpolation}]}}/>}
       </TouchableOpacity>
+      </LinearGradient>
       {openClassement && (
         <View>
           <View style={styles.barre}>
@@ -160,13 +183,19 @@ function Classement({ id }) {
       )}
 
       {/* Meilleurs Buteurs */}
+      <LinearGradient       colors={[ 'rgba(26, 46, 127, 100)', 'rgba(39, 54, 50, 75)']}
+      style={{ marginBlock: 20, height: 40, justifyContent: "center", borderRadius: 10}}
+        >
       <TouchableOpacity onPress={collapseButeurs} style={styles.header}>
+
         <Text style={styles.title}>Meilleurs Buteurs</Text>
+        {rotateButeurs ? <Image source={chevron}/> : <Animated.Image source={chevron} style={{transform:[{rotate: rotateInterpolation}]}}/>}
       </TouchableOpacity>
+      </LinearGradient>
       {openButeurs && (
         <View>
         <View style={styles.barre}>
-        <Text style={{width: "50%", color: "white", textAlign: "center"}}>Joueur</Text>
+        <Text style={{width: "50%", color: "white", paddingStart: 20}}>Joueur</Text>
         <Text style={{width: "30%", color: "white", textAlign: "center"}}>Matchs Joués</Text>
         <Text style={{width: "20%", color: "white", textAlign: "center"}}>Buts</Text>
         
@@ -181,13 +210,18 @@ function Classement({ id }) {
       )}
 
       {/* Meilleurs Passeurs */}
+      <LinearGradient       colors={[ 'rgba(26, 46, 127, 100)', 'rgba(39, 54, 50, 75)']}
+      style={{ marginBlock: 20, height: 40, justifyContent: "center", borderRadius: 10}}
+        >
       <TouchableOpacity onPress={collapsePasseurs} style={styles.header}>
         <Text style={styles.title}>Meilleurs Passeurs</Text>
+        {rotatePasseurs ? <Image source={chevron}/> : <Animated.Image source={chevron} style={{transform:[{rotate: rotateInterpolation}]}}/>}
       </TouchableOpacity>
+      </LinearGradient>
       {openPasseurs && (
         <View>
         <View style={styles.barre}>
-        <Text style={{width: "50%", color: "white", textAlign: "center"}}>Joueur</Text>
+        <Text style={{width: "50%", color: "white", paddingStart: 20}}>Joueur</Text>
         <Text style={{width: "30%", color: "white", textAlign: "center"}}>Matchs Joués</Text>
         <Text style={{width: "20%", color: "white", textAlign: "center"}}>Passes D</Text>  
       </View>
@@ -209,15 +243,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    padding: 10,
-    backgroundColor: 'midnightblue',
-    marginBlock: 20,
+    paddingInline: 20,
     borderRadius: 5,
     flexDirection: 'row',
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   title: {
-    fontFamily: "Kanitt",
+    fontFamily: "Kanito",
     textAlign: "center",
     color: "white",
 
