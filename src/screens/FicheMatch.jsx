@@ -5,6 +5,7 @@ import Details from "../components/Details.jsx";
 import Compositions from '../components/Compositions.jsx';
 import subst from "../assets/sub.png";
 import redcard from "../assets/redcard.png";
+import Affiche from '../components/Affiche.jsx';
 
 const FicheMatch = () => {
     const [match, setMatch] = useState(null);
@@ -149,6 +150,7 @@ const stats = match.statistics.filter((element)=>
 
     return (
         <ScrollView contentContainerStyle={styles.bloc}>
+            <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt}/>
             <View style={styles.section}>
                 {/* Your existing JSX */}
                 <View style={styles.ficheSelecteur}>
