@@ -18,6 +18,7 @@ const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt,
         />
         <View style={styles.playerInfo}>
           <Text style={styles.playerName}>{player.player.name}</Text>
+          <View style={{flexDirection: "row"}}>
           <Text style={styles.playerNumber}><Text style={{fontWeight: "bold"}}>{player.statistics[0].games.number}</Text></Text>
           <View style={styles.playerStats}>
             {range.map((x) => player.statistics[0].goals.total >= x ? <Text key={x} style={styles.goal}>⚽</Text> : null)}
@@ -38,6 +39,7 @@ const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt,
               </View>
             )}
           </View>
+          </View>
         </View>
       </View>
     );
@@ -52,8 +54,9 @@ const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt,
         />
         <View style={styles.playerExtInfo}>
           <Text style={styles.playerName}>{player.player.name}</Text>
-          <Text style={styles.playerNumber}><Text style={{fontWeight: "bold"}}>{player.statistics[0].games.number}</Text></Text>
-          <View style={styles.playerStats}>
+          <View style={{flexDirection: "row-reverse"}}>
+          <Text style={styles.playerExtNumber}><Text style={{fontWeight: "bold"}}>{player.statistics[0].games.number}</Text></Text>
+          <View style={styles.playerExtStats}>
             {range.map((x) => player.statistics[0].goals.total >= x ? <Text key={x} style={styles.goal}>⚽</Text> : null)}
             {player.statistics[0].cards.yellow >= 1 && (
               <Image source={{uri: "https://img.icons8.com/color/48/soccer-yellow-card.png"}} style={styles.cardImage} />
@@ -71,6 +74,7 @@ const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt,
                 <Image source={flecheVerte} style={styles.arrowImage} />
               </View>
             )}
+          </View>
           </View>
         </View>
       </View>
@@ -114,7 +118,7 @@ const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt,
             
             <Text style={styles.subTitleExt}>Titulaires</Text>
 
-          <View style={styles.playersList}>
+          <View style={styles.playersExtList}>
             {titulairesExt.map((player) => (
               <TouchableOpacity key={player.player.id} to={`/FicheJoueur/${player.player.id}`} style={{justifyContent: "flex-end"}}>
                 {renderExtPlayer(player)}
@@ -153,11 +157,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   teamContainer: {
-    width: '45%',
+    width: '47%',
   },
   teamExtContainer: {
-    width: '45%',
-alignItems: "flex-end"  },
+    width: '47%',
+  },
   headerCompo: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -181,13 +185,15 @@ alignItems: "flex-end"  },
   },
   subTitle: {
     fontSize: 16,
-    marginTop: 8,
-    textAlign: "center"
+    margin: 8,
+    textAlign: "center",
+    fontFamily: "Kanito"
   },
   subTitleExt: {
     fontSize: 16,
-    marginTop: 8,
-    textAlign: "center"
+    margin: 8,
+    textAlign: "center",
+    fontFamily: "Kanito"
   },
   
   playersList: {
@@ -199,12 +205,12 @@ alignItems: "flex-end"  },
   playerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 12,
+    marginBottom: 14,
   },
   playerExtContainer: {
     flexDirection: 'row-reverse',
     alignItems: 'center',
-    marginBottom: 12,
+    marginBottom: 14,
   },
   playerImage: {
     width: 28,
@@ -212,37 +218,49 @@ alignItems: "flex-end"  },
   },
   playerInfo: {
     marginLeft: 5,
+
   },
   playerExtInfo: {
     marginRight: 5,
   },
   playerName: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 14,
+    fontFamily: "Kanito",
   },
   playerNumber: {
-    fontSize: 14,
+fontSize: 16,
     fontWeight: 'normal',
+    marginRight: 5,
+    
+  },
+  playerExtNumber: {
+    fontSize: 16,
+    fontWeight: 'normal',
+    marginRight: 5,
+    textAlign: "right"
   },
   playerStats: {
     flexDirection: 'row',
     alignItems: 'center',
   },
+  playerExtStats: {
+    flexDirection: 'row-reverse',
+    alignItems: 'center',
+  },
   goal: {
-    fontSize: 18,
+    fontSize: 14,
   },
   cardImage: {
-    width: 24,
-    height: 24,
-    marginLeft: 8,
+    width: 22,
+    height: 22,
   },
   changeContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
   },
   changeTime: {
-    fontSize: 14,
-    color: 'gray',
+    fontSize: 10,
+    color: 'black',
     marginRight: 4,
   },
   arrowImage: {
