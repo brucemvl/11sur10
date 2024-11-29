@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
 
-function Live({ navigation }) {
+function Live() {
   const [live, setLive] = useState([]);
+
+  const navigation = useNavigation()
 
   useEffect(() => {
     const fetchLive = () => {
@@ -31,7 +34,7 @@ function Live({ navigation }) {
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.matchContainer}
-      onPress={() => navigation.navigate('FicheLive', { matchId: item.fixture.id })}
+      onPress={() => navigation.navigate('FicheMatch', { matchId: item.fixture.id })}
     >
       <View style={styles.match}>
         <Image

@@ -19,7 +19,7 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt }) => {
                 <Text style={styles.text}>{match.fixture.venue.name} , {match.fixture.venue.city}</Text>
             </View>
 
-            <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.8)']} style={styles.affiche}>
+            <LinearGradient colors={['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.8)']} style={styles.affiche}>
         <View style={styles.domicile}>
           <Image source={{ uri: match.teams.home.logo }} style={styles.teamLogo} />
           <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 15 }}>{match.teams.home.name}</Text>

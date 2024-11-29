@@ -157,7 +157,7 @@ const stats = match.statistics.filter((element)=>
                     <TouchableOpacity onPress={openDetails}>
                         <Text style={selected ? styles.selectedTab : styles.tab}>Details</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={openCompos}>
+                    <TouchableOpacity onPress={openCompos} style={{}}>
                         <Text style={selected2 ? styles.selectedTab : styles.tab}>Compos</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={openLive}>
@@ -224,20 +224,36 @@ const styles = StyleSheet.create({
     },
     ficheSelecteur: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '90%',
         marginBottom: 10,
+        justifyContent: "center",
+        gap: 8
+    
     },
     tab: {
         fontSize: 18,
         color: 'black',
+        backgroundColor: "lightgrey",
+        width: 85,
+        height: 40,
+        textAlign: "center",
+        paddingTop: 7,
+        fontFamily: "Kanitus",
+        borderRadius: 5
     },
     selectedTab: {
         fontSize: 18,
         color: '#fff',
         backgroundColor: '#007BFF',
-        padding: 5,
+        width: 85,
+        height: 40,
+        textAlign: "center",
+        paddingTop: 7,
+        fontFamily: "Kanito",
         borderRadius: 5,
+        shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 }, // Ombre décalée sur l'axe Y
+    shadowOpacity: 0.3, // Opacité de l'ombre
+    shadowRadius: 3.5, // Rayon de l'ombre (flou)
     },
 });
 

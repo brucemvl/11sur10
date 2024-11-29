@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { useFonts } from 'expo-font';
 import { useNavigation } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id, date}) {
 
@@ -22,10 +23,13 @@ function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id,
   
 
   return (
-    <TouchableOpacity
+   
+                  <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.2)']}  >
+                     <TouchableOpacity
       style={styles.match}
       onPress={() => navigation.navigate('FicheMatch', { id })}  // Naviguer vers la fiche du match
     >
+
       <View style={styles.dateheure}>
         <Text style={{fontSize: 8.5}}>{formattedDate}</Text>
         <Text style={{fontSize: 8.5}}>{formattedHour}</Text>
@@ -48,7 +52,9 @@ function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id,
 
       <Image style={styles.logoExt} source={{ uri: logoExt }} />
       <Text style={styles.equipeExt}>{equipeExt}</Text>
-    </TouchableOpacity>
+      </TouchableOpacity>
+      </LinearGradient>
+    
   );
 }
 
@@ -67,7 +73,7 @@ const styles = StyleSheet.create({
   match: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingBlock: 6,
+    paddingBlock: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
     width: "100%"
