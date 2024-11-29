@@ -43,6 +43,40 @@ const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt,
     );
   };
 
+  const renderExtPlayer = (player, isSubstitute = false) => {
+    return (
+      <View style={styles.playerExtContainer}>
+        <Image
+          source={player.statistics[0].games.position === 'G' ? {uri: "https://img.icons8.com/dotty/80/hockey-glove.png"} : {uri: "https://img.icons8.com/external-bartama-outline-64-bartama-graphic/64/external-Jersey-sport-outline-bartama-outline-64-bartama-graphic.png"}}
+          style={styles.playerImage}
+        />
+        <View style={styles.playerExtInfo}>
+          <Text style={styles.playerName}>{player.player.name}</Text>
+          <Text style={styles.playerNumber}><Text style={{fontWeight: "bold"}}>{player.statistics[0].games.number}</Text></Text>
+          <View style={styles.playerStats}>
+            {range.map((x) => player.statistics[0].goals.total >= x ? <Text key={x} style={styles.goal}>⚽</Text> : null)}
+            {player.statistics[0].cards.yellow >= 1 && (
+              <Image source={{uri: "https://img.icons8.com/color/48/soccer-yellow-card.png"}} style={styles.cardImage} />
+            )}
+            {player.statistics[0].cards.red >= 1 && <Image source={redcard} style={styles.cardImage} />}
+            {player.statistics[0].games.minutes < 90 && match.fixture.status.long === "Match Finished" && !isSubstitute && (
+              <View style={styles.changeContainer}>
+                <Text style={styles.changeTime}><Text style={{fontStyle: "italic"}}>{player.statistics[0].games.minutes}'</Text></Text>
+                <Image source={flecheRouge} style={styles.arrowImage} />
+              </View>
+            )}
+            {player.statistics[0].games.minutes !== null && isSubstitute && (
+              <View style={styles.changeContainer}>
+                <Text style={styles.changeTime}><Text style={{fontStyle: "italic"}}>{90 - player.statistics[0].games.minutes}'</Text></Text>
+                <Image source={flecheVerte} style={styles.arrowImage} />
+              </View>
+            )}
+          </View>
+        </View>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Compositions d'équipe</Text>
@@ -50,50 +84,49 @@ const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt,
         <View style={styles.teamContainer}>
           <View style={styles.headerCompo}>
             <Image source={{uri: match.teams.home.logo}} style={styles.logo} />
-            <View>
-              <Text style={styles.systemeText}>{systemeDom}</Text>
-              <Text style={styles.subTitle}>Titulaires</Text>
+            <Text style={styles.systemeText}>{systemeDom}</Text>
             </View>
-          </View>
+
+              <Text style={styles.subTitle}>Titulaires</Text>
           <View style={styles.playersList}>
             {titulairesDom.map((player) => (
-              <Link key={player.player.id} to={`/FicheJoueur/${player.player.id}`}>
+              <TouchableOpacity key={player.player.id} to={`/FicheJoueur/${player.player.id}`}>
                 {renderPlayer(player)}
-              </Link>
+              </TouchableOpacity>
             ))}
           </View>
           <Text style={styles.subTitle}>Remplaçants</Text>
           <View style={styles.playersList}>
             {substituteDom.map((player) => (
-              <Link key={player.player.id} to={`/FicheJoueur/${player.player.id}`}>
+              <TouchableOpacity key={player.player.id} to={`/FicheJoueur/${player.player.id}`}>
                 {renderPlayer(player, true)}
-              </Link>
+              </TouchableOpacity>
             ))}
           </View>
           <Text>Coach: {coachDom}</Text>
         </View>
 
-        <View style={styles.teamContainer}>
-          <View style={styles.headerCompo}>
-            <View>
+        <View style={styles.teamExtContainer}>
+          <View style={styles.headerExtCompo}>
               <Text style={styles.systemeText}>{systemeExt}</Text>
-              <Text style={styles.subTitle}>Titulaires</Text>
+              <Image source={{uri: match.teams.away.logo}} style={styles.logo} />
             </View>
-            <Image source={{uri: match.teams.away.logo}} style={styles.logo} />
-          </View>
+            
+            <Text style={styles.subTitleExt}>Titulaires</Text>
+
           <View style={styles.playersList}>
             {titulairesExt.map((player) => (
-              <Link key={player.player.id} to={`/FicheJoueur/${player.player.id}`}>
-                {renderPlayer(player)}
-              </Link>
+              <TouchableOpacity key={player.player.id} to={`/FicheJoueur/${player.player.id}`} style={{justifyContent: "flex-end"}}>
+                {renderExtPlayer(player)}
+              </TouchableOpacity>
             ))}
           </View>
           <Text style={styles.subTitle}>Remplaçants</Text>
           <View style={styles.playersList}>
             {substituteExt.map((player) => (
-              <Link key={player.player.id} to={`/FicheJoueur/${player.player.id}`}>
-                {renderPlayer(player, true)}
-              </Link>
+              <TouchableOpacity key={player.player.id} to={`/FicheJoueur/${player.player.id}`} style={{justifyContent: "flex-end"}}>
+                {renderExtPlayer(player, true)}
+              </TouchableOpacity>
             ))}
           </View>
           <Text>Coach: {coachExt}</Text>
@@ -106,7 +139,9 @@ const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt,
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    paddingInline: 2,
+    paddingBlock: 12,
+    alignItems: "center",
   },
   title: {
     fontSize: 24,
@@ -120,10 +155,19 @@ const styles = StyleSheet.create({
   teamContainer: {
     width: '45%',
   },
+  teamExtContainer: {
+    width: '45%',
+alignItems: "flex-end"  },
   headerCompo: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 8,
+  },
+  headerExtCompo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+    justifyContent: "flex-end"
   },
   logo: {
     width: 40,
@@ -138,12 +182,27 @@ const styles = StyleSheet.create({
   subTitle: {
     fontSize: 16,
     marginTop: 8,
+    textAlign: "center"
   },
+  subTitleExt: {
+    fontSize: 16,
+    marginTop: 8,
+    textAlign: "center"
+  },
+  
   playersList: {
+    marginBottom: 16,
+  },
+  playersExtList: {
     marginBottom: 16,
   },
   playerContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  playerExtContainer: {
+    flexDirection: 'row-reverse',
     alignItems: 'center',
     marginBottom: 12,
   },
@@ -152,7 +211,10 @@ const styles = StyleSheet.create({
     height: 28,
   },
   playerInfo: {
-    marginLeft: 10,
+    marginLeft: 5,
+  },
+  playerExtInfo: {
+    marginRight: 5,
   },
   playerName: {
     fontSize: 16,
