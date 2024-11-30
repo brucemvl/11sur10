@@ -37,7 +37,7 @@ function Header() {
 
 const styles = StyleSheet.create({
   header: {
-    height: 160,  // 10em environ
+    height: 160,  // 10em environ    
     flexDirection: 'row',  // Alignement horizontal
     alignItems: 'center',  // Centrer verticalement
     justifyContent: 'space-between',

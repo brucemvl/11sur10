@@ -3,6 +3,7 @@ import { useRoute } from '@react-navigation/native';
 import { View, Text, Image, TouchableOpacity, FlatList, StyleSheet, ScrollView } from 'react-native';
 import Details from "../components/Details.jsx";
 import Compositions from '../components/Compositions.jsx';
+import Evenements from '../components/Evenements.jsx';
 import subst from "../assets/sub.png";
 import redcard from "../assets/redcard.png";
 import Affiche from '../components/Affiche.jsx';
@@ -67,9 +68,14 @@ const FicheMatch = () => {
             });
     }, []);
 
-    if (!match) {
-        return <Text>Loading...</Text>;
+    if(!match){
+        return <Text> infos a venir</Text>
     }
+
+
+    
+
+
 
     const round = match.league.round;
     const roundd = round.slice(round.length - 2);
@@ -144,7 +150,11 @@ const stats = match.statistics.filter((element)=>
     
     
     
-    
+    if (!compoDom){
+        return (
+            <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} />
+        )
+    }
     
     console.log(tituDom)
 
@@ -166,7 +176,7 @@ const stats = match.statistics.filter((element)=>
                 </View>
                 {details && match && <Details match={match} possession={poss} expectedGoals={xg} tirs={tirs} tirsCadres={tirsCadres} jaune={jaune} rouge={rouge} passes={passes} passesReussies={passesReussies} accuracy={accuracy}/>}
                 {compos && <Compositions match={match} titulairesDom={tituDom} titulairesExt={tituExt} coachDom={coachDom} coachExt={coachExt} systemeDom={systemeDom} systemeExt={systemeExt} substituteDom={substituteDom} substituteExt={substituteExt}/>}
-                {live && <Text>Match en Live...</Text>}
+                {live && <Evenements match={match} />}
             </View>
         </ScrollView>
     )
