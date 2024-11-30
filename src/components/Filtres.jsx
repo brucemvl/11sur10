@@ -13,6 +13,7 @@ function Filtres() {
         "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
         "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
         "Kanitus": require("../assets/fonts/Kanit/Kanit-Light.ttf"),
+        "Kanitalic": require("../assets/fonts/Kanit/Kanit-MediumItalic.ttf"),
         "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf")
       });
 
@@ -26,7 +27,7 @@ function Filtres() {
     return (
         <ScrollView contentContainerStyle={styles.competitions}>
             {/* Section Championnats */}
-            <LinearGradient       colors={[ "rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.4)']}
+            <LinearGradient       colors={[ "rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']}
       style={styles.conteneur}
         >            <LinearGradient       colors={[ 'rgba(26, 46, 127, 100)', 'rgba(39, 54, 50, 75)']}
       style={styles.title}
@@ -50,7 +51,7 @@ function Filtres() {
             </LinearGradient>
 
             {/* Section Compétitions Européennes */}
-            <LinearGradient       colors={[ "rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.4)']}
+            <LinearGradient       colors={[ "rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']}
       style={styles.conteneur}
         >
             <LinearGradient       colors={[ 'rgba(26, 46, 127, 100)', 'rgba(39, 54, 50, 75)']}
@@ -90,6 +91,7 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         alignItems:"center",
         padding: 5,
+        backgroundColor: "steelblue"
         
     },
     title: {
@@ -105,7 +107,6 @@ const styles = StyleSheet.create({
     titleText: {
         fontSize: 18,
         color: 'white',
-        fontWeight: 'bold',
         fontFamily: "Kanitt",
 
     },

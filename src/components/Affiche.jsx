@@ -143,13 +143,11 @@ flexDirection: "row-reverse"
         marginRight: 5,
     },
     csc: {
-        fontStyle: 'italic',
+        fontFamily: "Kanitalic",
         color: 'red',
     },
     penalty: {
-        fontStyle: 'italic',
-        color: 'blue',
-    },
+fontFamily: "Kanitalic"    },
 });
 
 export default Affiche;

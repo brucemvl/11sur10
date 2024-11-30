@@ -4,6 +4,7 @@ import { Link } from '@react-navigation/native';
 import flecheVerte from "../assets/flecheverte.png";
 import flecheRouge from "../assets/flecherouge.png";
 import redcard from "../assets/redcard.png";
+import { LinearGradient } from 'expo-linear-gradient';
 
 const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt, systemeDom, systemeExt, substituteDom, substituteExt }) => {
 
@@ -92,22 +93,22 @@ const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt,
             </View>
 
               <Text style={styles.subTitle}>Titulaires</Text>
-          <View style={styles.playersList}>
+          <LinearGradient colors={[ "rgb(41, 154, 55)", 'rgba(32, 119, 42, 0.9)']} style={styles.playersList}>
             {titulairesDom.map((player) => (
               <TouchableOpacity key={player.player.id} to={`/FicheJoueur/${player.player.id}`}>
                 {renderPlayer(player)}
               </TouchableOpacity>
             ))}
-          </View>
+          </LinearGradient>
           <Text style={styles.subTitle}>Remplaçants</Text>
-          <View style={styles.playersList}>
+          <LinearGradient colors={[ "rgb(189, 152, 161)", 'rgba(32, 119, 42, 0.9)']} style={styles.playersList}>
             {substituteDom.map((player) => (
               <TouchableOpacity key={player.player.id} to={`/FicheJoueur/${player.player.id}`}>
                 {renderPlayer(player, true)}
               </TouchableOpacity>
             ))}
-          </View>
-          <Text>Coach: {coachDom}</Text>
+          </LinearGradient>
+          <Text style={{fontFamily: "Kanitus"}}>Coach: {coachDom}</Text>
         </View>
 
         <View style={styles.teamExtContainer}>
@@ -118,22 +119,22 @@ const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt,
             
             <Text style={styles.subTitleExt}>Titulaires</Text>
 
-          <View style={styles.playersExtList}>
+            <LinearGradient colors={[ "rgb(41, 154, 55)", 'rgba(32, 119, 42, 0.9)']} style={styles.playersExtList}>
             {titulairesExt.map((player) => (
               <TouchableOpacity key={player.player.id} to={`/FicheJoueur/${player.player.id}`} style={{justifyContent: "flex-end"}}>
                 {renderExtPlayer(player)}
               </TouchableOpacity>
             ))}
-          </View>
+          </LinearGradient>
           <Text style={styles.subTitle}>Remplaçants</Text>
-          <View style={styles.playersList}>
+          <LinearGradient colors={[ "rgb(189, 152, 161)", 'rgba(32, 119, 42, 0.9)']} style={styles.playersExtList}>
             {substituteExt.map((player) => (
               <TouchableOpacity key={player.player.id} to={`/FicheJoueur/${player.player.id}`} style={{justifyContent: "flex-end"}}>
                 {renderExtPlayer(player, true)}
               </TouchableOpacity>
             ))}
-          </View>
-          <Text>Coach: {coachExt}</Text>
+          </LinearGradient>
+          <Text style={{fontFamily: "Kanitus"}}>Coach: {coachExt}</Text>
         </View>
       </View>
     </View>
@@ -155,6 +156,7 @@ const styles = StyleSheet.create({
   teamsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    gap: 5
   },
   teamContainer: {
     width: '47%',
@@ -198,9 +200,14 @@ const styles = StyleSheet.create({
   
   playersList: {
     marginBottom: 16,
+borderTopRightRadius: 15,
+borderBottomRightRadius: 15
   },
   playersExtList: {
     marginBottom: 16,
+    borderTopLeftRadius: 15,
+    borderBottomLeftRadius: 15
+
   },
   playerContainer: {
     flexDirection: 'row',
@@ -226,18 +233,21 @@ const styles = StyleSheet.create({
   playerName: {
     fontSize: 14,
     fontFamily: "Kanito",
+    color: "white"
   },
   playerNumber: {
 fontSize: 16,
-    fontWeight: 'normal',
-    marginRight: 5,
+    marginRight: 8,
+    color: "white",
+    fontFamily: "Kanitalic"
     
   },
   playerExtNumber: {
     fontSize: 16,
-    fontWeight: 'normal',
-    marginRight: 5,
-    textAlign: "right"
+    marginLeft: 8,
+    textAlign: "right",
+    color: "white",
+    fontFamily: "Kanitalic"
   },
   playerStats: {
     flexDirection: 'row',
@@ -253,6 +263,10 @@ fontSize: 16,
   cardImage: {
     width: 22,
     height: 22,
+    shadowColor: '#000',
+    shadowOffset: { width: -1, height: 0 }, // Ombre décalée sur l'axe Y
+    shadowOpacity: 0.9, // Opacité de l'ombre
+    shadowRadius: 2, // Rayon de l'ombre (flou)
   },
   changeContainer: {
     flexDirection: 'column',
@@ -262,6 +276,7 @@ fontSize: 16,
     fontSize: 10,
     color: 'black',
     marginRight: 4,
+    color: "white"
   },
   arrowImage: {
     width: 16,
