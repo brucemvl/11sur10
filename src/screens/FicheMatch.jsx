@@ -66,12 +66,11 @@ const FicheMatch = () => {
                 console.error(error);
                 setMatch(null);  // In case of an error, set match to null
             });
-    }, []);
+    }, [id]);
 
     if(!match){
         return <Text> infos a venir</Text>
     }
-
 
     
 

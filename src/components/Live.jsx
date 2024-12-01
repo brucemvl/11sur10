@@ -34,7 +34,7 @@ function Live() {
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.matchContainer}
-      onPress={() => navigation.navigate('FicheMatch', { matchId: item.fixture.id })}
+      onPress={() => navigation.navigate('FicheMatch', { id: item.fixture.id })}
     >
       <View style={styles.match}>
         <Image
@@ -108,7 +108,7 @@ function Live() {
         <FlatList
           data={live}
           renderItem={renderItem}
-          keyExtractor={(item) => item.fixture.id.toString()}
+          keyExtractor={(item) => item.fixture.id}
         />
       )}
     </View>
