@@ -3,7 +3,7 @@ import { View, Text, Image, TouchableOpacity, ScrollView, StyleSheet } from 'rea
 import { useRoute } from '@react-navigation/native'; // Pour récupérer les paramètres de la route
 import redcard from "../assets/redcard.png";
 
-function FicheJoueur(playerId) {
+function FicheJoueur() {
   const [joueur, setJoueur] = useState(null);
   const [palmares, setPalmares] = useState(null);
 
@@ -13,7 +13,6 @@ function FicheJoueur(playerId) {
   const route = useRoute();
   const { id } = route.params; // Utilisation des paramètres de route dans React Native
 
-  console.log(playerId)
 
 
   const collapsePalmares = () => {
@@ -152,7 +151,8 @@ const styles = StyleSheet.create({
   },
   article: {
     flexDirection: 'column',
-    width: '90%',
+    width: '96%',
+    alignItems: "center"
   },
   infosJoueur: {
     backgroundColor: '#4682b4',
@@ -161,6 +161,7 @@ const styles = StyleSheet.create({
     padding: 10,
     width: '100%',
     color: 'white',
+    marginBottom: 10
   },
   photo: {
     borderRadius: 50,
@@ -176,10 +177,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: 'white',
+    fontFamily: "Permanent"
   },
   infoText: {
     fontSize: 14,
     color: 'white',
+    fontFamily: "Kanito"
   },
   logos: {
     flexDirection: 'row',
@@ -234,7 +237,9 @@ const styles = StyleSheet.create({
   },
   logoCompet: {
     height: 40,
+    width: 40,
     marginTop: 10,
+    objectFit: "contain"
   },
   redCard: {
     height: 20,

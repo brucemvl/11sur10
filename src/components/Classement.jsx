@@ -128,7 +128,7 @@ function Classement({ id }) {
   );
 
   const renderButeursItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { playerId: item.player.id })}>
+    <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: item.player.id })}>
       <View style={styles.item}>
         <Text style={{fontFamily: "Kanito", width: "45%"}}>{item.player.name}</Text>
         <Image source={{ uri: item.statistics[0].team.logo }} style={styles.logo} />
@@ -140,7 +140,7 @@ function Classement({ id }) {
   );
 
   const renderPasseursItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { playerId: item.player.id })}>
+    <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: item.player.id })}>
       <View style={styles.item}>
         <Text style={{fontFamily: "Kanito", width: "45%"}}>{item.player.name}</Text>
         <Image source={{ uri: item.statistics[0].team.logo }} style={styles.logo} />
