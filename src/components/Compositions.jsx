@@ -5,10 +5,14 @@ import flecheVerte from "../assets/flecheverte.png";
 import flecheRouge from "../assets/flecherouge.png";
 import redcard from "../assets/redcard.png";
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
 
 const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt, systemeDom, systemeExt, substituteDom, substituteExt }) => {
 
   const range = [1, 2, 3, 4, 5];
+  const navigation = useNavigation();
+
+
 
   const renderPlayer = (player, isSubstitute = false) => {
     return (
@@ -82,6 +86,7 @@ const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt,
     );
   };
 
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Compositions d'équipe</Text>
@@ -95,7 +100,7 @@ const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt,
               <Text style={styles.subTitle}>Titulaires</Text>
           <LinearGradient colors={[ "rgb(41, 154, 55)", 'rgba(32, 119, 42, 1)']} style={styles.playersList}>
             {titulairesDom.map((player) => (
-              <TouchableOpacity key={player.player.id} to={`/FicheJoueur/${player.player.id}`}>
+              <TouchableOpacity key={player.player.id} onPress={() => navigation.navigate('FicheJoueur', {id: player.player.id })}>
                 {renderPlayer(player)}
               </TouchableOpacity>
             ))}
@@ -103,7 +108,7 @@ const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt,
           <Text style={styles.subTitle}>Remplaçants</Text>
           <LinearGradient colors={[ "rgb(189, 152, 161)", 'rgba(90, 103, 92, 0.9)']} style={styles.playersList}>
             {substituteDom.map((player) => (
-              <TouchableOpacity key={player.player.id} to={`/FicheJoueur/${player.player.id}`}>
+              <TouchableOpacity key={player.player.id} onPress={() => navigation.navigate('FicheJoueur', {id: player.player.id })}>
                 {renderPlayer(player, true)}
               </TouchableOpacity>
             ))}
@@ -121,7 +126,7 @@ const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt,
 
             <LinearGradient colors={[ "rgb(41, 154, 55)", 'rgba(32, 119, 42, 1)']} style={styles.playersExtList}>
             {titulairesExt.map((player) => (
-              <TouchableOpacity key={player.player.id} to={`/FicheJoueur/${player.player.id}`} style={{justifyContent: "flex-end"}}>
+              <TouchableOpacity key={player.player.id} onPress={() => navigation.navigate('FicheJoueur', {id: player.player.id })} style={{justifyContent: "flex-end"}}>
                 {renderExtPlayer(player)}
               </TouchableOpacity>
             ))}
@@ -129,7 +134,7 @@ const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt,
           <Text style={styles.subTitle}>Remplaçants</Text>
           <LinearGradient colors={[ "rgb(189, 152, 161)", 'rgba(90, 103, 92, 0.9)']} style={styles.playersExtList}>
             {substituteExt.map((player) => (
-              <TouchableOpacity key={player.player.id} to={`/FicheJoueur/${player.player.id}`} style={{justifyContent: "flex-end"}}>
+              <TouchableOpacity key={player.player.id} onPress={() => navigation.navigate('FicheJoueur', {id: player.player.id })} style={{justifyContent: "flex-end"}}>
                 {renderExtPlayer(player, true)}
               </TouchableOpacity>
             ))}

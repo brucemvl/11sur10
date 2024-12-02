@@ -61,7 +61,7 @@ const Evenements = ({ match }) => {
                         }}
                         style={styles.varIcon}
                       />
-                      <Text style={styles.varText}>{element.detail === "Goal Disallowed - offside" ? "But refusé (Hors-Jeu)" : element.detail}</Text>
+                      <Text style={styles.varText}>{element.detail === "Goal Disallowed - offside" ? "But refusé (Hors-Jeu)" : element.detail === "Goal cancelled" ? "But annulé" : element.detail === "Penalty confirmed" ? "Penalty confirmé" : element.detail}</Text>
                     </View>
                   )}
                 </View>

@@ -149,11 +149,9 @@ const stats = match.statistics.filter((element)=>
     
     
     
-    if (!compoDom){
-        return (
-            <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} />
-        )
-    }
+    if (!compoDom || !compoExt) {
+        return <Text>Compos not available</Text>;
+      }
     
     console.log(tituDom)
 

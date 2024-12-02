@@ -143,7 +143,7 @@ flexDirection: "row-reverse"
         marginRight: 5,
     },
     csc: {
-        fontFamily: "Kanitalic",
+        fontFamily: "Kanitalic ",
         color: 'red',
     },
     penalty: {

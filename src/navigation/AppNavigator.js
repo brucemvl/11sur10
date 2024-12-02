@@ -8,6 +8,7 @@ import Apropos from '../screens/Apropos';
 import Contact from '../screens/Contact';
 import FicheChampionnat from '../screens/FicheChampionnat';
 import FicheEurope from "../screens/FicheEurope"
+import FicheJoueur from '../screens/FicheJoueur';
 import Menu from '../components/Menu';
 import LivePage from '../screens/LivePage';
 import ClubPage from '../screens/ClubPage';
@@ -34,6 +35,8 @@ export default function AppNavigator() {
         <Stack.Screen name="LivePage" component={LivePage} />
         <Stack.Screen name="ClubPage" component={ClubPage} />
         <Stack.Screen name="FicheMatch" component={FicheMatch} />
+        <Stack.Screen name="FicheJoueur" component={FicheJoueur} />
+
 
 
       </Stack.Navigator>
