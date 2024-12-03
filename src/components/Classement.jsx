@@ -180,7 +180,7 @@ function Classement({ id }) {
             style={[styles.chevron, { transform: [{ rotate: rotateClassementInterpolate }] }]}
           />      </TouchableOpacity>
       </LinearGradient>
-      <Animated.View style={[ { height: heightClassement.interpolate({
+      <Animated.View style={[ styles.content, { height: heightClassement.interpolate({
             inputRange: [0, 1],
             outputRange: [0, 1000]  // Ajustez la hauteur en fonction du contenu
           }) }]}>
@@ -216,7 +216,7 @@ function Classement({ id }) {
           />     
            </TouchableOpacity>
       </LinearGradient>
-        <Animated.View style={[ { height: heightButeurs.interpolate({
+        <Animated.View style={[ styles.content, { height: heightButeurs.interpolate({
             inputRange: [0, 1],
             outputRange: [0, 500]  // Ajustez la hauteur en fonction du contenu
           }) }]}>        <View style={styles.barre}>
@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
 
   },
   content: {
-overflow: "hidden"
+overflow: "hidden",
   },
   barre: {
     flexDirection: "row",
