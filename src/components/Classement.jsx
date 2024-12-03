@@ -8,14 +8,22 @@ function Classement({ id }) {
   const [openButeurs, setOpenButeurs] = useState(false);
   const [openPasseurs, setOpenPasseurs] = useState(false);
   const [openClassement, setOpenClassement] = useState(false);
-  const [rotateButeurs, setRotationB] = useState(true);
-  const [rotatePasseurs, setRotationP] = useState(true);
-  const [rotateClassement, setRotationC] = useState(true);
+
 
   const [tab, setTab] = useState([]);
   const [buteurs, setButeurs] = useState([]);
   const [passeurs, setPasseurs] = useState([]);
   const navigation = useNavigation();
+
+  // États distincts pour chaque animation
+  const [rotateClassement, setRotateClassement] = useState(new Animated.Value(0));
+  const [rotateButeurs, setRotateButeurs] = useState(new Animated.Value(0));
+  const [rotatePasseurs, setRotatePasseurs] = useState(new Animated.Value(0));
+
+  const [heightClassement, setHeightClassement] = useState(new Animated.Value(0));
+  const [heightButeurs, setHeightButeurs] = useState(new Animated.Value(0));
+  const [heightPasseurs, setHeightPasseurs] = useState(new Animated.Value(0));
+
 
   const fetchClassement = () => {
     fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=2024`, {
@@ -64,53 +72,61 @@ function Classement({ id }) {
 
   const collapseClassement = () => {
     setOpenClassement(!openClassement);
-    setRotationC(!rotateClassement);
-  };
+    Animated.timing(rotateClassement, {
+      toValue: openClassement ? 0 : 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+  
+    Animated.timing(heightClassement, {
+      toValue: openClassement ? 0 : 1,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
+    };
 
   const collapseButeurs = () => {
     setOpenButeurs(!openButeurs);
-    setRotationB(!rotateButeurs);
-  };
+    Animated.timing(rotateButeurs, {
+      toValue: openButeurs ? 0 : 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+  
+    Animated.timing(heightButeurs, {
+      toValue: openButeurs ? 0 : 1,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();  };
 
   const collapsePasseurs = () => {
     setOpenPasseurs(!openPasseurs);
-    setRotationP(!rotatePasseurs);
-  };
-
-  const rotateAnim = useState(new Animated.Value(0))[0]; 
-
-  useEffect(() => {
-    // Démarrer l'animation à chaque fois que l'état `rotateClassement` change
-    Animated.timing(rotateAnim, {
-      toValue: rotateClassement  ? 1 : 0, // Rotation à 180deg ou 0deg
-      duration: 300, // Durée de l'animation
-      useNativeDriver: true, // Utiliser le moteur natif pour de meilleures performances
+    Animated.timing(rotatePasseurs, {
+      toValue: openPasseurs ? 0 : 1,
+      duration: 300,
+      useNativeDriver: true,
     }).start();
-  }, [rotateClassement]);
+  
+    Animated.timing(heightPasseurs, {
+      toValue: openPasseurs ? 0 : 1,
+      duration: 300,
+      useNativeDriver: false,
+    }).start();  };
 
-  useEffect(() => {
-    // Démarrer l'animation à chaque fois que l'état `rotateClassement` change
-    Animated.timing(rotateAnim, {
-      toValue: rotateButeurs  ? 1 : 0, // Rotation à 180deg ou 0deg
-      duration: 300, // Durée de l'animation
-      useNativeDriver: true, // Utiliser le moteur natif pour de meilleures performances
-    }).start();
-  }, [rotateButeurs]);
-
-  useEffect(() => {
-    // Démarrer l'animation à chaque fois que l'état `rotateClassement` change
-    Animated.timing(rotateAnim, {
-      toValue: rotatePasseurs  ? 1 : 0, // Rotation à 180deg ou 0deg
-      duration: 300, // Durée de l'animation
-      useNativeDriver: true, // Utiliser le moteur natif pour de meilleures performances
-    }).start();
-  }, [rotatePasseurs]);
-
-  const rotateInterpolation = rotateAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['180deg', '0deg'], 
-  });
-
+    const rotateClassementInterpolate = rotateClassement.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['0deg', '180deg'],
+    });
+  
+    const rotateButeursInterpolate = rotateButeurs.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['0deg', '180deg'],
+    });
+  
+    const rotatePasseursInterpolate = rotatePasseurs.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['0deg', '180deg'],
+    });
 
 
   const renderClassementItem = ({ item }) => (
@@ -154,16 +170,20 @@ function Classement({ id }) {
   return (
     <View style={styles.container}>
       {/* Classement */}
-      <LinearGradient       colors={[ 'rgba(26, 46, 127, 100)', 'rgba(39, 54, 50, 75)']}
+      <LinearGradient       colors={[ 'rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']}
       style={{ marginBlock: 10, height: 40, justifyContent: "center", borderRadius: 10}}
         >
       <TouchableOpacity onPress={collapseClassement} style={styles.header}>
         <Text style={styles.title}>Classement</Text>
-        {rotateClassement ? <Image source={chevron}/> : <Animated.Image source={chevron} style={{transform:[{rotate: rotateInterpolation}]}}/>}
-      </TouchableOpacity>
+        <Animated.Image
+            source={chevron}
+            style={[styles.chevron, { transform: [{ rotate: rotateClassementInterpolate }] }]}
+          />      </TouchableOpacity>
       </LinearGradient>
-      {openClassement && (
-        <View>
+      <Animated.View style={[ { height: heightClassement.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, 1000]  // Ajustez la hauteur en fonction du contenu
+          }) }]}>
           <View style={styles.barre}>
             <Text style={{width: "10%", color: "white"}}>Rang</Text>
             <Text style={{width: "36%", textAlign: "center", marginRight: 2, color: "white"}}>Equipe</Text>
@@ -180,23 +200,26 @@ function Classement({ id }) {
           keyExtractor={(item) => item.team.id.toString()}
           style={styles.list} // Ensure the list has proper styling
         />
-        </View>
+        </Animated.View>
 
-      )}
 
       {/* Meilleurs Buteurs */}
-      <LinearGradient       colors={[ 'rgba(26, 46, 127, 100)', 'rgba(39, 54, 50, 75)']}
+      <LinearGradient       colors={[ 'rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']}
       style={{ marginBlock: 10, height: 40, justifyContent: "center", borderRadius: 10}}
         >
       <TouchableOpacity onPress={collapseButeurs} style={styles.header}>
 
         <Text style={styles.title}>Meilleurs Buteurs</Text>
-        {rotateButeurs ? <Image source={chevron}/> : <Animated.Image source={chevron} style={{transform:[{rotate: rotateInterpolation}]}}/>}
-      </TouchableOpacity>
+        <Animated.Image
+            source={chevron}
+            style={[styles.chevron, { transform: [{ rotate: rotateButeursInterpolate }] }]}
+          />     
+           </TouchableOpacity>
       </LinearGradient>
-      {openButeurs && (
-        <View>
-        <View style={styles.barre}>
+        <Animated.View style={[ { height: heightButeurs.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, 500]  // Ajustez la hauteur en fonction du contenu
+          }) }]}>        <View style={styles.barre}>
         <Text style={{width: "50%", color: "white", paddingStart: 20}}>Joueur</Text>
         <Text style={{width: "30%", color: "white", textAlign: "center"}}>Matchs Joués</Text>
         <Text style={{width: "20%", color: "white", textAlign: "center"}}>Buts</Text>
@@ -208,21 +231,26 @@ function Classement({ id }) {
           keyExtractor={(item) => item.player.id.toString()}
           style={styles.list} // Ensure the list has proper styling
         />
-        </View>
-      )}
+        </Animated.View>
+      
 
       {/* Meilleurs Passeurs */}
-      <LinearGradient       colors={[ 'rgba(26, 46, 127, 100)', 'rgba(39, 54, 50, 75)']}
+      <LinearGradient       colors={[ 'rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']}
       style={{ marginBlock: 10, height: 40, justifyContent: "center", borderRadius: 10}}
         >
       <TouchableOpacity onPress={collapsePasseurs} style={styles.header}>
         <Text style={styles.title}>Meilleurs Passeurs</Text>
-        {rotatePasseurs ? <Image source={chevron}/> : <Animated.Image source={chevron} style={{transform:[{rotate: rotateInterpolation}]}}/>}
-      </TouchableOpacity>
+        <Animated.Image
+            source={chevron}
+            style={[styles.chevron, { transform: [{ rotate: rotatePasseursInterpolate }] }]}
+          />     
+           </TouchableOpacity>
       </LinearGradient>
-      {openPasseurs && (
-        <View>
-        <View style={styles.barre}>
+        <Animated.View style={[styles.content, { height: heightPasseurs.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, 500]  // Ajustez la hauteur en fonction du contenu
+          }) }]}>
+                    <View style={styles.barre}>
         <Text style={{width: "50%", color: "white", paddingStart: 20}}>Joueur</Text>
         <Text style={{width: "30%", color: "white", textAlign: "center"}}>Matchs Joués</Text>
         <Text style={{width: "20%", color: "white", textAlign: "center"}}>Passes D</Text>  
@@ -233,8 +261,7 @@ function Classement({ id }) {
           keyExtractor={(item) => item.player.id.toString()}
           style={styles.list} // Ensure the list has proper styling
         />
-        </View>
-      )}
+        </Animated.View>
     </View>
   );
 }
@@ -257,12 +284,15 @@ const styles = StyleSheet.create({
     color: "white",
 
   },
+  content: {
+overflow: "hidden"
+  },
   barre: {
     flexDirection: "row",
     width: "100%",
     backgroundColor: "black",
     paddingBlock: 4,
-    borderRadius: 5
+    borderRadius: 5,
   },
   item: {
     flexDirection: 'row',

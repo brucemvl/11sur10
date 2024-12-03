@@ -96,7 +96,7 @@ function Live() {
 
   return (
     <View style={styles.container}>
-      <LinearGradient       colors={[ 'rgba(26, 46, 127, 100)', 'rgba(39, 54, 50, 75)']}
+      <LinearGradient       colors={[ 'rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']}
       style={styles.title}
       
         >

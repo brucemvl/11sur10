@@ -26,7 +26,7 @@ function ClubPage() {
         <ScrollView contentContainerStyle={styles.competitions}>
             {/* Section Championnats */}
             <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.conteneur} >
-                <LinearGradient colors={['rgba(26, 46, 127, 100)', 'rgba(39, 54, 50, 75)']}
+                <LinearGradient colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']}
                     style={styles.title}
                 >
                     <Text style={styles.titleText}>Championnats</Text>
@@ -62,7 +62,7 @@ function ClubPage() {
 
             {/* Section Compétitions Européennes */}
             <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.conteneur} >
-                <LinearGradient colors={['rgba(26, 46, 127, 100)', 'rgba(39, 54, 50, 75)']} style={styles.title}
+                <LinearGradient colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']} style={styles.title}
                 >
                     <Text style={styles.titleText}>Compétitions Européennes</Text>
                 </LinearGradient>
