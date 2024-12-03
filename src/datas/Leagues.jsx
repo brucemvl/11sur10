@@ -146,3 +146,41 @@ export const europe = [
     }
 
 ]
+
+export const selections = [
+    {
+        "id": 20,
+        "name": "CAF Confederations Cup",
+        "logo": "https://media.api-sports.io/football/leagues/20.png",
+        "season": 2024,
+
+    },
+
+    {
+        "id": 29,
+        "name": "World Cup - Qualification Africa",
+        "logo": "https://media.api-sports.io/football/leagues/29.png",
+        "season": 2023,
+        },
+        {
+            "id": 34,
+            "name": "World Cup - Qualification South America",
+            "logo": "https://media.api-sports.io/football/leagues/34.png",
+            "season": 2026,
+            },
+
+            {
+                "id": 30,
+                "name": "World Cup - Qualification Asia",
+                "logo": "https://media.api-sports.io/football/leagues/30.png",
+                "season": 2026,
+                },
+
+                {
+                    "id": 5,
+                    "name": "UEFA Nations League",
+                    "logo": "https://media.api-sports.io/football/leagues/5.png",
+                    "season": 2024,
+                    },
+
+]
