@@ -54,9 +54,10 @@ function Live() {
           {item.goals.home === item.goals.away ? (
             <View style={styles.score}>
               <Text style={styles.scoreText}>{item.goals.home}</Text>
-              <Text style={styles.time}>
-                <Text>{item.fixture.status.elapsed}'</Text>
-              </Text>
+                <View style={styles.liveSticker}>
+                <Text style={styles.liveText}>{item.fixture.status.elapsed}'</Text>
+                <Text style={{color: "red", fontFamily: "Kanitalic", fontSize: 10}}>live</Text>
+                </View>
               <Text style={styles.scoreText}>{item.goals.away}</Text>
             </View>
           ) : (
@@ -68,9 +69,11 @@ function Live() {
               >
                 {item.goals.home}
               </Text>
-              <Text style={styles.time}>
-                <Text>{item.fixture.status.elapsed}'</Text>
-              </Text>
+              <View style={styles.liveSticker}>
+                <Text style={styles.liveText}>{item.fixture.status.elapsed}'</Text>
+                <Text style={{color: "red", fontFamily: "Kanitalic", fontSize: 10}}>live</Text>
+                </View>
+              
               <Text
                 style={
                   item.goals.away > item.goals.home ? styles.winner : styles.loser
@@ -90,7 +93,6 @@ function Live() {
           <Text style={styles.teamName}>{item.teams.away.name}</Text>
         </View>
       </View>
-      <Text style={styles.liveSticker}>Live</Text>
     </TouchableOpacity>
   );
 
@@ -167,18 +169,18 @@ flexDirection: "row",
     justifyItems: 'center',
     alignItems: 'center',
     backgroundColor: '#F4F0F0',
-    padding: 10,
+    paddingBlock: 10,
+    paddingInline: 2
   },
   competitionLogo: {
-    height: 40,
-    width: "8%",
+    height: 30,
+    width: 25,
     objectFit: 'contain',
   },
   teamContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: "32%",
-    justifyContent: "flex-start",
+    width: "35%",
     gap: 4,
     marginInline: 1
 
@@ -188,32 +190,46 @@ flexDirection: "row",
   teamContainerDom: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: "32%",
+    width: "33%",
     flexDirection: "row-reverse",
-    justifyContent: "flex-start",
     gap: 4,
-    marginInline: 1
+    marginInline: 1,
     
     
   },
   teamLogo: {
-    height: 30,
-    width: "20%",
+    height: 35,
+    width: 30,
     objectFit: 'contain',
     alignItems: "center"
   },
   teamName: {
-    fontSize: 12,
+    fontSize: 13,
     fontFamily: "Kanito"
   },
   scoreContainer: {
     alignItems: 'center',
-    width: "18%",
+    width: "22%",
+    marginInline: 2
+  },
+  liveSticker: {
+    alignItems: "center",
+    marginInline: 5
+
+  },
+  liveText: {
+    color: "white",
+    fontFamily: "Kanitalic",
+    fontSize: 12,
+    backgroundColor: "red",
+    paddingInline: 4,
+    borderRadius: 5
+
+
   },
   score: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: "100%"
     
   },
   scoreText: {
@@ -228,17 +244,12 @@ flexDirection: "row",
     textAlign: "center",
     paddingTop: 4
   },
-  time: {
-    fontSize: 12,
-    marginHorizontal: 5,
-  },
   winner: {
     flex: 1,
     backgroundColor: '#32b642',
     color: 'white',
     borderRadius: 5,
     height: 30,
-    width: 20,
     fontFamily: "Kanito",
     alignItems: "center",
     textAlign: "center",
@@ -251,29 +262,10 @@ flexDirection: "row",
     color: 'white',
     borderRadius: 5,
     height: 30,
-    width: 20,
     fontFamily: "Kanito",
     alignItems: "center",
     textAlign: "center",
     paddingTop: 4
-  },
-  liveSticker: {
-    color: 'white',
-    backgroundColor: 'red',
-    fontFamily: 'Permanent',
-    transform: [
-        { rotate: '45deg' },
-        { translateX: -15 },
-      ],
-    fontSize: 12,
-    position: "relative",
-    right: 55,
-    height: 25,
-    paddingInline: 50,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "hidden",
   },
 });
 
