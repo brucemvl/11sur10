@@ -206,13 +206,15 @@ const styles = StyleSheet.create({
   playersList: {
     marginBottom: 16,
 borderTopRightRadius: 15,
-borderBottomRightRadius: 15
+borderBottomRightRadius: 15,
+paddingBlock: 10
+
   },
   playersExtList: {
     marginBottom: 16,
     borderTopLeftRadius: 15,
-    borderBottomLeftRadius: 15
-
+    borderBottomLeftRadius: 15,
+    paddingBlock: 10
   },
   playerContainer: {
     flexDirection: 'row',

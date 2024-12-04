@@ -30,7 +30,7 @@ function LivePage({ navigation }) {
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.matchContainer}
-      onPress={() => navigation.navigate('FicheLive', { matchId: item.fixture.id })}
+      onPress={() => navigation.navigate('FicheMatch', { id: item.fixture.id })}
     >
       <View style={styles.match}>
         <Image

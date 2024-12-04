@@ -68,13 +68,9 @@ const FicheMatch = () => {
             });
     }, [id]);
 
-    if(!match){
+    if(match === null){
         return <Text> infos a venir</Text>
     }
-
-    
-
-
 
     const round = match.league.round;
     const roundd = round.slice(round.length - 2);
@@ -124,11 +120,15 @@ const stats = match.statistics.filter((element)=>
     
     // PARTIE COMPOS
     
-    const compoDom = match.lineups[0]
-    const compoExt = match.lineups[1]
+    const compoDom = match.lineups && match.lineups[0];
+const compoExt = match.lineups && match.lineups[1];
     
-    const coachDom = compoDom.coach.name
-    const coachExt = compoExt.coach.name
+const coachDom = compoDom ? compoDom.coach?.name : 'Unknown'; // Utilisation de l'opérateur de chaînage optionnel (?.)
+const coachExt = compoExt ? compoExt.coach?.name : 'Unknown'; 
+
+if (!compoDom || !compoExt) {
+    return <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt}/>;
+}
     
     const systemeDom = compoDom.formation
     const systemeExt = compoExt.formation
@@ -147,11 +147,6 @@ const stats = match.statistics.filter((element)=>
     
     console.log(substituteDom)
     
-    
-    
-    if (!compoDom || !compoExt) {
-        return <Text>Compos not available</Text>;
-      }
     
     console.log(tituDom)
 
