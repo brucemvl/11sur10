@@ -181,12 +181,15 @@ const Aujourdhui = () => {
     // Fusion des matchs des différentes ligues
     const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly];
 
+    const today = new Date().toISOString().slice(0, 10); // Date du jour au format YYYY-MM-DD
+console.log(today)
+
     const todayMatch = matchs.filter((match) => {
         const matchDate = match.fixture.date.slice(0, 10);
-        const today = new Date().toISOString().slice(0, 10); // Date du jour au format YYYY-MM-DD
         return matchDate === today;
     });
 
+    console.log(todayMatch)
     const formatDateAndTime = (dateString) => {
         const matchDate = new Date(dateString);
         const formattedDate = `${matchDate.getDate().toString().padStart(2, '0')}/${(matchDate.getMonth() + 1)
@@ -206,7 +209,7 @@ const Aujourdhui = () => {
             >
                 <Text style={styles.titreToday}>AUJOURDHUI</Text>
             </LinearGradient>
-            {todayMatch.length === 0 ? (
+            {todayMatch.length <= 0 ? (
                 <Text style={styles.nomatch}>Pas de match aujourd'hui</Text>
             ) : (
                 <ScrollView style={styles.liveTableau}>
@@ -223,15 +226,15 @@ const Aujourdhui = () => {
                                     <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
 
                                     <View style={styles.rdv}>
-                                        <Text style={{ fontFamily: "Kanitalic" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
-                                        <Text style={{ fontFamily: "Kanitalic" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
+                                        <Text style={{ fontFamily: "Kanitalic", fontSize: 11 }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
+                                        <Text style={{ fontFamily: "Kanitalic", fontSize: 11 }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
                                     </View>
                                     <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
                                     <Text style={styles.matchEquipeExt}>{element.teams.away.name}</Text>
                                 </View>
                             </TouchableOpacity>
                         ) : (
-                            ''
+                            null
                         )
                     )}
                 </ScrollView>

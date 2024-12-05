@@ -14,25 +14,23 @@ function Tableau({ id, index, setFilter, filter }) {
   const [loading, setLoading] = useState(true);
   const [currentRound, setCurrentRound] = useState("");
 
-  // Récupérer les données des matchs
   useEffect(() => {
-    const fetchData = () => {
-      fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&season=2024`, {
-        method: "GET",
-        headers: {
-          "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-          "x-rapidapi-host": "v3.football.api-sports.io",
-        },
-      })
-        .then((response) => response.json())
-        .then((json) => {
-          setTeam(json.response);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error("Erreur de récupération des données:", error);
-          setLoading(false);
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&season=2024`, {
+          method: "GET",
+          headers: {
+            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+            "x-rapidapi-host": "v3.football.api-sports.io",
+          },
         });
+        const json = await response.json();
+        setTeam(json.response);
+        setLoading(false);
+      } catch (error) {
+        console.error("Erreur de récupération des données:", error);
+        setLoading(false);
+      }
     };
     fetchData();
   }, [id]);
@@ -52,23 +50,23 @@ function Tableau({ id, index, setFilter, filter }) {
     return numA - numB;
   });
 
-  // Récupérer la ronde actuelle (currentRound)
   useEffect(() => {
-    const fetchRound = () => {
-      fetch(`https://v3.football.api-sports.io/fixtures/rounds?season=2024&league=${id}&current=true`, {
-        method: "GET",
-        headers: {
-          "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-          "x-rapidapi-host": "v3.football.api-sports.io",
-        },
-      })
-        .then((response) => response.json())
-        .then((json) => {
-          if (json.response.length > 0) {
-            setCurrentRound(json.response[0]);
-          }
-        })
-        .catch((error) => console.error("error:", error));
+    const fetchRound = async () => {
+      try {
+        const response = await fetch(`https://v3.football.api-sports.io/fixtures/rounds?season=2024&league=${id}&current=true`, {
+          method: "GET",
+          headers: {
+            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+            "x-rapidapi-host": "v3.football.api-sports.io",
+          },
+        });
+        const json = await response.json();
+        if (json.response.length > 0) {
+          setCurrentRound(json.response[0]);
+        }
+      } catch (error) {
+        console.error("error:", error);
+      }
     };
     fetchRound();
   }, [id]);

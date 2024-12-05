@@ -56,7 +56,7 @@ function Live() {
               <Text style={styles.scoreText}>{item.goals.home}</Text>
                 <View style={styles.liveSticker}>
                 <Text style={styles.liveText}>{item.fixture.status.elapsed}'</Text>
-                <Text style={{color: "red", fontFamily: "Kanitalic", fontSize: 10}}>live</Text>
+                <Text style={{color: "darkred", fontFamily: "Kanitalic", fontSize: 10}}>live</Text>
                 </View>
               <Text style={styles.scoreText}>{item.goals.away}</Text>
             </View>
@@ -71,7 +71,7 @@ function Live() {
               </Text>
               <View style={styles.liveSticker}>
                 <Text style={styles.liveText}>{item.fixture.status.elapsed}'</Text>
-                <Text style={{color: "red", fontFamily: "Kanitalic", fontSize: 10}}>live</Text>
+                <Text style={{color: "darkred", fontFamily: "Kanitalic", fontSize: 10}}>live</Text>
                 </View>
               
               <Text
@@ -221,7 +221,7 @@ flexDirection: "row",
     color: "white",
     fontFamily: "Kanitalic",
     fontSize: 12,
-    backgroundColor: "red",
+    backgroundColor: "darkred",
     paddingInline: 4,
     borderRadius: 5
 

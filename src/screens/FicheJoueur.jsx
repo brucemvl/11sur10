@@ -106,6 +106,8 @@ function FicheJoueur() {
     inputRange: [0, 1],
     outputRange: ['0deg', '180deg'],
   });
+
+  console.log(palmares)
   
 
   return (
@@ -136,7 +138,26 @@ function FicheJoueur() {
           /> 
           </LinearGradient>
             </TouchableOpacity>
+            {palmares.length > 20 ?
             <Animated.View style={[styles.palmaresInfos, { height: heightAnim.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, 260]  // Ajustez la hauteur en fonction du contenu
+          }) }]}>
+          {trophiesArray.map((element, index) => (
+            <View key={index}>
+              <Text style={{fontFamily: "Kanito", marginInline: 10}}>{element.trophies.length}x {element.league}</Text>
+            </View>
+          ))}
+        </Animated.View> : palmares.length < 10 ? <Animated.View style={[styles.palmaresInfos, { height: heightAnim.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, 140]  // Ajustez la hauteur en fonction du contenu
+          }) }]}>
+          {trophiesArray.map((element, index) => (
+            <View key={index}>
+              <Text style={{fontFamily: "Kanito", marginInline: 10}}>{element.trophies.length}x {element.league}</Text>
+            </View>
+          ))}
+        </Animated.View> : <Animated.View style={[styles.palmaresInfos, { height: heightAnim.interpolate({
             inputRange: [0, 1],
             outputRange: [0, 200]  // Ajustez la hauteur en fonction du contenu
           }) }]}>
@@ -145,7 +166,7 @@ function FicheJoueur() {
               <Text style={{fontFamily: "Kanito", marginInline: 10}}>{element.trophies.length}x {element.league}</Text>
             </View>
           ))}
-        </Animated.View>
+        </Animated.View>}
         </View>
 
         <Text style={styles.season}>2024/2025</Text>

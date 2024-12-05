@@ -199,7 +199,7 @@ function Classement({ id }) {
           renderItem={renderClassementItem}
           keyExtractor={(item) => item.team.id.toString()}
           style={styles.list} // Ensure the list has proper styling
-        />
+        ></FlatList>
         </Animated.View>
 
 
@@ -230,7 +230,7 @@ function Classement({ id }) {
           renderItem={renderButeursItem}
           keyExtractor={(item) => item.player.id.toString()}
           style={styles.list} // Ensure the list has proper styling
-        />
+        ></FlatList>
         </Animated.View>
       
 
@@ -260,7 +260,7 @@ function Classement({ id }) {
           renderItem={renderPasseursItem}
           keyExtractor={(item) => item.player.id.toString()}
           style={styles.list} // Ensure the list has proper styling
-        />
+        ></FlatList>
         </Animated.View>
     </View>
   );
