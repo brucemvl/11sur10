@@ -3,6 +3,8 @@ import { View, Text, Image, TouchableOpacity} from "react-native"
 import { StyleSheet } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { useFonts } from "expo-font"
+import insta from "../assets/insta.png"
+
 
 function Footer(){
 
@@ -13,8 +15,13 @@ function Footer(){
     const navigation = useNavigation()
     return (
         <View style={styles.footer}>
+            <View style={{padding: 20, alignItems: "center", gap: 20}}>
+            <TouchableOpacity onPress={()=>openExternalLink("https://www.instagram.com/11_sur_10/")}>
+      <Image source={insta} style={{height: 40, width: 40}}/>
+      </TouchableOpacity>
            <TouchableOpacity onPress={()=> navigation.navigate("Contact")}><Text style={styles.lien}>Nous contacter</Text></TouchableOpacity>
-            <View style={styles.droits}><Image source={bm} alt="logo developpeur" style={styles.logo}/><Text style={{color: "white", fontFamily: "Kanito"}}>© 2024 BM Development. Tous droits réservés.</Text></View>
+           </View>
+            <View style={styles.droits}><Image source={bm} alt="logo developpeur" style={styles.logo}/><Text style={{color: "white", fontFamily: "Kanito", fontSize: 10}}>© 2024 BM Development. Tous droits réservés.</Text></View>
 
         </View>
     )
@@ -24,10 +31,12 @@ function Footer(){
 
 const styles = StyleSheet.create({
     footer: {
+        flexDirection: "row-reverse",
         backgroundColor: "black",
         alignItems: "center",
-        justifyContent: "space-evenly", 
         width: "100%",
+        height: 140,
+        justifyContent: "space-between",
         height: 150
     },
 
@@ -39,12 +48,17 @@ const styles = StyleSheet.create({
     },
 
     droits : {
-        alignItems: "center"
+        alignItems: "center",
+        width: "50%",
+        gap: 10
+
 
     },
     logo: {
-        height: 30,
-        width: 30,
+        height: 55,
+        width: 55,
+        borderRadius: 50,
+        objectFit: "contain",
         filter: "invert(1)"
     }
 })
