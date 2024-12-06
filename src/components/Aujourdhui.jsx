@@ -202,11 +202,8 @@ console.log(today)
     };
 
     return (
-        <View style={styles.live}>
-            <LinearGradient colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']}
-                style={styles.titre}
-
-            >
+        <View style={styles.today}>
+            <LinearGradient colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']} style={styles.titre}>
                 <Text style={styles.titreToday}>AUJOURDHUI</Text>
             </LinearGradient>
             {todayMatch.length <= 0 ? (
@@ -244,11 +241,10 @@ console.log(today)
 };
 
 const styles = StyleSheet.create({
-    live: {
+    today: {
         flex: 1,
         alignItems: 'center',
-        padding: 10,
-        backgroundColor: "pink",
+        padding: 20,
         borderRadius: 15,
         width: "100%",
         marginTop: 20,
@@ -257,14 +253,12 @@ const styles = StyleSheet.create({
     },
     titre: {
         width: 150,
-        marginBlock: 10,
-        borderRadius: 15,
+        borderRadius: 10,
     },
     titreToday: {
         color: 'white',
         textAlign: 'center',
         paddingVertical: 5,
-        fontSize: 18,
         fontFamily: "Kanitt"
     },
     nomatch: {
@@ -275,9 +269,8 @@ const styles = StyleSheet.create({
         fontFamily: 'Permanent Marker',
         borderRadius: 5,
         height: 40,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 20,
+        marginTop: 10,
+        paddingTop: 7
     },
     liveTableau: {
         width: '98%',

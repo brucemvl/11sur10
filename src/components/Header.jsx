@@ -25,7 +25,7 @@ function Header() {
       {/* Ici, tu peux ajouter ton menu ou d'autres éléments */}
       <View style={{alignItems: "center", gap: 25, paddingTop: 30}}>
       <TouchableOpacity onPress={()=>openExternalLink("https://www.instagram.com/11_sur_10/")}>
-      <Image source={insta} style={{height: 40, width: 40}}/>
+      <Image source={insta} style={{height: 45, width: 45}}/>
       </TouchableOpacity>
       <TouchableOpacity onPress={()=> navigation.navigate("Apropos")}>
         <Text style={{fontFamily: "Kanito", color: "white", textDecorationLine: "underline"}}>A Propos</Text>

@@ -15,6 +15,12 @@ import banner16 from "../assets/banner17.webp";
 import banner17 from "../assets/banner18.jpg";
 import banner18 from "../assets/banner19.webp";
 import banner19 from "../assets/banner20.webp"
+import banner20 from "../assets/banner21.webp"
+import banner21 from "../assets/banner22.webp"
+import banner22 from "../assets/banner23.webp"
+
+
+
 
 import { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
@@ -30,7 +36,7 @@ function Banner(){
 
     const photosBan = [
         banner3, banner4, banner5, banner6, banner7, banner8, banner9,
-        banner10, banner11, banner12, banner13, banner14, banner15, banner16, banner17, banner18, banner19
+        banner10, banner11, banner12, banner13, banner14, banner15, banner16, banner17, banner18, banner19, banner20, banner21, banner22
       ];
     
       const [randomPhoto, setRandomPhoto] = useState(photosBan[Math.floor(Math.random() * photosBan.length)]);

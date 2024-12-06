@@ -11,7 +11,7 @@ function Live() {
   useEffect(() => {
     const fetchLive = () => {
       try {
-        fetch('https://v3.football.api-sports.io/fixtures?live=all', {
+        fetch('https://v3.football.api-sports.io/fixtures?live=2-39-61-78-135-140', {
           method: 'GET',
           headers: {
             'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',

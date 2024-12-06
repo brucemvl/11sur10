@@ -110,7 +110,6 @@ function LivePage({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 16,
     borderRadius: 15,
     backgroundColor: "#b0c4de",
