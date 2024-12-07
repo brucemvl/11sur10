@@ -11,6 +11,7 @@ import shoot from "../assets/shoot.png"
 import shoe from "../assets/shoe.png"
 import rating from "../assets/rating.png"
 import yellow from "../assets/yellow.png"
+import Precedent from '../components/Precedent';
 
 
 function FicheJoueur() {
@@ -112,6 +113,7 @@ function FicheJoueur() {
 
   return (
     <ScrollView contentContainerStyle={styles.blocJoueur}>
+      <Precedent />
       <View style={styles.article}>
         <LinearGradient colors={["black", "steelblue"]} style={styles.infosJoueur}>
           <Image source={{ uri: joueur.player.photo }} style={styles.photo} />
@@ -138,10 +140,10 @@ function FicheJoueur() {
           /> 
           </LinearGradient>
             </TouchableOpacity>
-            {palmares.length > 20 ?
+            {palmares.length > 22 ?
             <Animated.View style={[styles.palmaresInfos, { height: heightAnim.interpolate({
             inputRange: [0, 1],
-            outputRange: [0, 260]  // Ajustez la hauteur en fonction du contenu
+            outputRange: [0, 280]  // Ajustez la hauteur en fonction du contenu
           }) }]}>
           {trophiesArray.map((element, index) => (
             <View key={index}>
@@ -150,7 +152,7 @@ function FicheJoueur() {
           ))}
         </Animated.View> : palmares.length < 10 ? <Animated.View style={[styles.palmaresInfos, { height: heightAnim.interpolate({
             inputRange: [0, 1],
-            outputRange: [0, 140]  // Ajustez la hauteur en fonction du contenu
+            outputRange: [0, 120]  // Ajustez la hauteur en fonction du contenu
           }) }]}>
           {trophiesArray.map((element, index) => (
             <View key={index}>

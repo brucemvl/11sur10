@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
+import ligue1 from "../assets/logoligue1.webp"
 
 function Live() {
   const [live, setLive] = useState([]);
@@ -37,11 +38,16 @@ function Live() {
       onPress={() => navigation.navigate('FicheMatch', { id: item.fixture.id })}
     >
       <View style={styles.match}>
+        {item.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
+          source={ligue1}
+          style={styles.competitionLogo}
+          resizeMode="contain"
+        /> :
         <Image
           source={{ uri: item.league.logo }}
           style={styles.competitionLogo}
           resizeMode="contain"
-        />
+        />}
         <View style={styles.teamContainerDom}>
           <Image
             source={{ uri: item.teams.home.logo }}
@@ -97,7 +103,7 @@ function Live() {
   );
 
   return (
-    <View style={styles.container}>
+    <LinearGradient colors={[ "rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.container}>
       <LinearGradient       colors={[ 'rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']}
       style={styles.title}
       
@@ -111,18 +117,19 @@ function Live() {
           data={live}
           renderItem={renderItem}
           keyExtractor={(item) => item.fixture.id}
+          style={styles.live__tableau}
         />
       )}
-    </View>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    padding: 8,
     borderRadius: 15,
-    backgroundColor: "#b0c4de",
+    backgroundColor: "steelblue",
     marginBottom: 0,
     width: '100%',
     marginTop: 20
@@ -133,10 +140,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     borderColor: 'white',
-    marginBottom: 0,
     textAlign: 'center',
     paddingTop: 5,
-    marginBottom: 15
+    marginBlock: 10
   },
   match: {
     flexDirection: 'row',
@@ -147,7 +153,7 @@ const styles = StyleSheet.create({
     width: "100%"
   },
   noMatch: {
-    marginTop: 20,
+    marginBlock: 10,
     alignSelf: 'center',
     backgroundColor: 'red',
     color: 'white',
@@ -160,20 +166,18 @@ const styles = StyleSheet.create({
     
   },
   live__tableau: {
-    padding: '1%',
-    width: '98%',
+    borderRadius: 10
   },
   matchContainer: {
 flexDirection: "row",
     overflow: 'hidden',
-    justifyItems: 'center',
     alignItems: 'center',
     backgroundColor: '#F4F0F0',
     paddingBlock: 10,
-    paddingInline: 2
+    paddingInline: 1
   },
   competitionLogo: {
-    height: 30,
+    height: 25,
     width: 25,
     objectFit: 'contain',
   },
@@ -181,7 +185,7 @@ flexDirection: "row",
     flexDirection: 'row',
     alignItems: 'center',
     width: "35%",
-    gap: 4,
+    gap: 2,
     marginInline: 1
 
 
@@ -192,25 +196,25 @@ flexDirection: "row",
     alignItems: 'center',
     width: "33%",
     flexDirection: "row-reverse",
-    gap: 4,
+    gap: 2,
     marginInline: 1,
     
     
   },
   teamLogo: {
-    height: 35,
-    width: 30,
+    height: 30,
+    width: 25,
     objectFit: 'contain',
     alignItems: "center"
   },
   teamName: {
-    fontSize: 13,
+    fontSize: 12,
     fontFamily: "Kanito"
   },
   scoreContainer: {
     alignItems: 'center',
-    width: "22%",
-    marginInline: 2
+    width: "20%",
+    marginInline: 1
   },
   liveSticker: {
     alignItems: "center",

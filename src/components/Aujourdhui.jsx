@@ -1,185 +1,178 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import ligue1 from "../assets/logoligue1.webp"
+import { useNavigation } from '@react-navigation/native';
 
-const Aujourdhui = () => {
-    const [matchsEngland, setMatchsEngland] = useState();
-    const [matchsSpain, setMatchsSpain] = useState();
-    const [matchsFrance, setMatchsFrance] = useState();
-    const [matchsUcl, setMatchsUcl] = useState();
-    const [matchsGer, setMatchsGer] = useState();
-    const [matchsItaly, setMatchsItaly] = useState();
+function Aujourdhui(){
 
-    // Récupération des données des matchs via l'API (code similaire pour chaque ligue)
-    useEffect(() => {
-        const fetchUcl = () => {
+    const navigation = useNavigation()
+
+    const [matchsEngland, setMatchsEngland] = useState([]);
+const [matchsSpain, setMatchsSpain] = useState([]);
+const [matchsFrance, setMatchsFrance] = useState([]);
+const [matchsUcl, setMatchsUcl] = useState([]);
+const [matchsGer, setMatchsGer] = useState([]);
+const [matchsItaly, setMatchsItaly] = useState([]);
+
+
+
+
+    useEffect(()=> {
+        const fetchUcl= ()=>{
             try {
-                fetch("https://v3.football.api-sports.io/fixtures?league=2&season=2024", {
-                    method: "GET",
-                    headers: {
-                        "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-                        "x-rapidapi-host": "v3.football.api-sports.io",
-                    }
-                })
-                    .then((response) => response.json())
-                    .then((json) => {
-
-                        setMatchsUcl(json.response)
-
-                    })
-
+                 fetch("https://v3.football.api-sports.io/fixtures?league=2&season=2024", {
+            method: "GET",
+             headers: {
+                "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+                "x-rapidapi-host": "v3.football.api-sports.io",
             }
-            catch (error) {
-                console.error("error:", error)
-            }
-        };
-        fetchUcl();
-    }, []
+        })
+.then((response)=> response.json()) 
+.then((json)=>{
 
-    )
+    setMatchsUcl(json.response)
 
-    useEffect(() => {
-        const fetchFrance = () => {
+})      
+        
+       }
+       catch (error){
+        console.error("error:", error)
+       }};
+       fetchUcl();}, []
+
+       )
+
+    useEffect(()=> {
+        const fetchFrance = ()=>{
             try {
-                fetch("https://v3.football.api-sports.io/fixtures?league=61&season=2024", {
-                    method: "GET",
-                    headers: {
-                        "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-                        "x-rapidapi-host": "v3.football.api-sports.io",
-                    }
-                })
-                    .then((response) => response.json())
-                    .then((json) => {
-
-                        setMatchsFrance(json.response)
-
-                    })
-
+                 fetch("https://v3.football.api-sports.io/fixtures?league=61&season=2024", {
+            method: "GET",
+             headers: {
+                "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+                "x-rapidapi-host": "v3.football.api-sports.io",
             }
-            catch (error) {
-                console.error("error:", error)
-            }
-        };
-        fetchFrance();
-    }, []
+        })
+.then((response)=> response.json()) 
+.then((json)=>{
 
-    )
+    setMatchsFrance(json.response)
+
+})      
+        
+       }
+       catch (error){
+        console.error("error:", error)
+       }};
+       fetchFrance();}, []
+
+       )
 
 
-    useEffect(() => {
-        const fetchEngland = () => {
+    useEffect(()=> {
+        const fetchEngland = ()=>{
             try {
-                fetch("https://v3.football.api-sports.io/fixtures?league=39&season=2024", {
-                    method: "GET",
-                    headers: {
-                        "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-                        "x-rapidapi-host": "v3.football.api-sports.io",
-                    }
-                })
-                    .then((response) => response.json())
-                    .then((json) => {
-
-                        setMatchsEngland(json.response)
-
-                    })
-
+                 fetch("https://v3.football.api-sports.io/fixtures?league=39&season=2024", {
+            method: "GET",
+             headers: {
+                "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+                "x-rapidapi-host": "v3.football.api-sports.io",
             }
-            catch (error) {
-                console.error("error:", error)
-            }
-        };
-        fetchEngland();
-    }, []
+        })
+.then((response)=> response.json()) 
+.then((json)=>{
 
-    )
+    setMatchsEngland(json.response)
 
-    useEffect(() => {
-        const fetchSpain = () => {
+})      
+        
+       }
+       catch (error){
+        console.error("error:", error)
+       }};
+       fetchEngland();}, []
+
+       )
+
+       useEffect(()=> {
+        const fetchSpain = ()=>{
             try {
-                fetch("https://v3.football.api-sports.io/fixtures?league=140&season=2024", {
-                    method: "GET",
-                    headers: {
-                        "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-                        "x-rapidapi-host": "v3.football.api-sports.io",
-                    }
-                })
-                    .then((response) => response.json())
-                    .then((json) => {
-
-                        setMatchsSpain(json.response)
-
-                    })
-
+                 fetch("https://v3.football.api-sports.io/fixtures?league=140&season=2024", {
+            method: "GET",
+             headers: {
+                "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+                "x-rapidapi-host": "v3.football.api-sports.io",
             }
-            catch (error) {
-                console.error("error:", error)
-            }
-        };
-        fetchSpain();
-    }, []
+        })
+.then((response)=> response.json()) 
+.then((json)=>{
 
-    )
+    setMatchsSpain(json.response)
 
-    useEffect(() => {
-        const fetchGer = () => {
+})      
+        
+       }
+       catch (error){
+        console.error("error:", error)
+       }};
+       fetchSpain();}, []
+
+       )
+
+       useEffect(()=> {
+        const fetchGer= ()=>{
             try {
-                fetch("https://v3.football.api-sports.io/fixtures?league=2&season=2024", {
-                    method: "GET",
-                    headers: {
-                        "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-                        "x-rapidapi-host": "v3.football.api-sports.io",
-                    }
-                })
-                    .then((response) => response.json())
-                    .then((json) => {
-
-                        setMatchsGer(json.response)
-
-                    })
-
+                 fetch("https://v3.football.api-sports.io/fixtures?league=78&season=2024", {
+            method: "GET",
+             headers: {
+                "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+                "x-rapidapi-host": "v3.football.api-sports.io",
             }
-            catch (error) {
-                console.error("error:", error)
-            }
-        };
-        fetchGer();
-    }, []
+        })
+.then((response)=> response.json()) 
+.then((json)=>{
 
-    )
+    setMatchsGer(json.response)
 
-    useEffect(() => {
-        const fetchItaly = () => {
+})      
+        
+       }
+       catch (error){
+        console.error("error:", error)
+       }};
+       fetchGer();}, []
+
+       )
+
+       useEffect(()=> {
+        const fetchItaly= ()=>{
             try {
-                fetch("https://v3.football.api-sports.io/fixtures?league=2&season=2024", {
-                    method: "GET",
-                    headers: {
-                        "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-                        "x-rapidapi-host": "v3.football.api-sports.io",
-                    }
-                })
-                    .then((response) => response.json())
-                    .then((json) => {
-
-                        setMatchsItaly(json.response)
-
-                    })
-
+                 fetch("https://v3.football.api-sports.io/fixtures?league=135&season=2024", {
+            method: "GET",
+             headers: {
+                "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+                "x-rapidapi-host": "v3.football.api-sports.io",
             }
-            catch (error) {
-                console.error("error:", error)
-            }
-        };
-        fetchItaly();
-    }, []
+        })
+.then((response)=> response.json()) 
+.then((json)=>{
 
-    )
+    setMatchsItaly(json.response)
 
-    if (!matchsEngland || !matchsSpain || !matchsFrance || !matchsUcl || !matchsGer || !matchsItaly) {
-        return <Text>Loading...</Text>;
+})      
+        
+       }
+       catch (error){
+        console.error("error:", error)
+       }};
+       fetchItaly();}, []
+
+       )
+
+       if (matchsEngland.length === 0 || matchsSpain.length === 0 || matchsFrance.length === 0 || matchsUcl.length === 0 || matchsGer.length === 0 || matchsItaly.length === 0) {
+        return <Text>Loading...</Text>
     }
-
-    // Fusion des matchs des différentes ligues
-    const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly];
+       const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly]
 
     const today = new Date().toISOString().slice(0, 10); // Date du jour au format YYYY-MM-DD
 console.log(today)
@@ -202,32 +195,38 @@ console.log(today)
     };
 
     return (
-        <View style={styles.today}>
-            <LinearGradient colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']} style={styles.titre}>
+<LinearGradient colors={[ "rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.today}>
+                <LinearGradient colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']} style={styles.titre}>
                 <Text style={styles.titreToday}>AUJOURDHUI</Text>
             </LinearGradient>
-            {todayMatch.length <= 0 ? (
-                <Text style={styles.nomatch}>Pas de match aujourd'hui</Text>
-            ) : (
+            
                 <ScrollView style={styles.liveTableau}>
                     {todayMatch.map((element) =>
                         element.fixture.status.long === 'Not Started' ? (
                             <TouchableOpacity
                                 key={element.fixture.id}
                                 style={styles.link}
-                                onPress={() => {/* Navigation vers la fiche du match */ }}
+                                onPress={() => { navigation.navigate("FicheMatch", {id: element.fixture.id}) }}
                             >
                                 <View style={styles.liveMatch}>
-                                    <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} />
-                                    <Text style={styles.matchEquipeDom}>{element.teams.home.name}</Text>
+                                {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
+          source={ligue1}
+          style={styles.matchCompetition}
+          resizeMode="contain"
+        /> :
+        <Image
+          source={{ uri: element.league.logo }}
+          style={styles.matchCompetition}
+          resizeMode="contain"
+        />}                                    <Text style={styles.matchEquipeDom}>{element.teams.home.name}</Text>
                                     <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
-
+                                    <Text style={{marginInline: 4}}>-</Text>
+                                    <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
+                                    <Text style={styles.matchEquipeExt}>{element.teams.away.name}</Text>
                                     <View style={styles.rdv}>
                                         <Text style={{ fontFamily: "Kanitalic", fontSize: 11 }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
                                         <Text style={{ fontFamily: "Kanitalic", fontSize: 11 }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
                                     </View>
-                                    <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
-                                    <Text style={styles.matchEquipeExt}>{element.teams.away.name}</Text>
                                 </View>
                             </TouchableOpacity>
                         ) : (
@@ -235,8 +234,8 @@ console.log(today)
                         )
                     )}
                 </ScrollView>
-            )}
-        </View>
+            
+        </LinearGradient>
     );
 };
 
@@ -244,16 +243,17 @@ const styles = StyleSheet.create({
     today: {
         flex: 1,
         alignItems: 'center',
-        padding: 20,
+        padding: 2,
         borderRadius: 15,
         width: "100%",
         marginTop: 20,
-        backgroundColor: "#b0c4de",
+        backgroundColor: "steelblue"
 
     },
     titre: {
         width: 150,
         borderRadius: 10,
+        marginBlock: 10
     },
     titreToday: {
         color: 'white',
@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
     },
     matchCompetition: {
         height: 35,
-        width: "8%",
+        width: "6%",
         objectFit: 'contain',
     },
     matchEquipeDom: {

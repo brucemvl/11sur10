@@ -63,8 +63,6 @@ Match.propTypes = {
   equipeExt: PropTypes.string.isRequired,
   logoDom: PropTypes.string.isRequired,
   logoExt: PropTypes.string.isRequired,
-  scoreDom: PropTypes.number.isRequired,
-  scoreExt: PropTypes.number.isRequired,
   id: PropTypes.number.isRequired,
   date: PropTypes.string.isRequired,
 };

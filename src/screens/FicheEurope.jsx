@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import TableauEurope from '../components/TableauEurope';  // Assurez-vous que Tableau est compatible avec React Native
 import Classement from '../components/Classement';  // Idem pour ClassementChampionnat
 import { useState } from 'react';
+import Precedent from '../components/Precedent';
 
 function FicheEurope({ route }) {
     const { id } = route.params;  // Récupère l'ID du championnat depuis les paramètres de navigation
@@ -12,6 +13,7 @@ function FicheEurope({ route }) {
 
     return (
         <ScrollView contentContainerStyle={styles.blocChamp}>
+            <Precedent />
             {/* Passer l'ID du championnat et la fonction setFilter aux composants */}
             <TableauEurope id={id} setFilter={setFilter} filter={filter}/>
             <Classement id={id} />

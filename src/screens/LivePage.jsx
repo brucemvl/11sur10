@@ -101,6 +101,7 @@ function LivePage({ navigation }) {
           data={live}
           renderItem={renderItem}
           keyExtractor={(item) => item.fixture.id.toString()}
+          style={styles.live__tableau}
         />
       )}
     </View>
@@ -110,7 +111,7 @@ function LivePage({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    padding: 8,
     borderRadius: 15,
     backgroundColor: "#b0c4de",
     marginBottom: 0,
@@ -154,8 +155,7 @@ const styles = StyleSheet.create({
     
   },
   live__tableau: {
-    padding: '1%',
-    width: '98%',
+    borderRadius: 10
   },
   matchContainer: {
 flexDirection: "row",

@@ -7,6 +7,7 @@ import Evenements from '../components/Evenements.jsx';
 import subst from "../assets/sub.png";
 import redcard from "../assets/redcard.png";
 import Affiche from '../components/Affiche.jsx';
+import Precedent from '../components/Precedent.jsx';
 
 const FicheMatch = () => {
     const [match, setMatch] = useState(null);
@@ -152,6 +153,7 @@ if (!compoDom || !compoExt) {
 
     return (
         <ScrollView contentContainerStyle={styles.bloc}>
+            <Precedent />
             <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt}/>
             <View style={styles.section}>
                 {/* Your existing JSX */}
