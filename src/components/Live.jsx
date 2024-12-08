@@ -203,9 +203,10 @@ flexDirection: "row",
   },
   teamLogo: {
     height: 30,
-    width: 25,
+    width: 30,
     objectFit: 'contain',
-    alignItems: "center"
+    alignItems: "center",
+    marginInline: 5
   },
   teamName: {
     fontSize: 12,
@@ -213,7 +214,7 @@ flexDirection: "row",
   },
   scoreContainer: {
     alignItems: 'center',
-    width: "20%",
+    width: "22%",
     marginInline: 1
   },
   liveSticker: {

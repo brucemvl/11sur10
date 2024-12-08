@@ -13,24 +13,38 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.onzesur10.app",
+      "supportsTablet": true,
+      "buildNumber": "1"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+        "package": "com.onzesur10.app",
+        "versionCode": 1
+      
+      
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
     },
     "plugins": [
       [
-      "expo-font", {
-        "fonts": ["./src/assets/fonts/Kanit/Kanit-Black.ttf",
-                  "./src/assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf"]
+        "expo-font",
+        {
+          "fonts": [
+            "./src/assets/fonts/Kanit/Kanit-Black.ttf",
+            "./src/assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf"
+          ]
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "d459ac30-203a-4346-86f2-2b4cb8813c67"
       }
-    ]
-    ]
+    }
   }
 }

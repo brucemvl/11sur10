@@ -114,7 +114,7 @@ fontFamily: "Kanito"
   },
   winner: {
     fontSize: 16,
-    backgroundColor: 'green',
+    backgroundColor: '#32b642',
     color: "white",
     height: 25,
     width: 20,

@@ -148,7 +148,7 @@ export const europe = [
 ]
 
 export const selections = [
-    {
+   /* {
         "id": 20,
         "name": "CAF Confederations Cup",
         "logo": "https://media.api-sports.io/football/leagues/20.png",
@@ -175,7 +175,7 @@ export const selections = [
                 "logo": "https://media.api-sports.io/football/leagues/30.png",
                 "season": 2026,
                 },
-
+*/
                 {
                     "id": 5,
                     "name": "UEFA Nations League",

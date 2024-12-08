@@ -3,6 +3,7 @@ import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'rea
 import { LinearGradient } from 'expo-linear-gradient';
 import ligue1 from "../assets/logoligue1.webp"
 import { useNavigation } from '@react-navigation/native';
+import Match from './Match';
 
 function Aujourdhui(){
 
@@ -174,6 +175,8 @@ const [matchsItaly, setMatchsItaly] = useState([]);
     }
        const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly]
 
+       
+
     const today = new Date().toISOString().slice(0, 10); // Date du jour au format YYYY-MM-DD
 console.log(today)
 
@@ -181,6 +184,9 @@ console.log(today)
         const matchDate = match.fixture.date.slice(0, 10);
         return matchDate === today;
     });
+
+    const leagues = [... new Set(todayMatch.map((element)=> element.league.name))]
+       console.log(leagues)
 
     console.log(todayMatch)
     const formatDateAndTime = (dateString) => {
@@ -201,6 +207,7 @@ console.log(today)
             </LinearGradient>
             
                 <ScrollView style={styles.liveTableau}>
+                    
                     {todayMatch.map((element) =>
                         element.fixture.status.long === 'Not Started' ? (
                             <TouchableOpacity
@@ -224,14 +231,49 @@ console.log(today)
                                     <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
                                     <Text style={styles.matchEquipeExt}>{element.teams.away.name}</Text>
                                     <View style={styles.rdv}>
-                                        <Text style={{ fontFamily: "Kanitalic", fontSize: 11 }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
-                                        <Text style={{ fontFamily: "Kanitalic", fontSize: 11 }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
+                                        <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
+                                        <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
                                     </View>
                                 </View>
                             </TouchableOpacity>
-                        ) : (
-                            null
-                        )
+                        ) : element.fixture.status.long === 'Match Finished' ? 
+                     <TouchableOpacity
+      style={styles.link}
+      onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}  // Naviguer vers la fiche du match
+    >
+        <View style={styles.liveMatch}>
+
+{element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
+          source={ligue1}
+          style={styles.matchCompetition}
+          resizeMode="contain"
+        /> :
+        <Image
+          source={{ uri: element.league.logo }}
+          style={styles.matchCompetition}
+          resizeMode="contain"
+        />} 
+
+      <Text style={styles.matchEquipeDom}>{element.teams.home.name}</Text>
+      <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
+
+      {element.goals.home === element.goals.away ? (
+        <View style={styles.matchScore}>
+          <Text style={styles.nul}>{element.goals.home === null ? "-" : element.goals.home}</Text>
+          <Text style={styles.nul}>{element.goals.away === null ? "-" : element.goals.away}</Text>
+        </View>
+      ) : (
+        <View style={styles.matchScore}>
+          <Text style={element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text>
+          <Text style={element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text>
+        </View>
+      )}
+
+      <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
+      <Text style={styles.matchEquipeExt}>{element.teams.away.name}</Text>
+      </View>
+      </TouchableOpacity>
+       : null
                     )}
                 </ScrollView>
             
@@ -307,7 +349,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         fontSize: 12,
-        width: "10%"
+        width: "10%",
+        backgroundColor: "black",
+        borderRadius: 5
+
     },
     matchLogoExt: {
         height: 40,
@@ -321,6 +366,44 @@ const styles = StyleSheet.create({
         textAlign: "center"
 
     },
+    nul: {
+        fontSize: 16,
+        backgroundColor: 'gray',
+        color: "white",
+        height: 25,
+        width: 20,
+        borderRadius: 5,
+        textAlign: "center",
+        fontFamily: "Kanito"
+    
+      },
+      winner: {
+        fontSize: 16,
+        backgroundColor: '#32b642',
+        color: "white",
+        height: 25,
+        width: 20,
+        borderRadius: 5,
+        textAlign: "center",
+        fontFamily: "Kanito"
+    
+      },
+      looser: {
+        fontSize: 16,
+        backgroundColor: 'red',
+        color: "white",
+        height: 25,
+        width: 20,
+        borderRadius: 5,
+    textAlign: "center",
+    fontFamily: "Kanito"
+    
+      },
+      matchScore: {
+        flexDirection: "row",
+        width: "15%",
+        justifyContent: "space-around"
+      }
 });
 
 export default Aujourdhui;

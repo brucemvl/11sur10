@@ -182,7 +182,7 @@ function Classement({ id }) {
       </LinearGradient>
       <Animated.View style={[ styles.content, { height: heightClassement.interpolate({
             inputRange: [0, 1],
-            outputRange: [0, 1000]  // Ajustez la hauteur en fonction du contenu
+            outputRange: [0, 980]  // Ajustez la hauteur en fonction du contenu
           }) }]}>
           <View style={styles.barre}>
             <Text style={{width: "10%", color: "white"}}>Rang</Text>
