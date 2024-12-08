@@ -207,8 +207,9 @@ console.log(today)
             </LinearGradient>
             
                 <ScrollView style={styles.liveTableau}>
-                    
-                    {todayMatch.map((element) =>
+                    {leagues.map((league)=> <View style={{marginBlock: 5}}>
+                        <Text style={{color: "white", fontFamily: "Kanitus"}}>{league}</Text>
+                    {todayMatch.map((element) => element.league.name === league ? 
                         element.fixture.status.long === 'Not Started' ? (
                             <TouchableOpacity
                                 key={element.fixture.id}
@@ -274,7 +275,10 @@ console.log(today)
       </View>
       </TouchableOpacity>
        : null
+       : null
                     )}
+                    </View>)
+                }
                 </ScrollView>
             
         </LinearGradient>
