@@ -13,7 +13,7 @@ function Menu(){
 
     return(
     <View style={styles.Menu}>
-        <TouchableOpacity onPress={()=> navigation.navigate("Home")} style={styles.button}>
+        <TouchableOpacity onPress={()=> navigation.navigate("Home")} style={styles.buttonLeft}>
         <View style={{alignItems: "center", gap: 5}}>
             <Text style={styles.text}>Accueil</Text>
             <Image source={home} style={styles.img} />
@@ -34,7 +34,7 @@ function Menu(){
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={()=> navigation.navigate("Selections")} style={styles.button}>
+        <TouchableOpacity onPress={()=> navigation.navigate("Selections")} style={styles.buttonRight}>
         <View style={{alignItems: "center", gap: 5}}>
             <Text style={styles.text}>Selections</Text>
             <Image source={flag} style={styles.img} />
@@ -59,6 +59,16 @@ const styles = StyleSheet.create({
     button: {
         borderRightWidth: 1,
         borderRightColor: "white",
+        borderLeftWidth: 1,
+        borderLeftColor: "white",
+        width: "25%"
+    },
+    buttonLeft:{
+        borderRightWidth: 1,
+        borderRightColor: "white",
+        width: "25%"
+    },
+    buttonRight: {
         borderLeftWidth: 1,
         borderLeftColor: "white",
         width: "25%"

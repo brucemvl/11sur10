@@ -29,7 +29,7 @@ function Filtres() {
             {/* Section Championnats */}
             <LinearGradient colors={[ "rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.conteneur}>
                 <LinearGradient colors={[ 'rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']} style={styles.title}>
-                    <Text style={styles.titleText}>Championnats</Text>
+                    <Text style={styles.titleText}>CHAMPIONNATS</Text>
                 </LinearGradient>
                 <View style={styles.filtres}>
                     {championnats.map(({ name, id, logo }) => (
@@ -50,7 +50,7 @@ function Filtres() {
             {/* Section Compétitions Européennes */}
             <LinearGradient colors={[ "rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.conteneur}>
             <LinearGradient colors={[ 'rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']} style={styles.title}>
-                    <Text style={styles.titleText}>Compétitions Européennes</Text>
+                    <Text style={styles.titleText}>COMPETITIONS EUROPEENNES</Text>
                 </LinearGradient>
                 <View style={styles.filtres}>
                     {europe.map(({ name, id, logo }) => (
@@ -92,13 +92,11 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         alignItems: 'center',
         justifyContent: 'center',
-        marginVertical: 20,
-        width: '75%',
+        marginVertical: 10,
         alignSelf: 'center',
         backgroundColor: "midnightblue",
       },
     titleText: {
-        fontSize: 18,
         color: 'white',
         fontFamily: "Kanitt",
 
