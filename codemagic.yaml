@@ -7,7 +7,7 @@ workflows:
       - name: Install dependencies
         script: |
           yarn install
-          npx pod-install ios
+          cd ios && pod install && cd ..
       - name: Build the app
         script: |
           npx react-native run-ios --configuration Release
