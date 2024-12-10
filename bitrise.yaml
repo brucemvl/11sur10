@@ -1,0 +1,20 @@
+workflows:
+  primary:
+    steps:
+      - git-clone: {}
+      - script:
+          title: "Download IPA"
+          inputs:
+            - content: |
+                #!/bin/bash
+                curl -L -o "/tmp/your_app.ipa" "https://expo.dev/artifacts/eas/fTUECCRaEw4JWLC6jMu5Ky.ipa"
+      - deploy-to-itunesconnect-deliver:
+          inputs:
+            app_identifier: "com.example.yourapp"
+            ipa_path: "/tmp/your_app.ipa"
+            username: "$APPLE_ID_USERNAME"
+            password: "$APPLE_ID_PASSWORD"
+            team_id: "$APPLE_TEAM_ID"
+            skip_submission: false
+            skip_metadata: false
+            skip_screenshots: false
