@@ -1,10 +1,8 @@
 workflows:
   react_native_ios:
     name: Build and deploy to iOS
-    type: ios
-    description: Build an iOS app using Codemagic
-    platform: ios
-    sdk: iOS 14.4
+    environment:
+      xcode: latest
     scripts:
       - name: Install dependencies
         script: |
@@ -19,10 +17,8 @@ workflows:
 
   react_native_android:
     name: Build Android app
-    type: android
-    description: Build an Android app using Codemagic
-    platform: android
-    sdk: Android API 30
+    environment:
+      android: latest
     scripts:
       - name: Install dependencies
         script: |
