@@ -82,6 +82,7 @@ function Tableau({ id, index, setFilter, filter }) {
     return <Text>Loading...</Text>; // Attendre que les polices et les données soient chargées
   }
 
+ 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Calendrier et Résultats</Text>

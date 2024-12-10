@@ -17,5 +17,19 @@
   },
   "submit": {
     "production": {}
-  }
+  },
+  
+    "builds": {
+      "ios": {
+        "release": {
+          "workflow": "managed"
+        }
+      },
+      "android": {
+        "release": {
+          "workflow": "managed"
+        }
+      }
+    }
+  
 }
