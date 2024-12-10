@@ -6,7 +6,7 @@ workflows:
     scripts:
       - name: Install dependencies
         script: |
-          npm install
+          yarn install
           npx pod-install ios
       - name: Build the app
         script: |
