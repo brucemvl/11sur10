@@ -1,0 +1,32 @@
+workflows:
+  react_native_ios:
+    name: Build and deploy to iOS
+    type: ios
+    description: Build an iOS app using Codemagic
+    platform: ios
+    sdk: iOS 14.4
+    scripts:
+      - name: Install dependencies
+        script: |
+          npm install
+          npx pod-install ios
+      - name: Build the app
+        script: |
+          npx react-native run-ios --configuration Release
+      - name: Archive and upload to App Store
+        script: |
+          xcrun altool --upload-app --type ios --file build/ios/YourApp.ipa --username "YOUR_APPLE_ID" --password "YOUR_APP_SPECIFIC_PASSWORD"
+
+  react_native_android:
+    name: Build Android app
+    type: android
+    description: Build an Android app using Codemagic
+    platform: android
+    sdk: Android API 30
+    scripts:
+      - name: Install dependencies
+        script: |
+          npm install
+      - name: Build the app
+        script: |
+          npx react-native run-android --variant=release
