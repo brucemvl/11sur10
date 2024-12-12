@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
 width: 95,
 alignSelf: "flex-start",
 marginBottom: 10,
-marginLeft: 5
+marginLeft: 5,
+height: 40
     },
     text: {
         color: "white",

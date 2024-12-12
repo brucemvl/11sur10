@@ -301,7 +301,8 @@ overflow: "hidden",
     padding: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
-    width: "100%"
+    width: "100%",
+    height: 48
   },
   logo: {
     width: "6%",

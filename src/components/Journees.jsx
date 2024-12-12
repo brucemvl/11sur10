@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   buttonText: {
-    fontSize: 28,
+    fontSize: 38,
     color: "black",
   },
   headInfo: {

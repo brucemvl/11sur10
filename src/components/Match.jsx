@@ -74,7 +74,8 @@ const styles = StyleSheet.create({
     paddingBlock: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#ddd',
-    width: "100%"
+    width: "100%",
+    height: 50
   },
   dateheure: {
     flex: 1,

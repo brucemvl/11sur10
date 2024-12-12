@@ -89,10 +89,10 @@ const styles = StyleSheet.create({
 backgroundColor: "midnightblue",
 padding: 20,
 marginBottom: 40,
-borderRadius: 15
+borderRadius: 15,
   },
   input: {
-    height: 40,
+    height: 48,
     borderColor: 'gray',
     borderWidth: 1,
     marginBottom: 20,
