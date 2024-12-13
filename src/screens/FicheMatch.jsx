@@ -61,6 +61,7 @@ const FicheMatch = () => {
             .then((result) => {
                 if (result.response && result.response[0]) {
                     setMatch(result.response[0]);
+                    console.log(result.response[0])
                 }
             })
             .catch((error) => { 
@@ -128,15 +129,29 @@ const coachDom = compoDom ? compoDom.coach?.name : 'Unknown'; // Utilisation de 
 const coachExt = compoExt ? compoExt.coach?.name : 'Unknown'; 
 
 if (!compoDom || !compoExt) {
-    return <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt}/>;
+    return (
+    <ScrollView contentContainerStyle={styles.bloc}>
+    <Precedent />
+    <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt}/>
+    </ScrollView>
+    )
 }
     
     const systemeDom = compoDom.formation
     const systemeExt = compoExt.formation
+
+    if (match.players.length === 0) {
+        return (
+            <ScrollView contentContainerStyle={styles.bloc}>
+            <Precedent />
+            <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt}/>
+            </ScrollView>
+            )
+    }
     
     
-    const tituDom = match.players[0].players.slice(0, 11)
-    const tituExt = match.players[1].players.slice(0, 11)
+    const tituDom = match.players && match.players[0].players.slice(0, 11)
+    const tituExt = match.players && match.players[1].players.slice(0, 11)
     
     const substituteDom = match.players[0].players.slice(11, match.players[0].players.length)
     const substituteExt = match.players[1].players.slice(11, match.players[1].players.length)
@@ -150,6 +165,7 @@ if (!compoDom || !compoExt) {
     
     
     console.log(tituDom)
+    console.log(match)
 
     return (
         <ScrollView contentContainerStyle={styles.bloc}>

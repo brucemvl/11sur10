@@ -60,6 +60,10 @@ function Banner(){
         return () => clearInterval(interval);
       }, []);
 
+      if (!fontsLoaded) {
+        return <Text>Loading...</Text>;  // Attendre que les polices et les données soient chargées
+      }
+
     return(
 
 <View style={styles.banner}>

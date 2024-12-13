@@ -12,6 +12,7 @@ import shoe from "../assets/shoe.png"
 import rating from "../assets/rating.png"
 import yellow from "../assets/yellow.png"
 import Precedent from '../components/Precedent';
+import ligue1 from "../assets/logoligue1.webp"
 
 
 function FicheJoueur() {
@@ -215,7 +216,7 @@ function FicheJoueur() {
                     <Text style={{fontFamily: "Kanito", fontSize: 16}}>Cartons Rouge: {element.cards.red}</Text>
                     </View>
                   </View>
-                  <Image source={{ uri: element.league.logo }} style={styles.logoCompet} />
+                  {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image source={ligue1} style={styles.logoCompet} /> : <Image source={{ uri: element.league.logo }} style={styles.logoCompet} />} 
                   </View>
                 </View>
               )}

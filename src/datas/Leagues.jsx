@@ -3,7 +3,7 @@ export const championnats = [
         "id": 61,
         "name": "Ligue 1",
         "country": "France",
-        "logo": "https://th.bing.com/th/id/OIP.Bib34Bld-Pu3Lyz4YlLvngHaEJ?pid=ImgDet&w=168&h=112&c=7&dpr=1,3",
+        "logo": "https://media.api-sports.io/football/leagues/61.png",
         "flag": "https://media.api-sports.io/flags/fr.svg",
         "season": 2024,
         "API": "https://v3.football.api-sports.io/fixtures?league=61&season=2024"

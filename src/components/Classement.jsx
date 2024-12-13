@@ -144,6 +144,7 @@ function Classement({ id }) {
   );
 
   const renderButeursItem = ({ item }) => (
+    item.player.name === "Juninho" ? "" :
     <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: item.player.id })}>
       <View style={styles.item}>
         <Text style={{fontFamily: "Kanito", width: "45%"}}>{item.player.name}</Text>
@@ -153,6 +154,7 @@ function Classement({ id }) {
 
       </View>
     </TouchableOpacity>
+    
   );
 
   const renderPasseursItem = ({ item }) => (
