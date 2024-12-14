@@ -148,7 +148,7 @@ function FicheJoueur() {
           }) }]}>
           {trophiesArray.map((element, index) => (
             <View key={index}>
-              <Text style={{fontFamily: "Kanito", marginInline: 10}}>{element.trophies.length}x {element.league}</Text>
+              <Text style={{fontFamily: "Kanito", marginInline: 10}}>{element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league}</Text>
             </View>
           ))}
         </Animated.View> : palmares.length < 10 ? <Animated.View style={[styles.palmaresInfos, { height: heightAnim.interpolate({
@@ -157,7 +157,7 @@ function FicheJoueur() {
           }) }]}>
           {trophiesArray.map((element, index) => (
             <View key={index}>
-              <Text style={{fontFamily: "Kanito", marginInline: 10}}>{element.trophies.length}x {element.league}</Text>
+              <Text style={{fontFamily: "Kanito", marginInline: 10}}>{element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league}</Text>
             </View>
           ))}
         </Animated.View> : <Animated.View style={[styles.palmaresInfos, { height: heightAnim.interpolate({
@@ -166,7 +166,7 @@ function FicheJoueur() {
           }) }]}>
           {trophiesArray.map((element, index) => (
             <View key={index}>
-              <Text style={{fontFamily: "Kanito", marginInline: 10}}>{element.trophies.length}x {element.league}</Text>
+              <Text style={{fontFamily: "Kanito", marginInline: 10}}>{element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league}</Text>
             </View>
           ))}
         </Animated.View>}
@@ -197,7 +197,7 @@ function FicheJoueur() {
                     </View>
                     <View style={styles.ligne}>
                     <Image source={shoot} style={styles.icone} />
-                    <Text style={{fontFamily: "Kanito", fontSize: 16}}>Tirs (cadrés): {element.shots.total} ({element.shots.on})</Text>
+                    <Text style={{fontFamily: "Kanito", fontSize: 16}}>Tirs (cadrés): {element.shots.total} ({element.shots.on === null ? 0 : element.shots.on})</Text>
                     </View>
                     <View style={styles.ligne}>
                     <Image source={shoe} style={styles.icone} />
@@ -208,7 +208,7 @@ function FicheJoueur() {
                     <Text style={{fontFamily: "Kanito", fontSize: 16}}>Note moyenne: {element.games.rating ? element.games.rating.slice(0, 4) : ""}</Text>
                     </View>
                     <View style={styles.ligne}>
-                    <Image source={yellow} style={styles.icone} />
+                    <Image source={yellow} style={{height: 25, width: 25, marginRight: 8, shadowColor: "black", shadowOffset: {width: -1, height: 0}, shadowOpacity: 0.9}} />
                     <Text style={{fontFamily: "Kanito", fontSize: 16}}>Cartons jaune: {element.cards.yellow}</Text>
                     </View>
                     <View style={styles.ligne}>

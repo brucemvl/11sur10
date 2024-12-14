@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import ligue1 from "../assets/logoligue1.webp"
 
 function LivePage({ navigation }) {
   const [live, setLive] = useState([]);
@@ -33,11 +34,16 @@ function LivePage({ navigation }) {
       onPress={() => navigation.navigate('FicheMatch', { id: item.fixture.id })}
     >
       <View style={styles.match}>
+        {item.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
+          source={ligue1}
+          style={styles.competitionLogo}
+          resizeMode="contain"
+        /> :
         <Image
           source={{ uri: item.league.logo }}
           style={styles.competitionLogo}
           resizeMode="contain"
-        />
+        />}
         <View style={styles.teamContainerDom}>
           <Image
             source={{ uri: item.teams.home.logo }}
@@ -50,9 +56,10 @@ function LivePage({ navigation }) {
           {item.goals.home === item.goals.away ? (
             <View style={styles.score}>
               <Text style={styles.scoreText}>{item.goals.home}</Text>
-              <Text style={styles.time}>
-                <Text>{item.fixture.status.elapsed}'</Text>
-              </Text>
+                <View style={styles.liveSticker}>
+                <Text style={styles.liveText}>{item.fixture.status.elapsed}'</Text>
+                <Text style={{color: "darkred", fontFamily: "Kanitalic", fontSize: 10}}>live</Text>
+                </View>
               <Text style={styles.scoreText}>{item.goals.away}</Text>
             </View>
           ) : (
@@ -64,9 +71,11 @@ function LivePage({ navigation }) {
               >
                 {item.goals.home}
               </Text>
-              <Text style={styles.time}>
-                <Text>{item.fixture.status.elapsed}'</Text>
-              </Text>
+              <View style={styles.liveSticker}>
+                <Text style={styles.liveText}>{item.fixture.status.elapsed}'</Text>
+                <Text style={{color: "darkred", fontFamily: "Kanitalic", fontSize: 10}}>live</Text>
+                </View>
+              
               <Text
                 style={
                   item.goals.away > item.goals.home ? styles.winner : styles.loser
@@ -86,7 +95,6 @@ function LivePage({ navigation }) {
           <Text style={styles.teamName}>{item.teams.away.name}</Text>
         </View>
       </View>
-      <Text style={styles.liveSticker}>Live</Text>
     </TouchableOpacity>
   );
 
@@ -142,7 +150,7 @@ const styles = StyleSheet.create({
     width: "100%"
   },
   noMatch: {
-    marginTop: 20,
+    marginBlock: 10,
     alignSelf: 'center',
     backgroundColor: 'red',
     color: 'white',
@@ -160,22 +168,21 @@ const styles = StyleSheet.create({
   matchContainer: {
 flexDirection: "row",
     overflow: 'hidden',
-    justifyItems: 'center',
     alignItems: 'center',
     backgroundColor: '#F4F0F0',
-    padding: 10,
+    paddingBlock: 10,
+    paddingInline: 1
   },
   competitionLogo: {
-    height: 40,
-    width: "8%",
+    height: 25,
+    width: 25,
     objectFit: 'contain',
   },
   teamContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: "32%",
-    justifyContent: "flex-start",
-    gap: 4,
+    width: "35%",
+    gap: 2,
     marginInline: 1
 
 
@@ -184,19 +191,19 @@ flexDirection: "row",
   teamContainerDom: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: "32%",
+    width: "33%",
     flexDirection: "row-reverse",
-    justifyContent: "flex-start",
-    gap: 4,
-    marginInline: 1
+    gap: 2,
+    marginInline: 1,
     
     
   },
   teamLogo: {
     height: 30,
-    width: "20%",
+    width: 30,
     objectFit: 'contain',
-    alignItems: "center"
+    alignItems: "center",
+    marginInline: 5
   },
   teamName: {
     fontSize: 12,
@@ -204,12 +211,27 @@ flexDirection: "row",
   },
   scoreContainer: {
     alignItems: 'center',
-    width: "18%",
+    width: "22%",
+    marginInline: 1
+  },
+  liveSticker: {
+    alignItems: "center",
+    marginInline: 5
+
+  },
+  liveText: {
+    color: "white",
+    fontFamily: "Kanitalic",
+    fontSize: 12,
+    backgroundColor: "darkred",
+    paddingInline: 4,
+    borderRadius: 5
+
+
   },
   score: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: "100%"
     
   },
   scoreText: {
@@ -224,17 +246,12 @@ flexDirection: "row",
     textAlign: "center",
     paddingTop: 4
   },
-  time: {
-    fontSize: 12,
-    marginHorizontal: 5,
-  },
   winner: {
     flex: 1,
     backgroundColor: '#32b642',
     color: 'white',
     borderRadius: 5,
     height: 30,
-    width: 20,
     fontFamily: "Kanito",
     alignItems: "center",
     textAlign: "center",
@@ -247,29 +264,10 @@ flexDirection: "row",
     color: 'white',
     borderRadius: 5,
     height: 30,
-    width: 20,
     fontFamily: "Kanito",
     alignItems: "center",
     textAlign: "center",
     paddingTop: 4
-  },
-  liveSticker: {
-    color: 'white',
-    backgroundColor: 'red',
-    fontFamily: 'Permanent',
-    transform: [
-        { rotate: '45deg' },
-        { translateX: -15 },
-      ],
-    fontSize: 12,
-    position: "relative",
-    right: 55,
-    height: 25,
-    paddingInline: 50,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "hidden",
   },
 });
 

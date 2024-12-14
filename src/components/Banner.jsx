@@ -72,7 +72,7 @@ function Banner(){
           style={[styles.bannerImage, isActive && styles.active]}
         />
         <View style={styles.bannerText}>
-          <Text style={{fontFamily: "Kanitt", color: "white", fontSize: 32,}}>100% FOOT</Text>
+          <Text style={styles.bannerTitle}>100% FOOT</Text>
           <Text style={styles.bannerSubtitle}>Toutes vos infos Football en un clic</Text>
         </View>
       </View>
@@ -83,7 +83,7 @@ function Banner(){
 const styles = StyleSheet.create({
 
 banner: {
-    height: 160,
+    height: 170,
     borderRadius: 15,
     width: "100%",
     position: "relative",
@@ -98,7 +98,7 @@ banner: {
     top: 0,
     left: 0,
     borderRadius: 15,
-    opacity: 0.6,
+    opacity: 0.7,
     filter: "brightness(0.5)", // Cette propriété n'est pas supportée en React Native
     transition: "opacity 0.2s ease-in-out", // Pas supporté en React Native
   },
@@ -116,7 +116,6 @@ banner: {
     justifyContent: "center",
     textAlign: "center",
     color: "white",
-    fontSize: 24,
     lineHeight: 0,
   },
 

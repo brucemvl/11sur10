@@ -5,11 +5,18 @@ import live from "../assets/live.png"
 import flag from "../assets/flag.png"
 import shield from "../assets/shield.png"
 import { useNavigation } from "@react-navigation/native"
+import { useFonts } from "expo-font"
 
 function Menu(){
 
     const navigation = useNavigation();
-
+    const [fontsLoaded] = useFonts({
+        "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
+        "Kanitus": require("../assets/fonts/Kanit/Kanit-Light.ttf"),
+      });
+      if (!fontsLoaded) {
+        return <Text>Loading...</Text>;  // Attendre que les polices et les données soient chargées
+      }
 
     return(
     <View style={styles.Menu}>

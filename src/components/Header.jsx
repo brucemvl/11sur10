@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity, Linking } from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient'; // Importation du dégradé
 import { useNavigation } from '@react-navigation/native';
-
+import { useFonts } from 'expo-font';
 import logo from '../assets/logoblanc.png';
 import insta from "../assets/insta.png"
 
@@ -11,11 +11,22 @@ function Header() {
   const screenWidth = Dimensions.get('window').width;
   const navigation = useNavigation()
 
+  const [fontsLoaded] = useFonts({
+    "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
+    "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
+    "Kanitus": require("../assets/fonts/Kanit/Kanit-Light.ttf"),
+    "Kanitalic": require("../assets/fonts/Kanit/Kanit-MediumItalic.ttf"),
+    "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf")
+  });
+
 
   const openExternalLink = (url) => {
     Linking.openURL(url).catch((err) => console.error("Error opening URL:", err));
   };
 
+  if (!fontsLoaded) {
+    return <Text>Loading...</Text>;  // Attendre que les polices et les données soient chargées
+  }
   return (
     <LinearGradient
       colors={['rgba(100, 160, 236, 1)', 'rgba(24, 24, 91, 1)', 'rgba(0, 0, 0, 1)']}
@@ -46,10 +57,6 @@ const styles = StyleSheet.create({
   logo: {
     width: 100, 
     height: 100, 
-    borderBottomColor: "white",
-    borderBottomWidth: 5,
-    borderTopColor: "white",
-    borderTopWidth: 5,
     marginInline: 8, 
     resizeMode: "contain",
     marginTop: 10

@@ -21,9 +21,12 @@ function Filtres() {
     // Utilisation du hook useWindowDimensions pour obtenir les dimensions de l'écran
     const { width } = useWindowDimensions();
 
-    // Déterminez la taille de l'écran pour ajuster les styles
     const isSmallScreen = width <= 767;
     const isMediumScreen = width <= 1024 && width > 767;
+
+    if (!fontsLoaded) {
+        return <Text>Loading...</Text>;
+      }
 
     return (
         <ScrollView contentContainerStyle={styles.competitions}>

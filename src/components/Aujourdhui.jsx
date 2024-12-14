@@ -216,7 +216,7 @@ console.log(today)
                                 style={styles.link}
                                 onPress={() => { navigation.navigate("FicheMatch", {id: element.fixture.id}) }}
                             >
-                                <View style={styles.liveMatch}>
+                                <View style={styles.match}>
                                 {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
           source={ligue1}
           style={styles.matchCompetition}
@@ -226,23 +226,89 @@ console.log(today)
           source={{ uri: element.league.logo }}
           style={styles.matchCompetition}
           resizeMode="contain"
-        />}                                    <Text style={styles.matchEquipeDom}>{element.teams.home.name}</Text>
+        />}                                    <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name}</Text>
                                     <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
                                     <Text style={{marginInline: 4}}>-</Text>
                                     <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
-                                    <Text style={styles.matchEquipeExt}>{element.teams.away.name}</Text>
+                                    <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name}</Text>
                                     <View style={styles.rdv}>
                                         <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
                                         <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
                                     </View>
                                 </View>
                             </TouchableOpacity>
-                        ) : element.fixture.status.long === 'Match Finished' ? 
+                        ) : element.fixture.status.long != 'Match Finished' && element.fixture.status.elapsed != null ? <TouchableOpacity
+                        style={styles.link}
+                        onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}
+                      >
+                        <View style={styles.match}>
+                          {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
+                            source={ligue1}
+                            style={styles.competitionLogo}
+                            resizeMode="contain"
+                          /> :
+                          <Image
+                            source={{ uri: element.league.logo }}
+                            style={styles.competitionLogo}
+                            resizeMode="contain"
+                          />}
+                          <View style={styles.teamContainerDom}>
+                            <Image
+                              source={{ uri: element.teams.home.logo }}
+                              style={styles.teamLogo}
+                              resizeMode="contain"
+                            />
+                            <Text style={styles.teamName}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name}</Text>
+                          </View>
+                          <View style={styles.scoreContainer}>
+                            {element.goals.home === element.goals.away ? (
+                              <View style={styles.score}>
+                                <Text style={styles.scoreText}>{element.goals.home}</Text>
+                                  <View style={styles.liveSticker}>
+                                  <Text style={styles.liveText}>{element.fixture.status.elapsed}'</Text>
+                                  <Text style={{color: "darkred", fontFamily: "Kanitalic", fontSize: 10}}>live</Text>
+                                  </View>
+                                <Text style={styles.scoreText}>{element.goals.away}</Text>
+                              </View>
+                            ) : (
+                              <View style={styles.score}>
+                                <Text
+                                  style={
+                                    element.goals.home > element.goals.away ? styles.winner : styles.looser
+                                  }
+                                >
+                                  {element.goals.home}
+                                </Text>
+                                <View style={styles.liveSticker}>
+                                  <Text style={styles.liveText}>{element.fixture.status.elapsed}'</Text>
+                                  <Text style={{color: "darkred", fontFamily: "Kanitalic", fontSize: 10}}>live</Text>
+                                  </View>
+                                
+                                <Text
+                                  style={
+                                    element.goals.away > element.goals.home ? styles.winner : styles.looser
+                                  }
+                                >
+                                  {element.goals.away}
+                                </Text>
+                              </View>
+                            )}
+                          </View>
+                          <View style={styles.teamContainer}>
+                            <Image
+                              source={{ uri: element.teams.away.logo }}
+                              style={styles.teamLogo}
+                              resizeMode="contain"
+                            />
+                            <Text style={styles.teamName}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name}</Text>
+                          </View>
+                        </View>
+                      </TouchableOpacity>  : element.fixture.status.long === 'Match Finished' ? 
                      <TouchableOpacity
       style={styles.link}
       onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}  // Naviguer vers la fiche du match
     >
-        <View style={styles.liveMatch}>
+        <View style={styles.match}>
 
 {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
           source={ligue1}
@@ -255,7 +321,7 @@ console.log(today)
           resizeMode="contain"
         />} 
 
-      <Text style={styles.matchEquipeDom}>{element.teams.home.name}</Text>
+      <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name}</Text>
       <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
 
       {element.goals.home === element.goals.away ? (
@@ -271,7 +337,7 @@ console.log(today)
       )}
 
       <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
-      <Text style={styles.matchEquipeExt}>{element.teams.away.name}</Text>
+      <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name}</Text>
       </View>
       </TouchableOpacity>
        : null
@@ -322,15 +388,6 @@ const styles = StyleSheet.create({
         width: '98%',
     },
 
-    liveMatch: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: "aliceblue",
-        borderRadius: 10,
-        paddingBlock: 10,
-        marginVertical: 5,
-    },
     matchCompetition: {
         height: 35,
         width: "6%",
@@ -371,43 +428,123 @@ const styles = StyleSheet.create({
 
     },
     nul: {
-        fontSize: 16,
         backgroundColor: 'gray',
         color: "white",
-        height: 25,
-        width: 20,
+        height: 30,
+        width: 25,
         borderRadius: 5,
         textAlign: "center",
-        fontFamily: "Kanito"
-    
+        fontFamily: "Kanito",
+paddingTop: 4    
       },
       winner: {
-        fontSize: 16,
         backgroundColor: '#32b642',
         color: "white",
-        height: 25,
-        width: 20,
+        height: 30,
+        width: 25,
         borderRadius: 5,
         textAlign: "center",
-        fontFamily: "Kanito"
+        fontFamily: "Kanito",
+        paddingTop: 4
     
       },
       looser: {
-        fontSize: 16,
         backgroundColor: 'red',
         color: "white",
-        height: 25,
-        width: 20,
+        height: 30,
+        width: 25,
         borderRadius: 5,
     textAlign: "center",
-    fontFamily: "Kanito"
+    fontFamily: "Kanito",
+    paddingTop: 4
     
       },
       matchScore: {
         flexDirection: "row",
         width: "15%",
         justifyContent: "space-around"
-      }
+      },
+      match: {
+        flexDirection: 'row',
+        justifyContent: "center",
+        alignItems: 'center',
+        width: "100%",
+        backgroundColor: "aliceblue",
+        borderRadius: 10,
+        paddingBlock: 10,
+        marginVertical: 5,
+      },
+
+      competitionLogo: {
+        height: 25,
+        width: 25,
+        objectFit: 'contain',
+      },
+      teamContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: "35%",
+        gap: 2,
+        marginInline: 1
+    
+      },
+      teamContainerDom: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: "33%",
+        flexDirection: "row-reverse",
+        gap: 2,
+        marginInline: 1,
+        
+        
+      },
+      teamLogo: {
+        height: 40,
+        width: 30,
+        objectFit: 'contain',
+        alignItems: "center",
+        marginInline: 5
+      },
+      teamName: {
+        fontSize: 12,
+        fontFamily: "Kanito"
+      },
+      scoreContainer: {
+        alignItems: 'center',
+        width: "22%",
+        marginInline: 1
+      },
+      liveSticker: {
+        alignItems: "center",
+        marginInline: 5
+    
+      },
+      liveText: {
+        color: "white",
+        fontFamily: "Kanitalic",
+        fontSize: 12,
+        backgroundColor: "darkred",
+        paddingInline: 5,
+        borderRadius: 5
+    
+    
+      },
+      score: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        
+      },
+      scoreText: {
+        backgroundColor: 'grey',
+        color: 'white',
+        borderRadius: 5,
+        height: 30,
+        width: 25,
+        fontFamily: "Kanito",
+        alignItems: "center",
+        textAlign: "center",
+        paddingTop: 4
+      },
 });
 
 export default Aujourdhui;

@@ -54,7 +54,7 @@ function Live() {
             style={styles.teamLogo}
             resizeMode="contain"
           />
-          <Text style={styles.teamName}>{item.teams.home.name}</Text>
+          <Text style={styles.teamName}>{item.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : item.teams.home.name}</Text>
         </View>
         <View style={styles.scoreContainer}>
           {item.goals.home === item.goals.away ? (
