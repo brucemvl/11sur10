@@ -182,9 +182,12 @@ function Classement({ id }) {
             style={[styles.chevron, { transform: [{ rotate: rotateClassementInterpolate }] }]}
           />      </TouchableOpacity>
       </LinearGradient>
-      <Animated.View style={[ styles.content, { height: heightClassement.interpolate({
+      <Animated.View style={tab.length < 24 ? [ styles.content, { height: heightClassement.interpolate({
             inputRange: [0, 1],
-            outputRange: [0, 980]  // Ajustez la hauteur en fonction du contenu
+            outputRange: [0,  980] // Ajustez la hauteur en fonction du contenu
+          }) }] : [ styles.content, { height: heightClassement.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0,  1800] // Ajustez la hauteur en fonction du contenu
           }) }]}>
           <View style={styles.barre}>
             <Text style={{width: "10%", color: "white"}}>Rang</Text>

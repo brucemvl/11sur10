@@ -110,12 +110,11 @@ banner: {
 
   bannerText: {
     position: "absolute",
-    bottom: "35%",
-    left: "13%",
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
+top: "50%",
+    left: "50%",
+    marginRight: "-50%",
     color: "white",
+    transform: [{translateX: "-50%"}, {translateY: "-50%"}],
     lineHeight: 0,
   },
 
@@ -123,7 +122,9 @@ banner: {
     fontWeight: "900",
     fontSize: 32,
     color: "white",
-    fontFamily: "Kanitt"
+    fontFamily: "Kanitt",
+    textAlign: "center"
+    
 
   },
 
@@ -145,6 +146,8 @@ banner: {
         bannerText: {
           bannerTitle: {
             fontSize: 16,
+            bottom: "35%",
+    left: "13%",
           },
           bannerSubtitle: {
             fontSize: 12,
