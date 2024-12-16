@@ -1,7 +1,7 @@
 {
   "name": "11sur10",
   "license": "0BSD",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "index.js",
   "scripts": {
     "start": "expo start --dev-client",

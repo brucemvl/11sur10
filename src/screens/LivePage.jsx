@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 import ligue1 from "../assets/logoligue1.webp"
 
 function LivePage({ navigation }) {
@@ -27,6 +27,31 @@ function LivePage({ navigation }) {
   }, []);
 
   console.log(live);
+
+    const [fadeAnim] = useState(new Animated.Value(1)); // Initialisation de la valeur d'animation (opacité à 1)
+  
+    useEffect(() => {
+      // Animation de clignotement
+      const flash = () => {
+        Animated.sequence([
+          Animated.timing(fadeAnim, {
+            toValue: 0, // Rendre l'élément transparent
+            duration: 1000, // Durée de l'animation
+            useNativeDriver: true, // Utilisation du driver natif pour des performances optimisées
+          }),
+          Animated.timing(fadeAnim, {
+            toValue: 1, // Rendre l'élément visible à nouveau
+            duration: 1000,
+            useNativeDriver: true,
+          }),
+        ]).start(() => flash()); // Redémarre l'animation en boucle
+      };
+  
+      flash(); // Démarre l'animation de clignotement
+  
+      return () => fadeAnim.stopAnimation(); // Nettoyage de l'animation lors du démontage
+    }, [fadeAnim]);
+  
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
@@ -58,7 +83,7 @@ function LivePage({ navigation }) {
               <Text style={styles.scoreText}>{item.goals.home}</Text>
                 <View style={styles.liveSticker}>
                 <Text style={styles.liveText}>{item.fixture.status.elapsed}'</Text>
-                <Text style={{color: "darkred", fontFamily: "Kanitalic", fontSize: 10}}>live</Text>
+                <Animated.Text style={{color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim}}>live</Animated.Text>
                 </View>
               <Text style={styles.scoreText}>{item.goals.away}</Text>
             </View>

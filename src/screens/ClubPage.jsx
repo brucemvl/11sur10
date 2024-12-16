@@ -33,6 +33,9 @@ function ClubPage() {
                     <Text style={styles.titleText}>Championnats</Text>
                 </LinearGradient>
                 <View style={styles.filtres}>
+                    <View style={{flexDirection: "column"}}>
+                    <Text style={{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 10}}>Europe</Text>
+                    <View style={{flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center"}}>
                     {championnats.map(({ name, id, logo, flag }) => (
                         <TouchableOpacity
                             key={"lien" + id}
@@ -46,7 +49,12 @@ function ClubPage() {
                             <Image source={{ uri: flag }} style={styles.flag} />
                         </TouchableOpacity>
                     ))}
-                    {autres.map(({ name, id, logo }) => (
+                    </View>
+                    </View>
+                    <View style={{flexDirection: "column"}}>
+                    <Text style={{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 10}}>Reste du monde</Text>
+                    <View style={{flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center"}}>  
+                      {autres.map(({ name, id, logo }) => (
                         <TouchableOpacity
                             key={"lien" + id}
                             style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
@@ -57,7 +65,10 @@ function ClubPage() {
                             <Image source={{ uri: logo }} style={styles.logo} />
                             </View>
                         </TouchableOpacity>
+                        
                     ))}
+                    </View>
+                    </View>
                 </View>
             </LinearGradient>
 
@@ -68,10 +79,11 @@ function ClubPage() {
                     <Text style={styles.titleText}>Compétitions Européennes</Text>
                 </LinearGradient>
                 <View style={styles.filtres}>
+                    <View style={{flexDirection: "row", gap: 10}}>
                     {europe.map(({ name, id, logo }) => (
                         <TouchableOpacity
                             key={"lien" + id}
-                            style={[styles.lienEurope, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
+                            style={styles.lienEurope}
                             onPress={() => navigation.navigate('FicheEurope', { id })}
                         >
                             <View style={styles.logoContainer}>
@@ -79,6 +91,7 @@ function ClubPage() {
                             </View>
                         </TouchableOpacity>
                     ))}
+                    </View>
 
                 </View>
             </LinearGradient>
@@ -94,14 +107,13 @@ const styles = StyleSheet.create({
     },
     conteneur: {
         marginBottom: 30,
-        width: "100%",
         backgroundColor: "#b0c4de",
         borderRadius: 15,
         flex: 1,
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        padding: 5,
+        padding: 5
 
     },
     title: {
@@ -120,12 +132,9 @@ const styles = StyleSheet.create({
         fontFamily: "Kanitt",
     },
     filtres: {
-        flexDirection: 'row',
+        flexDirection: "column",
         flexWrap: 'wrap',
-        justifyContent: "center",
         alignItems: "center",
-        gap: 10,
-        width: "100%",
     },
     lien: {
         width: 100,  // Utilise une largeur fixe pour la petite taille d'écran
@@ -140,7 +149,7 @@ const styles = StyleSheet.create({
         backgroundColor: "aliceblue",
     },
     lienEurope: {
-        width: '30%',
+        width: 120,
         alignItems: 'center',
         justifyContent: "center",
         marginBottom: 20,
@@ -176,7 +185,7 @@ const styles = StyleSheet.create({
         fontFamily: "Permanent",
     },
     flag: {
-
+position: "initial",
     },
 
     // Styles spécifiques à l'écran mobile
@@ -184,7 +193,7 @@ const styles = StyleSheet.create({
         width: 120, // Sur petits écrans, on ajuste la largeur
     },
     lienTablet: {
-        width: '25%', // Sur tablettes, on ajuste également
+        width: '22%', // Sur tablettes, on ajuste également
     },
 });
 

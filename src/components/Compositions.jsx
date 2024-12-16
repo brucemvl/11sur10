@@ -139,7 +139,7 @@ const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt,
               </TouchableOpacity>
             ))}
           </LinearGradient>
-          <Text style={{ fontFamily: "Kanitus" }}>Coach: {coachExt}</Text>
+          <Text style={{ fontFamily: "Kanitus", textAlign: "right" }}>Coach: {coachExt}</Text>
         </View>
       </View>
     </View>

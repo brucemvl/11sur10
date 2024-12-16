@@ -7,6 +7,7 @@ import Match from './Match';
 
 function Aujourdhui() {
 
+
   const navigation = useNavigation()
 
   const [matchsEngland, setMatchsEngland] = useState([]);
@@ -208,6 +209,7 @@ function Aujourdhui() {
       .padStart(2, '0')}`;
     return { formattedDate, formattedHour };
   };
+
 
   return (
     <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.today}>

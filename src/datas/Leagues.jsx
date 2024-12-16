@@ -44,13 +44,9 @@ export const championnats = [
         "logo": "https://media.api-sports.io/football/leagues/135.png",
         "flag": "https://media.api-sports.io/flags/it.svg",
         "season": 2024,
-    }
+    },
 
-
-]
-
-export const autres = [
-
+    
     {
         "id": 94,
         "name": "Primeira Liga",
@@ -68,6 +64,20 @@ export const autres = [
         "flag": "https://media.api-sports.io/flags/nl.svg",
         "season": 2024,
     },
+
+    {
+        "id": 197,
+        "name": "Super League 1",
+        "country": "Grece",
+        "logo": "https://media.api-sports.io/football/leagues/197.png",
+        "flag": "https://media.api-sports.io/flags/gr.svg",
+        "season": 2024,
+    }
+
+
+]
+
+export const autres = [
 
     {
         "id": 203,
@@ -95,6 +105,15 @@ export const autres = [
         "flag": "https://media.api-sports.io/flags/ma.svg",
         "season": 2024,
     },
+
+    {
+        "id": 202,
+        "name": "Ligue 1 Tun",
+        "country": "Tunisie",
+        "logo": "https://media.api-sports.io/football/leagues/202.png",
+        "flag": "https://media.api-sports.io/flags/tn.svg",
+        "season": 2024,
+    },
     
     {
         "id": 253,
@@ -112,7 +131,17 @@ export const autres = [
         "logo": "https://media.api-sports.io/football/leagues/307.png",
         "flag": "https://media.api-sports.io/flags/sa.svg",
         "season": 2024,
-    }
+    },
+
+    {
+        "id": 71,
+        "name": "Serie A",
+        "country": "Brazil",
+        "logo": "https://media.api-sports.io/football/leagues/71.png",
+        "flag": "https://media.api-sports.io/flags/br.svg",
+        "season": 2024,
+    },
+
 
 
 

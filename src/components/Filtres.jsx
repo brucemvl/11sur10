@@ -81,14 +81,11 @@ const styles = StyleSheet.create({
     },
     conteneur: {
         marginBottom: 30,
-        width: "100%",
         borderRadius: 15,
-        flex: 1,
         flexDirection: "column",
-        justifyContent:"center",
-        alignItems:"center",
-        padding: 5,
-        backgroundColor: "steelblue"
+        backgroundColor: "steelblue",
+        justifyContent: "center",
+        padding: 5
         
     },
     title: {
@@ -108,10 +105,10 @@ const styles = StyleSheet.create({
     filtres: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: "center",
         alignItems: "center",
         gap: 10,
         width: "100%",
+        justifyContent: "center"
     },
     lien: {
         width: 100,  // Utilise une largeur fixe pour la petite taille d'écran
