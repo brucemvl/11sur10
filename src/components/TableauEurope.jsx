@@ -94,8 +94,7 @@ console.log(filter)
 
   const styles = StyleSheet.create({
     container: {
-      flex: 5.5,
-      paddingHorizontal: 6,
+      flex: 1,
       paddingVertical: 10,
     },
     title: {

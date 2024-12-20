@@ -1,13 +1,25 @@
 import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 import Filtres from "../components/Filtres";
 import Banner from "../components/Banner";
-import Live from "../components/Live";
 import Aujourdhui from "../components/Aujourdhui";
+import { useFonts } from "expo-font";
 
 
 
 
 function Home() {
+
+  const [fontsLoaded] = useFonts({
+    "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
+    "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
+    "Kanitus": require("../assets/fonts/Kanit/Kanit-Light.ttf"),
+    "Kanitalic": require("../assets/fonts/Kanit/Kanit-MediumItalic.ttf"),
+    "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf")
+  });
+
+  if (!fontsLoaded) {
+    return <Text>Loading...</Text>;
+  }
   
 
   return (
@@ -15,7 +27,6 @@ function Home() {
     <View style={styles.blocpage}>
       <Banner />
       <Aujourdhui/>
-      <Live />
       <Filtres />
     </View>
     </ScrollView>

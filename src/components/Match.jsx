@@ -31,11 +31,11 @@ function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id,
     >
 
       <View style={styles.dateheure}>
-        <Text style={{fontSize: 8.5}}>{formattedDate}</Text>
-        <Text style={{fontSize: 8.5}}>{formattedHour}</Text>
+        <Text style={{fontSize: 8.5, fontFamily: "Kanitus"}}>{formattedDate}</Text>
+        <Text style={{fontSize: 8.5, fontFamily: "Kanitus"}}>{formattedHour}</Text>
       </View>
 
-      <Text style={styles.equipeDom}>{equipeDom}</Text>
+      <Text style={styles.equipeDom}>{equipeDom === "Paris Saint Germain" ? "Paris St Germain" : equipeDom === "Stade Brestois 29" ? "Stade Brestois" : equipeDom}</Text>
       <Image style={styles.logoDom} source={{ uri: logoDom }} />
 
       {scoreDom === scoreExt ? (
@@ -51,7 +51,7 @@ function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id,
       )}
 
       <Image style={styles.logoExt} source={{ uri: logoExt }} />
-      <Text style={styles.equipeExt}>{equipeExt}</Text>
+      <Text style={styles.equipeExt}>{equipeExt === "Paris Saint Germain" ? "Paris St Germain" : equipeExt === "Stade Brestois 29" ? "Stade Brestois" : equipeExt}</Text>
       </TouchableOpacity>
       </LinearGradient>
     

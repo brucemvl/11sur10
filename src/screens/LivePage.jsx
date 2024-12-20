@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet, Animated } from 'react-native';
+import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet, Animated, ScrollView } from 'react-native';
 import ligue1 from "../assets/logoligue1.webp"
 
 function LivePage({ navigation }) {
@@ -124,7 +124,7 @@ function LivePage({ navigation }) {
   );
 
   return (
-    <View style={{width: "98%",paddingStart: "2%", marginBlock: 10, flex: 1}}>
+    <ScrollView style={{width: "98%",paddingStart: "2%", marginBlock: 10, flex: 1}}>
     <View style={styles.container}>
       <Text style={styles.title}>LIVE</Text>
       {live.length === 0 ? (
@@ -138,7 +138,7 @@ function LivePage({ navigation }) {
         />
       )}
     </View>
-    </View>
+    </ScrollView>
   );
 }
 

@@ -6,7 +6,7 @@ import { selections } from '../datas/Leagues'; // Import des données
 import { useFonts } from 'expo-font';  // Importer le hook useFonts d'Expo
 
 
-function Selections() {
+function SelectionsPage() {
     const navigation = useNavigation();
 
     const [fontsLoaded] = useFonts({
@@ -36,7 +36,7 @@ function Selections() {
                         <TouchableOpacity
                             key={"lien" + id}
                             style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
-                            onPress={() => navigation.navigate('FicheChampionnat', { id })}
+                            onPress={() => navigation.navigate('FicheSelections', { id })}
                         >
                             <Text style={styles.filtreTitle}>{name}</Text>
                             <View style={styles.logoContainer}>
@@ -155,4 +155,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Selections;
+export default SelectionsPage;

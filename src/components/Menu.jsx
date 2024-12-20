@@ -41,7 +41,7 @@ function Menu(){
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={()=> navigation.navigate("Selections")} style={styles.buttonRight}>
+        <TouchableOpacity onPress={()=> navigation.navigate("SelectionsPage")} style={styles.buttonRight}>
         <View style={{alignItems: "center", gap: 5}}>
             <Text style={styles.text}>Selections</Text>
             <Image source={flag} style={styles.img} />

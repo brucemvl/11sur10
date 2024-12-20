@@ -38,6 +38,8 @@ function Classement({ id }) {
       .catch((error) => console.error("Error:", error));
   };
 
+  console.log(tab)
+
   const fetchButeurs = () => {
     fetch(`https://v3.football.api-sports.io/players/topscorers?league=${id}&season=2024`, {
       method: "GET",
@@ -130,7 +132,7 @@ function Classement({ id }) {
 
 
   const renderClassementItem = ({ item }) => (
-    <View style={styles.item}>
+    <TouchableOpacity onPress={() => navigation.navigate("FicheEquipe", { id: item.team.id })} style={styles.item}>
       <Text style={{width: "5%"}}>{item.rank}</Text>
       <Image source={{ uri: item.team.logo }} style={styles.logo} />
       <Text style={{fontFamily: "Kanito", width: "30%"}}>{item.team.name}</Text>
@@ -140,7 +142,7 @@ function Classement({ id }) {
       <Text style={{fontFamily: "Kanito", width: "9%", textAlign: "center"}}>{item.all.lose}</Text>
       <Text style={{fontFamily: "Kanito", width: "9%", textAlign: "center"}}>{item.all.goals.for - item.all.goals.against}</Text>
       <Text style={{fontFamily: "Kanitt", width: "9%", textAlign: "center"}}>{item.points}</Text>
-    </View>
+    </TouchableOpacity>
   );
 
   const renderButeursItem = ({ item }) => (
@@ -187,7 +189,7 @@ function Classement({ id }) {
             outputRange: [0,  980] // Ajustez la hauteur en fonction du contenu
           }) }] : [ styles.content, { height: heightClassement.interpolate({
             inputRange: [0, 1],
-            outputRange: [0,  1800] // Ajustez la hauteur en fonction du contenu
+            outputRange: [0,  1800] // Si le classement comporte + de 24 equipes
           }) }]}>
           <View style={styles.barre}>
             <Text style={{width: "10%", color: "white"}}>Rang</Text>

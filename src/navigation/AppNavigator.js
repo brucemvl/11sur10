@@ -13,7 +13,9 @@ import Menu from '../components/Menu';
 import LivePage from '../screens/LivePage';
 import ClubPage from '../screens/ClubPage';
 import FicheMatch from '../screens/FicheMatch';
-import Selections from '../screens/Selections';
+import SelectionsPage from '../screens/SelectionsPage';
+import FicheSelections from '../screens/FicheSelections';
+import FicheEquipe from '../screens/FicheEquipe';
 
 
 const Stack = createStackNavigator();
@@ -37,7 +39,9 @@ export default function AppNavigator() {
         <Stack.Screen name="ClubPage" component={ClubPage} />
         <Stack.Screen name="FicheMatch" component={FicheMatch} />
         <Stack.Screen name="FicheJoueur" component={FicheJoueur} />
-        <Stack.Screen name="Selections" component={Selections} />
+        <Stack.Screen name="SelectionsPage" component={SelectionsPage} />
+        <Stack.Screen name='FicheSelections' component={FicheSelections} />
+        <Stack.Screen name='FicheEquipe' component={FicheEquipe} />
 
 
 

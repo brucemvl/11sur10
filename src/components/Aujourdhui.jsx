@@ -3,7 +3,6 @@ import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'rea
 import { LinearGradient } from 'expo-linear-gradient';
 import ligue1 from "../assets/logoligue1.webp"
 import { useNavigation } from '@react-navigation/native';
-import Match from './Match';
 
 function Aujourdhui() {
 
@@ -36,7 +35,7 @@ function Aujourdhui() {
 
       }
       catch (error) {
-        console.error("error:", error)
+        null
       }
     };
     fetchUcl();
@@ -63,7 +62,7 @@ function Aujourdhui() {
 
       }
       catch (error) {
-        console.error("error:", error)
+        null
       }
     };
     fetchFrance();
@@ -91,7 +90,7 @@ function Aujourdhui() {
 
       }
       catch (error) {
-        console.error("error:", error)
+        null
       }
     };
     fetchEngland();
@@ -118,7 +117,7 @@ function Aujourdhui() {
 
       }
       catch (error) {
-        console.error("error:", error)
+        null
       }
     };
     fetchSpain();
@@ -145,7 +144,7 @@ function Aujourdhui() {
 
       }
       catch (error) {
-        console.error("error:", error)
+        null
       }
     };
     fetchGer();
@@ -172,7 +171,7 @@ function Aujourdhui() {
 
       }
       catch (error) {
-        console.error("error:", error)
+        null
       }
     };
     fetchItaly();
@@ -180,11 +179,11 @@ function Aujourdhui() {
 
   )
 
-  if (matchsEngland.length === 0 || matchsSpain.length === 0 || matchsFrance.length === 0 || matchsUcl.length === 0 || matchsGer.length === 0 || matchsItaly.length === 0) {
-    return <Text>Loading...</Text>
-  }
+  
+
   const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly]
 
+  
 
 
   const today = new Date().toISOString().slice(0, 10); // Date du jour au format YYYY-MM-DD
@@ -210,8 +209,13 @@ function Aujourdhui() {
     return { formattedDate, formattedHour };
   };
 
-
   return (
+    todayMatch.length <= 0 ? <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.today}>
+    <LinearGradient colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']} style={styles.titre}>
+      <Text style={styles.titreToday}>AUJOURDHUI</Text>
+    </LinearGradient>
+    <Text style={{fontFamily: "Permanent", color: "white", backgroundColor: "red", paddingInline: 15, paddingBlock: 5, borderRadius: 5, marginBlock: 10, textAlign: "center"}}>Pas de match aujourdhui</Text>
+    </LinearGradient> :
     <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.today}>
       <LinearGradient colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']} style={styles.titre}>
         <Text style={styles.titreToday}>AUJOURDHUI</Text>
@@ -237,11 +241,11 @@ function Aujourdhui() {
                       source={{ uri: element.league.logo }}
                       style={styles.matchCompetition}
                       resizeMode="contain"
-                    />}                                    <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris St Germain" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name}</Text>
+                    />}                                    <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name}</Text>
                   <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
                   <Text style={{ marginInline: 4 }}>-</Text>
                   <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
-                  <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris St Germain" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name}</Text>
+                  <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name}</Text>
                   <View style={styles.rdv}>
                     <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
                     <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
@@ -269,7 +273,7 @@ function Aujourdhui() {
                     style={styles.teamLogo}
                     resizeMode="contain"
                   />
-                  <Text style={styles.teamName}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris St Germain" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name}</Text>
+                  <Text style={styles.teamName}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name}</Text>
                 </View>
                 <View style={styles.scoreContainer}>
                   {element.goals.home === element.goals.away ? (
@@ -311,7 +315,7 @@ function Aujourdhui() {
                     style={styles.teamLogo}
                     resizeMode="contain"
                   />
-                  <Text style={styles.teamName}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris St Germain" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name}</Text>
+                  <Text style={styles.teamName}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name}</Text>
                 </View>
               </View>
             </TouchableOpacity> : element.fixture.status.long === 'Match Finished' ?
@@ -332,7 +336,7 @@ function Aujourdhui() {
                       resizeMode="contain"
                     />}
 
-                  <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris St Germain" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name}</Text>
+                  <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name}</Text>
                   <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
 
                   {element.goals.home === element.goals.away ? (
@@ -348,7 +352,7 @@ function Aujourdhui() {
                   )}
 
                   <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
-                  <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris St Germain" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name}</Text>
+                  <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name}</Text>
                 </View>
               </TouchableOpacity>
               : null
@@ -376,7 +380,8 @@ const styles = StyleSheet.create({
   titre: {
     width: 150,
     borderRadius: 10,
-    marginBlock: 10
+    marginBlock: 10,
+    height: 34
   },
   titreToday: {
     color: 'white',
@@ -412,7 +417,7 @@ const styles = StyleSheet.create({
 
   },
   matchLogoDom: {
-    height: 40,
+    height: 35,
     width: "9%",
     objectFit: 'contain',
   },
@@ -427,7 +432,7 @@ const styles = StyleSheet.create({
 
   },
   matchLogoExt: {
-    height: 40,
+    height: 35,
     width: "9%",
     objectFit: 'contain',
   },
@@ -477,7 +482,7 @@ const styles = StyleSheet.create({
   },
   match: {
     flexDirection: 'row',
-    justifyContent: "center",
+    justifyContent: "space-around",
     alignItems: 'center',
     width: "100%",
     backgroundColor: "aliceblue",

@@ -12,12 +12,16 @@ function Footer(){
         "Kanitt": require("../assets/fonts/Kanit/Kanit-Light.ttf"),
     })
 
+    const openExternalLink = (url) => {
+        Linking.openURL(url).catch((err) => console.error("Error opening URL:", err));
+      };
+
     const navigation = useNavigation()
     return (
         <View style={styles.footer}>
             <View style={{padding: 20, alignItems: "center", gap: 20}}>
             <TouchableOpacity onPress={()=>openExternalLink("https://www.instagram.com/11_sur_10/")}>
-      <Image source={insta} style={{height: 40, width: 40}}/>
+      <Image source={insta} style={{height: 48, width: 48}}/>
       </TouchableOpacity>
            <TouchableOpacity onPress={()=> navigation.navigate("Contact")}><Text style={styles.lien}>Nous contacter</Text></TouchableOpacity>
            </View>
