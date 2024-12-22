@@ -627,12 +627,12 @@ const styles = StyleSheet.create({
     width: 150,
     borderRadius: 10,
     marginBlock: 10,
-    height: 34
+    height: 35,
+    justifyContent: "center",
+    alignItems: "center"
   },
   titreToday: {
     color: 'white',
-    textAlign: 'center',
-    paddingVertical: 5,
     fontFamily: "Kanitt",
   },
   nomatch: {

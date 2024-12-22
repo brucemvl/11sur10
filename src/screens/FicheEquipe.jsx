@@ -60,26 +60,8 @@ function FicheEquipe() {
     fetchEquipe();
   }, [id]);
 
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const response = await fetch(`https://v3.football.api-sports.io/teams/statistics?season=2024&team=${id}&league=2`, {
-          method: "GET",
-          headers: {
-            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-            "x-rapidapi-host": "v3.football.api-sports.io",
-          },
-        });
-        const json = await response.json();
-        setStats(json.response);
-      } catch (error) {
-        console.error("error:", error);
-      }
-    };
-    fetchStats();
-  }, [id]);
 
-  if (!equipe || !stats) {
+  if (!equipe) {
     return <Text>Loading...</Text>;
   }
 

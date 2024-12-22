@@ -17,6 +17,14 @@ const FicheMatch = () => {
     const [selected, setSelected] = useState(true);
     const [selected2, setSelected2] = useState(false);
     const [selected3, setSelected3] = useState(false);
+    const [homeStats, setHomeStats] = useState(null);
+    const [extStats, setExtStats] = useState(null);
+
+    const route = useRoute();
+    const { id } = route.params;
+    const leagueMatch = match?.league?.id;
+    const homeId = match?.teams?.home?.id;
+    const extId = match?.teams?.away?.id;
 
     const openDetails = () => {
         setDetails(true);
@@ -45,11 +53,8 @@ const FicheMatch = () => {
         setSelected3(true);
     };
 
-    const route = useRoute();
-    const { id } = route.params;
-
     useEffect(() => {
-        // Fetch data
+        // Fetch match details
         fetch(`https://v3.football.api-sports.io/fixtures?id=${id}`, {
             method: "GET",
             headers: {
@@ -61,7 +66,6 @@ const FicheMatch = () => {
             .then((result) => {
                 if (result.response && result.response[0]) {
                     setMatch(result.response[0]);
-                    console.log(result.response[0])
                 }
             })
             .catch((error) => { 
@@ -70,8 +74,48 @@ const FicheMatch = () => {
             });
     }, [id]);
 
-    if(match === null){
-        return <Text> infos a venir</Text>
+    useEffect(() => {
+        if (!homeId || !leagueMatch) return;
+
+        // Fetch home team statistics
+        fetch(`https://v3.football.api-sports.io/teams/statistics?season=2024&team=${homeId}&league=${leagueMatch}`, {
+            method: "GET",
+            headers: {
+                "x-rapidapi-host": "v3.football.api-sports.io",
+                "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b"
+            }
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                setHomeStats(json.response);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }, [homeId, leagueMatch]);
+
+    useEffect(() => {
+        if (!extId || !leagueMatch) return;
+
+        // Fetch away team statistics
+        fetch(`https://v3.football.api-sports.io/teams/statistics?season=2024&team=${extId}&league=${leagueMatch}`, {
+            method: "GET",
+            headers: {
+                "x-rapidapi-host": "v3.football.api-sports.io",
+                "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b"
+            }
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                setExtStats(json.response);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }, [extId, leagueMatch]);
+
+    if (!match) {
+        return <Text>Loading match info...</Text>;
     }
 
     const round = match.league.round;
@@ -84,6 +128,8 @@ const FicheMatch = () => {
     const buteurHome = buteurs.filter((buteur) => buteur.team.name === match.teams.home.name);
     const buteurExt = buteurs.filter((buteur) => buteur.team.name === match.teams.away.name);
 
+    const formeHome = homeStats?.form.slice(homeStats.form.length - 5, homeStats.form.length)
+    const formeExt = extStats?.form.slice(extStats.form.length - 5, extStats.form.length)
     //PARTIE DETAILS
 
 const stats = match.statistics.filter((element)=>
@@ -170,7 +216,7 @@ if (!compoDom || !compoExt) {
     return (
         <ScrollView contentContainerStyle={styles.bloc}>
             <Precedent />
-            <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt}/>
+            <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} formeHome={formeHome} formeExt={formeExt}/>
             <View style={styles.section}>
                 {/* Your existing JSX */}
                 <View style={styles.ficheSelecteur}>
