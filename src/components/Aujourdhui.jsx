@@ -8,6 +8,11 @@ function Aujourdhui() {
 
 
   const navigation = useNavigation()
+  const [hier, setHier] = useState(false)
+  const [aujourdhui, setAujourdhui] = useState(true)
+  const [demain, setDemain] = useState(false)
+
+  
 
   const [matchsEngland, setMatchsEngland] = useState([]);
   const [matchsSpain, setMatchsSpain] = useState([]);
@@ -15,6 +20,7 @@ function Aujourdhui() {
   const [matchsUcl, setMatchsUcl] = useState([]);
   const [matchsGer, setMatchsGer] = useState([]);
   const [matchsItaly, setMatchsItaly] = useState([]);
+  const [matchsCdf, setMatchsCdf] = useState([])
 
   useEffect(() => {
     const fetchUcl = () => {
@@ -179,23 +185,109 @@ function Aujourdhui() {
 
   )
 
+  useEffect(() => {
+    const fetchCdf = () => {
+      try {
+        fetch("https://v3.football.api-sports.io/fixtures?league=66&season=2024", {
+          method: "GET",
+          headers: {
+            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+            "x-rapidapi-host": "v3.football.api-sports.io",
+          }
+        })
+          .then((response) => response.json())
+          .then((json) => {
+
+            setMatchsCdf(json.response)
+
+          })
+
+      }
+      catch (error) {
+        null
+      }
+    };
+    fetchCdf();
+  }, []
+
+  )
+
   
 
-  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly]
+  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf]
 
-  
+  const [selectedDate, setSelectedDate] = useState("AUJOURDHUI");
 
 
   const today = new Date().toISOString().slice(0, 10); // Date du jour au format YYYY-MM-DD
   console.log(today)
+
+  const yesterday = new Date();
+yesterday.setDate(yesterday.getDate() - 1);
+// Soustrait 1 jour à la date d'aujourd'hui
+const yesterdayDate = yesterday.toISOString().slice(0, 10); // Formate la date au format YYYY-MM-DD
+console.log(yesterdayDate);
+
+const tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1);
+// Soustrait 1 jour à la date d'aujourd'hui
+const tomorrowDate = tomorrow.toISOString().slice(0, 10); // Formate la date au format YYYY-MM-DD
+console.log(tomorrowDate);
 
   const todayMatch = matchs.filter((match) => {
     const matchDate = match.fixture.date.slice(0, 10);
     return matchDate === today;
   });
 
+  const yesterdayMatch = matchs.filter((match) => {
+    const matchDate = match.fixture.date.slice(0, 10);
+    return matchDate === yesterdayDate;
+  })
+
+  const tomorrowMatch = matchs.filter((match) => {
+    const matchDate = match.fixture.date.slice(0, 10);
+    return matchDate === tomorrowDate;
+  })
+
   const leagues = [... new Set(todayMatch.map((element) => element.league.name))]
   console.log(leagues)
+
+  const yesterdayLeagues = [... new Set(yesterdayMatch.map((element) => element.league.name))]
+
+  const tomorrowLeagues = [... new Set(tomorrowMatch.map((element) => element.league.name))]
+
+  const handlePrevious = () => {
+    if (selectedDate === "AUJOURDHUI") {
+      setSelectedDate("HIER");
+      setHier(true)
+      setAujourdhui(false)
+      setDemain(false)
+    } else if (selectedDate === "HIER") {
+      null
+    } else if (selectedDate === "DEMAIN") {
+      setSelectedDate("AUJOURDHUI");
+      setAujourdhui(true)
+      setDemain(false)
+      setHier(false)
+    }
+  };
+
+  // Fonction de navigation vers la date suivante (demain)
+  const handleNext = () => {
+    if (selectedDate === "AUJOURDHUI") {
+      setSelectedDate("DEMAIN");
+      setDemain(true)
+      setAujourdhui(false)
+      setHier(false)
+    } else if (selectedDate === "HIER") {
+      setSelectedDate("AUJOURDHUI");
+      setAujourdhui(true)
+      setHier(false)
+      setDemain(false)
+    } else if (selectedDate === "DEMAIN") {
+       
+    }
+  };
 
   console.log(todayMatch)
   const formatDateAndTime = (dateString) => {
@@ -211,16 +303,132 @@ function Aujourdhui() {
 
   return (
     todayMatch.length <= 0 ? <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.today}>
-    <LinearGradient colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']} style={styles.titre}>
-      <Text style={styles.titreToday}>AUJOURDHUI</Text>
-    </LinearGradient>
+    <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
+      <TouchableOpacity onPress={handlePrevious} style={styles.arrow}>
+        <Text style={{color: "white", fontFamily: "Kanitt"}}>{"<"}</Text>
+      </TouchableOpacity>
+
+      <LinearGradient
+        colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']}
+        style={styles.titre}
+      >
+        <Text style={styles.titreToday}>
+          {selectedDate}
+        </Text>
+      </LinearGradient>
+
+      <TouchableOpacity onPress={handleNext} style={styles.arrow}>
+        <Text style={{color: "white", fontFamily: "Kanitt"}}>{">"}</Text>
+      </TouchableOpacity>
+
+      </View>
     <Text style={{fontFamily: "Permanent", color: "white", backgroundColor: "red", paddingInline: 15, paddingBlock: 5, borderRadius: 5, marginBlock: 10, textAlign: "center"}}>Pas de match aujourdhui</Text>
     </LinearGradient> :
     <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.today}>
-      <LinearGradient colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']} style={styles.titre}>
-        <Text style={styles.titreToday}>AUJOURDHUI</Text>
+      { selectedDate === "DEMAIN" ? <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
+      <TouchableOpacity onPress={handlePrevious} style={styles.arrow}>
+        <Text style={{color: "white", fontFamily: "Kanitt"}}>{"<"}</Text>
+      </TouchableOpacity>
+
+      <LinearGradient
+        colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']}
+        style={styles.titre}
+      >
+        <Text style={styles.titreToday}>
+          {selectedDate}
+        </Text>
       </LinearGradient>
 
+      <TouchableOpacity style={{width: 30}}>
+        
+      </TouchableOpacity>
+
+      </View> :
+      selectedDate === "HIER" ? <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
+      <TouchableOpacity style={{width: 30}}>
+        
+        </TouchableOpacity>
+
+      <LinearGradient
+        colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']}
+        style={styles.titre}
+      >
+        <Text style={styles.titreToday}>
+          {selectedDate}
+        </Text>
+      </LinearGradient>
+
+      <TouchableOpacity onPress={handleNext} style={styles.arrow}>
+        <Text style={{color: "white", fontFamily: "Kanitt"}}>{">"}</Text>
+      </TouchableOpacity>
+
+      </View> :
+      <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
+      <TouchableOpacity onPress={handlePrevious} style={styles.arrow}>
+        <Text style={{color: "white", fontFamily: "Kanitt"}}>{"<"}</Text>
+      </TouchableOpacity>
+
+      <LinearGradient
+        colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']}
+        style={styles.titre}
+      >
+        <Text style={styles.titreToday}>
+          {selectedDate}
+        </Text>
+      </LinearGradient>
+
+      <TouchableOpacity onPress={handleNext} style={styles.arrow}>
+        <Text style={{color: "white", fontFamily: "Kanitt"}}>{">"}</Text>
+      </TouchableOpacity>
+
+      </View>}
+{ hier && <ScrollView style={styles.liveTableau}>
+        {yesterdayLeagues.map((league) => <View style={{ marginBlock: 5 }}>
+          <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
+          {yesterdayMatch.map((element) => element.league.name === league ?
+            
+              <TouchableOpacity
+                style={styles.link}
+                onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}  // Naviguer vers la fiche du match
+              >
+                <View style={styles.match}>
+
+                  {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
+                    source={ligue1}
+                    style={styles.matchCompetition}
+                    resizeMode="contain"
+                  /> :
+                    <Image
+                      source={{ uri: element.league.logo }}
+                      style={styles.matchCompetition}
+                      resizeMode="contain"
+                    />}
+
+                  <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name}</Text>
+                  <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
+
+                  {element.goals.home === element.goals.away ? (
+                    <View style={styles.matchScore}>
+                      <Text style={styles.nul}>{element.goals.home === null ? "-" : element.goals.home}</Text>
+                      <Text style={styles.nul}>{element.goals.away === null ? "-" : element.goals.away}</Text>
+                    </View>
+                  ) : (
+                    <View style={styles.matchScore}>
+                      <Text style={element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text>
+                      <Text style={element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text>
+                    </View>
+                  )}
+
+                  <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
+                  <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name}</Text>
+                </View>
+              </TouchableOpacity>
+              : null
+          )}
+        </View>)
+        }
+      </ScrollView> }
+      {aujourdhui &&
       <ScrollView style={styles.liveTableau}>
         {leagues.map((league) => <View style={{ marginBlock: 5 }}>
           <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
@@ -361,6 +569,44 @@ function Aujourdhui() {
         </View>)
         }
       </ScrollView>
+}
+{demain && <ScrollView style={styles.liveTableau}>
+        
+{tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
+          <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
+          {tomorrowMatch.map((element) => element.league.name === league ?
+            
+              <TouchableOpacity
+                key={element.fixture.id}
+                style={styles.link}
+                onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }}
+              >
+                <View style={styles.match}>
+                  {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
+                    source={ligue1}
+                    style={styles.matchCompetition}
+                    resizeMode="contain"
+                  /> :
+                    <Image
+                      source={{ uri: element.league.logo }}
+                      style={styles.matchCompetition}
+                      resizeMode="contain"
+                    />}                                    <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name}</Text>
+                  <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
+                  <Text style={{ marginInline: 4 }}>-</Text>
+                  <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
+                  <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name}</Text>
+                  <View style={styles.rdv}>
+                    <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
+                    <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
+                  </View>
+                </View>
+              </TouchableOpacity> : null
+          )}
+        </View>)
+        }
+      </ScrollView> }
+
 
     </LinearGradient>
   );
@@ -387,7 +633,7 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     paddingVertical: 5,
-    fontFamily: "Kanitt"
+    fontFamily: "Kanitt",
   },
   nomatch: {
     backgroundColor: 'red',
@@ -561,6 +807,18 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingTop: 4
   },
+  arrow : {
+    backgroundColor: "midnightblue",
+    color: "white",
+    fontFamily: "Kanitt",
+    height: 35,
+    width: 30,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 10
+
+
+  }
 });
 
 export default Aujourdhui;

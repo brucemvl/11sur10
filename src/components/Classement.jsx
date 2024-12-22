@@ -132,10 +132,10 @@ function Classement({ id }) {
 
 
   const renderClassementItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate("FicheEquipe", { id: item.team.id })} style={styles.item}>
+    <TouchableOpacity onPress={() => navigation.navigate("FicheEquipe", { id: item.team.id, league: item.group })} style={styles.item}>
       <Text style={{width: "5%"}}>{item.rank}</Text>
       <Image source={{ uri: item.team.logo }} style={styles.logo} />
-      <Text style={{fontFamily: "Kanito", width: "30%"}}>{item.team.name}</Text>
+      <Text style={{fontFamily: "Kanito", width: "30%"}}>{item.team.name === "Paris Saint Germain" ? "Paris SG" : item.team.name === "Stade Brestois 29" ? "Stade Brestois" : item.team.name}</Text>
       <Text style={{fontFamily: "Kanito", width: "9%", textAlign: "center"}}>{item.all.played}</Text>
       <Text style={{fontFamily: "Kanito", width: "9%", textAlign: "center"}}>{item.all.win}</Text>
       <Text style={{fontFamily: "Kanito", width: "9%", textAlign: "center"}}>{item.all.draw}</Text>

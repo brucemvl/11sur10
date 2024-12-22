@@ -1,9 +1,11 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, FlatList } from 'react-native';
+import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
 
 const Affiche = ({ match, roundd, buteurHome, buteurExt }) => {
 
+    const navigation = useNavigation()
     const date = new Date(match.fixture.date);
     const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
     const formattedHour = `${date.getHours().toString().padStart(2, '0')}h${date.getMinutes().toString().padStart(2, '0')}`;
@@ -20,10 +22,10 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt }) => {
             </View>
 
             <LinearGradient colors={['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.8)']} style={styles.affiche}>
-        <View style={styles.domicile}>
+        <TouchableOpacity style={styles.domicile} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.home.id})}>
           <Image source={{ uri: match.teams.home.logo }} style={styles.teamLogo} />
           <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 15 }}>{match.teams.home.name}</Text>
-        </View>
+        </TouchableOpacity>
 
         <View style={styles.score}>
           <Text style={styles.scoreText}>
@@ -31,12 +33,12 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt }) => {
           </Text>
         </View>
 
-        <View style={styles.exterieur}>
+        <TouchableOpacity style={styles.exterieur} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.away.id})}>
           <Image source={{ uri: match.teams.away.logo }} style={styles.teamLogo} />
           <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 15 }}>
             {match.teams.away.name}
           </Text>
-        </View>
+        </TouchableOpacity>
     </LinearGradient>
 
             <View style={styles.buts}>
