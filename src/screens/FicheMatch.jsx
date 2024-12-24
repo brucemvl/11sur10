@@ -128,8 +128,8 @@ const FicheMatch = () => {
     const buteurHome = buteurs.filter((buteur) => buteur.team.name === match.teams.home.name);
     const buteurExt = buteurs.filter((buteur) => buteur.team.name === match.teams.away.name);
 
-    const formeHome = homeStats?.form.slice(homeStats.form.length - 5, homeStats.form.length)
-    const formeExt = extStats?.form.slice(extStats.form.length - 5, extStats.form.length)
+    const formeHome = homeStats?.form?.slice(homeStats.form.length - 5, homeStats.form.length)
+    const formeExt = extStats?.form?.slice(extStats.form.length - 5, extStats.form.length)
     //PARTIE DETAILS
 
 const stats = match.statistics.filter((element)=>
@@ -178,7 +178,7 @@ if (!compoDom || !compoExt) {
     return (
     <ScrollView contentContainerStyle={styles.bloc}>
     <Precedent />
-    <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt}/>
+    <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} formeHome={formeHome} formeExt={formeExt}/>
     </ScrollView>
     )
 }
@@ -196,11 +196,11 @@ if (!compoDom || !compoExt) {
     }
     
     
-    const tituDom = match.players && match.players[0].players.slice(0, 11)
-    const tituExt = match.players && match.players[1].players.slice(0, 11)
+    const tituDom = match.players && match?.players[0]?.players.slice(0, 11)
+    const tituExt = match.players && match?.players[1]?.players.slice(0, 11)
     
-    const substituteDom = match.players[0].players.slice(11, match.players[0].players.length)
-    const substituteExt = match.players[1].players.slice(11, match.players[1].players.length)
+    const substituteDom = match?.players[0]?.players.slice(11, match.players[0].players.length)
+    const substituteExt = match?.players[1]?.players.slice(11, match.players[1].players.length)
     
     const remplacement = match.events.filter((element)=>
     element.detail.indexOf( "Substitution"))
