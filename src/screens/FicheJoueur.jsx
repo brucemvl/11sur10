@@ -18,6 +18,11 @@ import ucl from "../assets/ucl.png"
 import pl from "../assets/pl.png"
 import copa from "../assets/copaamerica.png"
 import europa from "../assets/europaleague.png"
+import tropheeligue1 from "../assets/ligue1.png"
+import liga from "../assets/liga.png"
+import bundesliga from "../assets/bundesliga.png"
+import euro from "../assets/euro.png"
+import uefa from "../assets/uefasupercup.png"
 
 
 function FicheJoueur() {
@@ -154,39 +159,39 @@ function FicheJoueur() {
                         <View >
           {trophiesArray.map((element, index) => (
                             element.league === "Trofeo Joan Gamper"? null :
-              <Text style={{fontFamily: "Kanito", marginInline: 10}}>{element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league === "Trofeo Joan Gamper" ? null : element.league}</Text>
-            ))}
+                            <Text style={{fontFamily: "Kanito", marginInline: 10}}>{element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league === "Trofeo Joan Gamper" ? null : element.league === "UEFA European Championship" ? "Euro" : element.league}</Text>
+                          ))}
               </View>
-          <View>
-            {trophiesArray.map((element)=> element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee}/>: element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee}/> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : null)}
+          <View style={styles.armoire}>
+          {trophiesArray.map((element)=> element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee}/>: element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee}/> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : element.league === "UEFA Europa League" ? <Image source={europa} style={styles.trophee} /> : element.league === "Ligue 1" ? <Image source={tropheeligue1} style={styles.trophee} /> : element.league === "La Liga" ? <Image source={liga} style={styles.trophee}/> : element.league === "Bundesliga" ? <Image source={bundesliga} style={styles.trophee} /> : element.league === "UEFA European Championship" ? <Image source={euro} style={styles.trophee}/> : element.league === "UEFA Super Cup" ? <Image source={uefa} style={styles.trophee} /> : null)}
           </View>
 
         </Animated.View> : palmares.length < 10 ? <Animated.View style={[styles.palmaresInfos, { height: heightAnim.interpolate({
             inputRange: [0, 1],
-            outputRange: [0, 320]  // Ajustez la hauteur en fonction du contenu
+            outputRange: [0, 120]  // Ajustez la hauteur en fonction du contenu
           }) }]}>
                         <View >
           {trophiesArray.map((element, index) => (
                             element.league === "Trofeo Joan Gamper"? null :
-              <Text style={{fontFamily: "Kanito", marginInline: 10}}>{element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league === "Trofeo Joan Gamper" ? null : element.league}</Text>
-            ))}
+                            <Text style={{fontFamily: "Kanito", marginInline: 10}}>{element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league === "Trofeo Joan Gamper" ? null : element.league === "UEFA European Championship" ? "Euro" : element.league}</Text>
+                          ))}
               </View>
-          <View>
-            {trophiesArray.map((element)=> element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee}/>: element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee}/> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : null)}
+          <View style={styles.armoire}>
+          {trophiesArray.map((element)=> element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee}/>: element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee}/> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : element.league === "UEFA Europa League" ? <Image source={europa} style={styles.trophee} /> : element.league === "Ligue 1" ? <Image source={tropheeligue1} style={styles.trophee} /> : element.league === "La Liga" ? <Image source={liga} style={styles.trophee}/> : element.league === "Bundesliga" ? <Image source={bundesliga} style={styles.trophee} /> : element.league === "UEFA European Championship" ? <Image source={euro} style={styles.trophee}/> : element.league === "UEFA Super Cup" ? <Image source={uefa} style={styles.trophee} /> : null)}
           </View>
 
         </Animated.View> : <Animated.View style={[styles.palmaresInfos, { height: heightAnim.interpolate({
             inputRange: [0, 1],
-            outputRange: [0, 320]  // Ajustez la hauteur en fonction du contenu
+            outputRange: [0, 190]  // Ajustez la hauteur en fonction du contenu
           }) }]}>
                         <View >
           {trophiesArray.map((element, index) => (
                             element.league === "Trofeo Joan Gamper"? null :
-              <Text style={{fontFamily: "Kanito", marginInline: 10}}>{element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league === "Trofeo Joan Gamper" ? null : element.league}</Text>
+              <Text style={{fontFamily: "Kanito", marginInline: 10}}>{element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league === "Trofeo Joan Gamper" ? null : element.league === "UEFA European Championship" ? "Euro" : element.league}</Text>
             ))}
               </View>
-          <View>
-            {trophiesArray.map((element)=> element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee}/>: element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee}/> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : null)}
+          <View style={styles.armoire}>
+          {trophiesArray.map((element)=> element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee}/>: element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee}/> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : element.league === "UEFA Europa League" ? <Image source={europa} style={styles.trophee} /> : element.league === "Ligue 1" ? <Image source={tropheeligue1} style={styles.trophee} /> : element.league === "La Liga" ? <Image source={liga} style={styles.trophee}/> : element.league === "Bundesliga" ? <Image source={bundesliga} style={styles.trophee} /> : element.league === "UEFA European Championship" ? <Image source={euro} style={styles.trophee}/> : element.league === "UEFA Super Cup" ? <Image source={uefa} style={styles.trophee} /> : null)}
           </View>
 
         </Animated.View>}
@@ -330,7 +335,8 @@ left: 120
   palmaresInfos: {
     marginTop: 10,
     flexDirection: "row",
-    overflow: "hidden"
+    overflow: "hidden",
+    width: "100%"
   },
 
   season: {
@@ -372,10 +378,18 @@ marginBlock: 6
     marginRight: 8
   },
   trophee: {
-    height: 60,
-    width: 60,
+    height: 65,
+    width: 65,
     objectFit: "contain",
-    overflow: "hidden"
+    overflow: "hidden",
+  },
+  armoire: {
+    flexDirection: "row",
+    justifyContent: "center",
+    width: "50%",
+    flexWrap: "wrap",
+    gap: 10,
+    alignItems: "center"
   }
 });
 
