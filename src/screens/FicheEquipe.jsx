@@ -60,18 +60,42 @@ function FicheEquipe() {
     fetchEquipe();
   }, [id]);
 
+  console.log(equipe)
+
+  useEffect(() => {
+
+    // Fetch home team statistics
+    fetch(`https://v3.football.api-sports.io/teams/statistics?season=2024&team=${id}&league=${league}`, {
+        method: "GET",
+        headers: {
+            "x-rapidapi-host": "v3.football.api-sports.io",
+            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b"
+        }
+    })
+        .then((response) => response.json())
+        .then((json) => {
+            setStats(json.response);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}, [id]);
+
+
+
+console.log(stats)
 
   if (!equipe) {
     return <Text>Loading...</Text>;
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Precedent />
       <LinearGradient colors={["black", "steelblue"]} style={styles.header}>
         <View>
           <Text style={styles.team}>{equipe.team.name.toUpperCase()}</Text>
-          <Text style={{ color: "white", fontFamily: "Kanito" }}>{equipe.team.country}</Text>
+          <Text style={{ color: "white", fontFamily: "Kanito" }}>{equipe.team.country === "England" ? "Angleterre" : equipe.team.country === "Spain" ? "Espagne" : equipe.team.country === "Germany" ? "Allemagne" : equipe.team.country}</Text>
           <Text style={{ color: "white", fontFamily: "Kanitus" }}>
             {equipe.team.national === false ? `Club fondé en ${equipe.team.founded}` : null}
           </Text>
@@ -101,8 +125,31 @@ function FicheEquipe() {
           ]}
         >
           <Image style={styles.stadeImage} source={{ uri: equipe.venue.image }} />
+          <Text style={{fontFamily: "Kanitt"}}>{equipe.venue.name}</Text>
+          <Text style={{fontFamily: "Kanito"}}>{equipe.venue.address}, {equipe.venue.city}</Text>
+          <Text style={{fontFamily: "Kanitus"}}> Capacité: {equipe.venue.capacity} places</Text>
         </Animated.View>
       </View>
+      <Text style={styles.season}>2024/2025</Text>
+      <View style={{width: "86%", alignItems: "center", backgroundColor: "pink", gap: 10}}>
+<Text style={styles.h3}>Matchs Disputés</Text>
+<Text style={{fontFamily: "Kanitt", fontSize: 22}}>{stats.fixtures.played.total}</Text>
+<View style={{flexDirection: "row", justifyContent: "space-between", width: "100%"}}>
+    <View style={{alignItems: "center", width: "33%"}}>
+    <Text style={styles.h4}>Victoires</Text>
+    <Text style={{fontFamily: "Kanitt", color: "green", fontSize: 20}}>{stats.fixtures.wins.total}</Text>
+</View>
+<View style={{alignItems: "center", width: "33%"}}>
+<Text style={styles.h4}>Defaites</Text>
+    <Text style={{fontFamily: "Kanitt", color: "red", fontSize: 20}}>{stats.fixtures.loses.total}</Text>
+</View>
+<View style={{alignItems: "center", width: "33%"}}>
+<Text style={styles.h4}>Nuls</Text>
+    <Text style={{fontFamily: "Kanitt", color: "grey", fontSize: 20}}>{stats.fixtures.draws.total}</Text>
+    </View>
+</View>
+      </View>
+
     </ScrollView>
   );
 }
@@ -110,13 +157,15 @@ function FicheEquipe() {
 const styles = StyleSheet.create({
     container: {
 padding: 10,
+alignItems: "center"
     },
     header: {
 flexDirection: "row",
 justifyContent: "space-between",
 padding: 15,
 borderRadius: 15,
-marginBottom: 15
+marginBottom: 15,
+width: "98%"
     },
     team: {
         color: "white",
@@ -124,7 +173,7 @@ marginBottom: 15
     },
     stade: {
         marginBottom: 20,
-        width: '100%',
+        width: '98%',
       },
       stadeTitle: {
         backgroundColor: '#4682b4',
@@ -150,13 +199,26 @@ marginBottom: 15
       stadeInfos: {
         marginTop: 10,
         overflow: "hidden",
-        alignItems: "center"
+        alignItems: "center",
       },
     stadeImage: {
-        height: 160,
-        width: 280,
-        borderRadius: 5
-    }
+        height: 200,
+        width: 340,
+        borderRadius: 5,
+    },
+    season: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 10,
+        fontFamily: "Kanito"
+      },
+      h3: {
+        fontFamily: "Kanito",
+        fontSize: 16,
+      },
+      h4: {
+        fontFamily: "Kanito",
+      }
   
 });
 

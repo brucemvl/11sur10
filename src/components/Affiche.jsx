@@ -23,10 +23,10 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, formeHome, formeExt }) 
             </View>
 
             <LinearGradient colors={['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.8)']} style={styles.affiche}>
-        <TouchableOpacity style={styles.domicile} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.home.id})}>
+        <TouchableOpacity style={styles.domicile} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.home.id, league: match.league.id})}>
           <Image source={{ uri: match.teams.home.logo }} style={styles.teamLogo} />
           <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 15 }}>{match.teams.home.name}</Text>
-          <View style={{gap: 5, flexDirection: "row"}}>{formeHome?.split('').map((char, index) => (
+          <View style={{gap: 5, flexDirection: "row", marginTop: 5}}>{formeHome?.split('').map((char, index) => (
           char === 'L' ? (
             <View style={styles.defaite}>
             <Text key={index} style={{color: "white", fontFamily: "Kanito"}}>D</Text>
@@ -50,7 +50,7 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, formeHome, formeExt }) 
           </Text>
         </View>
 
-        <TouchableOpacity style={styles.exterieur} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.away.id})}>
+        <TouchableOpacity style={styles.exterieur} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.away.id, league: match.league.id})}>
           <Image source={{ uri: match.teams.away.logo }} style={styles.teamLogo} />
           <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 15 }}>{match.teams.away.name}</Text>
           <View style={{gap: 5, flexDirection: "row"}}>{formeExt?.split('').map((char, index) => (
