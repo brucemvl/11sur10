@@ -89,6 +89,10 @@ console.log(stats)
     return <Text>Loading...</Text>;
   }
 
+  if (!stats) {
+    return <Text> Loading...</Text>
+  }
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Precedent />
@@ -131,7 +135,7 @@ console.log(stats)
         </Animated.View>
       </View>
       <Text style={styles.season}>2024/2025</Text>
-      <View style={{width: "86%", alignItems: "center", backgroundColor: "pink", gap: 10}}>
+      <View style={styles.bloc}>
 <Text style={styles.h3}>Matchs Disputés</Text>
 <Text style={{fontFamily: "Kanitt", fontSize: 22}}>{stats.fixtures.played.total}</Text>
 <View style={{flexDirection: "row", justifyContent: "space-between", width: "100%"}}>
@@ -139,7 +143,7 @@ console.log(stats)
     <Text style={styles.h4}>Victoires</Text>
     <Text style={{fontFamily: "Kanitt", color: "green", fontSize: 20}}>{stats.fixtures.wins.total}</Text>
 </View>
-<View style={{alignItems: "center", width: "33%"}}>
+<View style={{alignItems: "center", width: "33%", borderLeftWidth: 2, borderRightWidth: 2}}>
 <Text style={styles.h4}>Defaites</Text>
     <Text style={{fontFamily: "Kanitt", color: "red", fontSize: 20}}>{stats.fixtures.loses.total}</Text>
 </View>
@@ -148,6 +152,51 @@ console.log(stats)
     <Text style={{fontFamily: "Kanitt", color: "grey", fontSize: 20}}>{stats.fixtures.draws.total}</Text>
     </View>
 </View>
+      </View>
+      <View style={styles.bloc}>
+        <Text style={styles.h3}>Buts</Text>
+        <View style={{flexDirection: "row", justifyContent: "center", width: "100%"}}>
+            <View style={{alignItems: "center", borderRightWidth: 1, paddingRight: 30}}>
+                <Text style={styles.h4}>Marqués</Text>
+                <Text style={{fontFamily: "Kanitt", color: "green", fontSize: 20}}>{stats.goals.for.total.total}</Text>
+                <Text style={{fontFamily: "Kanitus", fontSize: 11}}>(Moyenne par match :<Text style={{fontFamily: "Kanito"}}> {stats.goals.for.average.total}</Text>)</Text>
+            </View>
+            <View style={{alignItems: "center", borderLeftWidth: 1, paddingLeft: 30}}>
+                <Text style={styles.h4}>Encaissés</Text>
+                <Text style={{fontFamily: "Kanitt", color: "red", fontSize: 20}}>{stats.goals.against.total.total}</Text>
+                <Text style={{fontFamily: "Kanitus", fontSize: 11}}>(Moyenne par match :<Text style={{fontFamily: "Kanito"}}>{stats.goals.against.average.total}</Text>)</Text>
+
+            </View>
+        </View>
+      </View>
+      <View style={styles.bloc}>
+        
+            <Text style={styles.h3}>Plus large victoire</Text>
+            <View style={{flexDirection: "row"}}>
+                <View style={{alignItems: "center", borderRightWidth: 1, paddingRight: 30}}>
+                    <Text style={styles.h5}>Domicile</Text>
+                    <Text style={{color: "green", fontFamily: "Kanitt"}}>{stats.biggest.wins.home}</Text>
+                </View>
+                <View style={{alignItems: "center", borderLeftWidth: 1, paddingLeft: 30}}>
+                    <Text style={styles.h5}>Exterieur</Text>
+                    <Text style={{color: "green", fontFamily: "Kanitt"}}>{stats.biggest.wins.away}</Text>
+                </View>
+            </View>
+
+       
+        
+        <Text style={styles.h3}>Plus large defaite</Text>
+        <View style={{flexDirection: "row"}}>
+                <View style={{alignItems: "center", borderRightWidth: 1, paddingRight: 30}}>
+                    <Text style={styles.h5}>Domicile</Text>
+                    <Text style={{color: "red", fontFamily: "Kanitt"}}>{stats.biggest.loses.home}</Text>
+                </View>
+                <View style={{alignItems: "center", borderLeftWidth: 1, paddingLeft: 30}}>
+                    <Text style={styles.h5}>Exterieur</Text>
+                    <Text style={{color: "red", fontFamily: "Kanitt"}}>{stats.biggest.loses.away}</Text>
+                </View>
+            </View>
+        
       </View>
 
     </ScrollView>
@@ -218,6 +267,18 @@ width: "98%"
       },
       h4: {
         fontFamily: "Kanito",
+      },
+      h5: {
+        fontFamily: "Kanito",
+        fontSize: 12
+      },
+      bloc: {
+        width: "86%",
+         alignItems: "center",
+          backgroundColor: "#cee8fe",
+           gap: 10, borderRadius: 15,
+            padding: 15,
+            marginBottom: 20
       }
   
 });

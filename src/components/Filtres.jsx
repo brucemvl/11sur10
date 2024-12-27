@@ -89,7 +89,8 @@ const styles = StyleSheet.create({
         
     },
     title: {
-        padding: 10,
+        paddingBlock: 10,
+        paddingInline: 20,
         borderRadius: 15,
         alignItems: 'center',
         justifyContent: 'center',

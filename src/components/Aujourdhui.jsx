@@ -812,7 +812,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontFamily: "Kanitt",
     height: 35,
-    width: 30,
+    width: 50,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10
