@@ -6,6 +6,7 @@ import flag from "../assets/flag.png"
 import shield from "../assets/shield.png"
 import { useNavigation } from "@react-navigation/native"
 import { useFonts } from "expo-font"
+import { useState } from "react"
 
 function Menu(){
 
@@ -18,31 +19,72 @@ function Menu(){
         return <Text>Loading...</Text>;  // Attendre que les polices et les données soient chargées
       }
 
+      const [selected, setSelected] = useState(true);
+    const [selected2, setSelected2] = useState(false);
+    const [selected3, setSelected3] = useState(false);
+    const [selected4, setSelected4] = useState(false);
+
+
+      const openAccueil = () => {
+         navigation.navigate("Home")
+         setSelected(true);
+        setSelected2(false);
+        setSelected3(false);
+        setSelected4(false);
+
+        
+    };
+
+    const openLive = () => {
+        navigation.navigate("LivePage")
+        setSelected(false);
+        setSelected2(true);
+        setSelected3(false);
+        setSelected4(false);
+    };
+
+    const openClubs = () => {
+        navigation.navigate("ClubPage")
+        setSelected(false);
+        setSelected2(false);
+        setSelected3(true);
+        setSelected4(false);
+
+    };
+
+    const openSelect = () => {
+        navigation.navigate("SelectionsPage")
+        setSelected(false);
+        setSelected2(false);
+        setSelected3(false);
+        setSelected4(true);
+
+    };
     return(
     <View style={styles.Menu}>
-        <TouchableOpacity onPress={()=> navigation.navigate("Home")} style={styles.buttonLeft}>
-        <View style={{alignItems: "center", gap: 5}}>
+        <TouchableOpacity onPress={openAccueil} style={styles.buttonLeft}>
+        <View style={selected? styles.selected : {alignItems: "center", gap: 5}}>
             <Text style={styles.text}>Accueil</Text>
             <Image source={home} style={styles.img} />
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={()=> navigation.navigate("LivePage")} style={styles.button}>
-        <View style={{alignItems: "center", gap: 5}}>
+        <TouchableOpacity onPress={openLive} style={styles.button}>
+        <View style={selected2? styles.selected : {alignItems: "center", gap: 5}}>
             <Text style={styles.text}>Live</Text>
             <Image source={live} style={styles.img} />
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={()=> navigation.navigate("ClubPage")} style={styles.button}>
-        <View style={{alignItems: "center", gap: 5}}>
+        <TouchableOpacity onPress={openClubs} style={styles.button}>
+        <View style={selected3? styles.selected : {alignItems: "center", gap: 5}}>
             <Text style={styles.text}>Clubs</Text>
             <Image source={shield} style={styles.img} />
         </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={()=> navigation.navigate("SelectionsPage")} style={styles.buttonRight}>
-        <View style={{alignItems: "center", gap: 5}}>
+        <TouchableOpacity onPress={openSelect} style={styles.buttonRight}>
+        <View style={selected4? styles.selected : {alignItems: "center", gap: 5}}>
             <Text style={styles.text}>Selections</Text>
             <Image source={flag} style={styles.img} />
 
@@ -87,6 +129,14 @@ const styles = StyleSheet.create({
     img: {
         height: 24,
         width: 24
+    },
+    selected: {
+        alignItems: "center",
+        gap: 5,
+        shadowColor: 'white', // shadow color
+        shadowOffset: { width: 0, height: -4 }, // shadow offset
+        shadowOpacity: 0.7, // shadow opacity
+        shadowRadius: 4,
     }
 })
 

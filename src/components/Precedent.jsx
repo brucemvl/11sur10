@@ -9,7 +9,7 @@ function Precedent() {
 
   return (
       <TouchableOpacity onPress={() => navigation.goBack()} style={styles.button} >
-        <Text style={styles.text}>Précedent</Text>
+        <Text style={styles.text}>{"<"}  Précedent</Text>
       </TouchableOpacity>
   );
 };
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: "midnightblue",
         paddingBlock: 12,
-        borderRadius: 5,
+        borderRadius: 20,
 width: 105,
 alignSelf: "flex-start",
 marginBottom: 10,

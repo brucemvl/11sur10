@@ -135,6 +135,7 @@ console.log(stats)
         </Animated.View>
       </View>
       <Text style={styles.season}>2024/2025</Text>
+      <Image source={{ uri: stats.league.logo}} style={{height: 50, width: 50, marginBottom: 20, objectFit: "contain"}}/>
       <View style={styles.bloc}>
 <Text style={styles.h3}>Matchs Disputés</Text>
 <Text style={{fontFamily: "Kanitt", fontSize: 22}}>{stats.fixtures.played.total}</Text>
@@ -173,11 +174,11 @@ console.log(stats)
         
             <Text style={styles.h3}>Plus large victoire</Text>
             <View style={{flexDirection: "row"}}>
-                <View style={{alignItems: "center", borderRightWidth: 1, paddingRight: 30}}>
+                <View style={{alignItems: "center", borderRightWidth: 1, paddingRight: 40}}>
                     <Text style={styles.h5}>Domicile</Text>
                     <Text style={{color: "green", fontFamily: "Kanitt"}}>{stats.biggest.wins.home}</Text>
                 </View>
-                <View style={{alignItems: "center", borderLeftWidth: 1, paddingLeft: 30}}>
+                <View style={{alignItems: "center", borderLeftWidth: 1, paddingLeft: 40}}>
                     <Text style={styles.h5}>Exterieur</Text>
                     <Text style={{color: "green", fontFamily: "Kanitt"}}>{stats.biggest.wins.away}</Text>
                 </View>
@@ -187,16 +188,30 @@ console.log(stats)
         
         <Text style={styles.h3}>Plus large defaite</Text>
         <View style={{flexDirection: "row"}}>
-                <View style={{alignItems: "center", borderRightWidth: 1, paddingRight: 30}}>
+                <View style={{alignItems: "center", borderRightWidth: 1, paddingRight: 40}}>
                     <Text style={styles.h5}>Domicile</Text>
                     <Text style={{color: "red", fontFamily: "Kanitt"}}>{stats.biggest.loses.home}</Text>
                 </View>
-                <View style={{alignItems: "center", borderLeftWidth: 1, paddingLeft: 30}}>
+                <View style={{alignItems: "center", borderLeftWidth: 1, paddingLeft: 40}}>
                     <Text style={styles.h5}>Exterieur</Text>
                     <Text style={{color: "red", fontFamily: "Kanitt"}}>{stats.biggest.loses.away}</Text>
                 </View>
             </View>
         
+      </View>
+
+      <View style={styles.bloc}>
+        <Text style={styles.h3}>Clean-sheets</Text>
+        <View style={{flexDirection: "row", justifyContent: "space-evenly"}}>
+            <View style={{width: "50%", alignItems: "center"}}>
+                <Text style={styles.h4}>Domicile</Text>
+                <Text style={{fontFamily: "Kanitt"}}>{stats.clean_sheet.home}</Text>
+            </View>
+            <View style={{width: "50%", alignItems: "center"}}>
+                <Text style={styles.h4}>Exterieur</Text>
+                <Text style={{fontFamily: "Kanitt"}}>{stats.clean_sheet.away}</Text>
+            </View>
+        </View>
       </View>
 
     </ScrollView>
@@ -278,7 +293,11 @@ width: "98%"
           backgroundColor: "#cee8fe",
            gap: 10, borderRadius: 15,
             padding: 15,
-            marginBottom: 20
+            marginBottom: 20,
+            shadowColor: '#000', // shadow color
+    shadowOffset: { width: 0, height: 0 }, // shadow offset
+    shadowOpacity: 0.5, // shadow opacity
+    shadowRadius: 4,
       }
   
 });

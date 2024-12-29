@@ -817,7 +817,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 10
 
-
   }
 });
 

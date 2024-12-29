@@ -123,7 +123,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginVertical: 20,
         width: '75%',
-        alignSelf: 'center',
         backgroundColor: "midnightblue",
     },
     titleText: {
