@@ -8,6 +8,7 @@ import subst from "../assets/sub.png";
 import redcard from "../assets/redcard.png";
 import Affiche from '../components/Affiche.jsx';
 import Precedent from '../components/Precedent.jsx';
+import Schema from '../components/Schema.jsx';
 
 const FicheMatch = () => {
     const [match, setMatch] = useState(null);
@@ -237,8 +238,9 @@ if (!compoDom || !compoExt) {
                     </TouchableOpacity>
                 </View>
                 {details && match && <Details match={match} possession={poss} expectedGoals={xg} tirs={tirs} tirsCadres={tirsCadres} jaune={jaune} rouge={rouge} passes={passes} passesReussies={passesReussies} accuracy={accuracy}/>}
-                {compos && <Compositions match={match} titulairesDom={tituDom} titulairesExt={tituExt} coachDom={coachDom} coachExt={coachExt} systemeDom={systemeDom} systemeExt={systemeExt} substituteDom={substituteDom} substituteExt={substituteExt}/>}
+                {compos && <Compositions match={match} titulairesDom={tituDom} titulairesExt={tituExt} coachDom={coachDom} coachExt={coachExt} systemeDom={systemeDom} systemeExt={systemeExt} substituteDom={substituteDom} substituteExt={substituteExt} compoDom={compoDom} compoExt={compoExt}/>}
                 {live && <Evenements match={match} />}
+
             </View>
         </ScrollView>
     )

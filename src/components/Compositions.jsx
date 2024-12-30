@@ -6,8 +6,9 @@ import flecheRouge from "../assets/flecherouge.png";
 import redcard from "../assets/redcard.png";
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
+import Schema from './Schema';
 
-const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt, systemeDom, systemeExt, substituteDom, substituteExt }) => {
+const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt, systemeDom, systemeExt, substituteDom, substituteExt, compoDom, compoExt }) => {
 
   const range = [1, 2, 3, 4, 5];
   const navigation = useNavigation();
@@ -90,6 +91,8 @@ const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt,
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Compositions d'équipe</Text>
+      <Schema compoDom={compoDom} compoExt={compoExt} />
+
       <View style={styles.teamsContainer}>
         <View style={styles.teamContainer}>
           <View style={styles.headerCompo}>
