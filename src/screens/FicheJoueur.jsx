@@ -159,7 +159,7 @@ function FicheJoueur() {
             <Animated.View style={[styles.palmaresInfos, {
               height: heightAnim.interpolate({
                 inputRange: [0, 1],
-                outputRange: [0, 320]  // Ajustez la hauteur en fonction du contenu
+                outputRange: [0, 340]  // Ajustez la hauteur en fonction du contenu
               })
             }]}>
               <View >
@@ -188,10 +188,11 @@ function FicheJoueur() {
               {trophiesArray.map((element) => <View style={styles.box}> {element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee} /> : element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee} /> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : element.league === "UEFA Europa League" ? <Image source={europa} style={styles.trophee} /> : element.league === "Ligue 1" ? <Image source={tropheeligue1} style={styles.trophee} /> : element.league === "La Liga" ? <Image source={liga} style={styles.trophee} /> : element.league === "Bundesliga" ? <Image source={bundesliga} style={styles.trophee} /> : element.league === "UEFA European Championship" ? <Image source={euro} style={styles.trophee} /> : element.league === "UEFA Super Cup" ? <Image source={uefa} style={styles.trophee} /> : element.league === "Serie A" ? <Image source={seriea} style={styles.trophee} /> : element.league === "CAF Africa Cup of Nations" ? <Image source={can} style={styles.trophee} /> : element.league === "UEFA Nations League" ? <Image source={nations} style={styles.trophee} /> : element.league === "FIFA Intercontinental Cup" ? <Image source={fifa} style={styles.trophee} /> : null }</View>)}
               </View>
 
-            </Animated.View> : <Animated.View style={[styles.palmaresInfos, {
+            </Animated.View> : 
+            <Animated.View style={[styles.palmaresInfos, {
               height: heightAnim.interpolate({
                 inputRange: [0, 1],
-                outputRange: [0, 230]  // Ajustez la hauteur en fonction du contenu
+                outputRange: [0, 240]  // Ajustez la hauteur en fonction du contenu
               })
             }]}>
               <View >
@@ -346,7 +347,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flexDirection: "row",
     overflow: "hidden",
-    width: "100%"
+    width: "100%",
+    alignItems: "center"
   },
 
   season: {
@@ -388,8 +390,8 @@ const styles = StyleSheet.create({
     marginRight: 8
   },
   trophee: {
-    height: 70,
-    width: 70,
+    height: 68,
+    width: 68,
     objectFit: "contain",
     overflow: "hidden",
     
@@ -398,7 +400,7 @@ const styles = StyleSheet.create({
   box: {
     shadowColor: '#000', // shadow color
     shadowOffset: { width: -3, height: -3 }, // shadow offset
-    shadowOpacity: 0.4, // shadow opacity
+    shadowOpacity: 0.3, // shadow opacity
     shadowRadius: 4,
   },
   armoire: {
@@ -406,8 +408,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "50%",
     flexWrap: "wrap",
-    gap: 10,
-    alignItems: "center"
+    gap: 8,
+    alignItems: "center",
+    paddingBlock: 6
   }
 });
 

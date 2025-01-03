@@ -23,7 +23,7 @@ width: 105,
 alignSelf: "flex-start",
 marginBottom: 10,
 marginLeft: 5,
-height: 48
+height: 48,
     },
     text: {
         color: "white",

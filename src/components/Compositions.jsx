@@ -8,7 +8,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import Schema from './Schema';
 
-const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt, systemeDom, systemeExt, substituteDom, substituteExt, compoDom, compoExt }) => {
+const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt, systemeDom, systemeExt, substituteDom, substituteExt, compoDom, compoExt, colors }) => {
 
   const range = [1, 2, 3, 4, 5];
   const navigation = useNavigation();
@@ -91,7 +91,7 @@ const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt,
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Compositions d'équipe</Text>
-      <Schema compoDom={compoDom} compoExt={compoExt} />
+      <Schema compoDom={compoDom} compoExt={compoExt} colors={colors} match={match} />
 
       <View style={styles.teamsContainer}>
         <View style={styles.teamContainer}>
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 40,
     height: 40,
-    marginRight: 8,
+    marginInline: 8,
     resizeMode: 'contain',
   },
   systemeText: {

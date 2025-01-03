@@ -181,6 +181,24 @@ const compoExt = match.lineups && match.lineups[1];
 const coachDom = compoDom ? compoDom.coach?.name : 'Unknown'; // Utilisation de l'opérateur de chaînage optionnel (?.)
 const coachExt = compoExt ? compoExt.coach?.name : 'Unknown'; 
 
+const colors = {
+    primaryDom : match.lineups[0]?.team.colors.player.primary,
+    primaryExt : match.lineups[1]?.team.colors.player.primary,
+    borderDom : match.lineups[0]?.team.colors.player.border,
+    borderExt : match.lineups[1]?.team.colors.player.border,
+    numberDom: match.lineups[0]?.team.colors.player.number,
+    numberExt : match.lineups[1]?.team.colors.player.number,
+    goalDom : match.lineups[0]?.team.colors.goalkeeper.primary,
+    goalExt : match.lineups[1]?.team.colors.goalkeeper.primary,
+    goalDomBorder : match.lineups[0]?.team.colors.goalkeeper.border,
+    goalExtBorder : match.lineups[1]?.team.colors.goalkeeper.border,
+    goalDomNumber : match.lineups[0]?.team.colors.goalkeeper.number,
+    goalDomExt : match.lineups[1]?.team.colors.goalkeeper.number
+
+}
+
+console.log (colors.primaryDom)
+
 if (!compoDom || !compoExt) {
     return (
     <ScrollView contentContainerStyle={styles.bloc}>
@@ -238,7 +256,7 @@ if (!compoDom || !compoExt) {
                     </TouchableOpacity>
                 </View>
                 {details && match && <Details match={match} possession={poss} expectedGoals={xg} tirs={tirs} tirsCadres={tirsCadres} jaune={jaune} rouge={rouge} passes={passes} passesReussies={passesReussies} accuracy={accuracy}/>}
-                {compos && <Compositions match={match} titulairesDom={tituDom} titulairesExt={tituExt} coachDom={coachDom} coachExt={coachExt} systemeDom={systemeDom} systemeExt={systemeExt} substituteDom={substituteDom} substituteExt={substituteExt} compoDom={compoDom} compoExt={compoExt}/>}
+                {compos && <Compositions match={match} titulairesDom={tituDom} titulairesExt={tituExt} coachDom={coachDom} coachExt={coachExt} systemeDom={systemeDom} systemeExt={systemeExt} substituteDom={substituteDom} substituteExt={substituteExt} compoDom={compoDom} compoExt={compoExt} colors={colors}/>}
                 {live && <Evenements match={match} />}
 
             </View>
