@@ -318,13 +318,13 @@ console.log(tomorrowDate);
       </Text>
     </LinearGradient>
 
-    <TouchableOpacity style={{width: 30}}>
+    <TouchableOpacity style={{width: 50}}>
       
     </TouchableOpacity>
 
     </View> :
     selectedDate === "HIER" ? <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
-    <TouchableOpacity style={{width: 30}}>
+    <TouchableOpacity style={{width: 50}}>
       
       </TouchableOpacity>
 
@@ -407,6 +407,8 @@ console.log(tomorrowDate);
       </View>)
       }
     </ScrollView> }
+
+
     {aujourdhui &&
       <Text style={styles.nomatch}>Pas de match aujourdhui</Text>
 }
@@ -464,13 +466,13 @@ console.log(tomorrowDate);
         </Text>
       </LinearGradient>
 
-      <TouchableOpacity style={{width: 30}}>
+      <TouchableOpacity style={{width: 50}}>
         
       </TouchableOpacity>
 
       </View> :
       selectedDate === "HIER" ? <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
-      <TouchableOpacity style={{width: 30}}>
+      <TouchableOpacity style={{width: 50}}>
         
         </TouchableOpacity>
 
@@ -507,7 +509,7 @@ console.log(tomorrowDate);
       </TouchableOpacity>
 
       </View>}
-{ hier && yesterdayMatch.length === 0 ? <Text style={styles.nomatch}>Aucun match hier</Text> :
+{ hier && 
   <ScrollView style={styles.liveTableau}>
 
         {yesterdayLeagues.map((league) => <View style={{ marginBlock: 5 }}>
