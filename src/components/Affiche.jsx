@@ -184,18 +184,27 @@ fontFamily: "Kanitalic"    },
 
 victoire: {
     backgroundColor: "green",
-    padding: 3,
-    borderRadius: 5
+    paddingBlock: 2,
+    paddingInline: 5,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center"
 },
 defaite : {
     backgroundColor: "red",
-    padding: 3,
-    borderRadius: 5
+    paddingBlock: 2,
+    paddingInline: 5,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center"
 },
 nul: {
 backgroundColor: "grey",
-padding: 3,
-    borderRadius: 5
+paddingBlock: 2,
+    paddingInline: 5,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center"
 }
 });
 

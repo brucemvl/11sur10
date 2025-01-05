@@ -36,7 +36,7 @@ function ClubPage() {
                     <View style={{flexDirection: "column"}}>
                     <Text style={{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 10}}>Europe</Text>
                     <View style={{flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center"}}>
-                    {championnats.map(({ name, id, logo, flag }) => (
+                    {championnats.map(({ name, id, flag, logo }) => (
                         <TouchableOpacity
                             key={"lien" + id}
                             style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
@@ -46,7 +46,8 @@ function ClubPage() {
                             <View style={styles.logoContainer}>
                             { logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image source={ligue1} style={styles.logo} /> : <Image source={{ uri: logo }} style={styles.logo} />}
                             </View>
-                            <Image source={{ uri: flag }} style={styles.flag} />
+                            <Image source={{ uri : flag}} style={styles.flag} />
+
                         </TouchableOpacity>
                     ))}
                     </View>
@@ -54,7 +55,7 @@ function ClubPage() {
                     <View style={{flexDirection: "column"}}>
                     <Text style={{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 10}}>Reste du monde</Text>
                     <View style={{flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center"}}>  
-                      {autres.map(({ name, id, logo }) => (
+                      {autres.map(({ name, id, logo, flag }) => (
                         <TouchableOpacity
                             key={"lien" + id}
                             style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
@@ -184,12 +185,23 @@ const styles = StyleSheet.create({
         fontFamily: "Permanent",
     },
     flag: {
-position: "initial",
+        height: "100%",
+        position: "absolute",
+        width: "100%",
     },
 
     // Styles spécifiques à l'écran mobile
     lienMobile: {
         width: 120, // Sur petits écrans, on ajuste la largeur
+        height: 125,
+        alignItems: 'center',
+        marginBottom: 10,
+        flexDirection: "column-reverse",
+        borderWidth: 8,
+        borderRadius: 15,
+        borderColor: "midnightblue",
+        paddingBlock: 6,
+        backgroundColor: "aliceblue",
     },
     lienTablet: {
         width: '22%', // Sur tablettes, on ajuste également

@@ -94,8 +94,9 @@ console.log(stats)
   }
 
   return (
+    <View>
+    <Precedent />
     <ScrollView contentContainerStyle={styles.container}>
-      <Precedent />
       <LinearGradient colors={["black", "steelblue"]} style={styles.header}>
         <View>
           <Text style={styles.team}>{equipe.team.name.toUpperCase()}</Text>
@@ -215,13 +216,15 @@ console.log(stats)
       </View>
 
     </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
     container: {
 padding: 10,
-alignItems: "center"
+alignItems: "center",
+marginTop: 60
     },
     header: {
 flexDirection: "row",

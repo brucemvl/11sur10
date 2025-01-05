@@ -127,8 +127,9 @@ function FicheJoueur() {
 
 
   return (
+    <View>
+    <Precedent />
     <ScrollView contentContainerStyle={styles.blocJoueur}>
-      <Precedent />
       <View style={styles.article}>
         <LinearGradient colors={["black", "steelblue"]} style={styles.infosJoueur}>
           <Image source={{ uri: joueur.player.photo }} style={styles.photo} />
@@ -261,6 +262,7 @@ function FicheJoueur() {
         </View>
       </View>
     </ScrollView>
+    </View>
   );
 }
 
@@ -270,12 +272,12 @@ const styles = StyleSheet.create({
     width: '98%',
     alignItems: 'center',
     margin: '1%',
-    marginTop: 20,
+    marginTop: 65,
   },
   article: {
     flexDirection: 'column',
     width: '98%',
-    alignItems: "center"
+    alignItems: "center",
   },
   infosJoueur: {
     backgroundColor: '#4682b4',

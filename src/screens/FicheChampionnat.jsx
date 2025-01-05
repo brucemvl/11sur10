@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, View } from 'react-native';
 import Tableau from '../components/Tableau';  // Assurez-vous que Tableau est compatible avec React Native
 import Classement from '../components/Classement';  // Idem pour ClassementChampionnat
 import { useState, useEffect } from 'react';
@@ -33,20 +33,23 @@ function FicheChampionnat({ route }) {
   }, [id]);
 
     return (
+      <View>
+      <Precedent />
+
         <ScrollView contentContainerStyle={styles.blocChamp}>
-            <Precedent />
             {/* Passer l'ID du championnat et la fonction setFilter aux composants */}
             <Tableau id={id} currentRound={currentRound} />
             <Classement id={id} />
         </ScrollView>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     blocChamp: {
+      marginTop: 50,
         flexGrow: 1, // Cette ligne garantit que le contenu du ScrollView occupe l'espace disponible
         padding: 10,
-        justifyContent: "flex-start", // Cela assure que le contenu commence en haut
         width: "100%",
     },
 });

@@ -80,8 +80,9 @@ function Schema({ compoDom, compoExt, match, colors }) {
                         {/* Gardien */}
                         {linesDom.G.map((player, index) => (
                             <View key={index} style={[generatePositionStyle(index, linesDom.G.length, 1), { alignItems: "center", width: 54 }]}>
-                                <View>{match.players[0].players.map((joueur) => joueur.player.id === player.id ? joueur.statistics[0].cards.yellow > 0 ? <Image source={yellow} style={styles.card} /> : joueur.statistics[0].cards.red > 0 ? <Image source={red} style={styles.card} /> : null : null)}</View>
-                                <View style={[styles.player, { backgroundColor: "#" + colors.goalDom, borderColor: "#" + colors.goalDomBorder }]}>
+<View style={styles.infos}>{match.players[0].players.map((joueur) => joueur.player.id === player.id ? range.map((x) => joueur.statistics[0].goals.total >= x ? <Text key={x} style={{ fontSize: 9, marginInline: -3 }}>⚽</Text> : null) : null)}
+                                {match.players[0].players.map((joueur) => joueur.player.id === player.id ? joueur.statistics[0].cards.yellow > 0 ? <Image source={yellow} style={styles.card} /> : joueur.statistics[0].cards.red > 0 ? <Image source={red} style={styles.card} /> : null : null)}
+                                </View>                                <View style={[styles.player, { backgroundColor: "#" + colors.goalDom, borderColor: "#" + colors.goalDomBorder }]}>
                                     <Text style={[styles.number, { color: "#" + colors.goalDomNumber }]}>{player.number}</Text>
                                 </View>
                                 <Text style={styles.playerName}>{player.name.split(' ').slice(-1).join(' ')}</Text>

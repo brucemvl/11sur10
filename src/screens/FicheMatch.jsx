@@ -239,8 +239,9 @@ if (!compoDom || !compoExt) {
     console.log(match)
 
     return (
+        <View>
+    <Precedent />
         <ScrollView contentContainerStyle={styles.bloc}>
-            <Precedent />
             <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} formeHome={formeHome} formeExt={formeExt}/>
             <View style={styles.section}>
                 {/* Your existing JSX */}
@@ -261,6 +262,7 @@ if (!compoDom || !compoExt) {
 
             </View>
         </ScrollView>
+        </View>
     )
 }
 
@@ -269,6 +271,7 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         alignItems: 'center',
         padding: 10,
+        marginTop: 50
     },
     section: {
         width: '100%',
