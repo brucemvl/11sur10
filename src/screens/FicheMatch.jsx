@@ -197,7 +197,14 @@ const colors = {
 
 }
 
-console.log (colors.primaryDom)
+console.log (match)
+/*
+if (match.lineups.length === 2 && match.fixture.status.long === "Not Started") {
+    return (
+    <Compositions />
+    )
+}
+    */
 
 if (!compoDom || !compoExt) {
     return (

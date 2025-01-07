@@ -72,6 +72,15 @@ export const championnats = [
         "logo": "https://media.api-sports.io/football/leagues/197.png",
         "flag": "https://media.api-sports.io/flags/gr.svg",
         "season": 2024,
+    },
+
+    {
+        "id": 62,
+        "name": "Ligue 2",
+        "country": "France",
+        "logo": "https://media.api-sports.io/football/leagues/62.png",
+        "flag": "https://media.api-sports.io/flags/fr.svg",
+        "season": 2024,
     }
 
 

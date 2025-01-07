@@ -39,7 +39,7 @@ function Header() {
       <Image source={insta} style={{height: 48, width: 48}}/>
       </TouchableOpacity>
       <TouchableOpacity onPress={()=> navigation.navigate("Apropos")}>
-        <Text style={{fontFamily: "Kanito", color: "white", textDecorationLine: "underline", height: 48}}>A Propos</Text>
+        <Text style={{fontFamily: "Kanitt", color: "white", textDecorationLine: "underline", height: 48}}>A Propos</Text>
       </TouchableOpacity>
       </View>
     </LinearGradient>

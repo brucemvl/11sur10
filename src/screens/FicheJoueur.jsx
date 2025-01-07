@@ -160,13 +160,13 @@ function FicheJoueur() {
             <Animated.View style={[styles.palmaresInfos, {
               height: heightAnim.interpolate({
                 inputRange: [0, 1],
-                outputRange: [0, 340]  // Ajustez la hauteur en fonction du contenu
+                outputRange: [0, 380]  // Ajustez la hauteur en fonction du contenu
               })
             }]}>
               <View >
                 {trophiesArray.map((element, index) => (
                   element.league === "Trofeo Joan Gamper" ? null :
-                    <Text style={{ fontFamily: "Kanito", marginInline: 10 }}>{element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league === "Trofeo Joan Gamper" ? null : element.league === "UEFA European Championship" ? "Euro" : element.league}</Text>
+                    <Text style={{ fontFamily: "Kanito", marginInline: 10, marginBlock: 2 }}>{element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league === "Trofeo Joan Gamper" ? null : element.league === "UEFA European Championship" ? "Euro" : element.league}</Text>
                 ))}
               </View>
               <View style={styles.armoire}>
@@ -392,18 +392,20 @@ const styles = StyleSheet.create({
     marginRight: 8
   },
   trophee: {
-    height: 68,
-    width: 68,
+    height: 72,
+    width: 72,
     objectFit: "contain",
     overflow: "hidden",
+    shadowColor: '#000', // shadow color
+    shadowOffset: { width: -3, height: -3 }, // shadow offset
+    shadowOpacity: 0.3, // shadow opacity
+    shadowRadius: 3,
+    padding: 7
     
         
   },
   box: {
-    shadowColor: '#000', // shadow color
-    shadowOffset: { width: -3, height: -3 }, // shadow offset
-    shadowOpacity: 0.3, // shadow opacity
-    shadowRadius: 4,
+
   },
   armoire: {
     flexDirection: "row",

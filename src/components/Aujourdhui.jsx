@@ -21,6 +21,11 @@ function Aujourdhui() {
   const [matchsGer, setMatchsGer] = useState([]);
   const [matchsItaly, setMatchsItaly] = useState([]);
   const [matchsCdf, setMatchsCdf] = useState([])
+  const [matchsFac, setMatchsFac] = useState([])
+  const [matchsEfl, setMatchsEfl] = useState([])
+  const [matchsCopa, setMatchsCopa] = useState([])
+
+
 
   useEffect(() => {
     const fetchUcl = () => {
@@ -212,9 +217,89 @@ function Aujourdhui() {
 
   )
 
+  useEffect(() => {
+    const fetchFac = () => {
+      try {
+        fetch("https://v3.football.api-sports.io/fixtures?league=45&season=2024", {
+          method: "GET",
+          headers: {
+            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+            "x-rapidapi-host": "v3.football.api-sports.io",
+          }
+        })
+          .then((response) => response.json())
+          .then((json) => {
+
+            setMatchsFac(json.response)
+
+          })
+
+      }
+      catch (error) {
+        null
+      }
+    };
+    fetchFac();
+  }, []
+
+  )
+
+  useEffect(() => {
+    const fetchEfl = () => {
+      try {
+        fetch("https://v3.football.api-sports.io/fixtures?league=46&season=2024", {
+          method: "GET",
+          headers: {
+            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+            "x-rapidapi-host": "v3.football.api-sports.io",
+          }
+        })
+          .then((response) => response.json())
+          .then((json) => {
+
+            setMatchsEfl(json.response)
+
+          })
+
+      }
+      catch (error) {
+        null
+      }
+    };
+    fetchEfl();
+  }, []
+
+  )
+
+  useEffect(() => {
+    const fetchCopa = () => {
+      try {
+        fetch("https://v3.football.api-sports.io/fixtures?league=143&season=2024", {
+          method: "GET",
+          headers: {
+            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+            "x-rapidapi-host": "v3.football.api-sports.io",
+          }
+        })
+          .then((response) => response.json())
+          .then((json) => {
+
+            setMatchsCopa(json.response)
+
+          })
+
+      }
+      catch (error) {
+        null
+      }
+    };
+    fetchCopa();
+  }, []
+
+  )
   
 
-  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf]
+  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf, ...matchsFac, ...matchsEfl, ...matchsCopa]
 
   const [selectedDate, setSelectedDate] = useState("AUJOURDHUI");
 
@@ -361,7 +446,9 @@ console.log(tomorrowDate);
     </TouchableOpacity>
 
     </View>}
-{ hier && <ScrollView style={styles.liveTableau}>
+
+    
+{ hier && <ScrollView contentContainerStyle={styles.liveTableau}>
       {yesterdayLeagues.map((league) => <View style={{ marginBlock: 5 }}>
         <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
         {yesterdayMatch.map((element) => element.league.name === league ?
@@ -412,9 +499,10 @@ console.log(tomorrowDate);
     {aujourdhui &&
       <Text style={styles.nomatch}>Pas de match aujourdhui</Text>
 }
-{demain && <ScrollView style={styles.liveTableau}>
-      
-{tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
+{demain && <ScrollView contentContainerStyle={styles.liveTableau}>
+{tomorrowMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match demain</Text> : 
+
+tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
         <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
         {tomorrowMatch.map((element) => element.league.name === league ?
           
@@ -510,7 +598,7 @@ console.log(tomorrowDate);
 
       </View>}
 { hier && 
-  <ScrollView style={styles.liveTableau}>
+  <ScrollView contentContainerStyle={styles.liveTableau}>
 
         {yesterdayLeagues.map((league) => <View style={{ marginBlock: 5 }}>
           <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
@@ -558,7 +646,7 @@ console.log(tomorrowDate);
         }
       </ScrollView> }
       {aujourdhui &&
-      <ScrollView style={styles.liveTableau}>
+      <ScrollView contentContainerStyle={styles.liveTableau}>
         {leagues.map((league) => <View style={{ marginBlock: 5 }}>
           <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
           {todayMatch.map((element) => element.league.name === league ?
@@ -699,9 +787,9 @@ console.log(tomorrowDate);
         }
       </ScrollView>
 }
-{demain && <ScrollView style={styles.liveTableau}>
-        
-{tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
+{demain && <ScrollView contentContainerStyle={styles.liveTableau}>
+        {tomorrowMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match demain</Text> : 
+tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
           <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
           {tomorrowMatch.map((element) => element.league.name === league ?
             
@@ -767,7 +855,7 @@ const styles = StyleSheet.create({
   nomatch: {
     backgroundColor: 'red',
     color: 'white',
-    width: '70%',
+    width: 200,
     textAlign: 'center',
     fontFamily: 'Permanent Marker',
     borderRadius: 5,
@@ -777,6 +865,7 @@ const styles = StyleSheet.create({
   },
   liveTableau: {
     width: '98%',
+    justifyContent: "center"
   },
 
   matchCompetition: {

@@ -175,6 +175,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 8,
+    justifyContent: "flex-start"
   },
   headerExtCompo: {
     flexDirection: 'row',
