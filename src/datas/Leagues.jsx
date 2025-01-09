@@ -178,6 +178,126 @@ export const europe = [
 
 ]
 
+export const national = [
+
+    {
+        "id": 63,
+        "name": "National 1",
+        "country": "France",
+        "logo": "https://media.api-sports.io/football/leagues/63.png",
+        "season": 2024,
+    }
+]
+
+export const national2 = [
+
+    {
+        "id": 67,
+        "name": "National 2 A",
+        "country": "France",
+        "logo": "https://media.api-sports.io/football/leagues/67.png",
+        "season": 2024,
+    },
+
+    {
+        "id": 68,
+        "name": "National 2 B",
+        "country": "France",
+        "logo": "https://media.api-sports.io/football/leagues/68.png",
+        "season": 2024,
+    },
+
+    {
+        "id": 69,
+        "name": "National 2 C",
+        "country": "France",
+        "logo": "https://media.api-sports.io/football/leagues/69.png",
+        "season": 2024,
+    }
+]
+
+export const national3 = [
+    {
+        "id": 461,
+        "name": "National 3 A",
+        "country": "France",
+        "logo": "https://media.api-sports.io/football/leagues/461.png",
+        "season": 2024, 
+    },
+
+    {
+        "id": 462,
+        "name": "National 3 B",
+        "country": "France",
+        "logo": "https://media.api-sports.io/football/leagues/462.png",
+        "season": 2024, 
+    },
+
+    {
+        "id": 463,
+        "name": "National 3 C",
+        "country": "France",
+        "logo": "https://media.api-sports.io/football/leagues/463.png",
+        "season": 2024, 
+    },
+
+    {
+        "id": 464,
+        "name": "National 3 D",
+        "country": "France",
+        "logo": "https://media.api-sports.io/football/leagues/464.png",
+        "season": 2024, 
+    },
+
+    {
+        "id": 465,
+        "name": "National 3 E",
+        "country": "France",
+        "logo": "https://media.api-sports.io/football/leagues/465.png",
+        "season": 2024, 
+    },
+
+    {
+        "id": 466,
+        "name": "National 3 F",
+        "country": "France",
+        "logo": "https://media.api-sports.io/football/leagues/466.png",
+        "season": 2024, 
+    },
+
+    {
+        "id": 1029,
+        "name": "National 3 G",
+        "country": "France",
+        "logo": "https://media.api-sports.io/football/leagues/1029.png",
+        "season": 2024, 
+    },
+
+    {
+        "id": 467,
+        "name": "National 3 H",
+        "country": "France",
+        "logo": "https://media.api-sports.io/football/leagues/467.png",
+        "season": 2024, 
+    },
+
+    {
+        "id": 468,
+        "name": "National 3 I",
+        "country": "France",
+        "logo": "https://media.api-sports.io/football/leagues/468.png",
+        "season": 2024, 
+    },
+
+    {
+        "id": 469,
+        "name": "National 3 J",
+        "country": "France",
+        "logo": "https://media.api-sports.io/football/leagues/469.png",
+        "season": 2024, 
+    },
+]
+
 export const selections = [
    /* {
         "id": 20,

@@ -27,11 +27,27 @@ import seriea from "../assets/trophees/seriea.png"
 import can from "../assets/trophees/can.png"
 import nations from "../assets/trophees/nations.png"
 import fifa from "../assets/trophees/fifa.png"
+import haaland from "../assets/portraits/haaland.jpg"
+import gyokeres from "../assets/portraits/gyokeres.jpg"
+import zaire from "../assets/portraits/zaire.jpg"
+import yamal from "../assets/portraits/yamal.jpg"
+import dembele from "../assets/portraits/dembele.jpg"
+import bellingham from "../assets/portraits/bellingham.jpg"
+import barcola from "../assets/portraits/barcola.jpg"
+import rodrygo from "../assets/portraits/rodrygo.jpg"
+import guller from "../assets/portraits/guller.jpg"
+import doue from "../assets/portraits/doue.png"
+import kvara from "../assets/portraits/kvara.jpg"
+
+
+
+
 
 
 function FicheJoueur() {
   const [joueur, setJoueur] = useState(null);
   const [palmares, setPalmares] = useState(null);
+  const [annee, setAnnee] = useState(2024)
 
   const [openPalmares, setOpenPalmares] = useState(false);
 
@@ -72,7 +88,7 @@ function FicheJoueur() {
   }, [id]);
 
   useEffect(() => {
-    fetch(`https://v3.football.api-sports.io/players?id=${id}&season=2024`, {
+    fetch(`https://v3.football.api-sports.io/players?id=${id}&season=${annee}`, {
       method: "GET",
       headers: {
         "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
@@ -82,10 +98,26 @@ function FicheJoueur() {
       .then((response) => response.json())
       .then((result) => setJoueur(result.response[0]))
       .catch((error) => { console.error(error) });
-  }, [id]);
+  }, [id, annee]);
+
+  console.log(joueur)
+
+  const prec = ()=> {
+    if (annee > 2024 - 3){
+    setAnnee((prev)=> prev - 1)}
+  }
+
+  const next = ()=>{
+    if (annee < 2024) {
+      setAnnee((next)=> next +1)
+    }
+  }
 
   if (!joueur || !palmares) {
-    return <Text>Loading...</Text>;
+    return <View>
+      <Precedent />
+          <Text style={{textAlign: "center", marginTop: 100, fontFamily: "Kanitt", fontSize: 14}}>Aucune Donnée dispo</Text>;
+    </View>
   }
 
   const teamNames = joueur.statistics.map((element) => element.team.name);
@@ -132,7 +164,7 @@ function FicheJoueur() {
     <ScrollView contentContainerStyle={styles.blocJoueur}>
       <View style={styles.article}>
         <LinearGradient colors={["black", "steelblue"]} style={styles.infosJoueur}>
-          <Image source={{ uri: joueur.player.photo }} style={styles.photo} />
+          <Image source={ joueur.player.id === 1100 ? haaland : joueur.player.id === 161904 ? barcola : joueur.player.id === 336657 ? zaire : joueur.player.id === 153 ? dembele : joueur.player.id === 129718 ? bellingham : joueur.player.id === 386828 ? yamal : joueur.player.id === 10009 ? rodrygo : joueur.player.id === 18979 ? gyokeres : joueur.player.id === 291964 ? guller : joueur.player.id === 343027 ? doue : joueur.player.id === 483 ? kvara : { uri: joueur.player.photo }} style={styles.photo} />
           <View style={styles.bio}>
             <Text style={styles.name}>{joueur.player.name}</Text>
             <Text style={styles.infoText}>Né le {formattedDate} à {joueur.player.birth.place}, {joueur.player.birth.country}</Text>
@@ -209,7 +241,12 @@ function FicheJoueur() {
             </Animated.View>}
         </View>
 
-        <Text style={styles.season}>2024/2025</Text>
+        <View style={{flexDirection: "row", alignItems: "center", gap: 20, marginBottom: 10}}>
+<TouchableOpacity onPress={prec} style={{marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center"}}><Text style={{fontSize: 20, fontFamily: "Kanitt"}}>{"<"}</Text></TouchableOpacity>
+<Text style={styles.season}>{annee}/{annee +1}</Text>
+<TouchableOpacity onPress={next} style={{marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center"}}><Text style={{fontSize: 20, fontFamily: "Kanitt"}}>{">"}</Text></TouchableOpacity>
+        </View>
+
         <View style={styles.stats}>
           {joueur.statistics.map((element, index) => (
             <View key={index} style={styles.statBlock}>
@@ -356,7 +393,6 @@ const styles = StyleSheet.create({
   season: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 10,
     fontFamily: "Kanito"
   },
   stats: {

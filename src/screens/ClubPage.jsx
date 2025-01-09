@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView, useWindowDimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';  // Pour le dégradé
 import { useNavigation } from '@react-navigation/native'; // Pour la navigation
-import { championnats, europe, autres } from '../datas/Leagues'; // Import des données
+import { championnats, europe, autres, national, national2, national3 } from '../datas/Leagues'; // Import des données
 import { useFonts } from 'expo-font';  // Importer le hook useFonts d'Expo
 import ligue1 from "../assets/logoligue1.webp"
 import ligue2 from "../assets/ligue2.jpg"
@@ -97,6 +97,74 @@ function ClubPage() {
 
                 </View>
             </LinearGradient>
+{/*
+            <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.conteneur} >
+                <LinearGradient colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']} style={styles.title}
+                >
+                    <Text style={styles.titleText}>Amateurs</Text>
+                </LinearGradient>
+                <View style={styles.filtres}>
+                <View style={{flexDirection: "column"}}>
+                    <Text style={{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 10}}>National</Text>
+                    <View style={{flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center"}}>
+                    {national.map(({ name, id, flag, logo }) => (
+                        <TouchableOpacity
+                            key={"lien" + id}
+                            style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
+                            onPress={() => navigation.navigate('FicheChampionnat', { id })}
+                        >
+                            <Text style={styles.filtreTitle}>{name}</Text>
+                            <View style={styles.logoContainer}>
+                            <Image source={{ uri: logo }} style={styles.logo} />
+                            </View>
+
+                        </TouchableOpacity>
+                    ))}
+                    </View>
+
+                </View>
+                <View style={{flexDirection: "column"}}>
+                    <Text style={{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 10}}>National 2</Text>
+                    <View style={{flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center"}}>
+                    {national2.map(({ name, id, flag, logo }) => (
+                        <TouchableOpacity
+                            key={"lien" + id}
+                            style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
+                            onPress={() => navigation.navigate('FicheChampionnat', { id })}
+                        >
+                            <Text style={styles.filtreTitle}>{name}</Text>
+                            <View style={styles.logoContainer}>
+                            <Image source={{ uri: logo }} style={styles.logo} />
+                            </View>
+
+                        </TouchableOpacity>
+                    ))}
+                    </View>
+
+                    <View style={{flexDirection: "column"}}>
+                    <Text style={{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 10}}>National 3</Text>
+                    <View style={{flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center"}}>
+                    {national3.map(({ name, id, flag, logo }) => (
+                        <TouchableOpacity
+                            key={"lien" + id}
+                            style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
+                            onPress={() => navigation.navigate('FicheChampionnat', { id })}
+                        >
+                            <Text style={styles.filtreTitle}>{name}</Text>
+                            <View style={styles.logoContainer}>
+                            <Image source={{ uri: logo }} style={styles.logo} />
+                            </View>
+
+                        </TouchableOpacity>
+                    ))}
+                    </View>
+                    
+
+                </View>
+                </View>
+                </View>
+            </LinearGradient>
+            */}
         </ScrollView>
     );
 }

@@ -119,6 +119,8 @@ const FicheMatch = () => {
         return <Text>Loading match info...</Text>;
     }
 
+   
+
 
     const round = match.league.round;
     const roundd = round.slice(round.length - 2);
@@ -135,8 +137,8 @@ const FicheMatch = () => {
     const formeHome = homeStats?.form?.slice(homeStats.form.length - 5, homeStats.form.length)
     const formeExt = extStats?.form?.slice(extStats.form.length - 5, extStats.form.length)
 
-    const totalMatchsHome = homeStats?.fixtures.played.total
-    const totalMatchsExt = extStats?.fixtures.played.total
+    const totalMatchsHome = homeStats?.fixtures?.played.total
+    const totalMatchsExt = extStats?.fixtures?.played.total
     //PARTIE DETAILS
 
 const stats = match.statistics.filter((element)=>
@@ -196,6 +198,8 @@ const colors = {
     goalDomExt : match.lineups[1]?.team.colors.goalkeeper.number
 
 }
+
+
 
 console.log (match)
 /*

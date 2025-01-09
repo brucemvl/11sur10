@@ -33,13 +33,12 @@ function Header() {
       style={styles.header}
     >
       <Image source={logo} style={styles.logo} />
-      {/* Ici, tu peux ajouter ton menu ou d'autres éléments */}
       <View style={{alignItems: "center", gap: 30, paddingTop: 40}}>
       <TouchableOpacity onPress={()=>openExternalLink("https://www.instagram.com/11_sur_10/")}>
       <Image source={insta} style={{height: 48, width: 48}}/>
       </TouchableOpacity>
       <TouchableOpacity onPress={()=> navigation.navigate("Apropos")}>
-        <Text style={{fontFamily: "Kanitt", color: "white", textDecorationLine: "underline", height: 48}}>A Propos</Text>
+        <Text style={{fontFamily: "Kanitt", color: "white", textDecorationLine: "underline", height: 52}}>A Propos</Text>
       </TouchableOpacity>
       </View>
     </LinearGradient>
