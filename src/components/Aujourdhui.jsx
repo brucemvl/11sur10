@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Animated } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import ligue1 from "../assets/logoligue1.webp"
 import { useNavigation } from '@react-navigation/native';
@@ -11,6 +11,10 @@ function Aujourdhui() {
   const [hier, setHier] = useState(false)
   const [aujourdhui, setAujourdhui] = useState(true)
   const [demain, setDemain] = useState(false)
+
+  const [noSpoil, setNoSpoil] = useState(true)
+  const [isActive, setIsActive] = useState(false);
+  const [position, setPosition] = useState(new Animated.Value(0));
 
   
 
@@ -24,6 +28,8 @@ function Aujourdhui() {
   const [matchsFac, setMatchsFac] = useState([])
   const [matchsEfl, setMatchsEfl] = useState([])
   const [matchsCopa, setMatchsCopa] = useState([])
+  const [matchsSupercup, setMatchsSupercup] = useState([])
+
 
 
 
@@ -297,9 +303,47 @@ function Aujourdhui() {
   }, []
 
   )
-  
 
-  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf, ...matchsFac, ...matchsEfl, ...matchsCopa]
+  useEffect(() => {
+    const fetchSupercup = () => {
+      try {
+        fetch("https://v3.football.api-sports.io/fixtures?league=2&season=2024", {
+          method: "GET",
+          headers: {
+            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+            "x-rapidapi-host": "v3.football.api-sports.io",
+          }
+        })
+          .then((response) => response.json())
+          .then((json) => {
+
+            setMatchsSupercup(json.response)
+
+          })
+
+      }
+      catch (error) {
+        null
+      }
+    };
+    fetchSupercup();
+  }, []
+
+  )
+  
+  const spoil = ()=>{
+    setNoSpoil(!noSpoil)
+    setIsActive(!isActive)
+  }
+
+  Animated.timing(position, {
+    toValue: isActive ? 0 : 25, // Déplace le bouton à gauche ou à droite
+    duration: 300, // Durée de l'animation
+    useNativeDriver: true, // Utilisation du moteur natif pour la fluidité
+  }).start();
+
+
+  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf, ...matchsFac, ...matchsEfl, ...matchsCopa, ...matchsSupercup]
 
   const [selectedDate, setSelectedDate] = useState("AUJOURDHUI");
 
@@ -647,9 +691,26 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
       </ScrollView> }
       {aujourdhui &&
       <ScrollView contentContainerStyle={styles.liveTableau}>
+        
         {leagues.map((league) => <View style={{ marginBlock: 5 }}>
+          <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBlock: 6}}>
           <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
-          {todayMatch.map((element) => element.league.name === league ?
+          {league === "UEFA Champions League" && todayMatch.some((element) => 
+  element.league.name === "UEFA Champions League" && 
+  element.fixture.status.long != 'Match Finished' && 
+  element.fixture.status.elapsed !== null
+) ? (
+  <TouchableOpacity onPress={spoil} style={styles.button}>
+        <Animated.View
+          style={[
+            styles.toggle,
+            { transform: [{ translateX: position }] }, // Applique la transformation de position
+          ]}
+        >
+          <Text style={isActive ? styles.textspoil : styles.textnospoil }>{isActive ? 'Spoil' : 'No Spoil'}</Text>
+        </Animated.View>
+      </TouchableOpacity>
+): null} </View>       {todayMatch.map((element) => element.league.name === league ?
             element.fixture.status.long === 'Not Started' ? (
               <TouchableOpacity
                 key={element.fixture.id}
@@ -703,34 +764,23 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
                 <View style={styles.scoreContainer}>
                   {element.goals.home === element.goals.away ? (
                     <View style={styles.score}>
-                      <Text style={styles.scoreText}>{element.goals.home}</Text>
+                     { element.league.name === "Ligue 1" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={styles.scoreText}>{element.goals.home}</Text> : <Text style={styles.scoreText}>{element.goals.home}</Text>}
                       <View style={styles.liveSticker}>
                         <Text style={styles.liveText}>{element.fixture.status.elapsed}'</Text>
                         <Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10 }}>live</Text>
                       </View>
-                      <Text style={styles.scoreText}>{element.goals.away}</Text>
-                    </View>
+                      {noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={styles.scoreText}>{element.goals.away}</Text>}
+                      </View>
                   ) : (
                     <View style={styles.score}>
-                      <Text
-                        style={
-                          element.goals.home > element.goals.away ? styles.winner : styles.looser
-                        }
-                      >
-                        {element.goals.home}
-                      </Text>
+                      { element.league.name === "Ligue 1" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={ element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text> : <Text style={ element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text> }
                       <View style={styles.liveSticker}>
                         <Text style={styles.liveText}>{element.fixture.status.elapsed}'</Text>
                         <Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10 }}>live</Text>
                       </View>
 
-                      <Text
-                        style={
-                          element.goals.away > element.goals.home ? styles.winner : styles.looser
-                        }
-                      >
-                        {element.goals.away}
-                      </Text>
+                      { element.league.name === "Ligue 1" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={ element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.home}</Text> : <Text style={ element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.home}</Text>}
+
                     </View>
                   )}
                 </View>
@@ -1025,6 +1075,17 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingTop: 4
   },
+  nospoil: {
+    backgroundColor: 'black',
+    color: 'white',
+    borderRadius: 5,
+    height: 30,
+    width: 25,
+    fontFamily: "Kanito",
+    alignItems: "center",
+    textAlign: "center",
+    paddingTop: 4
+  },
   arrow : {
     backgroundColor: "midnightblue",
     color: "white",
@@ -1034,8 +1095,36 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10
-
-
+  },
+  toggle: {
+    backgroundColor: 'white',
+    width: 35,
+    height: 35,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: "absolute"
+  },
+  button: {
+    backgroundColor: 'lightgrey',
+    width: 60,
+    height: 35,
+    borderRadius: 25,
+    justifyContent: 'center',
+    paddingHorizontal: 10,
+    marginRight: 8
+  },
+  textspoil: {
+fontFamily: "Permanent",
+fontSize: 10,
+color: "green"
+  },
+  textnospoil: {
+    fontFamily: "Permanent",
+    fontSize: 10,
+    textAlign: "center",
+    lineHeight: 10,
+    color: "red"
   }
 });
 

@@ -38,6 +38,7 @@ import rodrygo from "../assets/portraits/rodrygo.jpg"
 import guller from "../assets/portraits/guller.jpg"
 import doue from "../assets/portraits/doue.png"
 import kvara from "../assets/portraits/kvara.jpg"
+import goat from "../assets/portraits/goat.jpg"
 
 
 
@@ -48,6 +49,7 @@ function FicheJoueur() {
   const [joueur, setJoueur] = useState(null);
   const [palmares, setPalmares] = useState(null);
   const [annee, setAnnee] = useState(2024)
+  const [opaque, setOpaque] = useState(false)
 
   const [openPalmares, setOpenPalmares] = useState(false);
 
@@ -105,13 +107,21 @@ function FicheJoueur() {
   const prec = ()=> {
     if (annee > 2024 - 3){
     setAnnee((prev)=> prev - 1)}
+    if (annee === 2022){
+      setOpaque(true)
+    }
+    
   }
 
   const next = ()=>{
     if (annee < 2024) {
       setAnnee((next)=> next +1)
     }
+    if (annee === 2021){
+      setOpaque(false)
+    }
   }
+
 
   if (!joueur || !palmares) {
     return <View>
@@ -164,7 +174,7 @@ function FicheJoueur() {
     <ScrollView contentContainerStyle={styles.blocJoueur}>
       <View style={styles.article}>
         <LinearGradient colors={["black", "steelblue"]} style={styles.infosJoueur}>
-          <Image source={ joueur.player.id === 1100 ? haaland : joueur.player.id === 161904 ? barcola : joueur.player.id === 336657 ? zaire : joueur.player.id === 153 ? dembele : joueur.player.id === 129718 ? bellingham : joueur.player.id === 386828 ? yamal : joueur.player.id === 10009 ? rodrygo : joueur.player.id === 18979 ? gyokeres : joueur.player.id === 291964 ? guller : joueur.player.id === 343027 ? doue : joueur.player.id === 483 ? kvara : { uri: joueur.player.photo }} style={styles.photo} />
+          <Image source={ joueur.player.id === 1100 ? haaland : joueur.player.id === 161904 ? barcola : joueur.player.id === 336657 ? zaire : joueur.player.id === 153 ? dembele : joueur.player.id === 129718 ? bellingham : joueur.player.id === 386828 ? yamal : joueur.player.id === 10009 ? rodrygo : joueur.player.id === 18979 ? gyokeres : joueur.player.id === 291964 ? guller : joueur.player.id === 343027 ? doue : joueur.player.id === 483 ? kvara : joueur.player.id === 154 ? goat : { uri: joueur.player.photo }} style={styles.photo} />
           <View style={styles.bio}>
             <Text style={styles.name}>{joueur.player.name}</Text>
             <Text style={styles.infoText}>Né le {formattedDate} à {joueur.player.birth.place}, {joueur.player.birth.country}</Text>
@@ -195,7 +205,7 @@ function FicheJoueur() {
                 outputRange: [0, 380]  // Ajustez la hauteur en fonction du contenu
               })
             }]}>
-              <View >
+              <View style={{width: "55%"}} >
                 {trophiesArray.map((element, index) => (
                   element.league === "Trofeo Joan Gamper" ? null :
                     <Text style={{ fontFamily: "Kanito", marginInline: 10, marginBlock: 2 }}>{element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league === "Trofeo Joan Gamper" ? null : element.league === "UEFA European Championship" ? "Euro" : element.league}</Text>
@@ -211,7 +221,7 @@ function FicheJoueur() {
                 outputRange: [0, 120]  // Ajustez la hauteur en fonction du contenu
               })
             }]}>
-              <View >
+              <View style={{width: "55%"}}>
                 {trophiesArray.map((element, index) => (
                   element.league === "Trofeo Joan Gamper" ? null :
                     <Text style={{ fontFamily: "Kanito", marginInline: 10 }}>{element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league === "Trofeo Joan Gamper" ? null : element.league === "UEFA European Championship" ? "Euro" : element.league}</Text>
@@ -228,7 +238,7 @@ function FicheJoueur() {
                 outputRange: [0, 240]  // Ajustez la hauteur en fonction du contenu
               })
             }]}>
-              <View >
+              <View style={{width: "55%"}} >
                 {trophiesArray.map((element, index) => (
                   element.league === "Trofeo Joan Gamper" ? null :
                     <Text style={{ fontFamily: "Kanito", marginInline: 10 }}>{element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league === "Trofeo Joan Gamper" ? null : element.league === "UEFA European Championship" ? "Euro" : element.league}</Text>
@@ -242,7 +252,7 @@ function FicheJoueur() {
         </View>
 
         <View style={{flexDirection: "row", alignItems: "center", gap: 20, marginBottom: 10}}>
-<TouchableOpacity onPress={prec} style={{marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center"}}><Text style={{fontSize: 20, fontFamily: "Kanitt"}}>{"<"}</Text></TouchableOpacity>
+{opaque === true ? <TouchableOpacity  style={{opacity: 0.2, marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center"}}><Text style={{fontSize: 20, fontFamily: "Kanitt"}}>{"<"}</Text></TouchableOpacity> :<TouchableOpacity onPress={prec} style={{marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center"}}><Text style={{fontSize: 20, fontFamily: "Kanitt"}}>{"<"}</Text></TouchableOpacity>}
 <Text style={styles.season}>{annee}/{annee +1}</Text>
 <TouchableOpacity onPress={next} style={{marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center"}}><Text style={{fontSize: 20, fontFamily: "Kanitt"}}>{">"}</Text></TouchableOpacity>
         </View>
@@ -428,27 +438,28 @@ const styles = StyleSheet.create({
     marginRight: 8
   },
   trophee: {
-    height: 72,
-    width: 72,
+    height: 74,
+    width: 74,
     objectFit: "contain",
     overflow: "hidden",
     shadowColor: '#000', // shadow color
     shadowOffset: { width: -3, height: -3 }, // shadow offset
     shadowOpacity: 0.3, // shadow opacity
     shadowRadius: 3,
-    padding: 7
+    padding: 7,
+    margin: 2
     
         
   },
   box: {
-
+justifyContent: "center",
+alignItems: "center",
   },
   armoire: {
     flexDirection: "row",
     justifyContent: "center",
-    width: "50%",
+    width: "45%",
     flexWrap: "wrap",
-    gap: 8,
     alignItems: "center",
     paddingBlock: 6
   }
