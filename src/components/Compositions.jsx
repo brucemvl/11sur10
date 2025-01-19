@@ -166,10 +166,10 @@ const styles = StyleSheet.create({
     gap: 5
   },
   teamContainer: {
-    width: '47%',
+    width: '49%',
   },
   teamExtContainer: {
-    width: '47%',
+    width: '49%',
   },
   headerCompo: {
     flexDirection: 'row',

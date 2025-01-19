@@ -39,9 +39,8 @@ const styles = StyleSheet.create({
         backgroundColor: "black",
         alignItems: "center",
         width: "100%",
-        height: 140,
         justifyContent: "space-between",
-        height: 150
+        flexGrow: 1
     },
 
     lien: {

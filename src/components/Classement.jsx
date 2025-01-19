@@ -132,7 +132,7 @@ function Classement({ id }) {
 
 
   const renderClassementItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate("FicheEquipe", { id: item.team.id, league: item.group === "Ligue 1" ? 61 : item.group === "UEFA Champions League" ? 2 : item.group === "Premier League" ? 39 : item.group === "LaLiga" ? 140 : null })} style={styles.item}>
+    <TouchableOpacity onPress={() => navigation.navigate("FicheEquipe", { id: item.team.id, league: item.group === "Ligue 1" ? 61 : item.group === "UEFA Champions League" ? 2 : item.group === "Premier League" ? 39 : item.group === "LaLiga" ? 140 : item.group.indexOf("Super League 1") !== -1 ? 197 : item.group === "Bundesliga" ? 78 : item.group === "Ligue 2: Regular Season" ? 62 : null })} style={styles.item}>
       <Text style={{width: "5%"}}>{item.rank}</Text>
       <Image source={{ uri: item.team.logo }} style={styles.logo} />
       <Text style={{fontFamily: "Kanito", width: "30%"}}>{item.team.name === "Paris Saint Germain" ? "Paris SG" : item.team.name === "Stade Brestois 29" ? "Stade Brestois" : item.team.name}</Text>
@@ -321,7 +321,7 @@ overflow: "hidden",
   list: {
     flex: 1,
     marginTop: 10,
-    paddingBottom: 20, // Ensure the content doesn't overlap with other elements
+    paddingBottom: 20, 
   }
 });
 

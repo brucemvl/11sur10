@@ -9,6 +9,8 @@ import redcard from "../assets/redcard.png";
 import Affiche from '../components/Affiche.jsx';
 import Precedent from '../components/Precedent.jsx';
 import Schema from '../components/Schema.jsx';
+import { useNavigation } from '@react-navigation/native';
+import { SharedElement } from 'react-navigation-shared-element';
 
 const FicheMatch = () => {
     const [match, setMatch] = useState(null);
@@ -129,8 +131,12 @@ const FicheMatch = () => {
     const formattedHour = `${date.getHours().toString().padStart(2, '0')}h${date.getMinutes().toString().padStart(2, '0')}`;
 
     const buteurs = match.events.filter((element) => element.type === "Goal");
-    const buteurHome = buteurs.filter((buteur) => buteur.team.name === match.teams.home.name);
-    const buteurExt = buteurs.filter((buteur) => buteur.team.name === match.teams.away.name);
+    const buteursnopen = buteurs.filter((element)=> element.comments != "Penalty Shootout");
+    const buteursPen = buteurs.filter((element)=> element.comments === "Penalty Shootout");
+    const buteurHome = buteursnopen.filter((buteur) => buteur.team.name === match.teams.home.name);
+    const buteurExt = buteursnopen.filter((buteur) => buteur.team.name === match.teams.away.name);
+    const buteurHomeP = buteursPen.filter((buteur) => buteur.team.name === match.teams.home.name);
+    const buteurExtP = buteursPen.filter((buteur) => buteur.team.name === match.teams.away.name);
 
     // PARTIE FICHE EQUIPE
 
@@ -184,18 +190,18 @@ const coachDom = compoDom ? compoDom.coach?.name : 'Unknown'; // Utilisation de 
 const coachExt = compoExt ? compoExt.coach?.name : 'Unknown'; 
 
 const colors = {
-    primaryDom : match.lineups[0]?.team.colors.player.primary,
-    primaryExt : match.lineups[1]?.team.colors.player.primary,
-    borderDom : match.lineups[0]?.team.colors.player.border,
-    borderExt : match.lineups[1]?.team.colors.player.border,
-    numberDom: match.lineups[0]?.team.colors.player.number,
-    numberExt : match.lineups[1]?.team.colors.player.number,
-    goalDom : match.lineups[0]?.team.colors.goalkeeper.primary,
-    goalExt : match.lineups[1]?.team.colors.goalkeeper.primary,
-    goalDomBorder : match.lineups[0]?.team.colors.goalkeeper.border,
-    goalExtBorder : match.lineups[1]?.team.colors.goalkeeper.border,
-    goalDomNumber : match.lineups[0]?.team.colors.goalkeeper.number,
-    goalDomExt : match.lineups[1]?.team.colors.goalkeeper.number
+    primaryDom : match.lineups[0]?.team?.colors?.player?.primary,
+    primaryExt : match.lineups[1]?.team?.colors?.player?.primary,
+    borderDom : match.lineups[0]?.team?.colors?.player?.border,
+    borderExt : match.lineups[1]?.team?.colors?.player?.border,
+    numberDom: match.lineups[0]?.team?.colors?.player?.number,
+    numberExt : match.lineups[1]?.team?.colors?.player?.number,
+    goalDom : match.lineups[0]?.team?.colors?.goalkeeper?.primary,
+    goalExt : match.lineups[1]?.team?.colors?.goalkeeper?.primary,
+    goalDomBorder : match.lineups[0]?.team?.colors?.goalkeeper?.border,
+    goalExtBorder : match.lineups[1]?.team?.colors?.goalkeeper?.border,
+    goalDomNumber : match.lineups[0]?.team?.colors?.goalkeeper?.number,
+    goalDomExt : match.lineups[1]?.team?.colors?.goalkeeper?.number
 
 }
 
@@ -212,10 +218,14 @@ if (match.lineups.length === 2 && match.fixture.status.long === "Not Started") {
 
 if (!compoDom || !compoExt) {
     return (
+        <View>
+        <Precedent />
+
     <ScrollView contentContainerStyle={styles.bloc}>
-    <Precedent />
-    <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} formeHome={formeHome} formeExt={formeExt}/>
+    
+    <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt}/>
     </ScrollView>
+    </View>
     )
 }
     
@@ -226,7 +236,7 @@ if (!compoDom || !compoExt) {
         return (
             <ScrollView contentContainerStyle={styles.bloc}>
             <Precedent />
-            <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt}/>
+            <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP}/>
             </ScrollView>
             )
     }
@@ -249,11 +259,19 @@ if (!compoDom || !compoExt) {
     console.log(tituDom)
     console.log(match)
 
+    const navigation = useNavigation();
+
+  const handlePress = (id, leagueId) => {
+    // Naviguer vers l'écran de détail FicheEquipe avec les paramètres
+    navigation.navigate('FicheEquipe', { id, league: leagueId });
+  };
+
     return (
         <View>
     <Precedent />
+    <Image source={match.teams.home.logo} />
         <ScrollView contentContainerStyle={styles.bloc}>
-            <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} formeHome={formeHome} formeExt={formeExt}/>
+            <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt} onPress={() => handlePress(match.teams.home.id, match.league.id)} />
             <View style={styles.section}>
                 {/* Your existing JSX */}
                 <View style={styles.ficheSelecteur}>
@@ -282,7 +300,8 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         alignItems: 'center',
         padding: 10,
-        marginTop: 50
+        marginTop: 50,
+        paddingBottom: 50
     },
     section: {
         width: '100%',

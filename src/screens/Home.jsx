@@ -7,6 +7,7 @@ import { useFonts } from "expo-font";
 
 
 
+
 function Home() {
 
   const [fontsLoaded] = useFonts({

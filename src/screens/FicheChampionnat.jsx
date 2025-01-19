@@ -33,7 +33,7 @@ function FicheChampionnat({ route }) {
   }, [id]);
 
     return (
-      <View>
+      <View style={{flex: 1}}>
       <Precedent />
 
         <ScrollView contentContainerStyle={styles.blocChamp}>
@@ -48,9 +48,10 @@ function FicheChampionnat({ route }) {
 const styles = StyleSheet.create({
     blocChamp: {
       marginTop: 50,
-        flexGrow: 1, // Cette ligne garantit que le contenu du ScrollView occupe l'espace disponible
         padding: 10,
         width: "100%",
+        flexGrow: 1,
+        paddingBottom: 50
     },
 });
 

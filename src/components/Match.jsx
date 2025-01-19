@@ -24,15 +24,15 @@ function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id,
 
   return (
    
-                  <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.2)']}  >
+                  <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.3)']} style={{borderRadius: 10, marginVertical: 4, backgroundColor: "white"}} >
                      <TouchableOpacity
       style={styles.match}
       onPress={() => navigation.navigate('FicheMatch', { id })}  // Naviguer vers la fiche du match
     >
 
       <View style={styles.dateheure}>
-        <Text style={{fontSize: 8.5, fontFamily: "Kanitus"}}>{formattedDate}</Text>
-        <Text style={{fontSize: 8.5, fontFamily: "Kanitus"}}>{formattedHour}</Text>
+        <Text style={{fontSize: 8.5, fontFamily: "Kanitalic", color: "white"}}>{formattedDate}</Text>
+        <Text style={{fontSize: 8.5, fontFamily: "Kanitalic", color: "white"}}>{formattedHour}</Text>
       </View>
 
       <Text style={styles.equipeDom}>{equipeDom === "Paris Saint Germain" ? "Paris St Germain" : equipeDom === "Stade Brestois 29" ? "Stade Brestois" : equipeDom}</Text>
@@ -72,15 +72,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingBlock: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
     width: "100%",
-    height: 50
   },
   dateheure: {
     flex: 1,
     alignItems: 'flex-start',
-    width: "12%"
+    width: "12%",
+    backgroundColor: "black",
+    borderRadius: 5,
+    marginLeft: 1,
+    alignItems: "center"
   },
   equipeDom: {
     fontSize: 12,

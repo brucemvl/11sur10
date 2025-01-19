@@ -1,13 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, Image, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Image, ImageBackground, TouchableOpacity } from 'react-native';
 import field from "../assets/field.webp"
 import yellow from "../assets/yellow.png";
 import red from "../assets/redcard.png"
+import { useNavigation } from '@react-navigation/native';
 
 
 function Schema({ compoDom, compoExt, match, colors }) {
 
     const range = [1, 2, 3, 4, 5];
+
+      const navigation = useNavigation();
+    
 
     // Récupération des dimensions de l'écran pour un ajustement réactif
     const { width } = Dimensions.get('window');
@@ -79,18 +83,18 @@ function Schema({ compoDom, compoExt, match, colors }) {
 
                         {/* Gardien */}
                         {linesDom.G.map((player, index) => (
-                            <View key={index} style={[generatePositionStyle(index, linesDom.G.length, 1), { alignItems: "center", width: 54 }]}>
+                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesDom.G.length, 1), { alignItems: "center", width: 54 }]}>
 <View style={styles.infos}>{match.players[0].players.map((joueur) => joueur.player.id === player.id ? range.map((x) => joueur.statistics[0].goals.total >= x ? <Text key={x} style={{ fontSize: 9, marginInline: -3 }}>⚽</Text> : null) : null)}
                                 {match.players[0].players.map((joueur) => joueur.player.id === player.id ? joueur.statistics[0].cards.yellow > 0 ? <Image source={yellow} style={styles.card} /> : joueur.statistics[0].cards.red > 0 ? <Image source={red} style={styles.card} /> : null : null)}
                                 </View>                                <View style={[styles.player, { backgroundColor: "#" + colors.goalDom, borderColor: "#" + colors.goalDomBorder }]}>
                                     <Text style={[styles.number, { color: "#" + colors.goalDomNumber }]}>{player.number}</Text>
                                 </View>
                                 <Text style={styles.playerName}>{player.name.split(' ').slice(-1).join(' ')}</Text>
-                            </View>
+                            </TouchableOpacity>
                         ))}
                         {/* Défenseurs */}
                         {linesDom.D.map((player, index) => (
-                            <View key={index} style={[generatePositionStyle(index, linesDom.D.length, 2), { alignItems: "center", width: 50 }]}>
+                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesDom.D.length, 2), { alignItems: "center", width: 50 }]}>
                                 <View style={styles.infos}>{match.players[0].players.map((joueur) => joueur.player.id === player.id ? range.map((x) => joueur.statistics[0].goals.total >= x ? <Text key={x} style={{ fontSize: 9, marginInline: -3 }}>⚽</Text> : null) : null)}
                                 {match.players[0].players.map((joueur) => joueur.player.id === player.id ? joueur.statistics[0].cards.yellow > 0 ? <Image source={yellow} style={styles.card} /> : joueur.statistics[0].cards.red > 0 ? <Image source={red} style={styles.card} /> : null : null)}
                                 </View>
@@ -98,11 +102,11 @@ function Schema({ compoDom, compoExt, match, colors }) {
                                     <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
                                 </View>
                                 <Text style={styles.playerName}>{player.name.split(' ').slice(-1).join(' ')}</Text>
-                            </View>
+                            </TouchableOpacity>
                         ))}
                         {/* Milieux */}
                         {linesDom.M.map((player, index) => (
-                            <View key={index} style={[generatePositionStyle(index, linesDom.M.length, 3), { alignItems: "center", width: 50 }]}>
+                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesDom.M.length, 3), { alignItems: "center", width: 50 }]}>
                                 <View style={styles.infos}>{match.players[0].players.map((joueur) => joueur.player.id === player.id ? range.map((x) => joueur.statistics[0].goals.total >= x ? <Text key={x} style={{ fontSize: 9, marginInline: -3 }}>⚽</Text> : null) : null)}
                                 {match.players[0].players.map((joueur) => joueur.player.id === player.id ? joueur.statistics[0].cards.yellow > 0 ? <Image source={yellow} style={styles.card} /> : joueur.statistics[0].cards.red > 0 ? <Image source={red} style={styles.card} /> : null : null)}
                                 </View>
@@ -110,11 +114,11 @@ function Schema({ compoDom, compoExt, match, colors }) {
                                     <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
                                 </View>
                                 <Text style={styles.playerName}>{player.name.split(' ').slice(-1).join(' ')}</Text>
-                            </View>
+                            </TouchableOpacity>
                         ))}
                         {/* Attaquants */}
                         {linesDom.F.map((player, index) => (
-                            <View key={index} style={[generatePositionStyle(index, linesDom.F.length, 4), { alignItems: "center", width: 53 }]}>
+                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesDom.F.length, 4), { alignItems: "center", width: 53 }]}>
                                 <View style={styles.infos}>{match.players[0].players.map((joueur) => joueur.player.id === player.id ? range.map((x) => joueur.statistics[0].goals.total >= x ? <Text key={x} style={{ fontSize: 9, marginInline: -3 }}>⚽</Text> : null) : null)}
                                 {match.players[0].players.map((joueur) => joueur.player.id === player.id ? joueur.statistics[0].cards.yellow > 0 ? <Image source={yellow} style={styles.card} /> : joueur.statistics[0].cards.red > 0 ? <Image source={red} style={styles.card} /> : null : null)}
                                 </View>
@@ -122,7 +126,7 @@ function Schema({ compoDom, compoExt, match, colors }) {
                                     <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
                                 </View>
                                 <Text style={styles.playerName}>{player.name.split(' ').slice(-1).join(' ')}</Text>
-                            </View>
+                            </TouchableOpacity>
                         ))}
                     </View>
                 </ImageBackground>
@@ -131,7 +135,7 @@ function Schema({ compoDom, compoExt, match, colors }) {
                     <View style={[styles.field, { width: fieldWidth, height: fieldHeight }]}>
                         {/* Attaquants (inversés pour compoExt) */}
                         {linesExt.F.map((player, index) => (
-                            <View key={index} style={[generatePositionStyle(index, linesExt.F.length, 4), { alignItems: "center", width: 53 }]}>
+                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesExt.F.length, 4), { alignItems: "center", width: 53 }]}>
                                 <View style={styles.infos}> {match.players[1].players.map((joueur) => joueur.player.id === player.id ? range.map((x) => joueur.statistics[0].goals.total >= x ? <Text key={x} style={{ fontSize: 9, marginInline: -3 }}>⚽</Text> : null) : null)}
                                 {match.players[1].players.map((joueur) => joueur.player.id === player.id ? joueur.statistics[0].cards.yellow > 0 ? <Image source={yellow} style={styles.card} /> : joueur.statistics[0].cards.red > 0 ? <Image source={red} style={styles.card} /> : null : null)}
                                 </View>
@@ -139,11 +143,11 @@ function Schema({ compoDom, compoExt, match, colors }) {
                                     <Text style={[styles.number, { color: "#" + colors.numberExt }]}>{player.number}</Text>
                                 </View>
                                 <Text style={styles.playerName}>{player.name.split(' ').slice(-1).join(' ')}</Text>
-                            </View>
+                            </TouchableOpacity>
                         ))}
                         {/* Milieux */}
                         {linesExt.M.map((player, index) => (
-                            <View key={index} style={[generatePositionStyle(index, linesExt.M.length, 3), { alignItems: "center", width: 50 }]}>
+                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesExt.M.length, 3), { alignItems: "center", width: 50 }]}>
                                 <View style={styles.infos}> {match.players[1].players.map((joueur) => joueur.player.id === player.id ? range.map((x) => joueur.statistics[0].goals.total >= x ? <Text key={x} style={{ fontSize: 9, marginInline: -3 }}>⚽</Text> : null) : null)}
                                 {match.players[1].players.map((joueur) => joueur.player.id === player.id ? joueur.statistics[0].cards.yellow > 0 ? <Image source={yellow} style={styles.card} /> : joueur.statistics[0].cards.red > 0 ? <Image source={red} style={styles.card} /> : null : null)}
                             </View>
@@ -151,11 +155,11 @@ function Schema({ compoDom, compoExt, match, colors }) {
                                     <Text style={[styles.number, { color: "#" + colors.numberExt }]}>{player.number}</Text>
                                 </View>
                                 <Text style={styles.playerName}>{player.name.split(' ').slice(-1).join(' ')}</Text>
-                            </View>
+                            </TouchableOpacity>
                         ))}
                         {/* Défenseurs */}
                         {linesExt.D.map((player, index) => (
-                            <View key={index} style={[generatePositionStyle(index, linesExt.D.length, 2), { alignItems: "center", width: 50 }]}>
+                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesExt.D.length, 2), { alignItems: "center", width: 50 }]}>
                                 <View style={styles.infos}> {match.players[1].players.map((joueur) => joueur.player.id === player.id ? range.map((x) => joueur.statistics[0].goals.total >= x ? <Text key={x} style={{ fontSize: 9, marginInline: -3 }}>⚽</Text> : null) : null)}
                                 {match.players[1].players.map((joueur) => joueur.player.id === player.id ? joueur.statistics[0].cards.yellow > 0 ? <Image source={yellow} style={styles.card} /> : joueur.statistics[0].cards.red > 0 ? <Image source={red} style={styles.card} /> : null : null)}
                                 </View>
@@ -163,17 +167,17 @@ function Schema({ compoDom, compoExt, match, colors }) {
                                     <Text style={[styles.number, { color: "#" + colors.numberExt }]}>{player.number}</Text>
                                 </View>
                                 <Text style={styles.playerName}>{player.name.split(' ').slice(-1).join(' ')}</Text>
-                            </View>
+                            </TouchableOpacity>
                         ))}
                         {/* Gardien */}
                         {linesExt.G.map((player, index) => (
-                            <View key={index} style={[generatePositionStyle(index, linesExt.G.length, 1), { alignItems: "center", width: 55 }]}>
+                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesExt.G.length, 1), { alignItems: "center", width: 55 }]}>
                                 <View>{match.players[1].players.map((joueur) => joueur.player.id === player.id ? joueur.statistics[0].cards.yellow > 0 ? <Image source={yellow} style={styles.card} /> : joueur.statistics[0].cards.red > 0 ? <Image source={red} style={styles.card} /> : null : null)}</View>
                                 <View style={[styles.player, { backgroundColor: "#" + colors.goalExt, borderColor: "#" + colors.goalExtBorder }]}>
                                     <Text style={[styles.number, { color: "#" + colors.goalExtNumber }]}>{player.number}</Text>
                                 </View>
                                 <Text style={styles.playerName}>{player.name.split(' ').slice(-1).join(' ')}</Text>
-                            </View>
+                            </TouchableOpacity>
                         ))}
                     </View>
                 </ImageBackground>
@@ -213,7 +217,7 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         alignItems: "center",
         justifyContent: "center",
-        borderWidth: 1
+        borderWidth: 2
     },
     playerName: {
         fontSize: 9,

@@ -2,8 +2,9 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
+import { SharedElement } from 'react-navigation-shared-element';
 
-const Affiche = ({ match, roundd, buteurHome, buteurExt, formeHome, formeExt }) => {
+const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP, formeHome, formeExt, onPress }) => {
 
     const navigation = useNavigation()
     const date = new Date(match.fixture.date);
@@ -23,8 +24,10 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, formeHome, formeExt }) 
             </View>
 
             <LinearGradient colors={['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.8)']} style={styles.affiche}>
-        <TouchableOpacity style={styles.domicile} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.home.id, league: match.league.id})}>
+            <TouchableOpacity style={styles.domicile} onPress={onPress}>
+          <SharedElement id="logo">
           <Image source={{ uri: match.teams.home.logo }} style={styles.teamLogo} />
+          </SharedElement>
           <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 15 }}>{match.teams.home.name}</Text>
           <View style={{gap: 5, flexDirection: "row", marginTop: 5}}>{formeHome?.split('').map((char, index) => (
           char === 'L' ? (
@@ -50,7 +53,7 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, formeHome, formeExt }) 
           </Text>
         </View>
 
-        <TouchableOpacity style={styles.exterieur} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.away.id, league: match.league.id})}>
+        <TouchableOpacity style={styles.exterieur} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo})}>
           <Image source={{ uri: match.teams.away.logo }} style={styles.teamLogo} />
           <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 15 }}>{match.teams.away.name}</Text>
           <View style={{gap: 5, flexDirection: "row"}}>{formeExt?.split('').map((char, index) => (
@@ -73,13 +76,14 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, formeHome, formeExt }) 
     </LinearGradient>
 
             <View style={styles.buts}>
+
                 <View style={styles.equipeDomicile}>
                     <FlatList
                         data={buteurHome}
                         keyExtractor={(item) => `buteur:${item.player.name}`}
                         renderItem={({ item }) => (
                             <View style={styles.buteurItem}>
-                                <Text style={styles.text}><Text style={styles.goalIcon}>⚽</Text> {item.player.name}, {item.time.elapsed}' {item.time.extra ? ` + ${item.time.extra}` : null} {item.detail === "Own Goal" ? <Text style={styles.csc}>(csc)</Text> : null} {item.detail === "Penalty" ? <Text style={styles.penalty}>(pen)</Text> : null}</Text>
+                                <Text style={styles.text}><Text style={styles.goalIcon}>⚽</Text> {item.player.name === "R. Lewandowski" ? "Lewandowski" : item.player.name}, {item.time.elapsed}' {item.time.extra ? `+ ${item.time.extra}` : null} {item.detail === "Own Goal" ? <Text style={styles.csc}>(csc)</Text> : null} {item.detail === "Penalty" ? <Text style={styles.penalty}>(pen)</Text> : null}</Text>
                             </View>
                         )}
                     />
@@ -91,12 +95,26 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, formeHome, formeExt }) 
                         keyExtractor={(item) => `buteurExt:${item.player.name}`}
                         renderItem={({ item }) => (
                             <View style={styles.buteurExtItem}>
-                                <Text style={styles.text}> {item.player.name}, {item.time.elapsed}' {item.time.extra ? ` + ${item.time.extra}` : null} {item.detail === "Own Goal" ? <Text style={styles.csc}>(csc)</Text> : null} {item.detail === "Penalty" ? <Text style={styles.penalty}>(pen)</Text> : null}<Text style={styles.goalIcon}>⚽</Text></Text>
+                                <Text style={styles.text}> {item.player.name === "R. Lewandowski" ? "Lewandowski" : item.player.name}, {item.time.elapsed}' {item.time.extra ? `+ ${item.time.extra}` : null} {item.detail === "Own Goal" ? <Text style={styles.csc}>(csc)</Text> : null} {item.detail === "Penalty" ? <Text style={styles.penalty}>(pen)</Text> : null}<Text style={styles.goalIcon}>⚽</Text></Text>
                             </View>
                         )}
                     />
-                </View>
+                </View> 
+
             </View>
+{match.fixture.status.short === "PEN" ?
+            <View style={{ width: "85%", justifyContent: "center", alignItems: "center", marginBlock: 20}}>
+<Text style={{fontFamily: "Kanito", color: "red"}}>Tirs au But</Text>
+<View style={{backgroundColor: "darkgrey", width: "100%", flexDirection: "row", borderRadius: 5, padding: 4}}>
+<View style={{width: "50%"}}>
+<FlatList data={buteurHomeP} renderItem={({item}) => (<View style={{flexDirection: "row", gap: 3, margin: 3, alignItems: "center"}}>{item.detail === "Missed Penalty" ? <Text>❌</Text> : <Text style={styles.goalIcon}>⚽</Text>} <Text style={{fontFamily: "Kanito"}}> {item.player.name} </Text></View>)} />
+</View>
+<View style={{width: "50%"}}>
+<FlatList data={buteurExtP} renderItem={({item}) => (<View style={{flexDirection: "row", gap: 3, margin: 3, alignItems: "center", justifyContent: "flex-end"}}> <Text style={{fontFamily: "Kanito"}}> {item.player.name} </Text> {item.detail === "Missed Penalty" ? <Text>❌</Text> : <Text style={styles.goalIcon}>⚽</Text>}</View>)} />
+</View>
+</View>
+
+            </View>: null}
         </View>
     );
 };
@@ -108,6 +126,7 @@ const styles = StyleSheet.create({
     container: {
         padding: 10,
         alignItems: 'center',
+        width: "100%"
     },
     ligue: {
         marginBottom: 10,
@@ -143,7 +162,8 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
     },
     text:{
-fontFamily: "Kanito"
+fontFamily: "Kanito",
+fontSize: 12
     },
     scoreText: {
         fontSize: 24,
@@ -173,7 +193,6 @@ flexDirection: "row-reverse"
     },
     goalIcon: {
         fontSize: 14,
-        marginRight: 5,
     },
     csc: {
         fontFamily: "Kanitalic ",

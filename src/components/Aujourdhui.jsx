@@ -3,6 +3,7 @@ import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Animated }
 import { LinearGradient } from 'expo-linear-gradient';
 import ligue1 from "../assets/logoligue1.webp"
 import { useNavigation } from '@react-navigation/native';
+import { SharedElement } from 'react-navigation-shared-element';
 
 function Aujourdhui() {
 
@@ -307,7 +308,7 @@ function Aujourdhui() {
   useEffect(() => {
     const fetchSupercup = () => {
       try {
-        fetch("https://v3.football.api-sports.io/fixtures?league=2&season=2024", {
+        fetch("https://v3.football.api-sports.io/fixtures?league=556&season=2024", {
           method: "GET",
           headers: {
             "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
@@ -519,8 +520,8 @@ console.log(tomorrowDate);
 
                 {element.goals.home === element.goals.away ? (
                   <View style={styles.matchScore}>
-                    <Text style={styles.nul}>{element.goals.home === null ? "-" : element.goals.home}</Text>
-                    <Text style={styles.nul}>{element.goals.away === null ? "-" : element.goals.away}</Text>
+                    <View> <Text style={styles.nul}>{element.goals.home === null ? "-" : element.goals.home}</Text> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12}}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white"}}>P</Text></View> : null}</View>
+                    <View> <Text style={styles.nul}>{element.goals.away === null ? "-" : element.goals.away}</Text>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12}}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white"}}>P</Text></View> : null}</View>
                   </View>
                 ) : (
                   <View style={styles.matchScore}>
@@ -583,7 +584,7 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
 
 
   </LinearGradient> :
-    <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.today}>
+    <LinearGradient colors={["rgb(147, 176, 213)", 'rgba(0, 0, 0, 0.35)']} style={styles.today}>
       { selectedDate === "DEMAIN" ? <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
       <TouchableOpacity onPress={handlePrevious} style={styles.arrow}>
         <Text style={{color: "white", fontFamily: "Kanitt"}}>{"<"}</Text>
@@ -652,7 +653,7 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
                 style={styles.link}
                 onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}  // Naviguer vers la fiche du match
               >
-                <View style={styles.match}>
+              <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
 
                   {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
                     source={ligue1}
@@ -670,8 +671,8 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
 
                   {element.goals.home === element.goals.away ? (
                     <View style={styles.matchScore}>
-                      <Text style={styles.nul}>{element.goals.home === null ? "-" : element.goals.home}</Text>
-                      <Text style={styles.nul}>{element.goals.away === null ? "-" : element.goals.away}</Text>
+                     <View> <Text style={styles.nul}>{element.goals.home === null ? "-" : element.goals.home}</Text> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12}}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white"}}>P</Text></View> : null}</View>
+                     <View> <Text style={styles.nul}>{element.goals.away === null ? "-" : element.goals.away}</Text>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12}}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white"}}>P</Text></View> : null}</View>
                     </View>
                   ) : (
                     <View style={styles.matchScore}>
@@ -682,7 +683,7 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
 
                   <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
                   <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name}</Text>
-                </View>
+                </LinearGradient>
               </TouchableOpacity>
               : null
           )}
@@ -717,8 +718,8 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
                 style={styles.link}
                 onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }}
               >
-                <View style={styles.match}>
-                  {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
+              <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
+              {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
                     source={ligue1}
                     style={styles.matchCompetition}
                     resizeMode="contain"
@@ -736,13 +737,13 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
                     <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
                     <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
                   </View>
-                </View>
+                </LinearGradient>
               </TouchableOpacity>
             ) : element.fixture.status.long != 'Match Finished' && element.fixture.status.elapsed != null ? <TouchableOpacity
               style={styles.link}
               onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}
             >
-              <View style={styles.match}>
+              <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
                 {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
                   source={ligue1}
                   style={styles.competitionLogo}
@@ -764,22 +765,22 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
                 <View style={styles.scoreContainer}>
                   {element.goals.home === element.goals.away ? (
                     <View style={styles.score}>
-                     { element.league.name === "Ligue 1" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={styles.scoreText}>{element.goals.home}</Text> : <Text style={styles.scoreText}>{element.goals.home}</Text>}
+                     { element.league.name === "UEFA Champions League" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={styles.scoreText}>{element.goals.home}</Text> : <Text style={styles.scoreText}>{element.goals.home}</Text>}
                       <View style={styles.liveSticker}>
                         <Text style={styles.liveText}>{element.fixture.status.elapsed}'</Text>
                         <Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10 }}>live</Text>
                       </View>
-                      {noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={styles.scoreText}>{element.goals.away}</Text>}
+                      { element.league.name === "UEFA Champions League" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={styles.scoreText}>{element.goals.away}</Text> : <Text style={styles.scoreText}>{element.goals.away}</Text>}
                       </View>
                   ) : (
                     <View style={styles.score}>
-                      { element.league.name === "Ligue 1" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={ element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text> : <Text style={ element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text> }
+                      { element.league.name === "UEFA Champions League" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={ element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text> : <Text style={ element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text> }
                       <View style={styles.liveSticker}>
                         <Text style={styles.liveText}>{element.fixture.status.elapsed}'</Text>
                         <Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10 }}>live</Text>
                       </View>
 
-                      { element.league.name === "Ligue 1" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={ element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.home}</Text> : <Text style={ element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.home}</Text>}
+                      { element.league.name === "UEFA Champions League" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={ element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text> : <Text style={ element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text>}
 
                     </View>
                   )}
@@ -792,13 +793,13 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
                   />
                   <Text style={styles.teamName}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name}</Text>
                 </View>
-              </View>
+              </LinearGradient>
             </TouchableOpacity> : element.fixture.status.long === 'Match Finished' ?
               <TouchableOpacity
                 style={styles.link}
                 onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}  // Naviguer vers la fiche du match
               >
-                <View style={styles.match}>
+              <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
 
                   {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
                     source={ligue1}
@@ -816,8 +817,8 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
 
                   {element.goals.home === element.goals.away ? (
                     <View style={styles.matchScore}>
-                      <Text style={styles.nul}>{element.goals.home === null ? "-" : element.goals.home}</Text>
-                      <Text style={styles.nul}>{element.goals.away === null ? "-" : element.goals.away}</Text>
+                      <View> <Text style={styles.nul}>{element.goals.home === null ? "-" : element.goals.home}</Text> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12}}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white"}}>P</Text></View> : null}</View>
+                      <View> <Text style={styles.nul}>{element.goals.away === null ? "-" : element.goals.away}</Text>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12}}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white"}}>P</Text></View> : null}</View>
                     </View>
                   ) : (
                     <View style={styles.matchScore}>
@@ -828,7 +829,7 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
 
                   <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
                   <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name}</Text>
-                </View>
+                </LinearGradient>
               </TouchableOpacity>
               : null
             : null
@@ -848,8 +849,8 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
                 style={styles.link}
                 onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }}
               >
-                <View style={styles.match}>
-                  {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
+              <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
+              {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
                     source={ligue1}
                     style={styles.matchCompetition}
                     resizeMode="contain"
@@ -867,7 +868,7 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
                     <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
                     <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
                   </View>
-                </View>
+                </LinearGradient>
               </TouchableOpacity> : null
           )}
         </View>)

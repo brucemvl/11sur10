@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginVertical: 10,
+    marginVertical: 8,
   },
   button: {
     paddingInline: 10,
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 42,
-color: "grey"  },
+color: "darkslategrey"  },
   headInfo: {
     flexDirection: "row",
     alignItems: "center",

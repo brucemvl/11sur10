@@ -32,12 +32,15 @@ function FicheEurope({ route }) {
     }, [id]);
 
     return (
-        <ScrollView contentContainerStyle={styles.blocChamp}>
+      <View style={{flex: 1}}>
             <Precedent />
+            <ScrollView contentContainerStyle={styles.blocChamp}>
+
             {/* Passer l'ID du championnat et la fonction setFilter aux composants */}
             <TableauEurope id={id} currentRound={currentRound}/>
             <Classement id={id} />
         </ScrollView>
+        </View>
     );
 }
 
@@ -47,8 +50,9 @@ const styles = StyleSheet.create({
     blocChamp: {
         flexGrow: 1, // Cette ligne garantit que le contenu du ScrollView occupe l'espace disponible
         padding: 10,
-        justifyContent: "flex-start", // Cela assure que le contenu commence en haut
         width: "100%",
+        marginTop: 50,
+        paddingBottom: 50
     },
 });
 

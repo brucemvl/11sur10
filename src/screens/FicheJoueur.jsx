@@ -39,6 +39,10 @@ import guller from "../assets/portraits/guller.jpg"
 import doue from "../assets/portraits/doue.png"
 import kvara from "../assets/portraits/kvara.jpg"
 import goat from "../assets/portraits/goat.jpg"
+import darwin from "../assets/portraits/darwin.png"
+import salah from "../assets/portraits/salah.png"
+import kounde from "../assets/portraits/kounde.jpg"
+
 
 
 
@@ -50,6 +54,8 @@ function FicheJoueur() {
   const [palmares, setPalmares] = useState(null);
   const [annee, setAnnee] = useState(2024)
   const [opaque, setOpaque] = useState(false)
+  const [opaque2, setOpaque2] = useState(true)
+
 
   const [openPalmares, setOpenPalmares] = useState(false);
 
@@ -58,6 +64,9 @@ function FicheJoueur() {
 
   const [rotateValue, setRotateValue] = useState(new Animated.Value(0)); // Pour la rotation de l'icône
   const [heightAnim, setHeightAnim] = useState(new Animated.Value(0)); // Pour la hauteur du palmarès
+
+    const [rotateSeason, setRotateSeason] = useState(new Animated.Value(0));
+  
 
   const collapsePalmares = () => {
     setOpenPalmares(!openPalmares);
@@ -110,6 +119,15 @@ function FicheJoueur() {
     if (annee === 2022){
       setOpaque(true)
     }
+    if (annee === 2024){
+      setOpaque2(false)
+    }
+
+    Animated.timing(rotateSeason, {
+          toValue:  1,
+          duration: 300,
+          useNativeDriver: true,
+        }).start();
     
   }
 
@@ -120,6 +138,10 @@ function FicheJoueur() {
     if (annee === 2021){
       setOpaque(false)
     }
+    if (annee === 2023){
+      setOpaque2(true)
+    }
+   
   }
 
 
@@ -165,6 +187,10 @@ function FicheJoueur() {
     outputRange: ['0deg', '180deg'],
   });
 
+  const rotateSeasonInterpolate = rotateSeason.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg'],
+  });
   console.log(palmares)
 
 
@@ -174,7 +200,7 @@ function FicheJoueur() {
     <ScrollView contentContainerStyle={styles.blocJoueur}>
       <View style={styles.article}>
         <LinearGradient colors={["black", "steelblue"]} style={styles.infosJoueur}>
-          <Image source={ joueur.player.id === 1100 ? haaland : joueur.player.id === 161904 ? barcola : joueur.player.id === 336657 ? zaire : joueur.player.id === 153 ? dembele : joueur.player.id === 129718 ? bellingham : joueur.player.id === 386828 ? yamal : joueur.player.id === 10009 ? rodrygo : joueur.player.id === 18979 ? gyokeres : joueur.player.id === 291964 ? guller : joueur.player.id === 343027 ? doue : joueur.player.id === 483 ? kvara : joueur.player.id === 154 ? goat : { uri: joueur.player.photo }} style={styles.photo} />
+          <Image source={ joueur.player.id === 1100 ? haaland : joueur.player.id === 161904 ? barcola : joueur.player.id === 336657 ? zaire : joueur.player.id === 153 ? dembele : joueur.player.id === 129718 ? bellingham : joueur.player.id === 386828 ? yamal : joueur.player.id === 10009 ? rodrygo : joueur.player.id === 18979 ? gyokeres : joueur.player.id === 291964 ? guller : joueur.player.id === 343027 ? doue : joueur.player.id === 483 ? kvara : joueur.player.id === 154 ? goat : joueur.player.id === 306 ? salah : joueur.player.id === 51617 ? darwin : joueur.player.id === 1257 ? kounde : { uri: joueur.player.photo }} style={styles.photo} />
           <View style={styles.bio}>
             <Text style={styles.name}>{joueur.player.name}</Text>
             <Text style={styles.infoText}>Né le {formattedDate} à {joueur.player.birth.place}, {joueur.player.birth.country}</Text>
@@ -215,7 +241,25 @@ function FicheJoueur() {
               {trophiesArray.map((element) => <View style={styles.box}> {element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee} /> : element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee} /> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : element.league === "UEFA Europa League" ? <Image source={europa} style={styles.trophee} /> : element.league === "Ligue 1" ? <Image source={tropheeligue1} style={styles.trophee} /> : element.league === "La Liga" ? <Image source={liga} style={styles.trophee} /> : element.league === "Bundesliga" ? <Image source={bundesliga} style={styles.trophee} /> : element.league === "UEFA European Championship" ? <Image source={euro} style={styles.trophee} /> : element.league === "UEFA Super Cup" ? <Image source={uefa} style={styles.trophee} /> : element.league === "Serie A" ? <Image source={seriea} style={styles.trophee} /> : element.league === "CAF Africa Cup of Nations" ? <Image source={can} style={styles.trophee} /> : element.league === "UEFA Nations League" ? <Image source={nations} style={styles.trophee} /> : element.league === "FIFA Intercontinental Cup" ? <Image source={fifa} style={styles.trophee} /> : null }</View>)}
               </View>
 
-            </Animated.View> : palmares.length < 10 ? <Animated.View style={[styles.palmaresInfos, {
+            </Animated.View> : 
+            palmares.length < 12 ? <Animated.View style={[styles.palmaresInfos, {
+              height: heightAnim.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, 160]  // Ajustez la hauteur en fonction du contenu
+              })
+            }]}>
+              <View style={{width: "55%"}}>
+                {trophiesArray.map((element, index) => (
+                  element.league === "Trofeo Joan Gamper" ? null :
+                    <Text style={{ fontFamily: "Kanito", marginInline: 10 }}>{element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league === "Trofeo Joan Gamper" ? null : element.league === "UEFA European Championship" ? "Euro" : element.league}</Text>
+                ))}
+              </View>
+              <View style={styles.armoire}>
+              {trophiesArray.map((element) => <View style={styles.box}> {element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee} /> : element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee} /> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : element.league === "UEFA Europa League" ? <Image source={europa} style={styles.trophee} /> : element.league === "Ligue 1" ? <Image source={tropheeligue1} style={styles.trophee} /> : element.league === "La Liga" ? <Image source={liga} style={styles.trophee} /> : element.league === "Bundesliga" ? <Image source={bundesliga} style={styles.trophee} /> : element.league === "UEFA European Championship" ? <Image source={euro} style={styles.trophee} /> : element.league === "UEFA Super Cup" ? <Image source={uefa} style={styles.trophee} /> : element.league === "Serie A"  ? <Image source={seriea} style={styles.trophee} /> : element.league === "CAF Africa Cup of Nations" ? <Image source={can} style={styles.trophee} /> : element.league === "UEFA Nations League" ? <Image source={nations} style={styles.trophee} /> : element.league === "FIFA Intercontinental Cup" ? <Image source={fifa} style={styles.trophee} /> : null }</View>)}
+              </View>
+
+            </Animated.View> : 
+            palmares.length <= 7 ? <Animated.View style={[styles.palmaresInfos, {
               height: heightAnim.interpolate({
                 inputRange: [0, 1],
                 outputRange: [0, 120]  // Ajustez la hauteur en fonction du contenu
@@ -231,7 +275,7 @@ function FicheJoueur() {
               {trophiesArray.map((element) => <View style={styles.box}> {element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee} /> : element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee} /> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : element.league === "UEFA Europa League" ? <Image source={europa} style={styles.trophee} /> : element.league === "Ligue 1" ? <Image source={tropheeligue1} style={styles.trophee} /> : element.league === "La Liga" ? <Image source={liga} style={styles.trophee} /> : element.league === "Bundesliga" ? <Image source={bundesliga} style={styles.trophee} /> : element.league === "UEFA European Championship" ? <Image source={euro} style={styles.trophee} /> : element.league === "UEFA Super Cup" ? <Image source={uefa} style={styles.trophee} /> : element.league === "Serie A" ? <Image source={seriea} style={styles.trophee} /> : element.league === "CAF Africa Cup of Nations" ? <Image source={can} style={styles.trophee} /> : element.league === "UEFA Nations League" ? <Image source={nations} style={styles.trophee} /> : element.league === "FIFA Intercontinental Cup" ? <Image source={fifa} style={styles.trophee} /> : null }</View>)}
               </View>
 
-            </Animated.View> : 
+            </Animated.View> :
             <Animated.View style={[styles.palmaresInfos, {
               height: heightAnim.interpolate({
                 inputRange: [0, 1],
@@ -253,8 +297,8 @@ function FicheJoueur() {
 
         <View style={{flexDirection: "row", alignItems: "center", gap: 20, marginBottom: 10}}>
 {opaque === true ? <TouchableOpacity  style={{opacity: 0.2, marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center"}}><Text style={{fontSize: 20, fontFamily: "Kanitt"}}>{"<"}</Text></TouchableOpacity> :<TouchableOpacity onPress={prec} style={{marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center"}}><Text style={{fontSize: 20, fontFamily: "Kanitt"}}>{"<"}</Text></TouchableOpacity>}
-<Text style={styles.season}>{annee}/{annee +1}</Text>
-<TouchableOpacity onPress={next} style={{marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center"}}><Text style={{fontSize: 20, fontFamily: "Kanitt"}}>{">"}</Text></TouchableOpacity>
+<Animated.Text style={[styles.season, { transform: [{ rotate: rotateSeasonInterpolate }] }]}>{annee}/{annee +1}</Animated.Text>
+{opaque2 === true ? <TouchableOpacity  style={{opacity: 0.2, marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center"}}><Text style={{fontSize: 20, fontFamily: "Kanitt"}}>{">"}</Text></TouchableOpacity> :<TouchableOpacity onPress={next} style={{marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center"}}><Text style={{fontSize: 20, fontFamily: "Kanitt"}}>{">"}</Text></TouchableOpacity>}
         </View>
 
         <View style={styles.stats}>
@@ -320,6 +364,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: '1%',
     marginTop: 65,
+    paddingBottom: 50
   },
   article: {
     flexDirection: 'column',

@@ -4,6 +4,7 @@ import { Text, View, FlatList } from "react-native";
 import { StyleSheet } from "react-native";
 import Journees from "./Journees";
 import Match from "./Match";
+import { LinearGradient } from "expo-linear-gradient";
 
 function TableauEurope({ id, currentRound}) {
   const [fontsLoaded] = useFonts({
@@ -72,7 +73,7 @@ function TableauEurope({ id, currentRound}) {
 console.log(filter)
 
   return (
-    <View style={styles.container}>
+    <LinearGradient colors={["rgba(176, 196, 222, 0.67)", 'rgba(0, 0, 0, 0.35)']} style={styles.container}>
       <Text style={styles.title}>Calendrier et Résultats</Text>
       <Journees
         setFilter={setFilter}
@@ -88,7 +89,7 @@ console.log(filter)
 <Match equipeDom={element.teams.home.name} id={element.fixture.id} equipeExt={element.teams.away.name} logoDom={element.teams.home.logo} round={element.league.round} logoExt={element.teams.away.logo} scoreDom={element.goals.home} scoreExt={element.goals.away} date={element.fixture.date} key={"match" + element.fixture.id} /> : null
 
 )}
-    </View>
+    </LinearGradient>
   );
 }
 
@@ -96,6 +97,9 @@ console.log(filter)
     container: {
       flex: 1,
       paddingVertical: 10,
+      backgroundColor: "midnightblue",
+      paddingInline: 2,
+      borderRadius: 15
     },
     title: {
       fontSize: 24,

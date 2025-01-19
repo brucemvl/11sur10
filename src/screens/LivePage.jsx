@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet, Animated, ScrollView } from 'react-native';
 import ligue1 from "../assets/logoligue1.webp"
+import { SharedElement } from 'react-navigation-shared-element';
 
 function LivePage({ navigation }) {
   const [live, setLive] = useState([]);

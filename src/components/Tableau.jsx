@@ -1,6 +1,7 @@
 import { useFonts } from "expo-font";
 import { useState, useEffect } from "react";
-import { Text, View, FlatList } from "react-native";
+import { Text } from "react-native";
+import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet } from "react-native";
 import Journees from "./Journees";
 import Match from "./Match";
@@ -72,8 +73,8 @@ function Tableau({ id, currentRound}) {
 console.log(filter)
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Calendrier et Résultats</Text>
+<LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.container}>
+        <Text style={styles.title}>Calendrier et Résultats</Text>
       <Journees
         setFilter={setFilter}
         round={round}
@@ -88,7 +89,7 @@ console.log(filter)
 <Match equipeDom={element.teams.home.name} id={element.fixture.id} equipeExt={element.teams.away.name} logoDom={element.teams.home.logo} round={element.league.round} logoExt={element.teams.away.logo} scoreDom={element.goals.home} scoreExt={element.goals.away} date={element.fixture.date} key={"match" + element.fixture.id} /> : null
 
 )}
-    </View>
+    </LinearGradient>
   );
 }
 
@@ -96,11 +97,14 @@ console.log(filter)
     container: {
       flex: 1,
       paddingVertical: 10,
+      backgroundColor: "steelblue",
+      paddingInline: 2,
+      borderRadius: 15
     },
     title: {
       fontSize: 24,
       fontWeight: "400",
-      marginBottom: 10,
+      marginBottom: 6,
       textAlign: "center",
       fontFamily: "Kanitt",
     },

@@ -1,15 +1,16 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 import { View, Text, Button, StyleSheet, ScrollView, Image, Animated, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { SharedElement } from "react-navigation-shared-element";
 import Precedent from "../components/Precedent";
 import chevron from "../assets/chevron.png";
 import ligue1 from "../assets/logoligue1.webp"
 
 function FicheEquipe() {
   const route = useRoute();
-  const { id } = route.params;
-  const { league } = route.params;
+  const { id, league, img } = route.params;
 
   const [equipe, setEquipe] = useState();
   const [stats, setStats] = useState(null);
@@ -106,7 +107,9 @@ console.log(stats)
             {equipe.team.national === false ? `Club fondé en ${equipe.team.founded}` : null}
           </Text>
         </View>
-        <Image source={{ uri: equipe?.team?.logo }} style={{ height: 70, width: 70, objectFit: "contain" }} />
+        <SharedElement id="logo">
+        <Image source={{ uri: equipe.team.logo }} style={{ height: 70, width: 70, objectFit: "contain" }} />
+        </SharedElement>
       </LinearGradient>
 
       <View style={styles.stade}>
@@ -138,6 +141,7 @@ console.log(stats)
       </View>
       <Text style={styles.season}>2024/2025</Text>
       <Image source={stats.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : { uri: stats?.league?.logo}} style={{height: 50, width: 50, marginBottom: 20, objectFit: "contain"}}/>
+      
       <View style={styles.bloc}>
 <Text style={styles.h3}>Matchs Disputés</Text>
 <Text style={{fontFamily: "Kanitt", fontSize: 22}}>{stats.fixtures.played.total}</Text>
@@ -204,6 +208,7 @@ console.log(stats)
 
       <View style={styles.bloc}>
         <Text style={styles.h3}>Clean-sheets</Text>
+        <Text style={{fontFamily: "Kanitt", fontSize: 20}}>{stats.clean_sheet.total}</Text>
         <View style={{flexDirection: "row", justifyContent: "space-evenly"}}>
             <View style={{width: "50%", alignItems: "center"}}>
                 <Text style={styles.h4}>Domicile</Text>
@@ -225,7 +230,9 @@ const styles = StyleSheet.create({
     container: {
 padding: 10,
 alignItems: "center",
-marginTop: 60
+marginTop: 60,
+flexGrow: 1,
+paddingBottom: 50
     },
     header: {
 flexDirection: "row",

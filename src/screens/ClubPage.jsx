@@ -210,12 +210,12 @@ const styles = StyleSheet.create({
         height: 125,
         alignItems: 'center',
         marginBottom: 10,
-        flexDirection: "column-reverse",
         borderWidth: 8,
         borderRadius: 15,
         borderColor: "midnightblue",
         paddingBlock: 6,
         backgroundColor: "aliceblue",
+        flexDirection: "column-reverse"
     },
     lienEurope: {
         width: 120,
@@ -254,9 +254,7 @@ const styles = StyleSheet.create({
         fontFamily: "Permanent",
     },
     flag: {
-        height: "100%",
-        position: "absolute",
-        width: "100%",
+       
     },
 
     // Styles spécifiques à l'écran mobile
@@ -265,12 +263,13 @@ const styles = StyleSheet.create({
         height: 125,
         alignItems: 'center',
         marginBottom: 10,
-        flexDirection: "column-reverse",
         borderWidth: 8,
         borderRadius: 15,
         borderColor: "midnightblue",
         paddingBlock: 6,
         backgroundColor: "aliceblue",
+        flexDirection: "column-reverse"
+
     },
     lienTablet: {
         width: '22%', // Sur tablettes, on ajuste également
