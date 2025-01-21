@@ -6,7 +6,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import Precedent from "../components/Precedent";
 import chevron from "../assets/chevron.png";
 import ligue1 from "../assets/logoligue1.webp"
-import { SharedElement } from "react-native-shared-element";
 
 function FicheEquipe() {
   const route = useRoute();
@@ -125,7 +124,7 @@ console.log(stats)
     return <Text> Loading...</Text>
 
   }
-
+  
   return (
     <View>
     <Precedent />
@@ -138,9 +137,7 @@ console.log(stats)
             {equipe.team.national === false ? `Club fondé en ${equipe.team.founded}` : null}
           </Text>
         </View>
-        <SharedElement id="logo">
         <Image source={{ uri: equipe.team.logo }} style={{ height: 70, width: 70, objectFit: "contain" }} />
-        </SharedElement>
       </LinearGradient>
 
       <View style={styles.stade}>

@@ -42,6 +42,12 @@ import goat from "../assets/portraits/goat.jpg"
 import darwin from "../assets/portraits/darwin.png"
 import salah from "../assets/portraits/salah.png"
 import kounde from "../assets/portraits/kounde.jpg"
+import endrick from "../assets/portraits/endrick.jpg"
+import mbappe from "../assets/portraits/mbappe.jpg"
+import vini from "../assets/portraits/vini.jpg"
+import palmer from "../assets/portraits/palmer.jpg"
+import messi from "../assets/trophees/messi.jpg"
+
 
 
 
@@ -212,7 +218,7 @@ function FicheJoueur() {
     <ScrollView contentContainerStyle={styles.blocJoueur}>
       <View style={styles.article}>
         <LinearGradient colors={["black", "steelblue"]} style={styles.infosJoueur}>
-          <Image source={ joueur.player.id === 1100 ? haaland : joueur.player.id === 161904 ? barcola : joueur.player.id === 336657 ? zaire : joueur.player.id === 153 ? dembele : joueur.player.id === 129718 ? bellingham : joueur.player.id === 386828 ? yamal : joueur.player.id === 10009 ? rodrygo : joueur.player.id === 18979 ? gyokeres : joueur.player.id === 291964 ? guller : joueur.player.id === 343027 ? doue : joueur.player.id === 483 ? kvara : joueur.player.id === 154 ? goat : joueur.player.id === 306 ? salah : joueur.player.id === 51617 ? darwin : joueur.player.id === 1257 ? kounde : { uri: joueur.player.photo }} style={styles.photo} />
+          <Image source={ joueur.player.id === 1100 ? haaland : joueur.player.id === 161904 ? barcola : joueur.player.id === 336657 ? zaire : joueur.player.id === 153 ? dembele : joueur.player.id === 129718 ? bellingham : joueur.player.id === 386828 ? yamal : joueur.player.id === 10009 ? rodrygo : joueur.player.id === 18979 ? gyokeres : joueur.player.id === 291964 ? guller : joueur.player.id === 343027 ? doue : joueur.player.id === 483 ? kvara : joueur.player.id === 154 ? goat : joueur.player.id === 306 ? salah : joueur.player.id === 51617 ? darwin : joueur.player.id === 1257 ? kounde : joueur.player.id === 278 ? mbappe : joueur.player.id === 377122 ? endrick : joueur.player.id === 762 ? vini : joueur.player.id === 152982 ? palmer : { uri: joueur.player.photo }} style={styles.photo} />
           <View style={styles.bio}>
             <Text style={styles.name}>{joueur.player.name}</Text>
             <Text style={styles.infoText}>Né le {formattedDate} à {joueur.player.birth.place}, {joueur.player.birth.country}</Text>
@@ -236,7 +242,16 @@ function FicheJoueur() {
               />
             </LinearGradient>
           </TouchableOpacity>
+
           {palmares.length > 22 ?
+          joueur.player.id === 154 ? <Animated.View style={[styles.palmaresInfos, {
+            height: heightAnim.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, 280]  // Ajustez la hauteur en fonction du contenu
+            })
+          }]}>
+            <Image source={messi} style={{objectFit: "contain", width: "100%"}}/>
+          </Animated.View>:
             <Animated.View style={[styles.palmaresInfos, {
               height: heightAnim.interpolate({
                 inputRange: [0, 1],
@@ -304,7 +319,8 @@ function FicheJoueur() {
               {trophiesArray.map((element) => <View style={styles.box}> {element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee} /> : element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee} /> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : element.league === "UEFA Europa League" ? <Image source={europa} style={styles.trophee} /> : element.league === "Ligue 1" ? <Image source={tropheeligue1} style={styles.trophee} /> : element.league === "La Liga" ? <Image source={liga} style={styles.trophee} /> : element.league === "Bundesliga" ? <Image source={bundesliga} style={styles.trophee} /> : element.league === "UEFA European Championship" ? <Image source={euro} style={styles.trophee} /> : element.league === "UEFA Super Cup" ? <Image source={uefa} style={styles.trophee} /> : element.league === "Serie A" ? <Image source={seriea} style={styles.trophee} /> : element.league === "CAF Africa Cup of Nations" ? <Image source={can} style={styles.trophee} /> : element.league === "UEFA Nations League" ? <Image source={nations} style={styles.trophee} /> : element.league === "FIFA Intercontinental Cup" ? <Image source={fifa} style={styles.trophee} /> : null }</View>)}
               </View>
 
-            </Animated.View>}
+            </Animated.View>
+            }
         </View>
 
         <View style={{flexDirection: "row", alignItems: "center", gap: 20, marginBottom: 10}}>

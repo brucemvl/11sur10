@@ -6,14 +6,14 @@ import banner7 from "../assets/banner8.webp";
 import banner8 from "../assets/banner9.webp";
 import banner9 from "../assets/banner10.webp";
 import banner10 from "../assets/banner11.jpg";
-import banner11 from "../assets/banner12.webp";
+import banner11 from "../assets/banner12.jpg";
 import banner12 from "../assets/banner13.webp";
 import banner13 from "../assets/banner14.jpg";
 import banner14 from "../assets/banner15.jpg";
 import banner15 from "../assets/banner16.jpg";
 import banner16 from "../assets/banner17.webp";
 import banner17 from "../assets/banner18.jpg";
-import banner18 from "../assets/banner19.webp";
+import banner18 from "../assets/banner19.jpg";
 import banner19 from "../assets/banner20.webp"
 import banner20 from "../assets/banner21.webp"
 import banner21 from "../assets/banner22.webp"
@@ -22,6 +22,8 @@ import banner23 from "../assets/banner24.webp"
 import banner24 from "../assets/banner25.jpg"
 import banner25 from "../assets/banner26.webp"
 import banner26 from "../assets/banner27.jpg"
+import banner27 from "../assets/banner28.jpg"
+
 
 
 
@@ -41,7 +43,7 @@ function Banner(){
 
     const photosBan = [
         banner3, banner4, banner5, banner6, banner7, banner8, banner9,
-        banner10, banner11, banner12, banner13, banner14, banner15, banner16, banner17, banner18, banner19, banner20, banner21, banner22, banner23, banner24, banner25, banner26
+        banner10, banner11, banner12, banner13, banner14, banner15, banner16, banner17, banner18, banner19, banner20, banner21, banner22, banner23, banner24, banner25, banner26, banner27
       ];
     
       const [randomPhoto, setRandomPhoto] = useState(photosBan[Math.floor(Math.random() * photosBan.length)]);

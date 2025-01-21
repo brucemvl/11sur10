@@ -3,7 +3,6 @@ import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity } from 'react
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import ligue1 from "../assets/logoligue1.webp"
-import { SharedElement } from 'react-native-shared-element';
 
 const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP, formeHome, formeExt, onPress }) => {
 
@@ -11,8 +10,7 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
     const date = new Date(match.fixture.date);
     const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
     const formattedHour = `${date.getHours().toString().padStart(2, '0')}h${date.getMinutes().toString().padStart(2, '0')}`;
-
-
+   
     return (
         <View style={styles.container}>
             <View style={styles.ligue}>
@@ -26,9 +24,7 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
 
             <LinearGradient colors={['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.8)']} style={styles.affiche}>
             <TouchableOpacity style={styles.domicile} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo})}>
-                <SharedElement id='logo'>
           <Image source={{ uri: match.teams.home.logo }} style={styles.teamLogo} />
-          </SharedElement>
           <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 15 }}>{match.teams.home.name}</Text>
           <View style={{gap: 5, flexDirection: "row", marginTop: 5}}>{formeHome?.split('').map((char, index) => (
           char === 'L' ? (
