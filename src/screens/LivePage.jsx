@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet, Animated, ScrollView } from 'react-native';
 import ligue1 from "../assets/logoligue1.webp"
-import { SharedElement } from 'react-navigation-shared-element';
+import { LinearGradient } from 'expo-linear-gradient';
 
 function LivePage({ navigation }) {
   const [live, setLive] = useState([]);
@@ -127,7 +127,9 @@ function LivePage({ navigation }) {
   return (
     <ScrollView style={{width: "98%",paddingStart: "2%", marginBlock: 10, flex: 1}}>
     <View style={styles.container}>
+    <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.titlecontainer}>
       <Text style={styles.title}>LIVE</Text>
+      </LinearGradient>
       {live.length === 0 ? (
         <Text style={styles.noMatch}>Aucun match pour le moment</Text>
       ) : (
@@ -154,18 +156,16 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    backgroundColor: 'midnightblue',
-    justifyContent: 'center',
-    marginHorizontal: '35%',
-    height: 30,
-    alignItems: 'center',
-    borderRadius: 10,
     borderColor: 'white',
-    marginBottom: 0,
-    textAlign: 'center',
-    paddingTop: 5,
     fontFamily: "Kanitt",
-    marginBottom: 15
+  },
+  titlecontainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: '35%',
+    borderRadius: 10,
+    height: 30,
+    marginBottom: 10
   },
   match: {
     flexDirection: 'row',

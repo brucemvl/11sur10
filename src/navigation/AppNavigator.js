@@ -3,7 +3,6 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
 import Home from '../screens/Home';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -19,11 +18,10 @@ import FicheMatch from '../screens/FicheMatch';
 import SelectionsPage from '../screens/SelectionsPage';
 import FicheSelections from '../screens/FicheSelections';
 import FicheEquipe from '../screens/FicheEquipe';
-import { SharedElement } from 'react-navigation-shared-element';
 
 
 
-const Stack = createSharedElementStackNavigator();
+const Stack = createStackNavigator();
 
 export default function AppNavigator() {
   return (
@@ -42,8 +40,7 @@ export default function AppNavigator() {
         <Stack.Screen name="FicheChampionnat" component={FicheChampionnat} />
         <Stack.Screen name="FicheEurope" component={FicheEurope} />
         <Stack.Screen name="LivePage" component={LivePage} />
-        <Stack.Screen name="ClubPage" component={ClubPage} sharedElements={(route, otherRoute, showing) => {
-            return ['img'];}}/>
+        <Stack.Screen name="ClubPage" component={ClubPage}/>
         <Stack.Screen name="FicheMatch" component={FicheMatch} />
         <Stack.Screen name="FicheJoueur" component={FicheJoueur} />
         <Stack.Screen name="SelectionsPage" component={SelectionsPage} />

@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
     width: "12%",
     backgroundColor: "black",
     borderRadius: 5,
-    marginLeft: 1,
-    alignItems: "center"
+    marginLeft: 2,
+    alignItems: "center",
   },
   equipeDom: {
     fontSize: 12,

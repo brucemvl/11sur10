@@ -1,14 +1,17 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 function Precedent() {
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.button}>
+      <TouchableOpacity onPress={() => navigation.goBack()} >
+        <LinearGradient colors={["rgba(26, 71, 129, 0.67)", 'rgb(0, 0, 0)']} style={styles.button} >
         <Text style={styles.text}>{"<"}  Précédent</Text>
+        </LinearGradient>
       </TouchableOpacity>
     </View>
   );
@@ -27,7 +30,7 @@ const styles = StyleSheet.create({
     paddingBottom: 2,
 backgroundColor: "#f0f0f0" },
   button: {
-    backgroundColor: "midnightblue",
+    backgroundColor: 'rgb(16, 26, 75)',
     paddingVertical: 12,
     borderRadius: 20,
     width: 105,

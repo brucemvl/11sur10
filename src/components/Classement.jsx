@@ -174,7 +174,7 @@ function Classement({ id }) {
   return (
     <View style={styles.container}>
       {/* Classement */}
-      <LinearGradient       colors={[ 'rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']}
+      <LinearGradient       colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
       style={{ marginBlock: 10, height: 40, justifyContent: "center", borderRadius: 10}}
         >
       <TouchableOpacity onPress={collapseClassement} style={styles.header}>
@@ -211,7 +211,7 @@ function Classement({ id }) {
 
 
       {/* Meilleurs Buteurs */}
-      <LinearGradient       colors={[ 'rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']}
+      <LinearGradient       colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
       style={{ marginBlock: 10, height: 40, justifyContent: "center", borderRadius: 10}}
         >
       <TouchableOpacity onPress={collapseButeurs} style={styles.header}>
@@ -242,7 +242,7 @@ function Classement({ id }) {
       
 
       {/* Meilleurs Passeurs */}
-      <LinearGradient       colors={[ 'rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']}
+      <LinearGradient       colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
       style={{ marginBlock: 10, height: 40, justifyContent: "center", borderRadius: 10}}
         >
       <TouchableOpacity onPress={collapsePasseurs} style={styles.header}>

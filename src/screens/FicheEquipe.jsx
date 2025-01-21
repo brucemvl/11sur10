@@ -3,17 +3,24 @@ import { useState, useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 import { View, Text, Button, StyleSheet, ScrollView, Image, Animated, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { SharedElement } from "react-navigation-shared-element";
 import Precedent from "../components/Precedent";
 import chevron from "../assets/chevron.png";
 import ligue1 from "../assets/logoligue1.webp"
+import { SharedElement } from "react-native-shared-element";
 
 function FicheEquipe() {
   const route = useRoute();
   const { id, league, img } = route.params;
 
+  const [compet, setCompet] = useState(league)
+  const [selectedId, setSelectedId] = useState(league);
+
   const [equipe, setEquipe] = useState();
+  const [leagues, setLeagues] = useState([])
   const [stats, setStats] = useState(null);
+
+  
+
   const [rotateValue, setRotateValue] = useState(new Animated.Value(0));
   const [heightAnim, setHeightAnim] = useState(new Animated.Value(0));
 
@@ -65,9 +72,31 @@ function FicheEquipe() {
   console.log(equipe)
 
   useEffect(() => {
+    const fetchLeagues = async () => {
+      try {
+        const response = await fetch(`https://v3.football.api-sports.io/leagues?season=2024&team=${id}`, {
+          method: "GET",
+          headers: {
+            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+            "x-rapidapi-host": "v3.football.api-sports.io",
+          },
+        });
+        const json = await response.json();
+        if (json.response.length > 0) {
+          setLeagues(json.response);
+        }
+      } catch (error) {
+        console.error("error:", error);
+      }
+    };
+    fetchLeagues();
+  }, [id]);
+
+  console.log(leagues)
+  useEffect(() => {
 
     // Fetch home team statistics
-    fetch(`https://v3.football.api-sports.io/teams/statistics?season=2024&team=${id}&league=${league}`, {
+    fetch(`https://v3.football.api-sports.io/teams/statistics?season=2024&team=${id}&league=${compet}`, {
         method: "GET",
         headers: {
             "x-rapidapi-host": "v3.football.api-sports.io",
@@ -81,7 +110,8 @@ function FicheEquipe() {
         .catch(err => {
             console.log(err);
         });
-}, [id]);
+}, [id, compet]);
+
 
 
 
@@ -93,6 +123,7 @@ console.log(stats)
 
   if (!stats) {
     return <Text> Loading...</Text>
+
   }
 
   return (
@@ -140,8 +171,11 @@ console.log(stats)
         </Animated.View>
       </View>
       <Text style={styles.season}>2024/2025</Text>
-      <Image source={stats.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : { uri: stats?.league?.logo}} style={{height: 50, width: 50, marginBottom: 20, objectFit: "contain"}}/>
-      
+      <ScrollView horizontal showsHorizontalScrollIndicator={true} style={styles.leagues}>
+      {leagues.map((element) => {if ( element.league.name === "Friendlies Clubs") return null ; const isSelected = selectedId === element.league.id;
+     return <TouchableOpacity key={element.league.id} onPress={()=> {setCompet(element.league.id); setSelectedId(element.league.id)} } style={isSelected ? styles.selected : {opacity: 0.4}}> <Image source={element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : { uri: element.league.logo}} style={{height: 60, width: 60, marginBottom: 20, objectFit: "contain", marginInline: 10}}/></TouchableOpacity>
+})}
+</ScrollView>
       <View style={styles.bloc}>
 <Text style={styles.h3}>Matchs Disputés</Text>
 <Text style={{fontFamily: "Kanitt", fontSize: 22}}>{stats.fixtures.played.total}</Text>
@@ -309,7 +343,17 @@ width: "98%"
     shadowOffset: { width: 0, height: 0 }, // shadow offset
     shadowOpacity: 0.5, // shadow opacity
     shadowRadius: 4,
+      },
+      leagues: {
+        flexDirection: "row",
+        width: 190,
+        height: 90,
+        padding: 10,
+      },
+      selected: {
+        opacity: 1
       }
+      
   
 });
 

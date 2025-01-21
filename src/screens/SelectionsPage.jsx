@@ -26,7 +26,7 @@ function SelectionsPage() {
         <ScrollView contentContainerStyle={styles.competitions}>
             {/* Section Championnats */}
             <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.conteneur} >
-                <LinearGradient colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']}
+                <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
                     style={styles.title}
                 >
                     <Text style={styles.titleText}>Competitions</Text>
@@ -102,23 +102,11 @@ const styles = StyleSheet.create({
         flexDirection: "column-reverse",
         borderWidth: 8,
         borderRadius: 15,
-        borderColor: "midnightblue",
+        borderColor: 'rgb(15, 23, 82)',
         paddingBlock: 6,
         backgroundColor: "aliceblue",
     },
-    lienEurope: {
-        width: '30%',
-        alignItems: 'center',
-        justifyContent: "center",
-        marginBottom: 20,
-        flexDirection: "column-reverse",
-        borderWidth: 8,
-        borderRadius: 15,
-        borderColor: "midnightblue",
-        paddingBlock: 6,
-        backgroundColor: "aliceblue",
-        height: 125
-    },
+   
     logoContainer: {
         width: "85%",
         justifyContent: 'center',

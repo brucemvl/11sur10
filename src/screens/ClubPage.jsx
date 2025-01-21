@@ -28,7 +28,7 @@ function ClubPage() {
         <ScrollView contentContainerStyle={styles.competitions}>
             {/* Section Championnats */}
             <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.conteneur} >
-                <LinearGradient colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']}
+                <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
                     style={styles.title}
                 >
                     <Text style={styles.titleText}>Championnats</Text>
@@ -76,7 +76,7 @@ function ClubPage() {
 
             {/* Section Compétitions Européennes */}
             <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.conteneur} >
-                <LinearGradient colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']} style={styles.title}
+                <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.title}
                 >
                     <Text style={styles.titleText}>Compétitions Européennes</Text>
                 </LinearGradient>
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         borderWidth: 8,
         borderRadius: 15,
-        borderColor: "midnightblue",
+        borderColor: 'rgb(11, 19, 81)',
         paddingBlock: 6,
         backgroundColor: "aliceblue",
         flexDirection: "column-reverse"
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
         flexDirection: "column-reverse",
         borderWidth: 8,
         borderRadius: 15,
-        borderColor: "midnightblue",
+        borderColor:  'rgb(11, 19, 81)',
         paddingBlock: 6,
         backgroundColor: "aliceblue",
         height: 125
@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         borderWidth: 8,
         borderRadius: 15,
-        borderColor: "midnightblue",
+        borderColor: 'rgb(15, 23, 82)',
         paddingBlock: 6,
         backgroundColor: "aliceblue",
         flexDirection: "column-reverse"

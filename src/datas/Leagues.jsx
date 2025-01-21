@@ -174,6 +174,13 @@ export const europe = [
         "logo": "https://media.api-sports.io/football/leagues/3.png",
         "season": 2024,
     },
+    {
+        "id": 848,
+        "name": "UEL Conference",
+        "country": "World",
+        "logo": "https://media.api-sports.io/football/leagues/848.png",
+        "season": 2024,
+    },
 
 
 ]

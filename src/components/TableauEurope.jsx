@@ -1,6 +1,6 @@
 import { useFonts } from "expo-font";
 import { useState, useEffect } from "react";
-import { Text, View, FlatList } from "react-native";
+import { Text, View, FlatList, Image } from "react-native";
 import { StyleSheet } from "react-native";
 import Journees from "./Journees";
 import Match from "./Match";
@@ -40,7 +40,11 @@ function TableauEurope({ id, currentRound}) {
 
   )
 
-  const round = team.reduce(
+  if (id === 848){
+   return  <Text>Impossible de recuperer le calendrier</Text>
+  }
+
+  const round = team?.reduce(
       (acc, elem) =>
           acc.includes(elem.league.round) ? acc : acc.concat(elem.league.round),
       []
@@ -73,8 +77,9 @@ function TableauEurope({ id, currentRound}) {
 console.log(filter)
 
   return (
-    <LinearGradient colors={["rgba(176, 196, 222, 0.67)", 'rgba(0, 0, 0, 0.35)']} style={styles.container}>
+    <LinearGradient colors={["rgba(117, 167, 232, 0.67)", 'rgb(16, 19, 49)']} style={styles.container}>
       <Text style={styles.title}>Calendrier et Résultats</Text>
+              <Image source={{uri : `https://media.api-sports.io/football/leagues/${id}.png`}} style={{width: 50, height: 50, objectFit: "contain"}} />
       <Journees
         setFilter={setFilter}
         round={round}
@@ -97,9 +102,9 @@ console.log(filter)
     container: {
       flex: 1,
       paddingVertical: 10,
-      backgroundColor: "midnightblue",
       paddingInline: 2,
-      borderRadius: 15
+      borderRadius: 15,
+      alignItems: "center"
     },
     title: {
       fontSize: 24,

@@ -1,10 +1,11 @@
 import { useFonts } from "expo-font";
 import { useState, useEffect } from "react";
-import { Text } from "react-native";
+import { Text, Image } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet } from "react-native";
 import Journees from "./Journees";
 import Match from "./Match";
+import ligue1 from "../assets/logoligue1.webp"
 
 function Tableau({ id, currentRound}) {
   const [fontsLoaded] = useFonts({
@@ -75,6 +76,7 @@ console.log(filter)
   return (
 <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.container}>
         <Text style={styles.title}>Calendrier et Résultats</Text>
+        <Image source={id === 61 ? ligue1 : {uri : `https://media.api-sports.io/football/leagues/${id}.png`}} style={{width: 50, height: 50, objectFit: "contain"}} />
       <Journees
         setFilter={setFilter}
         round={round}
@@ -99,7 +101,8 @@ console.log(filter)
       paddingVertical: 10,
       backgroundColor: "steelblue",
       paddingInline: 2,
-      borderRadius: 15
+      borderRadius: 15,
+      alignItems: "center"
     },
     title: {
       fontSize: 24,

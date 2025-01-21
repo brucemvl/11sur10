@@ -124,10 +124,13 @@ function FicheJoueur() {
     }
 
     Animated.timing(rotateSeason, {
-          toValue:  1,
-          duration: 300,
-          useNativeDriver: true,
-        }).start();
+      toValue: 1, // Valeur cible de la rotation
+      duration: 300,
+      useNativeDriver: true,
+    }).start(() => {
+      // Réinitialiser la valeur de la rotation à 0 après l'animation
+      rotateSeason.setValue(0); 
+    });
     
   }
 
@@ -141,6 +144,15 @@ function FicheJoueur() {
     if (annee === 2023){
       setOpaque2(true)
     }
+
+    Animated.timing(rotateSeason, {
+      toValue: 1, // Valeur cible de la rotation
+      duration: 300,
+      useNativeDriver: true,
+    }).start(() => {
+      // Réinitialiser la valeur de la rotation à 0 après l'animation
+      rotateSeason.setValue(0); 
+    });
    
   }
 

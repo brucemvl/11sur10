@@ -10,7 +10,6 @@ import Affiche from '../components/Affiche.jsx';
 import Precedent from '../components/Precedent.jsx';
 import Schema from '../components/Schema.jsx';
 import { useNavigation } from '@react-navigation/native';
-import { SharedElement } from 'react-navigation-shared-element';
 
 const FicheMatch = () => {
     const [match, setMatch] = useState(null);
@@ -223,7 +222,7 @@ if (!compoDom || !compoExt) {
 
     <ScrollView contentContainerStyle={styles.bloc}>
     
-    <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt}/>
+    <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt} />
     </ScrollView>
     </View>
     )
@@ -236,7 +235,7 @@ if (!compoDom || !compoExt) {
         return (
             <ScrollView contentContainerStyle={styles.bloc}>
             <Precedent />
-            <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP}/>
+            <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} />
             </ScrollView>
             )
     }
@@ -271,7 +270,7 @@ if (!compoDom || !compoExt) {
     <Precedent />
     <Image source={match.teams.home.logo} />
         <ScrollView contentContainerStyle={styles.bloc}>
-            <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt} onPress={() => handlePress(match.teams.home.id, match.league.id)} />
+            <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt}  />
             <View style={styles.section}>
                 {/* Your existing JSX */}
                 <View style={styles.ficheSelecteur}>

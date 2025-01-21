@@ -3,7 +3,6 @@ import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Animated }
 import { LinearGradient } from 'expo-linear-gradient';
 import ligue1 from "../assets/logoligue1.webp"
 import { useNavigation } from '@react-navigation/native';
-import { SharedElement } from 'react-navigation-shared-element';
 
 function Aujourdhui() {
 
@@ -435,12 +434,14 @@ console.log(tomorrowDate);
   return (
     todayMatch.length <= 0 ? <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.today}>
     { selectedDate === "DEMAIN" ? <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
-    <TouchableOpacity onPress={handlePrevious} style={styles.arrow}>
+    <TouchableOpacity onPress={handlePrevious}>
+      <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
       <Text style={{color: "white", fontFamily: "Kanitt"}}>{"<"}</Text>
+      </LinearGradient>
     </TouchableOpacity>
 
     <LinearGradient
-      colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']}
+      colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
       style={styles.titre}
     >
       <Text style={styles.titreToday}>
@@ -459,7 +460,7 @@ console.log(tomorrowDate);
       </TouchableOpacity>
 
     <LinearGradient
-      colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']}
+      colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
       style={styles.titre}
     >
       <Text style={styles.titreToday}>
@@ -467,18 +468,23 @@ console.log(tomorrowDate);
       </Text>
     </LinearGradient>
 
-    <TouchableOpacity onPress={handleNext} style={styles.arrow}>
+    <TouchableOpacity onPress={handleNext}>
+    <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
+
       <Text style={{color: "white", fontFamily: "Kanitt"}}>{">"}</Text>
+      </LinearGradient>
     </TouchableOpacity>
 
     </View> :
     <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
-    <TouchableOpacity onPress={handlePrevious} style={styles.arrow}>
+    <TouchableOpacity onPress={handlePrevious} >
+    <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
       <Text style={{color: "white", fontFamily: "Kanitt"}}>{"<"}</Text>
+      </LinearGradient>
     </TouchableOpacity>
 
     <LinearGradient
-      colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']}
+      colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
       style={styles.titre}
     >
       <Text style={styles.titreToday}>
@@ -486,8 +492,10 @@ console.log(tomorrowDate);
       </Text>
     </LinearGradient>
 
-    <TouchableOpacity onPress={handleNext} style={styles.arrow}>
+    <TouchableOpacity onPress={handleNext} >
+    <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
       <Text style={{color: "white", fontFamily: "Kanitt"}}>{">"}</Text>
+      </LinearGradient>
     </TouchableOpacity>
 
     </View>}
@@ -586,12 +594,14 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
   </LinearGradient> :
     <LinearGradient colors={["rgb(147, 176, 213)", 'rgba(0, 0, 0, 0.35)']} style={styles.today}>
       { selectedDate === "DEMAIN" ? <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
-      <TouchableOpacity onPress={handlePrevious} style={styles.arrow}>
+      <TouchableOpacity onPress={handlePrevious} >
+      <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
         <Text style={{color: "white", fontFamily: "Kanitt"}}>{"<"}</Text>
+        </LinearGradient>
       </TouchableOpacity>
 
       <LinearGradient
-        colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']}
+        colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
         style={styles.titre}
       >
         <Text style={styles.titreToday}>
@@ -610,7 +620,7 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
         </TouchableOpacity>
 
       <LinearGradient
-        colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']}
+        colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
         style={styles.titre}
       >
         <Text style={styles.titreToday}>
@@ -618,18 +628,22 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
         </Text>
       </LinearGradient>
 
-      <TouchableOpacity onPress={handleNext} style={styles.arrow}>
+      <TouchableOpacity onPress={handleNext} >
+      <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
         <Text style={{color: "white", fontFamily: "Kanitt"}}>{">"}</Text>
+        </LinearGradient>
       </TouchableOpacity>
 
       </View> :
       <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
-      <TouchableOpacity onPress={handlePrevious} style={styles.arrow}>
+      <TouchableOpacity onPress={handlePrevious} >
+      <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
         <Text style={{color: "white", fontFamily: "Kanitt"}}>{"<"}</Text>
+        </LinearGradient>
       </TouchableOpacity>
 
       <LinearGradient
-        colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']}
+        colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
         style={styles.titre}
       >
         <Text style={styles.titreToday}>
@@ -637,8 +651,10 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
         </Text>
       </LinearGradient>
 
-      <TouchableOpacity onPress={handleNext} style={styles.arrow}>
+      <TouchableOpacity onPress={handleNext} >
+      <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
         <Text style={{color: "white", fontFamily: "Kanitt"}}>{">"}</Text>
+        </LinearGradient>
       </TouchableOpacity>
 
       </View>}
@@ -921,7 +937,7 @@ const styles = StyleSheet.create({
 
   matchCompetition: {
     height: 35,
-    width: "6%",
+    width: "7%",
     objectFit: 'contain',
   },
   matchEquipeDom: {
@@ -943,7 +959,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
     width: "10%",
     backgroundColor: "black",
-    borderRadius: 5
+    borderRadius: 5,
+    
+    
 
   },
   matchLogoExt: {
@@ -1002,7 +1020,7 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "aliceblue",
     borderRadius: 10,
-    paddingBlock: 10,
+    paddingBlock: 9,
     marginVertical: 5,
   },
 
@@ -1085,10 +1103,10 @@ const styles = StyleSheet.create({
     fontFamily: "Kanito",
     alignItems: "center",
     textAlign: "center",
-    paddingTop: 4
+    paddingTop: 4,
+    
   },
   arrow : {
-    backgroundColor: "midnightblue",
     color: "white",
     fontFamily: "Kanitt",
     height: 35,
@@ -1118,7 +1136,8 @@ const styles = StyleSheet.create({
   textspoil: {
 fontFamily: "Permanent",
 fontSize: 10,
-color: "green"
+color: "green",
+
   },
   textnospoil: {
     fontFamily: "Permanent",
