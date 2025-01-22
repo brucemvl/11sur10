@@ -268,7 +268,6 @@ if (!compoDom || !compoExt) {
     return (
         <View>
     <Precedent />
-    <Image source={match.teams.home.logo} />
         <ScrollView contentContainerStyle={styles.bloc}>
             <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt}  />
             <View style={styles.section}>

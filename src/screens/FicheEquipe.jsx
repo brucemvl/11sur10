@@ -340,6 +340,7 @@ width: "98%"
     shadowOffset: { width: 0, height: 0 }, // shadow offset
     shadowOpacity: 0.5, // shadow opacity
     shadowRadius: 4,
+    elevation: 5
       },
       leagues: {
         flexDirection: "row",

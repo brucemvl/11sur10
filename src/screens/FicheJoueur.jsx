@@ -47,6 +47,7 @@ import mbappe from "../assets/portraits/mbappe.jpg"
 import vini from "../assets/portraits/vini.jpg"
 import palmer from "../assets/portraits/palmer.jpg"
 import messi from "../assets/trophees/messi.jpg"
+import griezmann from "../assets/portraits/griezmann.png"
 
 
 
@@ -218,7 +219,7 @@ function FicheJoueur() {
     <ScrollView contentContainerStyle={styles.blocJoueur}>
       <View style={styles.article}>
         <LinearGradient colors={["black", "steelblue"]} style={styles.infosJoueur}>
-          <Image source={ joueur.player.id === 1100 ? haaland : joueur.player.id === 161904 ? barcola : joueur.player.id === 336657 ? zaire : joueur.player.id === 153 ? dembele : joueur.player.id === 129718 ? bellingham : joueur.player.id === 386828 ? yamal : joueur.player.id === 10009 ? rodrygo : joueur.player.id === 18979 ? gyokeres : joueur.player.id === 291964 ? guller : joueur.player.id === 343027 ? doue : joueur.player.id === 483 ? kvara : joueur.player.id === 154 ? goat : joueur.player.id === 306 ? salah : joueur.player.id === 51617 ? darwin : joueur.player.id === 1257 ? kounde : joueur.player.id === 278 ? mbappe : joueur.player.id === 377122 ? endrick : joueur.player.id === 762 ? vini : joueur.player.id === 152982 ? palmer : { uri: joueur.player.photo }} style={styles.photo} />
+          <Image source={ joueur.player.id === 1100 ? haaland : joueur.player.id === 161904 ? barcola : joueur.player.id === 336657 ? zaire : joueur.player.id === 153 ? dembele : joueur.player.id === 129718 ? bellingham : joueur.player.id === 386828 ? yamal : joueur.player.id === 10009 ? rodrygo : joueur.player.id === 18979 ? gyokeres : joueur.player.id === 291964 ? guller : joueur.player.id === 343027 ? doue : joueur.player.id === 483 ? kvara : joueur.player.id === 154 ? goat : joueur.player.id === 306 ? salah : joueur.player.id === 51617 ? darwin : joueur.player.id === 1257 ? kounde : joueur.player.id === 278 ? mbappe : joueur.player.id === 377122 ? endrick : joueur.player.id === 762 ? vini : joueur.player.id === 152982 ? palmer : joueur.player.id === 56 ? griezmann : { uri: joueur.player.photo }} style={styles.photo} />
           <View style={styles.bio}>
             <Text style={styles.name}>{joueur.player.name}</Text>
             <Text style={styles.infoText}>Né le {formattedDate} à {joueur.player.birth.place}, {joueur.player.birth.country}</Text>

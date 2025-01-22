@@ -76,7 +76,7 @@ console.log(filter)
   return (
 <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.container}>
         <Text style={styles.title}>Calendrier et Résultats</Text>
-        <Image source={id === 61 ? ligue1 : {uri : `https://media.api-sports.io/football/leagues/${id}.png`}} style={{width: 50, height: 50, objectFit: "contain"}} />
+        <Image source={id === 61 ? ligue1 : {uri : `https://media.api-sports.io/football/leagues/${id}.png`}} style={{width: 40, height: 40, objectFit: "contain"}} />
       <Journees
         setFilter={setFilter}
         round={round}
