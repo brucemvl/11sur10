@@ -502,7 +502,8 @@ console.log(tomorrowDate);
 
     
 { hier && <ScrollView contentContainerStyle={styles.liveTableau}>
-      {yesterdayLeagues.map((league) => <View style={{ marginBlock: 5 }}>
+      {yesterdayMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match hier</Text> : 
+       yesterdayLeagues.map((league) => <View style={{ marginBlock: 5 }}>
         <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
         {yesterdayMatch.map((element) => element.league.name === league ?
           

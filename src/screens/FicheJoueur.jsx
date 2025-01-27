@@ -33,11 +33,11 @@ import zaire from "../assets/portraits/zaire.jpg"
 import yamal from "../assets/portraits/yamal.jpg"
 import dembele from "../assets/portraits/dembele.jpg"
 import bellingham from "../assets/portraits/bellingham.jpg"
-import barcola from "../assets/portraits/barcola.jpg"
+import barcola from "../assets/portraits/barcola.png"
 import rodrygo from "../assets/portraits/rodrygo.jpg"
 import guller from "../assets/portraits/guller.jpg"
 import doue from "../assets/portraits/doue.png"
-import kvara from "../assets/portraits/kvara.jpg"
+import kvara from "../assets/portraits/kvara.png"
 import goat from "../assets/portraits/goat.jpg"
 import darwin from "../assets/portraits/darwin.png"
 import salah from "../assets/portraits/salah.png"
@@ -48,6 +48,11 @@ import vini from "../assets/portraits/vini.jpg"
 import palmer from "../assets/portraits/palmer.jpg"
 import messi from "../assets/trophees/messi.jpg"
 import griezmann from "../assets/portraits/griezmann.png"
+import olise from "../assets/portraits/olise.jpg"
+import cherki from "../assets/portraits/cherki.jpg"
+import rabiot from "../assets/portraits/rabiot.jpg"
+import lacazette from "../assets/portraits/lacazette.jpg"
+import theo from "../assets/portraits/theo.jpg"
 
 
 
@@ -219,7 +224,7 @@ function FicheJoueur() {
     <ScrollView contentContainerStyle={styles.blocJoueur}>
       <View style={styles.article}>
         <LinearGradient colors={["black", "steelblue"]} style={styles.infosJoueur}>
-          <Image source={ joueur.player.id === 1100 ? haaland : joueur.player.id === 161904 ? barcola : joueur.player.id === 336657 ? zaire : joueur.player.id === 153 ? dembele : joueur.player.id === 129718 ? bellingham : joueur.player.id === 386828 ? yamal : joueur.player.id === 10009 ? rodrygo : joueur.player.id === 18979 ? gyokeres : joueur.player.id === 291964 ? guller : joueur.player.id === 343027 ? doue : joueur.player.id === 483 ? kvara : joueur.player.id === 154 ? goat : joueur.player.id === 306 ? salah : joueur.player.id === 51617 ? darwin : joueur.player.id === 1257 ? kounde : joueur.player.id === 278 ? mbappe : joueur.player.id === 377122 ? endrick : joueur.player.id === 762 ? vini : joueur.player.id === 152982 ? palmer : joueur.player.id === 56 ? griezmann : { uri: joueur.player.photo }} style={styles.photo} />
+          <Image source={ joueur.player.id === 1100 ? haaland : joueur.player.id === 161904 ? barcola : joueur.player.id === 336657 ? zaire : joueur.player.id === 153 ? dembele : joueur.player.id === 129718 ? bellingham : joueur.player.id === 386828 ? yamal : joueur.player.id === 10009 ? rodrygo : joueur.player.id === 18979 ? gyokeres : joueur.player.id === 291964 ? guller : joueur.player.id === 343027 ? doue : joueur.player.id === 483 ? kvara : joueur.player.id === 154 ? goat : joueur.player.id === 306 ? salah : joueur.player.id === 51617 ? darwin : joueur.player.id === 1257 ? kounde : joueur.player.id === 278 ? mbappe : joueur.player.id === 377122 ? endrick : joueur.player.id === 762 ? vini : joueur.player.id === 152982 ? palmer : joueur.player.id === 56 ? griezmann : joueur.player.id === 19617 ? olise : joueur.player.id === 272 ? rabiot : joueur.player.id === 156477 ? cherki : joueur.player.id === 1467 ? lacazette : joueur.player.id === 47300 ? theo :  { uri: joueur.player.photo }} style={styles.photo} />
           <View style={styles.bio}>
             <Text style={styles.name}>{joueur.player.name}</Text>
             <Text style={styles.infoText}>Né le {formattedDate} à {joueur.player.birth.place}, {joueur.player.birth.country}</Text>
@@ -521,7 +526,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3, // shadow opacity
     shadowRadius: 3,
     padding: 7,
-    margin: 2
+    margin: 2,
+    elevation: 5
+    
     
         
   },

@@ -220,9 +220,9 @@ const styles = StyleSheet.create({
         borderWidth: 2
     },
     playerName: {
-        fontSize: 9,
+        fontSize: 8.5,
         color: '#fff',
-        fontFamily: "Kanitus",
+        fontFamily: "Kanito",
     },
     number: {
         fontSize: 9,
