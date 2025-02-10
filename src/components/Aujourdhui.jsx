@@ -4,9 +4,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import ligue1 from "../assets/logoligue1.webp"
 import { useNavigation } from '@react-navigation/native';
 
-function Aujourdhui() {
-
-
+function Aujourdhui({ onRefresh }) {
+  const [loading, setLoading] = useState(false); // État pour gérer le chargement
   const navigation = useNavigation()
   const [hier, setHier] = useState(false)
   const [aujourdhui, setAujourdhui] = useState(true)
@@ -15,321 +14,78 @@ function Aujourdhui() {
   const [noSpoil, setNoSpoil] = useState(true)
   const [isActive, setIsActive] = useState(false);
   const [position, setPosition] = useState(new Animated.Value(0));
-
-  
-
   const [matchsEngland, setMatchsEngland] = useState([]);
   const [matchsSpain, setMatchsSpain] = useState([]);
   const [matchsFrance, setMatchsFrance] = useState([]);
   const [matchsUcl, setMatchsUcl] = useState([]);
   const [matchsGer, setMatchsGer] = useState([]);
   const [matchsItaly, setMatchsItaly] = useState([]);
-  const [matchsCdf, setMatchsCdf] = useState([])
-  const [matchsFac, setMatchsFac] = useState([])
-  const [matchsEfl, setMatchsEfl] = useState([])
-  const [matchsCopa, setMatchsCopa] = useState([])
-  const [matchsSupercup, setMatchsSupercup] = useState([])
+  const [matchsCdf, setMatchsCdf] = useState([]);
+  const [matchsFac, setMatchsFac] = useState([]);
+  const [matchsEfl, setMatchsEfl] = useState([]);
+  const [matchsCopa, setMatchsCopa] = useState([]);
+  const [matchsUel, setMatchsUel] = useState([]);
 
+  const fetchMatches = async () => {
+    setLoading(true); // Début du chargement
 
+    const fetchData = async (url) => {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
+          'x-rapidapi-host': 'v3.football.api-sports.io',
+        },
+      });
+      const data = await response.json();
+      return data.response;
+    };
 
+    try {
+      const [ucl, france, england, spain, ger, italy, cdf, fac, efl, copa, uel] = await Promise.all([
+        fetchData('https://v3.football.api-sports.io/fixtures?league=2&season=2024'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=61&season=2024'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=39&season=2024'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=140&season=2024'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=78&season=2024'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=135&season=2024'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=66&season=2024'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=45&season=2024'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=46&season=2024'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=143&season=2024'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=3&season=2024'),
+      ]);
+
+      // Mise à jour de l'état avec les nouveaux matchs récupérés
+      setMatchsUcl(ucl);
+      setMatchsFrance(france);
+      setMatchsEngland(england);
+      setMatchsSpain(spain);
+      setMatchsGer(ger);
+      setMatchsItaly(italy);
+      setMatchsCdf(cdf);
+      setMatchsFac(fac);
+      setMatchsEfl(efl);
+      setMatchsCopa(copa);
+      setMatchsUel(uel);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des données', error);
+    } finally {
+      setLoading(false); // Fin du chargement
+    }
+  };
+
+  // Utiliser onRefresh pour relancer l'API quand l'utilisateur fait un pull-to-refresh
+  const handleRefresh = () => {
+    onRefresh(); // Cette fonction permet de signaler à l'écran parent que le rafraîchissement est en cours
+    fetchMatches(); // Relancer les appels API
+  };
 
   useEffect(() => {
-    const fetchUcl = () => {
-      try {
-        fetch("https://v3.football.api-sports.io/fixtures?league=2&season=2024", {
-          method: "GET",
-          headers: {
-            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-            "x-rapidapi-host": "v3.football.api-sports.io",
-          }
-        })
-          .then((response) => response.json())
-          .then((json) => {
+    fetchMatches(); // Charger initialement les données au montage du composant
+  }, []);
 
-            setMatchsUcl(json.response)
-
-          })
-
-      }
-      catch (error) {
-        null
-      }
-    };
-    fetchUcl();
-  }, []
-
-  )
-
-  useEffect(() => {
-    const fetchFrance = () => {
-      try {
-        fetch("https://v3.football.api-sports.io/fixtures?league=61&season=2024", {
-          method: "GET",
-          headers: {
-            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-            "x-rapidapi-host": "v3.football.api-sports.io",
-          }
-        })
-          .then((response) => response.json())
-          .then((json) => {
-
-            setMatchsFrance(json.response)
-
-          })
-
-      }
-      catch (error) {
-        null
-      }
-    };
-    fetchFrance();
-  }, []
-
-  )
-
-
-  useEffect(() => {
-    const fetchEngland = () => {
-      try {
-        fetch("https://v3.football.api-sports.io/fixtures?league=39&season=2024", {
-          method: "GET",
-          headers: {
-            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-            "x-rapidapi-host": "v3.football.api-sports.io",
-          }
-        })
-          .then((response) => response.json())
-          .then((json) => {
-
-            setMatchsEngland(json.response)
-
-          })
-
-      }
-      catch (error) {
-        null
-      }
-    };
-    fetchEngland();
-  }, []
-
-  )
-
-  useEffect(() => {
-    const fetchSpain = () => {
-      try {
-        fetch("https://v3.football.api-sports.io/fixtures?league=140&season=2024", {
-          method: "GET",
-          headers: {
-            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-            "x-rapidapi-host": "v3.football.api-sports.io",
-          }
-        })
-          .then((response) => response.json())
-          .then((json) => {
-
-            setMatchsSpain(json.response)
-
-          })
-
-      }
-      catch (error) {
-        null
-      }
-    };
-    fetchSpain();
-  }, []
-
-  )
-
-  useEffect(() => {
-    const fetchGer = () => {
-      try {
-        fetch("https://v3.football.api-sports.io/fixtures?league=78&season=2024", {
-          method: "GET",
-          headers: {
-            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-            "x-rapidapi-host": "v3.football.api-sports.io",
-          }
-        })
-          .then((response) => response.json())
-          .then((json) => {
-
-            setMatchsGer(json.response)
-
-          })
-
-      }
-      catch (error) {
-        null
-      }
-    };
-    fetchGer();
-  }, []
-
-  )
-
-  useEffect(() => {
-    const fetchItaly = () => {
-      try {
-        fetch("https://v3.football.api-sports.io/fixtures?league=135&season=2024", {
-          method: "GET",
-          headers: {
-            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-            "x-rapidapi-host": "v3.football.api-sports.io",
-          }
-        })
-          .then((response) => response.json())
-          .then((json) => {
-
-            setMatchsItaly(json.response)
-
-          })
-
-      }
-      catch (error) {
-        null
-      }
-    };
-    fetchItaly();
-  }, []
-
-  )
-
-  useEffect(() => {
-    const fetchCdf = () => {
-      try {
-        fetch("https://v3.football.api-sports.io/fixtures?league=66&season=2024", {
-          method: "GET",
-          headers: {
-            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-            "x-rapidapi-host": "v3.football.api-sports.io",
-          }
-        })
-          .then((response) => response.json())
-          .then((json) => {
-
-            setMatchsCdf(json.response)
-
-          })
-
-      }
-      catch (error) {
-        null
-      }
-    };
-    fetchCdf();
-  }, []
-
-  )
-
-  useEffect(() => {
-    const fetchFac = () => {
-      try {
-        fetch("https://v3.football.api-sports.io/fixtures?league=45&season=2024", {
-          method: "GET",
-          headers: {
-            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-            "x-rapidapi-host": "v3.football.api-sports.io",
-          }
-        })
-          .then((response) => response.json())
-          .then((json) => {
-
-            setMatchsFac(json.response)
-
-          })
-
-      }
-      catch (error) {
-        null
-      }
-    };
-    fetchFac();
-  }, []
-
-  )
-
-  useEffect(() => {
-    const fetchEfl = () => {
-      try {
-        fetch("https://v3.football.api-sports.io/fixtures?league=46&season=2024", {
-          method: "GET",
-          headers: {
-            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-            "x-rapidapi-host": "v3.football.api-sports.io",
-          }
-        })
-          .then((response) => response.json())
-          .then((json) => {
-
-            setMatchsEfl(json.response)
-
-          })
-
-      }
-      catch (error) {
-        null
-      }
-    };
-    fetchEfl();
-  }, []
-
-  )
-
-  useEffect(() => {
-    const fetchCopa = () => {
-      try {
-        fetch("https://v3.football.api-sports.io/fixtures?league=143&season=2024", {
-          method: "GET",
-          headers: {
-            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-            "x-rapidapi-host": "v3.football.api-sports.io",
-          }
-        })
-          .then((response) => response.json())
-          .then((json) => {
-
-            setMatchsCopa(json.response)
-
-          })
-
-      }
-      catch (error) {
-        null
-      }
-    };
-    fetchCopa();
-  }, []
-
-  )
-
-  useEffect(() => {
-    const fetchSupercup = () => {
-      try {
-        fetch("https://v3.football.api-sports.io/fixtures?league=556&season=2024", {
-          method: "GET",
-          headers: {
-            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-            "x-rapidapi-host": "v3.football.api-sports.io",
-          }
-        })
-          .then((response) => response.json())
-          .then((json) => {
-
-            setMatchsSupercup(json.response)
-
-          })
-
-      }
-      catch (error) {
-        null
-      }
-    };
-    fetchSupercup();
-  }, []
-
-  )
+  
   
   const spoil = ()=>{
     setNoSpoil(!noSpoil)
@@ -343,7 +99,7 @@ function Aujourdhui() {
   }).start();
 
 
-  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf, ...matchsFac, ...matchsEfl, ...matchsCopa, ...matchsSupercup]
+  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf, ...matchsFac, ...matchsEfl, ...matchsCopa, ...matchsUel]
 
   const [selectedDate, setSelectedDate] = useState("AUJOURDHUI");
 
@@ -432,7 +188,7 @@ console.log(tomorrowDate);
   };
 
   return (
-    todayMatch.length <= 0 ? <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.today}>
+    todayMatch.length <= 0 ? <View style={styles.today}><LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={{width: "100%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue"}} >
     { selectedDate === "DEMAIN" ? <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
     <TouchableOpacity onPress={handlePrevious}>
       <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
@@ -592,9 +348,13 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
     </ScrollView> }
 
 
-  </LinearGradient> :
-    <LinearGradient colors={["rgb(147, 176, 213)", 'rgba(0, 0, 0, 0.35)']} style={styles.today}>
-      { selectedDate === "DEMAIN" ? <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
+  </LinearGradient></View> :
+  
+  <View style={styles.today}>
+      {loading ? (<Text>chargement</Text>) : 
+(
+  <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={{width: "100%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue"}} >
+          { selectedDate === "DEMAIN" ? <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
       <TouchableOpacity onPress={handlePrevious} >
       <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
         <Text style={{color: "white", fontFamily: "Kanitt"}}>{"<"}</Text>
@@ -661,8 +421,9 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
       </View>}
 { hier && 
   <ScrollView contentContainerStyle={styles.liveTableau}>
+      {yesterdayMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match hier</Text> : 
 
-        {yesterdayLeagues.map((league) => <View style={{ marginBlock: 5 }}>
+        yesterdayLeagues.map((league) => <View style={{ marginBlock: 5 }}>
           <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
           {yesterdayMatch.map((element) => element.league.name === league ?
             
@@ -706,6 +467,7 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
           )}
         </View>)
         }
+
       </ScrollView> }
       {aujourdhui &&
       <ScrollView contentContainerStyle={styles.liveTableau}>
@@ -732,7 +494,6 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
             element.fixture.status.long === 'Not Started' ? (
               <TouchableOpacity
                 key={element.fixture.id}
-                style={styles.link}
                 onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }}
               >
               <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
@@ -756,8 +517,9 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
                   </View>
                 </LinearGradient>
               </TouchableOpacity>
-            ) : element.fixture.status.long != 'Match Finished' && element.fixture.status.elapsed != null ? <TouchableOpacity
-              style={styles.link}
+            ) : element.fixture.status.long != 'Match Finished' && element.fixture.status.elapsed != null ? 
+            <TouchableOpacity
+            key={element.fixture.id}
               onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}
             >
               <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
@@ -813,7 +575,7 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
               </LinearGradient>
             </TouchableOpacity> : element.fixture.status.long === 'Match Finished' ?
               <TouchableOpacity
-                style={styles.link}
+              key={element.fixture.id}
                 onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}  // Naviguer vers la fiche du match
               >
               <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
@@ -863,7 +625,6 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
             
               <TouchableOpacity
                 key={element.fixture.id}
-                style={styles.link}
                 onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }}
               >
               <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
@@ -893,7 +654,9 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
       </ScrollView> }
 
 
-    </LinearGradient>
+    </LinearGradient>)
+}
+    </View>
   );
 };
 
@@ -902,10 +665,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     padding: 2,
-    borderRadius: 15,
     width: "100%",
-    marginTop: 20,
-    backgroundColor: "steelblue"
+    shadowColor: '#000', // shadow color
+        shadowOffset: { width: 0, height: 5 }, // shadow offset
+        shadowOpacity: 0.8, // shadow opacity
+        shadowRadius: 3,
+        elevation: 4
 
   },
   titre: {
@@ -921,7 +686,6 @@ const styles = StyleSheet.create({
     fontFamily: "Kanitt",
   },
   nomatch: {
-    backgroundColor: 'red',
     color: 'white',
     width: 200,
     textAlign: 'center',
@@ -929,7 +693,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     height: 40,
     marginBlock: 10,
-    paddingTop: 7
   },
   liveTableau: {
     width: '98%',
@@ -1023,6 +786,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingBlock: 9,
     marginVertical: 5,
+    paddingInline: 2
   },
 
   competitionLogo: {
@@ -1049,8 +813,8 @@ const styles = StyleSheet.create({
 
   },
   teamLogo: {
-    height: 40,
-    width: 30,
+    height: 38,
+    width: 29,
     objectFit: 'contain',
     alignItems: "center",
     marginInline: 5

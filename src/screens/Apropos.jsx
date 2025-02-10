@@ -33,7 +33,8 @@ function Apropos() {
 
 const styles = StyleSheet.create({
     bloc: {
-        padding: 30,
+        paddingTop: 30,
+        paddingInline: 30,
         flexGrow: 1
 
     },

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Animated } from "react-native";
 
-function Journees({ setFilter, round, currentIndex, roundd, filter }) {
-    const [index, setIndex] = useState(currentIndex);
+function JourneesEurope({ setFilterp, round, filterp }) {
+    const [index, setIndex] = useState(7);
   
         const [rotateJournee, setRotateJournee] = useState(new Animated.Value(0));
 
@@ -11,9 +11,7 @@ function Journees({ setFilter, round, currentIndex, roundd, filter }) {
           outputRange: ['0deg', '360deg'],
         });
     
-    useEffect(() => {
-      setIndex(currentIndex);
-    }, [currentIndex]);
+   
   
     // Filtrage vers la prochaine journée
     const filtrageNext = () => {
@@ -44,13 +42,11 @@ function Journees({ setFilter, round, currentIndex, roundd, filter }) {
     // Mettre à jour le filtre pour la journée sélectionnée
     useEffect(() => {
       // Mettre à jour le filtre avec la journée sélectionnée
-      setFilter(round[index]);
-    }, [index, round, setFilter]);
+      setFilterp(round[index]);
+    }, [index, round, setFilterp]);
 
     console.log("Index:", index);
-console.log("Current Round:", roundd[index]);
-console.log("Filter:", filter);
-console.log(currentIndex)
+console.log("Filter:", filterp);
   
     return (
       <View style={styles.container}>
@@ -97,4 +93,4 @@ color: "white"  },
   },
 });
 
-export default Journees;
+export default JourneesEurope;

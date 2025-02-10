@@ -7,7 +7,7 @@ import Evenements from '../components/Evenements.jsx';
 import Affiche from '../components/Affiche.jsx';
 import Precedent from '../components/Precedent.jsx';
 import { useNavigation } from '@react-navigation/native';
-import Match from "../components/Match.jsx"
+import Classement from"../components/Classement.jsx";
 import { LinearGradient } from 'expo-linear-gradient';
 import Histo from '../components/Histo.jsx';
 
@@ -24,6 +24,7 @@ const FicheMatch = () => {
     const [selected2, setSelected2] = useState(false);
     const [selected3, setSelected3] = useState(false);
     const [selected4, setSelected4] = useState(false);
+    const [selected5, setSelected5] = useState(false);
     const [homeStats, setHomeStats] = useState(null);
     const [extStats, setExtStats] = useState(null);
     
@@ -123,36 +124,39 @@ const FicheMatch = () => {
         setDetails(true);
         setLive(false);
         setCompos(false);
-        setClassement(false);
         setHisto(false);
+        setClassement(false);
         setSelected(true);
         setSelected2(false);
         setSelected3(false);
         setSelected4(false);
+        setSelected5(false);
     };
 
     const openCompos = () => {
         setCompos(true);
         setLive(false);
         setDetails(false);
-        setClassement(false);
         setHisto(false);
+        setClassement(false);
         setSelected(false);
         setSelected2(true);
         setSelected3(false);
         setSelected4(false);
+        setSelected5(false);
     };
 
     const openLive = () => {
         setLive(true);
         setCompos(false);
         setDetails(false);
-        setClassement(false);
         setHisto(false);
+        setClassement(false);
         setSelected(false);
         setSelected2(false);
         setSelected3(true);
         setSelected4(false);
+        setSelected5(false);
     };
 
 
@@ -160,12 +164,27 @@ const FicheMatch = () => {
         setLive(false);
         setCompos(false);
         setDetails(false);
-        setClassement(false);
         setHisto(true);
+        setClassement(false);
         setSelected(false);
         setSelected2(false);
         setSelected3(false);
         setSelected4(true);
+        setSelected5(false);
+    };
+
+    const openClassement = () => {
+        setLive(false);
+        setCompos(false);
+        setDetails(false);
+        setClassement(false);
+        setHisto(false);
+        setClassement(true);
+        setSelected(false);
+        setSelected2(false);
+        setSelected3(false);
+        setSelected4(false);
+        setSelected5(true)
     };
 
     // If no match data available
@@ -259,6 +278,7 @@ const FicheMatch = () => {
         <ScrollView contentContainerStyle={styles.bloc}>
         
         <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt} />
+        <Histo historique={historique} />
         </ScrollView>
         </View>
         )
@@ -269,10 +289,12 @@ const FicheMatch = () => {
     
         if (match.players.length === 0) {
             return (
-                <ScrollView contentContainerStyle={styles.bloc}>
+                <View>
                 <Precedent />
+                <ScrollView contentContainerStyle={styles.bloc}>
                 <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} />
                 </ScrollView>
+                </View>
                 )
         }
         
@@ -291,9 +313,9 @@ const FicheMatch = () => {
         <View>
             <Precedent />
             <ScrollView contentContainerStyle={styles.bloc}>
-                <Affiche match={match} homeStats={homeStats} extStats={extStats} />
+                <Affiche match={match} roundd={roundd} homeStats={homeStats} extStats={extStats} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} />
                 <View style={styles.section}>
-                    <View style={styles.ficheSelecteur}>
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.ficheSelecteur}>
                         <TouchableOpacity onPress={openDetails}>
                             <Text style={selected ? styles.selectedTab : styles.tab}>Details</Text>
                         </TouchableOpacity>
@@ -307,12 +329,17 @@ const FicheMatch = () => {
                         <TouchableOpacity onPress={openHisto}>
                             <Text style={selected4 ? styles.selectedTab : styles.tab}>Historique</Text>
                         </TouchableOpacity>
-                    </View>
+                      { match.league.standings === true ?  <TouchableOpacity onPress={openClassement}>
+                            <Text style={selected5 ? styles.selectedTab : styles.tab}>Classement</Text>
+                        </TouchableOpacity> : null }
+                    </ScrollView>
 
                     {details && match && <Details match={match} possession={poss} expectedGoals={xg} tirs={tirs} tirsCadres={tirsCadres} jaune={jaune} rouge={rouge} passes={passes} passesReussies={passesReussies} accuracy={accuracy}/>}
                 {compos && <Compositions match={match} titulairesDom={tituDom} titulairesExt={tituExt} coachDom={coachDom} coachExt={coachExt} systemeDom={systemeDom} systemeExt={systemeExt} substituteDom={substituteDom} substituteExt={substituteExt} compoDom={compoDom} compoExt={compoExt} colors={colors}/>}
                 {live && <Evenements match={match} />}
                 {histo && <Histo historique={historique}/>}
+                {classement && <Classement id={match.league.id}/>}
+
 
                 </View>
             </ScrollView>
@@ -335,25 +362,25 @@ const styles = StyleSheet.create({
     ficheSelecteur: {
         flexDirection: 'row',
         marginBottom: 10,
-        justifyContent: "center",
-        gap: 8
+        paddingBlock: 15
     },
     tab: {
         fontSize: 16,
         color: 'black',
         backgroundColor: "lightgrey",
-        width: 80,
+        width: 84,
         height: 40,
         textAlign: "center",
         paddingTop: 7,
         borderRadius: 5,
-        fontFamily: "Kanitus"
+        fontFamily: "Kanitus",
+        marginInline: 4
     },
     selectedTab: {
         fontSize: 16,
         color: '#fff',
         backgroundColor: '#007BFF',
-        width: 80,
+        width: 88,
         height: 40,
         textAlign: "center",
         paddingTop: 7,
@@ -363,7 +390,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 3.5,
         fontFamily: "Kanito", 
-        elevation: 5
+        elevation: 5,
+        marginInline: 4
 
     },
     match: {

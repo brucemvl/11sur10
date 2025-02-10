@@ -101,7 +101,7 @@ function TableauSelections({ id, currentRound, journey }) {
 const styles = StyleSheet.create({
   container: {
     padding: 0,
-    backgroundColor: '#fff',
+    backgroundColor: '#f0f0f0',
     justifyContent: "center",
     alignItems: "center"
   },

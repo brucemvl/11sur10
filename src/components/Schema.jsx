@@ -125,7 +125,7 @@ function Schema({ compoDom, compoExt, match, colors }) {
                                 <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
                                     <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
                                 </View>
-                                <Text style={styles.playerName}>{player.name.split(' ').slice(-1).join(' ')}</Text>
+                                <Text style={styles.playerName}>{player.id === 762 ? "Vinicius" : player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
                     </View>

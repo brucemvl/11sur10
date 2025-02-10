@@ -24,6 +24,9 @@ function FicheEurope({ route }) {
           if (json.response.length > 0) {
             setCurrentRound(json.response[0]);
           }
+          if (json.response.length <= 0) {
+            setCurrentRound("League Stage - 8")
+          }
         } catch (error) {
           console.error("error:", error);
         }

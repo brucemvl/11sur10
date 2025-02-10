@@ -3,6 +3,13 @@ import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity } from 'react
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import ligue1 from "../assets/logoligue1.webp"
+import ucl from "../assets/logoucl.png"
+import stade from "../assets/stade.png"
+import calendrier from "../assets/date.png"
+import heure from "../assets/heure.png"
+import loc from "../assets/loc.png"
+
+
 
 const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP, formeHome, formeExt, onPress }) => {
 
@@ -17,8 +24,16 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
                 <Text style={{fontFamily: "Kanitt"}}>{match.league.name} - Journee {roundd}</Text>
             </View>
             <View style={styles.datelieu}>
+                <View style={{flexDirection: "row", gap: 5}}>
+                    <Image source={calendrier} style={styles.icone} />
                 <Text style={styles.text}>{formattedDate} - {formattedHour}</Text>
+                    <Image source={heure} style={styles.icone} />
+                </View>
+                <View style={{flexDirection: "row", gap: 5, alignItems: "center"}}>
+                    <Image source={stade} style={styles.icone}/>
                 <Text style={styles.text}>{match.fixture.venue.name} , {match.fixture.venue.city}</Text>
+                    <Image source={loc} style={styles.icone}/>
+                </View>
             </View>
 
             <LinearGradient colors={['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.8)']} style={styles.affiche}>
@@ -44,7 +59,7 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
         </TouchableOpacity>
 
         <View style={styles.score}>
-        <Image source={ match.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : {uri : match.league.logo}} style={{height: 36, width: 36, objectFit: "contain", marginBlock: 1}} />
+        <Image source={ match.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : match.league.logo === "https://media.api-sports.io/football/leagues/2.png" ? ucl : {uri : match.league.logo}} style={{height: 40, width: 40, objectFit: "contain", marginBlock: 1}} />
 
           <Text style={styles.scoreText}>
             {match.goals.home} - {match.goals.away}
@@ -132,6 +147,12 @@ const styles = StyleSheet.create({
     datelieu: {
         marginBottom: 10,
         alignItems: 'center',
+        gap: 5
+    },
+    icone: {
+        height: 18,
+         width: 18, 
+         objectFit: "contain"
     },
     affiche: {
         flexDirection: 'row',

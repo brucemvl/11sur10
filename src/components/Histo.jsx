@@ -5,7 +5,8 @@ import ligue1 from "../assets/logoligue1.webp"
 
 function Histo({historique}) {
     return (
-        <View style={{marginBlock: 20}}>
+        <View style={{paddingInline: 10, alignItems: "center"}}>
+          <Text style={{fontFamily: "Kanitt", fontSize: 18, marginBottom: 10}}>Derniers face-à-face</Text>
             {historique.map((element) => {
                 const date = new Date(element.fixture.date);
                 const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
@@ -15,7 +16,7 @@ function Histo({historique}) {
                             <Text style={{fontSize: 8.5, fontFamily: "Kanitalic", color: "white"}}>{formattedDate}</Text>
                         </View>  
                     <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.3)']} style={styles.match} key={element.fixture.id}> {/* Ajout de key pour éviter des warnings */}
-                            <Image source={element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : { uri: element.league.logo }} style={{width: "8%", height: 30, objectFit: "contain"}}/>
+                            <Image source={element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : { uri: element.league.logo }} style={{width: "8%", height: 30, objectFit: "contain", marginLeft: 2}}/>
 
                         <Text style={styles.equipeDom}>{element.teams.home.name === "Paris Saint Germain" ? "Paris St Germain" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name}</Text>
                         <Image style={styles.logoDom} source={{ uri: element.teams.home.logo }} />
@@ -49,6 +50,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingBlock: 8,
         width: "100%",
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10
     },
     dateheure: {
         alignItems: "center",
@@ -58,7 +61,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         width: "16%",
         height: 20,
-        justifyContent: "center"
+        justifyContent: "center",
+        paddingInline: 3
     },
     equipeDom: {
         fontSize: 12,

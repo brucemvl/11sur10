@@ -57,7 +57,12 @@ const styles = StyleSheet.create({
     competitions: {
         width: "98%",
         marginTop: 20,
-        paddingInlineStart: "2%"
+        paddingInlineStart: "2%",
+        shadowColor: '#000', // shadow color
+        shadowOffset: { width: 0, height: 5 }, // shadow offset
+        shadowOpacity: 0.8, // shadow opacity
+        shadowRadius: 3,
+        elevation: 4
     },
     conteneur: {
         marginBottom: 30,

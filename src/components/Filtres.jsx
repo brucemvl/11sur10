@@ -6,6 +6,8 @@ import { championnats, europe } from '../datas/Leagues'; // Import des données
 import { useFonts } from 'expo-font';  // Importer le hook useFonts d'Expo
 import ligue1 from "../assets/logoligue1.webp"
 import ligue2 from "../assets/ligue2.jpg"
+import ucl from "../assets/logoucl.png"
+
 
 
 function Filtres() {
@@ -30,147 +32,36 @@ function Filtres() {
       }
 
     return (
-        <ScrollView contentContainerStyle={styles.competitions}>
-            {/* Section Championnats */}
-            <LinearGradient colors={[ "rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.conteneur}>
-                <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.title}>
-                    <Text style={styles.titleText}>CHAMPIONNATS</Text>
-                </LinearGradient>
-                <View style={styles.filtres}>
-                    {championnats.map(({ name, id, logo }) => (
-                        <TouchableOpacity
-                            key={"lien" + id}
-                            style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
-                            onPress={() => navigation.navigate('FicheChampionnat', { id })}
-                        >
-                            <Text style={styles.filtreTitle}>{name}</Text>
-                            <View style={styles.logoContainer}>
-                            { logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image source={ligue1} style={styles.logo} /> : logo === "https://media.api-sports.io/football/leagues/62.png" ? <Image source={ligue2} style={styles.logo} /> : <Image source={{ uri: logo }} style={styles.logo} />}
-                            </View>
-                        </TouchableOpacity>
-                    ))}
-                </View>
-            </LinearGradient>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.competitions}>
+            {europe.map(({id, logo}) => id === 848 ? null : <TouchableOpacity key={"lien" + id} onPress={() => navigation.navigate('FicheEurope', { id })} style={{marginInline: 5}}><View style={[styles.lien, {backgroundColor: id === 2 ? 'rgb(213, 213, 213)' : null }]}> <Image source={{uri: logo}} style={styles.logo}/></View></TouchableOpacity>)}
+            {championnats.map(({id, logo}) => <TouchableOpacity key={"lien" + id} onPress={() => navigation.navigate('FicheChampionnat', { id })} style={{marginInline: 5}}><View style={[styles.lien, { backgroundColor: id === 61 ? "#085dfe" : id === 135 || id === 62 ? "#fff" : id === 78 ? "#D10515" : id === 140 ? 'rgb(225, 214, 9)' : null }]}> <Image source={logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : logo === "https://media.api-sports.io/football/leagues/62.png" ? ligue2 : {uri: logo}} style={styles.logo}/></View></TouchableOpacity>)}
 
-            {/* Section Compétitions Européennes */}
-            <LinearGradient colors={[ "rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.conteneur}>
-            <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.title}>
-                    <Text style={styles.titleText}>COMPETITIONS EUROPEENNES</Text>
-                </LinearGradient>
-                <View style={styles.filtres}>
-                    {europe.map(({ name, id, logo }) => (
-                        <TouchableOpacity
-                            key={"lien" + id}
-                            style={[styles.lienEurope, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
-                            onPress={() => navigation.navigate('FicheEurope', { id })}
-                        >
-                            <View style={styles.logoContainer}>
-                               <Image source={{ uri: logo }} style={styles.logo} />
-                            </View>
-                        </TouchableOpacity>
-                    ))}
-                </View>
-            </LinearGradient>
+            
         </ScrollView>
     );
+    
 }
 
 const styles = StyleSheet.create({
     competitions: {
-        width: "100%",
-        marginTop: 20
-    },
-    conteneur: {
-        marginBottom: 30,
-        borderRadius: 15,
-        flexDirection: "column",
-        backgroundColor: "steelblue",
-        justifyContent: "center",
-        padding: 5
+        width: "100%"
         
     },
-    title: {
-        paddingBlock: 10,
-        paddingInline: 20,
-        borderRadius: 15,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginVertical: 10,
-        alignSelf: 'center',
-        backgroundColor: "midnightblue",
-      },
-    titleText: {
-        color: 'white',
-        fontFamily: "Kanitt",
-
+    lien: {borderWidth: 6, 
+        borderColor: 'rgb(11, 19, 81)', 
+        borderRadius: 50, 
+        height: 72, 
+        width: 72, 
+        justifyContent: "center", 
+        alignItems: "center", 
+        padding: 35,
     },
-    filtres: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        alignItems: "center",
-        gap: 10,
-        width: "100%",
-        justifyContent: "center"
-    },
-    lien: {
-        width: 100,  // Utilise une largeur fixe pour la petite taille d'écran
-        height: 125,
-        alignItems: 'center',
-        marginBottom: 10,
-        flexDirection: "column-reverse",
-        borderWidth: 8,
-        borderRadius: 15,
-        borderColor: 'rgb(15, 23, 82)',
-        paddingBlock: 6,
-        backgroundColor: "aliceblue",
-    },
-    lienEurope: {
-        width: '30%',
-        alignItems: 'center',
-        justifyContent: "center",
-        marginBottom: 20,
-        flexDirection: "column-reverse",
-        borderWidth: 8,
-        borderRadius: 15,
-        borderColor: 'rgb(15, 23, 82)',
-        paddingBlock: 6,
-        backgroundColor: "aliceblue",
-        height: 125
-    },
-    logoContainer: {
-        width: "85%",
-        height: "85%",
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: "70%",
-    },
+    
     logo: {
-        width: "75%",
-        height: "75%",
-        resizeMode: 'contain',
-    },
-    filtreTitle: {
-        color: 'white',
-        backgroundColor: '#19721b',
-        width: '100%',
-        textAlign: 'center',
-        fontWeight: '400',
-        paddingBlock: 5,
-        fontSize: 12.1,
-        flex: 1,
-        alignItems: "center",
-        fontFamily: "Permanent",
-
-
-    },
-   
-    // Styles spécifiques à l'écran mobile
-    lienMobile: {
-        width: 120, // Sur petits écrans, on ajuste la largeur
-    },
-    lienTablet: {
-        width: '25%', // Sur tablettes, on ajuste également
-    },
+        width: 48,
+        height: 48,
+        objectFit: 'contain',
+    }
 });
 
 export default Filtres;

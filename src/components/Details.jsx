@@ -66,11 +66,10 @@ const styles = StyleSheet.create({
     width: '95%',
     alignItems: 'center',
     flexDirection: 'column',
-    marginTop: 10,
   },
   title: {
-    fontSize: 22,
-fontFamily: "Kanito",
+    fontSize: 18,
+fontFamily: "Kanitt",
     marginBottom: 20,
     color: '#000',
   },

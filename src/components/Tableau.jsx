@@ -74,7 +74,7 @@ function Tableau({ id, currentRound}) {
 console.log(filter)
 
   return (
-<LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.container}>
+<LinearGradient colors={["rgb(50, 183, 255)", 'rgba(4, 6, 45, 0.85)']} style={styles.container}>
         <Text style={styles.title}>Calendrier et Résultats</Text>
         <Image source={id === 61 ? ligue1 : {uri : `https://media.api-sports.io/football/leagues/${id}.png`}} style={{width: 40, height: 40, objectFit: "contain"}} />
       <Journees
@@ -98,11 +98,10 @@ console.log(filter)
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      paddingVertical: 10,
-      backgroundColor: "steelblue",
-      paddingInline: 2,
+      paddingVertical: 15,
+      paddingInline: 4,
       borderRadius: 15,
-      alignItems: "center"
+      alignItems: "center",
     },
     title: {
       fontSize: 24,
@@ -110,6 +109,7 @@ console.log(filter)
       marginBottom: 6,
       textAlign: "center",
       fontFamily: "Kanitt",
+      color: "white"
     },
   });
 

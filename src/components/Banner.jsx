@@ -4,19 +4,19 @@ import banner5 from "../assets/banner6.jpg";
 import banner6 from "../assets/banner7.jpg";
 import banner7 from "../assets/banner8.webp";
 import banner8 from "../assets/banner9.webp";
-import banner9 from "../assets/banner10.webp";
+import banner9 from "../assets/banner10.jpg";
 import banner10 from "../assets/banner11.jpg";
 import banner11 from "../assets/banner12.jpg";
 import banner12 from "../assets/banner13.webp";
 import banner13 from "../assets/banner14.jpg";
 import banner14 from "../assets/banner15.jpg";
 import banner15 from "../assets/banner16.jpg";
-import banner16 from "../assets/banner17.webp";
+import banner16 from "../assets/banner17.png";
 import banner17 from "../assets/banner18.jpg";
 import banner18 from "../assets/banner19.jpg";
-import banner19 from "../assets/banner20.webp"
+import banner19 from "../assets/banner20.jpg"
 import banner20 from "../assets/banner21.webp"
-import banner21 from "../assets/banner22.webp"
+import banner21 from "../assets/banner22.jpg"
 import banner22 from "../assets/banner23.webp"
 import banner23 from "../assets/banner24.webp"
 import banner24 from "../assets/banner25.jpg"
@@ -95,6 +95,7 @@ banner: {
     width: "100%",
     position: "relative",
     overflow: "hidden",
+    
   },
 
   bannerImage: {

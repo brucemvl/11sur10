@@ -153,12 +153,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingInline: 2,
-    paddingBlock: 12,
     alignItems: "center",
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 18,
+    fontFamily: "Kanitt"
   },
   teamsContainer: {
     flexDirection: 'row',

@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   blocFicheSelections: {
     flex: 1,
     paddingBlock: 10,
-    backgroundColor: '#fff',
+    backgroundColor: '#f0f0f0',
   },
   tableaux: {
     marginTop: 20,

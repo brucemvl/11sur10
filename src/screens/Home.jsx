@@ -41,8 +41,10 @@ function Home() {
     >
       <View style={styles.blocpage}>
         <Banner />
-        <Aujourdhui />
+        </View>
         <Filtres />
+        <View style={styles.blocpage}>
+        <Aujourdhui onRefresh={onRefresh} />
       </View>
     </ScrollView>
   );
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "98%",
     paddingStart: "2%",
-    marginTop: 20,
+    marginBlock: 10
   },
 });
 

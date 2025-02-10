@@ -80,12 +80,13 @@ const Evenements = ({ match }) => {
 
 const styles = StyleSheet.create({
   evenementsContainer: {
-    padding: 10,
+    flex: 1,
+    paddingInline: 10,
     alignItems: "center"
   },
   header: {
     fontSize: 18,
-    fontWeight: 'bold',
+fontFamily: "Kanitt",
     marginBottom: 10,
   },
   eventsContainer: {

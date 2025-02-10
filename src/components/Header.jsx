@@ -32,15 +32,13 @@ function Header() {
       colors={['rgba(100, 160, 236, 1)', 'rgba(24, 24, 91, 1)', 'rgba(0, 0, 0, 1)']}
       style={styles.header}
     >
-      <Image source={logo} style={styles.logo} />
-      <View style={{alignItems: "center", gap: 30, paddingTop: 40}}>
       <TouchableOpacity onPress={()=>openExternalLink("https://www.instagram.com/11_sur_10/")}>
       <Image source={insta} style={{height: 48, width: 48}}/>
       </TouchableOpacity>
+      <Image source={logo} style={styles.logo} />
       <TouchableOpacity onPress={()=> navigation.navigate("Apropos")}>
-        <Text style={{fontFamily: "Kanitt", color: "white", textDecorationLine: "underline", height: 52}}>A Propos</Text>
+        <Text style={{fontFamily: "Kanitt", color: "white", textDecorationLine: "underline"}}>A Propos</Text>
       </TouchableOpacity>
-      </View>
     </LinearGradient>
   );
 }
@@ -50,15 +48,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',  // Alignement horizontal
     alignItems: 'center',  // Centrer verticalement
     justifyContent: 'space-between',
-    paddingHorizontal: '2%',  // Utilisation de pourcentage
-    flexGrow: 1
+    paddingHorizontal: '3%',  // Utilisation de pourcentage
+    flexGrow: 1,
+    height: 120,
+    paddingTop: 30
   },
   logo: {
     width: 100, 
-    height: 100, 
-    marginInline: 8, 
+    height: 80, 
+    marginLeft: 20, 
     resizeMode: "contain",
-    marginTop: 10
   },
   // Tu peux ajouter un style pour mobile avec la largeur de l'écran
   logoSmall: {

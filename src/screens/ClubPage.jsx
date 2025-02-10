@@ -25,7 +25,8 @@ function ClubPage() {
     const isMediumScreen = width <= 1024 && width > 767;
 
     return (
-        <ScrollView contentContainerStyle={styles.competitions}>
+        <ScrollView >
+            <View style={styles.competitions}>
             {/* Section Championnats */}
             <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.conteneur} >
                 <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
@@ -56,7 +57,8 @@ function ClubPage() {
                     <View style={{flexDirection: "column"}}>
                     <Text style={{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 10}}>Reste du monde</Text>
                     <View style={{flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center"}}>  
-                      {autres.map(({ name, id, logo, flag }) => (
+                      {autres.map(({ name, id, logo, country }) => (
+                        <View style={{alignItems: "center", marginBottom: 10}}>
                         <TouchableOpacity
                             key={"lien" + id}
                             style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
@@ -67,7 +69,8 @@ function ClubPage() {
                             <Image source={{ uri: logo }} style={styles.logo} />
                             </View>
                         </TouchableOpacity>
-                        
+                        <Text style={{fontFamily: "Kanitalic", color: "white"}}>{country}</Text>
+                        </View>
                     ))}
                     </View>
                     </View>
@@ -165,6 +168,7 @@ function ClubPage() {
                 </View>
             </LinearGradient>
             */}
+            </View>
         </ScrollView>
     );
 }
@@ -173,10 +177,15 @@ const styles = StyleSheet.create({
     competitions: {
         width: "98%",
         marginTop: 20,
-        paddingInlineStart: "2%"
+        paddingInlineStart: "2%",
+        shadowColor: '#000', // shadow color
+        shadowOffset: { width: 0, height: 5 }, // shadow offset
+        shadowOpacity: 0.8, // shadow opacity
+        shadowRadius: 3,
+        elevation: 4
     },
     conteneur: {
-        marginBottom: 30,
+        marginBottom: 20,
         backgroundColor: "#b0c4de",
         borderRadius: 15,
         flex: 1,
@@ -209,7 +218,7 @@ const styles = StyleSheet.create({
         width: 100,  // Utilise une largeur fixe pour la petite taille d'écran
         height: 125,
         alignItems: 'center',
-        marginBottom: 10,
+        marginBottom: 1,
         borderWidth: 8,
         borderRadius: 15,
         borderColor: 'rgb(11, 19, 81)',
@@ -221,7 +230,7 @@ const styles = StyleSheet.create({
         width: 120,
         alignItems: 'center',
         justifyContent: "center",
-        marginBottom: 20,
+        marginBottom: 1,
         flexDirection: "column-reverse",
         borderWidth: 8,
         borderRadius: 15,
@@ -262,7 +271,7 @@ const styles = StyleSheet.create({
         width: 120, // Sur petits écrans, on ajuste la largeur
         height: 125,
         alignItems: 'center',
-        marginBottom: 10,
+        marginBottom: 1,
         borderWidth: 8,
         borderRadius: 15,
         borderColor: 'rgb(15, 23, 82)',

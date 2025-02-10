@@ -40,8 +40,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         width: "100%",
         justifyContent: "space-between",
-        flexGrow: 1
-    },
+flexGrow: 1    },
 
     lien: {
         fontFamily: "Kanito",
