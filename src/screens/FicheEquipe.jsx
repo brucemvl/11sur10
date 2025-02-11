@@ -17,6 +17,7 @@ function FicheEquipe() {
   const [equipe, setEquipe] = useState();
   const [leagues, setLeagues] = useState([])
   const [stats, setStats] = useState(null);
+  const [squad, setSquad] = useState([])
 
   
 
@@ -112,9 +113,30 @@ function FicheEquipe() {
 }, [id, compet]);
 
 
+useEffect(() => {
+  const fetchSquad = async () => {
+    try {
+      const response = await fetch(`https://v3.football.api-sports.io/players/squads?team=${id}`, {
+        method: "GET",
+        headers: {
+          "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+          "x-rapidapi-host": "v3.football.api-sports.io",
+        },
+      });
+      const json = await response.json();
+      if (json.response.length > 0) {
+        setSquad(json.response);
+      }
+    } catch (error) {
+      console.error("error:", error);
+    }
+  };
+  fetchSquad();
+}, [id]);
 
 
 console.log(stats)
+console.log(squad)
 
   if (!equipe) {
     return <Text>Loading...</Text>;

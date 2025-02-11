@@ -352,35 +352,35 @@ function FicheJoueur() {
                     <View style={styles.statList}>
                       <View style={styles.ligne}>
                         <Image source={player} style={styles.icone} />
-                        <Text style={{ fontFamily: "Kanito", fontSize: 16 }}>Matchs joués: {element.games.appearences}</Text>
+                        <Text style={styles.cle }>Matchs joués: </Text><Text style={styles.valeur}> {element.games.appearences}</Text>
                       </View>
                       <View style={styles.ligne}>
                         <Image source={goal} style={styles.icone} />
-                        <Text style={{ fontFamily: "Kanito", fontSize: 16 }}>Buts: {element.goals.total}</Text>
+                        <Text style={styles.cle }>Buts: </Text><Text style={styles.valeur}>{element.goals.total}</Text>
                       </View>
                       <View style={styles.ligne}>
                         <Image source={target} style={styles.icone} />
-                        <Text style={{ fontFamily: "Kanito", fontSize: 16 }}>Passes Dec: {element.goals.assists === null ? 0 : element.goals.assists}</Text>
+                        <Text style={styles.cle }>Passes Dec: </Text><Text style={styles.valeur}> {element.goals.assists === null ? 0 : element.goals.assists}</Text>
                       </View>
                       <View style={styles.ligne}>
                         <Image source={shoot} style={styles.icone} />
-                        <Text style={{ fontFamily: "Kanito", fontSize: 16 }}>Tirs (cadrés): {element.shots.total} ({element.shots.on === null ? 0 : element.shots.on})</Text>
+                        <Text style={styles.cle }>Tirs (cadrés): </Text><Text style={styles.valeur}> {element.shots.total} ({element.shots.on === null ? 0 : element.shots.on})</Text>
                       </View>
                       <View style={styles.ligne}>
                         <Image source={shoe} style={styles.icone} />
-                        <Text style={{ fontFamily: "Kanito", fontSize: 16 }}>Passes: {element.passes.total}</Text>
+                        <Text style={styles.cle }>Passes:</Text><Text style={styles.valeur}> {element.passes.total}</Text>
                       </View>
                       <View style={styles.ligne}>
                         <Image source={rating} style={styles.icone} />
-                        <Text style={{ fontFamily: "Kanito", fontSize: 16 }}>Note moyenne: {element.games.rating ? element.games.rating.slice(0, 4) : ""}</Text>
+                        <Text style={styles.cle }>Note moyenne: </Text><Text style={styles.valeur}> {element.games.rating ? element.games.rating.slice(0, 4) : ""}</Text>
                       </View>
                       <View style={styles.ligne}>
                         <Image source={yellow} style={{ height: 25, width: 25, marginRight: 8, shadowColor: "black", shadowOffset: { width: -1, height: 0 }, shadowOpacity: 0.9 }} />
-                        <Text style={{ fontFamily: "Kanito", fontSize: 16 }}>Cartons jaune: {element.cards.yellow}</Text>
+                        <Text style={styles.cle }>Cartons jaune: </Text><Text style={styles.valeur}> {element.cards.yellow}</Text>
                       </View>
                       <View style={styles.ligne}>
                         <Image source={redcard} style={styles.icone} />
-                        <Text style={{ fontFamily: "Kanito", fontSize: 16 }}>Cartons Rouge: {element.cards.red}</Text>
+                        <Text style={styles.cle }>Cartons Rouge: </Text><Text style={styles.valeur}> {element.cards.red}</Text>
                       </View>
                     </View>
                     {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image source={ligue1} style={styles.logoCompet} /> : <Image source={{ uri: element.league.logo }} style={styles.logoCompet} />}
@@ -548,6 +548,14 @@ alignItems: "center",
     flexWrap: "wrap",
     alignItems: "center",
     paddingBlock: 6
+  },
+  cle: {
+fontFamily: "Kanito",
+fontSize: 16
+  },
+  valeur: {
+    fontFamily: "Kanitt",
+    fontSize: 18
   }
 });
 

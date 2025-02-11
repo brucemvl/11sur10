@@ -352,7 +352,7 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         alignItems: 'center',
         padding: 10,
-        marginTop: 50,
+        marginTop: 40,
         paddingBottom: 50
     },
     section: {

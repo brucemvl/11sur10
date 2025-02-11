@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
         paddingBlock: 8,
         width: "100%",
         borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10
+        borderBottomRightRadius: 10,
+        
     },
     dateheure: {
         alignItems: "center",
