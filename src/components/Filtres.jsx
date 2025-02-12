@@ -34,7 +34,7 @@ function Filtres() {
     return (
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.competitions}>
             {europe.map(({id, logo}) => id === 848 ? null : <TouchableOpacity key={"lien" + id} onPress={() => navigation.navigate('FicheEurope', { id })} style={{marginInline: 5}}><View style={[styles.lien, {backgroundColor: id === 2 ? 'rgb(213, 213, 213)' : null }]}> <Image source={{uri: logo}} style={styles.logo}/></View></TouchableOpacity>)}
-            {championnats.map(({id, logo}) => <TouchableOpacity key={"lien" + id} onPress={() => navigation.navigate('FicheChampionnat', { id })} style={{marginInline: 5}}><View style={[styles.lien, { backgroundColor: id === 61 ? "#085dfe" : id === 135 || id === 62 ? "#fff" : id === 78 ? "#D10515" : id === 140 ? 'rgb(225, 214, 9)' : null }]}> <Image source={logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : logo === "https://media.api-sports.io/football/leagues/62.png" ? ligue2 : {uri: logo}} style={styles.logo}/></View></TouchableOpacity>)}
+            {championnats.map(({id, logo}) => <TouchableOpacity key={"lien" + id} onPress={() => navigation.navigate('FicheChampionnat', { id })} style={{marginInline: 5}}><View style={[styles.lien, { backgroundColor: id === 61 ? "#085dfe" : id === 135 || id === 62 ? "#fff" : id === 78 ? "#D10515" : id === 140 ? 'rgb(242, 235, 106)' : null }]}> <Image source={logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : logo === "https://media.api-sports.io/football/leagues/62.png" ? ligue2 : {uri: logo}} style={styles.logo}/></View></TouchableOpacity>)}
 
             
         </ScrollView>

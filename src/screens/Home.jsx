@@ -11,6 +11,7 @@ function Home() {
     "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
     "Kanitus": require("../assets/fonts/Kanit/Kanit-Light.ttf"),
     "Kanitalic": require("../assets/fonts/Kanit/Kanit-MediumItalic.ttf"),
+    "Kanitalik": require("../assets/fonts/Kanit/Kanit-ExtraBoldItalic.ttf"),
     "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf")
   });
 

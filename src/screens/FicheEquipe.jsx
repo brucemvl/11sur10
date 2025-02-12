@@ -6,6 +6,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import Precedent from "../components/Precedent";
 import chevron from "../assets/chevron.png";
 import ligue1 from "../assets/logoligue1.webp"
+import Squad from "../components/Squad";
 
 function FicheEquipe() {
   const route = useRoute();
@@ -21,29 +22,57 @@ function FicheEquipe() {
 
   
 
-  const [rotateValue, setRotateValue] = useState(new Animated.Value(0));
-  const [heightAnim, setHeightAnim] = useState(new Animated.Value(0));
+  const [rotateStadeValue, setRotateStadeValue] = useState(new Animated.Value(0));
+  const [rotateSquadValue, setRotateSquadValue] = useState(new Animated.Value(0));
+
+  const [heightStadeAnim, setHeightStadeAnim] = useState(new Animated.Value(0));
+  const [heightSquadAnim, setHeightSquadAnim] = useState(new Animated.Value(0));
+
 
   const [openStade, setOpenStade] = useState(false);
+  const [openSquad, setOpenSquad] = useState(false);
+
 
   const collapseStade = () => {
     setOpenStade(!openStade);
 
-    Animated.timing(rotateValue, {
+    Animated.timing(rotateStadeValue, {
       toValue: openStade ? 0 : 1,
       duration: 300,
       useNativeDriver: true,
     }).start();
 
     // Animer la hauteur du palmarès
-    Animated.timing(heightAnim, {
+    Animated.timing(heightStadeAnim, {
       toValue: openStade ? 0 : 1,
       duration: 300,
       useNativeDriver: false, // UseNativeDriver false for non-layout animations
     }).start();
   };
 
-  const rotateInterpolate = rotateValue.interpolate({
+  const collapseSquad = () => {
+    setOpenSquad(!openSquad);
+
+    Animated.timing(rotateSquadValue, {
+      toValue: openSquad ? 0 : 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+
+    // Animer la hauteur du palmarès
+    Animated.timing(heightSquadAnim, {
+      toValue: openSquad ? 0 : 1,
+      duration: 300,
+      useNativeDriver: false, // UseNativeDriver false for non-layout animations
+    }).start();
+  };
+
+  const rotateStadeInterpolate = rotateStadeValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "180deg"],
+  });
+
+  const rotateSquadInterpolate = rotateSquadValue.interpolate({
     inputRange: [0, 1],
     outputRange: ["0deg", "180deg"],
   });
@@ -125,7 +154,7 @@ useEffect(() => {
       });
       const json = await response.json();
       if (json.response.length > 0) {
-        setSquad(json.response);
+        setSquad(json.response[0]);
       }
     } catch (error) {
       console.error("error:", error);
@@ -145,6 +174,10 @@ console.log(squad)
   if (!stats) {
     return <Text> Loading...</Text>
 
+  }
+
+  if (!squad) {
+    return <Text>Loading...</Text>
   }
   
   return (
@@ -168,7 +201,7 @@ console.log(squad)
             <Text style={styles.stadeText}>Stade</Text>
             <Animated.Image
               source={chevron}
-              style={[styles.chevron, { transform: [{ rotate: rotateInterpolate }] }]}
+              style={[styles.chevron, { transform: [{ rotate: rotateStadeInterpolate }] }]}
             />
           </LinearGradient>
         </TouchableOpacity>
@@ -176,7 +209,7 @@ console.log(squad)
           style={[
             styles.stadeInfos,
             {
-              height: heightAnim.interpolate({
+              height: heightStadeAnim.interpolate({
                 inputRange: [0, 1],
                 outputRange: [0, 280], // Ajustez la hauteur en fonction du contenu
               }),
@@ -189,6 +222,33 @@ console.log(squad)
           <Text style={{fontFamily: "Kanitus"}}> Capacité: {equipe.venue.capacity} places</Text>
         </Animated.View>
       </View>
+
+      <View style={styles.stade}>
+        <TouchableOpacity onPress={collapseSquad}>
+          <LinearGradient colors={["black", "steelblue"]} style={styles.stadeTitle}>
+            <Text style={styles.stadeText}>Effectif</Text>
+            <Animated.Image
+              source={chevron}
+              style={[styles.chevron, { transform: [{ rotate: rotateSquadInterpolate }] }]}
+            />
+          </LinearGradient>
+        </TouchableOpacity>
+        <Animated.View
+          style={[
+            styles.stadeInfos,
+            {
+              height: heightSquadAnim.interpolate({
+                inputRange: [0, 1],
+                outputRange: squad?.players?.length <= 28 ? [0, 1280] : squad?.players?.length < 33  ? [0, 1540] : squad?.players?.length < 36  ? [0, 1640] : [0, 1800], // Ajustez la hauteur en fonction du contenu
+              }),
+            },
+          ]}
+        >
+          <Squad squad={squad} />
+        </Animated.View>
+      </View>
+
+<Text style></Text>
       <Text style={styles.season}>2024/2025</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={true} style={styles.leagues}>
       {leagues.map((element) => {if ( element.league.name === "Friendlies Clubs") return null ; const isSelected = selectedId === element.league.id;
@@ -328,6 +388,7 @@ width: "98%"
         marginTop: 10,
         overflow: "hidden",
         alignItems: "center",
+        justifyContent: "center"
       },
     stadeImage: {
         height: 200,
