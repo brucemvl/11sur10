@@ -1,58 +1,59 @@
 import { useEffect, useState } from 'react';
-import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet, Animated, ScrollView } from 'react-native';
-import ligue1 from "../assets/logoligue1.webp"
+import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet, Animated, ScrollView, RefreshControl } from 'react-native';
+import ligue1 from "../assets/logoligue1.webp";
 import { LinearGradient } from 'expo-linear-gradient';
 
 function LivePage({ navigation }) {
   const [live, setLive] = useState([]);
+  const [isRefreshing, setIsRefreshing] = useState(false); // État pour gérer le rafraîchissement
+
+  const fetchLive = async () => {
+    try {
+      const response = await fetch('https://v3.football.api-sports.io/fixtures?live=all', {
+        method: 'GET',
+        headers: {
+          'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
+          'x-rapidapi-host': 'v3.football.api-sports.io',
+        },
+      });
+      const json = await response.json();
+      setLive(json.response);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   useEffect(() => {
-    const fetchLive = () => {
-      try {
-        fetch('https://v3.football.api-sports.io/fixtures?live=all', {
-          method: 'GET',
-          headers: {
-            'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
-            'x-rapidapi-host': 'v3.football.api-sports.io',
-          },
-        })
-          .then((response) => response.json())
-          .then((json) => {
-            setLive(json.response);
-          });
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
     fetchLive();
   }, []);
 
-  console.log(live);
+  const onRefresh = () => {
+    setIsRefreshing(true); // Déclenche le rafraîchissement
+    fetchLive().then(() => setIsRefreshing(false)); // Rafraîchit les données et arrête le rafraîchissement
+  };
 
-    const [fadeAnim] = useState(new Animated.Value(1)); // Initialisation de la valeur d'animation (opacité à 1)
-  
-    useEffect(() => {
-      // Animation de clignotement
-      const flash = () => {
-        Animated.sequence([
-          Animated.timing(fadeAnim, {
-            toValue: 0, // Rendre l'élément transparent
-            duration: 1000, // Durée de l'animation
-            useNativeDriver: true, // Utilisation du driver natif pour des performances optimisées
-          }),
-          Animated.timing(fadeAnim, {
-            toValue: 1, // Rendre l'élément visible à nouveau
-            duration: 1000,
-            useNativeDriver: true,
-          }),
-        ]).start(() => flash()); // Redémarre l'animation en boucle
-      };
-  
-      flash(); // Démarre l'animation de clignotement
-  
-      return () => fadeAnim.stopAnimation(); // Nettoyage de l'animation lors du démontage
-    }, [fadeAnim]);
-  
+  const [fadeAnim] = useState(new Animated.Value(1)); // Animation de fade (opacité)
+
+  useEffect(() => {
+    const flash = () => {
+      Animated.sequence([
+        Animated.timing(fadeAnim, {
+          toValue: 0,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+      ]).start(() => flash());
+    };
+
+    flash();
+
+    return () => fadeAnim.stopAnimation();
+  }, [fadeAnim]);
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
@@ -82,10 +83,10 @@ function LivePage({ navigation }) {
           {item.goals.home === item.goals.away ? (
             <View style={styles.score}>
               <Text style={styles.scoreText}>{item.goals.home}</Text>
-                <View style={styles.liveSticker}>
+              <View style={styles.liveSticker}>
                 <Text style={styles.liveText}>{item.fixture.status.elapsed}'</Text>
-                <Animated.Text style={{color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim}}>live</Animated.Text>
-                </View>
+                <Animated.Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
+              </View>
               <Text style={styles.scoreText}>{item.goals.away}</Text>
             </View>
           ) : (
@@ -99,9 +100,9 @@ function LivePage({ navigation }) {
               </Text>
               <View style={styles.liveSticker}>
                 <Text style={styles.liveText}>{item.fixture.status.elapsed}'</Text>
-                <Text style={{color: "darkred", fontFamily: "Kanitalic", fontSize: 10}}>live</Text>
-                </View>
-              
+                <Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10 }}>live</Text>
+              </View>
+
               <Text
                 style={
                   item.goals.away > item.goals.home ? styles.winner : styles.loser
@@ -125,22 +126,32 @@ function LivePage({ navigation }) {
   );
 
   return (
-    <ScrollView style={{width: "98%",paddingStart: "2%", marginBlock: 10, flex: 1}}>
-    <View style={styles.container}>
-    <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.titlecontainer}>
-      <Text style={styles.title}>LIVE</Text>
-      </LinearGradient>
-      {live.length === 0 ? (
-        <Text style={styles.noMatch}>Aucun match pour le moment</Text>
-      ) : (
-        <FlatList
-          data={live}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.fixture.id.toString()}
-          style={styles.live__tableau}
+    <ScrollView
+      style={{ width: "98%", paddingStart: "2%", marginBlock: 10, flex: 1 }}
+      refreshControl={
+        <RefreshControl
+          refreshing={isRefreshing}
+          onRefresh={onRefresh}
         />
-      )}
-    </View>
+      }
+    >
+      <View style={styles.container}>
+        <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.titlecontainer}>
+          <Text style={styles.title}>LIVE</Text>
+        </LinearGradient>
+        {live.length === 0 ? (
+          <Text style={styles.noMatch}>Aucun match pour le moment</Text>
+        ) : (
+          <FlatList
+            data={live}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.fixture.id.toString()}
+            style={styles.live__tableau}
+            onEndReachedThreshold={0.5}
+            onEndReached={onRefresh} // Si vous voulez aussi charger plus de données en bas
+          />
+        )}
+      </View>
     </ScrollView>
   );
 }
@@ -186,13 +197,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     height: 35,
     paddingTop: 6,
-    
   },
   live__tableau: {
     borderRadius: 10
   },
   matchContainer: {
-flexDirection: "row",
+    flexDirection: "row",
     overflow: 'hidden',
     alignItems: 'center',
     backgroundColor: '#F4F0F0',
@@ -210,9 +220,6 @@ flexDirection: "row",
     width: "35%",
     gap: 2,
     marginInline: 1
-
-
-    
   },
   teamContainerDom: {
     flexDirection: 'row',
@@ -221,8 +228,6 @@ flexDirection: "row",
     flexDirection: "row-reverse",
     gap: 2,
     marginInline: 1,
-    
-    
   },
   teamLogo: {
     height: 30,
@@ -243,7 +248,6 @@ flexDirection: "row",
   liveSticker: {
     alignItems: "center",
     marginInline: 5
-
   },
   liveText: {
     color: "white",
@@ -252,13 +256,10 @@ flexDirection: "row",
     backgroundColor: "darkred",
     paddingInline: 4,
     borderRadius: 5
-
-
   },
   score: {
     flexDirection: 'row',
     alignItems: 'center',
-    
   },
   scoreText: {
     flex: 1,
@@ -282,7 +283,6 @@ flexDirection: "row",
     alignItems: "center",
     textAlign: "center",
     paddingTop: 4
-    
   },
   loser: {
     flex: 1,

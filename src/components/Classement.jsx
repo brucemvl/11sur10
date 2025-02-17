@@ -135,7 +135,7 @@ function Classement({ id }) {
     <TouchableOpacity onPress={() => navigation.navigate("FicheEquipe", { id: item.team.id, league: item.group === "Ligue 1" ? 61 : item.group === "UEFA Champions League" ? 2 : item.group === "Premier League" ? 39 : item.group === "LaLiga" ? 140 : item.group.indexOf("Super League 1") !== -1 ? 197 : item.group === "Bundesliga" ? 78 : item.group === "Ligue 2: Regular Season" ? 62 : item.group === "Serie A" ? 135 : item.group === "UEFA Europa League" ? 3 : null })} style={styles.item}>
       <Text style={{width: "5%"}}>{item.rank}</Text>
       <Image source={{ uri: item.team.logo }} style={styles.logo} />
-      <Text style={{fontFamily: "Kanito", width: "30%"}}>{item.team.name === "Paris Saint Germain" ? "Paris SG" : item.team.name === "Stade Brestois 29" ? "Stade Brestois" : item.team.name}</Text>
+      <Text style={{fontFamily: "Kanito", width: "30%"}}>{item.team.name === "Paris Saint Germain" ? "Paris SG" : item.team.name === "Stade Brestois 29" ? "Stade Brestois" : item.team.name === "Barcelona" ? "FC Barcelone" : item.team.name}</Text>
       <Text style={{fontFamily: "Kanito", width: "9%", textAlign: "center"}}>{item.all.played}</Text>
       <Text style={{fontFamily: "Kanito", width: "9%", textAlign: "center"}}>{item.all.win}</Text>
       <Text style={{fontFamily: "Kanito", width: "9%", textAlign: "center"}}>{item.all.draw}</Text>
@@ -192,14 +192,14 @@ function Classement({ id }) {
             outputRange: [0,  1800] // Si le classement comporte + de 24 equipes
           }) }]}>
           <View style={styles.barre}>
-            <Text style={{width: "10%", color: "white"}}>Rang</Text>
-            <Text style={{width: "36%", textAlign: "center", marginRight: 2, color: "white"}}>Equipe</Text>
-            <Text style={{width: "9%", color: "white"}}>J</Text>
-            <Text style={{width: "9%", color: "white"}}>V</Text>
-            <Text style={{width: "9%", color: "white"}}>N</Text>
-            <Text style={{width: "9%", color: "white"}}>D</Text>
-            <Text style={{width: "9%", color: "white"}}>GA</Text>
-            <Text style={{width: "9%", color: "white"}}>Pts</Text>
+            <Text style={{width: "10%", color: "white", fontFamily: "Kanitus"}}>Rang</Text>
+            <Text style={{width: "36%", textAlign: "center", marginRight: 2, color: "white", fontFamily: "Kanitus"}}>Equipe</Text>
+            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>J</Text>
+            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>V</Text>
+            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>N</Text>
+            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>D</Text>
+            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>GA</Text>
+            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>Pts</Text>
           </View>
         <FlatList
           data={tab}
@@ -227,9 +227,9 @@ function Classement({ id }) {
             inputRange: [0, 1],
             outputRange: [0, 500]  // Ajustez la hauteur en fonction du contenu
           }) }]}>        <View style={styles.barre}>
-        <Text style={{width: "50%", color: "white", paddingStart: 20}}>Joueur</Text>
-        <Text style={{width: "30%", color: "white", textAlign: "center"}}>Matchs Joués</Text>
-        <Text style={{width: "20%", color: "white", textAlign: "center"}}>Buts</Text>
+        <Text style={{width: "50%", color: "white", paddingStart: 20, fontFamily: "Kanitus"}}>Joueur</Text>
+        <Text style={{width: "30%", color: "white", textAlign: "center", fontFamily: "Kanitus"}}>Matchs Joués</Text>
+        <Text style={{width: "20%", color: "white", textAlign: "center", fontFamily: "Kanitus"}}>Buts</Text>
         
       </View>
         <FlatList
@@ -258,9 +258,9 @@ function Classement({ id }) {
             outputRange: [0, 500]  // Ajustez la hauteur en fonction du contenu
           }) }]}>
                     <View style={styles.barre}>
-        <Text style={{width: "50%", color: "white", paddingStart: 20}}>Joueur</Text>
-        <Text style={{width: "30%", color: "white", textAlign: "center"}}>Matchs Joués</Text>
-        <Text style={{width: "20%", color: "white", textAlign: "center"}}>Passes D</Text>  
+        <Text style={{width: "50%", color: "white", paddingStart: 20, fontFamily: "Kanitus"}}>Joueur</Text>
+        <Text style={{width: "30%", color: "white", textAlign: "center", fontFamily: "Kanitus"}}>Matchs Joués</Text>
+        <Text style={{width: "20%", color: "white", textAlign: "center", fontFamily: "Kanitus"}}>Passes D</Text>  
       </View>
         <FlatList
           data={passeurs}
@@ -300,6 +300,7 @@ overflow: "hidden",
     backgroundColor: "black",
     paddingBlock: 4,
     borderRadius: 5,
+    paddingStart: 2
   },
   item: {
     flexDirection: 'row',

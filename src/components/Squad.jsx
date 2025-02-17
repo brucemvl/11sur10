@@ -39,6 +39,7 @@ import tchouameni from "../assets/portraits/tchouameni.jpg"
 import kolo from "../assets/portraits/kolo.png"
 import kephren from "../assets/portraits/kephren.png"
 import adeyemi from "../assets/portraits/adeyemi.png"
+import debruyne from "../assets/portraits/debruyne.png"
 
 
 function Squad({ squad }) {
@@ -84,7 +85,7 @@ function Squad({ squad }) {
             <View style={{ flexDirection: "row", gap: 15, justifyContent: "space-evenly", flexWrap: "wrap" }}>
                 {squad?.players?.map((player) => player.position === "Midfielder" ? <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: player.id })}>
                     <View style={styles.joueur}> 
-          <Image source={ player.id === 116 ? kephren : player.id === 336657 ? zaire : player.id === 335051 ? joao : player.id === 129718 ? bellingham : player.id === 386828 ? yamal : player.id === 1257 ? kounde : player.id === 56 ? griezmann : player.id === 19617 ? olise : player.id === 272 ? rabiot : player.id === 156477 ? cherki  : player.id === 291964 ? guller : player.id === 1271 ? tchouameni : player.id === 47300 ? theo : player.id === 1496 ? raphinha  :  player.id === 284324 ? garnacho : player.id === 128384 ? vitinha : player.id === 152982 ? palmer : { uri: player.photo }} style={styles.photo} />
+          <Image source={ player.id === 629 ? debruyne : player.id === 116 ? kephren : player.id === 336657 ? zaire : player.id === 335051 ? joao : player.id === 129718 ? bellingham : player.id === 386828 ? yamal : player.id === 1257 ? kounde : player.id === 56 ? griezmann : player.id === 19617 ? olise : player.id === 272 ? rabiot : player.id === 156477 ? cherki  : player.id === 291964 ? guller : player.id === 1271 ? tchouameni : player.id === 47300 ? theo : player.id === 1496 ? raphinha  :  player.id === 284324 ? garnacho : player.id === 128384 ? vitinha : player.id === 152982 ? palmer : { uri: player.photo }} style={styles.photo} />
                         <View style={styles.number}><Text style={{ fontFamily: "Kanitalic", color: "white" }}>{player.number}</Text></View>
                         <Text style={styles.nom}>{player.name. length < 22 ? player.name : player.name.split(' ').slice(-1).join(' ')}</Text>
                         </View>

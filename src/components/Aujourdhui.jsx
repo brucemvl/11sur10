@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Animated } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react';
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Animated, RefreshControl } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import ligue1 from "../assets/logoligue1.webp"
 import { useNavigation } from '@react-navigation/native';
 
-function Aujourdhui({ onRefresh }) {
-  const [loading, setLoading] = useState(false); // État pour gérer le chargement
+function Aujourdhui({matchs, onRefresh}) {
   const navigation = useNavigation()
   const [hier, setHier] = useState(false)
   const [aujourdhui, setAujourdhui] = useState(true)
   const [demain, setDemain] = useState(false)
+  const [isRefreshing, setIsRefreshing] = useState(false); // État pour gérer le rafraîchissement
+
 
   const [noSpoil, setNoSpoil] = useState(true)
   const [isActive, setIsActive] = useState(false);
@@ -26,64 +27,12 @@ function Aujourdhui({ onRefresh }) {
   const [matchsCopa, setMatchsCopa] = useState([]);
   const [matchsUel, setMatchsUel] = useState([]);
 
-  const fetchMatches = async () => {
-    setLoading(true); // Début du chargement
+  
 
-    const fetchData = async (url) => {
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
-          'x-rapidapi-host': 'v3.football.api-sports.io',
-        },
-      });
-      const data = await response.json();
-      return data.response;
-    };
+ 
+  
 
-    try {
-      const [ucl, france, england, spain, ger, italy, cdf, fac, efl, copa, uel] = await Promise.all([
-        fetchData('https://v3.football.api-sports.io/fixtures?league=2&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=61&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=39&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=140&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=78&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=135&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=66&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=45&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=46&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=143&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=3&season=2024'),
-      ]);
-
-      // Mise à jour de l'état avec les nouveaux matchs récupérés
-      setMatchsUcl(ucl);
-      setMatchsFrance(france);
-      setMatchsEngland(england);
-      setMatchsSpain(spain);
-      setMatchsGer(ger);
-      setMatchsItaly(italy);
-      setMatchsCdf(cdf);
-      setMatchsFac(fac);
-      setMatchsEfl(efl);
-      setMatchsCopa(copa);
-      setMatchsUel(uel);
-    } catch (error) {
-      console.error('Erreur lors de la récupération des données', error);
-    } finally {
-      setLoading(false); // Fin du chargement
-    }
-  };
-
-  // Utiliser onRefresh pour relancer l'API quand l'utilisateur fait un pull-to-refresh
-  const handleRefresh = () => {
-    onRefresh(); // Cette fonction permet de signaler à l'écran parent que le rafraîchissement est en cours
-    fetchMatches(); // Relancer les appels API
-  };
-
-  useEffect(() => {
-    fetchMatches(); // Charger initialement les données au montage du composant
-  }, []);
+  
 
   
   
@@ -99,7 +48,6 @@ function Aujourdhui({ onRefresh }) {
   }).start();
 
 
-  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf, ...matchsFac, ...matchsEfl, ...matchsCopa, ...matchsUel]
 
   const [selectedDate, setSelectedDate] = useState("AUJOURDHUI");
 
@@ -280,7 +228,7 @@ console.log(tomorrowDate);
                     resizeMode="contain"
                   />}
 
-                <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name}</Text>
+                <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name}</Text>
                 <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
 
                 {element.goals.home === element.goals.away ? (
@@ -296,7 +244,7 @@ console.log(tomorrowDate);
                 )}
 
                 <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
-                <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name}</Text>
+                <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name}</Text>
               </View>
             </TouchableOpacity>
             : null
@@ -331,11 +279,11 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
                     source={{ uri: element.league.logo }}
                     style={styles.matchCompetition}
                     resizeMode="contain"
-                  />}                                    <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name}</Text>
+                  />}                                    <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name}</Text>
                 <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
                 <Text style={{ marginInline: 4 }}>-</Text>
                 <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
-                <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name}</Text>
+                <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name}</Text>
                 <View style={styles.rdv}>
                   <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
                   <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
@@ -350,8 +298,14 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
 
   </LinearGradient></View> :
   
-  <View style={styles.today}>
-      {loading ? (<Text>chargement</Text>) : 
+  <View style={styles.today}
+  refreshControl={
+    <RefreshControl
+      refreshing={isRefreshing}
+      onRefresh={onRefresh}
+    />
+  }
+          >
 (
   <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={{width: "100%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue"}} >
           { selectedDate === "DEMAIN" ? <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
@@ -444,7 +398,7 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
                       resizeMode="contain"
                     />}
 
-                  <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name}</Text>
+                  <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name}</Text>
                   <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
 
                   {element.goals.home === element.goals.away ? (
@@ -460,7 +414,7 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
                   )}
 
                   <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
-                  <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name}</Text>
+                  <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name}</Text>
                 </LinearGradient>
               </TouchableOpacity>
               : null
@@ -470,7 +424,12 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
 
       </ScrollView> }
       {aujourdhui &&
-      <ScrollView contentContainerStyle={styles.liveTableau}>
+      <ScrollView contentContainerStyle={styles.liveTableau} refreshControl={
+        <RefreshControl
+          refreshing={isRefreshing}
+          onRefresh={onRefresh}
+        />
+      }>
         
         {leagues.map((league) => <View style={{ marginBlock: 5 }}>
           <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBlock: 6}}>
@@ -506,11 +465,11 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
                       source={{ uri: element.league.logo }}
                       style={styles.matchCompetition}
                       resizeMode="contain"
-                    />}                                    <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name}</Text>
+                    />}                                    <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name}</Text>
                   <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
                   <Text style={{ marginInline: 4 }}>-</Text>
                   <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
-                  <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name}</Text>
+                  <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name}</Text>
                   <View style={styles.rdv}>
                     <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
                     <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
@@ -539,7 +498,7 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
                     style={styles.teamLogo}
                     resizeMode="contain"
                   />
-                  <Text style={styles.teamName}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name}</Text>
+                  <Text style={styles.teamName}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name}</Text>
                 </View>
                 <View style={styles.scoreContainer}>
                   {element.goals.home === element.goals.away ? (
@@ -570,7 +529,7 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
                     style={styles.teamLogo}
                     resizeMode="contain"
                   />
-                  <Text style={styles.teamName}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name}</Text>
+                  <Text style={styles.teamName}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name}</Text>
                 </View>
               </LinearGradient>
             </TouchableOpacity> : element.fixture.status.long === 'Match Finished' ?
@@ -591,7 +550,7 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
                       resizeMode="contain"
                     />}
 
-                  <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name}</Text>
+                  <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name}</Text>
                   <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
 
                   {element.goals.home === element.goals.away ? (
@@ -607,7 +566,7 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
                   )}
 
                   <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
-                  <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name}</Text>
+                  <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name}</Text>
                 </LinearGradient>
               </TouchableOpacity>
               : null
@@ -637,11 +596,11 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
                       source={{ uri: element.league.logo }}
                       style={styles.matchCompetition}
                       resizeMode="contain"
-                    />}                                    <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name}</Text>
+                    />}                                    <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name}</Text>
                   <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
                   <Text style={{ marginInline: 4 }}>-</Text>
                   <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
-                  <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name}</Text>
+                  <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name}</Text>
                   <View style={styles.rdv}>
                     <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
                     <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
@@ -655,7 +614,7 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
 
 
     </LinearGradient>)
-}
+
     </View>
   );
 };

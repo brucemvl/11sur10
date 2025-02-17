@@ -29,24 +29,12 @@ import banner30 from "../assets/banner31.jpg"
 import banner31 from "../assets/banner32.png"
 
 
-
-
-
-
-
-
-
 import { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
-import { useFonts } from "expo-font";
-
+import { View, Text, Image, StyleSheet } from "react-native"
 
 function Banner(){
 
-    const [fontsLoaded] = useFonts({
-        "Kanitt": require("../assets/fonts/Kanit/Kanit-Black.ttf"),
-        
-      });
+    
 
     const photosBan = [
         banner3, banner4, banner5, banner6, banner7, banner8, banner9,
@@ -74,9 +62,7 @@ function Banner(){
         return () => clearInterval(interval);
       }, []);
 
-      if (!fontsLoaded) {
-        return <Text>Loading...</Text>;  // Attendre que les polices et les données soient chargées
-      }
+      
 
     return(
 
@@ -139,7 +125,6 @@ top: "50%",
     color: "white",
     fontFamily: "Kanitt",
     textAlign: "center"
-    
 
   },
 
@@ -149,28 +134,7 @@ top: "50%",
     color: "white",
     fontFamily: "Kanitt"
 
-  },
-
-  "@media (max-width: 767px)": {
-    blocpage: {
-      banner: {
-        height: 80,
-        bannerImage: {
-          objectPosition: "0 -25px",
-        },
-        bannerText: {
-          bannerTitle: {
-            fontSize: 16,
-            bottom: "35%",
-    left: "13%",
-          },
-          bannerSubtitle: {
-            fontSize: 12,
-          },
-        },
-      },
-    },
-  },
+  }
 })
 
 export default Banner
