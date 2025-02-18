@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import ligue1 from "../assets/logoligue1.webp"
@@ -8,6 +8,10 @@ import stade from "../assets/stade.png"
 import calendrier from "../assets/date.png"
 import heure from "../assets/heure.png"
 import loc from "../assets/loc.png"
+import ucl1 from "../assets/UCL1.jpg"
+import ucl2 from "../assets/UCL2.jpg"
+import grass from "../assets/grass.jpg"
+
 
 
 
@@ -35,6 +39,59 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
                     <Image source={loc} style={styles.icone}/>
                 </View>
             </View>
+{match.league.id === 2 || match.league.id === 61 ? 
+    <ImageBackground source={match.league.id === 2 ? ucl2 : grass}  style={styles.afficheUcl} imageStyle={{borderRadius: 10, filter: match.league.id === 61 ? "brightness(0.5)" : "brightness(0.9)"}}>
+            <TouchableOpacity style={styles.domicile} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo})}>
+          <Image source={{ uri: match.teams.home.logo }} style={styles.teamLogo} />
+          <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.home.name}</Text>
+          <View style={{gap: 5, flexDirection: "row", marginTop: 5}}>{formeHome?.split('').map((char, index) => (
+          char === 'L' ? (
+            <View style={styles.defaite}>
+            <Text key={index} style={{color: "white", fontFamily: "Kanito"}}>D</Text>
+            </View>
+          ) : 
+          char === 'W' ? (
+            <View style={styles.victoire} >
+            <Text key={index} style={{color: "white", fontFamily: "Kanito"}}>V</Text>
+            </View>
+          ) :(
+            <View style={styles.nul}>
+            <Text key={index} style={{color: "white", fontFamily: "Kanito"}}>N</Text>
+            </View>
+          )
+        ))}</View>
+        </TouchableOpacity>
+
+        <View style={styles.score}>
+        <Image source={ match.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : match.league.logo === "https://media.api-sports.io/football/leagues/2.png" ? ucl : {uri : match.league.logo}} style={{height: 40, width: 40, objectFit: "contain", marginBlock: 1}} />
+
+          <Text style={styles.scoreText}>
+            {match.goals.home} - {match.goals.away}
+          </Text>
+        </View>
+
+        <TouchableOpacity style={styles.exterieur} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo})}>
+          <Image source={{ uri: match.teams.away.logo }} style={styles.teamLogo} />
+          <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.away.name}</Text>
+          <View style={{gap: 5, flexDirection: "row"}}>{formeExt?.split('').map((char, index) => (
+          char === 'L' ? (
+            <View style={styles.defaite}>
+            <Text key={index} style={{color: "white", fontFamily: "Kanito"}}>D</Text>
+            </View>
+          ) : 
+          char === 'W' ? (
+            <View style={styles.victoire} >
+            <Text key={index} style={{color: "white", fontFamily: "Kanito"}}>V</Text>
+            </View>
+          ) :(
+            <View style={styles.nul}>
+            <Text key={index} style={{color: "white", fontFamily: "Kanito"}}>N</Text>
+            </View>
+          )
+        ))}</View>
+        </TouchableOpacity>
+    </ImageBackground>
+     :
 
             <LinearGradient colors={['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.8)']} style={styles.affiche}>
             <TouchableOpacity style={styles.domicile} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo})}>
@@ -86,7 +143,7 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
           )
         ))}</View>
         </TouchableOpacity>
-    </LinearGradient>
+    </LinearGradient>}
 
             <View style={styles.buts}>
 
@@ -153,6 +210,14 @@ const styles = StyleSheet.create({
         height: 18,
          width: 18, 
          objectFit: "contain"
+    },
+    afficheUcl: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 5,
+        padding: 15,
+        borderRadius: 10,
+        height: 170,
     },
     affiche: {
         flexDirection: 'row',

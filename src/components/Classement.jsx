@@ -26,7 +26,7 @@ function Classement({ id }) {
 
 
   const fetchClassement = () => {
-    fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=2024`, {
+    fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=${id === 71 || id === 253 ? 2025 : 2024}`, {
       method: "GET",
       headers: {
         "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
@@ -41,7 +41,7 @@ function Classement({ id }) {
   console.log(tab)
 
   const fetchButeurs = () => {
-    fetch(`https://v3.football.api-sports.io/players/topscorers?league=${id}&season=2024`, {
+    fetch(`https://v3.football.api-sports.io/players/topscorers?league=${id}&season=${id === 71 || id === 253 ? 2025 : 2024}`, {
       method: "GET",
       headers: {
         "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
@@ -54,7 +54,7 @@ function Classement({ id }) {
   };
 
   const fetchPasseurs = () => {
-    fetch(`https://v3.football.api-sports.io/players/topassists?league=${id}&season=2024`, {
+    fetch(`https://v3.football.api-sports.io/players/topassists?league=${id}&season=${id === 71 || id === 253 ? 2025 : 2024}`, {
       method: "GET",
       headers: {
         "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
@@ -132,7 +132,7 @@ function Classement({ id }) {
 
 
   const renderClassementItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate("FicheEquipe", { id: item.team.id, league: item.group === "Ligue 1" ? 61 : item.group === "UEFA Champions League" ? 2 : item.group === "Premier League" ? 39 : item.group === "LaLiga" ? 140 : item.group.indexOf("Super League 1") !== -1 ? 197 : item.group === "Bundesliga" ? 78 : item.group === "Ligue 2: Regular Season" ? 62 : item.group === "Serie A" ? 135 : item.group === "UEFA Europa League" ? 3 : null })} style={styles.item}>
+    <TouchableOpacity onPress={() => navigation.navigate("FicheEquipe", { id: item.team.id, league: item.group === "Ligue 1" ? 61 : item.group === "UEFA Champions League" ? 2 : item.group === "Premier League" ? 39 : item.group === "LaLiga" ? 140 : item.group.indexOf("Super League 1") !== -1 ? 197 : item.group === "Bundesliga" ? 78 : item.group === "Ligue 2: Regular Season" ? 62 : item.group === "Serie A" ? 135 : item.group === "UEFA Europa League" ? 3 : item.group === "Saudi League" ? 307 : item.group === "Eastern Conference" ? 253 : null })} style={styles.item}>
       <Text style={{width: "5%"}}>{item.rank}</Text>
       <Image source={{ uri: item.team.logo }} style={styles.logo} />
       <Text style={{fontFamily: "Kanito", width: "30%"}}>{item.team.name === "Paris Saint Germain" ? "Paris SG" : item.team.name === "Stade Brestois 29" ? "Stade Brestois" : item.team.name === "Barcelona" ? "FC Barcelone" : item.team.name}</Text>
@@ -184,7 +184,10 @@ function Classement({ id }) {
             style={[styles.chevron, { transform: [{ rotate: rotateClassementInterpolate }] }]}
           />      </TouchableOpacity>
       </LinearGradient>
-      <Animated.View style={tab.length < 24 ? [ styles.content, { height: heightClassement.interpolate({
+      <Animated.View style={tab.length < 20 ? [ styles.content, { height: heightClassement.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0,  880] // Ajustez la hauteur en fonction du contenu
+          }) }] : tab.length < 24 ? [ styles.content, { height: heightClassement.interpolate({
             inputRange: [0, 1],
             outputRange: [0,  980] // Ajustez la hauteur en fonction du contenu
           }) }] : [ styles.content, { height: heightClassement.interpolate({

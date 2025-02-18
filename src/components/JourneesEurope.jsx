@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Animated } from "react-native";
 
-function JourneesEurope({ setFilterp, round, filterp }) {
+function JourneesEurope({ setFilterp, round, filterp, id }) {
     const [index, setIndex] = useState(7);
   
         const [rotateJournee, setRotateJournee] = useState(new Animated.Value(0));
@@ -57,7 +57,7 @@ console.log("Filter:", filterp);
   
         {/* Sélecteur de journée */}
         <View style={styles.headInfo}>
-          <Animated.Text style={{fontFamily: "Permanent", fontSize: 18, color: "white",  transform: [{ rotate: rotateJourneeInterpolate }] }}>{`Journée ${index + 1}`}</Animated.Text>
+          <Animated.Text style={{fontFamily: "Permanent", fontSize: 18, color: "white",  transform: [{ rotate: rotateJourneeInterpolate }] }}>{`Journée ${id === 848? index - 1 : index + 1}`}</Animated.Text>
         </View>
   
         {/* Bouton suivant */}

@@ -35,8 +35,12 @@ function TableauEurope({ id}) {
                       console.log(json.response)
 if(json.response[0].league.id === 2){
                       setPoules(json.response.slice(90, 234))}
+
                       if(json.response[0].league.id === 3){
                         setPoules(json.response.slice(90, 224))}
+
+                        if(json.response[0].league.id === 848){
+                          setPoules(json.response.slice(256, 363))}
                   })
           }
           catch (error) {
@@ -64,8 +68,12 @@ if(json.response[0].league.id === 2){
                     console.log(json.response)
 if(json.response[0].league.id === 2){
                     setBarrages(json.response.slice(234, json.response.length))}
+
                     if(json.response[0].league.id === 3){
                       setBarrages(json.response.slice(224, json.response.length))}
+
+                      if(json.response[0].league.id === 848){
+                        setBarrages(json.response.slice(364, json.response.length))}
                 })
         }
         catch (error) {
@@ -76,7 +84,7 @@ if(json.response[0].league.id === 2){
 }, [id]
 
 )
-
+/*
   if (id === 848){
    return  <View style={{padding: 20, justifyContent: "center", alignItems: "center", height: 200, gap: 20}}>
     <Image source={{uri: "https://media.api-sports.io/football/leagues/848.png"}} style={{height: 70, width: 70, objectFit: "contain"}} />
@@ -85,7 +93,7 @@ if(json.response[0].league.id === 2){
     
    </View>
   }
-
+*/
   const openPoules = ()=>{
     setPhasePoules(true)
     setPhaseBarrages(false)
@@ -134,13 +142,13 @@ if(json.response[0].league.id === 2){
 
     {phasePoules && (
       <>
-        <JourneesEurope setFilterp={setFilterp} round={round} filterp={filterp} />
+        <JourneesEurope setFilterp={setFilterp} round={round} filterp={filterp} id={id} />
         {poules.map((element) => {
           if (filterp === undefined) {
             return <Text key="loading">Loading...</Text>;
           }
 
-          if (!filterp || filterp === element.league.round) {
+          if (!filterp || filterp === element.league.round ) {
             return (
               <Match
                 key={"match" + element.fixture.id}

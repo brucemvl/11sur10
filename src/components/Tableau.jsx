@@ -18,7 +18,7 @@ function Tableau({ id, currentRound}) {
   useEffect(() => {
       const fetchData = () => {
           try {
-              fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&season=2024`, {
+              fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&season=${id === 71 || id === 253 ? 2025 : 2024}`, {
                   method: "GET",
                   headers: {
                       "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",

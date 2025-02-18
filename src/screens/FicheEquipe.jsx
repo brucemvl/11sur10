@@ -179,6 +179,8 @@ console.log(squad)
   if (!squad) {
     return <Text>Loading...</Text>
   }
+
+ 
   
   return (
     <View>
@@ -257,7 +259,7 @@ console.log(squad)
 </ScrollView>
       <View style={styles.bloc}>
 <Text style={styles.h3}>Matchs Disputés</Text>
-<Text style={{fontFamily: "Kanitt", fontSize: 22}}>{stats.fixtures.played.total}</Text>
+<Text style={{fontFamily: "Kanitt", fontSize: 22}}>{stats?.fixtures?.played.total}</Text>
 <View style={{flexDirection: "row", justifyContent: "space-between", width: "100%"}}>
     <View style={{alignItems: "center", width: "33%"}}>
     <Text style={styles.h4}>Victoires</Text>
