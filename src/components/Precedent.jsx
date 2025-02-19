@@ -9,8 +9,8 @@ function Precedent() {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.goBack()} >
-        <LinearGradient colors={["rgba(26, 71, 129, 0.67)", 'rgb(0, 0, 0)']} style={styles.button} >
-        <Text style={styles.text}>{"<"}  Précédent</Text>
+        <LinearGradient colors={["rgba(26, 71, 129, 0.67)", 'rgb(0, 0, 0)']} style={styles.button}>
+          <Text style={styles.text}>{"<"}  Précédent</Text>
         </LinearGradient>
       </TouchableOpacity>
     </View>
@@ -28,9 +28,11 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingTop: 5,
     paddingBottom: 2,
-backgroundColor: "#f0f0f0" },
+    backgroundColor: "#f0f0f0",  // Container's background color
+    opacity: 0.98
+  },
   button: {
-    backgroundColor: 'rgb(16, 26, 75)',
+    backgroundColor: 'rgb(16, 26, 75)',  // Button background (solid, no opacity applied)
     paddingVertical: 12,
     borderRadius: 20,
     width: 105,

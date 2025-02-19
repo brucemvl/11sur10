@@ -191,7 +191,7 @@ console.log(squad)
           <Text style={styles.team}>{equipe.team.name.toUpperCase()}</Text>
           <Text style={{ color: "white", fontFamily: "Kanito" }}>{equipe.team.country === "England" ? "Angleterre" : equipe.team.country === "Spain" ? "Espagne" : equipe.team.country === "Germany" ? "Allemagne" : equipe.team.country}</Text>
           <Text style={{ color: "white", fontFamily: "Kanitus" }}>
-            {equipe.team.national === false ? `Club fondé en ${equipe.team.founded}` : null}
+            {equipe.team.national === false ? equipe.team.founded === null ? null : "Club fondé en " + equipe.team.founded : null}
           </Text>
         </View>
         <Image source={{ uri: equipe.team.logo }} style={{ height: 70, width: 70, objectFit: "contain" }} />

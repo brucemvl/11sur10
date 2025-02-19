@@ -34,6 +34,7 @@ function FicheEurope({ route }) {
       fetchRound();
     }, [id]);
 
+
     return (
       <View style={{flex: 1}}>
             <Precedent />

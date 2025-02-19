@@ -34,7 +34,15 @@ const Evenements = ({ match }) => {
                       <Text style={styles.playerName}>{element.player.name}</Text>
                     </>
                   )}
-                  {element.type === "Goal" && (
+                  {element.type === "Goal" &&  (
+                    element.detail === "Missed Penalty" ? <View style={styles.goalContainer}>
+                    <Text style={styles.goalText}>
+                    Penalty Raté!
+                    </Text>
+                    {element.assist?.name && (
+                      <Text style={styles.assistText}> ({element.assist.name})</Text>
+                    )}
+                  </View> :
                     <View style={styles.goalContainer}>
                       <Text style={styles.goalText}>
                       ⚽ {element.player.name} {element.detail === "Penalty" ? "(Pen.)" : ""}

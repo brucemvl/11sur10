@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
 import { Link } from '@react-navigation/native';
 import flecheVerte from "../assets/flecheverte.png";
@@ -8,12 +8,32 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import Schema from './Schema';
 
-const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt, systemeDom, systemeExt, substituteDom, substituteExt, compoDom, compoExt, colors }) => {
+const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt, coachDomId, coachExtId, systemeDom, systemeExt, substituteDom, substituteExt, compoDom, compoExt, colors }) => {
 
   const range = [1, 2, 3, 4, 5];
   const navigation = useNavigation();
+  const[coachDomicile, setCoachDom] = useState()
 
 
+useEffect(() => {
+        fetch(`https://v3.football.api-sports.io/coachs?team=${homeId}`, {
+            method: "GET",
+            headers: {
+                "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+                "x-rapidapi-host": "v3.football.api-sports.io",
+            }
+        })
+            .then((response) => response.json())
+            .then((result) => {
+                setCoachDom(result.response)
+            })
+            .catch((error) => { 
+                console.error(error);
+                setCoachDom(null);
+            });
+    }, []);
+
+    console.log(coachDomicile)
 
   const renderPlayer = (player, isSubstitute = false) => {
     return (
@@ -88,6 +108,8 @@ const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt,
   };
 
 
+
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Compositions d'équipe</Text>
@@ -96,7 +118,7 @@ const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt,
       <View style={styles.teamsContainer}>
         <View style={styles.teamContainer}>
           <View style={styles.headerCompo}>
-            <Image source={{ uri: match.teams.home.logo }} style={styles.logo} />
+            <Image source={{ uri: match?.teams.home.logo }} style={styles.logo} />
             <Text style={styles.systemeText}>{systemeDom}</Text>
           </View>
 
@@ -116,13 +138,13 @@ const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt,
               </TouchableOpacity>
             ))}
           </LinearGradient>
-          <Text style={{ fontFamily: "Kanitus" }}>Coach: {coachDom}</Text>
+          { coachDom === null ? null :  <Text style={{ fontFamily: "Kanitus" }}>Coach: {coachDom}</Text>}
         </View>
 
         <View style={styles.teamExtContainer}>
           <View style={styles.headerExtCompo}>
             <Text style={styles.systemeText}>{systemeExt}</Text>
-            <Image source={{ uri: match.teams.away.logo }} style={styles.logo} />
+            <Image source={{ uri: match?.teams.away.logo }} style={styles.logo} />
           </View>
 
           <Text style={styles.subTitleExt}>Titulaires</Text>
@@ -142,7 +164,7 @@ const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt,
               </TouchableOpacity>
             ))}
           </LinearGradient>
-          <Text style={{ fontFamily: "Kanitus", textAlign: "right" }}>Coach: {coachExt}</Text>
+          {coachExt === null ? null : <Text style={{ fontFamily: "Kanitus", textAlign: "right" }}>Coach: {coachExt}</Text>}
         </View>
       </View>
     </View>

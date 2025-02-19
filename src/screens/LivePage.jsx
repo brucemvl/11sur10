@@ -158,7 +158,8 @@ function LivePage({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 8,
+    paddingBlock: 10,
+    paddingInline: 4,
     borderRadius: 15,
     backgroundColor: "#b0c4de",
     marginBottom: 0,
@@ -181,10 +182,8 @@ const styles = StyleSheet.create({
   match: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingBlock: 6,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-    width: "100%"
+    paddingBlock: 5,
+    width: "100%",
   },
   noMatch: {
     marginBlock: 10,
@@ -206,12 +205,14 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     alignItems: 'center',
     backgroundColor: '#F4F0F0',
-    paddingBlock: 10,
-    paddingInline: 1
+    paddingBlock: 6,
+    paddingInline: 1,
+    marginBlock: 4,
+    borderRadius: 10
   },
   competitionLogo: {
-    height: 25,
-    width: 25,
+    height: 30,
+    width: "9%",
     objectFit: 'contain',
   },
   teamContainer: {
@@ -219,26 +220,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: "35%",
     gap: 2,
-    marginInline: 1
+    marginInline: 1,
+    justifyContent: "start"
   },
   teamContainerDom: {
-    flexDirection: 'row',
     alignItems: 'center',
-    width: "33%",
+    width: "34%",
     flexDirection: "row-reverse",
     gap: 2,
     marginInline: 1,
+    justifyContent: "center"
   },
   teamLogo: {
     height: 30,
-    width: 30,
+    width: "22%",
     objectFit: 'contain',
     alignItems: "center",
-    marginInline: 5
+    marginInline: 3
   },
   teamName: {
     fontSize: 12,
-    fontFamily: "Kanito"
+    fontFamily: "Kanito",
+    width: "76%",
+    textAlign: "center"
   },
   scoreContainer: {
     alignItems: 'center',

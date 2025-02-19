@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
         padding: 10,
         width: "100%",
         flexGrow: 1,
-        paddingBottom: 50
+        paddingBottom: 50,
+
     },
 });
 

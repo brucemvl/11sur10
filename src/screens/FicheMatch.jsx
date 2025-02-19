@@ -10,6 +10,8 @@ import { useNavigation } from '@react-navigation/native';
 import Classement from"../components/Classement.jsx";
 import { LinearGradient } from 'expo-linear-gradient';
 import Histo from '../components/Histo.jsx';
+import Schema from '../components/Schema.jsx';
+import SchemaAvance from '../components/SchemaAvance.jsx';
 
 
 const FicheMatch = () => {
@@ -17,6 +19,7 @@ const FicheMatch = () => {
     const [live, setLive] = useState(false);
     const [details, setDetails] = useState(true);
     const [compos, setCompos] = useState(false);
+    const [coachDomicile, setCoachDom] = useState()
     const [classement, setClassement] = useState(false);
     const [histo, setHisto] = useState(false);
     const [historique, setHistorique] = useState(null)
@@ -108,7 +111,7 @@ const FicheMatch = () => {
             .then((response) => response.json())
             .then((result) => {
                 
-                    setHistorique(result.response.slice(result.response.length - 5, result.response.length));
+                    setHistorique(result.response.slice(result.response.length - 6, result.response.length));
             })
             .catch((error) => { 
                 console.error(error);
@@ -202,7 +205,7 @@ const FicheMatch = () => {
     const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
     const formattedHour = `${date.getHours().toString().padStart(2, '0')}h${date.getMinutes().toString().padStart(2, '0')}`;
 
-    const buteurs = match.events.filter((element) => element.type === "Goal");
+    const buteurs = match.events.filter((element) => element.type === "Goal" && element.detail != "Missed Penalty");
     const buteursnopen = buteurs.filter((element)=> element.comments != "Penalty Shootout");
     const buteursPen = buteurs.filter((element)=> element.comments === "Penalty Shootout");
     const buteurHome = buteursnopen.filter((buteur) => buteur.team.name === match.teams.home.name);
@@ -241,7 +244,12 @@ const FicheMatch = () => {
     const compoExt = match.lineups && match.lineups[1];
         
     const coachDom = compoDom ? compoDom.coach?.name : 'Unknown'; // Utilisation de l'opérateur de chaînage optionnel (?.)
-    const coachExt = compoExt ? compoExt.coach?.name : 'Unknown'; 
+    const coachExt = compoExt ? compoExt.coach?.name : 'Unknown';
+    const coachDomId = compoDom?.coach?.id
+    const coachExtId = compoExt?.coach?.id
+
+    
+
     
     const colors = {
         primaryDom : match.lineups[0]?.team?.colors?.player?.primary,
@@ -262,13 +270,22 @@ const FicheMatch = () => {
     
     
     console.log (match)
-    /*
+    
     if (match.lineups.length === 2 && match.fixture.status.long === "Not Started") {
         return (
-        <Compositions />
+            <View>
+                <Precedent />
+                <ScrollView contentContainerStyle={styles.bloc}>
+                <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt} />
+<Text>Les Compos sont disponibles!</Text>
+        <SchemaAvance match={match} compoDom={compoDom} compoExt={compoExt} colors={colors} />
+        <Histo historique={historique} />
+
+        </ScrollView>
+        </View>
         )
     }
-        */
+        
     
     if (!compoDom || !compoExt) {
         return (
@@ -297,6 +314,7 @@ const FicheMatch = () => {
                 </View>
                 )
         }
+
         
         
         const tituDom = match.players && match?.players[0]?.players.slice(0, 11)
@@ -335,7 +353,7 @@ const FicheMatch = () => {
                     </ScrollView>
 
                     {details && match && <Details match={match} possession={poss} expectedGoals={xg} tirs={tirs} tirsCadres={tirsCadres} jaune={jaune} rouge={rouge} passes={passes} passesReussies={passesReussies} accuracy={accuracy}/>}
-                {compos && <Compositions match={match} titulairesDom={tituDom} titulairesExt={tituExt} coachDom={coachDom} coachExt={coachExt} systemeDom={systemeDom} systemeExt={systemeExt} substituteDom={substituteDom} substituteExt={substituteExt} compoDom={compoDom} compoExt={compoExt} colors={colors}/>}
+                {compos && <Compositions match={match} titulairesDom={tituDom} titulairesExt={tituExt} coachDom={coachDom} coachExt={coachExt} coachDomId={coachDomId} coachExtId={coachExtId} systemeDom={systemeDom} systemeExt={systemeExt} substituteDom={substituteDom} substituteExt={substituteExt} compoDom={compoDom} compoExt={compoExt} colors={colors}/>}
                 {live && <Evenements match={match} />}
                 {histo && <Histo historique={historique}/>}
                 {classement && <Classement id={match.league.id}/>}
