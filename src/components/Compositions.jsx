@@ -8,11 +8,12 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import Schema from './Schema';
 
-const Compositions = ({ match, titulairesDom, titulairesExt, coachDom, coachExt, coachDomId, coachExtId, systemeDom, systemeExt, substituteDom, substituteExt, compoDom, compoExt, colors }) => {
+const Compositions = ({ match, titulairesDom, homeId, extId, titulairesExt, coachDom, coachExt, coachDomId, coachExtId, systemeDom, systemeExt, substituteDom, substituteExt, compoDom, compoExt, colors }) => {
 
   const range = [1, 2, 3, 4, 5];
   const navigation = useNavigation();
   const[coachDomicile, setCoachDom] = useState()
+  const[coachExterieur, setCoachExt] = useState()
 
 
 useEffect(() => {
@@ -25,13 +26,43 @@ useEffect(() => {
         })
             .then((response) => response.json())
             .then((result) => {
-                setCoachDom(result.response)
+                setCoachDom(result.response[0])
             })
             .catch((error) => { 
                 console.error(error);
                 setCoachDom(null);
             });
     }, []);
+
+   
+
+    useEffect(() => {
+      fetch(`https://v3.football.api-sports.io/coachs?team=${extId}`, {
+          method: "GET",
+          headers: {
+              "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+              "x-rapidapi-host": "v3.football.api-sports.io",
+          }
+      })
+          .then((response) => response.json())
+          .then((result) => {
+              setCoachExt(result.response[0])
+          })
+          .catch((error) => { 
+              console.error(error);
+              setCoachExt(null);
+          });
+  }, []);
+
+  if(!coachDomicile){
+    return <Text>Loading...</Text>
+  }
+
+  if(!coachExterieur){
+    return <Text>Loading...</Text>
+  }
+  
+    
 
     console.log(coachDomicile)
 
@@ -138,7 +169,7 @@ useEffect(() => {
               </TouchableOpacity>
             ))}
           </LinearGradient>
-          { coachDom === null ? null :  <Text style={{ fontFamily: "Kanitus" }}>Coach: {coachDom}</Text>}
+          { coachDom === null ? null : <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, backgroundColor: "rgba(90, 103, 92, 0.9)", padding: 8, borderTopRightRadius: 15, borderBottomRightRadius: 15}}> <Text style={{ fontFamily: "Kanito", color: "white" }}>Coach:  {coachDomicile.name}</Text><Image source={{uri: coachDomicile.photo}} style={{width: 40, height: 40, borderRadius: 50, }}/></View>}
         </View>
 
         <View style={styles.teamExtContainer}>
@@ -164,7 +195,7 @@ useEffect(() => {
               </TouchableOpacity>
             ))}
           </LinearGradient>
-          {coachExt === null ? null : <Text style={{ fontFamily: "Kanitus", textAlign: "right" }}>Coach: {coachExt}</Text>}
+          { coachExt === null ? null : <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, backgroundColor: "rgb(90, 103, 92)", padding: 8, borderTopLeftRadius: 15, borderBottomLeftRadius: 15}}> <Text style={{ fontFamily: "Kanito", color: "white" }}>Coach:  {coachExterieur.name}</Text><Image source={{uri: coachExterieur.photo}} style={{width: 40, height: 40, borderRadius: 50, }}/></View>}
         </View>
       </View>
     </View>

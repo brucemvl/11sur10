@@ -19,13 +19,14 @@ function Footer(){
     const navigation = useNavigation()
     return (
         <View style={styles.footer}>
-            <View style={{padding: 20, alignItems: "center", gap: 20}}>
-            <TouchableOpacity onPress={()=>openExternalLink("https://www.instagram.com/11_sur_10/")}>
+            <View style={{paddingInline: 5, alignItems: "center",  flexDirection: "row", width: "100%", justifyContent: "space-between"}}>
+            <TouchableOpacity style={{width: "27%", alignItems: "center"}} onPress={()=>openExternalLink("https://www.instagram.com/11_sur_10/")}>
       <Image source={insta} style={{height: 48, width: 48}}/>
       </TouchableOpacity>
-           <TouchableOpacity onPress={()=> navigation.navigate("Contact")}><Text style={styles.lien}>Nous contacter</Text></TouchableOpacity>
+      <View style={styles.droits}><Image source={bm} alt="logo developpeur" style={styles.logo}/><Text style={{color: "white", fontFamily: "Kanito", fontSize: 8}}>© 2024 BM Development. Tous droits réservés.</Text></View>
+
+           <TouchableOpacity style={{width: "27%", alignItems: "center"}} onPress={()=> navigation.navigate("Contact")}><Text style={styles.lien}>Nous contacter</Text></TouchableOpacity>
            </View>
-            <View style={styles.droits}><Image source={bm} alt="logo developpeur" style={styles.logo}/><Text style={{color: "white", fontFamily: "Kanito", fontSize: 10}}>© 2024 BM Development. Tous droits réservés.</Text></View>
 
         </View>
     )
@@ -39,7 +40,6 @@ const styles = StyleSheet.create({
         backgroundColor: "black",
         alignItems: "center",
         width: "100%",
-        justifyContent: "space-between",
 flexGrow: 1    },
 
     lien: {
@@ -51,15 +51,16 @@ flexGrow: 1    },
 
     droits : {
         alignItems: "center",
-        width: "50%",
-        gap: 10
+        gap: 10,
+        width: "46%"
 
 
     },
     logo: {
         height: 55,
         width: 55,
-        borderRadius: 50,
+        borderRadius: 5,
+        padding: 3,
         objectFit: "contain",
         filter: "invert(1)"
     }

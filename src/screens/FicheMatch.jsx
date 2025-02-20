@@ -353,7 +353,7 @@ const FicheMatch = () => {
                     </ScrollView>
 
                     {details && match && <Details match={match} possession={poss} expectedGoals={xg} tirs={tirs} tirsCadres={tirsCadres} jaune={jaune} rouge={rouge} passes={passes} passesReussies={passesReussies} accuracy={accuracy}/>}
-                {compos && <Compositions match={match} titulairesDom={tituDom} titulairesExt={tituExt} coachDom={coachDom} coachExt={coachExt} coachDomId={coachDomId} coachExtId={coachExtId} systemeDom={systemeDom} systemeExt={systemeExt} substituteDom={substituteDom} substituteExt={substituteExt} compoDom={compoDom} compoExt={compoExt} colors={colors}/>}
+                {compos && <Compositions match={match} titulairesDom={tituDom} titulairesExt={tituExt} coachDom={coachDom} coachExt={coachExt} coachDomId={coachDomId} coachExtId={coachExtId} systemeDom={systemeDom} systemeExt={systemeExt} substituteDom={substituteDom} substituteExt={substituteExt} compoDom={compoDom} compoExt={compoExt} colors={colors} homeId={homeId} extId={extId}/>}
                 {live && <Evenements match={match} />}
                 {histo && <Histo historique={historique}/>}
                 {classement && <Classement id={match.league.id}/>}

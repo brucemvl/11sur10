@@ -44,7 +44,7 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
 {match.league.id === 2 || match.league.id === 61 || match.league.id === 39 || match.league.id === 140 ?
     <ImageBackground source={match.league.id === 2 ? ucl2 : match.league.id === 61 ?  grass : match.league.id === 39 ? pl : liga}  style={styles.afficheUcl} imageStyle={{borderRadius: 10, filter: match.league.id === 61 ? "brightness(0.5)" : match.league.id === 39 ? "brightness(0.4)" : match.league.id === 140 ? "brightness(0.32)" : "brightness(0.9)"}}>
             <TouchableOpacity style={styles.domicile} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo})}>
-          <Image source={{ uri: match.teams.home.logo }} style={styles.teamLogo} />
+          <Image source={{ uri: match.teams.home.logo }} style={[styles.teamLogo, match.teams.home.id === 81 ? {shadowRadius: 1} : null]} />
           <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.home.name}</Text>
           <View style={{gap: 5, flexDirection: "row", marginTop: 5}}>{formeHome?.split('').map((char, index) => (
           char === 'L' ? (
@@ -73,7 +73,7 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
         </View>
 
         <TouchableOpacity style={styles.exterieur} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo})}>
-          <Image source={{ uri: match.teams.away.logo }} style={styles.teamLogo} />
+          <Image source={{ uri: match.teams.away.logo }} style={[styles.teamLogo, match.teams.away.id === 81 ? {shadowRadius: 1} : null]} />
           <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.away.name}</Text>
           <View style={{gap: 5, flexDirection: "row"}}>{formeExt?.split('').map((char, index) => (
           char === 'L' ? (
@@ -126,7 +126,7 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
         </View>
 
         <TouchableOpacity style={styles.exterieur} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo})}>
-          <Image source={{ uri: match.teams.away.logo }} style={styles.teamLogo} />
+          <Image source={{ uri: match.teams.away.logo }} style={match.teams.away.id === 81 ? styles.marseille : styles.teamLogo } />
           <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.away.name}</Text>
           <View style={{gap: 5, flexDirection: "row"}}>{formeExt?.split('').map((char, index) => (
           char === 'L' ? (
@@ -243,10 +243,18 @@ const styles = StyleSheet.create({
         width: "39%"
     },
     teamLogo: {
-        width: 60,
-        height: 60,
+        width: 70,
+        height: 70,
         resizeMode: 'contain',
+        shadowColor: '#fff', // shadow color
+        shadowOffset: { width: 0, height: 0 }, // shadow offset
+        shadowOpacity: 0.8, // shadow opacity
+        shadowRadius: 4,
+        padding: 9
     },
+    marseille: {
+padding: 30
+    }, 
     text:{
 fontFamily: "Kanito",
 fontSize: 12
