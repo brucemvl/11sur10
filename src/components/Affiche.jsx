@@ -11,6 +11,8 @@ import loc from "../assets/loc.png"
 import ucl1 from "../assets/UCL1.jpg"
 import ucl2 from "../assets/UCL2.jpg"
 import grass from "../assets/grass.jpg"
+import pl from "../assets/PL.jpg"
+import liga from "../assets/liga.webp"
 
 
 
@@ -39,8 +41,8 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
                     <Image source={loc} style={styles.icone}/>
                 </View>
             </View>
-{match.league.id === 2 || match.league.id === 61 ? 
-    <ImageBackground source={match.league.id === 2 ? ucl2 : grass}  style={styles.afficheUcl} imageStyle={{borderRadius: 10, filter: match.league.id === 61 ? "brightness(0.5)" : "brightness(0.9)"}}>
+{match.league.id === 2 || match.league.id === 61 || match.league.id === 39 || match.league.id === 140 ?
+    <ImageBackground source={match.league.id === 2 ? ucl2 : match.league.id === 61 ?  grass : match.league.id === 39 ? pl : liga}  style={styles.afficheUcl} imageStyle={{borderRadius: 10, filter: match.league.id === 61 ? "brightness(0.5)" : match.league.id === 39 ? "brightness(0.4)" : match.league.id === 140 ? "brightness(0.32)" : "brightness(0.9)"}}>
             <TouchableOpacity style={styles.domicile} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo})}>
           <Image source={{ uri: match.teams.home.logo }} style={styles.teamLogo} />
           <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.home.name}</Text>
