@@ -189,7 +189,7 @@ console.log(squad)
       <LinearGradient colors={["black", "steelblue"]} style={styles.header}>
         <View>
           <Text style={styles.team}>{equipe.team.name.toUpperCase()}</Text>
-          <Text style={{ color: "white", fontFamily: "Kanito" }}>{equipe.team.country === "England" ? "Angleterre" : equipe.team.country === "Spain" ? "Espagne" : equipe.team.country === "Germany" ? "Allemagne" : equipe.team.country}</Text>
+          <Text style={{ color: "white", fontFamily: "Kanito" }}>{equipe.team.country === "England" ? "Angleterre" : equipe.team.country === "Spain" ? "Espagne" : equipe.team.country === "Germany" ? "Allemagne" : equipe.team.country === "Netherlands" ? "Pays Bas" : equipe.team.country}</Text>
           <Text style={{ color: "white", fontFamily: "Kanitus" }}>
             {equipe.team.national === false ? equipe.team.founded === null ? null : "Club fondé en " + equipe.team.founded : null}
           </Text>
@@ -241,7 +241,7 @@ console.log(squad)
             {
               height: heightSquadAnim.interpolate({
                 inputRange: [0, 1],
-                outputRange: squad?.players?.length <= 28 ? [0, 1280] : squad?.players?.length < 33  ? [0, 1540] : squad?.players?.length < 36  ? [0, 1640] : [0, 1800], // Ajustez la hauteur en fonction du contenu
+                outputRange:[0, 840], // Ajustez la hauteur en fonction du contenu
               }),
             },
           ]}

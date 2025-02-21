@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native"
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from "react-native"
 import haaland from "../assets/portraits/haaland.jpg"
 import gyokeres from "../assets/portraits/gyokeres.jpg"
 import zaire from "../assets/portraits/zaire.jpg"
@@ -41,6 +41,7 @@ import kephren from "../assets/portraits/kephren.png"
 import adeyemi from "../assets/portraits/adeyemi.png"
 import debruyne from "../assets/portraits/debruyne.png"
 import mayulu from "../assets/portraits/mayulu.png"
+import { LinearGradient } from "expo-linear-gradient";
 
 
 function Squad({ squad }) {
@@ -57,54 +58,63 @@ function Squad({ squad }) {
 
         <View style={styles.poste}>
             <Text style={styles.titre}>Gardiens</Text>
-            <View style={{ flexDirection: "row", justifyContent: "space-evenly", flexWrap: "wrap" }}>
+            <ScrollView horizontal contentContainerStyle={{ flexDirection: "row", gap: 10}}>
                 {squad?.players?.map((player) => player.position === "Goalkeeper" ? <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: player.id })}>
-                    <View style={styles.joueur}> 
+                <LinearGradient style={styles.joueur} colors={["#fff", "rgb(163, 164, 165)"]} locations={[0.5, 0.9]}> 
+                <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-around"}}>
           <Image source={ player.id === 2068 ? safonov : { uri: player.photo }} style={styles.photo} />
-                        <View style={styles.number}><Text style={{ fontFamily: "Kanitalic", color: "white" }}>{player.number}</Text></View>
-                        <Text style={styles.nom}>{player.name. length < 22 ? player.name : player.name.split(' ').slice(-1).join(' ')}</Text>
+                        <View style={styles.number}><Text style={{ fontFamily: "Kanitalik", color: "midnightblue", fontSize: 22 }}>{player.number}</Text></View>
                         </View>
+                        <Text style={styles.nom}>{player.name. length < 22 ? player.name : player.name.split(' ').slice(-1).join(' ')}</Text>
+                        </LinearGradient>
                         </TouchableOpacity> : null)}
-            </View>
+            </ScrollView>
         </View>
 
         <View style={styles.poste}>
             <Text style={styles.titre}>Defenseurs</Text>
-            <View style={{ flexDirection: "row", gap: 15, justifyContent: "space-evenly", flexWrap: "wrap" }}>
+            <ScrollView horizontal contentContainerStyle={{ flexDirection: "row", gap: 10}}>
                 {squad?.players?.map((player) => player.position === "Defender" ? <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: player.id })}>
-                    <View style={styles.joueur}> 
-          <Image source={ player.id === 16367 ? pacho : player.id === 1257 ? kounde : player.id === 272 ? rabiot : player.id === 156477 ? cherki : player.id === 1467 ? lacazette : player.id === 47300 ? theo : player.id === 284324 ? garnacho : player.id === 128384 ? vitinha : { uri: player.photo }} style={styles.photo} />
-                        <View style={styles.number}><Text style={{ fontFamily: "Kanitalic", color: "white" }}>{player.number}</Text></View>
-                        <Text style={styles.nom}>{player.name. length < 17 ? player.name : player.name.split(' ').slice(-1).join(' ')}</Text>
+                <LinearGradient style={styles.joueur} colors={["#fff", "rgb(163, 164, 165)"]} locations={[0.5, 0.9]}> 
+                <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-around"}}>
+
+          <Image source={ player.id === 16367 ? pacho : player.id === 1257 ? kounde : player.id === 272 ? rabiot : player.id === 156477 ? cherki : player.id === 1467 ? lacazette : player.id === 47300 ? theo : player.id === 284324 ? garnacho : player.id === 128384 ? vitinha : { uri: player.photo }} style={styles.photo} />       
+                        <View style={styles.number}><Text style={{ fontFamily: "Kanitalik", color: "midnightblue", fontSize: 22 }}>{player.number}</Text></View>
                         </View>
+                        <Text style={styles.nom}>{player.name. length < 17 ? player.name : player.name.split(' ').slice(-1).join(' ')}</Text>
+                        </LinearGradient>
                         </TouchableOpacity> : null)}
-            </View>
+            </ScrollView>
         </View>
 
         <View style={styles.poste}>
             <Text style={styles.titre}>Milieux</Text>
-            <View style={{ flexDirection: "row", gap: 15, justifyContent: "space-evenly", flexWrap: "wrap" }}>
+            <ScrollView horizontal contentContainerStyle={{ flexDirection: "row", gap: 10}}>
                 {squad?.players?.map((player) => player.position === "Midfielder" ? <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: player.id })}>
-                    <View style={styles.joueur}> 
+                <LinearGradient style={styles.joueur} colors={["#fff", "rgb(163, 164, 165)"]} locations={[0.5, 0.9]}> 
+                <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-around"}}>
           <Image source={player.id === 409216 ? mayulu : player.id === 629 ? debruyne : player.id === 116 ? kephren : player.id === 336657 ? zaire : player.id === 335051 ? joao : player.id === 129718 ? bellingham : player.id === 386828 ? yamal : player.id === 1257 ? kounde : player.id === 56 ? griezmann : player.id === 19617 ? olise : player.id === 272 ? rabiot : player.id === 156477 ? cherki  : player.id === 291964 ? guller : player.id === 1271 ? tchouameni : player.id === 47300 ? theo : player.id === 1496 ? raphinha  :  player.id === 284324 ? garnacho : player.id === 128384 ? vitinha : player.id === 152982 ? palmer : { uri: player.photo }} style={styles.photo} />
-                        <View style={styles.number}><Text style={{ fontFamily: "Kanitalic", color: "white" }}>{player.number}</Text></View>
-                        <Text style={styles.nom}>{player.name. length < 22 ? player.name : player.name.split(' ').slice(-1).join(' ')}</Text>
+                        <View style={styles.number}><Text style={{ fontFamily: "Kanitalik", color: "midnightblue", fontSize: 22 }}>{player.number}</Text></View>
                         </View>
+                        <Text style={styles.nom}>{player.name. length < 22 ? player.name : player.name.split(' ').slice(-1).join(' ')}</Text>
+                        </LinearGradient>
                         </TouchableOpacity> : null)}
-            </View>
+            </ScrollView>
         </View>
 
         <View style={styles.poste}>
             <Text style={styles.titre}>Attaquants</Text>
-            <View style={{ flexDirection: "row", gap: 15, justifyContent: "space-evenly", flexWrap: "wrap" }}>
+            <ScrollView horizontal contentContainerStyle={{ flexDirection: "row", gap: 10}}>
                 {squad?.players?.map((player) => player.position === "Attacker" ? <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: player.id })}>
-                    <View style={styles.joueur}> 
-          <Image source={ player.id === 7334 ? adeyemi : player.id === 21104 ? kolo : player.id === 1100 ? haaland : player.id === 161904 ? barcola : player.id === 336657 ? zaire : player.id === 153 ? dembele : player.id === 129718 ? bellingham : player.id === 386828 ? yamal : player.id === 10009 ? rodrygo : player.id === 18979 ? gyokeres : player.id === 291964 ? guller : player.id === 343027 ? doue : player.id === 483 ? kvara : player.id === 154 ? goat : player.id === 306 ? salah : player.id === 51617 ? darwin : player.id === 1257 ? kounde : player.id === 278 ? mbappe : player.id === 377122 ? endrick : player.id === 762 ? vini : player.id === 56 ? griezmann : player.id === 19617 ? olise : player.id === 272 ? rabiot : player.id === 156477 ? cherki : player.id === 1467 ? lacazette : player.id === 47300 ? theo : player.id === 1496 ? raphinha : player.id === 521 ? lewandowski : player.id === 2864 ? isak : player.id === 41585 ? ramos : player.id === 284324 ? garnacho : player.id === 128384 ? vitinha : { uri: player.photo }} style={styles.photo} />
-                        <View style={styles.number}><Text style={{ fontFamily: "Kanitalic", color: "white" }}>{player.number}</Text></View>
-                        <Text style={styles.nom}>{player.name. length < 19 ? player.name : player.name.split(' ').slice(-1).join(' ')}</Text>
+                    <LinearGradient style={styles.joueur} colors={["#fff", "rgb(163, 164, 165)"]} locations={[0.5, 0.9]}> 
+                    <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-around"}}>
+                    <Image source={ player.id === 7334 ? adeyemi : player.id === 21104 ? kolo : player.id === 1100 ? haaland : player.id === 161904 ? barcola : player.id === 336657 ? zaire : player.id === 153 ? dembele : player.id === 129718 ? bellingham : player.id === 386828 ? yamal : player.id === 10009 ? rodrygo : player.id === 18979 ? gyokeres : player.id === 291964 ? guller : player.id === 343027 ? doue : player.id === 483 ? kvara : player.id === 154 ? goat : player.id === 306 ? salah : player.id === 51617 ? darwin : player.id === 1257 ? kounde : player.id === 278 ? mbappe : player.id === 377122 ? endrick : player.id === 762 ? vini : player.id === 56 ? griezmann : player.id === 19617 ? olise : player.id === 272 ? rabiot : player.id === 156477 ? cherki : player.id === 1467 ? lacazette : player.id === 47300 ? theo : player.id === 1496 ? raphinha : player.id === 521 ? lewandowski : player.id === 2864 ? isak : player.id === 41585 ? ramos : player.id === 284324 ? garnacho : player.id === 128384 ? vitinha : { uri: player.photo }} style={styles.photo} />
+                        <View style={styles.number}><Text style={{ fontFamily: "Kanitalik", color: "midnightblue", fontSize: 22 }}>{player.number}</Text></View>
                         </View>
+                        <Text style={styles.nom}>{player.name. length < 19 ? player.name : player.name.split(' ').slice(-1).join(' ')}</Text>
+                        </LinearGradient>
                         </TouchableOpacity> : null)}
-            </View>
+            </ScrollView>
         </View>
 
         </View>
@@ -127,32 +137,31 @@ const styles = StyleSheet.create({
         marginBottom: 4
     },
     joueur: {
-        alignItems: "center",
         justifyContent: "center",
-        width: 100,
-        marginBlock: 3
+        width: 105,
+        height: 130,
+        marginBlock: 3,
+        flexDirection: "column",
+        gap: 10,
+        borderRadius: 15,
+        
     },
     photo: {
-        width: 50,
-        height: 50,
-        borderRadius: 50
+        width: 55,
+        height: 70,
+        borderRadius:10
     },
     nom: {
-        fontFamily: "Kanito",
+        fontFamily: "Kanitalik",
         color: "midnightblue",
-        marginTop: -15,
+        textAlign: "center",
         fontSize: 13
     },
     number: {
-        backgroundColor: "midnightblue",
-        width: 20,
-        height: 20,
+        
         alignItems: "center",
         justifyContent: "center",
-        borderRadius: 50,
-        position: "relative",
-        bottom: 15,
-        left: 18
+        
     }
 })
 

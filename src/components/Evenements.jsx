@@ -54,7 +54,7 @@ const Evenements = ({ match }) => {
                       </View> :
                         <View style={styles.goalContainer}>
                           <Text style={styles.goalText}>
-                            ⚽ {element.player.name} {element.detail === "Penalty" ? "(Pen.)" : ""}
+                            ⚽ {element.player.name} {element.detail === "Penalty" ? <Text style={{fontFamily: "Kanitalic"}}>(Pen.)</Text> : ""}
                           </Text>
                           {element.assist?.name && (
                             <Text style={styles.assistText}> (Passe Dec: {element.assist.name})</Text>
@@ -64,13 +64,13 @@ const Evenements = ({ match }) => {
                     {element.type === "subst" && (
                       <View style={styles.substitutionContainer}>
                         <View style={{ alignItems: "center" }}>
-                          <Text style={styles.playerName}>{element.player.name}</Text>
+                          <Text style={styles.playerName}>{element.assist.name}</Text>
                           <Image source={vert} style={{ height: 15, width: 20 }} />
                           <Text style={{ color: "rgb(57, 200, 73)", fontFamily: "Kanitalic" }}>IN</Text>
                         </View>
                         <Image source={subst} style={styles.substitutionIcon} />
                         <View style={{ alignItems: "center" }}>
-                          <Text style={styles.playerName}>{element.assist?.name}</Text>
+                          <Text style={styles.playerName}>{element.player.name}</Text>
                           <Image source={rouge} style={{ height: 15, width: 20, transform: [{ rotate: "180deg" }] }} />
                           <Text style={{ color: "rgb(201, 38, 38)", fontFamily: "Kanitalic" }}>OUT</Text>
 

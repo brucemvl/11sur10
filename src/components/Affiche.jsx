@@ -75,7 +75,7 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
         <TouchableOpacity style={styles.exterieur} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo})}>
           <Image source={{ uri: match.teams.away.logo }} style={[styles.teamLogo, match.teams.away.id === 81 ? {shadowRadius: 1} : null]} />
           <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.away.name}</Text>
-          <View style={{gap: 5, flexDirection: "row"}}>{formeExt?.split('').map((char, index) => (
+          <View style={{gap: 5, flexDirection: "row", marginTop: 5}}>{formeExt?.split('').map((char, index) => (
           char === 'L' ? (
             <View style={styles.defaite}>
             <Text key={index} style={{color: "white", fontFamily: "Kanito"}}>D</Text>
