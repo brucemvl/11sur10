@@ -29,7 +29,7 @@ function Header() {
   }
   return (
     <LinearGradient
-      colors={['rgba(100, 160, 236, 1)', 'rgb(24, 29, 91)', 'rgba(0, 0, 0, 1)', "#f0f0f0"]}
+      colors={['rgba(100, 160, 236, 1)', 'rgb(24, 29, 91)', 'rgba(0, 0, 0, 1)', "rgba(94, 94, 94, 0)"]}
       locations={[0, 0.6, 0.92, 1]} // Spécifie les positions des couleurs
       style={styles.header}
     >

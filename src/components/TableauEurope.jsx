@@ -14,11 +14,15 @@ function TableauEurope({ id}) {
 
 
   const [phasePoules, setPhasePoules] = useState(false)
-  const [phaseBarrages, setPhaseBarrages] = useState(true)
+  const [phaseBarrages, setPhaseBarrages] = useState(false)
+  const [phaseFinale, setPhaseFinale] = useState(true)
+
 
  
   const [poules, setPoules] = useState([])
   const [barrages, setBarrages] = useState([])
+  const [phaseF, setPhaseF] = useState([])
+
 
   useEffect(() => {
       const fetchPoules = () => {
@@ -67,10 +71,10 @@ if(json.response[0].league.id === 2){
                 .then((json) => {
                     console.log(json.response)
 if(json.response[0].league.id === 2){
-                    setBarrages(json.response.slice(234, json.response.length))}
+                    setBarrages(json.response.slice(234, 250))}
 
                     if(json.response[0].league.id === 3){
-                      setBarrages(json.response.slice(224, json.response.length))}
+                      setBarrages(json.response.slice(224, 240))}
 
                       if(json.response[0].league.id === 848){
                         setBarrages(json.response.slice(364, json.response.length))}
@@ -81,6 +85,38 @@ if(json.response[0].league.id === 2){
         }
     };
     fetchBarrages();
+}, [id]
+
+)
+
+useEffect(() => {
+  const fetchPhaseF = () => {
+      try {
+          fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&season=2024`, {
+              method: "GET",
+              headers: {
+                  "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+                  "x-rapidapi-host": "v3.football.api-sports.io",
+              }
+          })
+              .then((response) => response.json())
+              .then((json) => {
+                  console.log(json.response)
+if(json.response[0].league.id === 2){
+                  setPhaseF(json.response.slice(250, json.response.length))}
+
+                  if(json.response[0].league.id === 3){
+                    setPhaseF(json.response.slice(240, json.response.length))}
+
+                    if(json.response[0].league.id === 848){
+                      setPoules(json.response.slice(256, 363))}
+              })
+      }
+      catch (error) {
+          console.error("error:", error)
+      }
+  };
+  fetchPhaseF();
 }, [id]
 
 )
@@ -97,11 +133,20 @@ if(json.response[0].league.id === 2){
   const openPoules = ()=>{
     setPhasePoules(true)
     setPhaseBarrages(false)
+    setPhaseFinale(false)
+
   }
 
   const openBarrages = ()=>{
     setPhasePoules(false)
     setPhaseBarrages(true)
+    setPhaseFinale(false)
+  }
+
+  const openPhaseFinale = ()=>{
+    setPhasePoules(false)
+    setPhaseBarrages(false)
+    setPhaseFinale(true)
   }
 
   const round = poules?.reduce(
@@ -137,6 +182,9 @@ if(json.response[0].league.id === 2){
       </TouchableOpacity>
       <TouchableOpacity onPress={openBarrages}>
         <Text style={phaseBarrages ? styles.selectedTab : styles.tab}>Barrages</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={openPhaseFinale}>
+        <Text style={phaseFinale ? styles.selectedTab : styles.tab}>Phase Finale</Text>
       </TouchableOpacity>
     </View>
 
@@ -190,6 +238,27 @@ if(json.response[0].league.id === 2){
         })}
       </>
     )}
+
+{phaseFinale && (
+      <>
+        {phaseF.map((x) => {
+          return (
+            <Match
+              key={"match" + x.fixture.id}
+              equipeDom={x.teams.home.name}
+              id={x.fixture.id}
+              equipeExt={x.teams.away.name}
+              logoDom={x.teams.home.logo}
+              round={x.league.round}
+              logoExt={x.teams.away.logo}
+              scoreDom={x.goals.home}
+              scoreExt={x.goals.away}
+              date={x.fixture.date}
+            />
+          );
+        })}
+      </>
+    )}
   </LinearGradient>
 );
 }
@@ -214,7 +283,7 @@ if(json.response[0].league.id === 2){
       fontSize: 16,
       color: 'black',
       backgroundColor: "lightgrey",
-      width: 84,
+      width: 94,
       height: 40,
       textAlign: "center",
       paddingTop: 7,
@@ -225,7 +294,7 @@ if(json.response[0].league.id === 2){
       fontSize: 16,
       color: '#fff',
       backgroundColor: '#007BFF',
-      width: 88,
+      width: 96,
       height: 40,
       textAlign: "center",
       paddingTop: 7,

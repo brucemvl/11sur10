@@ -41,6 +41,10 @@ import kephren from "../assets/portraits/kephren.png"
 import adeyemi from "../assets/portraits/adeyemi.png"
 import debruyne from "../assets/portraits/debruyne.png"
 import mayulu from "../assets/portraits/mayulu.png"
+import diaz from "../assets/portraits/diaz.png"
+import macallister from "../assets/portraits/macallister.png"
+import gakpo from "../assets/portraits/gakpo.png"
+import arnold from "../assets/portraits/arnold.png"
 import { LinearGradient } from "expo-linear-gradient";
 
 
@@ -78,7 +82,7 @@ function Squad({ squad }) {
                 <LinearGradient style={styles.joueur} colors={["#fff", "rgb(163, 164, 165)"]} locations={[0.5, 0.9]}> 
                 <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-around"}}>
 
-          <Image source={ player.id === 16367 ? pacho : player.id === 1257 ? kounde : player.id === 272 ? rabiot : player.id === 156477 ? cherki : player.id === 1467 ? lacazette : player.id === 47300 ? theo : player.id === 284324 ? garnacho : player.id === 128384 ? vitinha : { uri: player.photo }} style={styles.photo} />       
+          <Image source={ player.id === 283 ? arnold : player.id === 16367 ? pacho : player.id === 1257 ? kounde : player.id === 272 ? rabiot : player.id === 156477 ? cherki : player.id === 1467 ? lacazette : player.id === 47300 ? theo : player.id === 284324 ? garnacho : player.id === 128384 ? vitinha : { uri: player.photo }} style={styles.photo} />       
                         <View style={styles.number}><Text style={{ fontFamily: "Kanitalik", color: "midnightblue", fontSize: 22 }}>{player.number}</Text></View>
                         </View>
                         <Text style={styles.nom}>{player.name. length < 17 ? player.name : player.name.split(' ').slice(-1).join(' ')}</Text>
@@ -93,10 +97,10 @@ function Squad({ squad }) {
                 {squad?.players?.map((player) => player.position === "Midfielder" ? <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: player.id })}>
                 <LinearGradient style={styles.joueur} colors={["#fff", "rgb(163, 164, 165)"]} locations={[0.5, 0.9]}> 
                 <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-around"}}>
-          <Image source={player.id === 409216 ? mayulu : player.id === 629 ? debruyne : player.id === 116 ? kephren : player.id === 336657 ? zaire : player.id === 335051 ? joao : player.id === 129718 ? bellingham : player.id === 386828 ? yamal : player.id === 1257 ? kounde : player.id === 56 ? griezmann : player.id === 19617 ? olise : player.id === 272 ? rabiot : player.id === 156477 ? cherki  : player.id === 291964 ? guller : player.id === 1271 ? tchouameni : player.id === 47300 ? theo : player.id === 1496 ? raphinha  :  player.id === 284324 ? garnacho : player.id === 128384 ? vitinha : player.id === 152982 ? palmer : { uri: player.photo }} style={styles.photo} />
+          <Image source={ player.id === 6716 ? macallister : player.id === 409216 ? mayulu : player.id === 629 ? debruyne : player.id === 116 ? kephren : player.id === 336657 ? zaire : player.id === 335051 ? joao : player.id === 129718 ? bellingham : player.id === 386828 ? yamal : player.id === 1257 ? kounde : player.id === 56 ? griezmann : player.id === 19617 ? olise : player.id === 272 ? rabiot : player.id === 156477 ? cherki  : player.id === 291964 ? guller : player.id === 1271 ? tchouameni : player.id === 47300 ? theo : player.id === 1496 ? raphinha  :  player.id === 284324 ? garnacho : player.id === 128384 ? vitinha : player.id === 152982 ? palmer : { uri: player.photo }} style={styles.photo} />
                         <View style={styles.number}><Text style={{ fontFamily: "Kanitalik", color: "midnightblue", fontSize: 22 }}>{player.number}</Text></View>
                         </View>
-                        <Text style={styles.nom}>{player.name. length < 22 ? player.name : player.name.split(' ').slice(-1).join(' ')}</Text>
+                        <Text style={styles.nom}>{player.name. length > 21 ?  player.name.split(' ').slice(-1).join(' ') : player.name}</Text>
                         </LinearGradient>
                         </TouchableOpacity> : null)}
             </ScrollView>
@@ -108,10 +112,10 @@ function Squad({ squad }) {
                 {squad?.players?.map((player) => player.position === "Attacker" ? <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: player.id })}>
                     <LinearGradient style={styles.joueur} colors={["#fff", "rgb(163, 164, 165)"]} locations={[0.5, 0.9]}> 
                     <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-around"}}>
-                    <Image source={ player.id === 7334 ? adeyemi : player.id === 21104 ? kolo : player.id === 1100 ? haaland : player.id === 161904 ? barcola : player.id === 336657 ? zaire : player.id === 153 ? dembele : player.id === 129718 ? bellingham : player.id === 386828 ? yamal : player.id === 10009 ? rodrygo : player.id === 18979 ? gyokeres : player.id === 291964 ? guller : player.id === 343027 ? doue : player.id === 483 ? kvara : player.id === 154 ? goat : player.id === 306 ? salah : player.id === 51617 ? darwin : player.id === 1257 ? kounde : player.id === 278 ? mbappe : player.id === 377122 ? endrick : player.id === 762 ? vini : player.id === 56 ? griezmann : player.id === 19617 ? olise : player.id === 272 ? rabiot : player.id === 156477 ? cherki : player.id === 1467 ? lacazette : player.id === 47300 ? theo : player.id === 1496 ? raphinha : player.id === 521 ? lewandowski : player.id === 2864 ? isak : player.id === 41585 ? ramos : player.id === 284324 ? garnacho : player.id === 128384 ? vitinha : { uri: player.photo }} style={styles.photo} />
+                    <Image source={ player.id === 247 ? gakpo : player.id === 2489 ? diaz : player.id === 7334 ? adeyemi : player.id === 21104 ? kolo : player.id === 1100 ? haaland : player.id === 161904 ? barcola : player.id === 336657 ? zaire : player.id === 153 ? dembele : player.id === 129718 ? bellingham : player.id === 386828 ? yamal : player.id === 10009 ? rodrygo : player.id === 18979 ? gyokeres : player.id === 291964 ? guller : player.id === 343027 ? doue : player.id === 483 ? kvara : player.id === 154 ? goat : player.id === 306 ? salah : player.id === 51617 ? darwin : player.id === 1257 ? kounde : player.id === 278 ? mbappe : player.id === 377122 ? endrick : player.id === 762 ? vini : player.id === 56 ? griezmann : player.id === 19617 ? olise : player.id === 272 ? rabiot : player.id === 156477 ? cherki : player.id === 1467 ? lacazette : player.id === 47300 ? theo : player.id === 1496 ? raphinha : player.id === 521 ? lewandowski : player.id === 2864 ? isak : player.id === 41585 ? ramos : player.id === 284324 ? garnacho : player.id === 128384 ? vitinha : { uri: player.photo }} style={styles.photo} />
                         <View style={styles.number}><Text style={{ fontFamily: "Kanitalik", color: "midnightblue", fontSize: 22 }}>{player.number}</Text></View>
                         </View>
-                        <Text style={styles.nom}>{player.name. length < 19 ? player.name : player.name.split(' ').slice(-1).join(' ')}</Text>
+                        <Text style={styles.nom}>{player.name. length > 21 ?  player.name.split(' ').slice(-1).join(' ') : player.id === 762 ? "Vini Jr" :  player.name}</Text>
                         </LinearGradient>
                         </TouchableOpacity> : null)}
             </ScrollView>

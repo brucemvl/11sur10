@@ -779,8 +779,9 @@ const styles = StyleSheet.create({
     marginInline: 5
   },
   teamName: {
-    fontSize: 12,
-    fontFamily: "Kanito"
+    fontSize: 13,
+    fontFamily: "Kanito",
+    
   },
   scoreContainer: {
     alignItems: 'center',

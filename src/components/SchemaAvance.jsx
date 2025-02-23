@@ -107,7 +107,7 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
                                 <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
                                     <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
                                 </View>
-                                <Text style={styles.playerName}>{player.name.split(' ').slice(-1).join(' ')}</Text>
+                                <Text style={styles.playerName}>{player.id === 762 ? "Vini Jr" :  player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
                         {/* Attaquants */}
@@ -117,7 +117,7 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
                                 <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
                                     <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
                                 </View>
-                                <Text style={styles.playerName}>{player.id === 762 ? "Vinicius" : player.name.split(' ').slice(-1).join(' ')}</Text>
+                                <Text style={styles.playerName}>{player.id === 762 ? "Vini Jr" : player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
                     </View>
@@ -132,7 +132,7 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
                                 <View style={[styles.player, { backgroundColor: "#" + colors.primaryExt, borderColor: "#" + colors.borderExt }]}>
                                     <Text style={[styles.number, { color: "#" + colors.numberExt }]}>{player.number}</Text>
                                 </View>
-                                <Text style={styles.playerName}>{player.name.split(' ').slice(-1).join(' ')}</Text>
+                                <Text style={styles.playerName}>{player.id === 762 ? "Vini Jr" : player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
                         {/* Milieux */}
@@ -142,7 +142,7 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
                                 <View style={[styles.player, { backgroundColor: "#" + colors.primaryExt, borderColor: "#" + colors.borderExt }]}>
                                     <Text style={[styles.number, { color: "#" + colors.numberExt }]}>{player.number}</Text>
                                 </View>
-                                <Text style={styles.playerName}>{player.name.split(' ').slice(-1).join(' ')}</Text>
+                                <Text style={styles.playerName}>{player.id === 762 ? "Vini Jr" : player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
                         {/* Défenseurs */}

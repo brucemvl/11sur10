@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet, Animated, ScrollView, RefreshControl } from 'react-native';
 import ligue1 from "../assets/logoligue1.webp";
 import { LinearGradient } from 'expo-linear-gradient';
+import { SvgUri } from 'react-native-svg';
 
 function LivePage({ navigation }) {
-  const [live, setLive] = useState([]);
+  const [lives, setLives] = useState([]);
   const [isRefreshing, setIsRefreshing] = useState(false); // État pour gérer le rafraîchissement
 
-  const fetchLive = async () => {
+  const fetchLives = async () => {
     try {
       const response = await fetch('https://v3.football.api-sports.io/fixtures?live=all', {
         method: 'GET',
@@ -17,21 +18,24 @@ function LivePage({ navigation }) {
         },
       });
       const json = await response.json();
-      setLive(json.response);
+      setLives(json.response);
     } catch (error) {
       console.error('Error:', error);
     }
   };
 
   useEffect(() => {
-    fetchLive();
+    fetchLives();
   }, []);
 
   const onRefresh = () => {
     setIsRefreshing(true); // Déclenche le rafraîchissement
-    fetchLive().then(() => setIsRefreshing(false)); // Rafraîchit les données et arrête le rafraîchissement
+    fetchLives().then(() => setIsRefreshing(false)); // Rafraîchit les données et arrête le rafraîchissement
   };
 
+  const leagues = [... new Set(lives.map((element) => element.league.country))]
+  console.log(leagues)
+console.log(lives)
   const [fadeAnim] = useState(new Animated.Value(1)); // Animation de fade (opacité)
 
   useEffect(() => {
@@ -55,75 +59,7 @@ function LivePage({ navigation }) {
     return () => fadeAnim.stopAnimation();
   }, [fadeAnim]);
 
-  const renderItem = ({ item }) => (
-    <TouchableOpacity
-      style={styles.matchContainer}
-      onPress={() => navigation.navigate('FicheMatch', { id: item.fixture.id })}
-    >
-      <View style={styles.match}>
-        {item.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
-          source={ligue1}
-          style={styles.competitionLogo}
-          resizeMode="contain"
-        /> :
-        <Image
-          source={{ uri: item.league.logo }}
-          style={styles.competitionLogo}
-          resizeMode="contain"
-        />}
-        <View style={styles.teamContainerDom}>
-          <Image
-            source={{ uri: item.teams.home.logo }}
-            style={styles.teamLogo}
-            resizeMode="contain"
-          />
-          <Text style={styles.teamName}>{item.teams.home.name}</Text>
-        </View>
-        <View style={styles.scoreContainer}>
-          {item.goals.home === item.goals.away ? (
-            <View style={styles.score}>
-              <Text style={styles.scoreText}>{item.goals.home}</Text>
-              <View style={styles.liveSticker}>
-                <Text style={styles.liveText}>{item.fixture.status.elapsed}'</Text>
-                <Animated.Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
-              </View>
-              <Text style={styles.scoreText}>{item.goals.away}</Text>
-            </View>
-          ) : (
-            <View style={styles.score}>
-              <Text
-                style={
-                  item.goals.home > item.goals.away ? styles.winner : styles.loser
-                }
-              >
-                {item.goals.home}
-              </Text>
-              <View style={styles.liveSticker}>
-                <Text style={styles.liveText}>{item.fixture.status.elapsed}'</Text>
-                <Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10 }}>live</Text>
-              </View>
-
-              <Text
-                style={
-                  item.goals.away > item.goals.home ? styles.winner : styles.loser
-                }
-              >
-                {item.goals.away}
-              </Text>
-            </View>
-          )}
-        </View>
-        <View style={styles.teamContainer}>
-          <Image
-            source={{ uri: item.teams.away.logo }}
-            style={styles.teamLogo}
-            resizeMode="contain"
-          />
-          <Text style={styles.teamName}>{item.teams.away.name}</Text>
-        </View>
-      </View>
-    </TouchableOpacity>
-  );
+  
 
   return (
     <ScrollView
@@ -139,17 +75,85 @@ function LivePage({ navigation }) {
         <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.titlecontainer}>
           <Text style={styles.title}>LIVE</Text>
         </LinearGradient>
-        {live.length === 0 ? (
+        {lives.length === 0 ? (
           <Text style={styles.noMatch}>Aucun match pour le moment</Text>
-        ) : (
-          <FlatList
-            data={live}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.fixture.id.toString()}
-            style={styles.live__tableau}
-            onEndReachedThreshold={0.5}
-            onEndReached={onRefresh} // Si vous voulez aussi charger plus de données en bas
+        ) :
+        
+        (
+          leagues.map((league) => <View style={{marginBottom: 10}}>
+            <Text style={{fontFamily: "Kanitus", color: "white"}}>{league === "Denmark" ? "Danemark" : league === "Belgium" ? "Belgique" : league === "Hungary" ? "Hongrie" : league === "England" ? "Angleterre" : league === "Spain" ? "Espagne" : league === "Germany" ? "Allemagne" : league === "Poland" ? "Pologne" : league === "Cyprus" ? "Chypre" : league === "Sweden" ? "Suede" : league === "Czech-Republic" ? "Republique Tcheque" : league === "Switzerland" ? "Suisse" : league}</Text>
+          {lives.map((live) => live.league.country === league ? 
+          <TouchableOpacity
+      style={styles.matchContainer}
+      onPress={() => navigation.navigate('FicheMatch', { id: live.fixture.id })}
+    >
+      <View style={styles.match}>
+        {live.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
+          source={ligue1}
+          style={styles.competitionLogo}
+          resizeMode="contain"
+        /> :
+        <Image
+          source={{ uri: live.league.logo }}
+          style={styles.competitionLogo}
+          resizeMode="contain"
+        />}
+        <View style={styles.teamContainerDom}>
+          <Image
+            source={{ uri: live.teams.home.logo }}
+            style={styles.teamLogo}
+            resizeMode="contain"
           />
+          <Text style={styles.teamName}>{live.teams.home.name}</Text>
+        </View>
+        <View style={styles.scoreContainer}>
+          {live.goals.home === live.goals.away ? (
+            <View style={styles.score}>
+              <Text style={styles.scoreText}>{live.goals.home}</Text>
+              <View style={styles.liveSticker}>
+                <Text style={styles.liveText}>{live.fixture.status.elapsed}'</Text>
+                <Animated.Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
+              </View>
+              <Text style={styles.scoreText}>{live.goals.away}</Text>
+            </View>
+          ) : (
+            <View style={styles.score}>
+              <Text
+                style={
+                  live.goals.home > live.goals.away ? styles.winner : styles.loser
+                }
+              >
+                {live.goals.home}
+              </Text>
+              <View style={styles.liveSticker}>
+                <Text style={styles.liveText}>{live.fixture.status.elapsed}'</Text>
+                <Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10 }}>live</Text>
+              </View>
+
+              <Text
+                style={
+                  live.goals.away > live.goals.home ? styles.winner : styles.loser
+                }
+              >
+                {live.goals.away}
+              </Text>
+            </View>
+          )}
+        </View>
+        <View style={styles.teamContainer}>
+          <Image
+            source={{ uri: live.teams.away.logo }}
+            style={styles.teamLogo}
+            resizeMode="contain"
+          />
+          <Text style={styles.teamName}>{live.teams.away.name}</Text>
+        </View>
+      </View>
+    </TouchableOpacity>
+    : null
+          )}
+          </View>
+          )
         )}
       </View>
     </ScrollView>
@@ -161,10 +165,10 @@ const styles = StyleSheet.create({
     paddingBlock: 10,
     paddingInline: 4,
     borderRadius: 15,
-    backgroundColor: "#b0c4de",
+    backgroundColor: "rgb(99, 164, 221)",
     marginBottom: 0,
     width: '100%',
-    marginTop: 20
+    marginTop: 20,
   },
   title: {
     color: 'white',
@@ -177,7 +181,7 @@ const styles = StyleSheet.create({
     marginHorizontal: '35%',
     borderRadius: 10,
     height: 30,
-    marginBottom: 10
+    marginBottom: 10,
   },
   match: {
     flexDirection: 'row',
@@ -217,7 +221,7 @@ const styles = StyleSheet.create({
   },
   teamContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignlives: 'center',
     width: "35%",
     gap: 2,
     marginInline: 1,
