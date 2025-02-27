@@ -6,6 +6,8 @@ import { StyleSheet } from "react-native";
 import Journees from "./Journees";
 import Match from "./Match";
 import ligue1 from "../assets/logoligue1.webp"
+import ligue2 from "../assets/ligue2.jpg"
+
 
 function Tableau({ id, currentRound}) {
   const [fontsLoaded] = useFonts({
@@ -76,7 +78,7 @@ console.log(filter)
   return (
 <LinearGradient colors={["rgb(50, 183, 255)", 'rgba(4, 6, 45, 0.85)']} style={styles.container}>
         <Text style={styles.title}>Calendrier et Résultats</Text>
-        <Image source={id === 61 ? ligue1 : {uri : `https://media.api-sports.io/football/leagues/${id}.png`}} style={{width: 40, height: 40, objectFit: "contain"}} />
+        <Image source={id === 61 ? ligue1 : id === 62 ? ligue2 : {uri : `https://media.api-sports.io/football/leagues/${id}.png`}} style={{width: 40, height: 40, objectFit: "contain"}} />
       <Journees
         setFilter={setFilter}
         round={round}

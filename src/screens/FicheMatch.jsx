@@ -277,7 +277,7 @@ const FicheMatch = () => {
                 <Precedent />
                 <ScrollView contentContainerStyle={styles.bloc}>
                 <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt} />
-<Text>Les Compos sont disponibles!</Text>
+<Text style={{fontFamily: "Kanitt"}}>Les Compos sont disponibles!</Text>
         <SchemaAvance match={match} compoDom={compoDom} compoExt={compoExt} colors={colors} />
         <Histo historique={historique} />
 

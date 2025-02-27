@@ -67,8 +67,10 @@ function FicheSelections({ setFilter }) {
   const classementPlat = classement.flatMap(arr => arr);
 
   return (
+    <View>
+    <Precedent />
+
     <ScrollView style={styles.blocFicheSelections}>
-      <Precedent />
       <TableauSelections id={id} currentRound={currentRound} journey={journey} />
 
       <View style={styles.tableaux}>
@@ -105,6 +107,7 @@ function FicheSelections({ setFilter }) {
         ))}
       </View>
     </ScrollView>
+    </View>
   );
 }
 

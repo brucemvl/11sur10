@@ -63,7 +63,7 @@ console.log(lives)
 
   return (
     <ScrollView
-      style={{ width: "98%", paddingStart: "2%", marginBlock: 10, flex: 1 }}
+      contentContainerStyle={{ width: "98%", paddingInlineStart: "2%", marginBlock: 5,  justifyContent: "center" }}
       refreshControl={
         <RefreshControl
           refreshing={isRefreshing}
@@ -81,7 +81,7 @@ console.log(lives)
         
         (
           leagues.map((league) => <View style={{marginBottom: 10}}>
-            <Text style={{fontFamily: "Kanitus", color: "white"}}>{league === "Denmark" ? "Danemark" : league === "Belgium" ? "Belgique" : league === "Hungary" ? "Hongrie" : league === "England" ? "Angleterre" : league === "Spain" ? "Espagne" : league === "Germany" ? "Allemagne" : league === "Poland" ? "Pologne" : league === "Cyprus" ? "Chypre" : league === "Sweden" ? "Suede" : league === "Czech-Republic" ? "Republique Tcheque" : league === "Switzerland" ? "Suisse" : league}</Text>
+            <Text style={{fontFamily: "Kanitus", color: "white"}}>{league === "Denmark" ? "Danemark" : league === "Belgium" ? "Belgique" : league === "Hungary" ? "Hongrie" : league === "England" ? "Angleterre" : league === "Spain" ? "Espagne" : league === "Germany" ? "Allemagne" : league === "Poland" ? "Pologne" : league === "Cyprus" ? "Chypre" : league === "Sweden" ? "Suede" : league === "Czech-Republic" ? "Republique Tcheque" : league === "Switzerland" ? "Suisse" : league === "Serbia" ? "Serbie" : league === "Algeria" ? "Algerie" : league === "Tunisia" ? "Tunisie" : league === "Turkey" ? "Turquie" : league === "Singapore" ? "Singapour" : league}</Text>
           {lives.map((live) => live.league.country === league ? 
           <TouchableOpacity
       style={styles.matchContainer}
@@ -166,9 +166,14 @@ const styles = StyleSheet.create({
     paddingInline: 4,
     borderRadius: 15,
     backgroundColor: "rgb(99, 164, 221)",
-    marginBottom: 0,
+    marginBottom: 20,
     width: '100%',
     marginTop: 20,
+    shadowColor: '#000', // shadow color
+        shadowOffset: { width: 0, height: 5 }, // shadow offset
+        shadowOpacity: 0.8, // shadow opacity
+        shadowRadius: 3,
+        elevation: 4
   },
   title: {
     color: 'white',

@@ -27,7 +27,7 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
     return (
         <View style={styles.container}>
             <View style={styles.ligue}>
-               { match.league.standings === true ?  <Text style={{fontFamily: "Kanitt"}}>{match.league.name} - { match.league. round === "Knockout Round Play-offs" ? "Barrages" : `Journee ${roundd}`}</Text> :  <Text style={{fontFamily: "Kanitt"}}>{match.league.name}</Text>  }
+               { match.league.standings === true ?  <Text style={{fontFamily: "Kanitt"}}>{match.league.name} - { match.league. round === "Knockout Round Play-offs" ? "Barrages" : match.league. round === "Round of 16" ? "8eme de finale" : `Journee ${roundd}`}</Text> :  <Text style={{fontFamily: "Kanitt"}}>{match.league.name}</Text>  }
             </View>
             <View style={styles.datelieu}>
                 <View style={{flexDirection: "row", gap: 5}}>

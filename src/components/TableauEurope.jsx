@@ -168,7 +168,7 @@ if(json.response[0].league.id === 2){
 
  return (
   <LinearGradient
-    colors={id === 2 ? ['rgb(16, 19, 49)', 'rgb(50, 183, 255)'] : ['rgb(50, 183, 255)', 'rgb(16, 19, 49)']}
+    colors={id === 2 ? ['rgb(16, 19, 49)', 'rgba(16, 19, 49, 0.8)'] : ['rgb(50, 183, 255)', 'rgb(16, 19, 49)']}
     style={styles.container}
   >
     <Text style={styles.title}>Calendrier et Résultats</Text>

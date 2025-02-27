@@ -169,7 +169,7 @@ useEffect(() => {
               </TouchableOpacity>
             ))}
           </LinearGradient>
-          { coachDom === null ? null : <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, backgroundColor: "rgba(90, 103, 92, 0.9)", padding: 8, borderTopRightRadius: 15, borderBottomRightRadius: 15}}> <Text style={{ fontFamily: "Kanito", color: "white" }}>Coach:  {coachDomicile.name}</Text><Image source={{uri: coachDomicile.photo}} style={{width: 40, height: 40, borderRadius: 50, }}/></View>}
+          <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, backgroundColor: "rgba(90, 103, 92, 0.9)", padding: 8, borderTopRightRadius: 15, borderBottomRightRadius: 15}}> <Text style={{ fontFamily: "Kanito", color: "white" }}>Coach:  {compoDom.coach.name}</Text><Image source={{uri: compoDom.coach.photo}} style={{width: 40, height: 40, borderRadius: 50, }}/></View>
         </View>
 
         <View style={styles.teamExtContainer}>
@@ -195,7 +195,7 @@ useEffect(() => {
               </TouchableOpacity>
             ))}
           </LinearGradient>
-          { coachExt === null ? null : <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, backgroundColor: "rgb(90, 103, 92)", padding: 8, borderTopLeftRadius: 15, borderBottomLeftRadius: 15}}> <Text style={{ fontFamily: "Kanito", color: "white" }}>Coach:  {coachExterieur.name}</Text><Image source={{uri: coachExterieur.photo}} style={{width: 40, height: 40, borderRadius: 50, }}/></View>}
+          <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, backgroundColor: "rgb(90, 103, 92)", padding: 8, borderTopLeftRadius: 15, borderBottomLeftRadius: 15}}> <Text style={{ fontFamily: "Kanito", color: "white" }}>Coach:  {compoExt.coach.name}</Text><Image source={{uri: compoExt.coach.photo}} style={{width: 40, height: 40, borderRadius: 50, }}/></View>
         </View>
       </View>
     </View>

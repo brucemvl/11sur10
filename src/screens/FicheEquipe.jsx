@@ -241,7 +241,7 @@ console.log(squad)
             {
               height: heightSquadAnim.interpolate({
                 inputRange: [0, 1],
-                outputRange:[0, 840], // Ajustez la hauteur en fonction du contenu
+                outputRange:[0, 940], // Ajustez la hauteur en fonction du contenu
               }),
             },
           ]}

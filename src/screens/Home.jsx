@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "98%",
-    paddingStart: "2%",
+    paddingInlineStart: "2%",
     marginBlock: 10
   },
 });
