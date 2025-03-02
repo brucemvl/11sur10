@@ -81,6 +81,10 @@ import sorloth from "../assets/portraits/sorloth.png"
 import alvarez from "../assets/portraits/alvarez.png"
 import schik from "../assets/portraits/schik.jpg"
 import wirtz from "../assets/portraits/wirtz.jpg"
+import camavinga from "../assets/portraits/camavinga.jpg"
+import modric from "../assets/portraits/modric.jpg"
+import valverde from "../assets/portraits/valverde.jpg"
+import rudiger from "../assets/portraits/rudiger.jpg"
 
 
 function FicheJoueur() {
@@ -147,6 +151,10 @@ function FicheJoueur() {
 
   console.log(joueur)
 
+ 
+  
+
+
   const prec = ()=> {
     if (annee > 2024 - 3){
     setAnnee((prev)=> prev - 1)}
@@ -198,6 +206,35 @@ function FicheJoueur() {
     </View>
   }
 
+  const totalGoals = joueur.statistics.reduce((acc, stat) => {
+    // Ajouter les goals seulement si la ligue n'est pas "Olympics Men"
+    if (stat.league.name !== 'Copa America' && stat.league.name !== "Euro Championship") {
+      acc += stat.goals.total;
+    }
+    return acc;
+  }, 0);
+
+  const totalPasses = joueur.statistics.reduce((acc, stat) => {
+    // Ajouter les goals seulement si la ligue n'est pas "Olympics Men"
+    if (stat.league.name !== 'Copa America' && stat.league.name !== "Euro Championship") {
+      acc += stat.goals.assists;
+    }
+    return acc;
+  }, 0);
+
+  const totalMatchs = joueur.statistics.reduce((acc, stat) => {
+    // Ajouter les goals seulement si la ligue n'est pas "Olympics Men"
+    if (stat.league.name !== 'Copa America' && stat.league.name !== "Euro Championship") {
+      acc += stat.games.appearences;
+    }
+    return acc;
+  }, 0);
+
+  console.log(totalGoals)
+  console.log(totalPasses)
+
+
+
   const teamNames = joueur.statistics.map((element) => element.team.name);
   const uniqueTeamNames = joueur.statistics.reduce((acc, element) => {
     if (!acc.includes(element.team.logo) && element.games.minutes > 0) {
@@ -205,6 +242,8 @@ function FicheJoueur() {
     }
     return acc;
   }, []);
+
+  console.log(uniqueTeamNames)
 
   const date = new Date(joueur.player.birth.date);
   const formattedDate = date.toLocaleDateString('fr-FR', {
@@ -246,14 +285,14 @@ function FicheJoueur() {
     <ScrollView contentContainerStyle={styles.blocJoueur}>
       <View style={styles.article}>
         <LinearGradient colors={["black", "steelblue"]} style={styles.infosJoueur}>
-          <Image source={joueur.player.id === 794 ? schik : joueur.player.id === 203224 ? wirtz : joueur.player.id === 6009 ? alvarez : joueur.player.id === 8492 ? sorloth : joueur.player.id === 307835 ? beraldo : joueur.player.id === 262 ? kimpembe : joueur.player.id === 396623 ? cubarsi : joueur.player.id === 5 ? akanji : joueur.player.id === 81573 ? marmoush : joueur.player.id === 283 ? arnold : joueur.player.id === 2489 ? diaz : joueur.player.id === 6716 ? macallister : joueur.player.id === 247 ? gakpo : joueur.player.id === 409216 ? mayulu : joueur.player.id === 629 ? debruyne : joueur.player.id === 116 ? kephren : joueur.player.id === 7334 ? adeyemi : joueur.player.id === 21104 ? kolo : joueur.player.id === 1271 ? tchouameni : joueur.player.id === 2068 ? safonov : joueur.player.id === 1100 ? haaland : joueur.player.id === 161904 ? barcola : joueur.player.id === 336657 ? zaire : joueur.player.id === 153 ? dembele : joueur.player.id === 129718 ? bellingham : joueur.player.id === 386828 ? yamal : joueur.player.id === 10009 ? rodrygo : joueur.player.id === 18979 ? gyokeres : joueur.player.id === 291964 ? guller : joueur.player.id === 343027 ? doue : joueur.player.id === 483 ? kvara : joueur.player.id === 154 ? goat : joueur.player.id === 306 ? salah : joueur.player.id === 51617 ? darwin : joueur.player.id === 1257 ? kounde : joueur.player.id === 278 ? mbappe : joueur.player.id === 377122 ? endrick : joueur.player.id === 762 ? vini : joueur.player.id === 152982 ? palmer : joueur.player.id === 56 ? griezmann : joueur.player.id === 19617 ? olise : joueur.player.id === 272 ? rabiot : joueur.player.id === 156477 ? cherki : joueur.player.id === 1467 ? lacazette : joueur.player.id === 47300 ? theo : joueur.player.id === 1496 ? raphinha : joueur.player.id === 521 ? lewandowski : joueur.player.id === 2864 ? isak : joueur.player.id === 41585 ? ramos : joueur.player.id === 284324 ? garnacho : joueur.player.id === 128384 ? vitinha : joueur.player.id === 16367 ? pacho : joueur.player.id === 335051 ? joao : { uri: joueur.player.photo }} style={styles.photo} />
+          <Image source={joueur.player.id === 2207 ? camavinga : joueur.player.id === 756 ? valverde : joueur.player.id === 754 ? modric : joueur.player.id === 2285 ? rudiger : joueur.player.id === 794 ? schik : joueur.player.id === 203224 ? wirtz : joueur.player.id === 6009 ? alvarez : joueur.player.id === 8492 ? sorloth : joueur.player.id === 307835 ? beraldo : joueur.player.id === 262 ? kimpembe : joueur.player.id === 396623 ? cubarsi : joueur.player.id === 5 ? akanji : joueur.player.id === 81573 ? marmoush : joueur.player.id === 283 ? arnold : joueur.player.id === 2489 ? diaz : joueur.player.id === 6716 ? macallister : joueur.player.id === 247 ? gakpo : joueur.player.id === 409216 ? mayulu : joueur.player.id === 629 ? debruyne : joueur.player.id === 116 ? kephren : joueur.player.id === 7334 ? adeyemi : joueur.player.id === 21104 ? kolo : joueur.player.id === 1271 ? tchouameni : joueur.player.id === 2068 ? safonov : joueur.player.id === 1100 ? haaland : joueur.player.id === 161904 ? barcola : joueur.player.id === 336657 ? zaire : joueur.player.id === 153 ? dembele : joueur.player.id === 129718 ? bellingham : joueur.player.id === 386828 ? yamal : joueur.player.id === 10009 ? rodrygo : joueur.player.id === 18979 ? gyokeres : joueur.player.id === 291964 ? guller : joueur.player.id === 343027 ? doue : joueur.player.id === 483 ? kvara : joueur.player.id === 154 ? goat : joueur.player.id === 306 ? salah : joueur.player.id === 51617 ? darwin : joueur.player.id === 1257 ? kounde : joueur.player.id === 278 ? mbappe : joueur.player.id === 377122 ? endrick : joueur.player.id === 762 ? vini : joueur.player.id === 152982 ? palmer : joueur.player.id === 56 ? griezmann : joueur.player.id === 19617 ? olise : joueur.player.id === 272 ? rabiot : joueur.player.id === 156477 ? cherki : joueur.player.id === 1467 ? lacazette : joueur.player.id === 47300 ? theo : joueur.player.id === 1496 ? raphinha : joueur.player.id === 521 ? lewandowski : joueur.player.id === 2864 ? isak : joueur.player.id === 41585 ? ramos : joueur.player.id === 284324 ? garnacho : joueur.player.id === 128384 ? vitinha : joueur.player.id === 16367 ? pacho : joueur.player.id === 335051 ? joao : { uri: joueur.player.photo }} style={styles.photo} />
           <View style={styles.bio}>
             <Text style={styles.name}>{joueur.player.name}</Text>
             <Text style={styles.infoText}>Né le {formattedDate} à {joueur.player.birth.place}, {joueur.player.birth.country === "Spain" ? "Espagne" : joueur.player.birth.country === "Netherlands" ? "Pays-Bas" : joueur.player.birth.country === "Belgium" ? "Belgique" : joueur.player.birth.country === "Brazil" ? "Bresil" : joueur.player.birth.country === "England" ? "Angleterre" : joueur.player.birth.country === "Türkiye" ? "Turquie" : joueur.player.birth.country === "Switzerland" ? "Suisse" : joueur.player.birth.country === "Germany" ? "Allemagne" : joueur.player.birth.country}</Text>
             <Text style={styles.infoText}>Taille: {joueur.player.height}  -  Poids: {joueur.player.weight}</Text>
             <Text style={styles.infoText}>Poste: {joueur.statistics[0].games.position === "Midfielder" ? "Milieu" : joueur.statistics[0].games.position === "Attacker" ? "Attaquant" : joueur.statistics[0].games.position === "Defender" ? "Defenseur" : joueur.statistics[0].games.position === "Goalkeeper" ? "Gardien" : joueur.statistics[0].games.position}</Text>
             <View style={styles.logos}>
-              {uniqueTeamNames.map((logo, index) => (
+              {uniqueTeamNames.map((logo, index) => ( logo === "https://media.api-sports.io/football/teams/10179.png" || logo === 'https://media.api-sports.io/football/teams/9256.png' || logo === 'https://media.api-sports.io/football/teams/8216.png' || logo === 'https://media.api-sports.io/football/teams/8190.png' || logo === 'https://media.api-sports.io/football/teams/12520.png' || logo === 'https://media.api-sports.io/football/teams/712.png' || logo === 'https://media.api-sports.io/football/teams/8194.png' ? null :
                 <Image key={`logo-${index}`} source={{ uri: logo }} style={styles.logo} />
               ))}
             </View>
@@ -283,7 +322,7 @@ function FicheJoueur() {
             <Animated.View style={[styles.palmaresInfos, {
               height: heightAnim.interpolate({
                 inputRange: [0, 1],
-                outputRange: [0, 360]  // Ajustez la hauteur en fonction du contenu
+                outputRange: [0, 380]  // Ajustez la hauteur en fonction du contenu
               })
             }]}>
               <View style={{width: "55%"}} >
@@ -351,11 +390,29 @@ function FicheJoueur() {
             }
         </View>
 
-        <View style={{flexDirection: "row", alignItems: "center", gap: 20, marginBottom: 10}}>
+        <View style={{flexDirection: "row", alignItems: "center", gap: 20}}>
 {opaque === true ? <TouchableOpacity  style={{opacity: 0.2, marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center"}}><Text style={{fontSize: 20, fontFamily: "Kanitt"}}>{"<"}</Text></TouchableOpacity> :<TouchableOpacity onPress={prec} style={{marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center"}}><Text style={{fontSize: 20, fontFamily: "Kanitt"}}>{"<"}</Text></TouchableOpacity>}
 <Animated.Text style={[styles.season, { transform: [{ rotate: rotateSeasonInterpolate }] }]}>{annee}/{annee +1}</Animated.Text>
 {opaque2 === true ? <TouchableOpacity  style={{opacity: 0.2, marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center"}}><Text style={{fontSize: 20, fontFamily: "Kanitt"}}>{">"}</Text></TouchableOpacity> :<TouchableOpacity onPress={next} style={{marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center"}}><Text style={{fontSize: 20, fontFamily: "Kanitt"}}>{">"}</Text></TouchableOpacity>}
         </View>
+
+          <View style={{width: "70%", gap: 20, marginBlock: 10, flexDirection: "row", justifyContent: "space-evenly"}}>
+          
+              <View style={styles.stat}>
+                <View style={{ backgroundColor: "rgb(8, 4, 82)", borderRadius: 50, width: 45, height: 45, alignItems: "center", justifyContent: "center" }}><Text style={{ fontFamily: "Kanitt", color: "white", }}>{totalMatchs}</Text></View>
+                <Text style={styles.h5}>Matchs Joués</Text>
+              </View>
+
+              <View style={styles.stat}>
+                <View style={{ backgroundColor: "rgb(8, 4, 82)", borderRadius: 50, width: 45, height: 45, alignItems: "center", justifyContent: "center" }}><Text style={{ fontFamily: "Kanitt", color: "white", }}>{totalGoals}</Text></View>
+                <Text style={styles.h5}>Buts</Text>
+              </View>
+
+              <View style={styles.stat}>
+                <View style={{ backgroundColor: "rgb(8, 4, 82)", borderRadius: 50, width: 45, height: 45, alignItems: "center", justifyContent: "center" }}><Text style={{ fontFamily: "Kanitt", color: "white", }}>{totalPasses}</Text></View>
+                <Text style={styles.h5}>Passes Dec</Text>
+              </View>
+          </View>
 
         <View style={styles.stats}>
           {joueur.statistics.map((element, index) => (
@@ -574,6 +631,13 @@ fontSize: 16
   valeur: {
     fontFamily: "Kanitt",
     fontSize: 18
+  },
+  stat: {
+    alignItems: "center"
+  },
+  h5: {
+    fontFamily: "Kanitalik",
+    color: "rgb(8, 4, 82)",
   }
 });
 

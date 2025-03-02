@@ -76,6 +76,8 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
 
     return (
         <View style={styles.container}>
+            <Text style={{fontFamily: "Kanitt"}}>Les Compos sont disponibles!</Text>
+            
             {/* Disposition des terrains de football l'un sous l'autre */}
             <View style={styles.fieldsContainer}>
                 <ImageBackground source={field} style={{ objectFit: "contain" }} >
@@ -174,6 +176,7 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
 const styles = StyleSheet.create({
     container: {
         padding: 20,
+        alignItems: "center"
     },
     coachName: {
         fontSize: 20,

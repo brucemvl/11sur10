@@ -19,15 +19,23 @@ const FicheMatch = () => {
     const [live, setLive] = useState(false);
     const [details, setDetails] = useState(true);
     const [compos, setCompos] = useState(false);
+    const [compos2, setCompos2] = useState(true);
+
     const [coachDomicile, setCoachDom] = useState()
     const [classement, setClassement] = useState(false);
     const [histo, setHisto] = useState(false);
+    const [histo2, setHisto2] = useState(true);
+
     const [historique, setHistorique] = useState(null)
     const [selected, setSelected] = useState(true);
     const [selected2, setSelected2] = useState(false);
     const [selected3, setSelected3] = useState(false);
     const [selected4, setSelected4] = useState(false);
     const [selected5, setSelected5] = useState(false);
+    const [selected6, setSelected6] = useState(true);
+    const [selected7, setSelected7] = useState(true);
+
+
     const [homeStats, setHomeStats] = useState(null);
     const [extStats, setExtStats] = useState(null);
     
@@ -138,6 +146,8 @@ const FicheMatch = () => {
 
     const openCompos = () => {
         setCompos(true);
+        setCompos2(true);
+
         setLive(false);
         setDetails(false);
         setHisto(false);
@@ -147,6 +157,8 @@ const FicheMatch = () => {
         setSelected3(false);
         setSelected4(false);
         setSelected5(false);
+        setSelected7(true);
+
     };
 
     const openLive = () => {
@@ -168,26 +180,40 @@ const FicheMatch = () => {
         setCompos(false);
         setDetails(false);
         setHisto(true);
+        setHisto2(true);
+        setCompos2(false);
+
         setClassement(false);
         setSelected(false);
         setSelected2(false);
         setSelected3(false);
         setSelected4(true);
         setSelected5(false);
+        setSelected6(true);
+        setSelected7(false);
+
+
     };
 
     const openClassement = () => {
         setLive(false);
         setCompos(false);
+        setCompos2(false);
+
         setDetails(false);
         setClassement(false);
         setHisto(false);
+        setHisto2(false);
         setClassement(true);
         setSelected(false);
         setSelected2(false);
         setSelected3(false);
         setSelected4(false);
         setSelected5(true)
+        setSelected6(false)
+        setSelected7(false);
+
+
     };
 
     // If no match data available
@@ -268,25 +294,38 @@ const FicheMatch = () => {
     }
     
     
-    
     console.log (match)
     
+
+    //LORQUE LES COMPOS SONT DISPONIBLES
     if (match.lineups.length === 2 && match.fixture.status.long === "Not Started") {
         return (
             <View>
                 <Precedent />
                 <ScrollView contentContainerStyle={styles.bloc}>
                 <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt} />
-<Text style={{fontFamily: "Kanitt"}}>Les Compos sont disponibles!</Text>
-        <SchemaAvance match={match} compoDom={compoDom} compoExt={compoExt} colors={colors} />
-        <Histo historique={historique} />
+                <View style={{flexDirection: "row", marginBottom: 10}}>
+                <TouchableOpacity onPress={openCompos}>
+                            <Text style={selected7 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 100}]}>Compos</Text>
+                        </TouchableOpacity>
+        <TouchableOpacity onPress={openHisto}>
+                            <Text style={selected4 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 100}]}>Historique</Text>
+                        </TouchableOpacity>
+                      { match.league.standings === true ?  <TouchableOpacity onPress={openClassement}>
+                            <Text style={selected5 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 100}]}>Classement</Text>
+                        </TouchableOpacity> : null }
+                        </View>
+                        {compos2 && <SchemaAvance match={match} compoDom={compoDom} compoExt={compoExt} colors={colors} />}
+
+                        {histo && <Histo historique={historique}/>}
+                        {classement && <Classement id={match.league.id}/>}    
 
         </ScrollView>
         </View>
         )
     }
         
-    
+    //COMPOS NON DISPOS
     if (!compoDom || !compoExt) {
         return (
             <View>
@@ -295,8 +334,18 @@ const FicheMatch = () => {
         <ScrollView contentContainerStyle={styles.bloc}>
         
         <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt} />
-        <Histo historique={historique} />
-        </ScrollView>
+        <View style={{flexDirection: "row", marginBottom: 10}}>
+            
+        <TouchableOpacity onPress={openHisto}>
+                            <Text style={selected6 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 100}]}>Historique</Text>
+                        </TouchableOpacity>
+                      { match.league.standings === true ?  <TouchableOpacity onPress={openClassement}>
+                            <Text style={selected5 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 100}]}>Classement</Text>
+                        </TouchableOpacity> : null }
+                        </View>
+                        {histo2 && <Histo historique={historique}/>}
+                        {classement && <Classement id={match.league.id}/>}       
+                         </ScrollView>
         </View>
         )
     }
