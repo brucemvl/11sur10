@@ -27,6 +27,8 @@ const FicheMatch = () => {
     const [histo2, setHisto2] = useState(true);
 
     const [historique, setHistorique] = useState(null)
+    const [historique2, setHistorique2] = useState(null)
+
     const [selected, setSelected] = useState(true);
     const [selected2, setSelected2] = useState(false);
     const [selected3, setSelected3] = useState(false);
@@ -119,7 +121,7 @@ const FicheMatch = () => {
             .then((response) => response.json())
             .then((result) => {
                 
-                    setHistorique(result.response.slice(result.response.length - 6, result.response.length));
+                    setHistorique(result.response.slice(result.response.length - 5, result.response.length));
             })
             .catch((error) => { 
                 console.error(error);
@@ -127,7 +129,32 @@ const FicheMatch = () => {
             });
     }, [homeId, extId]);
 
+
+    useEffect(() => {
+     // Fetch head-to-head history
+     fetch(`https://v3.football.api-sports.io/fixtures/headtohead?h2h=${extId}-${homeId}`, {
+        method: "GET",
+        headers: {
+            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+            "x-rapidapi-host": "v3.football.api-sports.io",
+        }
+    })
+        .then((response) => response.json())
+        .then((result) => {
+            result.response.length <= 6 ? setHistorique2(result.response) :
+
+            
+                setHistorique2(result.response.slice(result.response[2], result.response.length - 10));
+        })
+        .catch((error) => { 
+            console.error(error);
+            setHistorique2(null)
+        });
+}, [homeId, extId]);
+
     console.log(historique)
+    console.log(historique2)
+
 
 
     // Logic for switching between tabs
@@ -221,7 +248,7 @@ const FicheMatch = () => {
         return <Text>Loading match info...</Text>;
     }
 
-    if (!historique) {
+    if (!historique || !historique2) {
         return <Text>Loading match info...</Text>;
     }
 
@@ -317,7 +344,7 @@ const FicheMatch = () => {
                         </View>
                         {compos2 && <SchemaAvance match={match} compoDom={compoDom} compoExt={compoExt} colors={colors} />}
 
-                        {histo && <Histo historique={historique}/>}
+                        {histo && <Histo historique={historique} historique2={historique2}/>}
                         {classement && <Classement id={match.league.id}/>}    
 
         </ScrollView>
@@ -343,7 +370,7 @@ const FicheMatch = () => {
                             <Text style={selected5 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 100}]}>Classement</Text>
                         </TouchableOpacity> : null }
                         </View>
-                        {histo2 && <Histo historique={historique}/>}
+                        {histo2 && <Histo historique={historique} historique2={historique2}/>}
                         {classement && <Classement id={match.league.id}/>}       
                          </ScrollView>
         </View>
@@ -404,7 +431,7 @@ const FicheMatch = () => {
                     {details && match && <Details match={match} possession={poss} expectedGoals={xg} tirs={tirs} tirsCadres={tirsCadres} jaune={jaune} rouge={rouge} passes={passes} passesReussies={passesReussies} accuracy={accuracy}/>}
                 {compos && <Compositions match={match} titulairesDom={tituDom} titulairesExt={tituExt} coachDom={coachDom} coachExt={coachExt} coachDomId={coachDomId} coachExtId={coachExtId} systemeDom={systemeDom} systemeExt={systemeExt} substituteDom={substituteDom} substituteExt={substituteExt} compoDom={compoDom} compoExt={compoExt} colors={colors} homeId={homeId} extId={extId}/>}
                 {live && <Evenements match={match} />}
-                {histo && <Histo historique={historique}/>}
+                {histo && <Histo historique={historique} historique2={historique2}/>}
                 {classement && <Classement id={match.league.id}/>}
 
 

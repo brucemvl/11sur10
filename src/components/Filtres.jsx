@@ -1,13 +1,10 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView, useWindowDimensions } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';  // Pour le dégradé
 import { useNavigation } from '@react-navigation/native'; // Pour la navigation
 import { championnats, europe } from '../datas/Leagues'; // Import des données
 import { useFonts } from 'expo-font';  // Importer le hook useFonts d'Expo
 import ligue1 from "../assets/logoligue1.webp"
 import ligue2 from "../assets/ligue2.jpg"
-import ucl from "../assets/logoucl.png"
-
 
 
 function Filtres() {

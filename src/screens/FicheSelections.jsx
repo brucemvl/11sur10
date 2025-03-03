@@ -4,7 +4,7 @@ import TableauSelections from '../components/TableauSelections'; // Assurez-vous
 import { useRoute } from '@react-navigation/native';
 import Precedent from '../components/Precedent';
 
-function FicheSelections({ setFilter }) {
+function FicheSelections() {
   const [classement, setClassement] = useState();
   const [loading, setLoading] = useState(true);
   const [currentRound, setCurrentRound] = useState("League B - 6");
@@ -113,9 +113,9 @@ function FicheSelections({ setFilter }) {
 
 const styles = StyleSheet.create({
   blocFicheSelections: {
-    flex: 1,
     paddingBlock: 10,
     backgroundColor: '#f0f0f0',
+    marginTop: 50
   },
   tableaux: {
     marginTop: 20,

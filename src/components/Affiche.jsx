@@ -8,11 +8,11 @@ import stade from "../assets/stade.png"
 import calendrier from "../assets/date.png"
 import heure from "../assets/heure.png"
 import loc from "../assets/loc.png"
-import ucl1 from "../assets/UCL1.jpg"
 import ucl2 from "../assets/UCL2.jpg"
 import grass from "../assets/grass.jpg"
 import pl from "../assets/PL.jpg"
 import liga from "../assets/liga.webp"
+import bundesliga from "../assets/bundesliga.webp"
 
 
 
@@ -27,7 +27,7 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
     return (
         <View style={styles.container}>
             <View style={styles.ligue}>
-               { match.league.standings === true ?  <Text style={{fontFamily: "Kanitt"}}>{match.league.name} - { match.league. round === "Knockout Round Play-offs" ? "Barrages" : match.league. round === "Round of 16" ? "8eme de finale" : `Journee ${roundd}`}</Text> :  <Text style={{fontFamily: "Kanitt"}}>{match.league.name}</Text>  }
+               { match.league.standings === true ?  <Text style={{fontFamily: "Kanitt"}}>{match.league.name} - { match.league. round === "Knockout Round Play-offs" ? "Barrages" : match.league. round === "Round of 16" ? "8eme de finale" : match.league.round === "Quarter-finals" ? "Quart de finale" : `Journee ${roundd}`}</Text> :  <Text style={{fontFamily: "Kanitt"}}>{match.league.name}</Text>  }
             </View>
             <View style={styles.datelieu}>
                 <View style={{flexDirection: "row", gap: 5}}>
@@ -41,8 +41,8 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
                     <Image source={loc} style={styles.icone}/>
                 </View>
             </View>
-{match.league.id === 2 || match.league.id === 61 || match.league.id === 39 || match.league.id === 140 ?
-    <ImageBackground source={match.league.id === 2 ? ucl2 : match.league.id === 61 ?  grass : match.league.id === 39 ? pl : liga}  style={styles.afficheUcl} imageStyle={{borderRadius: 10, filter: match.league.id === 61 ? "brightness(0.5)" : match.league.id === 39 ? "brightness(0.4)" : match.league.id === 140 ? "brightness(0.32)" : "brightness(0.9)"}}>
+{match.league.id === 2 || match.league.id === 61 || match.league.id === 39 || match.league.id === 140 || match.league.id === 78 ?
+    <ImageBackground source={match.league.id === 2 ? ucl2 : match.league.id === 61 ?  grass : match.league.id === 39 ? pl : match.league.id === 78 ? bundesliga : liga}  style={styles.afficheUcl} imageStyle={{borderRadius: 10, filter: match.league.id === 61 ? "brightness(0.5)" : match.league.id === 39 ? "brightness(0.4)" : match.league.id === 140 ? "brightness(0.32)" : match.league.id === 78 ? "brightness(0.45)" : "brightness(0.9)"}}>
             <TouchableOpacity style={styles.domicile} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo})}>
           <Image source={{ uri: match.teams.home.logo }} style={[styles.teamLogo, match.teams.home.id === 81 ? {shadowRadius: 1} : null]} />
           <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.home.name}</Text>

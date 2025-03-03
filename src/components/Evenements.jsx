@@ -57,7 +57,7 @@ const Evenements = ({ match }) => {
                             ⚽ {element.player.name} {element.detail === "Penalty" ? <Text style={{fontFamily: "Kanitalic"}}>(Pen.)</Text> : ""}
                           </Text>
                           {element.assist?.name && (
-                            <Text style={styles.assistText}> (Passe Dec: {element.assist.name})</Text>
+                            <Text style={styles.assistText}> (Passe Dec: <Text style={{fontFamily: "Kanitt", fontSize: 13}}>{element.assist.name}</Text>)</Text>
                           )}
                         </View>
                     )}

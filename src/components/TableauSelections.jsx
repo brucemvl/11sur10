@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Match from './Match'; // Assurez-vous que Match est aussi adapté pour React Native
-import Journees from './Journees'; // Assurez-vous que ce composant est aussi adapté pour React Native
+import JourneesSelections from './JourneesSelections'; // Assurez-vous que ce composant est aussi adapté pour React Native
 
 function TableauSelections({ id, currentRound, journey }) {
   const [teamF, setTeamF] = useState([]);
@@ -62,7 +62,7 @@ function TableauSelections({ id, currentRound, journey }) {
       
 
       <Text style={styles.header}>Phase finale</Text>
-      <Journees
+      <JourneesSelections
         setFilter={setFilter}
         round={round}
         roundd={roundd}
