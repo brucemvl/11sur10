@@ -1,4 +1,6 @@
 import 'react-native-gesture-handler';
+import { TransitionSpecs, CardStyleInterpolators } from '@react-navigation/stack';
+import { Animated } from 'react-native';
 
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -29,7 +31,19 @@ export default function AppNavigator() {
       <Stack.Navigator
         initialRouteName="Home"
         screenOptions={{
-          header: () => <Header />
+          header: () => <Header />,
+          cardStyleInterpolator: ({ current, next, layouts }) => {
+            const progress = Animated.add(current.progress, next ? next.progress : 0);
+
+            return {
+              cardStyle: {
+                opacity: progress.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0, 1], // Faire passer l'opacité de 0 à 1
+                }),
+              },
+            };
+          },
         }}
         >
       

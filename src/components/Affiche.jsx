@@ -17,6 +17,7 @@ import bundesliga from "../assets/bundesliga.webp"
 
 
 
+
 const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP, formeHome, formeExt, onPress }) => {
 
     const navigation = useNavigation()
