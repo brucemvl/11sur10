@@ -13,6 +13,8 @@ import grass from "../assets/grass.jpg"
 import pl from "../assets/PL.jpg"
 import liga from "../assets/liga.webp"
 import bundesliga from "../assets/bundesliga.webp"
+import arbitre from "../assets/arbitre.png"
+
 
 
 
@@ -24,129 +26,134 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
     const date = new Date(match.fixture.date);
     const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
     const formattedHour = `${date.getHours().toString().padStart(2, '0')}h${date.getMinutes().toString().padStart(2, '0')}`;
-   
+
     return (
         <View style={styles.container}>
             <View style={styles.ligue}>
-               { match.league.standings === true ?  <Text style={{fontFamily: "Kanitt"}}>{match.league.name} - { match.league. round === "Knockout Round Play-offs" ? "Barrages" : match.league. round === "Round of 16" ? "8eme de finale" : match.league.round === "Quarter-finals" ? "Quart de finale" : `Journee ${roundd}`}</Text> :  <Text style={{fontFamily: "Kanitt"}}>{match.league.name}</Text>  }
+                {match.league.standings === true ? <Text style={{ fontFamily: "Kanitt" }}>{match.league.name} - {match.league.round === "Knockout Round Play-offs" ? "Barrages" : match.league.round === "Round of 16" ? "8eme de finale" : match.league.round === "Quarter-finals" ? "Quart de finale" : `Journee ${roundd}`}</Text> : <Text style={{ fontFamily: "Kanitt" }}>{match.league.name}</Text>}
             </View>
             <View style={styles.datelieu}>
-                <View style={{flexDirection: "row", gap: 5}}>
+                <View style={{ flexDirection: "row", gap: 5 }}>
                     <Image source={calendrier} style={styles.icone} />
-                <Text style={styles.text}>{formattedDate} - {formattedHour}</Text>
+                    <Text style={styles.text}>{formattedDate} - {formattedHour}</Text>
                     <Image source={heure} style={styles.icone} />
                 </View>
-                <View style={{flexDirection: "row", gap: 5, alignItems: "center"}}>
-                    <Image source={stade} style={styles.icone}/>
-                <Text style={styles.text}>{match.fixture.venue.name} , {match.fixture.venue.city}</Text>
-                    <Image source={loc} style={styles.icone}/>
+                <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
+                    <Image source={stade} style={styles.icone} />
+                    <Text style={styles.text}>{match.fixture.venue.name === "Estadio Santiago Bernabéu" ? "Santiago Bernabeu" : match.fixture.venue.name} , {match.fixture.venue.city}</Text>
+                    <Image source={loc} style={styles.icone} />
                 </View>
+                {match.fixture.referee === null ? null : 
+                <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
+                    <Image source={arbitre} style={styles.icone} />
+                    <Text style={styles.text}>{match.fixture.referee}</Text>
+                </View>}
             </View>
-{match.league.id === 2 || match.league.id === 61 || match.league.id === 39 || match.league.id === 140 || match.league.id === 78 ?
-    <ImageBackground source={match.league.id === 2 ? ucl2 : match.league.id === 61 ?  grass : match.league.id === 39 ? pl : match.league.id === 78 ? bundesliga : liga}  style={styles.afficheUcl} imageStyle={{borderRadius: 10, filter: match.league.id === 61 ? "brightness(0.5)" : match.league.id === 39 ? "brightness(0.4)" : match.league.id === 140 ? "brightness(0.32)" : match.league.id === 78 ? "brightness(0.45)" : "brightness(0.9)"}}>
-            <TouchableOpacity style={styles.domicile} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo})}>
-          <Image source={{ uri: match.teams.home.logo }} style={[styles.teamLogo, match.teams.home.id === 81 ? {shadowRadius: 1} : null]} />
-          <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.home.name}</Text>
-          <View style={{gap: 5, flexDirection: "row", marginTop: 5}}>{formeHome?.split('').map((char, index) => (
-          char === 'L' ? (
-            <View style={styles.defaite}>
-            <Text key={index} style={{color: "white", fontFamily: "Kanito"}}>D</Text>
-            </View>
-          ) : 
-          char === 'W' ? (
-            <View style={styles.victoire} >
-            <Text key={index} style={{color: "white", fontFamily: "Kanito"}}>V</Text>
-            </View>
-          ) :(
-            <View style={styles.nul}>
-            <Text key={index} style={{color: "white", fontFamily: "Kanito"}}>N</Text>
-            </View>
-          )
-        ))}</View>
-        </TouchableOpacity>
+            {match.league.id === 2 || match.league.id === 61 || match.league.id === 39 || match.league.id === 140 || match.league.id === 78 ?
+                <ImageBackground source={match.league.id === 2 ? ucl2 : match.league.id === 61 ? grass : match.league.id === 39 ? pl : match.league.id === 78 ? bundesliga : liga} style={styles.afficheUcl} imageStyle={{ borderRadius: 10, filter: match.league.id === 61 ? "brightness(0.5)" : match.league.id === 39 ? "brightness(0.4)" : match.league.id === 140 ? "brightness(0.32)" : match.league.id === 78 ? "brightness(0.45)" : "brightness(0.9)" }}>
+                    <TouchableOpacity style={styles.domicile} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo })}>
+                        <Image source={{ uri: match.teams.home.logo }} style={[styles.teamLogo, match.teams.home.id === 81 ? { shadowRadius: 1 } : null]} />
+                        <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.home.name}</Text>
+                        <View style={{ gap: 5, flexDirection: "row", marginTop: 5 }}>{formeHome?.split('').map((char, index) => (
+                            char === 'L' ? (
+                                <View style={styles.defaite}>
+                                    <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>D</Text>
+                                </View>
+                            ) :
+                                char === 'W' ? (
+                                    <View style={styles.victoire} >
+                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>V</Text>
+                                    </View>
+                                ) : (
+                                    <View style={styles.nul}>
+                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>N</Text>
+                                    </View>
+                                )
+                        ))}</View>
+                    </TouchableOpacity>
 
-        <View style={styles.score}>
-        <Image source={ match.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : match.league.logo === "https://media.api-sports.io/football/leagues/2.png" ? ucl : {uri : match.league.logo}} style={{height: 40, width: 40, objectFit: "contain", marginBlock: 1}} />
+                    <View style={styles.score}>
+                        <Image source={match.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : match.league.logo === "https://media.api-sports.io/football/leagues/2.png" ? ucl : { uri: match.league.logo }} style={{ height: 40, width: 40, objectFit: "contain", marginBlock: 1 }} />
 
-          <Text style={styles.scoreText}>
-            {match.goals.home} - {match.goals.away}
-          </Text>
-        </View>
+                        <Text style={styles.scoreText}>
+                            {match.goals.home} - {match.goals.away}
+                        </Text>
+                    </View>
 
-        <TouchableOpacity style={styles.exterieur} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo})}>
-          <Image source={{ uri: match.teams.away.logo }} style={[styles.teamLogo, match.teams.away.id === 81 ? {shadowRadius: 1} : null]} />
-          <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.away.name}</Text>
-          <View style={{gap: 5, flexDirection: "row", marginTop: 5}}>{formeExt?.split('').map((char, index) => (
-          char === 'L' ? (
-            <View style={styles.defaite}>
-            <Text key={index} style={{color: "white", fontFamily: "Kanito"}}>D</Text>
-            </View>
-          ) : 
-          char === 'W' ? (
-            <View style={styles.victoire} >
-            <Text key={index} style={{color: "white", fontFamily: "Kanito"}}>V</Text>
-            </View>
-          ) :(
-            <View style={styles.nul}>
-            <Text key={index} style={{color: "white", fontFamily: "Kanito"}}>N</Text>
-            </View>
-          )
-        ))}</View>
-        </TouchableOpacity>
-    </ImageBackground>
-     :
+                    <TouchableOpacity style={styles.exterieur} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo })}>
+                        <Image source={{ uri: match.teams.away.logo }} style={[styles.teamLogo, match.teams.away.id === 81 ? { shadowRadius: 1 } : null]} />
+                        <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.away.name}</Text>
+                        <View style={{ gap: 5, flexDirection: "row", marginTop: 5 }}>{formeExt?.split('').map((char, index) => (
+                            char === 'L' ? (
+                                <View style={styles.defaite}>
+                                    <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>D</Text>
+                                </View>
+                            ) :
+                                char === 'W' ? (
+                                    <View style={styles.victoire} >
+                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>V</Text>
+                                    </View>
+                                ) : (
+                                    <View style={styles.nul}>
+                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>N</Text>
+                                    </View>
+                                )
+                        ))}</View>
+                    </TouchableOpacity>
+                </ImageBackground>
+                :
 
-            <LinearGradient colors={['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.8)']} style={styles.affiche}>
-            <TouchableOpacity style={styles.domicile} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo})}>
-          <Image source={{ uri: match.teams.home.logo }} style={styles.teamLogo} />
-          <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.home.name}</Text>
-          <View style={{gap: 5, flexDirection: "row", marginTop: 5}}>{formeHome?.split('').map((char, index) => (
-          char === 'L' ? (
-            <View style={styles.defaite}>
-            <Text key={index} style={{color: "white", fontFamily: "Kanito"}}>D</Text>
-            </View>
-          ) : 
-          char === 'W' ? (
-            <View style={styles.victoire} >
-            <Text key={index} style={{color: "white", fontFamily: "Kanito"}}>V</Text>
-            </View>
-          ) :(
-            <View style={styles.nul}>
-            <Text key={index} style={{color: "white", fontFamily: "Kanito"}}>N</Text>
-            </View>
-          )
-        ))}</View>
-        </TouchableOpacity>
+                <LinearGradient colors={['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.8)']} style={styles.affiche}>
+                    <TouchableOpacity style={styles.domicile} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo })}>
+                        <Image source={{ uri: match.teams.home.logo }} style={styles.teamLogo} />
+                        <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.home.name}</Text>
+                        <View style={{ gap: 5, flexDirection: "row", marginTop: 5 }}>{formeHome?.split('').map((char, index) => (
+                            char === 'L' ? (
+                                <View style={styles.defaite}>
+                                    <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>D</Text>
+                                </View>
+                            ) :
+                                char === 'W' ? (
+                                    <View style={styles.victoire} >
+                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>V</Text>
+                                    </View>
+                                ) : (
+                                    <View style={styles.nul}>
+                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>N</Text>
+                                    </View>
+                                )
+                        ))}</View>
+                    </TouchableOpacity>
 
-        <View style={styles.score}>
-        <Image source={ match.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : match.league.logo === "https://media.api-sports.io/football/leagues/2.png" ? ucl : {uri : match.league.logo}} style={{height: 40, width: 40, objectFit: "contain", marginBlock: 1}} />
+                    <View style={styles.score}>
+                        <Image source={match.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : match.league.logo === "https://media.api-sports.io/football/leagues/2.png" ? ucl : { uri: match.league.logo }} style={{ height: 40, width: 40, objectFit: "contain", marginBlock: 1 }} />
 
-          <Text style={styles.scoreText}>
-            {match.goals.home} - {match.goals.away}
-          </Text>
-        </View>
+                        <Text style={styles.scoreText}>
+                            {match.goals.home} - {match.goals.away}
+                        </Text>
+                    </View>
 
-        <TouchableOpacity style={styles.exterieur} onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo})}>
-          <Image source={{ uri: match.teams.away.logo }} style={match.teams.away.id === 81 ? styles.marseille : styles.teamLogo } />
-          <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.away.name}</Text>
-          <View style={{gap: 5, flexDirection: "row"}}>{formeExt?.split('').map((char, index) => (
-          char === 'L' ? (
-            <View style={styles.defaite}>
-            <Text key={index} style={{color: "white", fontFamily: "Kanito"}}>D</Text>
-            </View>
-          ) : 
-          char === 'W' ? (
-            <View style={styles.victoire} >
-            <Text key={index} style={{color: "white", fontFamily: "Kanito"}}>V</Text>
-            </View>
-          ) :(
-            <View style={styles.nul}>
-            <Text key={index} style={{color: "white", fontFamily: "Kanito"}}>N</Text>
-            </View>
-          )
-        ))}</View>
-        </TouchableOpacity>
-    </LinearGradient>}
+                    <TouchableOpacity style={styles.exterieur} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo })}>
+                        <Image source={{ uri: match.teams.away.logo }} style={match.teams.away.id === 81 ? styles.marseille : styles.teamLogo} />
+                        <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.away.name}</Text>
+                        <View style={{ gap: 5, flexDirection: "row" }}>{formeExt?.split('').map((char, index) => (
+                            char === 'L' ? (
+                                <View style={styles.defaite}>
+                                    <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>D</Text>
+                                </View>
+                            ) :
+                                char === 'W' ? (
+                                    <View style={styles.victoire} >
+                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>V</Text>
+                                    </View>
+                                ) : (
+                                    <View style={styles.nul}>
+                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>N</Text>
+                                    </View>
+                                )
+                        ))}</View>
+                    </TouchableOpacity>
+                </LinearGradient>}
 
             <View style={styles.buts}>
 
@@ -172,22 +179,22 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
                             </View>
                         )}
                     />
-                </View> 
+                </View>
 
             </View>
-{match.fixture.status.short === "PEN" ?
-            <View style={{ width: "85%", justifyContent: "center", alignItems: "center", marginBlock: 20}}>
-<Text style={{fontFamily: "Kanito", color: "red"}}>Tirs au But</Text>
-<View style={{backgroundColor: "darkgrey", width: "100%", flexDirection: "row", borderRadius: 5, padding: 4}}>
-<View style={{width: "50%"}}>
-<FlatList data={buteurHomeP} renderItem={({item}) => (<View style={{flexDirection: "row", gap: 3, margin: 3, alignItems: "center"}}>{item.detail === "Missed Penalty" ? <Text>❌</Text> : <Text style={styles.goalIcon}>⚽</Text>} <Text style={{fontFamily: "Kanito"}}> {item.player.name} </Text></View>)} />
-</View>
-<View style={{width: "50%"}}>
-<FlatList data={buteurExtP} renderItem={({item}) => (<View style={{flexDirection: "row", gap: 3, margin: 3, alignItems: "center", justifyContent: "flex-end"}}> <Text style={{fontFamily: "Kanito"}}> {item.player.name} </Text> {item.detail === "Missed Penalty" ? <Text>❌</Text> : <Text style={styles.goalIcon}>⚽</Text>}</View>)} />
-</View>
-</View>
+            {match.fixture.status.short === "PEN" ?
+                <View style={{ width: "85%", justifyContent: "center", alignItems: "center", marginBlock: 20 }}>
+                    <Text style={{ fontFamily: "Kanito", color: "red" }}>Tirs au But</Text>
+                    <View style={{ backgroundColor: "darkgrey", width: "100%", flexDirection: "row", borderRadius: 5, padding: 4 }}>
+                        <View style={{ width: "50%" }}>
+                            <FlatList data={buteurHomeP} renderItem={({ item }) => (<View style={{ flexDirection: "row", gap: 3, margin: 3, alignItems: "center" }}>{item.detail === "Missed Penalty" ? <Text>❌</Text> : <Text style={styles.goalIcon}>⚽</Text>} <Text style={{ fontFamily: "Kanito" }}> {item.player.name} </Text></View>)} />
+                        </View>
+                        <View style={{ width: "50%" }}>
+                            <FlatList data={buteurExtP} renderItem={({ item }) => (<View style={{ flexDirection: "row", gap: 3, margin: 3, alignItems: "center", justifyContent: "flex-end" }}> <Text style={{ fontFamily: "Kanito" }}> {item.player.name} </Text> {item.detail === "Missed Penalty" ? <Text>❌</Text> : <Text style={styles.goalIcon}>⚽</Text>}</View>)} />
+                        </View>
+                    </View>
 
-            </View>: null}
+                </View> : null}
         </View>
     );
 };
@@ -195,7 +202,7 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
 const styles = StyleSheet.create({
     gradient: {
         flex: 1,
-      },
+    },
     container: {
         padding: 10,
         alignItems: 'center',
@@ -211,8 +218,8 @@ const styles = StyleSheet.create({
     },
     icone: {
         height: 18,
-         width: 18, 
-         objectFit: "contain"
+        width: 18,
+        objectFit: "contain"
     },
     afficheUcl: {
         flexDirection: 'row',
@@ -254,11 +261,11 @@ const styles = StyleSheet.create({
         padding: 9
     },
     marseille: {
-padding: 30
-    }, 
-    text:{
-fontFamily: "Kanito",
-fontSize: 12
+        padding: 30
+    },
+    text: {
+        fontFamily: "Kanito",
+        fontSize: 12
     },
     scoreText: {
         fontSize: 26,
@@ -272,7 +279,7 @@ fontSize: 12
     equipeDomicile: {
         marginBottom: 10,
         width: "50%",
-        
+
 
     },
     equipeExt: {
@@ -284,7 +291,7 @@ fontSize: 12
         marginVertical: 2,
     },
     buteurExtItem: {
-flexDirection: "row-reverse"
+        flexDirection: "row-reverse"
     },
     goalIcon: {
         fontSize: 14,
@@ -294,32 +301,33 @@ flexDirection: "row-reverse"
         color: 'red',
     },
     penalty: {
-fontFamily: "Kanitalic"    },
+        fontFamily: "Kanitalic"
+    },
 
-victoire: {
-    backgroundColor: "green",
-    paddingBlock: 2,
-    paddingInline: 5,
-    borderRadius: 5,
-    alignItems: "center",
-    justifyContent: "center"
-},
-defaite : {
-    backgroundColor: "red",
-    paddingBlock: 2,
-    paddingInline: 5,
-    borderRadius: 5,
-    alignItems: "center",
-    justifyContent: "center"
-},
-nul: {
-backgroundColor: "grey",
-paddingBlock: 2,
-    paddingInline: 5,
-    borderRadius: 5,
-    alignItems: "center",
-    justifyContent: "center"
-}
+    victoire: {
+        backgroundColor: "green",
+        paddingBlock: 2,
+        paddingInline: 5,
+        borderRadius: 5,
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    defaite: {
+        backgroundColor: "red",
+        paddingBlock: 2,
+        paddingInline: 5,
+        borderRadius: 5,
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    nul: {
+        backgroundColor: "grey",
+        paddingBlock: 2,
+        paddingInline: 5,
+        borderRadius: 5,
+        alignItems: "center",
+        justifyContent: "center"
+    }
 });
 
 export default Affiche;

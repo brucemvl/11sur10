@@ -12,6 +12,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Histo from '../components/Histo.jsx';
 import Schema from '../components/Schema.jsx';
 import SchemaAvance from '../components/SchemaAvance.jsx';
+import Indisponibles from "../components/Indisponibles.jsx"
 
 
 const FicheMatch = () => {
@@ -20,6 +21,9 @@ const FicheMatch = () => {
     const [details, setDetails] = useState(true);
     const [compos, setCompos] = useState(false);
     const [compos2, setCompos2] = useState(true);
+    const [apercu, setApercu] = useState(false)
+
+    const [injuries, setInjuries] = useState([]);
 
     const [coachDomicile, setCoachDom] = useState()
     const [classement, setClassement] = useState(false);
@@ -36,6 +40,8 @@ const FicheMatch = () => {
     const [selected5, setSelected5] = useState(false);
     const [selected6, setSelected6] = useState(true);
     const [selected7, setSelected7] = useState(true);
+    const [selected8, setSelected8] = useState(false);
+
 
 
     const [homeStats, setHomeStats] = useState(null);
@@ -155,6 +161,28 @@ const FicheMatch = () => {
     console.log(historique)
     console.log(historique2)
 
+    // Fetch injuries
+    useEffect(() => {
+        fetch(`https://v3.football.api-sports.io/injuries?fixture=${id}`, {
+            method: "GET",
+            headers: {
+                "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+                "x-rapidapi-host": "v3.football.api-sports.io",
+            }
+        })
+            .then((response) => response.json())
+            .then((result) => {
+                if (result.response && result.response[0]) {
+                    setInjuries(result.response);
+                }
+            })
+            .catch((error) => { 
+                console.error(error);
+                setInjuries(null);
+            });
+    }, [id]);
+
+console.log(injuries)
 
 
     // Logic for switching between tabs
@@ -169,6 +197,8 @@ const FicheMatch = () => {
         setSelected3(false);
         setSelected4(false);
         setSelected5(false);
+        setSelected8(false)
+        setApercu(false)
     };
 
     const openCompos = () => {
@@ -185,6 +215,8 @@ const FicheMatch = () => {
         setSelected4(false);
         setSelected5(false);
         setSelected7(true);
+        setSelected8(false)
+        setApercu(false)
 
     };
 
@@ -199,6 +231,8 @@ const FicheMatch = () => {
         setSelected3(true);
         setSelected4(false);
         setSelected5(false);
+        setSelected8(false)
+        setApercu(false)
     };
 
 
@@ -218,7 +252,8 @@ const FicheMatch = () => {
         setSelected5(false);
         setSelected6(true);
         setSelected7(false);
-
+        setSelected8(false)
+        setApercu(false)
 
     };
 
@@ -232,6 +267,7 @@ const FicheMatch = () => {
         setHisto(false);
         setHisto2(false);
         setClassement(true);
+        
         setSelected(false);
         setSelected2(false);
         setSelected3(false);
@@ -239,9 +275,33 @@ const FicheMatch = () => {
         setSelected5(true)
         setSelected6(false)
         setSelected7(false);
+        setSelected8(false)
+        setApercu(false)
 
 
     };
+
+    const openApercu = ()=>{
+        setLive(false);
+        setCompos(false);
+        setCompos2(false);
+
+        setDetails(false);
+        setClassement(false);
+        setHisto(false);
+        setHisto2(false);
+        setClassement(false);
+        
+        setSelected(false);
+        setSelected2(false);
+        setSelected3(false);
+        setSelected4(false);
+        setSelected5(false)
+        setSelected6(false)
+        setSelected7(false);
+        setSelected8(true)
+        setApercu(true)
+    }
 
     // If no match data available
     if (!match) {
@@ -362,7 +422,9 @@ const FicheMatch = () => {
         
         <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt} />
         <View style={{flexDirection: "row", marginBottom: 10}}>
-            
+        <TouchableOpacity onPress={openApercu}>
+                            <Text style={selected8 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 100}]}>Apercu</Text>
+                        </TouchableOpacity>
         <TouchableOpacity onPress={openHisto}>
                             <Text style={selected6 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 100}]}>Historique</Text>
                         </TouchableOpacity>
@@ -370,6 +432,7 @@ const FicheMatch = () => {
                             <Text style={selected5 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 100}]}>Classement</Text>
                         </TouchableOpacity> : null }
                         </View>
+                        {apercu && <Indisponibles injuries={injuries} match={match} />}
                         {histo2 && <Histo historique={historique} historique2={historique2}/>}
                         {classement && <Classement id={match.league.id}/>}       
                          </ScrollView>
