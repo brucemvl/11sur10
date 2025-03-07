@@ -86,28 +86,28 @@ console.log(incertain)
 
     return (
         <View style={styles.bloc}>
-                       {incertain.length === 0 ? null : <Text style={{fontFamily: "Kanitt", fontSize: 18}}>Ils sont incertains</Text> }
-                        <View style={{flexDirection: "row", gap: 30}}>
+                       <Text style={{fontFamily: "Kanitt", fontSize: 18, marginBottom: 10}}>Ils sont incertains</Text> 
+                        {incertain.length === 0 ? <Text>/</Text> : <View style={{flexDirection: "row", backgroundColor: "rgb(240, 135, 135)", paddingBlock: 10}}>
                         <View style={styles.domicile}>
                 {injuries.map((element)=> element.team.id === match.teams.home.id && element.player.type === "Questionable" ?
                 <TouchableOpacity style={styles.carte} onPress={() => navigation.navigate('FicheJoueur', { id: element.player.id })}>
                                     <LinearGradient style={styles.joueur} colors={["#fff", "rgb(163, 164, 165)"]} locations={[0.5, 0.9]}>
-                                        <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
+                                        <View style={{flexDirection: "row", alignItems: "center", gap: 4}}>
           <Image source={element.player.id === 372 ? militao : element.player.id === 733 ? carvajal : element.player.id === 51494 ? ugarte : element.player.id === 2467 ? lisandro : element.player.id === 1096 ? szoboszlai : element.player.id === 180317 ? bradley : element.player.id === 22236 ? leao : element.player.id === 745 ? isco : element.player.id === 9971 ? antony : element.player.id === 2207 ? camavinga : element.player.id === 756 ? valverde : element.player.id === 754 ? modric : element.player.id === 2285 ? rudiger : element.player.id === 794 ? schik : element.player.id === 203224 ? wirtz : element.player.id === 6009 ? alvarez : element.player.id === 8492 ? sorloth : element.player.id === 307835 ? beraldo : element.player.id === 262 ? kimpembe : element.player.id === 396623 ? cubarsi : element.player.id === 5 ? akanji : element.player.id === 81573 ? marmoush : element.player.id === 283 ? arnold : element.player.id === 2489 ? diaz : element.player.id === 6716 ? macallister : element.player.id === 247 ? gakpo : element.player.id === 409216 ? mayulu : element.player.id === 629 ? debruyne : element.player.id === 116 ? kephren : element.player.id === 7334 ? adeyemi : element.player.id === 21104 ? kolo : element.player.id === 1271 ? tchouameni : element.player.id === 2068 ? safonov : element.player.id === 1100 ? haaland : element.player.id === 161904 ? barcola : element.player.id === 336657 ? zaire : element.player.id === 153 ? dembele : element.player.id === 129718 ? bellingham : element.player.id === 386828 ? yamal : element.player.id === 10009 ? rodrygo : element.player.id === 18979 ? gyokeres : element.player.id === 291964 ? guller : element.player.id === 343027 ? doue : element.player.id === 483 ? kvara : element.player.id === 154 ? goat : element.player.id === 306 ? salah : element.player.id === 51617 ? darwin : element.player.id === 1257 ? kounde : element.player.id === 278 ? mbappe : element.player.id === 377122 ? endrick : element.player.id === 762 ? vini : element.player.id === 152982 ? palmer : element.player.id === 56 ? griezmann : element.player.id === 19617 ? olise : element.player.id === 272 ? rabiot : element.player.id === 156477 ? cherki : element.player.id === 1467 ? lacazette : element.player.id === 47300 ? theo : element.player.id === 1496 ? raphinha : element.player.id === 521 ? lewandowski : element.player.id === 2864 ? isak : element.player.id === 41585 ? ramos : element.player.id === 284324 ? garnacho : element.player.id === 128384 ? vitinha : element.player.id === 16367 ? pacho : element.player.id === 335051 ? joao : { uri: element.player.photo }} style={styles.photo} />
                     <View style={{gap: 10, alignItems: "center"}}>
                     <Image source={question} style={{height: 20, width: 20, objectFit: "contain"}}/>
                     <Image source={{uri: element.team.logo}} style={styles.logo}/>
                     </View>
                     </View>
-                    <Text style={{fontFamily: "Kanitalik"}}>{element.player.name}</Text>
+                    <Text style={{fontFamily: "Kanitalik", fontSize: 9.5}}>{element.player.name}</Text>
                     {
                     element.player.reason.indexOf("Injury") !== -1 ? 
                     <View style={{flexDirection: "row", alignItems: "baseline", gap: 5}}>
                     <Image source={injury} style={[styles.icone, {position: "relative", top: 3}]} /> 
-                    {element.player.reason === "Knee Injury" ? <Text style={{fontFamily: "Kanito"}}>Genou</Text> : element.player.reason === "Calf Injury" ? <Text style={{fontFamily: "Kanito"}}>Mollet</Text> : element.player.reason === "Ankle Injury" ? <Text style={{fontFamily: "Kanito"}}>Cheville</Text> : element.player.reason === "Thigh Injury" ? <Text style={{fontFamily: "Kanito"}}>Cuisse</Text> : element.player.reason === "Shoulder Injury" ? <Text style={{fontFamily: "Kanito"}}>Epaule</Text> : element.player.reason === "Muscle Injury" ? <Text style={{fontFamily: "Kanito"}}>Musculaire</Text> : element.player.reason === "Back Injury" ? <Text style={{fontFamily: "Kanito"}}>Dos</Text> : element.player.reason === "Foot Injury" ? <Text style={{fontFamily: "Kanito"}}>Pied</Text> : element.player.reason === "Leg Injury" ? <Text style={{fontFamily: "Kanito"}}>Jambe</Text> : element.player.reason === "Groin Injury" ? <Text style={{fontFamily: "Kanito"}}>Aine</Text> : element.player.reason === "Face Injury" ? <Text style={{fontFamily: "Kanito"}}>Visage</Text> : element.player.reason === "Toe Injury" ? <Text style={{fontFamily: "Kanito"}}>Orteil</Text> : element.player.reason === "Achilles Tendon Injury" ? <Text style={{fontFamily: "Kanito"}}>Tendon d'achille</Text> : element.player.reason === "Hip Injury" ? <Text style={{fontFamily: "Kanito"}}>Hanche</Text> : element.player.reason === "Ribs Injury" ? <Text style={{fontFamily: "Kanito"}}>Cotes</Text> : element.player.reason === "Head Injury" ? <Text style={{fontFamily: "Kanito"}}>Tête</Text> : null}
+                    {element.player.reason === "Knee Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Genou</Text> : element.player.reason === "Calf Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Mollet</Text> : element.player.reason === "Ankle Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Cheville</Text> : element.player.reason === "Thigh Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Cuisse</Text> : element.player.reason === "Shoulder Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Epaule</Text> : element.player.reason === "Muscle Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Musculaire</Text> : element.player.reason === "Back Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Dos</Text> : element.player.reason === "Foot Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Pied</Text> : element.player.reason === "Leg Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Jambe</Text> : element.player.reason === "Groin Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Aine</Text> : element.player.reason === "Face Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Visage</Text> : element.player.reason === "Toe Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Orteil</Text> : element.player.reason === "Achilles Tendon Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 8}}>Tendon d'achille</Text> : element.player.reason === "Hip Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Hanche</Text> : element.player.reason === "Ribs Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Cotes</Text> : element.player.reason === "Head Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Tête</Text> : null}
                     </View>: element.player.reason === "Illness" ? 
                                         <View style={{flexDirection: "row", gap: 5, alignItems: "center"}}>
-                                            <Image source={malade} style={styles.icone} /><Text style={{fontFamily: "Kanito"}}>Malade</Text>
+                                            <Image source={malade} style={styles.icone} /><Text style={{fontFamily: "Kanito", fontSize: 9}}>Malade</Text>
                                         </View>
                                         : <View></View>}
                     </LinearGradient>
@@ -117,55 +117,55 @@ console.log(incertain)
                 {injuries.map((element)=> element.team.id === match.teams.away.id && element.player.type === "Questionable" ?
                 <TouchableOpacity style={styles.carte} onPress={() => navigation.navigate('FicheJoueur', { id: element.player.id })}>
                                     <LinearGradient style={styles.joueur} colors={["#fff", "rgb(163, 164, 165)"]} locations={[0.5, 0.9]}>
-                                        <View style={{flexDirection: "row-reverse", alignItems: "center", gap: 10}}>
+                                        <View style={{flexDirection: "row-reverse", alignItems: "center", gap: 4}}>
           <Image source={element.player.id === 372 ? militao : element.player.id === 733 ? carvajal : element.player.id === 51494 ? ugarte : element.player.id === 2467 ? lisandro : element.player.id === 1096 ? szoboszlai : element.player.id === 180317 ? bradley : element.player.id === 22236 ? leao : element.player.id === 745 ? isco : element.player.id === 9971 ? antony : element.player.id === 2207 ? camavinga : element.player.id === 756 ? valverde : element.player.id === 754 ? modric : element.player.id === 2285 ? rudiger : element.player.id === 794 ? schik : element.player.id === 203224 ? wirtz : element.player.id === 6009 ? alvarez : element.player.id === 8492 ? sorloth : element.player.id === 307835 ? beraldo : element.player.id === 262 ? kimpembe : element.player.id === 396623 ? cubarsi : element.player.id === 5 ? akanji : element.player.id === 81573 ? marmoush : element.player.id === 283 ? arnold : element.player.id === 2489 ? diaz : element.player.id === 6716 ? macallister : element.player.id === 247 ? gakpo : element.player.id === 409216 ? mayulu : element.player.id === 629 ? debruyne : element.player.id === 116 ? kephren : element.player.id === 7334 ? adeyemi : element.player.id === 21104 ? kolo : element.player.id === 1271 ? tchouameni : element.player.id === 2068 ? safonov : element.player.id === 1100 ? haaland : element.player.id === 161904 ? barcola : element.player.id === 336657 ? zaire : element.player.id === 153 ? dembele : element.player.id === 129718 ? bellingham : element.player.id === 386828 ? yamal : element.player.id === 10009 ? rodrygo : element.player.id === 18979 ? gyokeres : element.player.id === 291964 ? guller : element.player.id === 343027 ? doue : element.player.id === 483 ? kvara : element.player.id === 154 ? goat : element.player.id === 306 ? salah : element.player.id === 51617 ? darwin : element.player.id === 1257 ? kounde : element.player.id === 278 ? mbappe : element.player.id === 377122 ? endrick : element.player.id === 762 ? vini : element.player.id === 152982 ? palmer : element.player.id === 56 ? griezmann : element.player.id === 19617 ? olise : element.player.id === 272 ? rabiot : element.player.id === 156477 ? cherki : element.player.id === 1467 ? lacazette : element.player.id === 47300 ? theo : element.player.id === 1496 ? raphinha : element.player.id === 521 ? lewandowski : element.player.id === 2864 ? isak : element.player.id === 41585 ? ramos : element.player.id === 284324 ? garnacho : element.player.id === 128384 ? vitinha : element.player.id === 16367 ? pacho : element.player.id === 335051 ? joao : { uri: element.player.photo }} style={styles.photo} />
                     <View style={{gap: 10, alignItems: "center"}}>
                     <Image source={question} style={{height: 20, width: 20, objectFit: "contain"}}/>
                     <Image source={{uri: element.team.logo}} style={styles.logo}/>
                     </View>                    </View>
-                    <Text style={{fontFamily: "Kanitalik"}}>{element.player.name}</Text>
+                    <Text style={{fontFamily: "Kanitalik", fontSize: 9.5}}>{element.player.name}</Text>
                     {
                     element.player.reason.indexOf("Injury") !== -1 ? 
                     <View style={{flexDirection: "row", alignItems: "baseline", gap: 5}}>
                     <Image source={injury} style={[styles.icone, {position: "relative", top: 3}]} /> 
-                    {element.player.reason === "Knee Injury" ? <Text style={{fontFamily: "Kanito"}}>Genou</Text> : element.player.reason === "Calf Injury" ? <Text style={{fontFamily: "Kanito"}}>Mollet</Text> : element.player.reason === "Ankle Injury" ? <Text style={{fontFamily: "Kanito"}}>Cheville</Text> : element.player.reason === "Thigh Injury" ? <Text style={{fontFamily: "Kanito"}}>Cuisse</Text> : element.player.reason === "Shoulder Injury" ? <Text style={{fontFamily: "Kanito"}}>Epaule</Text> : element.player.reason === "Muscle Injury" ? <Text style={{fontFamily: "Kanito"}}>Musculaire</Text> : element.player.reason === "Back Injury" ? <Text style={{fontFamily: "Kanito"}}>Dos</Text> : element.player.reason === "Foot Injury" ? <Text style={{fontFamily: "Kanito"}}>Pied</Text> : element.player.reason === "Leg Injury" ? <Text style={{fontFamily: "Kanito"}}>Jambe</Text> : element.player.reason === "Groin Injury" ? <Text style={{fontFamily: "Kanito"}}>Aine</Text> : element.player.reason === "Face Injury" ? <Text style={{fontFamily: "Kanito"}}>Visage</Text> : element.player.reason === "Toe Injury" ? <Text style={{fontFamily: "Kanito"}}>Orteil</Text> : element.player.reason === "Achilles Tendon Injury" ? <Text style={{fontFamily: "Kanito"}}>Tendon d'achille</Text> : element.player.reason === "Hip Injury" ? <Text style={{fontFamily: "Kanito"}}>Hanche</Text> : element.player.reason === "Ribs Injury" ? <Text style={{fontFamily: "Kanito"}}>Cotes</Text> : element.player.reason === "Head Injury" ? <Text style={{fontFamily: "Kanito"}}>Tête</Text> : null}
+                    {element.player.reason === "Knee Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Genou</Text> : element.player.reason === "Calf Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Mollet</Text> : element.player.reason === "Ankle Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Cheville</Text> : element.player.reason === "Thigh Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Cuisse</Text> : element.player.reason === "Shoulder Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Epaule</Text> : element.player.reason === "Muscle Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Musculaire</Text> : element.player.reason === "Back Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Dos</Text> : element.player.reason === "Foot Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Pied</Text> : element.player.reason === "Leg Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Jambe</Text> : element.player.reason === "Groin Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Aine</Text> : element.player.reason === "Face Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Visage</Text> : element.player.reason === "Toe Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Orteil</Text> : element.player.reason === "Achilles Tendon Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 8}}>Tendon d'achille</Text> : element.player.reason === "Hip Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Hanche</Text> : element.player.reason === "Ribs Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Cotes</Text> : element.player.reason === "Head Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Tête</Text> : null}
                     </View>:
                                        element.player.reason === "Illness" ? 
                                        <View style={{flexDirection: "row", gap: 5, alignItems: "center"}}>
-                                           <Image source={malade} style={styles.icone} /><Text style={{fontFamily: "Kanito"}}>Malade</Text>
+                                           <Image source={malade} style={styles.icone} /><Text style={{fontFamily: "Kanito", fontSize: 9}}>Malade</Text>
                                        </View>
                                        :<View></View>}
                     </LinearGradient>
                 </TouchableOpacity> : null)}                </View>
-</View>
-            <Text style={{fontFamily: "Kanitt", fontSize: 18}}>Ils manqueront la rencontre</Text>
-            <View style={{flexDirection: "row", gap: 30}}>
+</View>}
+            <Text style={{fontFamily: "Kanitt", fontSize: 18, marginBlock: 10}}>Ils manqueront la rencontre</Text>
+            <View style={{flexDirection: "row", backgroundColor: "rgb(228, 60, 60)", paddingBlock: 10}}>
                 <View style={styles.domicile}>
                 {injuries.map((element)=> element.team.id === match.teams.home.id && element.player.type === "Missing Fixture" ?
                 <TouchableOpacity style={styles.carte} onPress={() => navigation.navigate('FicheJoueur', { id: element.player.id })}>
                                     <LinearGradient style={styles.joueur} colors={["#fff", "rgb(163, 164, 165)"]} locations={[0.5, 0.9]}>
-                                        <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
+                                        <View style={{flexDirection: "row", alignItems: "center", gap: 4}}>
           <Image source={element.player.id === 372 ? militao : element.player.id === 733 ? carvajal : element.player.id === 51494 ? ugarte : element.player.id === 2467 ? lisandro : element.player.id === 1096 ? szoboszlai : element.player.id === 180317 ? bradley : element.player.id === 22236 ? leao : element.player.id === 745 ? isco : element.player.id === 9971 ? antony : element.player.id === 2207 ? camavinga : element.player.id === 756 ? valverde : element.player.id === 754 ? modric : element.player.id === 2285 ? rudiger : element.player.id === 794 ? schik : element.player.id === 203224 ? wirtz : element.player.id === 6009 ? alvarez : element.player.id === 8492 ? sorloth : element.player.id === 307835 ? beraldo : element.player.id === 262 ? kimpembe : element.player.id === 396623 ? cubarsi : element.player.id === 5 ? akanji : element.player.id === 81573 ? marmoush : element.player.id === 283 ? arnold : element.player.id === 2489 ? diaz : element.player.id === 6716 ? macallister : element.player.id === 247 ? gakpo : element.player.id === 409216 ? mayulu : element.player.id === 629 ? debruyne : element.player.id === 116 ? kephren : element.player.id === 7334 ? adeyemi : element.player.id === 21104 ? kolo : element.player.id === 1271 ? tchouameni : element.player.id === 2068 ? safonov : element.player.id === 1100 ? haaland : element.player.id === 161904 ? barcola : element.player.id === 336657 ? zaire : element.player.id === 153 ? dembele : element.player.id === 129718 ? bellingham : element.player.id === 386828 ? yamal : element.player.id === 10009 ? rodrygo : element.player.id === 18979 ? gyokeres : element.player.id === 291964 ? guller : element.player.id === 343027 ? doue : element.player.id === 483 ? kvara : element.player.id === 154 ? goat : element.player.id === 306 ? salah : element.player.id === 51617 ? darwin : element.player.id === 1257 ? kounde : element.player.id === 278 ? mbappe : element.player.id === 377122 ? endrick : element.player.id === 762 ? vini : element.player.id === 152982 ? palmer : element.player.id === 56 ? griezmann : element.player.id === 19617 ? olise : element.player.id === 272 ? rabiot : element.player.id === 156477 ? cherki : element.player.id === 1467 ? lacazette : element.player.id === 47300 ? theo : element.player.id === 1496 ? raphinha : element.player.id === 521 ? lewandowski : element.player.id === 2864 ? isak : element.player.id === 41585 ? ramos : element.player.id === 284324 ? garnacho : element.player.id === 128384 ? vitinha : element.player.id === 16367 ? pacho : element.player.id === 335051 ? joao : { uri: element.player.photo }} style={styles.photo} />
                     <View style={{gap: 10, alignItems: "center"}}>
-                    <Image source={croixrouge} style={{height: 20, width: 20, objectFit: "contain"}}/>
+                    <Image source={croixrouge} style={{height: 12, width: 12, objectFit: "contain"}}/>
                     <Image source={{uri: element.team.logo}} style={styles.logo}/>
                     </View>                    </View>
-                    <Text style={{fontFamily: "Kanitalik"}}>{element.player.name}</Text>
+                    <Text style={{fontFamily: "Kanitalik", fontSize: 9.5}}>{element.player.name}</Text>
                     {element.player.reason === "Yellow Cards" ? 
                     <View style={{flexDirection: "row", alignItems: "center"}}>
-                        <Image source={yellow} style={styles.icone} /> <Text style={{fontFamily: "Kanito", fontSize: 10}}>Accumulation de cartons</Text>
+                       <Text style={{fontFamily: "Kanito", fontSize: 8}}>Accumulation de</Text> <Image source={yellow} style={styles.icone} />
                     </View> : 
                     element.player.reason === "Red Card" ? 
                     <View style={{flexDirection: "row", alignItems: "center"}}>
-                        <Image source={redcard} style={styles.icone} /> <Text style={{fontFamily: "Kanito", fontSize: 12}}>Carton Rouge</Text>
+                        <Image source={redcard} style={styles.icone} /> <Text style={{fontFamily: "Kanito", fontSize: 9}}>Carton Rouge</Text>
                     </View> :
                     element.player.reason.indexOf("Injury") !== -1 ? 
                     <View style={{flexDirection: "row", alignItems: "baseline", gap: 5}}>
                     <Image source={injury} style={[styles.icone, {position: "relative", top: 3}]} /> 
-                    {element.player.reason === "Knee Injury" ? <Text style={{fontFamily: "Kanito"}}>Genou</Text> : element.player.reason === "Calf Injury" ? <Text style={{fontFamily: "Kanito"}}>Mollet</Text> : element.player.reason === "Ankle Injury" ? <Text style={{fontFamily: "Kanito"}}>Cheville</Text> : element.player.reason === "Thigh Injury" ? <Text style={{fontFamily: "Kanito"}}>Cuisse</Text> : element.player.reason === "Shoulder Injury" ? <Text style={{fontFamily: "Kanito"}}>Epaule</Text> : element.player.reason === "Muscle Injury" ? <Text style={{fontFamily: "Kanito"}}>Musculaire</Text> : element.player.reason === "Back Injury" ? <Text style={{fontFamily: "Kanito"}}>Dos</Text> : element.player.reason === "Foot Injury" ? <Text style={{fontFamily: "Kanito"}}>Pied</Text> : element.player.reason === "Leg Injury" ? <Text style={{fontFamily: "Kanito"}}>Jambe</Text> : element.player.reason === "Groin Injury" ? <Text style={{fontFamily: "Kanito"}}>Aine</Text> : element.player.reason === "Face Injury" ? <Text style={{fontFamily: "Kanito"}}>Visage</Text> : element.player.reason === "Toe Injury" ? <Text style={{fontFamily: "Kanito"}}>Orteil</Text> : element.player.reason === "Achilles Tendon Injury" ? <Text style={{fontFamily: "Kanito"}}>Tendon d'achille</Text> : element.player.reason === "Hip Injury" ? <Text style={{fontFamily: "Kanito"}}>Hanche</Text> : element.player.reason === "Ribs Injury" ? <Text style={{fontFamily: "Kanito"}}>Cotes</Text> : element.player.reason === "Head Injury" ? <Text style={{fontFamily: "Kanito"}}>Tête</Text> : null}
+                    {element.player.reason === "Knee Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Genou</Text> : element.player.reason === "Calf Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Mollet</Text> : element.player.reason === "Ankle Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Cheville</Text> : element.player.reason === "Thigh Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Cuisse</Text> : element.player.reason === "Shoulder Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Epaule</Text> : element.player.reason === "Muscle Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Musculaire</Text> : element.player.reason === "Back Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Dos</Text> : element.player.reason === "Foot Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Pied</Text> : element.player.reason === "Leg Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Jambe</Text> : element.player.reason === "Groin Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Aine</Text> : element.player.reason === "Face Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Visage</Text> : element.player.reason === "Toe Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Orteil</Text> : element.player.reason === "Achilles Tendon Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 8}}>Tendon d'achille</Text> : element.player.reason === "Hip Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Hanche</Text> : element.player.reason === "Ribs Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Cotes</Text> : element.player.reason === "Head Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Tête</Text> : null}
                     </View>: element.player.reason === "Illness" ? 
                                         <View style={{flexDirection: "row", gap: 5, alignItems: "center"}}>
-                                            <Image source={malade} style={styles.icone} /><Text style={{fontFamily: "Kanito"}}>Malade</Text>
+                                            <Image source={malade} style={styles.icone} /><Text style={{fontFamily: "Kanito", fontSize: 9}}>Malade</Text>
                                         </View>
                                         : <View></View>}
                     </LinearGradient>
@@ -175,28 +175,28 @@ console.log(incertain)
                 {injuries.map((element)=> element.team.id === match.teams.away.id && element.player.type === "Missing Fixture" ?
                 <TouchableOpacity style={styles.carte} onPress={() => navigation.navigate('FicheJoueur', { id: element.player.id })}>
                                     <LinearGradient style={styles.joueur} colors={["#fff", "rgb(163, 164, 165)"]} locations={[0.5, 0.9]}>
-                                        <View style={{flexDirection: "row-reverse", alignItems: "center", gap: 10}}>
+                                        <View style={{flexDirection: "row-reverse", alignItems: "center", gap: 4}}>
           <Image source={element.player.id === 372 ? militao : element.player.id === 733 ? carvajal : element.player.id === 51494 ? ugarte : element.player.id === 2467 ? lisandro : element.player.id === 1096 ? szoboszlai : element.player.id === 180317 ? bradley : element.player.id === 22236 ? leao : element.player.id === 745 ? isco : element.player.id === 9971 ? antony : element.player.id === 2207 ? camavinga : element.player.id === 756 ? valverde : element.player.id === 754 ? modric : element.player.id === 2285 ? rudiger : element.player.id === 794 ? schik : element.player.id === 203224 ? wirtz : element.player.id === 6009 ? alvarez : element.player.id === 8492 ? sorloth : element.player.id === 307835 ? beraldo : element.player.id === 262 ? kimpembe : element.player.id === 396623 ? cubarsi : element.player.id === 5 ? akanji : element.player.id === 81573 ? marmoush : element.player.id === 283 ? arnold : element.player.id === 2489 ? diaz : element.player.id === 6716 ? macallister : element.player.id === 247 ? gakpo : element.player.id === 409216 ? mayulu : element.player.id === 629 ? debruyne : element.player.id === 116 ? kephren : element.player.id === 7334 ? adeyemi : element.player.id === 21104 ? kolo : element.player.id === 1271 ? tchouameni : element.player.id === 2068 ? safonov : element.player.id === 1100 ? haaland : element.player.id === 161904 ? barcola : element.player.id === 336657 ? zaire : element.player.id === 153 ? dembele : element.player.id === 129718 ? bellingham : element.player.id === 386828 ? yamal : element.player.id === 10009 ? rodrygo : element.player.id === 18979 ? gyokeres : element.player.id === 291964 ? guller : element.player.id === 343027 ? doue : element.player.id === 483 ? kvara : element.player.id === 154 ? goat : element.player.id === 306 ? salah : element.player.id === 51617 ? darwin : element.player.id === 1257 ? kounde : element.player.id === 278 ? mbappe : element.player.id === 377122 ? endrick : element.player.id === 762 ? vini : element.player.id === 152982 ? palmer : element.player.id === 56 ? griezmann : element.player.id === 19617 ? olise : element.player.id === 272 ? rabiot : element.player.id === 156477 ? cherki : element.player.id === 1467 ? lacazette : element.player.id === 47300 ? theo : element.player.id === 1496 ? raphinha : element.player.id === 521 ? lewandowski : element.player.id === 2864 ? isak : element.player.id === 41585 ? ramos : element.player.id === 284324 ? garnacho : element.player.id === 128384 ? vitinha : element.player.id === 16367 ? pacho : element.player.id === 335051 ? joao : { uri: element.player.photo }} style={styles.photo} />
                     <View style={{gap: 10, alignItems: "center"}}>
-                    <Image source={croixrouge} style={{height: 20, width: 20, objectFit: "contain"}}/>
+                    <Image source={croixrouge} style={{height: 12, width: 12, objectFit: "contain"}}/>
                     <Image source={{uri: element.team.logo}} style={styles.logo}/>
                     </View>                    </View>
-                    <Text style={{fontFamily: "Kanitalik"}}>{element.player.name}</Text>
+                    <Text style={{fontFamily: "Kanitalik", fontSize: 9.5}}>{element.player.name}</Text>
                     {element.player.reason === "Yellow Cards" ? 
                     <View style={{flexDirection: "row", alignItems: "center"}}>
-                        <Image source={yellow} style={styles.icone} /> <Text style={{fontFamily: "Kanito", fontSize: 10}}>Accumulation de cartons</Text>
-                    </View> : 
+                       <Text style={{fontFamily: "Kanito", fontSize: 8}}>Accumulation de</Text> <Image source={yellow} style={styles.icone} />
+                       </View> : 
                     element.player.reason === "Red Card" ? 
                     <View style={{flexDirection: "row", alignItems: "center"}}>
-                        <Image source={redcard} style={styles.icone} /> <Text style={{fontFamily: "Kanito", fontSize: 12}}>Carton Rouge</Text>
+                        <Image source={redcard} style={styles.icone} /> <Text style={{fontFamily: "Kanito", fontSize: 9}}>Carton Rouge</Text>
                     </View> :
                     element.player.reason.indexOf("Injury") !== -1 ? 
                     <View style={{flexDirection: "row", alignItems: "baseline", gap: 5}}>
                     <Image source={injury} style={[styles.icone, {position: "relative", top: 3}]} /> 
-                    {element.player.reason === "Knee Injury" ? <Text style={{fontFamily: "Kanito"}}>Genou</Text> : element.player.reason === "Calf Injury" ? <Text style={{fontFamily: "Kanito"}}>Mollet</Text> : element.player.reason === "Ankle Injury" ? <Text style={{fontFamily: "Kanito"}}>Cheville</Text> : element.player.reason === "Thigh Injury" ? <Text style={{fontFamily: "Kanito"}}>Cuisse</Text> : element.player.reason === "Shoulder Injury" ? <Text style={{fontFamily: "Kanito"}}>Epaule</Text> : element.player.reason === "Muscle Injury" ? <Text style={{fontFamily: "Kanito"}}>Musculaire</Text> : element.player.reason === "Back Injury" ? <Text style={{fontFamily: "Kanito"}}>Dos</Text> : element.player.reason === "Foot Injury" ? <Text style={{fontFamily: "Kanito"}}>Pied</Text> : element.player.reason === "Leg Injury" ? <Text style={{fontFamily: "Kanito"}}>Jambe</Text> : element.player.reason === "Groin Injury" ? <Text style={{fontFamily: "Kanito"}}>Aine</Text> : element.player.reason === "Face Injury" ? <Text style={{fontFamily: "Kanito"}}>Visage</Text> : element.player.reason === "Toe Injury" ? <Text style={{fontFamily: "Kanito"}}>Orteil</Text> : element.player.reason === "Achilles Tendon Injury" ? <Text style={{fontFamily: "Kanito"}}>Tendon d'achille</Text> : element.player.reason === "Hip Injury" ? <Text style={{fontFamily: "Kanito"}}>Hanche</Text> : element.player.reason === "Ribs Injury" ? <Text style={{fontFamily: "Kanito"}}>Cotes</Text> : element.player.reason === "Head Injury" ? <Text style={{fontFamily: "Kanito"}}>Tête</Text> : null}
+                    {element.player.reason === "Knee Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Genou</Text> : element.player.reason === "Calf Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Mollet</Text> : element.player.reason === "Ankle Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Cheville</Text> : element.player.reason === "Thigh Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Cuisse</Text> : element.player.reason === "Shoulder Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Epaule</Text> : element.player.reason === "Muscle Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Musculaire</Text> : element.player.reason === "Back Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Dos</Text> : element.player.reason === "Foot Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Pied</Text> : element.player.reason === "Leg Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Jambe</Text> : element.player.reason === "Groin Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Aine</Text> : element.player.reason === "Face Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Visage</Text> : element.player.reason === "Toe Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Orteil</Text> : element.player.reason === "Achilles Tendon Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 8}}>Tendon d'achille</Text> : element.player.reason === "Hip Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Hanche</Text> : element.player.reason === "Ribs Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Cotes</Text> : element.player.reason === "Head Injury" ? <Text style={{fontFamily: "Kanito", fontSize: 9}}>Tête</Text> : null}
                     </View>: element.player.reason === "Illness" ? 
                                         <View style={{flexDirection: "row", gap: 5, alignItems: "center"}}>
-                                            <Image source={malade} style={styles.icone} /><Text style={{fontFamily: "Kanito"}}>Malade</Text>
+                                            <Image source={malade} style={styles.icone} /><Text style={{fontFamily: "Kanito", fontSize: 9}}>Malade</Text>
                                         </View>
                                         : <View></View>}
                     </LinearGradient>
@@ -217,15 +217,26 @@ const styles = StyleSheet.create({
     domicile: {
         width: "55%",
         alignItems: "center",
-        gap: 10,
-        paddingBlock: 10
+        gap: 8,
+        padding: 12,
+        flexWrap: "wrap",
+        flexDirection: "row",
+        borderRightWidth: 2,
+        borderRightColor: "black",
+        justifyContent: "center"
 
     },
     exterieur: {
         width: "55%",
         alignItems: "center",
-        gap: 10,
-        paddingBlock: 10
+        gap: 8,
+        padding: 12,
+        flexWrap: "wrap",
+        flexDirection: "row",
+        borderLeftWidth: 2,
+        borderLeftColor: "black",
+        justifyContent: "center"
+
 
     },
     carte:{
@@ -241,21 +252,22 @@ const styles = StyleSheet.create({
         gap: 5,
         borderRadius: 15,
         elevation: 5,
-        padding: 8,
+        padding: 5,
         alignItems: "center",
+        height: 110
     },
     photo: {
-        width: 80,
-        height: 85,
-        borderRadius: 7
+        width: 50,
+        height: 55,
+        borderRadius: 10
     },
     icone: {
-        height: 20,
-        width: 20
+        height: 15,
+        width: 15
     },
     logo: {
-        height: 30,
-        width: 30,
+        height: 20,
+        width: 20,
         objectFit: "contain"
     }
 })
