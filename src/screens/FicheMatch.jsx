@@ -422,9 +422,9 @@ console.log(injuries)
         
         <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt} />
         <View style={{flexDirection: "row", marginBottom: 10}}>
-        <TouchableOpacity onPress={openApercu}>
+        {match.fixture.status.long === "Not Started" ? <TouchableOpacity onPress={openApercu}>
                             <Text style={selected8 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 100}]}>Apercu</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> : null }
         <TouchableOpacity onPress={openHisto}>
                             <Text style={selected6 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 100}]}>Historique</Text>
                         </TouchableOpacity>
