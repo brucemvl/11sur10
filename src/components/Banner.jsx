@@ -11,7 +11,7 @@ import banner12 from "../assets/banner13.jpg";
 import banner13 from "../assets/banner14.jpg";
 import banner14 from "../assets/banner15.jpg";
 import banner15 from "../assets/banner16.jpg";
-import banner16 from "../assets/banner17.png";
+import banner16 from "../assets/banner17.jpg";
 import banner17 from "../assets/banner18.jpg";
 import banner18 from "../assets/banner19.jpg";
 import banner19 from "../assets/banner20.jpg"
@@ -32,70 +32,70 @@ import banner33 from "../assets/banner34.jpg"
 import banner34 from "../assets/banner35.jpg"
 import banner35 from "../assets/banner36.webp"
 import banner36 from "../assets/banner37.jpg"
-
-
+import banner37 from "../assets/banner38.jpg"
 
 
 import { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet } from "react-native"
+import { View, Text, Image, StyleSheet, Animated } from "react-native"
 
-function Banner(){
+const photosBan = [
+  banner3, banner4, banner5, banner6, banner7, banner8, banner9,
+  banner10, banner11, banner12, banner13, banner14, banner15, banner16, banner17, banner18, banner19, banner20, banner21, banner22, banner23, banner24, banner25, banner26, banner27, banner28, banner29, banner30, banner31, banner32, banner33, banner34, banner35, banner36, banner37
+];
 
-    
+function Banner() {
+  const [randomPhoto, setRandomPhoto] = useState(photosBan[Math.floor(Math.random() * photosBan.length)]);
+  const [isActive, setIsActive] = useState(true);
+  const fadeAnim = useState(new Animated.Value(1))[0]; // Initial opacity 0
 
-    const photosBan = [
-        banner3, banner4, banner5, banner6, banner7, banner8, banner9,
-        banner10, banner11, banner12, banner13, banner14, banner15, banner16, banner17, banner18, banner19, banner20, banner21, banner22, banner23, banner24, banner25, banner26, banner27, banner28, banner29, banner30, banner31, banner32, banner33, banner34, banner35, banner36
-      ];
-    
-      const [randomPhoto, setRandomPhoto] = useState(photosBan[Math.floor(Math.random() * photosBan.length)]);
-      const [isActive, setIsActive] = useState(true);
-    
-      function aleatoire(max) {
-        return Math.floor(Math.random() * max);
-      }
-    
-      const change = () => {
-        setIsActive(false);
-        setTimeout(() => {
-          let random = aleatoire(photosBan.length);
-          setRandomPhoto(photosBan[random]);
-          setIsActive(true);
-        }, 300);
-      };
-    
-      useEffect(() => {
-        const interval = setInterval(change, 6000); // Changer toutes les 6 secondes
-        return () => clearInterval(interval);
-      }, []);
+  function aleatoire(max) {
+    return Math.floor(Math.random() * max);
+  }
 
-      
+  const change = () => {
+    setIsActive(false);
+    Animated.timing(fadeAnim, {
+      toValue: 0, // Fade out
+      duration: 300,
+      useNativeDriver: true,
+    }).start(() => {
+      let random = aleatoire(photosBan.length);
+      setRandomPhoto(photosBan[random]);
 
-    return(
+      Animated.timing(fadeAnim, {
+        toValue: 1, // Fade in
+        duration: 800,
+        useNativeDriver: true,
+      }).start(() => setIsActive(true)); // Set active after fade in
+    });
+  };
 
-<View style={styles.banner}>
-        <Image
-          source={randomPhoto}
-          style={[styles.bannerImage, isActive && styles.active]}
-        />
-        <View style={styles.bannerText}>
-          <Text style={styles.bannerTitle}>100% FOOT</Text>
-          <Text style={styles.bannerSubtitle}>Toutes vos infos Football en un clic</Text>
-        </View>
+  useEffect(() => {
+    const interval = setInterval(change, 6000); // Changer toutes les 6 secondes
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <View style={styles.banner}>
+      <Animated.Image
+        source={randomPhoto}
+        style={[styles.bannerImage, { opacity: fadeAnim }]} // Animated opacity
+      />
+      <View style={styles.bannerText}>
+        <Text style={styles.bannerTitle}>100% FOOT</Text>
+        <Text style={styles.bannerSubtitle}>Toutes vos infos Football en un clic</Text>
       </View>
-    )
+    </View>
+  );
 }
 
-
 const styles = StyleSheet.create({
-
-banner: {
+  banner: {
     height: 170,
     borderRadius: 15,
     width: "100%",
     position: "relative",
     overflow: "hidden",
-    
   },
 
   bannerImage: {
@@ -106,23 +106,16 @@ banner: {
     top: 0,
     left: 0,
     borderRadius: 15,
-    opacity: 0.7,
-    filter: "brightness(0.5)", // Cette propriété n'est pas supportée en React Native
-    transition: "opacity 0.2s ease-in-out", // Pas supporté en React Native
-  },
-
-  active: {
-    opacity: 1,
-    transitionDuration: "0.6s", // Pas supporté, utilise plutôt une animation
+    filter: "brightness(0.5)",
   },
 
   bannerText: {
     position: "absolute",
-top: "50%",
+    top: "50%",
     left: "50%",
     marginRight: "-50%",
     color: "white",
-    transform: [{translateX: "-50%"}, {translateY: "-50%"}],
+    transform: [{ translateX: "-50%" }, { translateY: "-50%" }],
     lineHeight: 0,
   },
 
@@ -131,17 +124,15 @@ top: "50%",
     fontSize: 32,
     color: "white",
     fontFamily: "Kanitt",
-    textAlign: "center"
-
+    textAlign: "center",
   },
 
   bannerSubtitle: {
     fontWeight: "900",
     fontSize: 18,
     color: "white",
-    fontFamily: "Kanitt"
+    fontFamily: "Kanitt",
+  },
+});
 
-  }
-})
-
-export default Banner
+export default Banner;

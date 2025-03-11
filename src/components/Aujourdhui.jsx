@@ -135,6 +135,29 @@ console.log(tomorrowDate);
     return { formattedDate, formattedHour };
   };
 
+  const [fadeAnim] = useState(new Animated.Value(1)); // Animation de fade (opacité)
+
+  useEffect(() => {
+    const flash = () => {
+      Animated.sequence([
+        Animated.timing(fadeAnim, {
+          toValue: 0,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+      ]).start(() => flash());
+    };
+
+    flash();
+
+    return () => fadeAnim.stopAnimation();
+  }, [fadeAnim]);
+
   return (
     todayMatch.length <= 0 ? <View style={styles.today}><LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={{width: "100%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue"}} >
     { selectedDate === "DEMAIN" ? <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
@@ -515,8 +538,8 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
                       { element.league.name === "UEFA Champions League" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={ element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text> : <Text style={ element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text> }
                       <View style={styles.liveSticker}>
                         <Text style={styles.liveText}>{element.fixture.status.elapsed}'</Text>
-                        <Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10 }}>live</Text>
-                      </View>
+                        <Animated.Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
+                        </View>
 
                       { element.league.name === "UEFA Champions League" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={ element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text> : <Text style={ element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text>}
 

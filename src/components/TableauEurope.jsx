@@ -77,7 +77,7 @@ if(json.response[0].league.id === 2){
                       setBarrages(json.response.slice(224, 240))}
 
                       if(json.response[0].league.id === 848){
-                        setBarrages(json.response.slice(364, json.response.length))}
+                        setBarrages(json.response.slice(364, 380))}
                 })
         }
         catch (error) {
@@ -109,7 +109,7 @@ if(json.response[0].league.id === 2){
                     setPhaseF(json.response.slice(240, json.response.length))}
 
                     if(json.response[0].league.id === 848){
-                      setPoules(json.response.slice(256, 363))}
+                      setPhaseF(json.response.slice(380, json.response.length))}
               })
       }
       catch (error) {
