@@ -6,7 +6,7 @@ import { championnats, europe, autres, national, national2, national3 } from '..
 import { useFonts } from 'expo-font';  // Importer le hook useFonts d'Expo
 import ligue1 from "../assets/logoligue1.webp"
 import ligue2 from "../assets/ligue2.jpg"
-
+import  SvgUri  from 'react-native-svg';
 
 function ClubPage() {
     const navigation = useNavigation();
@@ -48,8 +48,6 @@ function ClubPage() {
                             <View style={styles.logoContainer}>
                             { logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image source={ligue1} style={styles.logo} /> : logo === "https://media.api-sports.io/football/leagues/62.png" ? <Image source={ligue2} style={styles.logo} /> : <Image source={{ uri: logo }} style={styles.logo} />}
                             </View>
-                            <Image source={{ uri : flag}} style={styles.flag} />
-
                         </TouchableOpacity>
                     ))}
                     </View>
@@ -263,6 +261,8 @@ const styles = StyleSheet.create({
         fontFamily: "Permanent",
     },
     flag: {
+       
+       
        
     },
 

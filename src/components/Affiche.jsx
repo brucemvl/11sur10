@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, Text, Image, StyleSheet, FlatList, TouchableOpacity, ImageBackground, Animated } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
+import { useState, useEffect } from 'react';
 import ligue1 from "../assets/logoligue1.webp"
 import ucl from "../assets/logoucl.png"
 import stade from "../assets/stade.png"
@@ -27,7 +28,31 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
     const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
     const formattedHour = `${date.getHours().toString().padStart(2, '0')}h${date.getMinutes().toString().padStart(2, '0')}`;
 
-    return (
+
+      const [fadeAnim] = useState(new Animated.Value(1)); // Animation de fade (opacité)
+    
+useEffect(() => {
+    const flash = () => {
+      Animated.sequence([
+        Animated.timing(fadeAnim, {
+          toValue: 0,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+      ]).start(() => flash());
+    };
+
+    flash();
+
+    return () => fadeAnim.stopAnimation();
+  }, [fadeAnim]);
+  
+  return (
         <View style={styles.container}>
             <View style={styles.ligue}>
                 {match.league.standings === true ? <Text style={{ fontFamily: "Kanitt" }}>{match.league.name} - {match.league.round === "Knockout Round Play-offs" ? "Barrages" : match.league.round === "Round of 16" ? "8eme de finale" : match.league.round === "Quarter-finals" ? "Quart de finale" : `Journee ${roundd}`}</Text> : <Text style={{ fontFamily: "Kanitt" }}>{match.league.name}</Text>}
@@ -52,7 +77,7 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
             {match.league.id === 2 || match.league.id === 61 || match.league.id === 39 || match.league.id === 140 || match.league.id === 78 ?
                 <ImageBackground source={match.league.id === 2 ? ucl2 : match.league.id === 61 ? grass : match.league.id === 39 ? pl : match.league.id === 78 ? bundesliga : liga} style={styles.afficheUcl} imageStyle={{ borderRadius: 10, filter: match.league.id === 61 ? "brightness(0.5)" : match.league.id === 39 ? "brightness(0.4)" : match.league.id === 140 ? "brightness(0.32)" : match.league.id === 78 ? "brightness(0.45)" : "brightness(0.9)" }}>
                     <TouchableOpacity style={styles.domicile} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo })}>
-                        <Image source={{ uri: match.teams.home.logo }} style={[styles.teamLogo, match.teams.home.id === 81 ? { shadowRadius: 1 } : null]} />
+                        <Image source={{ uri: match.teams.home.logo }} style={[styles.teamLogo, match.teams.home.id === 81 ? { shadowRadius: 0.3 } : null]} />
                         <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.home.name}</Text>
                         <View style={{ gap: 5, flexDirection: "row", marginTop: 5 }}>{formeHome?.split('').map((char, index) => (
                             char === 'L' ? (
@@ -78,10 +103,16 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
                         <Text style={styles.scoreText}>
                             {match.goals.home} - {match.goals.away}
                         </Text>
+                        {match.fixture.status.elapsed > 0 && match.fixture.status.long != "Match Finished" ? 
+                        match.fixture.status.long === "Halftime" ? <Text style={{color: "white", fontFamily: "Kanitalic", fontSize: 10, backgroundColor: "darkred", padding: 2, borderRadius: 4}}>Mi-Temps</Text> :
+                        <View style={styles.liveSticker}>
+                                        <Text style={styles.liveText}>{match.fixture.status.elapsed}'</Text>
+                                        <Animated.Text style={{ color: "white", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
+                                      </View> : null}
                     </View>
 
                     <TouchableOpacity style={styles.exterieur} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo })}>
-                        <Image source={{ uri: match.teams.away.logo }} style={[styles.teamLogo, match.teams.away.id === 81 ? { shadowRadius: 1 } : null]} />
+                        <Image source={{ uri: match.teams.away.logo }} style={[styles.teamLogo, match.teams.away.id === 81 ? { shadowRadius: 0.3 } : null]} />
                         <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.away.name}</Text>
                         <View style={{ gap: 5, flexDirection: "row", marginTop: 5 }}>{formeExt?.split('').map((char, index) => (
                             char === 'L' ? (
@@ -131,6 +162,12 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
                         <Text style={styles.scoreText}>
                             {match.goals.home} - {match.goals.away}
                         </Text>
+                        {match.fixture.status.elapsed > 0 && match.fixture.status.long != "Match Finished" ? 
+                        match.fixture.status.long === "Halftime" ? <Text style={{color: "white", fontFamily: "Kanitalic", fontSize: 10, backgroundColor: "darkred", padding: 2, borderRadius: 4}}>Mi-Temps</Text> :
+                        <View style={styles.liveSticker}>
+                                        <Text style={styles.liveText}>{match.fixture.status.elapsed}'</Text>
+                                        <Animated.Text style={{ color: "white", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
+                                      </View> : null}
                     </View>
 
                     <TouchableOpacity style={styles.exterieur} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo })}>
@@ -187,7 +224,7 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
                     <Text style={{ fontFamily: "Kanito", color: "red" }}>Tirs au But</Text>
                     <View style={{ backgroundColor: "darkgrey", width: "100%", flexDirection: "row", borderRadius: 5, padding: 4 }}>
                         <View style={{ width: "50%" }}>
-                            <FlatList data={buteurHomeP} renderItem={({ item }) => (<View style={{ flexDirection: "row", gap: 3, margin: 3, alignItems: "center" }}>{item.detail === "Missed Penalty" ? <Text>❌</Text> : <Text style={styles.goalIcon}>⚽</Text>} <Text style={{ fontFamily: "Kanito" }}> {item.player.name} </Text></View>)} />
+                            <FlatList data={buteurHomeP} renderItem={({ item }) => (<View style={{ flexDirection: "row", gap: 3, margin: 3, alignItems: "center" }}>{item.detail === "Missed Penalty" ? <Text>❌</Text>  : <Text style={styles.goalIcon}>⚽</Text>} <Text style={{ fontFamily: "Kanito" }}> {item.player.name} </Text></View>)} />
                         </View>
                         <View style={{ width: "50%" }}>
                             <FlatList data={buteurExtP} renderItem={({ item }) => (<View style={{ flexDirection: "row", gap: 3, margin: 3, alignItems: "center", justifyContent: "flex-end" }}> <Text style={{ fontFamily: "Kanito" }}> {item.player.name} </Text> {item.detail === "Missed Penalty" ? <Text>❌</Text> : <Text style={styles.goalIcon}>⚽</Text>}</View>)} />
@@ -327,7 +364,19 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         alignItems: "center",
         justifyContent: "center"
-    }
+    },
+    liveSticker: {
+        alignItems: "center",
+        marginInline: 5
+      },
+      liveText: {
+        color: "white",
+        fontFamily: "Kanitalic",
+        fontSize: 12,
+        backgroundColor: "darkred",
+        paddingInline: 4,
+        borderRadius: 5
+      },
 });
 
 export default Affiche;

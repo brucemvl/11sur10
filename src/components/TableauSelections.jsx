@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet, ActivityIndicator, ScrollView } from 'react-native';
+import { View, Text, FlatList, StyleSheet, ActivityIndicator, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Match from './Match'; // Assurez-vous que Match est aussi adapté pour React Native
 import JourneesSelections from './JourneesSelections'; // Assurez-vous que ce composant est aussi adapté pour React Native
@@ -11,7 +11,7 @@ function TableauSelections({ id, currentRound, journey }) {
   useEffect(() => {
     const fetchDataPhaseFinale = async () => {
       try {
-        const response = await fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&season=2024`, {
+        const response = await fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&season=${id === 29 ? "2023" : "2024"}`, {
           method: 'GET',
           headers: {
             'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
@@ -20,6 +20,9 @@ function TableauSelections({ id, currentRound, journey }) {
         });
         const json = await response.json();
         setTeamF(json.response.slice(156));
+        if (id === 29){
+          setTeamF(json.response)
+        }
       } catch (error) {
         console.error('Error fetching data for final phase:', error);
       }
@@ -37,8 +40,8 @@ function TableauSelections({ id, currentRound, journey }) {
 
   console.log(round)
 
-  const roundd = round.map((element)=> element.slice(element.length - 5))
-  console.log(roundd)
+  const roundd = round.map((element)=> element.slice(element.length - 4))
+  console.log(teamF)
 
   const [filter, setFilter] = useState(journey);
 
@@ -49,17 +52,53 @@ function TableauSelections({ id, currentRound, journey }) {
     return num1 === num2;
   });
 
-  if (teamF.length === 0) {
-    return (
-      <View style={styles.loaderContainer}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
+  
+
+  const phases = ["Group Stage - 1", "Group Stage - 2", "Group Stage - 3", "Group Stage - 4", "Group Stage - 5", "Group Stage - 6", "Group Stage - 7", "Group Stage - 8", "Group Stage - 9", "Group Stage - 10",]
+
+ const [index, setIndex] = useState(journey - 1)
+
+ const prev = ()=>{
+  setIndex(index-1)
+
+  if (index === 0){
+    setIndex(0)
   }
+ }
+
+ const next = ()=>{
+  setIndex(index+1)
+ 
+ }
 
   return (
+    id === 29 ? <View style={styles.container}>
+ <View style={{flexDirection: "row", alignItems: "center", gap: 10, marginBlock: 15}}>
+         <TouchableOpacity style={{height: 34, width: 30, alignItems: "center"}} onPress={prev}><Text style={styles.buttonText}>{"<"}</Text></TouchableOpacity>   <Text style={{color: "black", fontFamily: "Permanent", fontSize: 16}}> {phases[index] === "Quarter-finals" ? "Quarts de finale" : phases[index] === "Round of 16" ? "Huitiemes de finale" : phases[index]}</Text><TouchableOpacity style={{height: 34, width: 30, alignItems: "center"}} onPress={next}><Text style={styles.buttonText}>{">"}</Text></TouchableOpacity>
+ </View>
+
+    {
+    teamF.map((match)=>
+      phases[index] === match.league.round ? 
+      <Match
+        equipeDom={match.teams.home.name}
+        id={match.fixture.id}
+        equipeExt={match.teams.away.name}
+        logoDom={match.teams.home.logo}
+        round={match.league.round}
+        logoExt={match.teams.away.logo}
+        scoreDom={match.goals.home}
+        scoreExt={match.goals.away}
+        date={match.fixture.date}
+      /> : null)
+  
+}
+        
+      
+    </View> :
     <View style={styles.container}>
       
+
 
       <Text style={styles.header}>Phase finale</Text>
       <JourneesSelections
@@ -100,7 +139,7 @@ function TableauSelections({ id, currentRound, journey }) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 0,
+    padding: 10,
     backgroundColor: '#f0f0f0',
     justifyContent: "center",
     alignItems: "center"
@@ -116,6 +155,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  buttonText: {
+    fontFamily: "Permanent",
+    color: "black",
+    fontSize: 20
+  }
 });
 
 export default TableauSelections;

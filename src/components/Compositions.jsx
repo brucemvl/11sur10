@@ -62,7 +62,10 @@ useEffect(() => {
     return <Text>Loading...</Text>
   }
   
-    
+  const noteDom = match.players[0].players.map((joueur)=> joueur.statistics[0].games.rating)
+  const noteExt = match.players[1].players.map((joueur)=> joueur.statistics[0].games.rating)
+
+  const noteMax = Math.max(...noteDom, ...noteExt)
 
     console.log(coachDomicile)
 
@@ -95,6 +98,8 @@ useEffect(() => {
                   <Image source={flecheVerte} style={styles.arrowImage} />
                 </View>
               )}
+                            {player.statistics[0].games.rating >= noteMax ? <Text>⭐</Text> : null }
+
             </View>
           </View>
         </View>
@@ -131,6 +136,7 @@ useEffect(() => {
                   <Image source={flecheVerte} style={styles.arrowImage} />
                 </View>
               )}
+              {player.statistics[0].games.rating >= noteMax ? <Text>⭐</Text> : null }
             </View>
           </View>
         </View>

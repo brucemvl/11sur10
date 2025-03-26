@@ -31,7 +31,6 @@ const FicheMatch = () => {
     const [histo2, setHisto2] = useState(true);
 
     const [historique, setHistorique] = useState(null)
-    const [historique2, setHistorique2] = useState(null)
 
     const [selected, setSelected] = useState(true);
     const [selected2, setSelected2] = useState(false);
@@ -127,7 +126,7 @@ const FicheMatch = () => {
             .then((response) => response.json())
             .then((result) => {
                 
-                    setHistorique(result.response.slice(result.response.length - 5, result.response.length));
+                    setHistorique(result.response);
             })
             .catch((error) => { 
                 console.error(error);
@@ -136,30 +135,9 @@ const FicheMatch = () => {
     }, [homeId, extId]);
 
 
-    useEffect(() => {
-     // Fetch head-to-head history
-     fetch(`https://v3.football.api-sports.io/fixtures/headtohead?h2h=${extId}-${homeId}`, {
-        method: "GET",
-        headers: {
-            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-            "x-rapidapi-host": "v3.football.api-sports.io",
-        }
-    })
-        .then((response) => response.json())
-        .then((result) => {
-            result.response.length <= 6 ? setHistorique2(result.response) :
-
-            
-                setHistorique2(result.response.slice(result.response[2], result.response.length - 10));
-        })
-        .catch((error) => { 
-            console.error(error);
-            setHistorique2(null)
-        });
-}, [homeId, extId]);
+    
 
     console.log(historique)
-    console.log(historique2)
 
     // Fetch injuries
     useEffect(() => {
@@ -308,7 +286,7 @@ console.log(injuries)
         return <Text>Loading match info...</Text>;
     }
 
-    if (!historique || !historique2) {
+    if (!historique ) {
         return <Text>Loading match info...</Text>;
     }
 
@@ -320,7 +298,7 @@ console.log(injuries)
 
     const buteurs = match.events.filter((element) => element.type === "Goal" && element.detail != "Missed Penalty");
     const buteursnopen = buteurs.filter((element)=> element.comments != "Penalty Shootout");
-    const buteursPen = buteurs.filter((element)=> element.comments === "Penalty Shootout");
+    const buteursPen = match.events.filter((element)=> element.comments === "Penalty Shootout");
     const buteurHome = buteursnopen.filter((buteur) => buteur.team.name === match.teams.home.name);
     const buteurExt = buteursnopen.filter((buteur) => buteur.team.name === match.teams.away.name);
     const buteurHomeP = buteursPen.filter((buteur) => buteur.team.name === match.teams.home.name);
@@ -393,18 +371,21 @@ console.log(injuries)
                 <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt} />
                 <View style={{flexDirection: "row", marginBottom: 10}}>
                 <TouchableOpacity onPress={openCompos}>
-                            <Text style={selected7 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 100}]}>Compos</Text>
+                            <Text style={selected7 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 92}]}>Compos</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={openApercu}>
+                            <Text style={selected8 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 92}]}>Apercu</Text>
                         </TouchableOpacity>
         <TouchableOpacity onPress={openHisto}>
-                            <Text style={selected4 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 100}]}>Historique</Text>
+                            <Text style={selected4 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 92}]}>Historique</Text>
                         </TouchableOpacity>
                       { match.league.standings === true ?  <TouchableOpacity onPress={openClassement}>
-                            <Text style={selected5 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 100}]}>Classement</Text>
+                            <Text style={selected5 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 92}]}>Classement</Text>
                         </TouchableOpacity> : null }
                         </View>
                         {compos2 && <SchemaAvance match={match} compoDom={compoDom} compoExt={compoExt} colors={colors} />}
-
-                        {histo && <Histo historique={historique} historique2={historique2}/>}
+                        {apercu && <Indisponibles injuries={injuries} match={match} />}
+                        {histo && <Histo historique={historique} />}
                         {classement && <Classement id={match.league.id}/>}    
 
         </ScrollView>
@@ -422,7 +403,9 @@ console.log(injuries)
         
         <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt} />
         <View style={{flexDirection: "row", marginBottom: 10}}>
-        {match.fixture.status.long === "Not Started" ? <TouchableOpacity onPress={openApercu}>
+        {match.fixture.status.long === "Not Started" ? 
+        injuries.length <= 0 ? null :
+        <TouchableOpacity onPress={openApercu}>
                             <Text style={selected8 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 100}]}>Apercu</Text>
                         </TouchableOpacity> : null }
         <TouchableOpacity onPress={openHisto}>
@@ -433,7 +416,7 @@ console.log(injuries)
                         </TouchableOpacity> : null }
                         </View>
                         {apercu && <Indisponibles injuries={injuries} match={match} />}
-                        {histo2 && <Histo historique={historique} historique2={historique2}/>}
+                        {histo2 && <Histo historique={historique} />}
                         {classement && <Classement id={match.league.id}/>}       
                          </ScrollView>
         </View>
@@ -494,7 +477,7 @@ console.log(injuries)
                     {details && match && <Details match={match} possession={poss} expectedGoals={xg} tirs={tirs} tirsCadres={tirsCadres} jaune={jaune} rouge={rouge} passes={passes} passesReussies={passesReussies} accuracy={accuracy}/>}
                 {compos && <Compositions match={match} titulairesDom={tituDom} titulairesExt={tituExt} coachDom={coachDom} coachExt={coachExt} coachDomId={coachDomId} coachExtId={coachExtId} systemeDom={systemeDom} systemeExt={systemeExt} substituteDom={substituteDom} substituteExt={substituteExt} compoDom={compoDom} compoExt={compoExt} colors={colors} homeId={homeId} extId={extId}/>}
                 {live && <Evenements match={match} />}
-                {histo && <Histo historique={historique} historique2={historique2}/>}
+                {histo && <Histo historique={historique} />}
                 {classement && <Classement id={match.league.id}/>}
 
 

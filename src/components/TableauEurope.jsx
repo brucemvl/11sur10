@@ -6,6 +6,7 @@ import JourneesEurope from "./JourneesEurope";
 import Match from "./Match";
 import { LinearGradient } from "expo-linear-gradient";
 import ucl from "../assets/logoucl.png"
+import tabldc from "../assets/tabldc.png"
 
 function TableauEurope({ id}) {
   const [fontsLoaded] = useFonts({
@@ -165,6 +166,24 @@ if(json.response[0].league.id === 2){
 
  console.log(barrages)
   
+ const phases = ["Round of 16", "Quarter-finals"]
+
+ const [index, setIndex] = useState(1)
+
+ const prev = ()=>{
+  setIndex(index-1)
+
+  if (index === 0){
+    setIndex(0)
+  }
+ }
+
+ const next = ()=>{
+  setIndex(index+1)
+  if (index === 1){
+    setIndex(1)
+  }
+ }
 
  return (
   <LinearGradient
@@ -176,6 +195,8 @@ if(json.response[0].league.id === 2){
       source={id === 2 ? ucl : { uri: `https://media.api-sports.io/football/leagues/${id}.png` }}
       style={id === 2 ? { width: 80, height: 50, objectFit: 'contain' } : { width: 50, height: 50, objectFit: 'contain' }}
     />
+           { id === 2 ? <Image source={tabldc} style={{width: "100%",  height: 280, marginBlock: 15}}/> : null }
+
     <View style={{ flexDirection: 'row', gap: 30, marginBlock: 15 }}>
       <TouchableOpacity onPress={openPoules}>
         <Text style={phasePoules ? styles.selectedTab : styles.tab}>Poules</Text>
@@ -241,8 +262,12 @@ if(json.response[0].league.id === 2){
 
 {phaseFinale && (
       <>
+      <View style={{flexDirection: "row", alignItems: "center", gap: 10, marginBlock: 15}}>
+        <TouchableOpacity style={{height: 34, width: 30, alignItems: "center"}} onPress={prev}><Text style={styles.buttonText}>{"<"}</Text></TouchableOpacity>   <Text style={{color: "white", fontFamily: "Permanent", fontSize: 16}}> {phases[index] === "Quarter-finals" ? "Quarts de finale" : phases[index] === "Round of 16" ? "Huitiemes de finale" : phases[index]}</Text><TouchableOpacity style={{height: 34, width: 30, alignItems: "center"}} onPress={next}><Text style={styles.buttonText}>{">"}</Text></TouchableOpacity>
+</View>
         {phaseF.map((x) => {
           return (
+            phases[index] === x.league.round ? 
             <Match
               key={"match" + x.fixture.id}
               equipeDom={x.teams.home.name}
@@ -254,7 +279,7 @@ if(json.response[0].league.id === 2){
               scoreDom={x.goals.home}
               scoreExt={x.goals.away}
               date={x.fixture.date}
-            />
+            /> : null
           );
         })}
       </>
@@ -307,6 +332,11 @@ if(json.response[0].league.id === 2){
       elevation: 5,
 
   },
+  buttonText: {
+    fontFamily: "Permanent",
+    color: "white",
+    fontSize: 20
+  }
   });
 
   export default TableauEurope

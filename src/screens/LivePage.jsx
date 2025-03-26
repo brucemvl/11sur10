@@ -127,7 +127,7 @@ console.log(lives)
               </Text>
               <View style={styles.liveSticker}>
                 <Text style={styles.liveText}>{live.fixture.status.elapsed}'</Text>
-                <Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10 }}>live</Text>
+                <Animated.Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
               </View>
 
               <Text

@@ -38,7 +38,7 @@ function FicheSelections() {
 
   useEffect(() => {
     // Fetch data
-    fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=2024`, {
+    fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=${id === 29 ? "2023" : "2024"}`, {
       method: 'GET',
       headers: {
         'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
@@ -64,7 +64,6 @@ function FicheSelections() {
     );
   }
 
-  const classementPlat = classement.flatMap(arr => arr);
 
   return (
     <View>
@@ -72,7 +71,6 @@ function FicheSelections() {
 
     <ScrollView style={styles.blocFicheSelections}>
       <TableauSelections id={id} currentRound={currentRound} journey={journey} />
-
       <View style={styles.tableaux}>
         {classement.map((subArray, index) => (
           <View key={`group${index}`} style={styles.groupe}>
@@ -105,7 +103,7 @@ function FicheSelections() {
             </View>
           </View>
         ))}
-      </View>
+      </View> 
     </ScrollView>
     </View>
   );

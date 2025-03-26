@@ -33,6 +33,11 @@ import banner34 from "../assets/banner35.jpg"
 import banner35 from "../assets/banner36.webp"
 import banner36 from "../assets/banner37.jpg"
 import banner37 from "../assets/banner38.jpg"
+import banner38 from "../assets/banner39.jpg"
+import banner39 from "../assets/banner40.jpg"
+import banner40 from "../assets/banner41.jpg"
+import banner41 from "../assets/banner42.webp"
+
 
 
 import { useEffect, useState } from "react";
@@ -40,8 +45,9 @@ import { View, Text, Image, StyleSheet, Animated } from "react-native"
 
 const photosBan = [
   banner3, banner4, banner5, banner6, banner7, banner8, banner9,
-  banner10, banner11, banner12, banner13, banner14, banner15, banner16, banner17, banner18, banner19, banner20, banner21, banner22, banner23, banner24, banner25, banner26, banner27, banner28, banner29, banner30, banner31, banner32, banner33, banner34, banner35, banner36, banner37
+  banner10, banner11, banner12, banner13, banner14, banner15, banner16, banner17, banner18, banner19, banner20, banner21, banner22, banner23, banner24, banner25, banner26, banner27, banner28, banner29, banner30, banner31, banner32, banner33, banner34, banner35, banner36, banner37, banner38, banner39, banner40, banner41
 ];
+
 
 function Banner() {
   const [randomPhoto, setRandomPhoto] = useState(photosBan[Math.floor(Math.random() * photosBan.length)]);
@@ -54,14 +60,17 @@ function Banner() {
 
   const change = () => {
     setIsActive(false);
+    // Animation pour rendre l'image invisible (opacity = 0)
     Animated.timing(fadeAnim, {
       toValue: 0, // Fade out
       duration: 300,
       useNativeDriver: true,
     }).start(() => {
+      // Une fois l'animation de fade-out terminée, changer la photo
       let random = aleatoire(photosBan.length);
       setRandomPhoto(photosBan[random]);
 
+      // Animation pour faire réapparaître l'image (opacity = 1)
       Animated.timing(fadeAnim, {
         toValue: 1, // Fade in
         duration: 800,
@@ -70,6 +79,7 @@ function Banner() {
     });
   };
 
+  // Utilisation de useEffect pour changer l'image toutes les 6 secondes
   useEffect(() => {
     const interval = setInterval(change, 6000); // Changer toutes les 6 secondes
     return () => clearInterval(interval);
@@ -120,7 +130,6 @@ const styles = StyleSheet.create({
   },
 
   bannerTitle: {
-    fontWeight: "900",
     fontSize: 32,
     color: "white",
     fontFamily: "Kanitt",
@@ -128,7 +137,6 @@ const styles = StyleSheet.create({
   },
 
   bannerSubtitle: {
-    fontWeight: "900",
     fontSize: 18,
     color: "white",
     fontFamily: "Kanitt",

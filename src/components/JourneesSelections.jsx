@@ -11,9 +11,7 @@ function JourneesSelections({ setFilter, round, currentIndex, roundd, filter }) 
           outputRange: ['0deg', '360deg'],
         });
     
-    useEffect(() => {
-      setIndex(0);
-    }, [currentIndex]);
+    
   
     // Filtrage vers la prochaine journée
     const filtrageNext = () => {

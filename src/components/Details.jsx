@@ -15,7 +15,6 @@ function Details({
   accuracy
 }) {
 
-
     
   return (
     <View style={styles.article}>

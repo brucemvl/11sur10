@@ -20,7 +20,7 @@ function Tableau({ id, currentRound}) {
   useEffect(() => {
       const fetchData = () => {
           try {
-              fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&season=${id === 71 || id === 253 ? 2025 : 2024}`, {
+              fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&season=${id === 71 || id === 253  ? 2025 : 2024}`, {
                   method: "GET",
                   headers: {
                       "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
@@ -32,6 +32,10 @@ function Tableau({ id, currentRound}) {
                       console.log(json.response)
 
                       setTeam(json.response)
+
+                      if (json.response[0].league.id === 197) {
+                        setTeam(json.response.slice(0, 181))
+                      }
                   })
           }
           catch (error) {
@@ -49,18 +53,25 @@ function Tableau({ id, currentRound}) {
       []
   )
 
-  const [filter, setFilter] = useState(round)
+  const [filter, setFilter] =  useState(round)
 
+  
 
   const roundd = round.sort((a, b) => {
       const numA = parseInt(a.split('-')[1].trim());
       const numB = parseInt(b.split('-')[1].trim());
+      
       return numA - numB;
+
+      
   });
 
   const currentIndex = roundd.findIndex(x => {
       const num1 = parseInt(x.split('-')[1]);
       const num2 = parseInt(currentRound.split('-')[1]);
+      if (id === 197){
+        return 26
+      }
       return num1 === num2;
   });
 
@@ -72,6 +83,7 @@ function Tableau({ id, currentRound}) {
   if(currentRound.length === 0){
     return <Text>loading</Text>
   }
+
   
 console.log(filter)
 

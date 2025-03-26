@@ -313,7 +313,7 @@ export const selections = [
         "season": 2024,
 
     },
-
+*/
     {
         "id": 29,
         "name": "World Cup - Qualification Africa",
@@ -321,12 +321,12 @@ export const selections = [
         "season": 2023,
         },
         {
-            "id": 34,
-            "name": "World Cup - Qualification South America",
-            "logo": "https://media.api-sports.io/football/leagues/34.png",
+            "id": 32,
+            "name": "World Cup - Qualification Europe",
+            "logo": "https://media.api-sports.io/football/leagues/32.png",
             "season": 2026,
             },
-
+/*
             {
                 "id": 30,
                 "name": "World Cup - Qualification Asia",

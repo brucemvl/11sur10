@@ -3,40 +3,30 @@ import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Animated, 
 import { LinearGradient } from 'expo-linear-gradient';
 import ligue1 from "../assets/logoligue1.webp"
 import { useNavigation } from '@react-navigation/native';
+import { useFonts } from 'expo-font';
 
-function Aujourdhui({matchs, onRefresh}) {
+function Aujourdhui({ matchs, onRefresh }) {
   const navigation = useNavigation()
   const [hier, setHier] = useState(false)
   const [aujourdhui, setAujourdhui] = useState(true)
   const [demain, setDemain] = useState(false)
   const [isRefreshing, setIsRefreshing] = useState(false); // État pour gérer le rafraîchissement
 
-
   const [noSpoil, setNoSpoil] = useState(true)
   const [isActive, setIsActive] = useState(false);
   const [position, setPosition] = useState(new Animated.Value(0));
-  const [matchsEngland, setMatchsEngland] = useState([]);
-  const [matchsSpain, setMatchsSpain] = useState([]);
-  const [matchsFrance, setMatchsFrance] = useState([]);
-  const [matchsUcl, setMatchsUcl] = useState([]);
-  const [matchsGer, setMatchsGer] = useState([]);
-  const [matchsItaly, setMatchsItaly] = useState([]);
-  const [matchsCdf, setMatchsCdf] = useState([]);
-  const [matchsFac, setMatchsFac] = useState([]);
-  const [matchsEfl, setMatchsEfl] = useState([]);
-  const [matchsCopa, setMatchsCopa] = useState([]);
-  const [matchsUel, setMatchsUel] = useState([]);
+  
+const [fontsLoaded] = useFonts({
+    "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
+    "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
+    "Kanitus": require("../assets/fonts/Kanit/Kanit-Light.ttf"),
+    "Kanitalic": require("../assets/fonts/Kanit/Kanit-MediumItalic.ttf"),
+    "Kanitalik": require("../assets/fonts/Kanit/Kanit-ExtraBoldItalic.ttf"),
+    "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf")
+  });
 
-  
 
- 
-  
-
-  
-
-  
-  
-  const spoil = ()=>{
+  const spoil = () => {
     setNoSpoil(!noSpoil)
     setIsActive(!isActive)
   }
@@ -48,7 +38,6 @@ function Aujourdhui({matchs, onRefresh}) {
   }).start();
 
 
-
   const [selectedDate, setSelectedDate] = useState("AUJOURDHUI");
 
 
@@ -56,16 +45,16 @@ function Aujourdhui({matchs, onRefresh}) {
   console.log(today)
 
   const yesterday = new Date();
-yesterday.setDate(yesterday.getDate() - 1);
-// Soustrait 1 jour à la date d'aujourd'hui
-const yesterdayDate = yesterday.toISOString().slice(0, 10); // Formate la date au format YYYY-MM-DD
-console.log(yesterdayDate);
+  yesterday.setDate(yesterday.getDate() - 1);
+  // Soustrait 1 jour à la date d'aujourd'hui
+  const yesterdayDate = yesterday.toISOString().slice(0, 10); // Formate la date au format YYYY-MM-DD
+  console.log(yesterdayDate);
 
-const tomorrow = new Date();
-tomorrow.setDate(tomorrow.getDate() + 1);
-// Soustrait 1 jour à la date d'aujourd'hui
-const tomorrowDate = tomorrow.toISOString().slice(0, 10); // Formate la date au format YYYY-MM-DD
-console.log(tomorrowDate);
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  // Soustrait 1 jour à la date d'aujourd'hui
+  const tomorrowDate = tomorrow.toISOString().slice(0, 10); // Formate la date au format YYYY-MM-DD
+  console.log(tomorrowDate);
 
   const todayMatch = matchs.filter((match) => {
     const matchDate = match.fixture.date.slice(0, 10);
@@ -118,7 +107,7 @@ console.log(tomorrowDate);
       setHier(false)
       setDemain(false)
     } else if (selectedDate === "DEMAIN") {
-       
+
     }
   };
 
@@ -159,256 +148,86 @@ console.log(tomorrowDate);
   }, [fadeAnim]);
 
   return (
-    todayMatch.length <= 0 ? <View style={styles.today}><LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={{width: "100%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue"}} >
-    { selectedDate === "DEMAIN" ? <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
-    <TouchableOpacity onPress={handlePrevious}>
-      <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-      <Text style={{color: "white", fontFamily: "Kanitt"}}>{"<"}</Text>
-      </LinearGradient>
-    </TouchableOpacity>
-
-    <LinearGradient
-      colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
-      style={styles.titre}
-    >
-      <Text style={styles.titreToday}>
-        {selectedDate}
-      </Text>
-    </LinearGradient>
-
-    <TouchableOpacity style={{width: 50}}>
-      
-    </TouchableOpacity>
-
-    </View> :
-    selectedDate === "HIER" ? <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
-    <TouchableOpacity style={{width: 50}}>
-      
-      </TouchableOpacity>
-
-    <LinearGradient
-      colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
-      style={styles.titre}
-    >
-      <Text style={styles.titreToday}>
-        {selectedDate}
-      </Text>
-    </LinearGradient>
-
-    <TouchableOpacity onPress={handleNext}>
-    <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-
-      <Text style={{color: "white", fontFamily: "Kanitt"}}>{">"}</Text>
-      </LinearGradient>
-    </TouchableOpacity>
-
-    </View> :
-    <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
-    <TouchableOpacity onPress={handlePrevious} >
-    <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-      <Text style={{color: "white", fontFamily: "Kanitt"}}>{"<"}</Text>
-      </LinearGradient>
-    </TouchableOpacity>
-
-    <LinearGradient
-      colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
-      style={styles.titre}
-    >
-      <Text style={styles.titreToday}>
-        {selectedDate}
-      </Text>
-    </LinearGradient>
-
-    <TouchableOpacity onPress={handleNext} >
-    <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-      <Text style={{color: "white", fontFamily: "Kanitt"}}>{">"}</Text>
-      </LinearGradient>
-    </TouchableOpacity>
-
-    </View>}
-
-    
-{ hier && <ScrollView contentContainerStyle={styles.liveTableau}>
-      {yesterdayMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match hier</Text> : 
-       yesterdayLeagues.map((league) => <View style={{ marginBlock: 5 }}>
-        <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
-        {yesterdayMatch.map((element) => element.league.name === league ?
-          
-            <TouchableOpacity
-              style={styles.link}
-              onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}  // Naviguer vers la fiche du match
-            >
-              <View style={styles.match}>
-
-                {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
-                  source={ligue1}
-                  style={styles.matchCompetition}
-                  resizeMode="contain"
-                /> :
-                  <Image
-                    source={{ uri: element.league.logo }}
-                    style={styles.matchCompetition}
-                    resizeMode="contain"
-                  />}
-
-                <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name}</Text>
-                <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
-
-                {element.goals.home === element.goals.away ? (
-                  <View style={styles.matchScore}>
-                    <View> <Text style={styles.nul}>{element.goals.home === null ? "-" : element.goals.home}</Text> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12}}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white"}}>P</Text></View> : null}</View>
-                    <View> <Text style={styles.nul}>{element.goals.away === null ? "-" : element.goals.away}</Text>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12}}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white"}}>P</Text></View> : null}</View>
-                  </View>
-                ) : (
-                  <View style={styles.matchScore}>
-                    <Text style={element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text>
-                    <Text style={element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text>
-                  </View>
-                )}
-
-                <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
-                <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name}</Text>
-              </View>
-            </TouchableOpacity>
-            : null
-        )}
-      </View>)
-      }
-    </ScrollView> }
-
-
-    {aujourdhui &&
-      <Text style={styles.nomatch}>Pas de match aujourdhui</Text>
-}
-{demain && <ScrollView contentContainerStyle={styles.liveTableau}>
-{tomorrowMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match demain</Text> : 
-
-tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
-        <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
-        {tomorrowMatch.map((element) => element.league.name === league ?
-          
-            <TouchableOpacity
-              key={element.fixture.id}
-              style={styles.link}
-              onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }}
-            >
-              <View style={styles.match}>
-                {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
-                  source={ligue1}
-                  style={styles.matchCompetition}
-                  resizeMode="contain"
-                /> :
-                  <Image
-                    source={{ uri: element.league.logo }}
-                    style={styles.matchCompetition}
-                    resizeMode="contain"
-                  />}                                    <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name}</Text>
-                <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
-                <Text style={{ marginInline: 4 }}>-</Text>
-                <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
-                <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name}</Text>
-                <View style={styles.rdv}>
-                  <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
-                  <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
-                </View>
-              </View>
-            </TouchableOpacity> : null
-        )}
-      </View>)
-      }
-    </ScrollView> }
-
-
-  </LinearGradient></View> :
-  
-  <View style={styles.today}
-  refreshControl={
-    <RefreshControl
-      refreshing={isRefreshing}
-      onRefresh={onRefresh}
-    />
-  }
-          >
-(
-  <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={{width: "100%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue"}} >
-          { selectedDate === "DEMAIN" ? <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
-      <TouchableOpacity onPress={handlePrevious} >
-      <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-        <Text style={{color: "white", fontFamily: "Kanitt"}}>{"<"}</Text>
-        </LinearGradient>
-      </TouchableOpacity>
-
-      <LinearGradient
-        colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
-        style={styles.titre}
-      >
-        <Text style={styles.titreToday}>
-          {selectedDate}
-        </Text>
-      </LinearGradient>
-
-      <TouchableOpacity style={{width: 50}}>
-        
-      </TouchableOpacity>
-
-      </View> :
-      selectedDate === "HIER" ? <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
-      <TouchableOpacity style={{width: 50}}>
-        
+    todayMatch.length <= 0 ? <View style={styles.today}><LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={{ width: "100%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue" }} >
+      {selectedDate === "DEMAIN" ? <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+        <TouchableOpacity onPress={handlePrevious}>
+          <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
+            <Text style={{ color: "white", fontFamily: "Kanitt" }}>{"<"}</Text>
+          </LinearGradient>
         </TouchableOpacity>
 
-      <LinearGradient
-        colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
-        style={styles.titre}
-      >
-        <Text style={styles.titreToday}>
-          {selectedDate}
-        </Text>
-      </LinearGradient>
-
-      <TouchableOpacity onPress={handleNext} >
-      <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-        <Text style={{color: "white", fontFamily: "Kanitt"}}>{">"}</Text>
+        <LinearGradient
+          colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
+          style={styles.titre}
+        >
+          <Text style={styles.titreToday}>
+            {selectedDate}
+          </Text>
         </LinearGradient>
-      </TouchableOpacity>
+
+        <TouchableOpacity style={{ width: 50 }}>
+
+        </TouchableOpacity>
 
       </View> :
-      <View style={{flexDirection: "row", alignItems: "center", gap: 10}}>
-      <TouchableOpacity onPress={handlePrevious} >
-      <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-        <Text style={{color: "white", fontFamily: "Kanitt"}}>{"<"}</Text>
-        </LinearGradient>
-      </TouchableOpacity>
+        selectedDate === "HIER" ? <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+          <TouchableOpacity style={{ width: 50 }}>
 
-      <LinearGradient
-        colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
-        style={styles.titre}
-      >
-        <Text style={styles.titreToday}>
-          {selectedDate}
-        </Text>
-      </LinearGradient>
+          </TouchableOpacity>
 
-      <TouchableOpacity onPress={handleNext} >
-      <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-        <Text style={{color: "white", fontFamily: "Kanitt"}}>{">"}</Text>
-        </LinearGradient>
-      </TouchableOpacity>
+          <LinearGradient
+            colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
+            style={styles.titre}
+          >
+            <Text style={styles.titreToday}>
+              {selectedDate}
+            </Text>
+          </LinearGradient>
 
-      </View>}
-{ hier && 
-  <ScrollView contentContainerStyle={styles.liveTableau}>
-      {yesterdayMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match hier</Text> : 
+          <TouchableOpacity onPress={handleNext}>
+            <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
 
-        yesterdayLeagues.map((league) => <View style={{ marginBlock: 5 }}>
-          <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
-          {yesterdayMatch.map((element) => element.league.name === league ?
-            
+              <Text style={{ color: "white", fontFamily: "Kanitt" }}>{">"}</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+
+        </View> :
+          <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+            <TouchableOpacity onPress={handlePrevious} >
+              <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
+                <Text style={{ color: "white", fontFamily: "Kanitt" }}>{"<"}</Text>
+              </LinearGradient>
+            </TouchableOpacity>
+
+            <LinearGradient
+              colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
+              style={styles.titre}
+            >
+              <Text style={styles.titreToday}>
+                {selectedDate}
+              </Text>
+            </LinearGradient>
+
+            <TouchableOpacity onPress={handleNext} >
+              <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
+                <Text style={{ color: "white", fontFamily: "Kanitt" }}>{">"}</Text>
+              </LinearGradient>
+            </TouchableOpacity>
+
+          </View>}
+
+
+      {hier && <ScrollView contentContainerStyle={styles.liveTableau}>
+        {yesterdayMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match hier</Text> :
+          yesterdayLeagues.map((league) => <View style={{ marginBlock: 5 }}>
+            <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
+            {yesterdayMatch.map((element) => element.league.name === league ?
+
               <TouchableOpacity
                 style={styles.link}
                 onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}  // Naviguer vers la fiche du match
               >
-              <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
+                <View style={styles.match}>
 
                   {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
                     source={ligue1}
@@ -426,8 +245,8 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
 
                   {element.goals.home === element.goals.away ? (
                     <View style={styles.matchScore}>
-                     <View> <Text style={styles.nul}>{element.goals.home === null ? "-" : element.goals.home}</Text> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12}}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white"}}>P</Text></View> : null}</View>
-                     <View> <Text style={styles.nul}>{element.goals.away === null ? "-" : element.goals.away}</Text>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12}}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white"}}>P</Text></View> : null}</View>
+                      <View> <Text style={styles.nul}>{element.goals.home === null ? "-" : element.goals.home}</Text> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
+                      <View> <Text style={styles.nul}>{element.goals.away === null ? "-" : element.goals.away}</Text>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
                     </View>
                   ) : (
                     <View style={styles.matchScore}>
@@ -438,130 +257,31 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
 
                   <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
                   <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name}</Text>
-                </LinearGradient>
+                </View>
               </TouchableOpacity>
               : null
-          )}
-        </View>)
+            )}
+          </View>)
         }
+      </ScrollView>}
 
-      </ScrollView> }
+
       {aujourdhui &&
-      <ScrollView contentContainerStyle={styles.liveTableau} refreshControl={
-        <RefreshControl
-          refreshing={isRefreshing}
-          onRefresh={onRefresh}
-        />
-      }>
-        
-        {leagues.map((league) => <View style={{ marginBlock: 5 }}>
-          <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBlock: 6}}>
-          <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
-          {league === "UEFA Champions League" && todayMatch.some((element) => 
-  element.league.name === "UEFA Champions League" && 
-  element.fixture.status.long != 'Match Finished' && 
-  element.fixture.status.elapsed !== null
-) ? (
-  <TouchableOpacity onPress={spoil} style={styles.button}>
-        <Animated.View
-          style={[
-            styles.toggle,
-            { transform: [{ translateX: position }] }, // Applique la transformation de position
-          ]}
-        >
-          <Text style={isActive ? styles.textspoil : styles.textnospoil }>{isActive ? 'Spoil' : 'No Spoil'}</Text>
-        </Animated.View>
-      </TouchableOpacity>
-): null} </View>       {todayMatch.map((element) => element.league.name === league ?
-            element.fixture.status.long === 'Not Started' ? (
+        <Text style={styles.nomatch}>Pas de match aujourdhui</Text>
+      }
+      {demain && <ScrollView contentContainerStyle={styles.liveTableau}>
+        {tomorrowMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match demain</Text> :
+
+          tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
+            <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
+            {tomorrowMatch.map((element) => element.league.name === league ?
+
               <TouchableOpacity
                 key={element.fixture.id}
+                style={styles.link}
                 onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }}
               >
-              <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
-              {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
-                    source={ligue1}
-                    style={styles.matchCompetition}
-                    resizeMode="contain"
-                  /> :
-                    <Image
-                      source={{ uri: element.league.logo }}
-                      style={styles.matchCompetition}
-                      resizeMode="contain"
-                    />}                                    <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name}</Text>
-                  <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
-                  <Text style={{ marginInline: 4 }}>-</Text>
-                  <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
-                  <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name}</Text>
-                  <View style={styles.rdv}>
-                    <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
-                    <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
-                  </View>
-                </LinearGradient>
-              </TouchableOpacity>
-            ) : element.fixture.status.long != 'Match Finished' && element.fixture.status.elapsed != null ? 
-            <TouchableOpacity
-            key={element.fixture.id}
-              onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}
-            >
-              <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
-                {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
-                  source={ligue1}
-                  style={styles.competitionLogo}
-                  resizeMode="contain"
-                /> :
-                  <Image
-                    source={{ uri: element.league.logo }}
-                    style={styles.competitionLogo}
-                    resizeMode="contain"
-                  />}
-                <View style={styles.teamContainerDom}>
-                  <Image
-                    source={{ uri: element.teams.home.logo }}
-                    style={styles.teamLogo}
-                    resizeMode="contain"
-                  />
-                  <Text style={styles.teamName}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name}</Text>
-                </View>
-                <View style={styles.scoreContainer}>
-                  {element.goals.home === element.goals.away ? (
-                    <View style={styles.score}>
-                     { element.league.name === "UEFA Champions League" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={styles.scoreText}>{element.goals.home}</Text> : <Text style={styles.scoreText}>{element.goals.home}</Text>}
-                      <View style={styles.liveSticker}>
-                        <Text style={styles.liveText}>{element.fixture.status.elapsed}'</Text>
-                        <Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10 }}>live</Text>
-                      </View>
-                      { element.league.name === "UEFA Champions League" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={styles.scoreText}>{element.goals.away}</Text> : <Text style={styles.scoreText}>{element.goals.away}</Text>}
-                      </View>
-                  ) : (
-                    <View style={styles.score}>
-                      { element.league.name === "UEFA Champions League" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={ element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text> : <Text style={ element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text> }
-                      <View style={styles.liveSticker}>
-                        <Text style={styles.liveText}>{element.fixture.status.elapsed}'</Text>
-                        <Animated.Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
-                        </View>
-
-                      { element.league.name === "UEFA Champions League" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={ element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text> : <Text style={ element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text>}
-
-                    </View>
-                  )}
-                </View>
-                <View style={styles.teamContainer}>
-                  <Image
-                    source={{ uri: element.teams.away.logo }}
-                    style={styles.teamLogo}
-                    resizeMode="contain"
-                  />
-                  <Text style={styles.teamName}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name}</Text>
-                </View>
-              </LinearGradient>
-            </TouchableOpacity> : element.fixture.status.long === 'Match Finished' ?
-              <TouchableOpacity
-              key={element.fixture.id}
-                onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}  // Naviguer vers la fiche du match
-              >
-              <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
-
+                <View style={styles.match}>
                   {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
                     source={ligue1}
                     style={styles.matchCompetition}
@@ -571,74 +291,346 @@ tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
                       source={{ uri: element.league.logo }}
                       style={styles.matchCompetition}
                       resizeMode="contain"
-                    />}
-
-                  <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name}</Text>
-                  <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
-
-                  {element.goals.home === element.goals.away ? (
-                    <View style={styles.matchScore}>
-                      <View> <Text style={styles.nul}>{element.goals.home === null ? "-" : element.goals.home}</Text> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12}}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white"}}>P</Text></View> : null}</View>
-                      <View> <Text style={styles.nul}>{element.goals.away === null ? "-" : element.goals.away}</Text>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12}}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white"}}>P</Text></View> : null}</View>
-                    </View>
-                  ) : (
-                    <View style={styles.matchScore}>
-                      <Text style={element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text>
-                      <Text style={element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text>
-                    </View>
-                  )}
-
-                  <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
-                  <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name}</Text>
-                </LinearGradient>
-              </TouchableOpacity>
-              : null
-            : null
-          )}
-        </View>)
-        }
-      </ScrollView>
-}
-{demain && <ScrollView contentContainerStyle={styles.liveTableau}>
-        {tomorrowMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match demain</Text> : 
-tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
-          <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
-          {tomorrowMatch.map((element) => element.league.name === league ?
-            
-              <TouchableOpacity
-                key={element.fixture.id}
-                onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }}
-              >
-              <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
-              {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
-                    source={ligue1}
-                    style={styles.matchCompetition}
-                    resizeMode="contain"
-                  /> :
-                    <Image
-                      source={{ uri: element.league.logo }}
-                      style={styles.matchCompetition}
-                      resizeMode="contain"
                     />}                                    <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name}</Text>
                   <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
                   <Text style={{ marginInline: 4 }}>-</Text>
                   <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
-                  <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name}</Text>
+                  <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.away.name === "Central African Republic" ? "Centrafrique" : element.teams.away.name === "Netherlands" ? "Pays Bas" : element.teams.away.name === "Spain" ? "Espagne" : element.teams.away.name === "Germany" ? "Allemagne" : element.teams.away.name === "England" ? "Angleterre" : element.teams.away.name}</Text>
                   <View style={styles.rdv}>
                     <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
                     <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
                   </View>
-                </LinearGradient>
+                </View>
               </TouchableOpacity> : null
-          )}
-        </View>)
+            )}
+          </View>)
         }
-      </ScrollView> }
+      </ScrollView>}
+
+    </LinearGradient></View> :
+
+      <View style={styles.today}
+        refreshControl={
+          <RefreshControl
+            refreshing={isRefreshing}
+            onRefresh={onRefresh}
+          />
+        }
+      >
+        (
+        <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={{ width: "100%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue" }} >
+          {selectedDate === "DEMAIN" ? <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+            <TouchableOpacity onPress={handlePrevious} >
+              <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
+                <Text style={{ color: "white", fontFamily: "Kanitt" }}>{"<"}</Text>
+              </LinearGradient>
+            </TouchableOpacity>
+
+            <LinearGradient
+              colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
+              style={styles.titre}
+            >
+              <Text style={styles.titreToday}>
+                {selectedDate}
+              </Text>
+            </LinearGradient>
+
+            <TouchableOpacity style={{ width: 50 }}>
+
+            </TouchableOpacity>
+
+          </View> :
+            selectedDate === "HIER" ? <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+              <TouchableOpacity style={{ width: 50 }}>
+
+              </TouchableOpacity>
+
+              <LinearGradient
+                colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
+                style={styles.titre}
+              >
+                <Text style={styles.titreToday}>
+                  {selectedDate}
+                </Text>
+              </LinearGradient>
+
+              <TouchableOpacity onPress={handleNext} >
+                <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
+                  <Text style={{ color: "white", fontFamily: "Kanitt" }}>{">"}</Text>
+                </LinearGradient>
+              </TouchableOpacity>
+
+            </View> :
+              <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+                <TouchableOpacity onPress={handlePrevious} >
+                  <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
+                    <Text style={{ color: "white", fontFamily: "Kanitt" }}>{"<"}</Text>
+                  </LinearGradient>
+                </TouchableOpacity>
+
+                <LinearGradient
+                  colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
+                  style={styles.titre}
+                >
+                  <Text style={styles.titreToday}>
+                    {selectedDate}
+                  </Text>
+                </LinearGradient>
+
+                <TouchableOpacity onPress={handleNext} >
+                  <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
+                    <Text style={{ color: "white", fontFamily: "Kanitt" }}>{">"}</Text>
+                  </LinearGradient>
+                </TouchableOpacity>
+
+              </View>}
+          {hier &&
+            <ScrollView contentContainerStyle={styles.liveTableau}>
+              {yesterdayMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match hier</Text> :
+
+                yesterdayLeagues.map((league) => <View style={{ marginBlock: 5 }}>
+                  <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
+                  {yesterdayMatch.map((element) => element.league.name === league ?
+
+                    <TouchableOpacity
+                      style={styles.link}
+                      onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}  // Naviguer vers la fiche du match
+                    >
+                      <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
+
+                        {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
+                          source={ligue1}
+                          style={styles.matchCompetition}
+                          resizeMode="contain"
+                        /> :
+                          <Image
+                            source={{ uri: element.league.logo }}
+                            style={styles.matchCompetition}
+                            resizeMode="contain"
+                          />}
+
+                        <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.home.name === "Central African Republic" ? "Centrafrique" : element.teams.home.name === "Netherlands" ? "Pays Bas" : element.teams.home.name === "Spain" ? "Espagne" : element.teams.home.name === "Germany" ? "Allemagne" : element.teams.home.name === "England" ? "Angleterre" : element.teams.home.name}</Text>
+                        <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
+
+                        {element.goals.home === element.goals.away ? (
+                          <View style={styles.matchScore}>
+                            <View> <Text style={styles.nul}>{element.goals.home === null ? "-" : element.goals.home}</Text> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
+                            <View> <Text style={styles.nul}>{element.goals.away === null ? "-" : element.goals.away}</Text>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
+                          </View>
+                        ) : (
+                          <View style={styles.matchScore}>
+                            <Text style={element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text>
+                            <Text style={element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text>
+                          </View>
+                        )}
+
+                        <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
+                        <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.away.name === "Central African Republic" ? "Centrafrique" : element.teams.away.name === "Netherlands" ? "Pays Bas" : element.teams.away.name === "Spain" ? "Espagne" : element.teams.away.name === "Germany" ? "Allemagne" : element.teams.away.name === "England" ? "Angleterre" : element.teams.away.name}</Text>
+                      </LinearGradient>
+                    </TouchableOpacity>
+                    : null
+                  )}
+                </View>)
+              }
+
+            </ScrollView>}
+          {aujourdhui &&
+            <ScrollView contentContainerStyle={styles.liveTableau} refreshControl={
+              <RefreshControl
+                refreshing={isRefreshing}
+                onRefresh={onRefresh}
+              />
+            }>
+
+              {leagues.map((league) => <View style={{ marginBlock: 5 }}>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBlock: 6 }}>
+                  <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
+                  {league === "UEFA Champions League" && todayMatch.some((element) =>
+                    element.league.name === "UEFA Champions League" &&
+                    element.fixture.status.long != 'Match Finished' &&
+                    element.fixture.status.elapsed !== null
+                  ) ? (
+                    <TouchableOpacity onPress={spoil} style={styles.button}>
+                      <Animated.View
+                        style={[
+                          styles.toggle,
+                          { transform: [{ translateX: position }] }, // Applique la transformation de position
+                        ]}
+                      >
+                        <Text style={isActive ? styles.textspoil : styles.textnospoil}>{isActive ? 'Spoil' : 'No Spoil'}</Text>
+                      </Animated.View>
+                    </TouchableOpacity>
+                  ) : null} </View>       {todayMatch.map((element) => element.league.name === league ?
+                    element.fixture.status.long === 'Not Started' ? (
+                      <TouchableOpacity
+                        key={element.fixture.id}
+                        onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }}
+                      >
+                        <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
+                          {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
+                            source={ligue1}
+                            style={styles.matchCompetition}
+                            resizeMode="contain"
+                          /> :
+                            <Image
+                              source={{ uri: element.league.logo }}
+                              style={styles.matchCompetition}
+                              resizeMode="contain"
+                            />}                                    <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.home.name === "Central African Republic" ? "Centrafrique" : element.teams.home.name === "Netherlands" ? "Pays Bas" : element.teams.home.name === "Spain" ? "Espagne" : element.teams.home.name === "Germany" ? "Allemagne" : element.teams.home.name === "England" ? "Angleterre" : element.teams.home.name}</Text>
+                          <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
+                          <Text style={{ marginInline: 4 }}>-</Text>
+                          <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
+                          <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.away.name === "Central African Republic" ? "Centrafrique" : element.teams.away.name === "Netherlands" ? "Pays Bas" : element.teams.away.name === "Spain" ? "Espagne" : element.teams.away.name === "Germany" ? "Allemagne" : element.teams.away.name === "England" ? "Angleterre" : element.teams.away.name}</Text>
+                          <View style={styles.rdv}>
+                            <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
+                            <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
+                          </View>
+                        </LinearGradient>
+                      </TouchableOpacity>
+                    ) : element.fixture.status.long != 'Match Finished' && element.fixture.status.elapsed != null ?
+                      <TouchableOpacity
+                        key={element.fixture.id}
+                        onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}
+                      >
+                        <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
+                          {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
+                            source={ligue1}
+                            style={styles.competitionLogo}
+                            resizeMode="contain"
+                          /> :
+                            <Image
+                              source={{ uri: element.league.logo }}
+                              style={styles.competitionLogo}
+                              resizeMode="contain"
+                            />}
+                          <View style={styles.teamContainerDom}>
+                            <Image
+                              source={{ uri: element.teams.home.logo }}
+                              style={styles.teamLogo}
+                              resizeMode="contain"
+                            />
+                            <Text style={styles.teamName}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.home.name === "Central African Republic" ? "Centrafrique" : element.teams.home.name === "Netherlands" ? "Pays Bas" : element.teams.home.name === "Spain" ? "Espagne" : element.teams.home.name === "Germany" ? "Allemagne" : element.teams.home.name === "England" ? "Angleterre" : element.teams.home.name}</Text>
+                          </View>
+                          <View style={styles.scoreContainer}>
+                            {element.goals.home === element.goals.away ? (
+                              <View style={styles.score}>
+                                {element.league.name === "UEFA Champions League" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={styles.scoreText}>{element.goals.home}</Text> : <Text style={styles.scoreText}>{element.goals.home}</Text>}
+                                {element.fixture.status.elapsed > 0 && element.fixture.status.long != "Match Finished" ? 
+                                                        element.fixture.status.long === "Halftime" ? <Text style={{color: "white", fontFamily: "Kanitalic", fontSize: 10, backgroundColor: "darkred", padding: 2, borderRadius: 4, marginInline: 3}}>MT</Text> :
+                                                        <View style={styles.liveSticker}>
+                                                                        <Text style={styles.liveText}>{element.fixture.status.elapsed}'</Text>
+                                                                        <Animated.Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
+                                                                      </View> : null}
+                                {element.league.name === "UEFA Champions League" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={styles.scoreText}>{element.goals.away}</Text> : <Text style={styles.scoreText}>{element.goals.away}</Text>}
+                              </View>
+                            ) : (
+                              <View style={styles.score}>
+                                {element.league.name === "UEFA Champions League" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text> : <Text style={element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text>}
+                                {element.fixture.status.elapsed > 0 && element.fixture.status.long != "Match Finished" ? 
+                                                        element.fixture.status.long === "Halftime" ? <Text style={{color: "white", fontFamily: "Kanitalic", fontSize: 10, backgroundColor: "darkred", padding: 2, borderRadius: 4, marginInline: 3}}>MT</Text> :
+                                                        <View style={styles.liveSticker}>
+                                                                        <Text style={styles.liveText}>{element.fixture.status.elapsed}'</Text>
+                                                                        <Animated.Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
+                                                                      </View> : null}
+
+                                {element.league.name === "UEFA Champions League" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text> : <Text style={element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text>}
+
+                              </View>
+                            )}
+                          </View>
+                          <View style={styles.teamContainer}>
+                            <Image
+                              source={{ uri: element.teams.away.logo }}
+                              style={styles.teamLogo}
+                              resizeMode="contain"
+                            />
+                            <Text style={styles.teamName}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.away.name === "Central African Republic" ? "Centrafrique" : element.teams.away.name === "Netherlands" ? "Pays Bas" : element.teams.away.name === "Spain" ? "Espagne" : element.teams.away.name === "Germany" ? "Allemagne" : element.teams.away.name === "England" ? "Angleterre" : element.teams.away.name}</Text>
+                          </View>
+                        </LinearGradient>
+                      </TouchableOpacity> : element.fixture.status.long === 'Match Finished' ?
+                        <TouchableOpacity
+                          key={element.fixture.id}
+                          onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}  // Naviguer vers la fiche du match
+                        >
+                          <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
+
+                            {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
+                              source={ligue1}
+                              style={styles.matchCompetition}
+                              resizeMode="contain"
+                            /> :
+                              <Image
+                                source={{ uri: element.league.logo }}
+                                style={styles.matchCompetition}
+                                resizeMode="contain"
+                              />}
+
+                            <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.home.name === "Central African Republic" ? "Centrafrique" : element.teams.home.name === "Netherlands" ? "Pays Bas" : element.teams.home.name === "Spain" ? "Espagne" : element.teams.home.name === "Germany" ? "Allemagne" : element.teams.home.name === "England" ? "Angleterre" : element.teams.home.name}</Text>
+                            <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
+
+                            {element.goals.home === element.goals.away ? (
+                              <View style={styles.matchScore}>
+                                <View> <Text style={styles.nul}>{element.goals.home === null ? "-" : element.goals.home}</Text> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
+                                <View> <Text style={styles.nul}>{element.goals.away === null ? "-" : element.goals.away}</Text>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
+                              </View>
+                            ) : (
+                              <View style={styles.matchScore}>
+                                <Text style={element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text>
+                                <Text style={element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text>
+                              </View>
+                            )}
+
+                            <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
+                            <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.away.name === "Central African Republic" ? "Centrafrique" : element.teams.away.name === "Netherlands" ? "Pays Bas" : element.teams.away.name === "Spain" ? "Espagne" : element.teams.away.name === "Germany" ? "Allemagne" : element.teams.away.name === "England" ? "Angleterre" : element.teams.away.name}</Text>
+                          </LinearGradient>
+                        </TouchableOpacity>
+                        : null
+                    : null
+                  )}
+              </View>)
+              }
+            </ScrollView>
+          }
+          {demain && <ScrollView contentContainerStyle={styles.liveTableau}>
+            {tomorrowMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match demain</Text> :
+              tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
+                <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
+                {tomorrowMatch.map((element) => element.league.name === league ?
+
+                  <TouchableOpacity
+                    key={element.fixture.id}
+                    onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }}
+                  >
+                    <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
+                      {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
+                        source={ligue1}
+                        style={styles.matchCompetition}
+                        resizeMode="contain"
+                      /> :
+                        <Image
+                          source={{ uri: element.league.logo }}
+                          style={styles.matchCompetition}
+                          resizeMode="contain"
+                        />}                                    <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.home.name === "Central African Republic" ? "Centrafrique" : element.teams.home.name === "Netherlands" ? "Pays Bas" : element.teams.home.name === "Spain" ? "Espagne" : element.teams.home.name === "Germany" ? "Allemagne" : element.teams.home.name === "England" ? "Angleterre" : element.teams.home.name}</Text>
+                      <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
+                      <Text style={{ marginInline: 4 }}>-</Text>
+                      <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
+                      <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.away.name === "Central African Republic" ? "Centrafrique" : element.teams.away.name === "Netherlands" ? "Pays Bas" : element.teams.away.name === "Spain" ? "Espagne" : element.teams.away.name === "Germany" ? "Allemagne" : element.teams.away.name === "England" ? "Angleterre" : element.teams.away.name}</Text>
+                      <View style={styles.rdv}>
+                        <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
+                        <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
+                      </View>
+                    </LinearGradient>
+                  </TouchableOpacity> : null
+                )}
+              </View>)
+            }
+          </ScrollView>}
 
 
-    </LinearGradient>)
+        </LinearGradient>)
 
-    </View>
+      </View>
   );
 };
 
@@ -649,10 +641,10 @@ const styles = StyleSheet.create({
     padding: 2,
     width: "100%",
     shadowColor: '#000', // shadow color
-        shadowOffset: { width: 0, height: 5 }, // shadow offset
-        shadowOpacity: 0.8, // shadow opacity
-        shadowRadius: 3,
-        elevation: 4
+    shadowOffset: { width: 0, height: 5 }, // shadow offset
+    shadowOpacity: 0.8, // shadow opacity
+    shadowRadius: 3,
+    elevation: 4
 
   },
   titre: {
@@ -671,7 +663,7 @@ const styles = StyleSheet.create({
     color: 'white',
     width: 200,
     textAlign: 'center',
-    fontFamily: 'Permanent Marker',
+    fontFamily: 'Permanent',
     borderRadius: 5,
     height: 40,
     marginBlock: 10,
@@ -706,8 +698,8 @@ const styles = StyleSheet.create({
     width: "10%",
     backgroundColor: "black",
     borderRadius: 5,
-    
-    
+
+
 
   },
   matchLogoExt: {
@@ -804,7 +796,7 @@ const styles = StyleSheet.create({
   teamName: {
     fontSize: 13,
     fontFamily: "Kanito",
-    
+
   },
   scoreContainer: {
     alignItems: 'center',
@@ -852,9 +844,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     textAlign: "center",
     paddingTop: 4,
-    
+
   },
-  arrow : {
+  arrow: {
     color: "white",
     fontFamily: "Kanitt",
     height: 35,
@@ -882,9 +874,9 @@ const styles = StyleSheet.create({
     marginRight: 8
   },
   textspoil: {
-fontFamily: "Permanent",
-fontSize: 10,
-color: "green",
+    fontFamily: "Permanent",
+    fontSize: 10,
+    color: "green",
 
   },
   textnospoil: {

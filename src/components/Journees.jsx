@@ -47,6 +47,7 @@ function Journees({ setFilter, round, currentIndex, roundd, filter }) {
       setFilter(round[index]);
     }, [index, round, setFilter]);
 
+
     console.log("Index:", index);
 console.log("Current Round:", roundd[index]);
 console.log("Filter:", filter);

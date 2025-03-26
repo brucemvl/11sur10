@@ -25,6 +25,11 @@ function FicheChampionnat({ route }) {
         if (json.response.length > 0) {
           setCurrentRound(json.response[0]);
         }
+
+        if (json.response[0].indexOf("Conference") !== -1) {
+          setCurrentRound("Regular Season 26");
+        }
+        
       } catch (error) {
         console.error("error:", error);
       }

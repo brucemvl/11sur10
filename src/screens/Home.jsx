@@ -28,6 +28,11 @@ function Home() {
   const [matchsEfl, setMatchsEfl] = useState([]);
   const [matchsCopa, setMatchsCopa] = useState([]);
   const [matchsUel, setMatchsUel] = useState([]);
+  const [matchsNations, setMatchsNations] = useState([]);
+  const [matchsAfrica, setMatchsAfrica] = useState([]);
+  const [matchsEurope, setMatchsEurope] = useState([]);
+
+
 
   const fetchMatches = async () => {
 
@@ -44,7 +49,7 @@ function Home() {
     };
 
     try {
-      const [ucl, france, england, spain, ger, italy, cdf, fac, efl, copa, uel] = await Promise.all([
+      const [ucl, france, england, spain, ger, italy, cdf, fac, efl, copa, uel, nations, africa, europe] = await Promise.all([
         fetchData('https://v3.football.api-sports.io/fixtures?league=2&season=2024'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=61&season=2024'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=39&season=2024'),
@@ -56,6 +61,11 @@ function Home() {
         fetchData('https://v3.football.api-sports.io/fixtures?league=46&season=2024'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=143&season=2024'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=3&season=2024'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=5&season=2024'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=29&season=2023'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=32&season=2024'),
+
+
       ]);
 
       // Mise à jour de l'état avec les nouveaux matchs récupérés
@@ -70,11 +80,14 @@ function Home() {
       setMatchsEfl(efl);
       setMatchsCopa(copa);
       setMatchsUel(uel);
+      setMatchsNations(nations);
+      setMatchsAfrica(africa);
+      setMatchsEurope(europe);
+
+
     } catch (error) {
       console.error('Erreur lors de la récupération des données', error);
-    } finally {
-      setLoading(false); // Fin du chargement
-    }
+    } 
   };
 
    const onRefresh = useCallback(() => {
@@ -87,7 +100,7 @@ function Home() {
     }, []);
   
 
-  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf, ...matchsFac, ...matchsEfl, ...matchsCopa, ...matchsUel]
+  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf, ...matchsFac, ...matchsEfl, ...matchsCopa, ...matchsUel, ...matchsNations, ...matchsAfrica, ...matchsEurope]
 
   
 
