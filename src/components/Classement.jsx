@@ -26,7 +26,7 @@ function Classement({ id }) {
 
 
   const fetchClassement = () => {
-    fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=${id === 71 || id === 253 ? 2025 : 2024}`, {
+    fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=${id === 71 || id === 253 ||id === 15? 2025 : 2024}`, {
       method: "GET",
       headers: {
         "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
@@ -41,7 +41,7 @@ function Classement({ id }) {
   console.log(tab)
 
   const fetchButeurs = () => {
-    fetch(`https://v3.football.api-sports.io/players/topscorers?league=${id}&season=${id === 71 || id === 253 ? 2025 : 2024}`, {
+    fetch(`https://v3.football.api-sports.io/players/topscorers?league=${id}&season=${id === 71 || id === 253 || id === 15 ? 2025 : 2024}`, {
       method: "GET",
       headers: {
         "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
@@ -54,7 +54,7 @@ function Classement({ id }) {
   };
 
   const fetchPasseurs = () => {
-    fetch(`https://v3.football.api-sports.io/players/topassists?league=${id}&season=${id === 71 || id === 253 ? 2025 : 2024}`, {
+    fetch(`https://v3.football.api-sports.io/players/topassists?league=${id}&season=${id === 71 || id === 253 || id === 15 ? 2025 : 2024}`, {
       method: "GET",
       headers: {
         "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",

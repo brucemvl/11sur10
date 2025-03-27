@@ -20,7 +20,7 @@ function Tableau({ id, currentRound}) {
   useEffect(() => {
       const fetchData = () => {
           try {
-              fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&season=${id === 71 || id === 253  ? 2025 : 2024}`, {
+              fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&season=${id === 71 || id === 253 || id === 15  ? 2025 : 2024}`, {
                   method: "GET",
                   headers: {
                       "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
@@ -100,7 +100,7 @@ console.log(filter)
         team={team}
         currentIndex={currentIndex} // Passer l'index de currentRound
       />
-      {team.map(element => filter === undefined ? <Text>Loading</Text> : !filter || filter === element.league.round ?
+      {team.map(element => filter === undefined ? <Text key={"erreur" + element.fixture.id}>Loading</Text> : !filter || filter === element.league.round ?
 
 <Match equipeDom={element.teams.home.name} id={element.fixture.id} equipeExt={element.teams.away.name} logoDom={element.teams.home.logo} round={element.league.round} logoExt={element.teams.away.logo} scoreDom={element.goals.home} scoreExt={element.goals.away} date={element.fixture.date} key={"match" + element.fixture.id} /> : null
 

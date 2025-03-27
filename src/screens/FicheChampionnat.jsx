@@ -14,7 +14,7 @@ function FicheChampionnat({ route }) {
   useEffect(() => {
     const fetchRound = async () => {
       try {
-        const response = await fetch(`https://v3.football.api-sports.io/fixtures/rounds?season=${id === 71 || id === 253 ? 2025 : 2024}&league=${id}&current=true`, {
+        const response = await fetch(`https://v3.football.api-sports.io/fixtures/rounds?season=${id === 71 || id === 253 || id === 15 ? 2025 : 2024}&league=${id}&current=true`, {
           method: "GET",
           headers: {
             "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",

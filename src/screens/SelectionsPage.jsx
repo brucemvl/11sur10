@@ -38,7 +38,7 @@ function SelectionsPage() {
                             style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
                             onPress={() => navigation.navigate('FicheSelections', { id })}
                         >
-                            <Text style={styles.filtreTitle}>{name}</Text>
+                            <Text style={styles.filtreTitle}>{name === "UEFA Nations League" ? "Nations League" : name === "World Cup - Qualification Europe" ? "CDM 2026 Europe" : name === "World Cup - Qualification Africa" ? "CDM 2026 Afrique" : name}</Text>
                             <View style={styles.logoContainer}>
                                 <Image source={{ uri: logo }} style={styles.logo} />
                             </View>
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: '400',
         paddingBlock: 5,
-        fontSize: 12.1,
+        fontSize: 11.5,
         flex: 1,
         alignItems: "center",
         fontFamily: "Permanent",

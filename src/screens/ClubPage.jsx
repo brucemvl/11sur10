@@ -67,7 +67,7 @@ function ClubPage() {
                             <Image source={{ uri: logo }} style={styles.logo} />
                             </View>
                         </TouchableOpacity>
-                        <Text style={{fontFamily: "Kanitalic", color: "white"}}>{country}</Text>
+                        <Text style={{fontFamily: "Kanitalic", color: "white"}}>{country === "Turkey" ? "Turquie" : country === "Saudi Arabia" ? "Arabie Saoudite" : country}</Text>
                         </View>
                     ))}
                     </View>

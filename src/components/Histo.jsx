@@ -11,7 +11,7 @@ function Histo({historique}) {
                 const date = new Date(element.fixture.date);
                 const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
                 return (  
-                  <View style={{alignItems: "center", marginBottom: 20}}>
+                  <View key={"affiche" + element.fixture.id} style={{alignItems: "center", marginBottom: 20}}>
 <View style={styles.dateheure}>
                             <Text style={{fontSize: 8.5, fontFamily: "Kanitalic", color: "white"}}>{formattedDate}</Text>
                         </View>  

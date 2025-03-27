@@ -151,7 +151,14 @@ export const autres = [
         "season": 2024,
     },
 
-
+    {
+        "id": 15,
+        "name": "FIFA Club World Cup",
+        "country": "World",
+        "logo": "https://media.api-sports.io/football/leagues/15.png",
+        "flag": "https://media.api-sports.io/flags/br.svg",
+        "season": 2025,
+    },
 
 
 

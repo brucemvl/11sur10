@@ -81,16 +81,16 @@ useEffect(() => {
                         <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.home.name}</Text>
                         <View style={{ gap: 5, flexDirection: "row", marginTop: 5 }}>{formeHome?.split('').map((char, index) => (
                             char === 'L' ? (
-                                <View style={styles.defaite}>
+                                <View style={styles.defaite} key={"forme d" + match.teams.home.id}>
                                     <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>D</Text>
                                 </View>
                             ) :
                                 char === 'W' ? (
-                                    <View style={styles.victoire} >
+                                    <View style={styles.victoire} key={"forme v" + match.teams.home.id} >
                                         <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>V</Text>
                                     </View>
                                 ) : (
-                                    <View style={styles.nul}>
+                                    <View style={styles.nul} key={"forme n" + match.teams.home.id}>
                                         <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>N</Text>
                                     </View>
                                 )
@@ -116,16 +116,16 @@ useEffect(() => {
                         <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.away.name}</Text>
                         <View style={{ gap: 5, flexDirection: "row", marginTop: 5 }}>{formeExt?.split('').map((char, index) => (
                             char === 'L' ? (
-                                <View style={styles.defaite}>
+                                <View style={styles.defaite} key={"forme d" + match.teams.away.id}>
                                     <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>D</Text>
                                 </View>
                             ) :
                                 char === 'W' ? (
-                                    <View style={styles.victoire} >
+                                    <View style={styles.victoire} key={"forme v" + match.teams.away.id} >
                                         <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>V</Text>
                                     </View>
                                 ) : (
-                                    <View style={styles.nul}>
+                                    <View style={styles.nul} key={"forme n" + match.teams.away.id}>
                                         <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>N</Text>
                                     </View>
                                 )
