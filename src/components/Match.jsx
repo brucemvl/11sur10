@@ -31,8 +31,8 @@ function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id,
     >
 
       <View style={styles.dateheure}>
-        <Text style={{fontSize: 8.5, fontFamily: "Kanitalic", color: "white"}}>{formattedDate}</Text>
-        <Text style={{fontSize: 8.5, fontFamily: "Kanitalic", color: "white"}}>{formattedHour}</Text>
+        <Text style={{fontSize: 8.5, fontFamily: "Kanitaliq", color: "white"}}>{formattedDate}</Text>
+        <Text style={{fontSize: 8.5, fontFamily: "Kanitaliq", color: "white"}}>{formattedHour}</Text>
       </View>
 
       <Text style={styles.equipeDom}>{equipeDom === "Paris Saint Germain" ? "Paris St Germain" : equipeDom === "Stade Brestois 29" ? "Stade Brestois" : equipeDom}</Text>

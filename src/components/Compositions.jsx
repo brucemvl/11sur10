@@ -98,7 +98,7 @@ useEffect(() => {
                   <Image source={flecheVerte} style={styles.arrowImage} />
                 </View>
               )}
-                            {player.statistics[0].games.rating >= noteMax ? <Text>⭐</Text> : null }
+                            {match.fixture.status.long === "Match Finished" && player.statistics[0].games.rating >= noteMax ? <Text>⭐</Text> : null }
 
             </View>
           </View>
@@ -136,7 +136,7 @@ useEffect(() => {
                   <Image source={flecheVerte} style={styles.arrowImage} />
                 </View>
               )}
-              {player.statistics[0].games.rating >= noteMax ? <Text>⭐</Text> : null }
+              {match.fixture.status.long === "Match Finished" && player.statistics[0].games.rating >= noteMax ? <Text>⭐</Text> : null }
             </View>
           </View>
         </View>
@@ -158,6 +158,7 @@ useEffect(() => {
             <Image source={{ uri: match?.teams.home.logo }} style={styles.logo} />
             <Text style={styles.systemeText}>{systemeDom}</Text>
           </View>
+         {compoDom.coach.id === null ? null : <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5,  padding: 8, borderTopRightRadius: 15, borderBottomRightRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12  }}>{compoDom.coach.name}</Text><Image source={{uri: compoDom.coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></View> }
 
           <Text style={styles.subTitle}>Titulaires</Text>
           <LinearGradient colors={["rgb(41, 154, 55)", 'rgba(32, 119, 42, 1)']} style={styles.playersList}>
@@ -175,7 +176,6 @@ useEffect(() => {
               </TouchableOpacity>
             ))}
           </LinearGradient>
-          <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, backgroundColor: "rgba(90, 103, 92, 0.9)", padding: 8, borderTopRightRadius: 15, borderBottomRightRadius: 15}}> <Text style={{ fontFamily: "Kanito", color: "white" }}>Coach:  {compoDom.coach.name}</Text><Image source={{uri: compoDom.coach.photo}} style={{width: 40, height: 40, borderRadius: 50, }}/></View>
         </View>
 
         <View style={styles.teamExtContainer}>
@@ -183,6 +183,7 @@ useEffect(() => {
             <Text style={styles.systemeText}>{systemeExt}</Text>
             <Image source={{ uri: match?.teams.away.logo }} style={styles.logo} />
           </View>
+         {compoExt.coach.id === null ? null : <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, padding: 8, borderTopLeftRadius: 15, borderBottomLeftRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12 }}>{compoExt.coach.name}</Text><Image source={{uri: compoExt.coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></View> }
 
           <Text style={styles.subTitleExt}>Titulaires</Text>
 
@@ -201,7 +202,6 @@ useEffect(() => {
               </TouchableOpacity>
             ))}
           </LinearGradient>
-          <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, backgroundColor: "rgb(90, 103, 92)", padding: 8, borderTopLeftRadius: 15, borderBottomLeftRadius: 15}}> <Text style={{ fontFamily: "Kanito", color: "white" }}>Coach:  {compoExt.coach.name}</Text><Image source={{uri: compoExt.coach.photo}} style={{width: 40, height: 40, borderRadius: 50, }}/></View>
         </View>
       </View>
     </View>

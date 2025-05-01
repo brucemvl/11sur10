@@ -21,14 +21,14 @@ const FicheMatch = () => {
     const [details, setDetails] = useState(true);
     const [compos, setCompos] = useState(false);
     const [compos2, setCompos2] = useState(true);
-    const [apercu, setApercu] = useState(false)
+    const [apercu, setApercu] = useState(true)
 
     const [injuries, setInjuries] = useState([]);
 
     const [coachDomicile, setCoachDom] = useState()
     const [classement, setClassement] = useState(false);
     const [histo, setHisto] = useState(false);
-    const [histo2, setHisto2] = useState(true);
+    const [histo2, setHisto2] = useState(false);
 
     const [historique, setHistorique] = useState(null)
 
@@ -37,9 +37,11 @@ const FicheMatch = () => {
     const [selected3, setSelected3] = useState(false);
     const [selected4, setSelected4] = useState(false);
     const [selected5, setSelected5] = useState(false);
-    const [selected6, setSelected6] = useState(true);
+    const [selected6, setSelected6] = useState(false);
     const [selected7, setSelected7] = useState(true);
-    const [selected8, setSelected8] = useState(false);
+    const [selected8, setSelected8] = useState(true);
+    const [selected9, setSelected9] = useState(false);
+
 
 
 
@@ -194,6 +196,8 @@ console.log(injuries)
         setSelected5(false);
         setSelected7(true);
         setSelected8(false)
+        setSelected9(false)
+
         setApercu(false)
 
     };
@@ -201,6 +205,8 @@ console.log(injuries)
     const openLive = () => {
         setLive(true);
         setCompos(false);
+        setCompos2(false);
+
         setDetails(false);
         setHisto(false);
         setClassement(false);
@@ -209,7 +215,11 @@ console.log(injuries)
         setSelected3(true);
         setSelected4(false);
         setSelected5(false);
+        setSelected7(false);
+
         setSelected8(false)
+        setSelected9(false)
+
         setApercu(false)
     };
 
@@ -231,6 +241,8 @@ console.log(injuries)
         setSelected6(true);
         setSelected7(false);
         setSelected8(false)
+        setSelected9(false)
+
         setApercu(false)
 
     };
@@ -254,6 +266,8 @@ console.log(injuries)
         setSelected6(false)
         setSelected7(false);
         setSelected8(false)
+        setSelected9(false)
+
         setApercu(false)
 
 
@@ -278,6 +292,8 @@ console.log(injuries)
         setSelected6(false)
         setSelected7(false);
         setSelected8(true)
+        setSelected9(true)
+
         setApercu(true)
     }
 
@@ -374,7 +390,7 @@ console.log(injuries)
                             <Text style={selected7 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 92}]}>Compos</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={openApercu}>
-                            <Text style={selected8 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 92}]}>Apercu</Text>
+                            <Text style={selected9 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 92}]}>Apercu</Text>
                         </TouchableOpacity>
         <TouchableOpacity onPress={openHisto}>
                             <Text style={selected4 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 92}]}>Historique</Text>
@@ -432,6 +448,27 @@ console.log(injuries)
                 <Precedent />
                 <ScrollView contentContainerStyle={styles.bloc}>
                 <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} />
+                <View style={{flexDirection: "row", marginBottom: 10}}>
+                { match.statistics.length > 0 ? <TouchableOpacity onPress={openDetails}>
+                            <Text style={selected ? styles.selectedTab : styles.tab}>Details</Text>
+                        </TouchableOpacity> : null }
+                    {match.lineups.length === 2 ? <TouchableOpacity onPress={openCompos}>
+                            <Text style={selected7 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 92}]}>Compos</Text>
+                        </TouchableOpacity> : null }
+                {match.events.length > 0 ? <TouchableOpacity onPress={openLive}>
+                            <Text style={selected3 ? styles.selectedTab : styles.tab}>Live</Text>
+                        </TouchableOpacity> : null }
+                        { match.league.standings === true ?  <TouchableOpacity onPress={openClassement}>
+                            <Text style={selected5 ? styles.selectedTab : styles.tab}>Classement</Text>
+                        </TouchableOpacity> : null }
+                        </View>
+                       {match.statistics.length > 0 ?  details && <Details match={match} possession={poss} expectedGoals={xg} tirs={tirs} tirsCadres={tirsCadres} jaune={jaune} rouge={rouge} passes={passes} passesReussies={passesReussies} accuracy={accuracy}/> : null }
+
+                        {compos2 && <SchemaAvance match={match} compoDom={compoDom} compoExt={compoExt} colors={colors} />}
+
+                        {live && <Evenements match={match} />}
+                        {classement && <Classement id={match.league.id}/>}
+
                 </ScrollView>
                 </View>
                 )

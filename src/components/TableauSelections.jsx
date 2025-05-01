@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Match from './Match'; // Assurez-vous que Match est aussi adapté pour React Native
-import JourneesSelections from './JourneesSelections'; // Assurez-vous que ce composant est aussi adapté pour React Native
+import Match from './Match'; 
+import JourneesSelections from './JourneesSelections'; 
 
 function TableauSelections({ id, currentRound, journey }) {
   const [teamF, setTeamF] = useState([]);
@@ -19,8 +19,8 @@ function TableauSelections({ id, currentRound, journey }) {
           },
         });
         const json = await response.json();
-        setTeamF(json.response.slice(156));
-        if (id === 29){
+        setTeamF(json.response.slice(180, 182));
+        if (id === 29 || id === 32){
           setTeamF(json.response)
         }
       } catch (error) {
@@ -43,7 +43,7 @@ function TableauSelections({ id, currentRound, journey }) {
   const roundd = round.map((element)=> element.slice(element.length - 4))
   console.log(teamF)
 
-  const [filter, setFilter] = useState(journey);
+  const [filter, setFilter] = id === 5? useState("Semi-finals") : useState(journey);
 
 
   const currentIndex = roundd.findIndex((x) => {
@@ -56,7 +56,7 @@ function TableauSelections({ id, currentRound, journey }) {
 
   const phases = ["Group Stage - 1", "Group Stage - 2", "Group Stage - 3", "Group Stage - 4", "Group Stage - 5", "Group Stage - 6", "Group Stage - 7", "Group Stage - 8", "Group Stage - 9", "Group Stage - 10",]
 
- const [index, setIndex] = useState(journey - 1)
+ const [index, setIndex] =  useState(journey - 1)
 
  const prev = ()=>{
   setIndex(index-1)
@@ -72,7 +72,7 @@ function TableauSelections({ id, currentRound, journey }) {
  }
 
   return (
-    id === 29 ? <View style={styles.container}>
+    id === 29 || id === 32 ? <View style={styles.container}>
  <View style={{flexDirection: "row", alignItems: "center", gap: 10, marginBlock: 15}}>
          <TouchableOpacity style={{height: 34, width: 30, alignItems: "center"}} onPress={prev}><Text style={styles.buttonText}>{"<"}</Text></TouchableOpacity>   <Text style={{color: "black", fontFamily: "Permanent", fontSize: 16}}> {phases[index] === "Quarter-finals" ? "Quarts de finale" : phases[index] === "Round of 16" ? "Huitiemes de finale" : phases[index]}</Text><TouchableOpacity style={{height: 34, width: 30, alignItems: "center"}} onPress={next}><Text style={styles.buttonText}>{">"}</Text></TouchableOpacity>
  </View>

@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontFamily: "Kanito",
+    fontFamily: "Kanitt",
     textAlign: "center",
   },
 });

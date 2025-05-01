@@ -215,7 +215,7 @@ const [fontsLoaded] = useFonts({
       {selectedDate === "APRES-DEMAIN" ? <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
         <TouchableOpacity onPress={handlePrevious}>
           <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-            <Text style={{ color: "white", fontFamily: "Kanitt" }}>{"<"}</Text>
+            <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{"<"}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -250,7 +250,7 @@ const [fontsLoaded] = useFonts({
           <TouchableOpacity onPress={handleNext}>
             <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
 
-              <Text style={{ color: "white", fontFamily: "Kanitt" }}>{">"}</Text>
+              <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{">"}</Text>
             </LinearGradient>
           </TouchableOpacity>
 
@@ -258,7 +258,7 @@ const [fontsLoaded] = useFonts({
           <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
             <TouchableOpacity onPress={handlePrevious} >
               <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-                <Text style={{ color: "white", fontFamily: "Kanitt" }}>{"<"}</Text>
+                <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{"<"}</Text>
               </LinearGradient>
             </TouchableOpacity>
 
@@ -273,7 +273,7 @@ const [fontsLoaded] = useFonts({
 
             <TouchableOpacity onPress={handleNext} >
               <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-                <Text style={{ color: "white", fontFamily: "Kanitt" }}>{">"}</Text>
+                <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{">"}</Text>
               </LinearGradient>
             </TouchableOpacity>
 
@@ -466,11 +466,11 @@ const [fontsLoaded] = useFonts({
         }
       >
         (
-        <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={{ width: "100%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue" }} >
+        <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={{ width: "100%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue", elevation: 4 }} >
           {selectedDate === "APRES-DEMAIN" ? <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
             <TouchableOpacity onPress={handlePrevious} >
               <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-                <Text style={{ color: "white", fontFamily: "Kanitt" }}>{"<"}</Text>
+                <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{"<"}</Text>
               </LinearGradient>
             </TouchableOpacity>
 
@@ -504,7 +504,7 @@ const [fontsLoaded] = useFonts({
 
               <TouchableOpacity onPress={handleNext} >
                 <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-                  <Text style={{ color: "white", fontFamily: "Kanitt" }}>{">"}</Text>
+                  <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{">"}</Text>
                 </LinearGradient>
               </TouchableOpacity>
 
@@ -512,7 +512,7 @@ const [fontsLoaded] = useFonts({
               <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
                 <TouchableOpacity onPress={handlePrevious} >
                   <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-                    <Text style={{ color: "white", fontFamily: "Kanitt" }}>{"<"}</Text>
+                    <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{"<"}</Text>
                   </LinearGradient>
                 </TouchableOpacity>
 
@@ -527,7 +527,7 @@ const [fontsLoaded] = useFonts({
 
                 <TouchableOpacity onPress={handleNext} >
                   <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-                    <Text style={{ color: "white", fontFamily: "Kanitt" }}>{">"}</Text>
+                    <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{">"}</Text>
                   </LinearGradient>
                 </TouchableOpacity>
 
@@ -895,7 +895,7 @@ const styles = StyleSheet.create({
   },
   titreToday: {
     color: 'white',
-    fontFamily: "Kanitt",
+    fontFamily: "Kanitalik",
   },
   nomatch: {
     color: 'white',
@@ -915,6 +915,8 @@ const styles = StyleSheet.create({
     height: 35,
     width: "7%",
     objectFit: 'contain',
+    borderTopLeftRadius: 6,
+    borderBottomLeftRadius: 6
   },
   matchEquipeDom: {
     fontSize: 14,

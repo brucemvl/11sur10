@@ -28,6 +28,7 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
     const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
     const formattedHour = `${date.getHours().toString().padStart(2, '0')}h${date.getMinutes().toString().padStart(2, '0')}`;
 
+    const [forme, setForme] = useState(0)
 
       const [fadeAnim] = useState(new Animated.Value(1)); // Animation de fade (opacité)
     
@@ -55,7 +56,7 @@ useEffect(() => {
   return (
         <View style={styles.container}>
             <View style={styles.ligue}>
-                {match.league.standings === true ? <Text style={{ fontFamily: "Kanitt" }}>{match.league.name} - {match.league.round === "Knockout Round Play-offs" ? "Barrages" : match.league.round === "Round of 16" ? "8eme de finale" : match.league.round === "Quarter-finals" ? "Quart de finale" : `Journee ${roundd}`}</Text> : <Text style={{ fontFamily: "Kanitt" }}>{match.league.name}</Text>}
+                <Text style={{ fontFamily: "Kanitt" }}>{match.league.name} - {match.league.round === "Knockout Round Play-offs" ? "Barrages" : match.league.round === "Round of 16" ? "8eme de finale" : match.league.round === "Quarter-finals" ? "Quart de finale" : match.league.round === "Semi-finals" ? "Demi Finale" : match.league.round === "Final" ? "Finale" : ` ${roundd}eme Journee`}</Text>
             </View>
             <View style={styles.datelieu}>
                 <View style={{ flexDirection: "row", gap: 5 }}>
@@ -81,16 +82,16 @@ useEffect(() => {
                         <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.home.name}</Text>
                         <View style={{ gap: 5, flexDirection: "row", marginTop: 5 }}>{formeHome?.split('').map((char, index) => (
                             char === 'L' ? (
-                                <View style={styles.defaite} key={"forme d" + match.teams.home.id}>
+                                <View style={styles.defaite} >
                                     <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>D</Text>
                                 </View>
                             ) :
                                 char === 'W' ? (
-                                    <View style={styles.victoire} key={"forme v" + match.teams.home.id} >
+                                    <View style={styles.victoire}  >
                                         <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>V</Text>
                                     </View>
                                 ) : (
-                                    <View style={styles.nul} key={"forme n" + match.teams.home.id}>
+                                    <View style={styles.nul} >
                                         <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>N</Text>
                                     </View>
                                 )
@@ -116,16 +117,16 @@ useEffect(() => {
                         <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.away.name}</Text>
                         <View style={{ gap: 5, flexDirection: "row", marginTop: 5 }}>{formeExt?.split('').map((char, index) => (
                             char === 'L' ? (
-                                <View style={styles.defaite} key={"forme d" + match.teams.away.id}>
+                                <View style={styles.defaite} >
                                     <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>D</Text>
                                 </View>
                             ) :
                                 char === 'W' ? (
-                                    <View style={styles.victoire} key={"forme v" + match.teams.away.id} >
+                                    <View style={styles.victoire} >
                                         <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>V</Text>
                                     </View>
                                 ) : (
-                                    <View style={styles.nul} key={"forme n" + match.teams.away.id}>
+                                    <View style={styles.nul} >
                                         <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>N</Text>
                                     </View>
                                 )
@@ -200,7 +201,7 @@ useEffect(() => {
                         keyExtractor={(item) => `buteur:${item.player.name}`}
                         renderItem={({ item }) => (
                             <View style={styles.buteurItem}>
-                                <Text style={styles.text}><Text style={styles.goalIcon}>⚽</Text> {item.player.name === "R. Lewandowski" ? "Lewandowski" : item.player.name}, {item.time.elapsed}' {item.time.extra ? `+ ${item.time.extra}` : null} {item.detail === "Own Goal" ? <Text style={styles.csc}>(csc)</Text> : null} {item.detail === "Penalty" ? <Text style={styles.penalty}>(pen)</Text> : null}</Text>
+                                <Text style={styles.text}><Text style={styles.goalIcon}>⚽</Text> {item.player.name === "R. Lewandowski" ? "Lewandowski" : item.player.name}, <Text style={{fontFamily: "Kanitalik"}}>{item.time.elapsed}'{item.time.extra ? `+ ${item.time.extra}` : null}</Text> {item.detail === "Own Goal" ? <Text style={styles.csc}>(csc)</Text> : null} {item.detail === "Penalty" ? <Text style={styles.penalty}>(pen)</Text> : null}</Text>
                             </View>
                         )}
                     />
@@ -212,7 +213,7 @@ useEffect(() => {
                         keyExtractor={(item) => `buteurExt:${item.player.name}`}
                         renderItem={({ item }) => (
                             <View style={styles.buteurExtItem}>
-                                <Text style={styles.text}> {item.player.name === "R. Lewandowski" ? "Lewandowski" : item.player.name}, {item.time.elapsed}' {item.time.extra ? `+ ${item.time.extra}` : null} {item.detail === "Own Goal" ? <Text style={styles.csc}>(csc)</Text> : null} {item.detail === "Penalty" ? <Text style={styles.penalty}>(pen)</Text> : null}<Text style={styles.goalIcon}>⚽</Text></Text>
+                                <Text style={styles.text}> {item.player.name === "R. Lewandowski" ? "Lewandowski" : item.player.name},{item.detail === "Own Goal" ? <Text style={styles.csc}>(csc)</Text> : null} {item.detail === "Penalty" ? <Text style={styles.penalty}>(pen) </Text> : null} <Text style={{fontFamily: "Kanitalik"}}>{item.time.elapsed}'{item.time.extra ? `+ ${item.time.extra}` : null}</Text> <Text style={styles.goalIcon}>⚽</Text></Text>
                             </View>
                         )}
                     />
@@ -307,7 +308,7 @@ const styles = StyleSheet.create({
     scoreText: {
         fontSize: 26,
         color: "white",
-        fontFamily: "Kanito"
+        fontFamily: "Kanitt"
     },
     buts: {
         width: '100%',

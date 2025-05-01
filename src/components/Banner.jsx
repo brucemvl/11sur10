@@ -14,7 +14,7 @@ import banner15 from "../assets/banner16.jpg";
 import banner16 from "../assets/banner17.jpg";
 import banner17 from "../assets/banner18.jpg";
 import banner18 from "../assets/banner19.jpg";
-import banner19 from "../assets/banner20.jpg"
+import banner19 from "../assets/banner20.webp"
 import banner20 from "../assets/banner21.webp"
 import banner21 from "../assets/banner22.jpg"
 import banner22 from "../assets/banner23.webp"
@@ -37,6 +37,13 @@ import banner38 from "../assets/banner39.jpg"
 import banner39 from "../assets/banner40.jpg"
 import banner40 from "../assets/banner41.jpg"
 import banner41 from "../assets/banner42.webp"
+import banner42 from "../assets/banner43.webp"
+import banner43 from "../assets/banner44.jpg"
+import banner44 from "../assets/banner45.webp"
+import banner45 from "../assets/banner46.jpg"
+import banner46 from "../assets/banner47.webp"
+import banner47 from "../assets/banner48.webp"
+import banner48 from "../assets/banner49.webp"
 
 
 
@@ -45,7 +52,7 @@ import { View, Text, Image, StyleSheet, Animated } from "react-native"
 
 const photosBan = [
   banner3, banner4, banner5, banner6, banner7, banner8, banner9,
-  banner10, banner11, banner12, banner13, banner14, banner15, banner16, banner17, banner18, banner19, banner20, banner21, banner22, banner23, banner24, banner25, banner26, banner27, banner28, banner29, banner30, banner31, banner32, banner33, banner34, banner35, banner36, banner37, banner38, banner39, banner40, banner41
+  banner10, banner11, banner12, banner13, banner14, banner15, banner16, banner17, banner18, banner19, banner20, banner21, banner22, banner23, banner24, banner25, banner26, banner27, banner28, banner29, banner30, banner31, banner32, banner33, banner34, banner35, banner36, banner37, banner38, banner39, banner40, banner41, banner42, banner43, banner44, banner45, banner46, banner47, banner48
 ];
 
 

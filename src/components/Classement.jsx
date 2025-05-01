@@ -149,7 +149,7 @@ function Classement({ id }) {
     item.player.name === "Juninho" ? "" :
     <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: item.player.id })}>
       <View style={styles.item}>
-        <Text style={{fontFamily: "Kanito", width: "45%"}}>{item.player.name}</Text>
+        <Text style={{fontFamily: "Kanito", width: "45%"}}>{item.player.id === 37784 ? "Mamadou Sissoko" : item.player.name}</Text>
         <Image source={{ uri: item.statistics[0].team.logo }} style={styles.logo} />
         <Text style={{fontFamily: "Kanito", width: "30%", textAlign: "center"}}>{item.statistics[0].games.appearences}</Text>
         <Text style={{fontFamily: "Kanitt", width: "15%", textAlign:"center"}}>{item.statistics[0].goals.total}</Text>
@@ -162,7 +162,7 @@ function Classement({ id }) {
   const renderPasseursItem = ({ item }) => (
     <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: item.player.id })}>
       <View style={styles.item}>
-        <Text style={{fontFamily: "Kanito", width: "45%"}}>{item.player.name}</Text>
+        <Text style={{fontFamily: "Kanito", width: "45%"}}>{item.player.id === 15906 ? "Toufik Chemakh" : item.player.name}</Text>
         <Image source={{ uri: item.statistics[0].team.logo }} style={styles.logo} />
         <Text style={{fontFamily: "Kanito", width: "30%", textAlign: "center"}}>{item.statistics[0].games.appearences}</Text>
         <Text style={{fontFamily: "Kanitt", width: "15%", textAlign: "center"}}>{item.statistics[0].goals.assists}</Text>

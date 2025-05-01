@@ -5,13 +5,15 @@ import { useRoute } from '@react-navigation/native';
 import Precedent from '../components/Precedent';
 
 function FicheSelections() {
+  const route = useRoute();
+
+  const { id } = route.params;
+
   const [classement, setClassement] = useState();
   const [loading, setLoading] = useState(true);
-  const [currentRound, setCurrentRound] = useState("League B - 6");
+  const [currentRound, setCurrentRound] =  id === 32 ? useState("Group Stage - 3") : useState("League B - 6");
 
 
-  const route = useRoute();
-  const { id } = route.params;
 
   useEffect(() => {
     const fetchRound = async () => {

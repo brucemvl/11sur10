@@ -2,7 +2,7 @@
   "expo": {
     "name": "11sur10",
     "slug": "11sur10",
-    "version": "1.9.0",
+    "version": "1.9.4",
     "orientation": "portrait",
     "icon": "./src/assets/logopnn.png",
     "userInterfaceStyle": "light",
@@ -15,10 +15,15 @@
     "ios": {
       "bundleIdentifier": "com.onzesur10.app",
       "supportsTablet": true,
+      "pushNotifications": true,
       "buildNumber": "1",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
+    },
+    "notification": {
+      "icon": "./src/assets/logopnn.png",
+      "color": "#000000"
     },
     "android": {
       "adaptiveIcon": {

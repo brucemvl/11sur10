@@ -35,6 +35,31 @@ function FicheEurope({ route }) {
     }, [id]);
 
 
+    useEffect(() => {
+      const fetchAllerRetour = async () => {
+        try {
+          const response = await fetch(`https://v3.football.api-sports.io/fixtures/rounds?season=2024&league=${id}&current=true`, {
+            method: "GET",
+            headers: {
+              "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+              "x-rapidapi-host": "v3.football.api-sports.io",
+            },
+          });
+          const json = await response.json();
+          if (json.response.length > 0) {
+            setCurrentRound(json.response[0]);
+          }
+          if (json.response.length <= 0) {
+            setCurrentRound("League Stage - 8")
+          }
+        } catch (error) {
+          console.error("error:", error);
+        }
+      };
+      fetchAllerRetour();
+    }, [id]);
+
+console.log(currentRound)
     return (
       <View style={{flex: 1}}>
             <Precedent />

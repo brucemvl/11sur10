@@ -23,6 +23,7 @@ import FicheEquipe from '../screens/FicheEquipe';
 
 
 
+
 const Stack = createStackNavigator();
 
 export default function AppNavigator() {
@@ -60,6 +61,7 @@ export default function AppNavigator() {
         <Stack.Screen name="SelectionsPage" component={SelectionsPage} />
         <Stack.Screen name='FicheSelections' component={FicheSelections} />
         <Stack.Screen name='FicheEquipe' component={FicheEquipe}  />
+
 
 
 

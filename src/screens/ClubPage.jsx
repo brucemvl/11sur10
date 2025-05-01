@@ -180,7 +180,6 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 5 }, // shadow offset
         shadowOpacity: 0.8, // shadow opacity
         shadowRadius: 3,
-        elevation: 4
     },
     conteneur: {
         marginBottom: 20,
@@ -190,7 +189,8 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        padding: 5
+        padding: 5,
+        elevation: 4
 
     },
     title: {

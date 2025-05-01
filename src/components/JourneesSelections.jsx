@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Animated } from "react-native";
 
-function JourneesSelections({ setFilter, round, currentIndex, roundd, filter }) {
+function JourneesSelections({ setFilter, round, currentIndex, roundd, filter, id }) {
     const [index, setIndex] = useState(currentIndex);
   
         const [rotateJournee, setRotateJournee] = useState(new Animated.Value(0));
@@ -11,7 +11,7 @@ function JourneesSelections({ setFilter, round, currentIndex, roundd, filter }) 
           outputRange: ['0deg', '360deg'],
         });
     
-    
+ 
   
     // Filtrage vers la prochaine journée
     const filtrageNext = () => {
