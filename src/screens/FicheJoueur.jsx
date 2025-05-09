@@ -545,7 +545,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: 10,
     width: "78%",
-    gap: 4
+    gap: 4,
+    alignItems: "center"
   },
   name: {
     fontSize: 19,

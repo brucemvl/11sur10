@@ -170,9 +170,9 @@ if(json.response[0].league.id === 2){
 
  console.log(barrages)
   
- const phases = ["Round of 16", "Quarter-finals", "Semi-finals"]
+ const phases = ["Round of 16", "Quarter-finals", "Semi-finals", "Final"]
 
- const [index, setIndex] = useState(2)
+ const [index, setIndex] = useState(3)
 
  const prev = ()=>{
   setIndex(index-1)
@@ -184,8 +184,8 @@ if(json.response[0].league.id === 2){
 
  const next = ()=>{
   setIndex(index+1)
-  if(index === 2){
-    setIndex(2)
+  if(index === 3){
+    setIndex(3)
   }
   
  }
@@ -268,7 +268,7 @@ if(json.response[0].league.id === 2){
 {phaseFinale && (
       <>
       <View style={{flexDirection: "row", alignItems: "center", gap: 10, marginBlock: 15}}>
-        <TouchableOpacity style={{height: 34, width: 30, alignItems: "center"}} onPress={prev}><Text style={styles.buttonText}>{"<"}</Text></TouchableOpacity>   <Text style={{color: "white", fontFamily: "Permanent", fontSize: 16}}> {phases[index] === "Quarter-finals" ? "Quarts de finale" : phases[index] === "Semi-finals" ? "Demis finales" : phases[index] === "Round of 16" ? "Huitiemes de finale" : phases[index]}</Text><TouchableOpacity style={{height: 34, width: 30, alignItems: "center"}} onPress={next}><Text style={styles.buttonText}>{">"}</Text></TouchableOpacity>
+        <TouchableOpacity style={{height: 34, width: 30, alignItems: "center"}} onPress={prev}><Text style={styles.buttonText}>{"<"}</Text></TouchableOpacity>   <Text style={{color: "white", fontFamily: "Kanitalik", fontSize: 16}}> {phases[index] === "Quarter-finals" ? "Quarts de finale" : phases[index] === "Semi-finals" ? "Demis finales" :  phases[index] === "Final" ? "Finale" :  phases[index] === "Round of 16" ? "Huitiemes de finale" : phases[index]}</Text><TouchableOpacity style={{height: 34, width: 30, alignItems: "center"}} onPress={next}><Text style={styles.buttonText}>{">"}</Text></TouchableOpacity>
 </View>
         {phaseF.map((x) => {
           return (

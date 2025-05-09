@@ -15,7 +15,10 @@ import pl from "../assets/PL.jpg"
 import liga from "../assets/liga.webp"
 import bundesliga from "../assets/bundesliga.webp"
 import arbitre from "../assets/arbitre.png"
-
+import dazn from "../assets/logos/dazn.png"
+import canal from "../assets/logos/canal.png"
+import bein from "../assets/logos/bein.png"
+import m6 from "../assets/logos/m6.png"
 
 
 
@@ -192,7 +195,7 @@ useEffect(() => {
                         ))}</View>
                     </TouchableOpacity>
                 </LinearGradient>}
-
+{match.league.id === 61 || match.league.id === 2 || match.league.id === 140 || match.league.id === 39 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitu"}}>Match diffusé sur</Text><Image source={match.league.id === 61 ? dazn : match.league.id === 2 || match.league.id === 39 ? canal : match.league.id === 140 ? bein : null} style={match.league.id === 61 ? {height: 25, width: 40, objectFit: "contain", marginLeft: -2}: match.league.id === 140 ? {height: 25, width: 65, objectFit: "contain", marginLeft: 5} : match.league.id === 39 || match.league.id === 2 ? {height: 25, width: 50, objectFit: "contain", marginLeft: 2} : {height: 25, width: 40, objectFit: "contain"} }/>{match.fixture.id === 1374812 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitu"}}>et</Text><Image source={m6} style={{height: 20, objectFit: "contain", width: 40}} /></View> : null}</View> : null}
             <View style={styles.buts}>
 
                 <View style={styles.equipeDomicile}>

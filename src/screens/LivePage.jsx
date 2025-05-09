@@ -80,12 +80,12 @@ console.log(lives)
         ) :
         
         (
-          leagues.map((league) => <View style={{marginBottom: 10}}>
+          leagues.map((league) => <View style={{marginBottom: 10}} key={"ligue" + league}>
             <Text style={{fontFamily: "Kanitus", color: "white"}}>{league === "Denmark" ? "Danemark" : league === "Belgium" ? "Belgique" : league === "Hungary" ? "Hongrie" : league === "England" ? "Angleterre" : league === "Spain" ? "Espagne" : league === "Germany" ? "Allemagne" : league === "Poland" ? "Pologne" : league === "Cyprus" ? "Chypre" : league === "Sweden" ? "Suede" : league === "Czech-Republic" ? "Republique Tcheque" : league === "Switzerland" ? "Suisse" : league === "Serbia" ? "Serbie" : league === "Algeria" ? "Algerie" : league === "Tunisia" ? "Tunisie" : league === "Turkey" ? "Turquie" : league === "Singapore" ? "Singapour" : league === "Latvia" ? "Letonie" : league === "Romania" ? "Roumanie" : league === "Belarus" ? "Bielorussie" : league === "Russia" ? "Russie" : league === "Bulgaria" ? "Bulgarie" : league === "Cameroon" ? "Cameroun" : league === "Greece" ? "Grece" : league === "India" ? "Inde" : league === "Cambodia" ? "Cambodge" : league === "Austria" ? "Autriche" : league === "Netherlands" ? "Pays Bas" : league === "Ivory-Coast" ? "Cote d'Ivoire" : league === "Wales" ? "Pays de Galles" : league === "Scotland" ? "Ecosse" : league === "Italy" ? "Italie" : league === "Mexico" ? "Mexique" : league === "Lebanon" ? "Liban" : league === "Norway" ? "Norvege" : league === "Morocco" ? "Maroc" : league === "Chile" ? "Chilie" : league}</Text>
           {lives.map((live) => live.league.country === league ? 
           <TouchableOpacity
       style={styles.matchContainer}
-      onPress={() => navigation.navigate('FicheMatch', { id: live.fixture.id })}
+      onPress={() => navigation.navigate('FicheMatch', { id: live.fixture.id })} key={live.fixture.id}
     >
       <View style={styles.match}>
         {live.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
