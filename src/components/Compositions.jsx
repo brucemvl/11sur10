@@ -184,7 +184,7 @@ useEffect(() => {
             <Text style={styles.systemeText}>{systemeExt}</Text>
             <Image source={{ uri: match?.teams.away.logo }} style={styles.logo} />
           </View>
-         {compoExt.coach.id === null ? null : <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, padding: 8, borderTopLeftRadius: 15, borderBottomLeftRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12 }}>{compoExt.coach.name}</Text><Image source={compoExt.coach.id === 2407 ? ancelotti : {uri: compoDom.coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></View> }
+         {compoExt.coach.id === null ? null : <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, padding: 8, borderTopLeftRadius: 15, borderBottomLeftRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12 }}>{compoExt.coach.name}</Text><Image source={compoExt.coach.id === 2407 ? ancelotti : {uri: compoExt.coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></View> }
 
           <Text style={styles.subTitleExt}>Titulaires</Text>
 

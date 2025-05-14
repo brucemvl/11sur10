@@ -41,7 +41,7 @@ async function registerForPushNotificationsAsync() {
 
   // Envoi du token au backend
   try {
-    await axios.post('http://192.168.1.11:3000/api/register-push-token', {
+    await axios.post('https://one1sur10.onrender.com/api/register-push-token', {
       token,
     });
     console.log('Token envoyé au backend');
