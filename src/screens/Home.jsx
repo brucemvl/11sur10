@@ -9,6 +9,7 @@ function Home() {
   const [fontsLoaded] = useFonts({
     "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
     "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
+    "Kanitu": require("../assets/fonts/Kanit/Kanit-Regular.ttf"),
     "Kanitus": require("../assets/fonts/Kanit/Kanit-Light.ttf"),
     "Kanitalic": require("../assets/fonts/Kanit/Kanit-MediumItalic.ttf"),
     "Kanitalik": require("../assets/fonts/Kanit/Kanit-ExtraBoldItalic.ttf"),
@@ -32,6 +33,10 @@ function Home() {
   const [matchsNations, setMatchsNations] = useState([]);
   const [matchsAfrica, setMatchsAfrica] = useState([]);
   const [matchsEurope, setMatchsEurope] = useState([]);
+  const [matchsConference, setMatchsConference] = useState([]);
+  const [matchsCdmClub, setMatchsCdmClub] = useState([]);
+
+
 
 
 
@@ -50,7 +55,7 @@ function Home() {
     };
 
     try {
-      const [ucl, france, england, spain, ger, italy, cdf, fac, efl, copa, uel, nations, africa, europe] = await Promise.all([
+      const [ucl, france, england, spain, ger, italy, cdf, fac, efl, copa, uel, nations, africa, europe, conference, cdmClub] = await Promise.all([
         fetchData('https://v3.football.api-sports.io/fixtures?league=2&season=2024'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=61&season=2024'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=39&season=2024'),
@@ -65,6 +70,10 @@ function Home() {
         fetchData('https://v3.football.api-sports.io/fixtures?league=5&season=2024'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=29&season=2023'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=32&season=2024'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=848&season=2024'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=15&season=2025'),
+
+
 
 
       ]);
@@ -84,6 +93,10 @@ function Home() {
       setMatchsNations(nations);
       setMatchsAfrica(africa);
       setMatchsEurope(europe);
+      setMatchsConference(conference);
+      setMatchsCdmClub(cdmClub);
+
+
 
 
     } catch (error) {
@@ -101,7 +114,7 @@ function Home() {
     }, []);
   
 
-  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf, ...matchsFac, ...matchsEfl, ...matchsCopa, ...matchsUel, ...matchsNations, ...matchsAfrica, ...matchsEurope]
+  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf, ...matchsFac, ...matchsEfl, ...matchsCopa, ...matchsUel, ...matchsNations, ...matchsAfrica, ...matchsEurope, ... matchsConference, ... matchsCdmClub]
 
   
 

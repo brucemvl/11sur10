@@ -4,8 +4,8 @@ import haaland from "../assets/portraits/haaland.png"
 import gyokeres from "../assets/portraits/gyokeres.jpg"
 import zaire from "../assets/portraits/zaire.png"
 import yamal from "../assets/portraits/yamal.jpg"
-import dembele from "../assets/portraits/dembele.jpg"
-import bellingham from "../assets/portraits/bellingham.jpg"
+import dembele from "../assets/portraits/dembele.png"
+import bellingham from "../assets/portraits/bellingham.png"
 import barcola from "../assets/portraits/barcola.png"
 import rodrygo from "../assets/portraits/rodrygo.jpg"
 import guller from "../assets/portraits/guller.jpg"
@@ -16,9 +16,10 @@ import darwin from "../assets/portraits/darwin.png"
 import salah from "../assets/portraits/salah.png"
 import kounde from "../assets/portraits/kounde.jpg"
 import endrick from "../assets/portraits/endrick.jpg"
-import mbappe from "../assets/portraits/mbappe.jpg"
-import vini from "../assets/portraits/vini.jpg"
+import mbappe from "../assets/portraits/mbappe.png"
+import vini from "../assets/portraits/vini.png"
 import palmer from "../assets/portraits/palmer.jpg"
+import messi from "../assets/trophees/messi.jpg"
 import griezmann from "../assets/portraits/griezmann.png"
 import olise from "../assets/portraits/olise.jpg"
 import cherki from "../assets/portraits/cherki.jpg"
@@ -31,8 +32,8 @@ import isak from "../assets/portraits/isak.jpg"
 import ramos from "../assets/portraits/ramos.png"
 import garnacho from "../assets/portraits/garnacho.jpg"
 import vitinha from "../assets/portraits/vitinha.png"
-import joao from "../assets/portraits/joao.png"
 import pacho from "../assets/portraits/pacho.png"
+import joao from "../assets/portraits/joao.png"
 import safonov from "../assets/portraits/safonov.png"
 import tchouameni from "../assets/portraits/tchouameni.jpg"
 import kolo from "../assets/portraits/kolo.png"
@@ -49,13 +50,13 @@ import akanji from "../assets/portraits/akanji.png"
 import cubarsi from "../assets/portraits/cubarsi.jpg"
 import kimpembe from "../assets/portraits/kimpembe.png"
 import beraldo from "../assets/portraits/beraldo.png"
-import alvarez from "../assets/portraits/alvarez.png"
 import sorloth from "../assets/portraits/sorloth.png"
+import alvarez from "../assets/portraits/alvarez.png"
 import schik from "../assets/portraits/schik.jpg"
 import wirtz from "../assets/portraits/wirtz.jpg"
 import camavinga from "../assets/portraits/camavinga.jpg"
 import modric from "../assets/portraits/modric.jpg"
-import valverde from "../assets/portraits/valverde.jpg"
+import valverde from "../assets/portraits/valverde.png"
 import rudiger from "../assets/portraits/rudiger.jpg"
 import antony from "../assets/portraits/antony.jpg"
 import isco from "../assets/portraits/isco.jpg"
@@ -93,6 +94,8 @@ import olmo from "../assets/portraits/olmo.jpg"
 import brahim from "../assets/portraits/brahim.jpg"
 import beier from "../assets/portraits/beier.png"
 import brandt from "../assets/portraits/brandt.png"
+import mmd from "../assets/portraits/mmd.png"
+import touf from "../assets/portraits/touf.png"
 import mikautadze from "../assets/portraits/mikautadze.jpg"
 import zirkzee from "../assets/portraits/zirkzee.png"
 import hojlund from "../assets/portraits/hojlund.png"
@@ -122,7 +125,8 @@ function Squad({ squad }) {
         <View style={styles.poste}>
             <Text style={styles.titre}>Gardiens</Text>
             <ScrollView horizontal contentContainerStyle={{ flexDirection: "row", gap: 24, height: 160, alignItems: "center", paddingInline: 10}}>
-                {squad?.players?.map((player) => player.position === "Goalkeeper" ? <TouchableOpacity style={styles.carte} key={player.id} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })}>
+                {squad?.players?.map((player) => player.position === "Goalkeeper" ? 
+                <TouchableOpacity style={styles.carte} key={player.id} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })}>
                 <LinearGradient style={styles.joueur} colors={["#fff", "rgb(163, 164, 165)"]} locations={[0.5, 0.9]}> 
                 <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-around"}}>
           <Image source={ player.id === 1622 ? donarumma : player.id === 2068 ? safonov : { uri: player.photo }} style={styles.photo} />
@@ -142,7 +146,7 @@ function Squad({ squad }) {
                 <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-around"}}>
 
           <Image source={player.id === 545 ? mazraoui : player.id === 532 ? deligt : player.id === 161928 ? balde : player.id === 9 ? hakimi : player.id === 263482 ? nuno : player.id === 33 ? hernandez : player.id === 257 ? marquinhos : player.id === 22090 ? saliba : player.id === 180317 ? bradley : player.id === 2467 ? lisandro : player.id === 372 ? militao : player.id === 733 ? carvajal : player.id === 2285 ? rudiger : player.id === 307835 ? beraldo : player.id === 262 ? kimpembe : player.id === 396623 ? cubarsi : player.id === 5 ? akanji : player.id === 283 ? arnold : player.id === 16367 ? pacho : player.id === 1257 ? kounde : player.id === 272 ? rabiot : player.id === 156477 ? cherki : player.id === 1467 ? lacazette : player.id === 47300 ? theo : player.id === 284324 ? garnacho : player.id === 128384 ? vitinha : { uri: player.photo }} style={styles.photo} />       
-          <View style={styles.number}><Text style={[{ fontFamily: "Kanitalik", color: squad.team.id === 49 ? "rgb(27, 20, 248)" : squad.team.id === 42 ? "rgb(228, 46, 46)" : squad.team.id === 165 ? "#e2e21c" : squad.team.id === 40 || squad.team.id === 157 ? "rgb(147, 0, 0)" : squad.team.id === 541 ? "rgb(0, 0, 0)" : squad.team.id === 50 ? "rgb(0, 174, 255)" : "midnightblue", fontSize: 22}, squad.team.id === 85 ? {color: "rgb(188, 14, 14)"} : squad.team.id === 165 ? {shadowOffset: [{height: 0, width: 0}], shadowColor: "black", shadowRadius: 1.5, shadowOpacity: 1} : null]}>{player.number}</Text><Image source={{uri:squad.team.logo}} style={{height: 25, width: 25}} /></View>
+          <View style={styles.number}><Text style={[{ fontFamily: "Kanitalik", color: squad.team.id === 49 ? "rgb(27, 20, 248)" : squad.team.id === 42 ? "rgb(228, 46, 46)" : squad.team.id === 165 ? "#e2e21c" : squad.team.id === 40 || squad.team.id === 157 ? "rgb(147, 0, 0)" : squad.team.id === 541 ? "rgb(0, 0, 0)" : squad.team.id === 50 ? "rgb(0, 174, 255)" : "midnightblue", fontSize: 22}, squad.team.id === 85 ? {color: "rgb(188, 14, 14)"} : squad.team.id === 165 ? {shadowOffset: [{height: 0, width: 0}], shadowColor: "black", shadowRadius: 1.5, shadowOpacity: 1} : null]}>{player.number}</Text><Image source={{uri:squad.team.logo}} style={{height: 25, width: 25, objectFit: "contain"}} /></View>
           </View>
           <Text style={squad.team.id === 85 ? [styles.nom, {shadowOffset: [{height: 0, width: 0}], shadowColor: "white", shadowRadius: 0.7, shadowOpacity: 1,}] : squad.team.id === 165 ? [styles.nom, {color: "black", shadowOffset: [{height: 0, width: 0}], shadowColor: "yellow", shadowRadius: 1.4, shadowOpacity: 1}] : squad.team.id === 40 || squad.team.id === 157 ? [styles.nom, {color: "rgb(147, 0, 0)" }] : squad.team.id === 541 ? [styles.nom, {color: "rgb(0, 0, 0)", shadowOffset: [{height: 0, width: 0}], shadowColor: "white", shadowRadius: 1.5, shadowOpacity: 1 }] : squad.team.id === 50 ? [styles.nom, {color: "rgb(0, 174, 255)", shadowOffset: [{height: 0, width: 0}], shadowColor: "black", shadowRadius: 1.2, shadowOpacity: 1 }] : squad.team.id === 42 ? [styles.nom, {color: "rgb(223, 38, 38)", shadowOffset: [{height: 0, width: 0}], shadowColor: "white", shadowRadius: 2, shadowOpacity: 1 }] : squad.team.id === 49 ? [styles.nom, {color: "rgb(23, 17, 197)"}] :  styles.nom}>{player.name. length < 21 ? player.name : player.name.split(' ').slice(-1).join(' ')}</Text>
           </LinearGradient>

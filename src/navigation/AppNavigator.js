@@ -28,7 +28,6 @@ const Stack = createStackNavigator();
 
 export default function AppNavigator() {
   return (
-    <NavigationContainer  >
       <Stack.Navigator
         initialRouteName="Home"
         screenOptions={{
@@ -67,8 +66,6 @@ export default function AppNavigator() {
 
 
       </Stack.Navigator>
-      <Menu component={Menu}/>
-    </NavigationContainer>
   );
 
   

@@ -62,7 +62,7 @@ console.log(currentIndex)
   
         {/* Sélecteur de journée */}
         <View style={styles.headInfo}>
-          <Animated.Text style={{fontFamily: "Permanent", fontSize: 18, color: "white",  transform: [{ rotate: rotateJourneeInterpolate }] }}>{`Journée ${index + 1}`}</Animated.Text>
+          <Animated.Text style={{fontFamily: "Kanitalik", fontSize: 18, color: "white",  transform: [{ rotate: rotateJourneeInterpolate }] }}>{`Journée ${index + 1}`}</Animated.Text>
         </View>
   
         {/* Bouton suivant */}
@@ -87,8 +87,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 18,
   },
   buttonText: {
-    fontSize: 42,
-color: "white"  },
+    fontSize: 36,
+color: "white",
+fontFamily: "Kanitalic"  },
   headInfo: {
     flexDirection: "row",
     alignItems: "center",

@@ -15,7 +15,10 @@ import pl from "../assets/PL.jpg"
 import liga from "../assets/liga.webp"
 import bundesliga from "../assets/bundesliga.webp"
 import arbitre from "../assets/arbitre.png"
-
+import dazn from "../assets/logos/dazn.png"
+import canal from "../assets/logos/canal.png"
+import bein from "../assets/logos/bein.png"
+import m6 from "../assets/logos/m6.png"
 
 
 
@@ -56,7 +59,7 @@ useEffect(() => {
   return (
         <View style={styles.container}>
             <View style={styles.ligue}>
-                <Text style={{ fontFamily: "Kanitt" }}>{match.league.name} - {match.league.round === "Knockout Round Play-offs" ? "Barrages" : match.league.round === "Round of 16" ? "8eme de finale" : match.league.round === "Quarter-finals" ? "Quart de finale" : match.league.round === "Semi-finals" ? "Demi Finale" : match.league.round === "Final" ? "Finale" : ` ${roundd}eme Journee`}</Text>
+                <Text style={{ fontFamily: "Kanitt" }}>{match.league.name} - {match.league.round === "Knockout Round Play-offs" ? "Barrages" : match.league.round === "Round of 16" ? "8eme de finale" : match.league.round === "Quarter-finals" ? "Quart de finale" : match.league.round === "Semi-finals" ? "Demi Finale" : match.league.round === "Final" ? "Finale" : `${roundd}eme Journee`}</Text>
             </View>
             <View style={styles.datelieu}>
                 <View style={{ flexDirection: "row", gap: 5 }}>
@@ -192,7 +195,7 @@ useEffect(() => {
                         ))}</View>
                     </TouchableOpacity>
                 </LinearGradient>}
-
+{match.league.id === 61 || match.league.id === 2 || match.league.id === 140 || match.league.id === 39 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitu"}}>Match diffusé sur</Text><Image source={match.league.id === 61 ? dazn : match.league.id === 2 || match.league.id === 39 ? canal : match.league.id === 140 ? bein : null} style={match.league.id === 61 ? {height: 25, width: 40, objectFit: "contain", marginLeft: -2}: match.league.id === 140 ? {height: 25, width: 65, objectFit: "contain", marginLeft: 5} : match.league.id === 39 || match.league.id === 2 ? {height: 25, width: 50, objectFit: "contain", marginLeft: 2} : {height: 25, width: 40, objectFit: "contain"} }/>{match.fixture.id === 1374812 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitu"}}>et</Text><Image source={m6} style={{height: 20, objectFit: "contain", width: 40}} /></View> : null}</View> : null}
             <View style={styles.buts}>
 
                 <View style={styles.equipeDomicile}>

@@ -17,17 +17,21 @@ function Apropos() {
     });
 
     return (
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
             <View style={styles.bloc}>
                 <Text style={styles.titre}>Bienvenue sur 11/10 !</Text>
-                <Text style={styles.text}>Vous pourrez retrouver ici toutes les infos concernant le ballon rond. Les resultats des matchs de la veille? Le classement de votre équipe favorite? Les statistiques des joueurs ou simplement la date du prochain choc? Toutes ces infos sont disponibles sur 11/10.</Text>
+                <Text style={styles.text}>Vous pourrez retrouver ici toutes les infos concernant le ballon rond. Les resultats des matchs de la veille? Le classement de votre équipe favorite? Les statistiques des joueurs ou simplement la date du prochain choc? Toutes ces infos sont disponibles sur 11/10.</Text>    
                 <Text style={styles.text}>11/10 est une application conçue pour vous permettre de trouver facilement les informations dont vous avez besoin, sans être submergé par tout un tas de données inutiles.</Text>
-                <Text style={styles.text}>L'application est nouvelle et encore en construction, n'hesitez donc pas à venir nous rendre visite régulierement pour voir les dernieres mises a jour. Vous pouvez aussi nous faire part de vos suggestions afin d'ameliorer 11/10 via le </Text><TouchableOpacity style={{ alignItems: "center", width: "100%"}} onPress={()=> navigation.navigate("Contact")}><Text style={styles.lien}>Formulaire de contact</Text></TouchableOpacity> <Text style={[styles.text, {paddingInline: 40}]}> Positive ou negative, toute critique est bonne à prendre! </Text>
+                <Text style={styles.text}>L'application est nouvelle et encore en construction, n'hesitez donc pas à venir nous rendre visite régulièrement pour voir les dernières mises à jour. Vous pouvez aussi nous faire part de vos suggestions afin d'améliorer 11/10 via le </Text>
+                <TouchableOpacity style={{ alignItems: "center", width: "100%" }} onPress={() => navigation.navigate("Contact")}>
+                    <Text style={styles.lien}>Formulaire de contact</Text>
+                </TouchableOpacity>
+                <Text style={[styles.text, { paddingInline: 40 }]}> Positive ou negative, toute critique est bonne à prendre! </Text>
                 <Text style={styles.text}>Bonne visite à Tous!</Text>
             </View>
             <Footer />
         </View>
-    )
+    );
 
 }
 

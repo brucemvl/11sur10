@@ -3,48 +3,101 @@ import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import ligue1 from "../assets/logoligue1.webp"
 
-function Histo({historique}) {
+function Histo({ historique }) {
     return (
-        <View style={{paddingInline: 10, alignItems: "center"}}>
-          <Text style={{fontFamily: "Kanitt", fontSize: 18, marginBottom: 10}}>Derniers face-à-face</Text>
-            {historique.map((element) => {
-                const date = new Date(element.fixture.date);
-                const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
-                return (  
-                  <View key={"affiche" + element.fixture.id} style={{alignItems: "center", marginBottom: 20}}>
-<View style={styles.dateheure}>
-                            <Text style={{fontSize: 8.5, fontFamily: "Kanitalic", color: "white"}}>{formattedDate}</Text>
-                        </View>  
-                    <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.3)']} style={styles.match} key={element.fixture.id}> {/* Ajout de key pour éviter des warnings */}
-                            <Image source={element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : { uri: element.league.logo }} style={{width: "8%", height: 30, objectFit: "contain", marginLeft: 2}}/>
-
-                        <Text style={styles.equipeDom}>{element.teams.home.name === "Paris Saint Germain" ? "Paris St Germain" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name}</Text>
-                        <Image style={styles.logoDom} source={{ uri: element.teams.home.logo }} />
-
-                        {element.goals.home === element.goals.away ? (
-                            <View style={styles.matchScore}>
-                                <Text style={styles.nul}>{element.goals.home === null ? "-" : element.goals.home}</Text>
-                                
-                                <Text style={styles.nul}>{element.goals.away === null ? "-" : element.goals.away}</Text>
-                            </View>
-                        ) : (
-                            <View style={styles.matchScore}>
-                                <Text style={element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text>
-                                <Text style={element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text>
-                            </View>
-                        )}
-
-                        <Image style={styles.logoExt} source={{ uri: element.teams.away.logo }} />
-                        <Text style={styles.equipeExt}>{element.teams.away.name === "Paris Saint Germain" ? "Paris St Germain" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name}</Text>
-                    </LinearGradient>
-                    </View>
-                );
-            })}
-
-
-        </View>
+      <View style={{ paddingHorizontal: 10, alignItems: "center" }}>
+        <Text style={{ fontFamily: "Kanitt", fontSize: 18, marginBottom: 10 }}>
+          Derniers face-à-face
+        </Text>
+  
+        {historique.map((element) => {
+          const date = new Date(element.fixture.date);
+          const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1)
+            .toString()
+            .padStart(2, '0')}/${date.getFullYear()}`;
+  
+          return (
+            <View
+              key={"affiche" + element.fixture.id}
+              style={{ alignItems: "center", marginBottom: 20 }}
+            >
+              <View style={styles.dateheure}>
+                <Text style={{ fontSize: 8.5, fontFamily: "Kanitalic", color: "white" }}>
+                  {formattedDate}
+                </Text>
+              </View>
+  
+              <LinearGradient
+                colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.3)']}
+                style={styles.match}
+              >
+                <Image
+                  source={
+                    element.league.logo === "https://media.api-sports.io/football/leagues/61.png"
+                      ? ligue1
+                      : { uri: element.league.logo }
+                  }
+                  style={{
+                    width: "8%",
+                    height: 30,
+                    resizeMode: "contain",
+                    marginLeft: 2,
+                  }}
+                />
+  
+                <Text style={styles.equipeDom}>
+                  {element.teams.home.name === "Paris Saint Germain"
+                    ? "Paris St Germain"
+                    : element.teams.home.name === "Stade Brestois 29"
+                    ? "Stade Brestois"
+                    : element.teams.home.name}
+                </Text>
+  
+                <Image style={styles.logoDom} source={{ uri: element.teams.home.logo }} />
+  
+                {element.goals.home === element.goals.away ? (
+                  <View style={styles.matchScore}>
+                    <Text style={styles.nul}>
+                      {element.goals.home === null ? "-" : element.goals.home}
+                    </Text>
+                    <Text style={styles.nul}>
+                      {element.goals.away === null ? "-" : element.goals.away}
+                    </Text>
+                  </View>
+                ) : (
+                  <View style={styles.matchScore}>
+                    <Text
+                      style={
+                        element.goals.home > element.goals.away ? styles.winner : styles.looser
+                      }
+                    >
+                      {element.goals.home}
+                    </Text>
+                    <Text
+                      style={
+                        element.goals.away > element.goals.home ? styles.winner : styles.looser
+                      }
+                    >
+                      {element.goals.away}
+                    </Text>
+                  </View>
+                )}
+  
+                <Image style={styles.logoExt} source={{ uri: element.teams.away.logo }} />
+                <Text style={styles.equipeExt}>
+                  {element.teams.away.name === "Paris Saint Germain"
+                    ? "Paris St Germain"
+                    : element.teams.away.name === "Stade Brestois 29"
+                    ? "Stade Brestois"
+                    : element.teams.away.name}
+                </Text>
+              </LinearGradient>
+            </View>
+          );
+        })}
+      </View>
     );
-}
+  }
 
 const styles = StyleSheet.create({
     match: {

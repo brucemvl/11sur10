@@ -7,6 +7,7 @@ import redcard from "../assets/redcard.png";
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import Schema from './Schema';
+import ancelotti from "../assets/portraits/ancelotti.jpg"
 
 const Compositions = ({ match, titulairesDom, homeId, extId, titulairesExt, coachDom, coachExt, coachDomId, coachExtId, systemeDom, systemeExt, substituteDom, substituteExt, compoDom, compoExt, colors }) => {
 
@@ -158,7 +159,7 @@ useEffect(() => {
             <Image source={{ uri: match?.teams.home.logo }} style={styles.logo} />
             <Text style={styles.systemeText}>{systemeDom}</Text>
           </View>
-         {compoDom.coach.id === null ? null : <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5,  padding: 8, borderTopRightRadius: 15, borderBottomRightRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12  }}>{compoDom.coach.name}</Text><Image source={{uri: compoDom.coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></View> }
+         {compoDom.coach.id === null ? null : <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5,  padding: 8, borderTopRightRadius: 15, borderBottomRightRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12  }}>{compoDom.coach.name}</Text><Image source={compoDom.coach.id === 2407 ? ancelotti : {uri: compoDom.coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></View> }
 
           <Text style={styles.subTitle}>Titulaires</Text>
           <LinearGradient colors={["rgb(41, 154, 55)", 'rgba(32, 119, 42, 1)']} style={styles.playersList}>
@@ -183,7 +184,7 @@ useEffect(() => {
             <Text style={styles.systemeText}>{systemeExt}</Text>
             <Image source={{ uri: match?.teams.away.logo }} style={styles.logo} />
           </View>
-         {compoExt.coach.id === null ? null : <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, padding: 8, borderTopLeftRadius: 15, borderBottomLeftRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12 }}>{compoExt.coach.name}</Text><Image source={{uri: compoExt.coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></View> }
+         {compoExt.coach.id === null ? null : <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, padding: 8, borderTopLeftRadius: 15, borderBottomLeftRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12 }}>{compoExt.coach.name}</Text><Image source={compoExt.coach.id === 2407 ? ancelotti : {uri: compoDom.coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></View> }
 
           <Text style={styles.subTitleExt}>Titulaires</Text>
 

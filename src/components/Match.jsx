@@ -71,21 +71,22 @@ const styles = StyleSheet.create({
   match: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingBlock: 8,
+    paddingBlock: 7,
     width: "100%",
   },
   dateheure: {
     flex: 1,
     alignItems: 'flex-start',
-    width: "12%",
+    width: "13%",
     backgroundColor: "black",
     borderRadius: 5,
     marginLeft: 2,
     alignItems: "center",
+    padding: 1
   },
   equipeDom: {
     fontSize: 12,
-    width: "27%",
+    width: "26%",
 textAlign: "center",
 fontFamily: "Kanito"
 
@@ -111,7 +112,7 @@ fontFamily: "Kanito"
     width: 20,
     borderRadius: 5,
     textAlign: "center",
-    fontFamily: "Kanito"
+    fontFamily: "Kanitt"
 
   },
   winner: {
@@ -122,7 +123,7 @@ fontFamily: "Kanito"
     width: 20,
     borderRadius: 5,
     textAlign: "center",
-    fontFamily: "Kanito"
+    fontFamily: "Kanitt"
 
   },
   looser: {
@@ -133,7 +134,7 @@ fontFamily: "Kanito"
     width: 20,
     borderRadius: 5,
 textAlign: "center",
-fontFamily: "Kanito"
+fontFamily: "Kanitt"
 
   },
   logoExt: {
