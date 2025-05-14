@@ -1,9 +1,9 @@
 const PushToken = require('../models/PushToken');
 
-exports.saveToken = async (token) => {
+exports.saveToken = async (token, userId) => {
   await PushToken.findOneAndUpdate(
-    { token }, // chercher par token
-    { token }, // pas de userId
+    { token },
+    { token, userId }, // Associer le token avec un userId
     { upsert: true, new: true, setDefaultsOnInsert: true }
   );
 };

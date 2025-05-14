@@ -1,51 +1,55 @@
 const axios = require('axios');
 const cron = require('node-cron');
-const sendPushNotification = require('./utils/pushNotification'); // ✅ Chemin mis à jour
-const PushToken = require('./models/PushToken'); // Assure-toi que ce modèle existe
+const sendPushNotification = require('./utils/pushNotification'); // version batch recommandée
 const { getAllTokens } = require('./db/tokenStore');
 
-let previousScore = null; // Peut aussi être stocké en DB si besoin
+const previousScores = {}; // Stocke les scores par matchId
 
 async function checkMatchScore() {
   try {
-    const response = await axios.get('https://v3.football.api-sports.io/fixtures?id=1345391', {
+    const response = await axios.get('https://v3.football.api-sports.io/fixtures?league=140&live=all', {
       headers: {
-        "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-        'x-rapidapi-host': "v3.football.api-sports.io"
-      }
+        'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
+        'x-rapidapi-host': 'v3.football.api-sports.io',
+      },
     });
 
-    const match = response.data.response[0];
-    const homeTeam = match.teams.home.name;
-    const awayTeam = match.teams.away.name;
-    const homeGoals = match.goals.home;
-    const awayGoals = match.goals.away;
+    const matches = response.data.response;
 
-    const currentScore = `${homeTeam} ${homeGoals} - ${awayTeam} ${awayGoals}`;
+    for (const match of matches) {
+      const matchId = match.fixture.id;
+      const homeTeam = match.teams.home.name;
+      const awayTeam = match.teams.away.name;
+      const homeGoals = match.goals.home;
+      const awayGoals = match.goals.away;
 
-    const tokens = await getAllTokens();
+      const currentScore = `${homeTeam} ${homeGoals} - ${awayTeam} ${awayGoals}`;
 
-    if (previousScore && previousScore !== currentScore) {
-      console.log('⚽ But détecté ! Envoi de notifications...');
-      console.log('Ancien score :', previousScore);
-      console.log('Nouveau score :', currentScore);
+      if (previousScores[matchId] && previousScores[matchId] !== currentScore) {
+        console.log(`⚽ But détecté dans ${homeTeam} vs ${awayTeam} !`);
+        console.log('Ancien score :', previousScores[matchId]);
+        console.log('Nouveau score :', currentScore);
 
-      for (const token of tokens) {
-        await sendPushNotification(token, {
+        const tokens = await getAllTokens();
+
+        await sendPushNotification(tokens, {
           title: '⚽ But !',
-          body: `Nouveau score : ${currentScore}`,
+          body: `Score : ${currentScore}`,
         });
       }
-    } else {
-      console.log('Pas de changement de score détecté.');
+      else {
+        console.log('Pas de changement de score détecté.');
+      }
+
+      // Met à jour le score actuel pour ce match
+      previousScores[matchId] = currentScore;
     }
 
-    previousScore = currentScore;
   } catch (err) {
     console.error('Erreur dans la vérification du score :', err.message);
   }
 }
 
-// Planifie la tâche toutes les 30 secondes
+// Tâche toutes les 30 secondes
 cron.schedule('*/30 * * * * *', checkMatchScore);
 

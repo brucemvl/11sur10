@@ -2,7 +2,7 @@
   "expo": {
     "name": "11sur10",
     "slug": "11sur10",
-    "version": "1.9.4",
+    "version": "1.9.8",
     "orientation": "portrait",
     "icon": "./src/assets/logopnn.png",
     "userInterfaceStyle": "light",
@@ -17,13 +17,16 @@
       "supportsTablet": true,
       "pushNotifications": true,
       "buildNumber": "1",
-      "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
-      }
+     "infoPlist": {
+  "ITSAppUsesNonExemptEncryption": false,
+  "UIBackgroundModes": ["remote-notification"]
+}
     },
     "notification": {
       "icon": "./src/assets/logopnn.png",
-      "color": "#000000"
+      "color": "#000000",
+      "useNextNotificationsApi": true
+
     },
     "android": {
       "adaptiveIcon": {
@@ -46,7 +49,8 @@
           ]
         }
       ],
-      "expo-build-properties"
+      "expo-build-properties",
+      "expo-notifications"
     ],
     "extra": {
       "eas": {
