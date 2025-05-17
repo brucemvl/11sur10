@@ -612,7 +612,8 @@ const [fontsLoaded] = useFonts({
                         </LinearGradient>
                       </TouchableOpacity>
                      : element.fixture.status.long != 'Match Finished' && element.fixture.status.elapsed != null ?
-                      <TouchableOpacity key={element.fixture.id} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}>
+                     
+                     <TouchableOpacity key={element.fixture.id} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}>
                         <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
                           {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? 
                           <Image source={ligue1} style={styles.competitionLogo} resizeMode="contain" /> 
@@ -654,7 +655,8 @@ const [fontsLoaded] = useFonts({
                             <Text style={styles.teamName}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.away.name === "Central African Republic" ? "Centrafrique" : element.teams.away.name === "Netherlands" ? "Pays Bas" : element.teams.away.name === "Spain" ? "Espagne" : element.teams.away.name === "Germany" ? "Allemagne" : element.teams.away.name === "England" ? "Angleterre" : element.teams.away.name}</Text>
                           </View>
                         </LinearGradient>
-                      </TouchableOpacity> : element.fixture.status.long === 'Match Finished' ?
+                      </TouchableOpacity> 
+                      : element.fixture.status.long === 'Match Finished' ?
                         <TouchableOpacity key={element.fixture.id} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}>
                           <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
 
@@ -706,11 +708,7 @@ const [fontsLoaded] = useFonts({
                         style={styles.matchCompetition}
                         resizeMode="contain"
                       /> :
-                        <Image
-                          source={{ uri: element.league.logo }}
-                          style={styles.matchCompetition}
-                          resizeMode="contain"
-                        />}
+                        <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain" />}
                         <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.home.name === "Central African Republic" ? "Centrafrique" : element.teams.home.name === "Netherlands" ? "Pays Bas" : element.teams.home.name === "Spain" ? "Espagne" : element.teams.home.name === "Germany" ? "Allemagne" : element.teams.home.name === "England" ? "Angleterre" : element.teams.home.name}</Text>
                       <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
                       <Text style={{ marginInline: 4 }}>-</Text>

@@ -33,15 +33,13 @@ async function registerForPushNotificationsAsync() {
     return;
   }
 
-  token = (await Notifications.getExpoPushTokenAsync({
-    projectId: Constants.expoConfig.extra.eas.projectId, // pour EAS, sinon retire `projectId`
-  })).data;
+  token = (await Notifications.getExpoPushTokenAsync()).data;
 
   console.log('Expo Push Token:', token);
 
   // Envoi du token au backend
   try {
-    await axios.post('http://192.168.1.11:3000/api/register-push-token', {
+    await axios.post('https://one1sur10.onrender.com/api/register-push-token', {
       token,
     });
     console.log('Token envoyé au backend');
@@ -71,6 +69,7 @@ export default function App() {
       subscriptionResponse.remove();
     };
   }, []);
+
 
   return (
     <NavigationContainer>
