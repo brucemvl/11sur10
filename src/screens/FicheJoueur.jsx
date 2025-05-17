@@ -10,6 +10,7 @@ import target from "../assets/target.png"
 import shoot from "../assets/shoot.png"
 import shoe from "../assets/shoe.png"
 import rating from "../assets/rating.png"
+import gardien from "../assets/gardien.png"
 import yellow from "../assets/yellow.png"
 import Precedent from '../components/Precedent';
 import ligue1 from "../assets/logoligue1.webp"
@@ -27,28 +28,27 @@ import seriea from "../assets/trophees/seriea.png"
 import can from "../assets/trophees/can.png"
 import nations from "../assets/trophees/nations.png"
 import fifa from "../assets/trophees/fifa.png"
-import haaland from "../assets/portraits/haaland.png"
+import haaland from "../assets/portraits/fiche/haaland.webp"
 import gyokeres from "../assets/portraits/gyokeres.jpg"
 import zaire from "../assets/portraits/zaire.png"
 import yamal from "../assets/portraits/fiche/yamal.webp"
 import dembele from "../assets/portraits/fiche/dembele.png"
-import bellingham from "../assets/portraits/bellingham.png"
-import barcola from "../assets/portraits/barcola.png"
-import rodrygo from "../assets/portraits/rodrygo.jpg"
+import bellingham from "../assets/portraits/fiche/bellingham.webp"
+import barcola from "../assets/portraits/fiche/barcola.png"
+import rodrygo from "../assets/portraits/fiche/rodrygo.webp"
 import guller from "../assets/portraits/guller.jpg"
-import doue from "../assets/portraits/doue.png"
-import kvara from "../assets/portraits/kvara.png"
+import doue from "../assets/portraits/fiche/doue.png"
+import kvara from "../assets/portraits/fiche/kvara.png"
 import goat from "../assets/portraits/goat.jpg"
-import darwin from "../assets/portraits/darwin.png"
-import salah from "../assets/portraits/salah.png"
+import darwin from "../assets/portraits/fiche/darwin.webp"
+import salah from "../assets/portraits/fiche/salah.webp"
 import kounde from "../assets/portraits/fiche/kounde.webp"
-import endrick from "../assets/portraits/endrick.jpg"
-import mbappe from "../assets/portraits/mbappe.png"
-import vini from "../assets/portraits/vini.png"
-import palmer from "../assets/portraits/palmer.jpg"
+import endrick from "../assets/portraits/fiche/endrick.webp"
+import mbappe from "../assets/portraits/fiche/mbappe.webp"
+import vini from "../assets/portraits/fiche/vini.webp"
+import palmer from "../assets/portraits/fiche/palmer.webp"
 import messi from "../assets/trophees/messi.jpg"
 import griezmann from "../assets/portraits/griezmann.png"
-import olise from "../assets/portraits/olise.jpg"
 import cherki from "../assets/portraits/cherki.jpg"
 import rabiot from "../assets/portraits/rabiot.jpg"
 import lacazette from "../assets/portraits/lacazette.jpg"
@@ -56,24 +56,24 @@ import theo from "../assets/portraits/theo.jpg"
 import raphinha from "../assets/portraits/fiche/raphinha.webp"
 import lewandowski from "../assets/portraits/fiche/lewandowski.webp"
 import isak from "../assets/portraits/isak.jpg"
-import ramos from "../assets/portraits/ramos.png"
+import ramos from "../assets/portraits/fiche/ramos.png"
 import garnacho from "../assets/portraits/garnacho.jpg"
-import vitinha from "../assets/portraits/vitinha.png"
-import pacho from "../assets/portraits/pacho.png"
-import joao from "../assets/portraits/joao.png"
-import safonov from "../assets/portraits/safonov.png"
+import vitinha from "../assets/portraits/fiche/vitinha.png"
+import pacho from "../assets/portraits/fiche/pacho.png"
+import joao from "../assets/portraits/fiche/joao.png"
+import safonov from "../assets/portraits/fiche/safonov.png"
 import tchouameni from "../assets/portraits/tchouameni.jpg"
 import kolo from "../assets/portraits/kolo.png"
 import kephren from "../assets/portraits/kephren.png"
 import adeyemi from "../assets/portraits/adeyemi.png"
 import debruyne from "../assets/portraits/debruyne.png"
 import mayulu from "../assets/portraits/mayulu.png"
-import diaz from "../assets/portraits/diaz.png"
-import macallister from "../assets/portraits/macallister.png"
+import diaz from "../assets/portraits/fiche/diaz.webp"
+import macallister from "../assets/portraits/fiche/macallister.webp"
 import gakpo from "../assets/portraits/gakpo.png"
 import arnold from "../assets/portraits/arnold.png"
-import marmoush from "../assets/portraits/marmoush.png"
-import akanji from "../assets/portraits/akanji.png"
+import marmoush from "../assets/portraits/fiche/marmoush.webp"
+import akanji from "../assets/portraits/fiche/akanji.webp"
 import cubarsi from "../assets/portraits/fiche/cubarsi.webp"
 import kimpembe from "../assets/portraits/kimpembe.png"
 import beraldo from "../assets/portraits/beraldo.png"
@@ -81,31 +81,32 @@ import sorloth from "../assets/portraits/sorloth.png"
 import alvarez from "../assets/portraits/alvarez.png"
 import schik from "../assets/portraits/schik.jpg"
 import wirtz from "../assets/portraits/wirtz.jpg"
-import camavinga from "../assets/portraits/camavinga.jpg"
-import modric from "../assets/portraits/modric.jpg"
-import valverde from "../assets/portraits/valverde.png"
-import rudiger from "../assets/portraits/rudiger.jpg"
+import camavinga from "../assets/portraits/fiche/camavinga.webp"
+import modric from "../assets/portraits/fiche/modric.webp"
+import valverde from "../assets/portraits/fiche/valverde.webp"
+import rudiger from "../assets/portraits/fiche/rudiger.webp"
 import antony from "../assets/portraits/antony.jpg"
 import isco from "../assets/portraits/isco.jpg"
 import leao from "../assets/portraits/Leao.jpg"
-import carvajal from "../assets/portraits/carvajal.jpg"
+import carvajal from "../assets/portraits/fiche/carvajal.webp"
 import militao from "../assets/portraits/militao.jpg"
 import ugarte from "../assets/portraits/ugarte.png"
 import lisandro from "../assets/portraits/lisandro.png"
-import szoboszlai from "../assets/portraits/szoboszlai.png"
-import bradley from "../assets/portraits/bradley.png"
+import szoboszlai from "../assets/portraits/fiche/szoboszlai.webp"
+import bradley from "../assets/portraits/fiche/bradley.webp"
 import saka from "../assets/portraits/saka.png"
 import trossard from "../assets/portraits/trossard.png"
 import odegard from "../assets/portraits/odegard.png"
 import saliba from "../assets/portraits/saliba.png"
-import lookman from "../assets/portraits/lookman.png"
-import retegui from "../assets/portraits/retegui.png"
-import deketelaere from "../assets/portraits/deketelaere.png"
+import lookman from "../assets/portraits/fiche/lookman.png"
+import retegui from "../assets/portraits/fiche/retegui.png"
+import deketelaere from "../assets/portraits/fiche/deketelaere.png"
 import donarumma from "../assets/portraits/fiche/donnarumma.png"
-import nuno from "../assets/portraits/nuno.png"
-import hernandez from "../assets/portraits/hernandez.png"
+import nuno from "../assets/portraits/fiche/nuno.png"
+import hernandez from "../assets/portraits/fiche/hernandez.png"
 import hakimi from "../assets/portraits/fiche/hakimi.png"
-import marquinhos from "../assets/portraits/marquinhos.png"
+import marquinhos from "../assets/portraits/fiche/marquinhos.png"
+import ruiz from "../assets/portraits/fiche/ruiz.png"
 import ascencio from "../assets/portraits/ascencio.png"
 import rashford from "../assets/portraits/rashford.png"
 import watkins from "../assets/portraits/watkins.png"
@@ -130,8 +131,25 @@ import amad from "../assets/portraits/amad.png"
 import mazraoui from "../assets/portraits/mazraoui.png"
 import mainoo from "../assets/portraits/mainoo.png"
 import deligt from "../assets/portraits/deligt.png"
-import marcus from "../assets/portraits/marcus.png"
-
+import marcus from "../assets/portraits/fiche/thuram.webp"
+import sommer from "../assets/portraits/fiche/sommer.webp"
+import barella from "../assets/portraits/fiche/barella.webp"
+import dumfries from "../assets/portraits/fiche/dumfries.webp"
+import bastoni from "../assets/portraits/fiche/bastoni.webp"
+import martinez from "../assets/portraits/fiche/martinez.webp"
+import gnabry from "../assets/portraits/fiche/gnabry.avif"
+import kane from "../assets/portraits/fiche/kane.avif"
+import sane from "../assets/portraits/fiche/sane.avif"
+import olise from "../assets/portraits/fiche/olise.avif"
+import coman from "../assets/portraits/fiche/coman.avif"
+import musiala from "../assets/portraits/fiche/musiala.avif"
+import caicedo from "../assets/portraits/fiche/caicedo.webp"
+import jackson from "../assets/portraits/fiche/jackson.webp"
+import fernandez from "../assets/portraits/fiche/fernandez.webp"
+import cucurella from "../assets/portraits/fiche/cucurella.webp"
+import fofana from "../assets/portraits/fiche/fofana.webp"
+import james from "../assets/portraits/fiche/james.webp"
+import madueke from "../assets/portraits/fiche/madueke.webp"
 
 function FicheJoueur() {
   const [joueur, setJoueur] = useState(null);
@@ -328,7 +346,7 @@ function FicheJoueur() {
         <View style={styles.article}>
           <LinearGradient colors={["black", "steelblue"]} style={styles.infosJoueur}>
 
-            <Image source={joueur.player.id === 284322 ? mainoo : joueur.player.id === 545 ? mazraoui : joueur.player.id === 532 ? deligt : joueur.player.id === 288006 ? hojlund : joueur.player.id === 70100 ? zirkzee : joueur.player.id === 157997 ? amad : joueur.player.id === 180496 ? mikautadze : joueur.player.id === 21509 ? marcus : joueur.player.id === 15906 ? touf : joueur.player.id === 37784 ? mmd :joueur.player.id === 984 ? brandt : joueur.player.id === 158644 ? beier : joueur.player.id === 744 ? brahim : joueur.player.id === 161928 ? balde : joueur.player.id === 1323 ? olmo : joueur.player.id === 133609 ? pedri : joueur.player.id === 47311 ? merino : joueur.player.id === 313245 ? skelly : joueur.player.id === 49 ? partey : joueur.player.id === 2937 ? rice : joueur.player.id === 909 ? rashford : joueur.player.id === 19366 ? watkins : joueur.player.id === 249 ? malen : joueur.player.id === 746 ? ascencio : joueur.player.id === 19170 ? rogers : joueur.player.id === 263482 ? nuno : joueur.player.id === 33 ? hernandez : joueur.player.id === 257 ? marquinhos : joueur.player.id === 9 ? hakimi : joueur.player.id === 1622 ? donarumma : joueur.player.id === 6420 ? retegui : joueur.player.id === 147859 ? deketelaere : joueur.player.id === 18767 ? lookman : joueur.player.id === 22090 ? saliba : joueur.player.id === 37127 ? odegard : joueur.player.id === 1946 ? trossard : joueur.player.id === 1460 ? saka : joueur.player.id === 372 ? militao : joueur.player.id === 733 ? carvajal : joueur.player.id === 51494 ? ugarte : joueur.player.id === 2467 ? lisandro : joueur.player.id === 1096 ? szoboszlai : joueur.player.id === 180317 ? bradley : joueur.player.id === 22236 ? leao : joueur.player.id === 745 ? isco : joueur.player.id === 9971 ? antony : joueur.player.id === 2207 ? camavinga : joueur.player.id === 756 ? valverde : joueur.player.id === 754 ? modric : joueur.player.id === 2285 ? rudiger : joueur.player.id === 794 ? schik : joueur.player.id === 203224 ? wirtz : joueur.player.id === 6009 ? alvarez : joueur.player.id === 8492 ? sorloth : joueur.player.id === 307835 ? beraldo : joueur.player.id === 262 ? kimpembe : joueur.player.id === 396623 ? cubarsi : joueur.player.id === 5 ? akanji : joueur.player.id === 81573 ? marmoush : joueur.player.id === 283 ? arnold : joueur.player.id === 2489 ? diaz : joueur.player.id === 6716 ? macallister : joueur.player.id === 247 ? gakpo : joueur.player.id === 409216 ? mayulu : joueur.player.id === 629 ? debruyne : joueur.player.id === 116 ? kephren : joueur.player.id === 7334 ? adeyemi : joueur.player.id === 21104 ? kolo : joueur.player.id === 1271 ? tchouameni : joueur.player.id === 2068 ? safonov : joueur.player.id === 1100 ? haaland : joueur.player.id === 161904 ? barcola : joueur.player.id === 336657 ? zaire : joueur.player.id === 153 ? dembele : joueur.player.id === 129718 ? bellingham : joueur.player.id === 386828 ? yamal : joueur.player.id === 10009 ? rodrygo : joueur.player.id === 18979 ? gyokeres : joueur.player.id === 291964 ? guller : joueur.player.id === 343027 ? doue : joueur.player.id === 483 ? kvara : joueur.player.id === 154 ? goat : joueur.player.id === 306 ? salah : joueur.player.id === 51617 ? darwin : joueur.player.id === 1257 ? kounde : joueur.player.id === 278 ? mbappe : joueur.player.id === 377122 ? endrick : joueur.player.id === 762 ? vini : joueur.player.id === 152982 ? palmer : joueur.player.id === 56 ? griezmann : joueur.player.id === 19617 ? olise : joueur.player.id === 272 ? rabiot : joueur.player.id === 156477 ? cherki : joueur.player.id === 1467 ? lacazette : joueur.player.id === 47300 ? theo : joueur.player.id === 1496 ? raphinha : joueur.player.id === 521 ? lewandowski : joueur.player.id === 2864 ? isak : joueur.player.id === 41585 ? ramos : joueur.player.id === 284324 ? garnacho : joueur.player.id === 128384 ? vitinha : joueur.player.id === 16367 ? pacho : joueur.player.id === 335051 ? joao : { uri: joueur.player.photo }} style={joueur.player.id === 386828 || joueur.player.id === 1257 || joueur.player.id === 1323 || joueur.player.id === 133609 || joueur.player.id === 521 || joueur.player.id === 396623 || joueur.player.id === 1496 ? { height: 165, width: 110}: joueur.player.id === 1622 ? { height: 155, width: "38%", marginRight: -50} : joueur.player.id === 9 || joueur.player.id === 153 ? {height: 160, width: "40%", marginRight: -20} : styles.photo} />
+            <Image source={joueur.player.id === 116117 ? caicedo : joueur.player.id === 136723 ? madueke : joueur.player.id === 283058 ? jackson : joueur.player.id === 5996 ? fernandez : joueur.player.id === 22094 ? fofana : joueur.player.id === 19545 ? james : joueur.player.id === 47380 ? cucurella : joueur.player.id === 284322 ? mainoo : joueur.player.id === 545 ? mazraoui : joueur.player.id === 532 ? deligt : joueur.player.id === 288006 ? hojlund : joueur.player.id === 70100 ? zirkzee : joueur.player.id === 157997 ? amad : joueur.player.id === 184 ? kane : joueur.player.id === 180496 ? mikautadze : joueur.player.id === 21509 ? marcus : joueur.player.id === 15906 ? touf : joueur.player.id === 37784 ? mmd :joueur.player.id === 984 ? brandt : joueur.player.id === 158644 ? beier : joueur.player.id === 744 ? brahim : joueur.player.id === 161928 ? balde : joueur.player.id === 1323 ? olmo : joueur.player.id === 133609 ? pedri : joueur.player.id === 47311 ? merino : joueur.player.id === 313245 ? skelly : joueur.player.id === 49 ? partey : joueur.player.id === 2937 ? rice : joueur.player.id === 2802 ? sommer : joueur.player.id === 909 ? rashford : joueur.player.id === 19366 ? watkins : joueur.player.id === 249 ? malen : joueur.player.id === 746 ? ascencio : joueur.player.id === 19170 ? rogers : joueur.player.id === 263482 ? nuno : joueur.player.id === 33 ? hernandez : joueur.player.id === 257 ? marquinhos : joueur.player.id === 9 ? hakimi : joueur.player.id === 1622 ? donarumma : joueur.player.id === 328 ? ruiz : joueur.player.id === 508 ? coman : joueur.player.id === 181812 ? musiala : joueur.player.id === 644 ? sane  : joueur.player.id === 6420 ? retegui : joueur.player.id === 147859 ? deketelaere : joueur.player.id === 18767 ? lookman : joueur.player.id === 22090 ? saliba : joueur.player.id === 37127 ? odegard : joueur.player.id === 1946 ? trossard : joueur.player.id === 1460 ? saka : joueur.player.id === 372 ? militao : joueur.player.id === 733 ? carvajal : joueur.player.id === 51494 ? ugarte : joueur.player.id === 2467 ? lisandro : joueur.player.id === 1096 ? szoboszlai : joueur.player.id === 180317 ? bradley : joueur.player.id === 22236 ? leao : joueur.player.id === 226 ? dumfries : joueur.player.id === 31009 ? bastoni : joueur.player.id === 217 ? martinez : joueur.player.id === 30558 ? barella : joueur.player.id === 745 ? isco : joueur.player.id === 9971 ? antony : joueur.player.id === 2207 ? camavinga : joueur.player.id === 756 ? valverde : joueur.player.id === 754 ? modric : joueur.player.id === 2285 ? rudiger : joueur.player.id === 794 ? schik : joueur.player.id === 203224 ? wirtz : joueur.player.id === 6009 ? alvarez : joueur.player.id === 8492 ? sorloth : joueur.player.id === 307835 ? beraldo : joueur.player.id === 262 ? kimpembe : joueur.player.id === 396623 ? cubarsi : joueur.player.id === 5 ? akanji : joueur.player.id === 81573 ? marmoush : joueur.player.id === 283 ? arnold : joueur.player.id === 2489 ? diaz : joueur.player.id === 6716 ? macallister : joueur.player.id === 247 ? gakpo : joueur.player.id === 409216 ? mayulu : joueur.player.id === 629 ? debruyne : joueur.player.id === 116 ? kephren : joueur.player.id === 7334 ? adeyemi : joueur.player.id === 21104 ? kolo : joueur.player.id === 1271 ? tchouameni : joueur.player.id === 2068 ? safonov : joueur.player.id === 1100 ? haaland : joueur.player.id === 161904 ? barcola : joueur.player.id === 336657 ? zaire : joueur.player.id === 510 ? gnabry : joueur.player.id === 153 ? dembele : joueur.player.id === 129718 ? bellingham : joueur.player.id === 386828 ? yamal : joueur.player.id === 10009 ? rodrygo : joueur.player.id === 18979 ? gyokeres : joueur.player.id === 291964 ? guller : joueur.player.id === 343027 ? doue : joueur.player.id === 483 ? kvara : joueur.player.id === 154 ? goat : joueur.player.id === 306 ? salah : joueur.player.id === 51617 ? darwin : joueur.player.id === 1257 ? kounde : joueur.player.id === 278 ? mbappe : joueur.player.id === 377122 ? endrick : joueur.player.id === 762 ? vini : joueur.player.id === 152982 ? palmer : joueur.player.id === 56 ? griezmann : joueur.player.id === 19617 ? olise : joueur.player.id === 272 ? rabiot : joueur.player.id === 156477 ? cherki : joueur.player.id === 1467 ? lacazette : joueur.player.id === 47300 ? theo : joueur.player.id === 1496 ? raphinha : joueur.player.id === 521 ? lewandowski : joueur.player.id === 2864 ? isak : joueur.player.id === 41585 ? ramos : joueur.player.id === 284324 ? garnacho : joueur.player.id === 128384 ? vitinha : joueur.player.id === 16367 ? pacho : joueur.player.id === 335051 ? joao : { uri: joueur.player.photo }} style={joueur.player.id === 386828 || joueur.player.id === 1257 || joueur.player.id === 1323 || joueur.player.id === 133609 || joueur.player.id === 521 || joueur.player.id === 396623 || joueur.player.id === 1496 || joueur.player.id === 2068 || joueur.player.id === 343027 || joueur.player.id === 263482 || joueur.player.id === 306 || joueur.player.id === 51617 || joueur.player.id === 6716 || joueur.player.id === 1096 || joueur.player.id === 180317 || joueur.player.id === 2489 || joueur.player.id === 147859 ? { height: 185, width: 110}: joueur.player.id === 1622 || joueur.player.id === 128384  ? { height: 155, width: "38%", marginRight: -40} : joueur.player.id === 9 || joueur.player.id === 153 || joueur.player.id === 41585 || joueur.player.id === 161904 || joueur.player.id === 33 || joueur.player.id === 257 || joueur.player.id === 483 || joueur.player.id === 335051 || joueur.player.id === 16367 || joueur.player.id === 21509 || joueur.player.id === 2802 || joueur.player.id === 31009 || joueur.player.id === 30558 || joueur.player.id === 226 || joueur.player.id === 1100 || joueur.player.id === 81573 || joueur.player.id === 5  ? {height: 160, width: "40%", marginRight: -20} :  joueur.player.id === 278 || joueur.player.id === 762 || joueur.player.id === 129718 || joueur.player.id === 10009 || joueur.player.id === 756 || joueur.player.id === 2207 || joueur.player.id === 377122 || joueur.player.id === 754 || joueur.player.id === 2285 || joueur.player.id === 733 || joueur.player.id === 328 || joueur.player.id === 217 || joueur.player.id === 18767 || joueur.player.id === 6420 || joueur.player.id === 510 || joueur.player.id === 184 || joueur.player.id === 19617 || joueur.player.id === 644 || joueur.player.id === 508 || joueur.player.id === 181812 || joueur.player.id === 47380 || joueur.player.id === 22094 || joueur.player.id === 152982 || joueur.player.id === 283058 || joueur.player.id === 5996 || joueur.player.id === 136723 || joueur.player.id === 19545 || joueur.player.id === 116117 ? {height: 155, width: "32%", marginRight: -20}: styles.photo} />
            
             <View style={styles.bio}>
               <Text style={styles.name}>{joueur.player.id === 15906 ? "Toufik Chemakh" : joueur.player.id === 37784 ? "Mamadou Sissoko" : joueur.player.name}</Text>
@@ -472,6 +490,11 @@ function FicheJoueur() {
                           <Image source={player} style={styles.icone} />
                           <Text style={styles.cle}>Matchs joués: </Text><Text style={styles.valeur}> {element.games.appearences}</Text>
                         </View>
+                        {joueur.statistics[0].games.position === "Goalkeeper" ? 
+                        <View style={styles.ligne}>
+                          <Image source={gardien} style={styles.icone} />
+                          <Text style={styles.cle}>Arrets:</Text><Text style={styles.valeur}> {element.goals.saves === null ? 0 : element.goals.saves}</Text>
+                        </View> : null}
                         <View style={styles.ligne}>
                           <Image source={goal} style={styles.icone} />
                           <Text style={styles.cle}>Buts: </Text><Text style={styles.valeur}>{element.goals.total}</Text>
@@ -480,14 +503,19 @@ function FicheJoueur() {
                           <Image source={target} style={styles.icone} />
                           <Text style={styles.cle}>Passes Dec: </Text><Text style={styles.valeur}> {element.goals.assists === null ? 0 : element.goals.assists}</Text>
                         </View>
-                        <View style={styles.ligne}>
+                       {joueur.statistics[0].games.position === "Goalkeeper" ? null : <View style={styles.ligne}>
                           <Image source={shoot} style={styles.icone} />
                           <Text style={styles.cle}>Tirs (cadrés): </Text><Text style={styles.valeur}> {element.shots.total} ({element.shots.on === null ? 0 : element.shots.on})</Text>
-                        </View>
+                        </View>}
                         <View style={styles.ligne}>
                           <Image source={shoe} style={styles.icone} />
                           <Text style={styles.cle}>Passes:</Text><Text style={styles.valeur}> {element.passes.total === null ? 0 : element.passes.total}</Text>
                         </View>
+{joueur.statistics[0].games.position === "Defender" ? 
+                        <View style={styles.ligne}>
+                          <Image source={shoe} style={styles.icone} />
+                          <Text style={styles.cle}>Tacles:</Text><Text style={styles.valeur}> {element.tackles.total === null ? 0 : element.tackles.total}</Text>
+                        </View> : null}
                         <View style={styles.ligne}>
                           <Image source={rating} style={styles.icone} />
                           <Text style={styles.cle}>Note moyenne: </Text><Text style={styles.valeur}> {element.games.rating ? element.games.rating.slice(0, 4) : "-"}</Text>
@@ -536,7 +564,7 @@ const styles = StyleSheet.create({
     width: '100%',
     color: 'white',
     marginBottom: 10,
-overflow: "visible"  },
+  },
 
   photo: {
     borderRadius: 50,

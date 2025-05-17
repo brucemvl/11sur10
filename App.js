@@ -33,9 +33,7 @@ async function registerForPushNotificationsAsync() {
     return;
   }
 
-  token = (await Notifications.getExpoPushTokenAsync({
-    projectId: Constants.expoConfig.extra.eas.projectId, // pour EAS, sinon retire `projectId`
-  })).data;
+  token = (await Notifications.getExpoPushTokenAsync()).data;
 
   console.log('Expo Push Token:', token);
 
@@ -71,6 +69,7 @@ export default function App() {
       subscriptionResponse.remove();
     };
   }, []);
+
 
   return (
     <NavigationContainer>

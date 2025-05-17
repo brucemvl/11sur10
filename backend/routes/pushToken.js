@@ -5,25 +5,28 @@ const sendPushNotification = require('../utils/pushNotification');
 
 // ✅ Route pour enregistrer un token (sans userId)
 router.post('/register-push-token', async (req, res) => {
-  const { token } = req.body;
-
-  if (!token) {
-    return res.status(400).json({ error: 'Token requis' });
-  }
-
   try {
+    const { token } = req.body;
+
+    console.log('📥 Token reçu:', token);
+
+    if (!token) {
+      return res.status(400).json({ message: 'Token manquant' });
+    }
+
+    // Vérifie si le token existe déjà
     const existing = await PushToken.findOne({ token });
 
     if (!existing) {
       await PushToken.create({ token });
-      console.log('✅ Token enregistré :', token);
+      console.log('✅ Token enregistré:', token);
     } else {
-      console.log('ℹ️ Token déjà enregistré');
+      console.log('🔁 Token déjà présent:', token);
     }
 
     res.status(200).json({ message: 'Token enregistré avec succès' });
   } catch (error) {
-    console.error('❌ Erreur enregistrement token :', error);
+    console.error('❌ Erreur dans /register-push-token:', error);
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });

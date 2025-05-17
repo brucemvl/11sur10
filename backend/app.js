@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const axios = require('axios');
 const sendPushNotification = require('./utils/pushNotification');
-const pushTokenRoutes = require('./routes/pushToken');
+const pushTokenRoutes = require('./routes/pushToken.js');
 const PushToken = require('./models/PushToken');
 
 const app = express();
@@ -13,10 +13,7 @@ app.use(express.json());
 // ✅ Connexion MongoDB
 mongoose.connect(
   'mongodb+srv://brucemonnerville:Gogeta6823@cluster0.hsz41sr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
+  
 )
   .then(() => console.log('✅ Connexion à MongoDB réussie !'))
   .catch(err => console.error('❌ Connexion à MongoDB échouée :', err));
