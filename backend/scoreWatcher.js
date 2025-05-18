@@ -7,7 +7,7 @@ const previousScores = {}; // Stocke les scores par matchId
 
 async function checkMatchScore() {
   try {
-    const response = await axios.get('https://v3.football.api-sports.io/fixtures?league=61&live=all', {
+    const response = await axios.get('https://v3.football.api-sports.io/fixtures?league=381&live=all', {
       headers: {
         'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
         'x-rapidapi-host': 'v3.football.api-sports.io',
