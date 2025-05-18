@@ -3,6 +3,10 @@ const router = express.Router();
 const PushToken = require('../models/PushToken');
 const sendPushNotification = require('../utils/pushNotification');
 
+router.get('/ping', (req, res) => {
+  console.log('🔔 Ping reçu pour garder le serveur en éveil');
+  res.status(200).json({ message: 'pong' });
+});
 // ✅ Route pour enregistrer un token (sans userId)
 router.post('/register-push-token', async (req, res) => {
   try {
