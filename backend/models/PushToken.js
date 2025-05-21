@@ -5,9 +5,10 @@ const pushTokenSchema = new mongoose.Schema({
   updatedAt: { type: Date, default: Date.now },
   userId: {
   type: String,
-  unique: true,
   sparse: true // évite l’erreur quand userId est absent ou null
-}
-});
+},
+  leagueId: { type: Number, required: false }, // ← Nouvelle colonne
+
+} , { timestamps: true });
 
 module.exports = mongoose.model('PushToken', pushTokenSchema);

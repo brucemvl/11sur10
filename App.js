@@ -3,11 +3,14 @@ import 'react-native-reanimated';
 import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './src/navigation/AppNavigator';
 import Menu from './src/components/Menu';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import registerForPushNotificationsAsync from './src/utils/registerPush';
+
 
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 import axios from 'axios';
-import Constants from 'expo-constants'; // Assure-toi d'importer ça pour accéder à l'ID de projet
+import Constants from 'expo-constants';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -17,59 +20,24 @@ Notifications.setNotificationHandler({
   }),
 });
 
-async function registerForPushNotificationsAsync() {
-  let token;
-
-  const { status: existingStatus } = await Notifications.getPermissionsAsync();
-  let finalStatus = existingStatus;
-
-  if (existingStatus !== 'granted') {
-    const { status } = await Notifications.requestPermissionsAsync();
-    finalStatus = status;
-  }
-
-  if (finalStatus !== 'granted') {
-    alert('Permission de notification refusée');
-    return;
-  }
-
-  token = (await Notifications.getExpoPushTokenAsync()).data;
-
-  console.log('Expo Push Token:', token);
-
-  // Envoi du token au backend
-  try {
-    await axios.post('https://one1sur10.onrender.com/api/register-push-token', {
-      token,
-    });
-    console.log('Token envoyé au backend');
-  } catch (error) {
-    console.error('Erreur lors de l\'envoi du token:', error.message);
-  }
-
-  return token;
-}
-
 export default function App() {
   useEffect(() => {
+    // On appelle l'enregistrement dès que l'app démarre
     registerForPushNotificationsAsync();
 
-    // Listener pour notification reçue en mode foreground
-    const subscriptionReceived = Notifications.addNotificationReceivedListener(notification => {
-      console.log('Notification reçue:', notification);
+    const subReceived = Notifications.addNotificationReceivedListener(notification => {
+      console.log('📩 Notification reçue :', notification);
     });
 
-    // Listener pour réponse à une notification (app ouverte via notification)
-    const subscriptionResponse = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log('Réponse à la notification:', response);
+    const subResponse = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log('📲 Réponse à la notif :', response);
     });
 
     return () => {
-      subscriptionReceived.remove();
-      subscriptionResponse.remove();
+      subReceived.remove();
+      subResponse.remove();
     };
   }, []);
-
 
   return (
     <NavigationContainer>

@@ -1,15 +1,21 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity, Linking } from 'react-native';
+import React, { useRef, useImperativeHandle, forwardRef } from 'react';
+import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity, Linking, Animated } from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient'; // Importation du dégradé
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import logo from '../assets/logoblanc.png';
 import insta from "../assets/insta.png"
+import cloche from "../assets/cloche.png"
+import clocheno from "../assets/clocheno.png"
 
-function Header() {
+
+
+const Header = forwardRef(({ notifsEnabled }, ref) => {
   // Récupération des dimensions de l'écran
   const screenWidth = Dimensions.get('window').width;
   const navigation = useNavigation()
+    const shakeAnim = useRef(new Animated.Value(0)).current;
+
 
   const [fontsLoaded] = useFonts({
     "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
@@ -24,6 +30,17 @@ function Header() {
     Linking.openURL(url).catch((err) => console.error("Error opening URL:", err));
   };
 
+  useImperativeHandle(ref, () => ({
+    triggerShake: () => {
+      Animated.sequence([
+        Animated.timing(shakeAnim, { toValue: -5, duration: 50, useNativeDriver: true }),
+        Animated.timing(shakeAnim, { toValue: 5, duration: 50, useNativeDriver: true }),
+        Animated.timing(shakeAnim, { toValue: -5, duration: 50, useNativeDriver: true }),
+        Animated.timing(shakeAnim, { toValue: 0, duration: 50, useNativeDriver: true }),
+      ]).start();
+    }
+  }));
+
   if (!fontsLoaded) {
     return <Text>Loading...</Text>;  // Attendre que les polices et les données soient chargées
   }
@@ -33,16 +50,27 @@ function Header() {
       locations={[0, 0.6, 0.92, 1]} // Spécifie les positions des couleurs
       style={styles.header}
     >
-      <TouchableOpacity onPress={()=>openExternalLink("https://www.instagram.com/11_sur_10/")}>
-      <Image source={insta} style={{height: 48, width: 48}}/>
+      <View style={{alignItems: "center"}}>
+      <TouchableOpacity onPress={()=>openExternalLink("https://www.instagram.com/11_sur_10/")} style={{position: "relative", bottom: 8}}>
+      <Image source={insta} style={{height: 44, width: 44}}/>
       </TouchableOpacity>
-      <Image source={logo} style={styles.logo} />
       <TouchableOpacity onPress={()=> navigation.navigate("Apropos")}>
         <Text style={{fontFamily: "Kanitt", color: "white", textDecorationLine: "underline"}}>A Propos</Text>
       </TouchableOpacity>
+      </View>
+      <Image source={logo} style={styles.logo} />
+      <TouchableOpacity onPress={() => navigation.navigate("Notifs")}>
+  <Animated.Image
+    source={notifsEnabled ? cloche : clocheno}
+    style={[
+      {height: 30, width: 30, marginRight: 10},
+      { transform: [{ translateX: shakeAnim }] } // ← Vibration ici
+    ]}
+  />
+</TouchableOpacity>
     </LinearGradient>
   );
-}
+})
 
 const styles = StyleSheet.create({
   header: {
@@ -51,7 +79,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: '3%',  // Utilisation de pourcentage
     flexGrow: 1,
-    height: 120,
+    height: 125,
     paddingTop: 30
   },
   logo: {

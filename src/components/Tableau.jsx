@@ -13,7 +13,6 @@ function Tableau({ id, currentRound}) {
   const [fontsLoaded] = useFonts({
     "Kanitt": require("../assets/fonts/Kanit/Kanit-Black.ttf"),
   });
-
  
   const [team, setTeam] = useState([])
 
@@ -36,6 +35,12 @@ function Tableau({ id, currentRound}) {
                       if (json.response[0].league.id === 197) {
                         setTeam(json.response.slice(0, 181))
                       }
+                      if (json.response[0].league.id === 61 || json.response[0].league.id === 62 || json.response[0].league.id === 78 ) {
+                        setTeam(json.response.slice(0, 305))
+                      }
+                      if (json.response[0].league.id === 88) {
+                        setTeam(json.response.slice(0, 287))
+                      }
                   })
           }
           catch (error) {
@@ -53,6 +58,8 @@ function Tableau({ id, currentRound}) {
       []
   )
 
+  console.log(round)
+
   const [filter, setFilter] =  useState(round)
 
   
@@ -62,9 +69,12 @@ function Tableau({ id, currentRound}) {
       const numB = parseInt(b.split('-')[1].trim());
       
       return numA - numB;
-
+      
       
   });
+
+  console.log(roundd)
+
 
   const currentIndex = roundd.findIndex(x => {
       const num1 = parseInt(x.split('-')[1]);
@@ -72,6 +82,7 @@ function Tableau({ id, currentRound}) {
       if (id === 197){
         return 26
       }
+     
       return num1 === num2;
   });
 
@@ -84,6 +95,7 @@ function Tableau({ id, currentRound}) {
     return <Text>loading</Text>
   }
 
+  
   
 console.log(filter)
 

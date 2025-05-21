@@ -5,17 +5,41 @@ const sendPushNotification = require('./utils/pushNotification');
 const pushTokenRoutes = require('./routes/pushToken.js');
 const PushToken = require('./models/PushToken');
 
+const mongoURI = process.env.MONGO_URI || 'mongodb+srv://brucemonnerville:Gogeta6823@cluster0.hsz41sr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+
 const app = express();
 
 // ✅ Middleware pour parser le JSON AVANT les routes
 app.use(express.json());
 
+async function fixTokensWithoutLeagueId(defaultLeagueId = '0') {
+  try {
+    const result = await PushToken.updateMany(
+      {
+        $or: [
+          { leagueId: { $exists: false } },
+          { leagueId: null },
+          { leagueId: '' }
+        ]
+      },
+      { $set: { leagueId: defaultLeagueId } }
+    );
+
+    console.log(`✅ ${result.modifiedCount} anciens tokens mis à jour avec leagueId = ${defaultLeagueId}`);
+  } catch (err) {
+    console.error('❌ Erreur lors de la mise à jour des tokens :', err.message);
+  }
+}
+
 // ✅ Connexion MongoDB
-mongoose.connect(
-  'mongodb+srv://brucemonnerville:Gogeta6823@cluster0.hsz41sr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
-  
-)
-  .then(() => console.log('✅ Connexion à MongoDB réussie !'))
+mongoose.connect(mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+  .then(async () => {
+    console.log('✅ Connexion à MongoDB réussie !');
+    await fixTokensWithoutLeagueId();  // Lancer le correctif après la connexion
+  })
   .catch(err => console.error('❌ Connexion à MongoDB échouée :', err));
 
 // ✅ Enregistrement des routes

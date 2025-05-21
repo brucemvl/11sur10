@@ -1,66 +1,47 @@
 const express = require('express');
 const router = express.Router();
 const PushToken = require('../models/PushToken');
-const sendPushNotification = require('../utils/pushNotification');
+const { sendPushNotification } = require('../utils/pushNotification'); // Assure-toi que cette fonction est correctement importée
 
-router.get('/ping', (req, res) => {
-  console.log('🔔 Ping reçu pour garder le serveur en éveil');
-  res.status(200).json({ message: 'pong' });
-});
-// ✅ Route pour enregistrer un token (sans userId)
+// POST /api/register-push-token
 router.post('/register-push-token', async (req, res) => {
-  try {
-    const { token } = req.body;
+  const { token, leagueId } = req.body;
 
-    console.log('📥 Token reçu:', token);
-
-    if (!token) {
-      return res.status(400).json({ message: 'Token manquant' });
-    }
-
-    // Vérifie si le token existe déjà
-    const existing = await PushToken.findOne({ token });
-
-    if (!existing) {
-      await PushToken.create({ token });
-      console.log('✅ Token enregistré:', token);
-    } else {
-      console.log('🔁 Token déjà présent:', token);
-    }
-
-    res.status(200).json({ message: 'Token enregistré avec succès' });
-  } catch (error) {
-    console.error('❌ Erreur dans /register-push-token:', error);
-    res.status(500).json({ error: 'Erreur serveur' });
-  }
-});
-
-// ✅ Route d’envoi de notification à TOUS les tokens
-router.post('/send-notification', async (req, res) => {
-  const { title, message } = req.body;
-
-  if (!title || !message) {
-    return res.status(400).json({ error: 'Titre et message requis' });
+if (!token || leagueId == null) {
+    return res.status(400).json({ error: 'Token ou leagueId manquants' });
   }
 
   try {
-    const tokens = await PushToken.find({});
 
-    if (tokens.length === 0) {
-      return res.status(404).json({ error: 'Aucun token enregistré' });
-    }
+    console.log('Token reçu:', token);
+console.log('LeagueId reçu:', leagueId);
+    // Recherche le token dans la base de données
+    let pushToken = await PushToken.findOne({ token });
+console.log('📥 Route /register-push-token appelée');
 
-    for (const tokenObj of tokens) {
-      await sendPushNotification(tokenObj.token, {
-        title,
-        body: message,
+    if (!pushToken) {
+        console.log('Token introuvable, création d\'un nouveau document');
+
+      // Si le token n'existe pas, crée un nouveau document
+      pushToken = new PushToken({
+        token,
+        leagueId,
+        userId: 'utilisateur_unique_id',  // Remplace par l'ID de l'utilisateur
       });
+    } else {
+        console.log('Token trouvé, mise à jour du leagueId');
+
+      // Si le token existe déjà, mets à jour le leagueId
+      pushToken.leagueId = leagueId;
     }
 
-    res.status(200).json({ message: 'Notifications envoyées à tous' });
-  } catch (error) {
-    console.error('❌ Erreur envoi :', error);
-    res.status(500).json({ error: 'Erreur serveur' });
+    // Sauvegarde le document
+console.log('💾 Sauvegarde de ce document :', pushToken);
+await pushToken.save();
+    res.status(200).json({ message: 'Token et leagueId mis à jour avec succès' });
+  } catch (err) {
+    console.error('❌ Erreur lors de la mise à jour du token :', err);
+  res.status(500).json({ error: 'Erreur lors de la mise à jour du token', details: err });
   }
 });
 

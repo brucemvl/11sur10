@@ -1,6 +1,8 @@
 import 'react-native-gesture-handler';
 import { TransitionSpecs, CardStyleInterpolators } from '@react-navigation/stack';
 import { Animated } from 'react-native';
+import { useState, useEffect, useRef } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -20,6 +22,7 @@ import FicheMatch from '../screens/FicheMatch';
 import SelectionsPage from '../screens/SelectionsPage';
 import FicheSelections from '../screens/FicheSelections';
 import FicheEquipe from '../screens/FicheEquipe';
+import Notifs from '../screens/Notifs';
 
 
 
@@ -27,11 +30,28 @@ import FicheEquipe from '../screens/FicheEquipe';
 const Stack = createStackNavigator();
 
 export default function AppNavigator() {
+
+  const [notificationsEnabled, setNotificationsEnabled] = useState(null);
+    const headerRef = useRef(); // ← ref ici
+
+
+   useEffect(() => {
+    const checkNotifStatus = async () => {
+      const leagueId = await AsyncStorage.getItem('leagueId');
+      setNotificationsEnabled(!!leagueId); // true si leagueId existe
+    };
+    checkNotifStatus();
+  }, []);
+
+if (notificationsEnabled === null) {
+  return null; // ou un écran de chargement
+}
+
   return (
       <Stack.Navigator
         initialRouteName="Home"
         screenOptions={{
-          header: () => <Header />,
+        header: () => <Header ref={headerRef} notifsEnabled={notificationsEnabled} />,
           cardStyleInterpolator: ({ current, next, layouts }) => {
             const progress = Animated.add(current.progress, next ? next.progress : 0);
 
@@ -60,11 +80,15 @@ export default function AppNavigator() {
         <Stack.Screen name="SelectionsPage" component={SelectionsPage} />
         <Stack.Screen name='FicheSelections' component={FicheSelections} />
         <Stack.Screen name='FicheEquipe' component={FicheEquipe}  />
-
-
-
-
-
+        <Stack.Screen name="Notifs">
+        {props => (
+          <Notifs
+            {...props}
+            onNotifStatusChange={setNotificationsEnabled}
+            triggerHeaderShake={() => headerRef.current?.triggerShake()} // ← passer la fonction
+          />
+        )}
+      </Stack.Screen>
       </Stack.Navigator>
   );
 

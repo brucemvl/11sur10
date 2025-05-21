@@ -22,14 +22,15 @@ async function sendPushNotification(tokens, message) {
   }
 
   // Construire le tableau de messages à envoyer (max 100 par requête)
-  const messages = validTokens.map(token => ({
-    to: token,
-    sound: 'default',
-    title: message?.title || 'Notification',
-    body: message?.body || '',
-    badge: message?.badge || undefined,
-    data: message?.data || undefined,
-  }));
+  const messages = validTokens.map((token, index) => ({
+  to: token,
+  sound: 'default',
+  title: message?.title || 'Notification',
+  body: message?.body || '',
+  badge: message?.badge || undefined,
+  data: message?.data || undefined,
+  _originalToken: token, // Ajoute une clé custom pour suivi
+}));
 
   try {
     const chunks = chunkArray(messages, 100); // Expo limite à 100 par requête
@@ -46,25 +47,25 @@ async function sendPushNotification(tokens, message) {
       console.log('📦 Réponse Expo Push:', response.data);
 
 
-      for (const resp of response.data.data) {
-        const token = messages[response.data.data.indexOf(resp)].to;
-      
-        if (resp.status !== 'ok') {
-          console.warn(`❌ Erreur pour token ${token}:`, resp.message);
-      
-          // Supprimer le token s'il est invalide
-          if (resp.message?.includes('is not a registered push notification recipient')) {
-            try {
-              await PushToken.deleteOne({ token });
-              console.log(`🗑️ Token supprimé de la base : ${token}`);
-            } catch (err) {
-              console.error(`❌ Erreur lors de la suppression du token ${token} :`, err.message);
-            }
-          }
-        } else {
-          console.log(`✅ Notification OK pour ${token}`);
-        }
+      for (let i = 0; i < response.data.data.length; i++) {
+  const resp = response.data.data[i];
+  const token = chunk[i]._originalToken;
+
+  if (resp.status !== 'ok') {
+    console.warn(`❌ Erreur pour token ${token}:`, resp.message);
+
+    if (resp.message?.includes('is not a registered push notification recipient')) {
+      try {
+        await PushToken.deleteOne({ token });
+        console.log(`🗑️ Token supprimé : ${token}`);
+      } catch (err) {
+        console.error(`❌ Erreur suppression ${token} :`, err.message);
       }
+    }
+  } else {
+    console.log(`✅ Notification OK pour ${token}`);
+  }
+}
       
       // Vérifier les erreurs dans la réponse
       const responseData = response.data;
