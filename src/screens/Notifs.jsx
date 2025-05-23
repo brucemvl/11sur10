@@ -128,8 +128,8 @@ leagues.forEach(league => {
   color={"red"}
   onPress={async () => {
     await AsyncStorage.removeItem('leagueId');
-    setSelectedLeague(null);
-    setSavedLeague(null);
+    setSelectedLeague(0);
+    setSavedLeague(0);
     onNotifStatusChange?.(false);
     triggerHeaderShake?.(); // ← vibration aussi
     alert('🔕 Notifications désactivées');
