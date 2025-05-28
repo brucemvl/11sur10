@@ -66,4 +66,4 @@ async function checkMatchScore() {
 }
 
 // ⏱️ Tâche cron toutes les 30 secondes
-cron.schedule('*/30 * * * * *', checkMatchScore);
+cron.schedule('*/35 * * * * *', checkMatchScore);

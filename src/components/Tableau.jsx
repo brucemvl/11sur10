@@ -41,6 +41,9 @@ function Tableau({ id, currentRound}) {
                       if (json.response[0].league.id === 88) {
                         setTeam(json.response.slice(0, 287))
                       }
+                      if (json.response[0].league.id === 140 || json.response[0].league.id === 39) {
+                        setTeam(json.response.slice(0, 379))
+                      }
                   })
           }
           catch (error) {

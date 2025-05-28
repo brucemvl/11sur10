@@ -83,6 +83,31 @@ leagues.forEach(league => {
     }
 }
 
+const disablePushNotifications = async () => {
+  try {
+    const token = await Notifications.getExpoPushTokenAsync();
+    
+    // 🔁 Ici tu peux envoyer une requête à ton backend pour supprimer ce token
+    // await fetch('https://ton-backend/api/remove-token', {
+    //   method: 'POST',
+    //   body: JSON.stringify({ token }),
+    // });
+
+    // Tu peux aussi faire une désactivation locale, par exemple :
+    await Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: false,
+        shouldPlaySound: false,
+        shouldSetBadge: false,
+      }),
+    });
+
+    console.log('🔕 Notifications désactivées localement');
+  } catch (error) {
+    console.log('Erreur désactivation :', error);
+  }
+};
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Choisis ta ligue préférée :</Text>
@@ -132,6 +157,7 @@ leagues.forEach(league => {
     setSavedLeague(0);
     onNotifStatusChange?.(false);
     triggerHeaderShake?.(); // ← vibration aussi
+    await disablePushNotifications();
     alert('🔕 Notifications désactivées');
   }}
 />

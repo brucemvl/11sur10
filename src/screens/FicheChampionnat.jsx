@@ -27,16 +27,20 @@ function FicheChampionnat({ route }) {
           setCurrentRound(json.response[0]);
         }
 
-        if (json.response[0].indexOf("Conference") !== -1) {
-          setCurrentRound("Regular Season 26");
-        }
-
         if (id === 61 || id === 62 || id === 78){
           setCurrentRound("Regular Season - 34")
         }
 
         if (id === 88){
           setCurrentRound("Regular Season - 32")
+        }
+
+        if (id === 140 || id === 39 || id === 135){
+          setCurrentRound("Regular Season - 38")
+        }
+
+         if (json.response[0].indexOf("Conference") !== -1) {
+          setCurrentRound("Regular Season 26");
         }
         
       } catch (error) {

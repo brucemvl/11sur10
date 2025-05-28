@@ -26,7 +26,6 @@ console.log('📥 Route /register-push-token appelée');
       pushToken = new PushToken({
         token,
         leagueId,
-        userId: 'utilisateur_unique_id',  // Remplace par l'ID de l'utilisateur
       });
     } else {
         console.log('Token trouvé, mise à jour du leagueId');
