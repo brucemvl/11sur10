@@ -44,4 +44,24 @@ await pushToken.save();
   }
 });
 
+router.post('/unregister-push-token', async (req, res) => {
+  const { token } = req.body;
+
+  if (!token) {
+    return res.status(400).json({ error: 'Token manquant' });
+  }
+
+  try {
+    const result = await PushToken.deleteOne({ token });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ error: 'Token non trouvé' });
+    }
+
+    res.status(200).json({ message: 'Token supprimé avec succès' });
+  } catch (error) {
+    res.status(500).json({ error: 'Erreur lors de la suppression du token' });
+  }
+});
+
 module.exports = router;

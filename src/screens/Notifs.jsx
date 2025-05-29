@@ -11,6 +11,9 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import registerForPushNotificationsAsync from '../utils/registerPush';
+import axios from "axios"
+import * as Notifications from 'expo-notifications';
+import Constants from 'expo-constants';
 
 const leagues = [
   { id: 39, name: 'Premier League', logo: "https://media.api-sports.io/football/leagues/39.png" },
@@ -85,26 +88,23 @@ leagues.forEach(league => {
 
 const disablePushNotifications = async () => {
   try {
-    const token = await Notifications.getExpoPushTokenAsync();
-    
-    // 🔁 Ici tu peux envoyer une requête à ton backend pour supprimer ce token
-    // await fetch('https://ton-backend/api/remove-token', {
-    //   method: 'POST',
-    //   body: JSON.stringify({ token }),
-    // });
+    const token = (await Notifications.getExpoPushTokenAsync({
+  projectId: Constants?.easConfig?.projectId,
+})).data;
 
-    // Tu peux aussi faire une désactivation locale, par exemple :
-    await Notifications.setNotificationHandler({
-      handleNotification: async () => ({
-        shouldShowAlert: false,
-        shouldPlaySound: false,
-        shouldSetBadge: false,
-      }),
+    // ⚠️ Important : supprimer côté serveur aussi
+    await axios.post('https://one1sur10.onrender.com/api/unregister-push-token', {
+      token,
     });
 
-    console.log('🔕 Notifications désactivées localement');
+    console.log('🚫 Token supprimé côté serveur');
+
+    alert('🔕 Notifications désactivées');
   } catch (error) {
-    console.log('Erreur désactivation :', error);
+    console.error('Erreur lors de la désactivation des notifications:', error.message);
+    if (error.response) {
+      console.error('Réponse du serveur :', error.response.data);
+    }
   }
 };
 
