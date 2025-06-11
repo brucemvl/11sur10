@@ -7,26 +7,26 @@ const previousScores = {}; // matchId → score
 
 async function checkMatchScore() {
   try {
-    // Récupère tous les tokens groupés par leagueId
+    // Récupère tous les tokens groupés par teamId
     const groupedTokens = await PushToken.aggregate([
       {
         $group: {
-          _id: '$leagueId',
+          _id: '$teamId',
           tokens: { $push: '$token' }
         }
       }
     ]);
 
     for (const group of groupedTokens) {
-      const leagueId = group._id;
-      if (!leagueId) continue; // ignore les tokens sans leagueId
+      const teamId = group._id;
+      if (!teamId) continue; // ignore les tokens sans teamId
 
       const tokens = group.tokens;
-      const leagueIdStr = String(leagueId).trim(); // s’assure que c’est bien une string numérique propre
-      console.log('Traitement du leagueId :', leagueIdStr); // ✅ ICI
+      const teamIdStr = String(teamId).trim(); // s’assure que c’est bien une string numérique propre
+      console.log('Traitement du teamId :', teamIdStr); // ✅ ICI
 
-      // Utilisation dynamique du leagueId récupéré
-      const response = await axios.get(`https://v3.football.api-sports.io/fixtures?league=${leagueIdStr}&live=all`, {
+      // Utilisation dynamique du teamId récupéré
+      const response = await axios.get(`https://v3.football.api-sports.io/fixtures?team=${teamIdStr}&live=all`, {
         headers: {
           'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
           'x-rapidapi-host': 'v3.football.api-sports.io',

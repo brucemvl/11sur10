@@ -325,7 +325,7 @@ overflow: "hidden",
   list: {
     flex: 1,
     marginTop: 10,
-    paddingBottom: 20, 
+    paddingBottom: 20,
   }
 });
 

@@ -1,140 +1,128 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet, ActivityIndicator, ScrollView, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import Match from './Match'; 
-import JourneesSelections from './JourneesSelections'; 
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import Match from './Match';
+import { Animated, Easing } from 'react-native';
 
-function TableauSelections({ id, currentRound, journey }) {
+
+function TableauSelections({ id, currentRound, rounds }) {
   const [teamF, setTeamF] = useState([]);
-  
+  const currentIndex = rounds.findIndex(round => round === currentRound);
+const [index, setIndex] = useState(currentIndex !== -1 ? currentIndex : 0);
 
-  useEffect(() => {
-    const fetchDataPhaseFinale = async () => {
-      try {
-        const response = await fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&season=${id === 29 ? "2023" : "2024"}`, {
-          method: 'GET',
-          headers: {
-            'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
-            'x-rapidapi-host': 'v3.football.api-sports.io',
-          },
-        });
-        const json = await response.json();
-        setTeamF(json.response.slice(180, 182));
-        if (id === 29 || id === 32){
-          setTeamF(json.response)
-        }
-      } catch (error) {
-        console.error('Error fetching data for final phase:', error);
-      }
-    };
-    fetchDataPhaseFinale();
-  }, [id]);
+  const slideAnim = useState(new Animated.Value(0))[0]; // Valeur X animée
+const [direction, setDirection] = useState('right'); // Pour savoir dans quel sens glisser
 
+const animateSlide = (dir = 'right') => {
+  slideAnim.setValue(dir === 'right' ? 300 : -300); // départ hors de l'écran
+  Animated.spring(slideAnim, {
+    toValue: 0,
+    friction: 6, // + = plus amorti
+    tension: 60, // + = plus rapide
+    useNativeDriver: true,
+  }).start();
+};
 
+ useEffect(() => {
+  const fetchFixtures = async () => {
+    try {
+      const response = await fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&season=${id === 29 ? '2023' : '2024'}`, {
+        method: 'GET',
+        headers: {
+          'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
+          'x-rapidapi-host': 'v3.football.api-sports.io',
+        },
+      });
+      const json = await response.json();
+      setTeamF(json.response);
 
-  const round = teamF.reduce(
-    (acc, elem) =>
-      acc.includes(elem.league.round) ? acc : acc.concat(elem.league.round),
-    []
-  );
+      // 🧠 Détection automatique du prochain round
+      const now = new Date();
+      const futureRounds = json.response
+        .filter(match => new Date(match.fixture.date) > now)
+        .map(match => match.league.round);
 
-  console.log(round)
+      const nextRound = rounds.find(round => futureRounds.includes(round));
+      const nextIndex = rounds.findIndex(round => round === nextRound);
+      
+      setIndex(nextIndex !== -1 ? nextIndex : 0); // Par défaut, commence au premier round
+    } catch (error) {
+      console.error('Erreur lors du chargement des matchs:', error);
+    }
+  };
 
-  const roundd = round.map((element)=> element.slice(element.length - 4))
-  console.log(teamF)
+  fetchFixtures();
+}, [id]);
 
-  const [filter, setFilter] = id === 5? useState("Semi-finals") : useState(journey);
-
-
-  const currentIndex = roundd.findIndex((x) => {
-    const num1 = parseInt(x.split('-')[1]);
-    const num2 = parseInt(currentRound.split('-')[1]);
-    return num1 === num2;
-  });
-
-  
-
-  const phases = ["Group Stage - 1", "Group Stage - 2", "Group Stage - 3", "Group Stage - 4", "Group Stage - 5", "Group Stage - 6", "Group Stage - 7", "Group Stage - 8", "Group Stage - 9", "Group Stage - 10",]
-
- const [index, setIndex] =  useState(journey - 1)
-
- const prev = ()=>{
-  setIndex(index-1)
-
-  if (index === 0){
-    setIndex(0)
+  if(!teamF){
+    return(
+      <Text>Loading...</Text>
+    )
   }
- }
 
- const next = ()=>{
-  setIndex(index+1)
- 
- }
+  // Navigation entre les rounds
+  const prev = () => {
+  if (index > 0) {
+    setDirection('left');
+    animateSlide('left');
+    setIndex((prevIndex) => prevIndex - 1);
+  }
+};
+
+const next = () => {
+  if (index < rounds.length - 1) {
+    setDirection('right');
+    animateSlide('right');
+    setIndex((prevIndex) => prevIndex + 1);
+  }
+};
+
+
+  const currentRoundName = rounds[index];
+
+const filteredMatches = teamF.filter((match) => match.league.round === currentRoundName);
 
   return (
-    id === 29 || id === 32 ? <View style={styles.container}>
- <View style={{flexDirection: "row", alignItems: "center", gap: 10, marginBlock: 15}}>
-         <TouchableOpacity style={{height: 34, width: 30, alignItems: "center"}} onPress={prev}><Text style={styles.buttonText}>{"<"}</Text></TouchableOpacity>   <Text style={{color: "black", fontFamily: "Permanent", fontSize: 16}}> {phases[index] === "Quarter-finals" ? "Quarts de finale" : phases[index] === "Round of 16" ? "Huitiemes de finale" : phases[index]}</Text><TouchableOpacity style={{height: 34, width: 30, alignItems: "center"}} onPress={next}><Text style={styles.buttonText}>{">"}</Text></TouchableOpacity>
- </View>
-
-    {
-    teamF.map((match)=>
-      phases[index] === match.league.round ? 
-      <Match
-        equipeDom={match.teams.home.name}
-        id={match.fixture.id}
-        equipeExt={match.teams.away.name}
-        logoDom={match.teams.home.logo}
-        round={match.league.round}
-        logoExt={match.teams.away.logo}
-        scoreDom={match.goals.home}
-        scoreExt={match.goals.away}
-        date={match.fixture.date}
-      /> : null)
-  
-}
-        
-      
-    </View> :
-    <View style={styles.container}>
-      
+     <View style={styles.container}>
 
 
-      <Text style={styles.header}>Phase finale</Text>
-      <JourneesSelections
-        setFilter={setFilter}
-        round={round}
-        roundd={roundd}
-        currentRound={currentRound}
-        filter={filter}
-        id={id}
-        team={teamF}
-        currentIndex={currentIndex}
-      />
-      <FlatList
-        data={teamF}
-        keyExtractor={(item) => "match" + item.fixture.id}
-        renderItem={({ item }) => {
-          if (!filter || filter === item.league.round) {
-            return (
-              <Match
-                equipeDom={item.teams.home.name}
-                id={item.fixture.id}
-                equipeExt={item.teams.away.name}
-                logoDom={item.teams.home.logo}
-                round={item.league.round}
-                logoExt={item.teams.away.logo}
-                scoreDom={item.goals.home}
-                scoreExt={item.goals.away}
-                date={item.fixture.date}
-              />
-            );
-          }
-          return null;
-        }}
-      />
+    
+    
+
+<View style={{flexDirection: "row", alignItems: "center", gap: 10, marginBlock: 15, justifyContent: "center"}}>
+<TouchableOpacity onPress={prev} disabled={index === 0} style={{width: 30, height: 30, alignItems: "center"}}>
+  <Text style={[styles.buttonText, index === 0 && { opacity: 0.3 }]}>{'<'}</Text>
+</TouchableOpacity>
+       <Text style={{color: "black", fontFamily: "Kanitalik", fontSize: 16, marginInline: 10}}>
+          {currentRoundName === "Quarter-finals" ? "Quarts de finale" :
+            currentRoundName === "Semi-finals" ? "Demi-finales" :
+            currentRoundName === "Final" ? "Finale" :
+            currentRoundName === "Round of 16" ? "Huitièmes de finale" :
+            currentRoundName}
+        </Text>
+<TouchableOpacity onPress={next} disabled={index === rounds.length - 1} style={{width: 30, height: 30, alignItems: "center"}}>
+  <Text style={[styles.buttonText, index === rounds.length - 1 && { opacity: 0.3 }]}>{'>'}</Text>
+</TouchableOpacity> 
+      </View>
+
+      <Animated.View style={{ transform: [{ translateX: slideAnim }] }}>
+  {filteredMatches?.map((match) => (
+    <Match
+      key={match.fixture.id}
+      id={match.fixture.id}
+      equipeDom={match.teams.home.name === "Spain" ? "Espagne" : match.teams.home.name === "Germany" ? "Allemagne" : match.teams.home.name === "England" ? "Angleterre" : match.teams.home.name}
+      logoDom={match.teams.home.logo}
+      equipeExt={match.teams.away.name === "Spain" ? "Espagne" : match.teams.away.name === "Germany" ? "Allemagne" : match.teams.away.name === "England" ? "Angleterre" : match.teams.away.name}
+      logoExt={match.teams.away.logo}
+      round={match.league.round}
+      scoreDom={match.goals.home}
+      scoreExt={match.goals.away}
+      date={match.fixture.date}
+    />
+  ))}
+</Animated.View>
     </View>
-  );
+  
+)
 }
 
 const styles = StyleSheet.create({

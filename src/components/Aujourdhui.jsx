@@ -726,7 +726,7 @@ const [fontsLoaded] = useFonts({
           </ScrollView>}
 
           {apresdemain && <ScrollView contentContainerStyle={styles.liveTableau}>
-            {apresDemainMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match demain</Text> :
+            {apresDemainMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match apres-demain</Text> :
               apresDemainLeagues.map((league) => <View style={{ marginBlock: 5 }}>
                 <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
                 {apresDemainMatch.map((element) => element.league.name === league ?

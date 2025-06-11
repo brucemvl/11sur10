@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Animated } from "react-native";
 
-function Journees({ setFilter, round, currentIndex, roundd, filter }) {
+function Journees({ setFilter, round, currentIndex, roundd, filter, id }) {
     const [index, setIndex] = useState(currentIndex);
   
         const [rotateJournee, setRotateJournee] = useState(new Animated.Value(0));
@@ -57,17 +57,17 @@ console.log(currentIndex)
       <View style={styles.container}>
         {/* Bouton précédent */}
         <TouchableOpacity style={styles.button} onPress={filtragePrev}>
-          <Text style={styles.buttonText}>{"<"}</Text>
+          <Text style={id === 15 ? styles.buttonTextWc : styles.buttonText}>{"<"}</Text>
         </TouchableOpacity>
   
         {/* Sélecteur de journée */}
         <View style={styles.headInfo}>
-          <Animated.Text style={{fontFamily: "Kanitalik", fontSize: 18, color: "white",  transform: [{ rotate: rotateJourneeInterpolate }] }}>{`Journée ${index + 1}`}</Animated.Text>
+          <Animated.Text style={id === 15 ? {fontFamily: "Kanitalik", fontSize: 18, color: "rgb(234, 186, 56)" ,  transform: [{ rotate: rotateJourneeInterpolate }] } : {fontFamily: "Kanitalik", fontSize: 18, color: "white",  transform: [{ rotate: rotateJourneeInterpolate }] }}>{`Journée ${index + 1}`}</Animated.Text>
         </View>
   
         {/* Bouton suivant */}
         <TouchableOpacity style={styles.button} onPress={filtrageNext}>
-          <Text style={styles.buttonText}>{">"}</Text>
+          <Text style={id === 15 ? styles.buttonTextWc : styles.buttonText}>{">"}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -89,6 +89,14 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 36,
 color: "white",
+fontFamily: "Kanitalic"  },
+  headInfo: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  buttonTextWc: {
+    fontSize: 36,
+color: "rgb(234, 186, 56)",
 fontFamily: "Kanitalic"  },
   headInfo: {
     flexDirection: "row",

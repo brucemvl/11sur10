@@ -12,20 +12,20 @@ const app = express();
 // ✅ Middleware pour parser le JSON AVANT les routes
 app.use(express.json());
 
-async function fixTokensWithoutLeagueId(defaultLeagueId = '0') {
+async function fixTokensWithoutTeamId(defaultTeamId = '0') {
   try {
     const result = await PushToken.updateMany(
       {
         $or: [
-          { leagueId: { $exists: false } },
-          { leagueId: null },
-          { leagueId: '' }
+          { teamId: { $exists: false } },
+          { teamId: null },
+          { teamId: '' }
         ]
       },
-      { $set: { leagueId: defaultLeagueId } }
+      { $set: { teamId: defaultTeamId } }
     );
 
-    console.log(`✅ ${result.modifiedCount} anciens tokens mis à jour avec leagueId = ${defaultLeagueId}`);
+    console.log(`✅ ${result.modifiedCount} anciens tokens mis à jour avec teamId = ${defaultTeamId}`);
   } catch (err) {
     console.error('❌ Erreur lors de la mise à jour des tokens :', err.message);
   }
@@ -38,7 +38,7 @@ mongoose.connect(mongoURI, {
 })
   .then(async () => {
     console.log('✅ Connexion à MongoDB réussie !');
-    await fixTokensWithoutLeagueId();  // Lancer le correctif après la connexion
+    await fixTokensWithoutTeamId();  // Lancer le correctif après la connexion
   })
   .catch(err => console.error('❌ Connexion à MongoDB échouée :', err));
 

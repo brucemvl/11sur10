@@ -15,40 +15,45 @@ import axios from "axios"
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
 
-const leagues = [
-  { id: 39, name: 'Premier League', logo: "https://media.api-sports.io/football/leagues/39.png" },
-  { id: 140, name: 'La Liga', logo: "https://media.api-sports.io/football/leagues/140.png" },
-  { id: 135, name: 'Serie A', logo: "https://media.api-sports.io/football/leagues/135.png" },
-  { id: 78, name: 'Bundesliga', logo: "https://media.api-sports.io/football/leagues/78.png" },
-  { id: 61, name: 'Ligue 1' },
-  { id: 1, name: 'UEFA Champions League', logo: "https://media.api-sports.io/football/leagues/1.png" },
-  { id: 2, name: 'Europa League', logo: "https://media.api-sports.io/football/leagues/2.png" },
-    { id: 848, name: 'Europa League Conference', logo: "https://media.api-sports.io/football/leagues/848.png" },
+const teams = [
+  { id: 85, name: 'Paris Saint Germain', logo: "https://media.api-sports.io/football/teams/85.png" },
+  { id: 81, name: 'Marseille', logo: "https://media.api-sports.io/football/teams/81.png" },
+  { id: 80, name: 'Lyon', logo: "https://media.api-sports.io/football/teams/80.png" },
+  { id: 84, name: 'Nice', logo: "https://media.api-sports.io/football/teams/84.png" },
+  { id: 91, name: 'Monaco', logo: "https://media.api-sports.io/football/teams/91.png" },
+  { id: 541, name: 'Real Madrid', logo: "https://media.api-sports.io/football/teams/541.png" },
+    { id: 529, name: 'FC Barcelone', logo: "https://media.api-sports.io/football/teams/529.png" },
+        { id: 33, name: 'Manchester United', logo: "https://media.api-sports.io/football/teams/33.png" },
+    { id: 49, name: 'Chelsea', logo: "https://media.api-sports.io/football/teams/49.png" },
+        { id: 42, name: 'Arsenal', logo: "https://media.api-sports.io/football/teams/42.png" },
+    { id: 2075, name: 'Bayern Munich', logo: "https://media.api-sports.io/football/teams/157.png" },
+
+
 
 ];
 
 function Notifs({ onSave, onNotifStatusChange, triggerHeaderShake }) {
-  const [selectedLeague, setSelectedLeague] = useState(null);
-  const [savedLeague, setSavedLeague] = useState(null);
+  const [selectedTeam, setSelectedTeam] = useState(null);
+  const [savedTeam, setSavedTeam] = useState(null);
 const scaleAnimMap = useRef({}).current;
 
-leagues.forEach(league => {
-  if (!scaleAnimMap[league.id]) {
-    scaleAnimMap[league.id] = new Animated.Value(1);
+teams.forEach(team => {
+  if (!scaleAnimMap[team.id]) {
+    scaleAnimMap[team.id] = new Animated.Value(1);
   }
 });
   useEffect(() => {
-    const fetchSavedLeague = async () => {
-      const stored = await AsyncStorage.getItem('leagueId');
+    const fetchSavedTeam = async () => {
+      const stored = await AsyncStorage.getItem('teamId');
       if (stored) {
         const parsed = parseInt(stored, 10);
         if (!isNaN(parsed)) {
-          setSavedLeague(parsed);
-          setSelectedLeague(parsed);
+          setSavedTeam(parsed);
+          setSelectedTeam(parsed);
         }
       }
     };
-    fetchSavedLeague();
+    fetchSavedTeam();
   }, []);
 
   const animateText = (id) => {
@@ -67,22 +72,22 @@ leagues.forEach(league => {
 };
 
 
- const handleSelectLeague = (id) => {
-  setSelectedLeague(id);
+ const handleSelectTeam = (id) => {
+  setSelectedTeam(id);
   animateText(id); // ← on passe l'id spécifique
 };
 
-  const saveLeague = async () => {
+  const saveTeam = async () => {
     try {
-      await AsyncStorage.setItem('leagueId', selectedLeague.toString());
-      setSavedLeague(selectedLeague);
-      onSave?.(selectedLeague);
+      await AsyncStorage.setItem('teamId', selectedTeam.toString());
+      setSavedTeam(selectedTeam);
+      onSave?.(selectedTeam);
       onNotifStatusChange?.(true);  // ← activer les notifs
       triggerHeaderShake?.();       // ← lancer l’animation
       await registerForPushNotificationsAsync();
-      alert('✅ Ligue enregistrée et notifs mises à jour !');
+      alert('✅ Equipe enregistrée et notifs mises à jour !');
     } catch (err) {
-      console.error('Erreur enregistrement leagueId:', err);
+      console.error('Erreur enregistrement teamId:', err);
     }
 }
 
@@ -110,40 +115,40 @@ const disablePushNotifications = async () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Choisis ta ligue préférée :</Text>
+      <Text style={styles.title}>Choisis ton equipe préférée :</Text>
 
-{savedLeague && (
+{savedTeam && (
         <Text style={styles.saved}>
-          ✅ Ligue actuelle : {leagues.find((l) => l.id === savedLeague)?.name}
+          ✅ Equipe actuelle : {teams.find((t) => t.id === savedTeam)?.name}
         </Text>
       )}
 
-      {leagues.map((league) => (
+      {teams.map((team) => (
         <TouchableOpacity
-          key={league.id}
+          key={team.id}
           style={[
             styles.leagueButton,
-            selectedLeague === league.id && styles.selectedLeague,
+            selectedTeam === team.id && styles.selectedTeam,
           ]}
-          onPress={() => handleSelectLeague(league.id)}
+          onPress={() => handleSelectTeam(team.id)}
         >
           <Animated.Text
             style={[
-              styles.leagueText,
-              selectedLeague === league.id && { transform: [{ scale: scaleAnimMap[league.id] }]
+              styles.teamText,
+              selectedTeam === team.id && { transform: [{ scale: scaleAnimMap[team.id] }]
 , color: "white", fontFamily: "Kanitt" },
             ]}
           >
-            {league.name}
+            {team.name}
           </Animated.Text>
         </TouchableOpacity>
       ))}
 
       <TouchableOpacity
-        onPress={saveLeague}
+        onPress={saveTeam}
               style={{backgroundColor: "#007BFF", height: 40, width: "40%", alignItems: "center", justifyContent: "center", marginBlock: 20, borderRadius: 10}}
 
-        disabled={selectedLeague === null}
+        disabled={selectedTeam === null}
       >
         <Text style={{fontFamily: "Kanitt", fontSize: 16, color: "white"}}>Enregistrer</Text>
         </TouchableOpacity>
@@ -152,9 +157,9 @@ const disablePushNotifications = async () => {
   title='Desactiver les Notifs'
   color={"red"}
   onPress={async () => {
-    await AsyncStorage.removeItem('leagueId');
-    setSelectedLeague(0);
-    setSavedLeague(0);
+    await AsyncStorage.removeItem('teamId');
+    setSelectedTeam(0);
+    setSavedTeam(0);
     onNotifStatusChange?.(false);
     triggerHeaderShake?.(); // ← vibration aussi
     await disablePushNotifications();
@@ -170,7 +175,7 @@ const disablePushNotifications = async () => {
 const styles = StyleSheet.create({
   container: {alignItems: "center", padding: 10 },
   title: { fontSize: 18, fontWeight: 'bold', marginBottom: 15, fontFamily: "Kanitalik" },
-  leagueButton: {
+  teamButton: {
     padding: 10,
     marginVertical: 7,
     backgroundColor: 'rgb(210, 210, 210)',
@@ -180,7 +185,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "90%"
   },
-  selectedLeague: {
+  selectedTeam: {
     backgroundColor: '#4CAF50',
     shadowColor: '#000',
         shadowOffset: { width: 0, height: 5 },
@@ -188,7 +193,7 @@ const styles = StyleSheet.create({
         shadowRadius: 3,
 
   },
-  leagueText: {
+  teamText: {
     fontSize: 16,
     color: '#000',
     fontFamily: "Kanito"

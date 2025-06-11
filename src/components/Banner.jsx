@@ -48,6 +48,12 @@ import banner49 from "../assets/banner50.jpg"
 import banner50 from "../assets/banner51.webp"
 import banner51 from "../assets/banner52.webp"
 import banner52 from "../assets/banner53.webp"
+import banner53 from "../assets/banner54.webp"
+import banner54 from "../assets/banner55.webp"
+import banner55 from "../assets/banner56.webp"
+import banner56 from "../assets/banner57.webp"
+import banner57 from "../assets/banner58.webp"
+
 
 
 
@@ -56,7 +62,7 @@ import { View, Text, Image, StyleSheet, Animated } from "react-native"
 
 const photosBan = [
   banner3, banner4, banner5, banner6, banner7, banner8, banner9,
-  banner10, banner11, banner12, banner13, banner14, banner15, banner16, banner17, banner18, banner19, banner20, banner21, banner22, banner23, banner24, banner25, banner26, banner27, banner28, banner29, banner30, banner31, banner32, banner33, banner34, banner35, banner36, banner37, banner38, banner39, banner40, banner41, banner42, banner43, banner44, banner45, banner46, banner47, banner48, banner49, banner50, banner51,banner52
+  banner10, banner11, banner12, banner13, banner14, banner15, banner16, banner17, banner18, banner19, banner20, banner21, banner22, banner23, banner24, banner25, banner26, banner27, banner28, banner29, banner30, banner31, banner32, banner33, banner34, banner35, banner36, banner37, banner38, banner39, banner40, banner41, banner42, banner43, banner44, banner45, banner46, banner47, banner48, banner49, banner50, banner51,banner52, banner53, banner54, banner55, banner56, banner57
 ];
 
 

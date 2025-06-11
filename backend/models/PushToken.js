@@ -7,7 +7,7 @@ const pushTokenSchema = new mongoose.Schema({
   type: String,
   sparse: true // évite l’erreur quand userId est absent ou null
 },
-  leagueId: { type: Number, required: false }, // ← Nouvelle colonne
+  teamId: { type: Number, required: false }, // ← Nouvelle colonne
 
 } , { timestamps: true });
 

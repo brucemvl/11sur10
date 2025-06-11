@@ -165,7 +165,7 @@ useEffect(() => {
           <Text style={styles.subTitle}>Titulaires</Text>
           <LinearGradient colors={["rgb(41, 154, 55)", 'rgba(32, 119, 42, 1)']} style={styles.playersList}>
             {titulairesDom.map((player) => (
-              <TouchableOpacity key={player.player.id} onPress={() => navigation.navigate('FicheJoueur', { id: player.player.id })}>
+              <TouchableOpacity key={player.player.id} onPress={() => navigation.navigate('FicheJoueur', { id: player.player.id, team: match.teams.home.id })}>
                 {renderPlayer(player)}
               </TouchableOpacity>
             ))}
@@ -173,7 +173,7 @@ useEffect(() => {
           <Text style={styles.subTitle}>Remplaçants</Text>
           <LinearGradient colors={["rgb(189, 152, 161)", 'rgba(90, 103, 92, 0.9)']} style={styles.playersList}>
             {substituteDom.map((player) => (
-              <TouchableOpacity key={player.player.id} onPress={() => navigation.navigate('FicheJoueur', { id: player.player.id })}>
+              <TouchableOpacity key={player.player.id} onPress={() => navigation.navigate('FicheJoueur', { id: player.player.id, team: match.teams.home.id })}>
                 {renderPlayer(player, true)}
               </TouchableOpacity>
             ))}
@@ -191,7 +191,7 @@ useEffect(() => {
 
           <LinearGradient colors={["rgb(41, 154, 55)", 'rgba(32, 119, 42, 1)']} style={styles.playersExtList}>
             {titulairesExt.map((player) => (
-              <TouchableOpacity key={player.player.id} onPress={() => navigation.navigate('FicheJoueur', { id: player.player.id })} style={{ justifyContent: "flex-end" }}>
+              <TouchableOpacity key={player.player.id} onPress={() => navigation.navigate('FicheJoueur', { id: player.player.id, team: match.teams.away.id })} style={{ justifyContent: "flex-end" }}>
                 {renderExtPlayer(player)}
               </TouchableOpacity>
             ))}
@@ -199,7 +199,7 @@ useEffect(() => {
           <Text style={styles.subTitle}>Remplaçants</Text>
           <LinearGradient colors={["rgb(189, 152, 161)", 'rgba(90, 103, 92, 0.9)']} style={styles.playersExtList}>
             {substituteExt.map((player) => (
-              <TouchableOpacity key={player.player.id} onPress={() => navigation.navigate('FicheJoueur', { id: player.player.id })} style={{ justifyContent: "flex-end" }}>
+              <TouchableOpacity key={player.player.id} onPress={() => navigation.navigate('FicheJoueur', { id: player.player.id, team: match.teams.away.id })} style={{ justifyContent: "flex-end" }}>
                 {renderExtPlayer(player, true)}
               </TouchableOpacity>
             ))}

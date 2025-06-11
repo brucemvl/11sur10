@@ -26,26 +26,26 @@ export default async function registerForPushNotificationsAsync() {
 
     console.log('📲 Expo Push Token:', token);
 
-    // Récupérer le leagueId depuis AsyncStorage
-    const storedLeague = await AsyncStorage.getItem('leagueId');
-    console.log('leagueId récupéré depuis AsyncStorage:', storedLeague);
+    // Récupérer le teamId depuis AsyncStorage
+    const storedTeam = await AsyncStorage.getItem('teamId');
+    console.log('teamId récupéré depuis AsyncStorage:', storedTeam);
 
-    const leagueId = storedLeague ? Number(storedLeague) : null;
+    const teamId = storedTeam ? Number(storedTeam) : null;
 
-    if (!leagueId || isNaN(leagueId)) {
-      console.warn('⚠️ leagueId invalide ou manquant :', storedLeague);
+    if (!teamId || isNaN(teamId)) {
+      console.warn('⚠️ teamId invalide ou manquant :', storedTeam);
       return;
     }
 
-    // Envoi de la requête POST pour enregistrer le token et leagueId
+    // Envoi de la requête POST pour enregistrer le token et teamId
     const response = await axios.post('https://one1sur10.onrender.com/api/register-push-token', {
       token,
-      leagueId, // Envoie la nouvelle leagueId ici
+      teamId, // Envoie la nouvelle teamId ici
     });
     console.log('Réponse du serveur:', response.data);
 
 
-    console.log('✅ Token et leagueId envoyés au serveur');
+    console.log('✅ Token et teamId envoyés au serveur');
     return token;
   } catch (error) {
   console.error('❌ Erreur registerPush:', error.message);

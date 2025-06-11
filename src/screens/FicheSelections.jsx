@@ -9,38 +9,66 @@ function FicheSelections() {
 
   const { id } = route.params;
 
+
   const [classement, setClassement] = useState();
   const [loading, setLoading] = useState(true);
-  const [currentRound, setCurrentRound] =  id === 32 ? useState("Group Stage - 3") : useState("League B - 6");
+  const [currentRound, setCurrentRound] =  useState();
+
+      const season = id === 34 ? "2026" : id === 29 ? "2023" : "2024";
 
 
+const [rounds, setRounds] = useState()
 
   useEffect(() => {
-    const fetchRound = async () => {
-      try {
-        const response = await fetch(`https://v3.football.api-sports.io/fixtures/rounds?season=2024&league=${id}&current=true`, {
-          method: 'GET',
-          headers: {
-            'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
-            'x-rapidapi-host': 'v3.football.api-sports.io',
-          },
-        });
-        const json = await response.json();
-      } catch (error) {
-        console.error('Error fetching current round:', error);
-      }
-    };
-    fetchRound();
-  }, [id]);
+  const fetchRounds = async () => {
+    try {
+      const response = await fetch(`https://v3.football.api-sports.io/fixtures/rounds?league=${id}&season=${season}`, {
+        method: 'GET',
+        headers: {
+          'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
+          'x-rapidapi-host': 'v3.football.api-sports.io',
+        },
+      });
 
-  console.log(currentRound)
+      const result = await response.json();
+      setRounds(result.response);  
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching rounds:', error);
+    }
+  };
 
-  const journey = currentRound.slice(currentRound.length -1)
-  console.log(journey)
+  fetchRounds();
+}, [id]);
+
+console.log(rounds)
+
+  useEffect(() => {
+  const fetchRound = async () => {
+    try {
+      const response = await fetch(`https://v3.football.api-sports.io/fixtures/rounds?season=${season}&league=${id}&current=true`, {
+        method: 'GET',
+        headers: {
+          'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
+          'x-rapidapi-host': 'v3.football.api-sports.io',
+        },
+      });
+      const json = await response.json();
+      setCurrentRound(json.response[0]); // 👈 ici on prend l’élément unique
+    } catch (error) {
+      console.error('Error fetching current round:', error);
+    }
+  };
+
+  fetchRound();
+}, [id]);
+
+
+
 
   useEffect(() => {
     // Fetch data
-    fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=${id === 29 ? "2023" : "2024"}`, {
+    fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=${id === 29 ? "2023" : id === 34 ? "2026" : "2024"}`, {
       method: 'GET',
       headers: {
         'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
@@ -58,23 +86,29 @@ function FicheSelections() {
       });
   }, [id]);
 
-  if (loading) {
-    return (
-      <View style={styles.loaderContainer}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-  }
 
+  
+  if (loading || !rounds || !currentRound) {
+  return (
+    <View style={styles.loaderContainer}>
+      <ActivityIndicator size="large" color="#0000ff" />
+    </View>
+  );
+}
+
+  const journey = rounds.indexOf(currentRound);
+
+console.log('currentRound:', currentRound);
+console.log('rounds:', rounds);
 
   return (
     <View>
     <Precedent />
 
     <ScrollView style={styles.blocFicheSelections}>
-      <TableauSelections id={id} currentRound={currentRound} journey={journey} />
+      <TableauSelections id={id} currentRound={currentRound} journey={journey} rounds={rounds} />
       <View style={styles.tableaux}>
-        {classement.map((subArray, index) => (
+        {classement?.map((subArray, index) => (
           <View key={`group${index}`} style={styles.groupe}>
             <Text style={styles.groupTitle}>{subArray[0].group}</Text>
             <View style={{margin: 10, borderRadius: 5, backgroundColor: "lightblue"}}>

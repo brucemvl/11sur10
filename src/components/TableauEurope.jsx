@@ -6,7 +6,7 @@ import JourneesEurope from "./JourneesEurope";
 import Match from "./Match";
 import { LinearGradient } from "expo-linear-gradient";
 import ucl from "../assets/logoucl.png"
-import tabldc from "../assets/tabldc.jpeg"
+import tabldc from "../assets/banner58.webp"
 
 function TableauEurope({ id}) {
   const [fontsLoaded] = useFonts({
@@ -200,7 +200,7 @@ if(json.response[0].league.id === 2){
       source={id === 2 ? ucl : { uri: `https://media.api-sports.io/football/leagues/${id}.png` }}
       style={id === 2 ? { width: 80, height: 50, objectFit: 'contain' } : { width: 50, height: 50, objectFit: 'contain' }}
     />
-           { id === 2 ? <Image source={tabldc} style={{width: "100%",  height: 480, marginBlock: 15}}/> : null }
+           { id === 2 ? <Image source={tabldc} style={{height: 280, objectFit: "contain", marginTop: 10}}/> : null }
 
     <View style={{ flexDirection: 'row', gap: 30, marginBlock: 15 }}>
       <TouchableOpacity onPress={openPoules}>

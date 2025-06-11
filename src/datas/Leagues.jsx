@@ -331,16 +331,16 @@ export const selections = [
             "id": 32,
             "name": "World Cup - Qualification Europe",
             "logo": "https://media.api-sports.io/football/leagues/32.png",
-            "season": 2026,
+            "season": 2024,
             },
-/*
+
             {
-                "id": 30,
+                "id": 34,
                 "name": "World Cup - Qualification Asia",
-                "logo": "https://media.api-sports.io/football/leagues/30.png",
+                "logo": "https://media.api-sports.io/football/leagues/34.png",
                 "season": 2026,
                 },
-*/
+
                 {
                     "id": 5,
                     "name": "UEFA Nations League",
