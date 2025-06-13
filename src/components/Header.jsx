@@ -8,14 +8,30 @@ import insta from "../assets/insta.png"
 import cloche from "../assets/cloche.png"
 import clocheno from "../assets/clocheno.png"
 
+ const teams = [
+  { id: 85, name: 'Paris Saint Germain', logo: "https://media.api-sports.io/football/teams/85.png" },
+  { id: 81, name: 'Marseille', logo: "https://media.api-sports.io/football/teams/81.png" },
+  { id: 80, name: 'Lyon', logo: "https://media.api-sports.io/football/teams/80.png" },
+  { id: 84, name: 'Nice', logo: "https://media.api-sports.io/football/teams/84.png" },
+  { id: 91, name: 'Monaco', logo: "https://media.api-sports.io/football/teams/91.png" },
+  { id: 541, name: 'Real Madrid', logo: "https://media.api-sports.io/football/teams/541.png" },
+    { id: 529, name: 'FC Barcelone', logo: "https://media.api-sports.io/football/teams/529.png" },
+        { id: 33, name: 'Manchester United', logo: "https://media.api-sports.io/football/teams/33.png" },
+    { id: 49, name: 'Chelsea', logo: "https://media.api-sports.io/football/teams/49.png" },
+        { id: 42, name: 'Arsenal', logo: "https://media.api-sports.io/football/teams/42.png" },
+    { id: 157, name: 'Bayern Munich', logo: "https://media.api-sports.io/football/teams/157.png" },
 
+];
 
-const Header = forwardRef(({ notifsEnabled }, ref) => {
+const Header = forwardRef(({ notifsEnabled, selectedTeamId }, ref) => {
   // Récupération des dimensions de l'écran
   const screenWidth = Dimensions.get('window').width;
   const navigation = useNavigation()
     const shakeAnim = useRef(new Animated.Value(0)).current;
 
+const selectedTeam = selectedTeamId
+  ? teams.find(team => team.id === selectedTeamId)
+  : null;
 
   const [fontsLoaded] = useFonts({
     "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
@@ -60,13 +76,19 @@ const Header = forwardRef(({ notifsEnabled }, ref) => {
       </View>
       <Image source={logo} style={styles.logo} />
       <TouchableOpacity onPress={() => navigation.navigate("Notifs")}>
+  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+  {selectedTeamId && selectedTeam?.logo ? (
+  <Image
+    key={selectedTeamId}
+    source={{ uri: selectedTeam.logo }}
+    style={{ width: 20, height: 20, position: "absolute", zIndex: 1, left: 20, bottom: 18 }}
+  />
+) : null}
   <Animated.Image
     source={notifsEnabled ? cloche : clocheno}
-    style={[
-      {height: 30, width: 30, marginRight: 10},
-      { transform: [{ translateX: shakeAnim }] } // ← Vibration ici
-    ]}
+    style={[{ height: 32, width: 32, marginRight: 10 }, { transform: [{ translateX: shakeAnim }] }]}
   />
+</View>
 </TouchableOpacity>
     </LinearGradient>
   );

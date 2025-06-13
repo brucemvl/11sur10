@@ -26,7 +26,7 @@ const teams = [
         { id: 33, name: 'Manchester United', logo: "https://media.api-sports.io/football/teams/33.png" },
     { id: 49, name: 'Chelsea', logo: "https://media.api-sports.io/football/teams/49.png" },
         { id: 42, name: 'Arsenal', logo: "https://media.api-sports.io/football/teams/42.png" },
-    { id: 2075, name: 'Bayern Munich', logo: "https://media.api-sports.io/football/teams/157.png" },
+    { id: 157, name: 'Bayern Munich', logo: "https://media.api-sports.io/football/teams/157.png" },
 
 
 
@@ -153,15 +153,16 @@ const disablePushNotifications = async () => {
         <Text style={{fontFamily: "Kanitt", fontSize: 16, color: "white"}}>Enregistrer</Text>
         </TouchableOpacity>
 
-     <Button
+    <Button
   title='Desactiver les Notifs'
   color={"red"}
   onPress={async () => {
     await AsyncStorage.removeItem('teamId');
-    setSelectedTeam(0);
-    setSavedTeam(0);
+    setSelectedTeam(null);
+    setSavedTeam(null);
     onNotifStatusChange?.(false);
-    triggerHeaderShake?.(); // ← vibration aussi
+    onSave?.(null); // ← force Header à effacer le logo
+    triggerHeaderShake?.();
     await disablePushNotifications();
     alert('🔕 Notifications désactivées');
   }}

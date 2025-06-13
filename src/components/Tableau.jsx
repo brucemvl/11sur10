@@ -129,6 +129,8 @@ function Tableau({ id, currentRound, rounds }) {
 
         <Animated.Text style={[ id  === 15 ? styles.roundTextWc : styles.roundText, {transform: [{ rotate: rotateJourneeInterpolate }]}]}>
           {currentRoundName.indexOf("Group Stage") !== -1 ? currentRoundName.replace("Group Stage -", "Matchs de Poule") :
+                              currentRoundName === "Regular Season - 1" ? "1ere Journee" :
+
           currentRoundName.indexOf("Regular Season") !== -1 ? currentRoundName.replace("Regular Season -", "Journee") :
           currentRoundName === "Quarter-finals" ? "Quarts de finale" :
            currentRoundName === "Semi-finals" ? "Demi-finales" :

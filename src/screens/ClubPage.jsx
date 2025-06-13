@@ -7,6 +7,8 @@ import { useFonts } from 'expo-font';  // Importer le hook useFonts d'Expo
 import ligue1 from "../assets/logoligue1.webp"
 import ligue2 from "../assets/ligue2.jpg"
 import  SvgUri  from 'react-native-svg';
+import fifaClubWc from "../assets/fifaclubwc2.png"
+
 
 function ClubPage() {
     const navigation = useNavigation();
@@ -64,10 +66,10 @@ function ClubPage() {
                         >
                             <Text style={styles.filtreTitle}>{name}</Text>
                             <View style={styles.logoContainer}>
-                            <Image source={{ uri: logo }} style={styles.logo} />
+                            <Image source={id === 15 ? fifaClubWc : { uri: logo }} style={styles.logo} />
                             </View>
                         </TouchableOpacity>
-                        <Text style={{fontFamily: "Kanitalic", color: "white"}}>{country === "Turkey" ? "Turquie" : country === "Saudi Arabia" ? "Arabie Saoudite" : country}</Text>
+                        <Text style={{fontFamily: "Kanitalic", color: "white", width: "100%", textAlign: "center"}}>{country === "Turkey" ? "Turquie" : country === "Saudi Arabia" ? "Arabie Saoudite" : country}</Text>
                         </View>
                     ))}
                     </View>
@@ -281,7 +283,16 @@ const styles = StyleSheet.create({
 
     },
     lienTablet: {
-        width: '22%', // Sur tablettes, on ajuste également
+        width: 110, // Sur tablettes, on ajuste également
+        height: 125,
+        alignItems: 'center',
+        marginBottom: 1,
+        borderWidth: 8,
+        borderRadius: 15,
+        borderColor: 'rgb(15, 23, 82)',
+        paddingBlock: 6,
+        backgroundColor: "aliceblue",
+        flexDirection: "column-reverse"
     },
 });
 

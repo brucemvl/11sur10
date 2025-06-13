@@ -39,6 +39,14 @@ export default function App() {
     };
   }, []);
 
+  useEffect(() => {
+  const loadSavedTeam = async () => {
+    const saved = await AsyncStorage.getItem('teamId');
+    if (saved) setSelectedTeamId(parseInt(saved, 10));
+  };
+  loadSavedTeam();
+}, []);
+
   return (
     <NavigationContainer>
       <AppNavigator />

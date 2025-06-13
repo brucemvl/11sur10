@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Animated, RefreshControl } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import ligue1 from "../assets/logoligue1.webp"
+import fifaClubWc from "../assets/fifaclubwc2.png"
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 
@@ -288,6 +289,9 @@ const [fontsLoaded] = useFonts({
                   {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? 
                   <Image source={ligue1} style={styles.matchCompetition} resizeMode="contain" />
                    :
+                   element.league.id === 15 ? 
+                  <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
+                   :
                   <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain" />}
 
                   <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name}</Text>
@@ -327,6 +331,9 @@ const [fontsLoaded] = useFonts({
 
                   {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? 
                   <Image source={ligue1} style={styles.matchCompetition} resizeMode="contain"/>
+                   : 
+                   element.league.id === 15 ? 
+                  <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
                    :
                   <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain" />}
 
@@ -371,6 +378,9 @@ const [fontsLoaded] = useFonts({
                   {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? 
                   <Image source={ligue1} style={styles.matchCompetition} resizeMode="contain"/> 
                   :
+                  element.league.id === 15 ? 
+                  <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
+                   :
                   <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain"/>}
                   
                   <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name}</Text>
@@ -400,6 +410,9 @@ const [fontsLoaded] = useFonts({
                 <View style={styles.match}>
                   {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ?
                    <Image source={ligue1} style={styles.matchCompetition} resizeMode="contain"/> 
+                   :
+                   element.league.id === 15 ? 
+                  <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
                    :
                   <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain"/>}                                    <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name}</Text>
                   <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
@@ -490,6 +503,9 @@ const [fontsLoaded] = useFonts({
                         {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ?
                          <Image source={ligue1} style={styles.matchCompetition} resizeMode="contain" /> 
                          :
+                         element.league.id === 15 ? 
+                  <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
+                   :
                         <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain" />}
 
                         <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.home.name === "Central African Republic" ? "Centrafrique" : element.teams.home.name === "Netherlands" ? "Pays Bas" : element.teams.home.name === "Spain" ? "Espagne" : element.teams.home.name === "Germany" ? "Allemagne" : element.teams.home.name === "England" ? "Angleterre" : element.teams.home.name}</Text>
@@ -535,6 +551,9 @@ const [fontsLoaded] = useFonts({
                         {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? 
                         <Image source={ligue1} style={styles.matchCompetition} resizeMode="contain"/>
                          :
+                         element.league.id === 15 ? 
+                  <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
+                   :
                         <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain" />}
 
                         <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.home.name === "Central African Republic" ? "Centrafrique" : element.teams.home.name === "Netherlands" ? "Pays Bas" : element.teams.home.name === "Spain" ? "Espagne" : element.teams.home.name === "Germany" ? "Allemagne" : element.teams.home.name === "England" ? "Angleterre" : element.teams.home.name}</Text>
@@ -597,6 +616,9 @@ const [fontsLoaded] = useFonts({
                           {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ?
                           <Image source={ligue1} style={styles.matchCompetition} resizeMode="contain"/>
                             :
+                            element.league.id === 15 ? 
+                  <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
+                   :
                           <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain"/>}
                           
                           <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.home.name === "Central African Republic" ? "Centrafrique" : element.teams.home.name === "Netherlands" ? "Pays Bas" : element.teams.home.name === "Spain" ? "Espagne" : element.teams.home.name === "Germany" ? "Allemagne" : element.teams.home.name === "England" ? "Angleterre" : element.teams.home.name}</Text>
@@ -618,6 +640,9 @@ const [fontsLoaded] = useFonts({
                           {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? 
                           <Image source={ligue1} style={styles.competitionLogo} resizeMode="contain" /> 
                           :
+                          element.league.id === 15 ? 
+                  <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
+                   :
                           <Image source={{ uri: element.league.logo }} style={styles.competitionLogo} resizeMode="contain"/>}
                           <View style={styles.teamContainerDom}>
                             <Image source={{ uri: element.teams.home.logo }} style={styles.teamLogo} resizeMode="contain" />
@@ -663,6 +688,9 @@ const [fontsLoaded] = useFonts({
                             {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? 
                             <Image source={ligue1} style={styles.matchCompetition} resizeMode="contain"/> 
                             :
+                            element.league.id === 15 ? 
+                  <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
+                   :
                             <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain"/>}
 
                             <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.home.name === "Central African Republic" ? "Centrafrique" : element.teams.home.name === "Netherlands" ? "Pays Bas" : element.teams.home.name === "Spain" ? "Espagne" : element.teams.home.name === "Germany" ? "Allemagne" : element.teams.home.name === "England" ? "Angleterre" : element.teams.home.name}</Text>
@@ -708,6 +736,9 @@ const [fontsLoaded] = useFonts({
                         style={styles.matchCompetition}
                         resizeMode="contain"
                       /> :
+                      element.league.id === 15 ? 
+                  <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
+                   :
                         <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain" />}
                         <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.home.name === "Central African Republic" ? "Centrafrique" : element.teams.home.name === "Netherlands" ? "Pays Bas" : element.teams.home.name === "Spain" ? "Espagne" : element.teams.home.name === "Germany" ? "Allemagne" : element.teams.home.name === "England" ? "Angleterre" : element.teams.home.name}</Text>
                       <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
@@ -738,6 +769,9 @@ const [fontsLoaded] = useFonts({
                     <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
                       {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? 
                       <Image source={ligue1} style={styles.matchCompetition} resizeMode="contain" /> :
+                      element.league.id === 15 ? 
+                  <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
+                   :
                         <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain" />}
                         <Text style={styles.matchEquipeDom}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.home.name === "Central African Republic" ? "Centrafrique" : element.teams.home.name === "Netherlands" ? "Pays Bas" : element.teams.home.name === "Spain" ? "Espagne" : element.teams.home.name === "Germany" ? "Allemagne" : element.teams.home.name === "England" ? "Angleterre" : element.teams.home.name}</Text>
                       <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
