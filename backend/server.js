@@ -1,3 +1,7 @@
+require('dotenv').config();
+console.log('✅ process.env.MONGO_URI:', process.env.MONGO_URI);
+
+
 const http = require('http');
 const app = require('./app');
 require('./scoreWatcher'); // ← déplace-la ici
