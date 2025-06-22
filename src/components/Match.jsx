@@ -75,9 +75,8 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   dateheure: {
-    flex: 1,
     alignItems: 'flex-start',
-    width: "13%",
+    width: "9%",
     backgroundColor: "black",
     borderRadius: 5,
     marginLeft: 2,

@@ -110,6 +110,9 @@ import rodri from "../assets/portraits/rodri.png"
 import fernandez from "../assets/portraits/fernandez.png"
 import jackson from "../assets/portraits/jackson.png"
 import caicedo from "../assets/portraits/caicedo.png"
+import huijsen from "../assets/portraits/huijsen.png"
+import ake from "../assets/portraits/ake.png"
+
 
 
 
@@ -151,7 +154,7 @@ function Squad({ squad }) {
                 <LinearGradient style={styles.joueur} colors={["#fff", "rgb(163, 164, 165)"]} locations={[0.5, 0.9]}> 
                 <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-around"}}>
 
-          <Image source={player.id === 545 ? mazraoui : player.id === 532 ? deligt : player.id === 161928 ? balde : player.id === 9 ? hakimi : player.id === 263482 ? nuno : player.id === 33 ? hernandez : player.id === 257 ? marquinhos : player.id === 22090 ? saliba : player.id === 180317 ? bradley : player.id === 2467 ? lisandro : player.id === 372 ? militao : player.id === 733 ? carvajal : player.id === 2285 ? rudiger : player.id === 307835 ? beraldo : player.id === 262 ? kimpembe : player.id === 396623 ? cubarsi : player.id === 5 ? akanji : player.id === 283 ? arnold : player.id === 16367 ? pacho : player.id === 1257 ? kounde : player.id === 272 ? rabiot : player.id === 156477 ? cherki : player.id === 1467 ? lacazette : player.id === 47300 ? theo : player.id === 284324 ? garnacho : player.id === 128384 ? vitinha : { uri: player.photo }} style={styles.photo} />       
+          <Image source={player.id === 18861 ? ake : player.id === 361497 ? huijsen : player.id === 545 ? mazraoui : player.id === 532 ? deligt : player.id === 161928 ? balde : player.id === 9 ? hakimi : player.id === 263482 ? nuno : player.id === 33 ? hernandez : player.id === 257 ? marquinhos : player.id === 22090 ? saliba : player.id === 180317 ? bradley : player.id === 2467 ? lisandro : player.id === 372 ? militao : player.id === 733 ? carvajal : player.id === 2285 ? rudiger : player.id === 307835 ? beraldo : player.id === 262 ? kimpembe : player.id === 396623 ? cubarsi : player.id === 5 ? akanji : player.id === 283 ? arnold : player.id === 16367 ? pacho : player.id === 1257 ? kounde : player.id === 272 ? rabiot : player.id === 156477 ? cherki : player.id === 1467 ? lacazette : player.id === 47300 ? theo : player.id === 284324 ? garnacho : player.id === 128384 ? vitinha : { uri: player.photo }} style={styles.photo} />       
           <View style={styles.number}><Text style={[{ fontFamily: "Kanitalik", color: squad.team.id === 49 ? "rgb(20, 15, 182)" : squad.team.id === 42 ? "rgb(228, 46, 46)" : squad.team.id === 165 ? "#e2e21c" : squad.team.id === 40 || squad.team.id === 157 ? "rgb(147, 0, 0)" : squad.team.id === 541 ? "rgb(0, 0, 0)" : squad.team.id === 50 ? "rgb(0, 174, 255)" : "midnightblue", fontSize: 22}, squad.team.id === 85 ? {color: "rgb(188, 14, 14)"} : squad.team.id === 165 ? {shadowOffset: [{height: 0, width: 0}], shadowColor: "black", shadowRadius: 1.5, shadowOpacity: 1} : null]}>{player.number}</Text><Image source={{uri:squad.team.logo}} style={{height: 28, width: 28, objectFit: "contain"}} /></View>
           </View>
           <Text style={squad.team.id === 85 ? [styles.nom, {shadowOffset: [{height: 0, width: 0}], shadowColor: "white", shadowRadius: 0.7, shadowOpacity: 1,}] : squad.team.id === 165 ? [styles.nom, {color: "black", shadowOffset: [{height: 0, width: 0}], shadowColor: "yellow", shadowRadius: 1.4, shadowOpacity: 1}] : squad.team.id === 40 || squad.team.id === 157 ? [styles.nom, {color: "rgb(147, 0, 0)" }] : squad.team.id === 541 ? [styles.nom, {color: "rgb(0, 0, 0)", shadowOffset: [{height: 0, width: 0}], shadowColor: "white", shadowRadius: 1.5, shadowOpacity: 1 }] : squad.team.id === 50 ? [styles.nom, {color: "rgb(0, 174, 255)", shadowOffset: [{height: 0, width: 0}], shadowColor: "black", shadowRadius: 1.2, shadowOpacity: 1 }] : squad.team.id === 42 ? [styles.nom, {color: "rgb(223, 38, 38)", shadowOffset: [{height: 0, width: 0}], shadowColor: "white", shadowRadius: 2, shadowOpacity: 1 }] : squad.team.id === 49 ? [styles.nom, {color: "rgb(20, 15, 182)"}] :  styles.nom}>{player.name. length < 21 ? player.name : player.name.split(' ').slice(-1).join(' ')}</Text>
@@ -196,7 +199,6 @@ function Squad({ squad }) {
 
 const styles = StyleSheet.create({
     poste: {
-        gap: 10,
         width: "100%",
         marginBottom: 10,
         backgroundColor: "lightblue",

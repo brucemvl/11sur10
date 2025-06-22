@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const axios = require('axios');
@@ -5,7 +7,13 @@ const sendPushNotification = require('./utils/pushNotification');
 const pushTokenRoutes = require('./routes/pushToken.js');
 const PushToken = require('./models/PushToken');
 
-const mongoURI = process.env.MONGO_URI || 'mongodb+srv://brucemonnerville:Gogeta6823@cluster0.hsz41sr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const mongoURI = process.env.MONGO_URI;
+
+if (!mongoURI) {
+  console.error("❌ La variable d'environnement MONGO_URI est manquante.");
+  process.exit(1);
+}
+
 
 const app = express();
 

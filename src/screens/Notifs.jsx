@@ -127,7 +127,7 @@ const disablePushNotifications = async () => {
         <TouchableOpacity
           key={team.id}
           style={[
-            styles.leagueButton,
+            styles.teamButton,
             selectedTeam === team.id && styles.selectedTeam,
           ]}
           onPress={() => handleSelectTeam(team.id)}
@@ -146,7 +146,7 @@ const disablePushNotifications = async () => {
 
       <TouchableOpacity
         onPress={saveTeam}
-              style={{backgroundColor: "#007BFF", height: 40, width: "40%", alignItems: "center", justifyContent: "center", marginBlock: 20, borderRadius: 10}}
+              style={{backgroundColor: "#007BFF", height: 40, width: "40%", alignItems: "center", justifyContent: "center", marginBlock: 15, borderRadius: 10}}
 
         disabled={selectedTeam === null}
       >
@@ -175,10 +175,10 @@ const disablePushNotifications = async () => {
 
 const styles = StyleSheet.create({
   container: {alignItems: "center", padding: 10 },
-  title: { fontSize: 18, fontWeight: 'bold', marginBottom: 15, fontFamily: "Kanitalik" },
+  title: { fontSize: 18, fontWeight: 'bold', marginBottom: 5, fontFamily: "Kanitalik" },
   teamButton: {
-    padding: 10,
-    marginVertical: 7,
+    padding: 9,
+    marginVertical: 4,
     backgroundColor: 'rgb(210, 210, 210)',
     borderRadius: 6,
     alignItems: 'center',
@@ -195,12 +195,12 @@ const styles = StyleSheet.create({
 
   },
   teamText: {
-    fontSize: 16,
+    fontSize: 15,
     color: '#000',
     fontFamily: "Kanito"
   },
   saved: {
-    marginTop: 15,
+    marginTop: 5,
     fontStyle: 'italic',
     color: 'green',
   },

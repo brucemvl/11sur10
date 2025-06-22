@@ -40,7 +40,9 @@ const styles = StyleSheet.create({
         backgroundColor: "black",
         alignItems: "center",
         width: "100%",
-flexGrow: 1    },
+        height: 80, // pour occuper 80px réservés
+        paddingVertical: 10,
+    },
 
     lien: {
         fontFamily: "Kanito",

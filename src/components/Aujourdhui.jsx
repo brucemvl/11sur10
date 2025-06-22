@@ -961,6 +961,8 @@ const styles = StyleSheet.create({
   teamName: {
     fontSize: 13,
     fontFamily: "Kanito",
+    textAlign: "center",
+    width: "85%"
 
   },
   scoreContainer: {

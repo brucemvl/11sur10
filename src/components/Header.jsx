@@ -49,9 +49,9 @@ const selectedTeam = selectedTeamId
   useImperativeHandle(ref, () => ({
     triggerShake: () => {
       Animated.sequence([
-        Animated.timing(shakeAnim, { toValue: -5, duration: 50, useNativeDriver: true }),
-        Animated.timing(shakeAnim, { toValue: 5, duration: 50, useNativeDriver: true }),
-        Animated.timing(shakeAnim, { toValue: -5, duration: 50, useNativeDriver: true }),
+        Animated.timing(shakeAnim, { toValue: -8, duration: 50, useNativeDriver: true }),
+        Animated.timing(shakeAnim, { toValue: 8, duration: 50, useNativeDriver: true }),
+        Animated.timing(shakeAnim, { toValue: -8, duration: 50, useNativeDriver: true }),
         Animated.timing(shakeAnim, { toValue: 0, duration: 50, useNativeDriver: true }),
       ]).start();
     }

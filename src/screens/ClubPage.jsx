@@ -56,12 +56,12 @@ function ClubPage() {
                     </View>
                     <View style={{flexDirection: "column"}}>
                     <Text style={{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 10}}>Reste du monde</Text>
-                    <View style={{flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center"}}>  
+                    <View style={{flexDirection: "row", flexWrap: "wrap", gap: 9, justifyContent: "center"}}>  
                       {autres.map(({ name, id, logo, country }) => (
-                        <View style={{alignItems: "center", marginBottom: 10}}>
+                        <View style={{alignItems: "center", marginBottom: 10, width: "31%"}}>
                         <TouchableOpacity
                             key={"lien" + id}
-                            style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
+                            style={{width: "100%", height: 125, alignItems: 'center', marginBottom: 1, borderWidth: 8, borderRadius: 15, borderColor: 'rgb(15, 23, 82)', paddingBlock: 6, backgroundColor: "aliceblue", flexDirection: "column-reverse"}}
                             onPress={() => navigation.navigate('FicheChampionnat', { id })}
                         >
                             <Text style={styles.filtreTitle}>{name}</Text>
@@ -84,7 +84,7 @@ function ClubPage() {
                     <Text style={styles.titleText}>Compétitions Européennes</Text>
                 </LinearGradient>
                 <View style={styles.filtres}>
-                    <View style={{flexDirection: "row", gap: 10}}>
+                    <View style={{flexDirection: "row", gap: 10, width: "100%", justifyContent: "center"}}>
                     {europe.map(({ name, id, logo }) => (
                         <TouchableOpacity
                             key={"lien" + id}
@@ -213,6 +213,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         flexWrap: 'wrap',
         alignItems: "center",
+        width: "100%"
     },
     lien: {
         width: 100,  // Utilise une largeur fixe pour la petite taille d'écran
@@ -227,7 +228,7 @@ const styles = StyleSheet.create({
         flexDirection: "column-reverse"
     },
     lienEurope: {
-        width: 120,
+        width: "31%",
         alignItems: 'center',
         justifyContent: "center",
         marginBottom: 1,
@@ -270,7 +271,7 @@ const styles = StyleSheet.create({
 
     // Styles spécifiques à l'écran mobile
     lienMobile: {
-        width: 120, // Sur petits écrans, on ajuste la largeur
+        width: "31%", // Sur petits écrans, on ajuste la largeur
         height: 125,
         alignItems: 'center',
         marginBottom: 1,

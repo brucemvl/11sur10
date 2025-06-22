@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
 
     // Styles spécifiques à l'écran mobile
     lienMobile: {
-        width: 120, // Sur petits écrans, on ajuste la largeur
+        width: "31%", // Sur petits écrans, on ajuste la largeur
     },
     lienTablet: {
         width: '25%', // Sur tablettes, on ajuste également

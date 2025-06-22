@@ -85,7 +85,7 @@ useEffect(() => {
                 <ImageBackground source={match.league.id === 2 ? ucl2 : match.league.id === 61 ? grass : match.league.id === 39 ? pl : match.league.id === 78 ? bundesliga : liga} style={styles.afficheUcl} imageStyle={{ borderRadius: 10, filter: match.league.id === 61 ? "brightness(0.5)" : match.league.id === 39 ? "brightness(0.4)" : match.league.id === 140 ? "brightness(0.32)" : match.league.id === 78 ? "brightness(0.45)" : "brightness(0.9)" }}>
                     <TouchableOpacity style={styles.domicile} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo })}>
                         <Image source={{ uri: match.teams.home.logo }} style={[styles.teamLogo, match.teams.home.id === 81 ? { shadowRadius: 0.3 } : null]} />
-                        <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.home.name}</Text>
+                        <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14, textAlign: "center" }}>{match.teams.home.name}</Text>
                         <View style={{ gap: 5, flexDirection: "row", marginTop: 5 }}>{formeHome?.split('').map((char, index) => (
                             char === 'L' ? (
                                 <View style={styles.defaite} >
@@ -120,7 +120,7 @@ useEffect(() => {
 
                     <TouchableOpacity style={styles.exterieur} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo })}>
                         <Image source={{ uri: match.teams.away.logo }} style={[styles.teamLogo, match.teams.away.id === 81 ? { shadowRadius: 0.3 } : null]} />
-                        <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.away.name}</Text>
+                        <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14, textAlign: "center" }}>{match.teams.away.name}</Text>
                         <View style={{ gap: 5, flexDirection: "row", marginTop: 5 }}>{formeExt?.split('').map((char, index) => (
                             char === 'L' ? (
                                 <View style={styles.defaite} >
@@ -144,7 +144,7 @@ useEffect(() => {
                 <LinearGradient colors={match.league.id === 15 ? ['rgb(80, 80, 80)', 'rgba(0, 0, 0, 0.8)'] : ['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.8)']} style={styles.affiche}>
                     <TouchableOpacity style={styles.domicile} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo })}>
                         <Image source={{ uri: match.teams.home.logo }} style={styles.teamLogo} />
-                        <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.home.name === "Germany" ? "Allemagne" : match.teams.home.name === "Spain" ? "Espagne" : match.teams.home.name}</Text>
+                        <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14, textAlign: "center" }}>{match.teams.home.name === "Germany" ? "Allemagne" : match.teams.home.name === "Spain" ? "Espagne" : match.teams.home.name}</Text>
                         <View style={{ gap: 5, flexDirection: "row", marginTop: 5 }}>{formeHome?.split('').map((char, index) => (
                             char === 'L' ? (
                                 <View style={styles.defaite}>
@@ -179,7 +179,7 @@ useEffect(() => {
 
                     <TouchableOpacity style={styles.exterieur} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo })}>
                         <Image source={{ uri: match.teams.away.logo }} style={match.teams.away.id === 81 ? styles.marseille : styles.teamLogo} />
-                        <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14 }}>{match.teams.away.name === "Germany" ? "Allemagne" : match.teams.away.name === "Spain" ? "Espagne" : match.teams.away.name}</Text>
+                        <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14, textAlign: "center" }}>{match.teams.away.name === "Germany" ? "Allemagne" : match.teams.away.name === "Spain" ? "Espagne" : match.teams.away.name}</Text>
                         <View style={{ gap: 5, flexDirection: "row" }}>{formeExt?.split('').map((char, index) => (
                             char === 'L' ? (
                                 <View style={styles.defaite}>

@@ -104,7 +104,7 @@ const filteredMatches = teamF.filter((match) => match.league.round === currentRo
 </TouchableOpacity> 
       </View>
 
-      <Animated.View style={{ transform: [{ translateX: slideAnim }] }}>
+      <Animated.View style={{ transform: [{ translateX: slideAnim }], width: "100%" }}>
   {filteredMatches?.map((match) => (
     <Match
       key={match.fixture.id}

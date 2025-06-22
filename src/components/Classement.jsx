@@ -34,8 +34,11 @@ function Classement({ id }) {
       }
     })
       .then((response) => response.json())
-      .then((json) => setTab(json.response[0].league.standings[0]))
+      .then((json) =>  setTab(id === 15 ? json.response[0].league.standings : json.response[0].league.standings[0] ))
+      
       .catch((error) => console.error("Error:", error));
+
+      
   };
 
   console.log(tab)
@@ -53,6 +56,7 @@ function Classement({ id }) {
       .catch((error) => console.error("Error:", error));
   };
 
+  console.log(buteurs)
   const fetchPasseurs = () => {
     fetch(`https://v3.football.api-sports.io/players/topassists?league=${id}&season=${id === 71 || id === 253 || id === 15 ? 2025 : 2024}`, {
       method: "GET",
@@ -131,6 +135,122 @@ function Classement({ id }) {
     });
 
 
+
+    if(id === 15){
+      return (
+        <View style={styles.container}>
+      {/* Classement */}
+      <LinearGradient       colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
+      style={{ marginBlock: 10, height: 40, justifyContent: "center", borderRadius: 10}}
+        >
+      <TouchableOpacity onPress={collapseClassement} style={styles.header}>
+        <Text style={styles.title}>Classement</Text>
+        <Animated.Image
+            source={chevron}
+            style={[styles.chevron, { transform: [{ rotate: rotateClassementInterpolate }] }]}
+          />      </TouchableOpacity>
+      </LinearGradient>
+      <Animated.View style={tab.length < 20 ? [ styles.content, { height: heightClassement.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0,  1500] // Ajustez la hauteur en fonction du contenu
+          }) }] : tab.length < 24 ? [ styles.content, { height: heightClassement.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0,  980] // Ajustez la hauteur en fonction du contenu
+          }) }] : [ styles.content, { height: heightClassement.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0,  1800] // Si le classement comporte + de 24 equipes
+          }) }]}>
+            { tab.map((grp)=> 
+            <View style={styles.groupe}>
+  <Text style={{fontFamily: "Kanitt"}}>{grp[0].group}</Text>
+         <View style={styles.barre}>
+            <Text style={{width: "10%", color: "white", fontFamily: "Kanitus"}}>Rang</Text>
+            <Text style={{width: "36%", textAlign: "center", marginRight: 2, color: "white", fontFamily: "Kanitus"}}>Equipe</Text>
+            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>J</Text>
+            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>V</Text>
+            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>N</Text>
+            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>D</Text>
+            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>GA</Text>
+            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>Pts</Text>
+          </View>
+          <View style={{backgroundColor: "rgb(147, 147, 147)", borderRadius: 5, paddingBlock: 3}}>
+          {grp.map((equipe)=> 
+          <View style={{flexDirection: "row", alignItems: "center", marginBlock: 4}}>
+          <Text style={{width: "6%", color: "white", fontFamily: "Kanito", textAlign: "center"}}>{equipe.rank}</Text>
+          <Image source={{uri: equipe.team.logo}} style={{width: "6%", objectFit: "contain", height: 20}} />
+            <Text style={{width: "32%", color: "white", fontFamily: "Kanito", textAlign: "center", fontSize: 13}}>{equipe.team.name}</Text>
+            <Text style={{width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center"}}>{equipe.all.played}</Text>
+            <Text style={{width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center"}}>{equipe.all.win}</Text>
+            <Text style={{width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center"}}>{equipe.all.draw}</Text>
+            <Text style={{width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center"}}>{equipe.all.lose}</Text>
+            <Text style={{width: "10%", color: "white", fontFamily: "Kanito", textAlign: "center"}}>{equipe.goalsDiff}</Text>
+            <Text style={{width: "10%", color: "white", fontFamily: "Kanito", textAlign: "center"}}>{equipe.points}</Text>
+
+            </View>
+          )}
+          </View>
+        </View>
+          
+          
+        )}
+
+
+        </Animated.View>
+
+
+      {/* Meilleurs Buteurs */}
+      <LinearGradient       colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
+      style={{ marginBlock: 10, height: 40, justifyContent: "center", borderRadius: 10}}
+        >
+      <TouchableOpacity onPress={collapseButeurs} style={styles.header}>
+
+        <Text style={styles.title}>Meilleurs Buteurs</Text>
+        <Animated.Image
+            source={chevron}
+            style={[styles.chevron, { transform: [{ rotate: rotateButeursInterpolate }] }]}
+          />     
+           </TouchableOpacity>
+      </LinearGradient>
+        <Animated.View style={[ styles.content, { height: heightButeurs.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, 500]  // Ajustez la hauteur en fonction du contenu
+          }) }]}>        <View style={styles.barre}>
+        <Text style={{width: "50%", color: "white", paddingStart: 20, fontFamily: "Kanitus"}}>Joueur</Text>
+        <Text style={{width: "30%", color: "white", textAlign: "center", fontFamily: "Kanitus"}}>Matchs Joués</Text>
+        <Text style={{width: "20%", color: "white", textAlign: "center", fontFamily: "Kanitus"}}>Buts</Text>
+        
+      </View>
+        
+        </Animated.View>
+      
+
+      {/* Meilleurs Passeurs */}
+      <LinearGradient       colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
+      style={{ marginBlock: 10, height: 40, justifyContent: "center", borderRadius: 10}}
+        >
+      <TouchableOpacity onPress={collapsePasseurs} style={styles.header}>
+        <Text style={styles.title}>Meilleurs Passeurs</Text>
+        <Animated.Image
+            source={chevron}
+            style={[styles.chevron, { transform: [{ rotate: rotatePasseursInterpolate }] }]}
+          />     
+           </TouchableOpacity>
+      </LinearGradient>
+        <Animated.View style={[styles.content, { height: heightPasseurs.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, 500]  // Ajustez la hauteur en fonction du contenu
+          }) }]}>
+                    <View style={styles.barre}>
+        <Text style={{width: "50%", color: "white", paddingStart: 20, fontFamily: "Kanitus"}}>Joueur</Text>
+        <Text style={{width: "30%", color: "white", textAlign: "center", fontFamily: "Kanitus"}}>Matchs Joués</Text>
+        <Text style={{width: "20%", color: "white", textAlign: "center", fontFamily: "Kanitus"}}>Passes D</Text>  
+      </View>
+       
+        </Animated.View>
+    </View>
+      )
+    }
+
   const renderClassementItem = ({ item }) => (
     <TouchableOpacity onPress={() => navigation.navigate("FicheEquipe", { id: item.team.id, league: item.group === "Ligue 1" ? 61 : item.group === "UEFA Champions League" ? 2 : item.group === "Premier League" ? 39 : item.group === "LaLiga" ? 140 : item.group.indexOf("Super League 1") !== -1 ? 197 : item.group === "Bundesliga" ? 78 : item.group === "Ligue 2: Regular Season" ? 62 : item.group === "Serie A" ? 135 : item.group === "UEFA Europa League" ? 3 : item.group === "Saudi League" ? 307 : item.group === "Eastern Conference" ? 253 : null })} style={styles.item}>
       <Text style={{width: "5%"}}>{item.rank}</Text>
@@ -207,7 +327,6 @@ function Classement({ id }) {
         <FlatList
           data={tab}
           renderItem={renderClassementItem}
-          keyExtractor={(item) => item.team.id.toString()}
           style={styles.list} // Ensure the list has proper styling
         ></FlatList>
         </Animated.View>
@@ -238,7 +357,6 @@ function Classement({ id }) {
         <FlatList
           data={buteurs}
           renderItem={renderButeursItem}
-          keyExtractor={(item) => item.player.id.toString()}
           style={styles.list} // Ensure the list has proper styling
         ></FlatList>
         </Animated.View>
@@ -268,7 +386,6 @@ function Classement({ id }) {
         <FlatList
           data={passeurs}
           renderItem={renderPasseursItem}
-          keyExtractor={(item) => item.player.id.toString()}
           style={styles.list} // Ensure the list has proper styling
         ></FlatList>
         </Animated.View>
@@ -326,6 +443,10 @@ overflow: "hidden",
     flex: 1,
     marginTop: 10,
     paddingBottom: 20,
+  },
+  groupe: {
+    marginBlock: 6,
+    borderRadius: 10
   }
 });
 

@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingVertical: 15,
-    paddingHorizontal: 10,
+    paddingHorizontal: 4,
     borderRadius: 15,
     alignItems: "center",
   },
