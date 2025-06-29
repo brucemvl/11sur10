@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: '3%',  // Utilisation de pourcentage
     flexGrow: 1,
-    height: 125,
+    height: 135,
     paddingTop: 30
   },
   logo: {

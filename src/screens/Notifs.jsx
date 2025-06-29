@@ -18,7 +18,6 @@ import Constants from 'expo-constants';
 const teams = [
   { id: 85, name: 'Paris Saint Germain', logo: "https://media.api-sports.io/football/teams/85.png" },
   { id: 81, name: 'Marseille', logo: "https://media.api-sports.io/football/teams/81.png" },
-  { id: 80, name: 'Lyon', logo: "https://media.api-sports.io/football/teams/80.png" },
   { id: 84, name: 'Nice', logo: "https://media.api-sports.io/football/teams/84.png" },
   { id: 91, name: 'Monaco', logo: "https://media.api-sports.io/football/teams/91.png" },
   { id: 541, name: 'Real Madrid', logo: "https://media.api-sports.io/football/teams/541.png" },
@@ -116,7 +115,7 @@ const disablePushNotifications = async () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Choisis ton equipe préférée :</Text>
-
+<Text style={{textAlign:"center", fontFamily: "Kanitalic", color: "rgb(49, 49, 49)", marginBottom: 10}}>et recois une notification lorsque celle ci marque ou encaisse un but</Text>
 {savedTeam && (
         <Text style={styles.saved}>
           ✅ Equipe actuelle : {teams.find((t) => t.id === savedTeam)?.name}
@@ -175,7 +174,7 @@ const disablePushNotifications = async () => {
 
 const styles = StyleSheet.create({
   container: {alignItems: "center", padding: 10 },
-  title: { fontSize: 18, fontWeight: 'bold', marginBottom: 5, fontFamily: "Kanitalik" },
+  title: { fontSize: 18, fontWeight: 'bold',  fontFamily: "Kanitalik" },
   teamButton: {
     padding: 9,
     marginVertical: 4,

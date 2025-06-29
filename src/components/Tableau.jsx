@@ -137,7 +137,7 @@ function Tableau({ id, currentRound, rounds }) {
            currentRoundName === "Final" ? "Finale" :
            currentRoundName === "Round of 16" ? "Huitièmes de finale" :
           currentRoundName === "Relegation Round" ? "Barrages" :
-
+currentRoundName === "8th Finals" ? "1/8 de finale" :
            currentRoundName}
         </Animated.Text>
 

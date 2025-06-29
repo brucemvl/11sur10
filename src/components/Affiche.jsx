@@ -21,6 +21,7 @@ import bein from "../assets/logos/bein.png"
 import m6 from "../assets/logos/m6.png"
 import tf1 from "../assets/logos/tf1.png"
 import fifaclubwc from "../assets/fifaclubwc2.png"
+import red from "../assets/redcard.png"
 
 
 
@@ -62,7 +63,7 @@ useEffect(() => {
   return (
         <View style={styles.container}>
             <View style={styles.ligue}>
-                <Text style={{ fontFamily: "Kanitt" }}>{match.league.name} - {match.league.round === "Knockout Round Play-offs" ? "Barrages" : match.league.round === "Round of 16" ? "8eme de finale" : match.league.round === "Quarter-finals" ? "Quart de finale" : match.league.round === "Semi-finals" ? "Demi Finale" : match.league.round === "Final" ? "Finale" : match.league.round === "Relegation Round" ? "Barrage" : match.league.round === "3rd Place Final" ? "Match 3eme place" : `${roundd}eme Journee`}</Text>
+                <Text style={{ fontFamily: "Kanitt" }}>{match.league.name} - {match.league.round === "Knockout Round Play-offs" ? "Barrages" : match.league.round === "Round of 16" ? "8eme de finale" : match.league.round === "Quarter-finals" ? "Quart de finale" : match.league.round === "Semi-finals" ? "Demi Finale" : match.league.round === "Final" ? "Finale" : match.league.round === "Relegation Round" ? "Barrage" : match.league.round === "3rd Place Final" ? "Match 3eme place" : match.league.round === "8th Finals" ? "8eme de Finale" : match.league.round === "4th Finals" ? "Quart de Finale" : `${roundd}eme Journee`}</Text>
             </View>
             <View style={styles.datelieu}>
                 <View style={{ flexDirection: "row", gap: 5 }}>
@@ -198,10 +199,11 @@ useEffect(() => {
                         ))}</View>
                     </TouchableOpacity>
                 </LinearGradient>}
-{match.league.id === 61 || match.league.id === 2 || match.league.id === 140 || match.league.id === 39 || match.league.id === 15 || match.league.id === 5 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitu"}}>Match diffusé sur</Text><Image source={match.league.id === 61 || match.league.id === 15 ? dazn : match.league.id === 2 || match.league.id === 39 ? canal : match.league.id === 140 ? bein : match.league.id === 5 ? tf1 : null} style={match.league.id === 61 ? {height: 25, width: 40, objectFit: "contain", marginLeft: -2}: match.league.id === 140  ? {height: 25, width: 65, objectFit: "contain", marginLeft: 5} : match.league.id === 39 || match.league.id === 2 ? {height: 25, width: 50, objectFit: "contain", marginLeft: 2} : {height: 25, width: 40, objectFit: "contain", marginLeft: 3} }/>{match.fixture.id === 1374812 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitu"}}>et</Text><Image source={m6} style={{height: 20, objectFit: "contain", width: 40}} /></View> : null}</View> : null}
+{match.league.id === 61 || match.league.id === 2 || match.league.id === 140 || match.league.id === 39 || match.league.id === 15 || match.league.id === 5 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitu"}}>Match diffusé sur</Text><Image source={match.league.id === 61 || match.league.id === 15 ? dazn : match.league.id === 2 || match.league.id === 39 ? canal : match.league.id === 140 ? bein : match.league.id === 5 ? tf1 : null} style={match.league.id === 61 ? {height: 25, width: 40, objectFit: "contain", marginLeft: -2}: match.league.id === 140  ? {height: 25, width: 65, objectFit: "contain", marginLeft: 5} : match.league.id === 39 || match.league.id === 2 ? {height: 25, width: 50, objectFit: "contain", marginLeft: 2} : {height: 25, width: 40, objectFit: "contain", marginLeft: 2} }/>{match.fixture.id === 1374812 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitu"}}>et</Text><Image source={m6} style={{height: 20, objectFit: "contain", width: 40}} /></View> : null}</View> : null}
             <View style={styles.buts}>
 
                 <View style={styles.equipeDomicile}>
+                                        {match.events.map((evenement) => evenement.detail === "Red Card" ? evenement.team.id === match.teams.home.id ? <View style={{flexDirection: "row", alignItems: "center"}}><Image source={red} style={{height: 22, width: 22, objectFit: "contain"}} /><Text style={styles.text}>{evenement.player.name}, </Text><Text style={{fontFamily: "Kanitalik", fontSize: 11.5}}>{evenement.time.elapsed}'{evenement.time.extra ? `+ ${evenement.time.extra}` : null}</Text></View> : null : null)}
                     <FlatList
                         data={buteurHome}
                         keyExtractor={(item) => `buteur:${item.player.name}`}
@@ -214,6 +216,8 @@ useEffect(() => {
                 </View>
 
                 <View style={styles.equipeExt}>
+                                        {match.events.map((evenement) => evenement.detail === "Red Card" ? evenement.team.id === match.teams.away.id ? <View style={{flexDirection: "row", alignItems: "center", justifyContent: "flex-end"}}><Text style={styles.text}>{evenement.player.name}, </Text><Text style={{fontFamily: "Kanitalik", fontSize: 11.5}}>{evenement.time.elapsed}'{evenement.time.extra ? `+ ${evenement.time.extra}` : null}</Text><Image source={red} style={{height: 22, width: 22, objectFit: "contain"}} /></View> : null : null)}
+
                     <FlatList
                         data={buteurExt}
                         keyExtractor={(item) => `buteurExt:${item.player.name}`}

@@ -215,7 +215,7 @@ const [fontsLoaded] = useFonts({
     
     todayMatch.length <= 0 ? 
     <View style={styles.today}>
-      <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={{ width: "100%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue" }} >
+      <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={{ width: "100%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue", padding: 3 }} >
       {selectedDate === "APRES-DEMAIN" ? 
       <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
         <TouchableOpacity onPress={handlePrevious}>
@@ -437,7 +437,7 @@ const [fontsLoaded] = useFonts({
         }
       >
         
-        <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={{ width: "100%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue", elevation: 4 }} >
+        <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={{ width: "100%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue", elevation: 4, padding:3 }} >
           {selectedDate === "APRES-DEMAIN" ? <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
             <TouchableOpacity onPress={handlePrevious} >
               <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
@@ -646,7 +646,7 @@ const [fontsLoaded] = useFonts({
                           <Image source={{ uri: element.league.logo }} style={styles.competitionLogo} resizeMode="contain"/>}
                           <View style={styles.teamContainerDom}>
                             <Image source={{ uri: element.teams.home.logo }} style={styles.teamLogo} resizeMode="contain" />
-                            <Text style={styles.teamName}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.home.name === "Central African Republic" ? "Centrafrique" : element.teams.home.name === "Netherlands" ? "Pays Bas" : element.teams.home.name === "Spain" ? "Espagne" : element.teams.home.name === "Germany" ? "Allemagne" : element.teams.home.name === "England" ? "Angleterre" : element.teams.home.name}</Text>
+                            <View style={{width: "85%", alignItems: "flex-end"}}><Text style={styles.teamName}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.home.name === "Central African Republic" ? "Centrafrique" : element.teams.home.name === "Netherlands" ? "Pays Bas" : element.teams.home.name === "Spain" ? "Espagne" : element.teams.home.name === "Germany" ? "Allemagne" : element.teams.home.name === "England" ? "Angleterre" : element.teams.home.name}</Text></View>
                           </View>
                           <View style={styles.scoreContainer}>
                             {element.goals.home === element.goals.away ? 
@@ -677,7 +677,7 @@ const [fontsLoaded] = useFonts({
                           </View>
                           <View style={styles.teamContainer}>
                             <Image source={{ uri: element.teams.away.logo }} style={styles.teamLogo} resizeMode="contain"/>
-                            <Text style={styles.teamName}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.away.name === "Central African Republic" ? "Centrafrique" : element.teams.away.name === "Netherlands" ? "Pays Bas" : element.teams.away.name === "Spain" ? "Espagne" : element.teams.away.name === "Germany" ? "Allemagne" : element.teams.away.name === "England" ? "Angleterre" : element.teams.away.name}</Text>
+                           <View style={{width: "85%", alignItems: "flex-start"}}> <Text style={styles.teamName}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.away.name === "Central African Republic" ? "Centrafrique" : element.teams.away.name === "Netherlands" ? "Pays Bas" : element.teams.away.name === "Spain" ? "Espagne" : element.teams.away.name === "Germany" ? "Allemagne" : element.teams.away.name === "England" ? "Angleterre" : element.teams.away.name}</Text></View>
                           </View>
                         </LinearGradient>
                       </TouchableOpacity> 
@@ -801,7 +801,6 @@ const styles = StyleSheet.create({
   today: {
     flex: 1,
     alignItems: 'center',
-    padding: 2,
     width: "100%",
     shadowColor: '#000', // shadow color
     shadowOffset: { width: 0, height: 5 }, // shadow offset
@@ -832,7 +831,7 @@ const styles = StyleSheet.create({
     marginBlock: 10,
   },
   liveTableau: {
-    width: '98%',
+    width: '100%',
     justifyContent: "center"
   },
 
@@ -962,8 +961,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontFamily: "Kanito",
     textAlign: "center",
-    width: "85%"
-
   },
   scoreContainer: {
     alignItems: 'center',

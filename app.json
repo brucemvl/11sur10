@@ -2,9 +2,9 @@
   "expo": {
     "name": "11sur10",
     "slug": "11sur10",
-    "version": "2.2.2",
+    "version": "2.3.2",
     "orientation": "portrait",
-    "icon": "./src/assets/logopnn.png",
+    "icon": "./src/assets/logoapp7.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
@@ -23,14 +23,14 @@
 }
     },
     "notification": {
-      "icon": "./src/assets/logopnn.png",
+      "icon": "./src/assets/logoapp7.png",
       "color": "#000000",
       "useNextNotificationsApi": true
 
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/logopnn.png",
+        "foregroundImage": "./src/assets/logoapp7.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.onzesur10.app",

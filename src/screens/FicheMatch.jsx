@@ -431,7 +431,7 @@ console.log(injuries)
                             <Text style={selected5 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 100}]}>Classement</Text>
                         </TouchableOpacity> : null }
                         </View>
-                        {apercu && <Indisponibles injuries={injuries} match={match} />}
+                       {injuries.length <= 0 ? null : apercu && <Indisponibles injuries={injuries} match={match} />}
                         {histo2 && <Histo historique={historique} />}
                         {classement && <Classement id={match.league.id}/>}       
                          </ScrollView>

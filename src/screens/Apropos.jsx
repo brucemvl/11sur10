@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Dimensions, Image } from "react-native"
+import { View, Text, TouchableOpacity, Dimensions, Image, Linking } from "react-native"
 import React from "react"
 import { StyleSheet } from "react-native"
 import { useFonts } from "expo-font";
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         width: "100%",
         paddingVertical: 10,
-        height: "20%"
+        height: "16%",
     },
 
     link: {
