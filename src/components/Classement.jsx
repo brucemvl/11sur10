@@ -405,7 +405,7 @@ function Classement({ id }) {
             outputRange: [0,  1300] // Ajustez la hauteur en fonction du contenu
           }) }] : [ styles.content, { height: heightClassement.interpolate({
             inputRange: [0, 1],
-            outputRange: [0,  1720] // Si le classement comporte + de 24 equipes
+            outputRange: [0,  1730] // Si le classement comporte + de 24 equipes
           }) }]}>
           <View style={styles.barre}>
             <Text style={{width: "10%", color: "white", fontFamily: "Kanitus"}}>Rang</Text>

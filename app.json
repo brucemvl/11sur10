@@ -2,7 +2,7 @@
   "expo": {
     "name": "11sur10",
     "slug": "11sur10",
-    "version": "2.3.3",
+    "version": "2.3.4",
     "orientation": "portrait",
     "icon": "./src/assets/logoapp7.png",
     "userInterfaceStyle": "light",
@@ -40,7 +40,7 @@
     "WAKE_LOCK",
     "RECEIVE_BOOT_COMPLETED"
   ],
-  "googleServicesFile": "./google-services(1).json"
+  "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
