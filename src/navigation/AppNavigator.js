@@ -8,7 +8,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screens/Home';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
 import Apropos from '../screens/Apropos';
 import Contact from '../screens/Contact';
 import FicheChampionnat from '../screens/FicheChampionnat';

@@ -155,14 +155,15 @@ useEffect(() => {
       <Schema compoDom={compoDom} compoExt={compoExt} colors={colors} match={match} />
 
       <View style={styles.teamsContainer}>
+        
         <View style={styles.teamContainer}>
+          
           <View style={styles.headerCompo}>
             <Image source={{ uri: match?.teams.home.logo }} style={styles.logo} />
             <Text style={styles.systemeText}>{systemeDom}</Text>
           </View>
-         {compoDom.coach.id === null ? null : <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5,  padding: 8, borderTopRightRadius: 15, borderBottomRightRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12, textAlign: "center" }}>{compoDom.coach.name}</Text><Image source={compoDom.coach.id === 2407 ? ancelotti : compoDom.coach.id === 193 ? henrique : {uri: compoDom.coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></View> }
+         {compoDom.coach.id === null ? null : <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5,  padding: 8, borderTopRightRadius: 15, borderBottomRightRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12, textAlign: "center" }}>{compoDom.coach.id === 6801 ? "Xabi Alonso" : compoDom.coach.id === 193 ? "Luis Enrique" : compoDom.coach.id === 12590 ? "Vincent Kompany" : compoDom.coach.name}</Text><Image source={compoDom.coach.id === 2407 ? ancelotti : compoDom.coach.id === 193 ? henrique : {uri: compoDom.coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></View> }
 
-          <Text style={styles.subTitle}>Titulaires</Text>
           <LinearGradient colors={["rgb(41, 154, 55)", 'rgba(32, 119, 42, 1)']} style={styles.playersList}>
             {titulairesDom.map((player) => (
               <TouchableOpacity key={player.player.id} onPress={() => navigation.navigate('FicheJoueur', { id: player.player.id, team: match.teams.home.id })}>
@@ -185,9 +186,8 @@ useEffect(() => {
             <Text style={styles.systemeText}>{systemeExt}</Text>
             <Image source={{ uri: match?.teams.away.logo }} style={styles.logo} />
           </View>
-         {compoExt.coach.id === null ? null : <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, padding: 8, borderTopLeftRadius: 15, borderBottomLeftRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12, textAlign: "center" }}>{compoExt.coach.name}</Text><Image source={compoExt.coach.id === 2407 ? ancelotti : compoExt.coach.id === 193 ? henrique : {uri: compoExt.coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></View> }
+         {compoExt.coach.id === null ? null : <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, padding: 8, borderTopLeftRadius: 15, borderBottomLeftRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12, textAlign: "center" }}>{compoExt.coach.id === 6801 ? "Xabi Alonso" : compoExt.coach.id === 193 ? "Luis Enrique" : compoExt.coach.id === 12590 ? "Vincent Kompany" : compoExt.coach.name}</Text><Image source={compoExt.coach.id === 2407 ? ancelotti : compoExt.coach.id === 193 ? henrique : {uri: compoExt.coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></View> }
 
-          <Text style={styles.subTitleExt}>Titulaires</Text>
 
           <LinearGradient colors={["rgb(41, 154, 55)", 'rgba(32, 119, 42, 1)']} style={styles.playersExtList}>
             {titulairesExt.map((player) => (
@@ -213,7 +213,7 @@ useEffect(() => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingInline: 2,
+    paddingInline: 5,
     alignItems: "center",
   },
   title: {

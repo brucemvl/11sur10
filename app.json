@@ -2,7 +2,7 @@
   "expo": {
     "name": "11sur10",
     "slug": "11sur10",
-    "version": "2.3.2",
+    "version": "2.3.3",
     "orientation": "portrait",
     "icon": "./src/assets/logoapp7.png",
     "userInterfaceStyle": "light",

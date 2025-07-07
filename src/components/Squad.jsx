@@ -18,7 +18,7 @@ import kounde from "../assets/portraits/kounde.jpg"
 import endrick from "../assets/portraits/endrick.jpg"
 import mbappe from "../assets/portraits/mbappe.png"
 import vini from "../assets/portraits/vini.png"
-import palmer from "../assets/portraits/palmer.jpg"
+import palmer from "../assets/portraits/palmer.png"
 import messi from "../assets/trophees/messi.jpg"
 import griezmann from "../assets/portraits/griezmann.png"
 import olise from "../assets/portraits/olise.jpg"
@@ -27,8 +27,8 @@ import rabiot from "../assets/portraits/rabiot.jpg"
 import lacazette from "../assets/portraits/lacazette.jpg"
 import theo from "../assets/portraits/theo.jpg"
 import raphinha from "../assets/portraits/raphinha.png"
-import lewandowski from "../assets/portraits/lewandowski.jpg"
-import isak from "../assets/portraits/isak.jpg"
+import lewandowski from "../assets/portraits/lewandowski.png"
+import isak from "../assets/portraits/isak.png"
 import ramos from "../assets/portraits/ramos.png"
 import garnacho from "../assets/portraits/garnacho.jpg"
 import vitinha from "../assets/portraits/vitinha.png"
@@ -52,7 +52,7 @@ import kimpembe from "../assets/portraits/kimpembe.png"
 import beraldo from "../assets/portraits/beraldo.png"
 import sorloth from "../assets/portraits/sorloth.png"
 import alvarez from "../assets/portraits/alvarez.png"
-import schik from "../assets/portraits/schik.jpg"
+import schik from "../assets/portraits/schik.png"
 import wirtz from "../assets/portraits/wirtz.jpg"
 import camavinga from "../assets/portraits/camavinga.jpg"
 import modric from "../assets/portraits/modric.jpg"
@@ -119,7 +119,10 @@ import mudryk from "../assets/portraits/mudryk.png"
 import cucurella from "../assets/portraits/cucurella.png"
 import madueke from "../assets/portraits/madueke.png"
 import savinho from "../assets/portraits/savinho.png"
-
+import guirassy from "../assets/portraits/guirassy.png"
+import kane from "../assets/portraits/kane.png"
+import biereth from "../assets/portraits/biereth.png"
+import martinez from "../assets/portraits/martinez.png"
 
 
 import { LinearGradient } from "expo-linear-gradient";
@@ -190,7 +193,7 @@ function Squad({ squad }) {
                 {squad?.players?.map((player) => player.position === "Attacker" ? <TouchableOpacity style={styles.carte} key={player.id} onPress={() => navigation.navigate('FicheJoueur', { id: player.id, team: squad.team.id })}>
                     <LinearGradient style={styles.joueur} colors={["#fff", "rgb(163, 164, 165)"]} locations={[0.5, 0.9]}> 
                     <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-around"}}>
-                    <Image source={player.id === 266657 ? savinho : player.id === 136723 ? madueke : player.id === 1864 ? neto : player.id === 283058 ? jackson : player.id === 1422 ? doku : player.id === 288006 ? hojlund : player.id === 70100 ? zirkzee : player.id === 157997 ? amad : player.id === 180496 ? mikautadze : player.id === 21509 ? marcus : player.id === 984 ? brandt : player.id === 158644 ? beier : player.id === 744 ? brahim : player.id === 909 ? rashford : player.id === 19366 ? watkins : player.id === 249 ? malen : player.id === 746 ? ascencio : player.id === 19170 ? rogers : player.id === 1460 ? saka : player.id === 6420 ? retegui : player.id === 147859 ? deketelaere : player.id === 18767 ? lookman : player.id === 1946 ? trossard : player.id === 22236 ? leao : player.id === 9971 ? antony : player.id === 794 ? schik : player.id === 6009 ? alvarez : player.id === 8492 ? sorloth : player.id === 81573 ? marmoush : player.id === 247 ? gakpo : player.id === 2489 ? diaz : player.id === 7334 ? adeyemi : player.id === 21104 ? kolo : player.id === 1100 ? haaland : player.id === 161904 ? barcola : player.id === 336657 ? zaire : player.id === 153 ? dembele : player.id === 129718 ? bellingham : player.id === 386828 ? yamal : player.id === 10009 ? rodrygo : player.id === 18979 ? gyokeres : player.id === 291964 ? guller : player.id === 343027 ? doue : player.id === 483 ? kvara : player.id === 154 ? goat : player.id === 306 ? salah : player.id === 51617 ? darwin : player.id === 1257 ? kounde : player.id === 278 ? mbappe : player.id === 377122 ? endrick : player.id === 762 ? vini : player.id === 56 ? griezmann : player.id === 19617 ? olise : player.id === 272 ? rabiot : player.id === 156477 ? cherki : player.id === 1467 ? lacazette : player.id === 47300 ? theo : player.id === 1496 ? raphinha : player.id === 521 ? lewandowski : player.id === 2864 ? isak : player.id === 41585 ? ramos : player.id === 284324 ? garnacho : player.id === 128384 ? vitinha : { uri: player.photo }} style={styles.photo} />
+                    <Image source={player.id === 217 ? martinez : player.id === 283026 ? biereth : player.id === 184 ? kane :  player.id === 21393 ? guirassy : player.id === 266657 ? savinho : player.id === 136723 ? madueke : player.id === 1864 ? neto : player.id === 283058 ? jackson : player.id === 1422 ? doku : player.id === 288006 ? hojlund : player.id === 70100 ? zirkzee : player.id === 157997 ? amad : player.id === 180496 ? mikautadze : player.id === 21509 ? marcus : player.id === 984 ? brandt : player.id === 158644 ? beier : player.id === 744 ? brahim : player.id === 909 ? rashford : player.id === 19366 ? watkins : player.id === 249 ? malen : player.id === 746 ? ascencio : player.id === 19170 ? rogers : player.id === 1460 ? saka : player.id === 6420 ? retegui : player.id === 147859 ? deketelaere : player.id === 18767 ? lookman : player.id === 1946 ? trossard : player.id === 22236 ? leao : player.id === 9971 ? antony : player.id === 794 ? schik : player.id === 6009 ? alvarez : player.id === 8492 ? sorloth : player.id === 81573 ? marmoush : player.id === 247 ? gakpo : player.id === 2489 ? diaz : player.id === 7334 ? adeyemi : player.id === 21104 ? kolo : player.id === 1100 ? haaland : player.id === 161904 ? barcola : player.id === 336657 ? zaire : player.id === 153 ? dembele : player.id === 129718 ? bellingham : player.id === 386828 ? yamal : player.id === 10009 ? rodrygo : player.id === 18979 ? gyokeres : player.id === 291964 ? guller : player.id === 343027 ? doue : player.id === 483 ? kvara : player.id === 154 ? goat : player.id === 306 ? salah : player.id === 51617 ? darwin : player.id === 1257 ? kounde : player.id === 278 ? mbappe : player.id === 377122 ? endrick : player.id === 762 ? vini : player.id === 56 ? griezmann : player.id === 19617 ? olise : player.id === 272 ? rabiot : player.id === 156477 ? cherki : player.id === 1467 ? lacazette : player.id === 47300 ? theo : player.id === 1496 ? raphinha : player.id === 521 ? lewandowski : player.id === 2864 ? isak : player.id === 41585 ? ramos : player.id === 284324 ? garnacho : player.id === 128384 ? vitinha : { uri: player.photo }} style={styles.photo} />
                     <View style={styles.number}><Text style={[{ fontFamily: "Kanitalik", color: squad.team.id === 49 ? "rgb(20, 15, 182)" : squad.team.id === 42 ? "rgb(228, 46, 46)" : squad.team.id === 165 ? "#e2e21c" : squad.team.id === 40 || squad.team.id === 157 ? "rgb(147, 0, 0)" : squad.team.id === 541 ? "rgb(0, 0, 0)" : squad.team.id === 50 ? "rgb(0, 174, 255)" : "midnightblue", fontSize: 22}, squad.team.id === 85 ? {color: "rgb(188, 14, 14)"} : squad.team.id === 165 ? {shadowOffset: [{height: 0, width: 0}], shadowColor: "black", shadowRadius: 1.5, shadowOpacity: 1} : null]}>{player.number}</Text><Image source={{uri:squad.team.logo}} style={{height: 28, width: 28, objectFit: "contain"}} /></View>
                     </View>
                     <Text style={squad.team.id === 85 ? [styles.nom, {shadowOffset: [{height: 0, width: 0}], shadowColor: "white", shadowRadius: 0.7, shadowOpacity: 1,}] : squad.team.id === 165 ? [styles.nom, {color: "black", shadowOffset: [{height: 0, width: 0}], shadowColor: "yellow", shadowRadius: 1.4, shadowOpacity: 1}] : squad.team.id === 40 || squad.team.id === 157 ? [styles.nom, {color: "rgb(147, 0, 0)" }] : squad.team.id === 541 ? [styles.nom, {color: "rgb(0, 0, 0)", shadowOffset: [{height: 0, width: 0}], shadowColor: "white", shadowRadius: 1.5, shadowOpacity: 1 }] : squad.team.id === 50 ? [styles.nom, {color: "rgb(0, 174, 255)", shadowOffset: [{height: 0, width: 0}], shadowColor: "black", shadowRadius: 1.2, shadowOpacity: 1 }] : squad.team.id === 42 ? [styles.nom, {color: "rgb(223, 38, 38)", shadowOffset: [{height: 0, width: 0}], shadowColor: "white", shadowRadius: 2, shadowOpacity: 1 }] : squad.team.id === 49 ? [styles.nom, {color: "rgb(20, 15, 182)"}] :  styles.nom}>{player.name. length < 17 ? player.name : player.name.split(' ').slice(-1).join(' ')}</Text>

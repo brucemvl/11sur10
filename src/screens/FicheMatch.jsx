@@ -386,17 +386,17 @@ console.log(injuries)
                 <ScrollView contentContainerStyle={styles.bloc}>
                 <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt} />
                 <View style={{flexDirection: "row", marginBottom: 10}}>
-                <TouchableOpacity onPress={openCompos}>
-                            <Text style={selected7 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 92}]}>Compos</Text>
+                <TouchableOpacity onPress={openCompos} style={selected7 ? styles.selectedTab : styles.tab}>
+                            <Text style={selected7 ? styles.selectedText : styles.text}>Compos</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={openApercu}>
-                            <Text style={selected9 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 92}]}>Apercu</Text>
+                        <TouchableOpacity onPress={openApercu} style={selected9 ? styles.selectedTab : styles.tab}>
+                            <Text style={selected9 ? styles.selectedText : styles.text}>Apercu</Text>
                         </TouchableOpacity>
-        <TouchableOpacity onPress={openHisto}>
-                            <Text style={selected4 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 92}]}>Historique</Text>
+        <TouchableOpacity onPress={openHisto} style={selected4 ? styles.selectedTab : styles.tab}>
+                            <Text style={selected4 ? styles.selectedText : styles.text}>Historique</Text>
                         </TouchableOpacity>
-                      { match.league.standings === true ?  <TouchableOpacity onPress={openClassement}>
-                            <Text style={selected5 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 92}]}>Classement</Text>
+                      { match.league.standings === true ?  <TouchableOpacity onPress={openClassement} style={selected5 ? styles.selectedTab : styles.tab}>
+                            <Text style={selected5 ? styles.selectedText : styles.text}>Classement</Text>
                         </TouchableOpacity> : null }
                         </View>
                         {compos2 && <SchemaAvance match={match} compoDom={compoDom} compoExt={compoExt} colors={colors} />}
@@ -421,14 +421,14 @@ console.log(injuries)
         <View style={{flexDirection: "row", marginBottom: 10}}>
         {match.fixture.status.long === "Not Started" ? 
         injuries.length <= 0 ? null :
-        <TouchableOpacity onPress={openApercu}>
-                            <Text style={selected8 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 100}]}>Apercu</Text>
+        <TouchableOpacity onPress={openApercu} style={selected8 ? styles.selectedTab : styles.tab}>
+                            <Text style={selected8 ? styles.selectedText : styles.text}>Apercu</Text>
                         </TouchableOpacity> : null }
-        <TouchableOpacity onPress={openHisto}>
-                            <Text style={selected6 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 100}]}>Historique</Text>
+        <TouchableOpacity onPress={openHisto} style={selected6 ? styles.selectedTab : styles.tab}>
+                            <Text style={selected6 ? styles.selectedText : styles.text}>Historique</Text>
                         </TouchableOpacity>
-                      { match.league.standings === true ?  <TouchableOpacity onPress={openClassement}>
-                            <Text style={selected5 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 100}]}>Classement</Text>
+                      { match.league.standings === true ?  <TouchableOpacity onPress={openClassement} style={selected5 ? styles.selectedTab : styles.tab}>
+                            <Text style={selected5 ? styles.selectedText : styles.text}>Classement</Text>
                         </TouchableOpacity> : null }
                         </View>
                        {injuries.length <= 0 ? null : apercu && <Indisponibles injuries={injuries} match={match} />}
@@ -449,17 +449,17 @@ console.log(injuries)
                 <ScrollView contentContainerStyle={styles.bloc}>
                 <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} />
                 <View style={{flexDirection: "row", marginBottom: 10}}>
-                { match.statistics.length > 0 ? <TouchableOpacity onPress={openDetails}>
-                            <Text style={selected ? styles.selectedTab : styles.tab}>Details</Text>
+                { match.statistics.length > 0 ? <TouchableOpacity onPress={openDetails} style={selected ? styles.selectedTab : styles.tab}>
+                            <Text style={selected ? styles.selectedText : styles.text}>Details</Text>
                         </TouchableOpacity> : null }
-                    {match.lineups.length === 2 ? <TouchableOpacity onPress={openCompos}>
-                            <Text style={selected7 ? [styles.selectedTab, {width: 100}] : [styles.tab, {width: 92}]}>Compos</Text>
+                    {match.lineups.length === 2 ? <TouchableOpacity onPress={openCompos} style={selected7 ? styles.selectedTab : styles.tab}>
+                            <Text style={selected7 ? styles.selectedText : styles.text}>Compos</Text>
                         </TouchableOpacity> : null }
-                {match.events.length > 0 ? <TouchableOpacity onPress={openLive}>
-                            <Text style={selected3 ? styles.selectedTab : styles.tab}>Live</Text>
+                {match.events.length > 0 ? <TouchableOpacity onPress={openLive} style={selected3 ? styles.selectedTab : styles.tab}>
+                            <Text style={selected3 ? styles.selectedText : styles.text}>Live</Text>
                         </TouchableOpacity> : null }
-                        { match.league.standings === true ?  <TouchableOpacity onPress={openClassement}>
-                            <Text style={selected5 ? styles.selectedTab : styles.tab}>Classement</Text>
+                        { match.league.standings === true ?  <TouchableOpacity onPress={openClassement} style={selected5 ? styles.selectedTab : styles.tab}>
+                            <Text style={selected5 ? styles.selectedText : styles.text}>Classement</Text>
                         </TouchableOpacity> : null }
                         </View>
                        {match.statistics.length > 0 ?  details && <Details match={match} possession={poss} expectedGoals={xg} tirs={tirs} tirsCadres={tirsCadres} jaune={jaune} rouge={rouge} passes={passes} passesReussies={passesReussies} accuracy={accuracy}/> : null }
@@ -493,21 +493,21 @@ console.log(injuries)
                 <Affiche match={match} roundd={roundd} homeStats={homeStats} extStats={extStats} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} />
                 <View style={styles.section}>
                     <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.ficheSelecteur}>
-                        <TouchableOpacity onPress={openDetails}>
-                            <Text style={selected ? styles.selectedTab : styles.tab}>Details</Text>
+                        <TouchableOpacity onPress={openDetails} style={selected ? styles.selectedTab : styles.tab}>
+                            <Text style={selected ? styles.selectedText : styles.text}>Details</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={openCompos}>
-                            <Text style={selected2 ? styles.selectedTab : styles.tab}>Compos</Text>
+                        <TouchableOpacity onPress={openCompos} style={selected2 ? styles.selectedTab : styles.tab}>
+                            <Text style={selected2 ? styles.selectedText : styles.text}>Compos</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={openLive}>
-                            <Text style={selected3 ? styles.selectedTab : styles.tab}>Live</Text>
+                        <TouchableOpacity onPress={openLive} style={selected3 ? styles.selectedTab : styles.tab}>
+                            <Text style={selected3 ? styles.selectedText : styles.text}>Live</Text>
                         </TouchableOpacity>
                         
-                        <TouchableOpacity onPress={openHisto}>
-                            <Text style={selected4 ? styles.selectedTab : styles.tab}>Historique</Text>
+                        <TouchableOpacity onPress={openHisto} style={selected4 ? styles.selectedTab : styles.tab}>
+                            <Text style={selected4 ? styles.selectedText : styles.text}>Historique</Text>
                         </TouchableOpacity>
-                      { match.league.standings === true ?  <TouchableOpacity onPress={openClassement}>
-                            <Text style={selected5 ? styles.selectedTab : styles.tab}>Classement</Text>
+                      { match.league.standings === true ?  <TouchableOpacity onPress={openClassement} style={selected5 ? styles.selectedTab : styles.tab}>
+                            <Text style={selected5 ? styles.selectedText : styles.text}>Classement</Text>
                         </TouchableOpacity> : null }
                     </ScrollView>
 
@@ -528,7 +528,7 @@ const styles = StyleSheet.create({
     bloc: {
         flexGrow: 1,
         alignItems: 'center',
-        padding: 10,
+        paddingTop: 10,
         marginTop: 40,
         paddingBottom: 50
     },
@@ -542,33 +542,39 @@ const styles = StyleSheet.create({
         paddingBlock: 15
     },
     tab: {
-        fontSize: 16,
-        color: 'black',
         backgroundColor: "lightgrey",
         width: 84,
         height: 40,
-        textAlign: "center",
-        paddingTop: 7,
         borderRadius: 5,
-        fontFamily: "Kanitus",
-        marginInline: 4
+        marginInline: 4,
+        alignItems: "center",
+        justifyContent: "center"
+
+    },
+    text: {
+fontFamily: "Kanitus",
+fontSize: 16
     },
     selectedTab: {
-        fontSize: 16,
-        color: '#fff',
+        
         backgroundColor: '#007BFF',
         width: 88,
         height: 40,
-        textAlign: "center",
-        paddingTop: 7,
         borderRadius: 5,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 8 },
         shadowOpacity: 0.3,
         shadowRadius: 3.5,
-        fontFamily: "Kanito", 
         elevation: 5,
-        marginInline: 4
+        marginInline: 4,
+        alignItems: "center",
+        justifyContent: "center"
+
+    },
+    selectedText: {
+fontSize: 16,
+        color: '#fff',
+                fontFamily: "Kanito", 
 
     },
     match: {

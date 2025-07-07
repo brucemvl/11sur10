@@ -2,7 +2,6 @@ import { View, Text, TouchableOpacity, Dimensions, Image, Linking } from "react-
 import React from "react"
 import { StyleSheet } from "react-native"
 import { useFonts } from "expo-font";
-import Footer from "../components/Footer";
 import { useNavigation } from "@react-navigation/native";
 import insta from "../assets/insta.png"
 import bm from "../assets/bm.png"

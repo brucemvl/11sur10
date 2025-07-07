@@ -79,7 +79,7 @@ const Evenements = ({ match }) => {
                     )}
                     {(element.detail === "Goal Disallowed - offside" ||
                       element.detail === "Goal cancelled" ||
-                      element.detail === "Penalty confirmed" || element.detail === "Goal confirmed") && (
+                      element.detail === "Penalty confirmed" || element.detail === "Goal confirmed" || element.detail === "Penalty cancelled" ) && (
                         <View style={styles.varContainer}>
                           <Image
                             source={{

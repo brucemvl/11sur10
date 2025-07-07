@@ -29,7 +29,8 @@ async function sendPushNotification(tokens, message) {
   body: message?.body || '',
   badge: message?.badge || undefined,
   data: message?.data || undefined,
-  _originalToken: token, // Ajoute une clé custom pour suivi
+  channelId: 'default', // 🔴 Obligatoire sur Android
+  _originalToken: token,
 }));
 
   try {

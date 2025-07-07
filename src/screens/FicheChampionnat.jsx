@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, ScrollView, View, ActivityIndicator, TouchableOpacity, Text } from 'react-native';
 import Tableau from '../components/Tableau';  // Assurez-vous que Tableau est compatible avec React Native
 import Classement from '../components/Classement';  // Idem pour ClassementChampionnat
 import { useState, useEffect } from 'react';
@@ -15,6 +15,19 @@ function FicheChampionnat({ route }) {
   const [error, setError] = useState(false);
 
     const [rounds, setRounds] = useState()
+
+    const [calendrier, setCalendrier] = useState(true)
+    const [classement, setClassement] = useState(false)
+
+    const openCalendrier = ()=> {
+      setCalendrier(true)
+      setClassement(false)
+    }
+
+    const openClassement = ()=> {
+      setCalendrier(false)
+      setClassement(true)
+    }
     
       useEffect(() => {
   const fetchData = async () => {
@@ -78,9 +91,17 @@ console.log('rounds:', rounds);
       <Precedent />
 
         <ScrollView contentContainerStyle={styles.blocChamp}>
+          <View style={{flexDirection: "row", marginBlock: 5, justifyContent: "center", gap: "5%"}}>
+  <TouchableOpacity onPress={openCalendrier} >
+    <Text style={calendrier ? styles.selected : styles.unSelected}>Calendrier</Text>
+  </TouchableOpacity>
+  <TouchableOpacity onPress={openClassement}>
+    <Text style={classement ? styles.selected : styles.unSelected}>Classement</Text>
+  </TouchableOpacity>
+</View>
             {/* Passer l'ID du championnat et la fonction setFilter aux composants */}
-            <Tableau id={id} currentRound={currentRound} rounds={rounds} journey={journey} />
-            <Classement id={id} />
+            {calendrier && <Tableau id={id} currentRound={currentRound} rounds={rounds} journey={journey} />}
+            {classement && <Classement id={id} />}
         </ScrollView>
         </View>
     );
@@ -93,8 +114,17 @@ const styles = StyleSheet.create({
         width: "100%",
         flexGrow: 1,
         paddingBottom: 50,
+    },
+    
+    selected: {
+      fontFamily: "Kanitt",
+      textDecorationLine: "underline",
 
     },
+    unSelected: {
+      fontFamily: "Kanitus",
+      color: "grey"
+    }
 });
 
 export default FicheChampionnat;

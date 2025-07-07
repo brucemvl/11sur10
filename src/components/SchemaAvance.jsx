@@ -23,7 +23,7 @@ import kounde from "../assets/portraits/kounde.jpg"
 import endrick from "../assets/portraits/endrick.jpg"
 import mbappe from "../assets/portraits/mbappe.png"
 import vini from "../assets/portraits/vini.png"
-import palmer from "../assets/portraits/palmer.jpg"
+import palmer from "../assets/portraits/palmer.png"
 import messi from "../assets/trophees/messi.jpg"
 import griezmann from "../assets/portraits/griezmann.png"
 import olise from "../assets/portraits/olise.jpg"
@@ -32,8 +32,8 @@ import rabiot from "../assets/portraits/rabiot.jpg"
 import lacazette from "../assets/portraits/lacazette.jpg"
 import theo from "../assets/portraits/theo.jpg"
 import raphinha from "../assets/portraits/raphinha.png"
-import lewandowski from "../assets/portraits/lewandowski.jpg"
-import isak from "../assets/portraits/isak.jpg"
+import lewandowski from "../assets/portraits/lewandowski.png"
+import isak from "../assets/portraits/isak.png"
 import ramos from "../assets/portraits/ramos.png"
 import garnacho from "../assets/portraits/garnacho.jpg"
 import vitinha from "../assets/portraits/vitinha.png"
@@ -57,7 +57,7 @@ import kimpembe from "../assets/portraits/kimpembe.png"
 import beraldo from "../assets/portraits/beraldo.png"
 import sorloth from "../assets/portraits/sorloth.png"
 import alvarez from "../assets/portraits/alvarez.png"
-import schik from "../assets/portraits/schik.jpg"
+import schik from "../assets/portraits/schik.png"
 import wirtz from "../assets/portraits/wirtz.jpg"
 import camavinga from "../assets/portraits/camavinga.jpg"
 import modric from "../assets/portraits/modric.jpg"
@@ -193,7 +193,7 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
                            <View style={[styles.player, { backgroundColor: "#" + colors.goalExt, borderColor: "#" + colors.goalExtBorder }]}>
                                <Text style={[styles.number, { color: "#" + colors.goalExtNumber }]}>{player.number}</Text>
                            </View>
-                           <Text style={styles.playerName}>{player.name.split(' ').slice(-1).join(' ')}</Text>
+                           <Text style={styles.playerName}>{player.id === 283 ? "Arnold" : player.name.split(' ').slice(-1).join(' ')}</Text>
                        </TouchableOpacity>
                         ))}
                         {/* Défenseurs */}
@@ -213,7 +213,7 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
                                 <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
                                     <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
                                 </View>
-                                <Text style={styles.playerName}>{player.id === 762 ? "Vini Jr" :  player.name.split(' ').slice(-1).join(' ')}</Text>
+                                <Text style={styles.playerName}>{player.id === 283 ? "Arnold" : player.id === 762 ? "Vini Jr" :  player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
                         {/* Attaquants */}
@@ -223,7 +223,7 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
                                 <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
                                     <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
                                 </View>
-                                <Text style={styles.playerName}>{player.id === 762 ? "Vini Jr" : player.name.split(' ').slice(-1).join(' ')}</Text>
+                                <Text style={styles.playerName}>{player.id === 283 ? "Arnold" : player.id === 762 ? "Vini Jr" : player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
                     </View>
@@ -248,7 +248,7 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
                                 <View style={[styles.player, { backgroundColor: "#" + colors.primaryExt, borderColor: "#" + colors.borderExt }]}>
                                     <Text style={[styles.number, { color: "#" + colors.numberExt }]}>{player.number}</Text>
                                 </View>
-                                <Text style={styles.playerName}>{player.id === 762 ? "Vini Jr" : player.name.split(' ').slice(-1).join(' ')}</Text>
+                                <Text style={styles.playerName}>{player.id === 283 ? "Arnold" : player.id === 762 ? "Vini Jr" : player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
                         {/* Défenseurs */}
@@ -258,7 +258,7 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
                                 <View style={[styles.player, { backgroundColor: "#" + colors.primaryExt, borderColor: "#" + colors.borderExt }]}>
                                     <Text style={[styles.number, { color: "#" + colors.numberExt }]}>{player.number}</Text>
                                 </View>
-                                <Text style={styles.playerName}>{player.name.split(' ').slice(-1).join(' ')}</Text>
+                                <Text style={styles.playerName}>{player.id === 283 ? "Arnold" : player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
                         {/* Gardien */}

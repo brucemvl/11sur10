@@ -3,7 +3,7 @@ const cron = require('node-cron');
 const sendPushNotification = require('./utils/pushNotification');
 const PushToken = require('./models/PushToken');
 
-const previousScores = {}; // matchId → score
+const previousEvents = {}; // matchId + playerName + minute + event type
 
 async function checkMatchScore() {
   try {
@@ -19,13 +19,12 @@ async function checkMatchScore() {
 
     for (const group of groupedTokens) {
       const teamId = group._id;
-      if (!teamId) continue; // ignore les tokens sans teamId
+      if (!teamId) continue;
 
       const tokens = group.tokens;
-      const teamIdStr = String(teamId).trim(); // s’assure que c’est bien une string numérique propre
-      console.log('Traitement du teamId :', teamIdStr); // ✅ ICI
+      const teamIdStr = String(teamId).trim();
+      console.log('🔍 Traitement du teamId :', teamIdStr);
 
-      // Utilisation dynamique du teamId récupéré
       const response = await axios.get(`https://v3.football.api-sports.io/fixtures?team=${teamIdStr}&live=all`, {
         headers: {
           'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
@@ -37,26 +36,56 @@ async function checkMatchScore() {
 
       for (const match of matches) {
         const matchId = match.fixture.id;
-        const homeTeam = match.teams.home.name;
-        const awayTeam = match.teams.away.name;
-        const homeGoals = match.goals.home;
-        const awayGoals = match.goals.away;
 
-        const currentScore = `${homeTeam} ${homeGoals} - ${awayTeam} ${awayGoals}`;
+        if (!match.events || !Array.isArray(match.events)) continue;
 
-        if (previousScores[matchId] && previousScores[matchId] !== currentScore) {
-          console.log(`⚽ But détecté dans ${homeTeam} vs ${awayTeam}`);
-          console.log('Ancien score :', previousScores[matchId]);
-          console.log('Nouveau score :', currentScore);
+        for (const event of match.events) {
+          const minute = event.time?.elapsed;
+          const playerName = event.player?.name || 'Joueur inconnu';
+          const teamName = event.team?.name || 'Équipe inconnue';
 
-          await sendPushNotification(tokens, {
-            title: '⚽ But !',
-            body: `Score : ${currentScore}`,
-          });
-        } else {
-          console.log('Pas de changement de score détecté.');
+          if (event.type === 'Goal') {
+            const assistName = event.assist?.name;
+            const detail = event.detail; // e.g. "Normal Goal", "Own Goal", "Penalty"
+            const eventKey = `${matchId}-${playerName}-${minute}-GOAL`;
+
+            if (!previousEvents[eventKey]) {
+              let goalMsg = `⚽ ${minute}e minute - But de ${playerName}!`;
+
+              if (detail === 'Own Goal') {
+                goalMsg = `${playerName} a marqué contre son camp à la ${minute}e minute`;
+              } else if (detail === 'Penalty') {
+                goalMsg += ' sur penalty';
+              }
+
+
+              console.log(`⚽ ${goalMsg}`);
+
+              await sendPushNotification(tokens, {
+                title: `${match.teams.home.name} - ${match.teams.away.name}`,
+                body: goalMsg,
+              });
+
+              previousEvents[eventKey] = true;
+            }
+          }
+
+          if (event.type === 'Card' && event.detail === 'Red Card') {
+            const eventKey = `${matchId}-${playerName}-${minute}-RED`;
+
+            if (!previousEvents[eventKey]) {
+              const redCardMsg = `🟥 ${minute}e minute - ${playerName} a reçu un carton rouge`;
+              console.log(`🟥 ${redCardMsg}`);
+
+              await sendPushNotification(tokens, {
+                title: `${match.teams.home.name} - ${match.teams.away.name}`,
+                body: redCardMsg,
+              });
+
+              previousEvents[eventKey] = true;
+            }
+          }
         }
-        previousScores[matchId] = currentScore;
       }
     }
 
@@ -65,5 +94,5 @@ async function checkMatchScore() {
   }
 }
 
-// ⏱️ Tâche cron toutes les 30 secondes
+// ⏱️ Tâche cron toutes les 35 secondes
 cron.schedule('*/35 * * * * *', checkMatchScore);

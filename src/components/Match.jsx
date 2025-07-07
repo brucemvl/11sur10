@@ -24,7 +24,7 @@ function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id,
 
   return (
    
-                  <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.3)']} style={{borderRadius: 10, marginVertical: 4, backgroundColor: "white", borderWidth: 1, borderColor: "black"}} >
+                  <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.4)']} style={{borderRadius: 10, marginVertical: 4, backgroundColor: "white", borderWidth: 1, borderColor: "black"}} >
                      <TouchableOpacity
       style={styles.match}
       onPress={() => navigation.navigate('FicheMatch', { id })}  // Naviguer vers la fiche du match

@@ -201,7 +201,7 @@ useEffect(() => {
                 </LinearGradient>}
 {match.league.id === 61 || match.league.id === 2 || match.league.id === 140 || match.league.id === 39 || match.league.id === 15 || match.league.id === 5 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitu"}}>Match diffusé sur</Text><Image source={match.league.id === 61 || match.league.id === 15 ? dazn : match.league.id === 2 || match.league.id === 39 ? canal : match.league.id === 140 ? bein : match.league.id === 5 ? tf1 : null} style={match.league.id === 61 ? {height: 25, width: 40, objectFit: "contain", marginLeft: -2}: match.league.id === 140  ? {height: 25, width: 65, objectFit: "contain", marginLeft: 5} : match.league.id === 39 || match.league.id === 2 ? {height: 25, width: 50, objectFit: "contain", marginLeft: 2} : {height: 25, width: 40, objectFit: "contain", marginLeft: 2} }/>{match.fixture.id === 1374812 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitu"}}>et</Text><Image source={m6} style={{height: 20, objectFit: "contain", width: 40}} /></View> : null}</View> : null}
             <View style={styles.buts}>
-
+{/*
                 <View style={styles.equipeDomicile}>
                                         {match.events.map((evenement) => evenement.detail === "Red Card" ? evenement.team.id === match.teams.home.id ? <View style={{flexDirection: "row", alignItems: "center"}}><Image source={red} style={{height: 22, width: 22, objectFit: "contain"}} /><Text style={styles.text}>{evenement.player.name}, </Text><Text style={{fontFamily: "Kanitalik", fontSize: 11.5}}>{evenement.time.elapsed}'{evenement.time.extra ? `+ ${evenement.time.extra}` : null}</Text></View> : null : null)}
                     <FlatList
@@ -214,20 +214,27 @@ useEffect(() => {
                         )}
                     />
                 </View>
+*/}
+<View style={styles.equipeDomicile}>
+    {match.events.map((evenement) => evenement.detail === "Red Card" || evenement.type === "Goal" && evenement.detail != "Missed Penalty" ? evenement.team.id === match.teams.home.id ? 
+    <View style={{flexDirection: "row", alignItems: "center"}}>
+        {evenement.detail === "Red Card" ? <View style={{flexDirection: "row", alignItems: "center"}}><Image source={red} style={{height: 22, width: 22, objectFit: "contain"}} /><Text style={styles.text}>{evenement.player.name}, </Text><Text style={{fontFamily: "Kanitalik", fontSize: 11.5}}>{evenement.time.elapsed}'{evenement.time.extra ? `+ ${evenement.time.extra}`:null}</Text></View> : null}
+        :
+        {evenement.type === "Goal" && evenement.detail != "Missed Penalty" ? <View><Text style={styles.text}><Text style={styles.goalIcon}>⚽</Text> {evenement.player.name === "R. Lewandowski" ? "Lewandowski" : evenement.player.name}, <Text style={{fontFamily: "Kanitalik"}}>{evenement.time.elapsed}'{evenement.time.extra  ? `+ ${evenement.time.extra}` : null}</Text> {evenement.detail === "Own Goal" ? <Text style={styles.csc}>(csc)</Text> : null} {evenement.detail === "Penalty" ? <Text style={styles.penalty}>(pen)</Text> : null}</Text></View> : null}
+    </View> : null : null)}
 
-                <View style={styles.equipeExt}>
-                                        {match.events.map((evenement) => evenement.detail === "Red Card" ? evenement.team.id === match.teams.away.id ? <View style={{flexDirection: "row", alignItems: "center", justifyContent: "flex-end"}}><Text style={styles.text}>{evenement.player.name}, </Text><Text style={{fontFamily: "Kanitalik", fontSize: 11.5}}>{evenement.time.elapsed}'{evenement.time.extra ? `+ ${evenement.time.extra}` : null}</Text><Image source={red} style={{height: 22, width: 22, objectFit: "contain"}} /></View> : null : null)}
+</View>
 
-                    <FlatList
-                        data={buteurExt}
-                        keyExtractor={(item) => `buteurExt:${item.player.name}`}
-                        renderItem={({ item }) => (
-                            <View style={styles.buteurExtItem}>
-                                <Text style={styles.text}> {item.player.name === "R. Lewandowski" ? "Lewandowski" : item.player.name},{item.detail === "Own Goal" ? <Text style={styles.csc}>(csc)</Text> : null} {item.detail === "Penalty" ? <Text style={styles.penalty}>(pen) </Text> : null} <Text style={{fontFamily: "Kanitalik"}}>{item.time.elapsed}'{item.time.extra ? `+ ${item.time.extra}` : null}</Text> <Text style={styles.goalIcon}>⚽</Text></Text>
-                            </View>
-                        )}
-                    />
-                </View>
+<View style={styles.equipeExt}>
+    {match.events.map((evenement) => evenement.detail === "Red Card" || evenement.type === "Goal" && evenement.detail != "Missed Penalty" ? evenement.team.id === match.teams.away.id ? 
+    <View style={{flexDirection: "row", alignItems: "start", justifyContent: "flex-end"}}>
+        {evenement.detail === "Red Card" ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={styles.text}>{evenement.player.name}, </Text><Text style={{fontFamily: "Kanitalik", fontSize: 11.5}}>{evenement.time.elapsed}'{evenement.time.extra ? `+ ${evenement.time.extra}` : null}</Text><Image source={red} style={{height: 22, width: 22, objectFit: "contain"}} /></View> : null}
+        :
+        {evenement.type === "Goal" && evenement.detail != "Missed Penalty" ? <View><Text style={styles.text}> {evenement.player.name === "R. Lewandowski" ? "Lewandowski" : evenement.player.name},{evenement.detail === "Own Goal" ? <Text style={styles.csc}>(csc)</Text> : null} {evenement.detail === "Penalty" ? <Text style={styles.penalty}>(pen) </Text> : null} <Text style={{fontFamily: "Kanitalik"}}>{evenement.time.elapsed}'{evenement.time.extra ? `+ ${evenement.time.extra}` : null}</Text> <Text style={styles.goalIcon}>⚽</Text></Text></View> : null}
+    </View> : null : null)}
+
+</View>
+
 
             </View>
             {match.fixture.status.short === "PEN" ?
@@ -252,7 +259,8 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     container: {
-        padding: 10,
+        paddingBlock: 10,
+        paddingInline: 15,
         alignItems: 'center',
         width: "100%"
     },

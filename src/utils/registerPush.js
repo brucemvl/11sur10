@@ -2,6 +2,7 @@ import * as Notifications from 'expo-notifications';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
 import axios from 'axios';
+import { Platform } from 'react-native'; // ← À ne pas oublier
 
 export default async function registerForPushNotificationsAsync() {
   try {
@@ -46,6 +47,18 @@ export default async function registerForPushNotificationsAsync() {
 
 
     console.log('✅ Token et teamId envoyés au serveur');
+
+     // ✅ AJOUT pour Android
+    if (Platform.OS === 'android') {
+      await Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.HIGH,
+        sound: 'default',
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C',
+      });
+    }
+
     return token;
   } catch (error) {
   console.error('❌ Erreur registerPush:', error.message);

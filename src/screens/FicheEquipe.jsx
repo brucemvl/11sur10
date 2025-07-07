@@ -7,6 +7,8 @@ import Precedent from "../components/Precedent";
 import chevron from "../assets/chevron.png";
 import ligue1 from "../assets/logoligue1.webp"
 import Squad from "../components/Squad";
+import fifaclubwc from "../assets/fifaclubwc2.png";
+
 
 function FicheEquipe() {
   const route = useRoute();
@@ -103,7 +105,7 @@ function FicheEquipe() {
   useEffect(() => {
     const fetchLeagues = async () => {
       try {
-        const response = await fetch(`https://v3.football.api-sports.io/leagues?season=2024&team=${id}`, {
+        const response = await fetch(`https://v3.football.api-sports.io/leagues?season=2025&team=${id}`, {
           method: "GET",
           headers: {
             "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
@@ -125,7 +127,7 @@ function FicheEquipe() {
   useEffect(() => {
 
     // Fetch home team statistics
-    fetch(`https://v3.football.api-sports.io/teams/statistics?season=2024&team=${id}&league=${compet}`, {
+    fetch(`https://v3.football.api-sports.io/teams/statistics?season=2025&team=${id}&league=${compet}`, {
         method: "GET",
         headers: {
             "x-rapidapi-host": "v3.football.api-sports.io",
@@ -254,7 +256,7 @@ console.log(squad)
       <Text style={styles.season}>2024/2025</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={true} style={styles.leagues}>
       {leagues.map((element) => {if ( element.league.name === "Friendlies Clubs") return null ; const isSelected = selectedId === element.league.id;
-     return <TouchableOpacity key={element.league.id} onPress={()=> {setCompet(element.league.id); setSelectedId(element.league.id)} } style={isSelected ? styles.selected : {opacity: 0.4}}> <Image source={element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : { uri: element.league.logo}} style={{height: 60, width: 60, marginBottom: 20, objectFit: "contain", marginInline: 12}}/></TouchableOpacity>
+     return <TouchableOpacity key={element.league.id} onPress={()=> {setCompet(element.league.id); setSelectedId(element.league.id)} } style={isSelected ? styles.selected : {opacity: 0.4}}> <Image source={element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : element.league.id === 15 ? fifaclubwc : { uri: element.league.logo}} style={{height: 60, width: 60, marginBottom: 20, objectFit: "contain", marginInline: 12}}/></TouchableOpacity>
 })}
 </ScrollView>
       <View style={styles.bloc}>
@@ -429,7 +431,7 @@ width: "98%"
       },
       leagues: {
         flexDirection: "row",
-        width: 190,
+        width: 240,
         height: 90,
         padding: 10,
       },

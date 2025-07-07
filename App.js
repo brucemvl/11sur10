@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'react-native-reanimated';
 import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './src/navigation/AppNavigator';
@@ -6,11 +6,10 @@ import Menu from './src/components/Menu';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import registerForPushNotificationsAsync from './src/utils/registerPush';
 
-
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
-import axios from 'axios';
 import Constants from 'expo-constants';
+import axios from 'axios';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -21,8 +20,22 @@ Notifications.setNotificationHandler({
 });
 
 export default function App() {
+  const [selectedTeamId, setSelectedTeamId] = useState(null);
+
+  // ✅ Setup du channel Android → à faire DANS le composant
   useEffect(() => {
-    // On appelle l'enregistrement dès que l'app démarre
+    if (Platform.OS === 'android') {
+      Notifications.setNotificationChannelAsync('default', {
+        name: 'default',
+        importance: Notifications.AndroidImportance.HIGH,
+        sound: 'default',
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C',
+      });
+    }
+  }, []);
+
+  useEffect(() => {
     registerForPushNotificationsAsync();
 
     const subReceived = Notifications.addNotificationReceivedListener(notification => {
@@ -40,12 +53,12 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-  const loadSavedTeam = async () => {
-    const saved = await AsyncStorage.getItem('teamId');
-    if (saved) setSelectedTeamId(parseInt(saved, 10));
-  };
-  loadSavedTeam();
-}, []);
+    const loadSavedTeam = async () => {
+      const saved = await AsyncStorage.getItem('teamId');
+      if (saved) setSelectedTeamId(parseInt(saved, 10));
+    };
+    loadSavedTeam();
+  }, []);
 
   return (
     <NavigationContainer>
