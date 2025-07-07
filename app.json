@@ -39,7 +39,8 @@
     "NOTIFICATIONS",
     "WAKE_LOCK",
     "RECEIVE_BOOT_COMPLETED"
-  ]
+  ],
+  "googleServicesFile": "./google-services(1).json"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
