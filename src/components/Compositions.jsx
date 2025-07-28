@@ -9,6 +9,8 @@ import { useNavigation } from '@react-navigation/native';
 import Schema from './Schema';
 import ancelotti from "../assets/portraits/ancelotti.jpg"
 import henrique from "../assets/portraits/henrique.png"
+import pep from "../assets/portraits/pep.png"
+
 
 const Compositions = ({ match, titulairesDom, homeId, extId, titulairesExt, coachDom, coachExt, coachDomId, coachExtId, systemeDom, systemeExt, substituteDom, substituteExt, compoDom, compoExt, colors }) => {
 
@@ -56,13 +58,7 @@ useEffect(() => {
           });
   }, []);
 
-  if(!coachDomicile){
-    return <Text>Loading...</Text>
-  }
-
-  if(!coachExterieur){
-    return <Text>Loading...</Text>
-  }
+  
   
   const noteDom = match.players[0].players.map((joueur)=> joueur.statistics[0].games.rating)
   const noteExt = match.players[1].players.map((joueur)=> joueur.statistics[0].games.rating)
@@ -146,7 +142,11 @@ useEffect(() => {
     );
   };
 
-
+if (match.players.length === 0){
+  return (
+    <Text>Aucune info</Text>
+  )
+}
 
 
   return (
@@ -156,55 +156,59 @@ useEffect(() => {
 
       <View style={styles.teamsContainer}>
         
-        <View style={styles.teamContainer}>
+        <View style={styles.compos}>
           
-          <View style={styles.headerCompo}>
+          <View style={styles.compo}>
             <Image source={{ uri: match?.teams.home.logo }} style={styles.logo} />
             <Text style={styles.systemeText}>{systemeDom}</Text>
           </View>
-         {compoDom.coach.id === null ? null : <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5,  padding: 8, borderTopRightRadius: 15, borderBottomRightRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12, textAlign: "center" }}>{compoDom.coach.id === 6801 ? "Xabi Alonso" : compoDom.coach.id === 193 ? "Luis Enrique" : compoDom.coach.id === 12590 ? "Vincent Kompany" : compoDom.coach.name}</Text><Image source={compoDom.coach.id === 2407 ? ancelotti : compoDom.coach.id === 193 ? henrique : {uri: compoDom.coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></View> }
+          <View style={styles.compo}>
+            <Text style={styles.systemeText}>{systemeExt}</Text>
+            <Image source={{ uri: match?.teams.away.logo }} style={styles.logo} />
+          </View>
+        </View>
 
-          <LinearGradient colors={["rgb(41, 154, 55)", 'rgba(32, 119, 42, 1)']} style={styles.playersList}>
+          <View style={styles.coachs}>
+         {compoDom.coach.id === null ? null : <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5,  padding: 8, borderTopRightRadius: 15, borderBottomRightRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12, textAlign: "center" }}>{compoDom.coach.id === 17396 ? "Javier Mascherano" : compoDom.coach.id === 6801 ? "Xabi Alonso" : compoDom.coach.id === 193 ? "Luis Enrique" : compoDom.coach.id === 12590 ? "Vincent Kompany" : compoDom.coach.name}</Text><Image source={compoDom.coach.id === 4 ? pep : compoDom.coach.id === 2407 ? ancelotti : compoDom.coach.id === 193 ? henrique : {uri: compoDom.coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></View> }
+         {compoExt.coach.id === null ? null : <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, padding: 8, borderTopLeftRadius: 15, borderBottomLeftRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12, textAlign: "center" }}>{compoExt.coach.id === 17396 ? "Javier Mascherano" : compoExt.coach.id === 6801 ? "Xabi Alonso" : compoExt.coach.id === 193 ? "Luis Enrique" : compoExt.coach.id === 12590 ? "Vincent Kompany" : compoExt.coach.name}</Text><Image source={compoExt.coach.id === 4 ? pep : compoExt.coach.id === 2407 ? ancelotti : compoExt.coach.id === 193 ? henrique : {uri: compoExt.coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></View> }
+      </View>
+
+          <LinearGradient colors={["rgb(167, 167, 167)", "rgb(145, 145, 145)", "rgb(115, 115, 115)"]} style={styles.playersList}>
+            <View style={styles.equipeDom}>
             {titulairesDom.map((player) => (
               <TouchableOpacity key={player.player.id} onPress={() => navigation.navigate('FicheJoueur', { id: player.player.id, team: match.teams.home.id })}>
                 {renderPlayer(player)}
               </TouchableOpacity>
             ))}
+            </View>
+            <View style={styles.equipeExt}>
+{titulairesExt.map((player) => (
+              <TouchableOpacity key={player.player.id} onPress={() => navigation.navigate('FicheJoueur', { id: player.player.id, team: match.teams.away.id })} style={{ justifyContent: "flex-end" }}>
+                {renderExtPlayer(player)}
+              </TouchableOpacity>
+            ))}
+            </View>
           </LinearGradient>
+
           <Text style={styles.subTitle}>Remplaçants</Text>
-          <LinearGradient colors={["rgb(189, 152, 161)", 'rgba(90, 103, 92, 0.9)']} style={styles.playersList}>
+          <LinearGradient colors={["rgb(115, 115, 115)", "rgb(140, 140, 140)", "rgb(165, 165, 165)"]} style={styles.playersList}>
+                        <View style={styles.equipeDom}>
             {substituteDom.map((player) => (
               <TouchableOpacity key={player.player.id} onPress={() => navigation.navigate('FicheJoueur', { id: player.player.id, team: match.teams.home.id })}>
                 {renderPlayer(player, true)}
               </TouchableOpacity>
             ))}
-          </LinearGradient>
-        </View>
-
-        <View style={styles.teamExtContainer}>
-          <View style={styles.headerExtCompo}>
-            <Text style={styles.systemeText}>{systemeExt}</Text>
-            <Image source={{ uri: match?.teams.away.logo }} style={styles.logo} />
-          </View>
-         {compoExt.coach.id === null ? null : <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, padding: 8, borderTopLeftRadius: 15, borderBottomLeftRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12, textAlign: "center" }}>{compoExt.coach.id === 6801 ? "Xabi Alonso" : compoExt.coach.id === 193 ? "Luis Enrique" : compoExt.coach.id === 12590 ? "Vincent Kompany" : compoExt.coach.name}</Text><Image source={compoExt.coach.id === 2407 ? ancelotti : compoExt.coach.id === 193 ? henrique : {uri: compoExt.coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></View> }
-
-
-          <LinearGradient colors={["rgb(41, 154, 55)", 'rgba(32, 119, 42, 1)']} style={styles.playersExtList}>
-            {titulairesExt.map((player) => (
-              <TouchableOpacity key={player.player.id} onPress={() => navigation.navigate('FicheJoueur', { id: player.player.id, team: match.teams.away.id })} style={{ justifyContent: "flex-end" }}>
-                {renderExtPlayer(player)}
-              </TouchableOpacity>
-            ))}
-          </LinearGradient>
-          <Text style={styles.subTitle}>Remplaçants</Text>
-          <LinearGradient colors={["rgb(189, 152, 161)", 'rgba(90, 103, 92, 0.9)']} style={styles.playersExtList}>
-            {substituteExt.map((player) => (
+            </View>
+                        <View style={styles.equipeExt}>
+                          {substituteExt.map((player) => (
               <TouchableOpacity key={player.player.id} onPress={() => navigation.navigate('FicheJoueur', { id: player.player.id, team: match.teams.away.id })} style={{ justifyContent: "flex-end" }}>
                 {renderExtPlayer(player, true)}
               </TouchableOpacity>
             ))}
+            </View>
+
           </LinearGradient>
-        </View>
+
       </View>
     </View>
   );
@@ -213,36 +217,38 @@ useEffect(() => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingInline: 5,
     alignItems: "center",
+    width: "100%"
   },
   title: {
     fontSize: 18,
     fontFamily: "Kanitt"
   },
   teamsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 5
+    flexDirection: 'column',
+    gap: 5,
+    width: "100%",
+    alignItems: "center"
   },
-  teamContainer: {
-    width: '49%',
+  compos: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "85%"
   },
   teamExtContainer: {
-    width: '49%',
+    width: '50%',
   },
-  headerCompo: {
+  compo: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 8,
-    justifyContent: "flex-start"
   },
-  headerExtCompo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 8,
-    justifyContent: "flex-end"
+  coachs: {
+justifyContent: "space-around",
+flexDirection: "row",
+width: "100%"
   },
+  
   logo: {
     width: 40,
     height: 40,
@@ -251,7 +257,7 @@ const styles = StyleSheet.create({
   },
   systemeText: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: "Kanitt"
   },
   subTitle: {
     fontSize: 16,
@@ -267,11 +273,25 @@ const styles = StyleSheet.create({
   },
 
   playersList: {
+    flexDirection: "row",
     marginBottom: 16,
-    borderTopRightRadius: 15,
-    borderBottomRightRadius: 15,
-    paddingBlock: 10
+    paddingBlock: 15,
+    width: "100%",
+    justifyContent: "space-between",
+    paddingInline: 2
 
+  },
+  equipeDom: {
+flexDirection: "column",
+alignItems: "flex-start",
+borderRightWidth: 1,
+width: "50%"
+  },
+  equipeExt: {
+flexDirection: "column",
+alignItems: "flex-end",
+borderLeftWidth: 1,
+width: "50%"
   },
   playersExtList: {
     marginBottom: 16,

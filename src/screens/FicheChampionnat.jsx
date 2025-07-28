@@ -32,7 +32,7 @@ function FicheChampionnat({ route }) {
       useEffect(() => {
   const fetchData = async () => {
     try {
-      const season = id === 71 || id === 253 || id === 15 ? 2025 : 2024;
+      const season = id === 307 || id === 186 || id === 200 || id === 202 ? 2024 : 2025;
 
       const [roundsRes, currentRoundRes] = await Promise.all([
         fetch(`https://v3.football.api-sports.io/fixtures/rounds?league=${id}&season=${season}`, {
@@ -91,7 +91,7 @@ console.log('rounds:', rounds);
       <Precedent />
 
         <ScrollView contentContainerStyle={styles.blocChamp}>
-          <View style={{flexDirection: "row", marginBlock: 5, justifyContent: "center", gap: "5%"}}>
+          <View style={{flexDirection: "row", marginBlock: 8, justifyContent: "center", gap: "5%"}}>
   <TouchableOpacity onPress={openCalendrier} >
     <Text style={calendrier ? styles.selected : styles.unSelected}>Calendrier</Text>
   </TouchableOpacity>
@@ -99,7 +99,6 @@ console.log('rounds:', rounds);
     <Text style={classement ? styles.selected : styles.unSelected}>Classement</Text>
   </TouchableOpacity>
 </View>
-            {/* Passer l'ID du championnat et la fonction setFilter aux composants */}
             {calendrier && <Tableau id={id} currentRound={currentRound} rounds={rounds} journey={journey} />}
             {classement && <Classement id={id} />}
         </ScrollView>
@@ -113,7 +112,7 @@ const styles = StyleSheet.create({
         padding: 10,
         width: "100%",
         flexGrow: 1,
-        paddingBottom: 50,
+        paddingBottom: 130,
     },
     
     selected: {

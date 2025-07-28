@@ -27,16 +27,13 @@ function Home() {
   const [matchsItaly, setMatchsItaly] = useState([]);
   const [matchsCdf, setMatchsCdf] = useState([]);
   const [matchsFac, setMatchsFac] = useState([]);
-  const [matchsEfl, setMatchsEfl] = useState([]);
   const [matchsCopa, setMatchsCopa] = useState([]);
   const [matchsUel, setMatchsUel] = useState([]);
-  const [matchsNations, setMatchsNations] = useState([]);
   const [matchsAfrica, setMatchsAfrica] = useState([]);
   const [matchsEurope, setMatchsEurope] = useState([]);
   const [matchsConference, setMatchsConference] = useState([]);
-  const [matchsCdmClub, setMatchsCdmClub] = useState([]);
-
-
+  const [matchsUefaSupercup, setMatchsUefaSupercup] = useState([]);
+  const [matchsMiami, setMatchsMiami] = useState([]);
 
 
 
@@ -55,23 +52,23 @@ function Home() {
     };
 
     try {
-      const [ucl, france, england, spain, ger, italy, cdf, fac, efl, copa, uel, nations, africa, europe, conference, cdmClub] = await Promise.all([
+      const [ucl, france, england, spain, ger, italy, cdf, fac, copa, uel, africa, europe, conference, uefaSupercup, miami] = await Promise.all([
         fetchData('https://v3.football.api-sports.io/fixtures?league=2&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=61&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=39&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=140&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=78&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=135&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=66&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=45&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=46&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=143&season=2024'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=61&season=2025'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=39&season=2025'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=140&season=2025'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=78&season=2025'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=135&season=2025'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=66&season=2025'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=45&season=2025'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=143&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=3&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=5&season=2024'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=29&season=2023'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=32&season=2024'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=32&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=848&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=15&season=2025'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=531&season=2025'),
+                fetchData('https://v3.football.api-sports.io/fixtures?team=9568&season=2025'),
+
 
 
 
@@ -87,14 +84,13 @@ function Home() {
       setMatchsItaly(italy);
       setMatchsCdf(cdf);
       setMatchsFac(fac);
-      setMatchsEfl(efl);
       setMatchsCopa(copa);
       setMatchsUel(uel);
-      setMatchsNations(nations);
       setMatchsAfrica(africa);
       setMatchsEurope(europe);
       setMatchsConference(conference);
-      setMatchsCdmClub(cdmClub);
+      setMatchsUefaSupercup(uefaSupercup);
+      setMatchsMiami(miami)
 
 
 
@@ -114,7 +110,7 @@ function Home() {
     }, []);
   
 
-  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf, ...matchsFac, ...matchsEfl, ...matchsCopa, ...matchsUel, ...matchsNations, ...matchsAfrica, ...matchsEurope, ... matchsConference, ... matchsCdmClub]
+  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf, ...matchsFac, ...matchsCopa, ...matchsUel, ...matchsAfrica, ...matchsEurope, ... matchsConference, ... matchsUefaSupercup, ...matchsMiami]
 
   
 
@@ -130,7 +126,7 @@ function Home() {
         <Banner />
         </View>
         <Filtres />
-        <View style={styles.blocpage}>
+        <View style={[styles.blocpage, {paddingBottom: 130}]}>
         <Aujourdhui onRefresh={onRefresh} matchs={matchs} />
       </View>
     </ScrollView>
@@ -144,7 +140,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "98%",
     paddingInlineStart: "2%",
-    marginBlock: 10
+    marginBlock: 10,
   },
 });
 

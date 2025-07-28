@@ -7,13 +7,15 @@ function Precedent() {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.goBack()} >
+      <TouchableOpacity onPress={() => navigation.goBack()} style={{position: "absolute", left: 8, top: 5,  zIndex: 999, shadowColor: '#f0f0f0', // shadow color
+        shadowOffset: { width: 0, height: 2 }, // shadow offset
+        shadowOpacity: 0.9, // shadow opacity
+        shadowRadius: 6,
+    }} >
         <LinearGradient colors={["rgba(26, 71, 129, 0.67)", 'rgb(0, 0, 0)']} style={styles.button}>
           <Text style={styles.text}>{"<"}  Précédent</Text>
         </LinearGradient>
       </TouchableOpacity>
-    </View>
   );
 }
 
@@ -33,12 +35,15 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'rgb(16, 26, 75)',  // Button background (solid, no opacity applied)
-    paddingVertical: 12,
+    
+    justifyContent: 'center', // Center the text inside the button
+    alignItems: 'center', // Center the text horizontally
     borderRadius: 20,
     width: 105,
     height: 48,
-    justifyContent: 'center', // Center the text inside the button
-    alignItems: 'center', // Center the text horizontally
+    borderWidth: 1,
+    borderColor: "white"
+     
   },
   text: {
     color: "white",

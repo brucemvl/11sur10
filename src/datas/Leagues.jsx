@@ -103,7 +103,7 @@ export const autres = [
         "country": "Algerie",
         "logo": "https://media.api-sports.io/football/leagues/186.png",
         "flag": "https://media.api-sports.io/flags/dz.svg",
-        "season": 2024,
+        "season": 2025,
     },
 
     {
@@ -130,7 +130,7 @@ export const autres = [
         "country": "USA",
         "logo": "https://media.api-sports.io/football/leagues/253.png",
         "flag": "https://media.api-sports.io/flags/us.svg",
-        "season": 2024,
+        "season": 2025,
     },
 
     {

@@ -27,7 +27,7 @@ function ClubPage() {
     const isMediumScreen = width <= 1024 && width > 767;
 
     return (
-        <ScrollView >
+        <ScrollView style={{flexGrow: 1}} >
             <View style={styles.competitions}>
             {/* Section Championnats */}
             <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.conteneur} >
@@ -42,7 +42,7 @@ function ClubPage() {
                     <View style={{flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center"}}>
                     {championnats.map(({ name, id, flag, logo }) => (
                         <TouchableOpacity
-                            key={"lien" + id}
+                            key={"lien championnat" + id}
                             style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
                             onPress={() => navigation.navigate('FicheChampionnat', { id })}
                         >
@@ -60,7 +60,7 @@ function ClubPage() {
                       {autres.map(({ name, id, logo, country }) => (
                         <View style={{alignItems: "center", marginBottom: 10, width: "31%"}}>
                         <TouchableOpacity
-                            key={"lien" + id}
+                            key={"lien autre" + id}
                             style={{width: "100%", height: 125, alignItems: 'center', marginBottom: 1, borderWidth: 8, borderRadius: 15, borderColor: 'rgb(15, 23, 82)', paddingBlock: 6, backgroundColor: "aliceblue", flexDirection: "column-reverse"}}
                             onPress={() => navigation.navigate('FicheChampionnat', { id })}
                         >
@@ -87,7 +87,7 @@ function ClubPage() {
                     <View style={{flexDirection: "row", gap: 10, width: "100%", justifyContent: "center"}}>
                     {europe.map(({ name, id, logo }) => (
                         <TouchableOpacity
-                            key={"lien" + id}
+                            key={"lien europe" + id}
                             style={styles.lienEurope}
                             onPress={() => navigation.navigate('FicheEurope', { id })}
                         >
@@ -182,6 +182,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 5 }, // shadow offset
         shadowOpacity: 0.8, // shadow opacity
         shadowRadius: 3,
+        paddingBottom: 110
     },
     conteneur: {
         marginBottom: 20,

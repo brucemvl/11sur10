@@ -1,4 +1,5 @@
 import React from "react";
+import Calendrier from "../components/Calendrier";
 import { useState, useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 import { View, Text, Button, StyleSheet, ScrollView, Image, Animated, TouchableOpacity } from "react-native";
@@ -21,18 +22,22 @@ function FicheEquipe() {
   const [leagues, setLeagues] = useState([])
   const [stats, setStats] = useState(null);
   const [squad, setSquad] = useState([])
+  const [calendrier, setCalendrier] = useState([])
 
   
 
   const [rotateStadeValue, setRotateStadeValue] = useState(new Animated.Value(0));
   const [rotateSquadValue, setRotateSquadValue] = useState(new Animated.Value(0));
+  const [rotateCalendrierValue, setRotateCalendrierValue] = useState(new Animated.Value(0));
 
   const [heightStadeAnim, setHeightStadeAnim] = useState(new Animated.Value(0));
   const [heightSquadAnim, setHeightSquadAnim] = useState(new Animated.Value(0));
+  const [heightCalendrierAnim, setHeightCalendrierAnim] = useState(new Animated.Value(0));
 
 
   const [openStade, setOpenStade] = useState(false);
   const [openSquad, setOpenSquad] = useState(false);
+  const [openCalendrier, setOpenCalendrier] = useState(false);
 
 
   const collapseStade = () => {
@@ -69,12 +74,34 @@ function FicheEquipe() {
     }).start();
   };
 
+   const collapseCalendrier = () => {
+    setOpenCalendrier(!openCalendrier);
+
+    Animated.timing(rotateCalendrierValue, {
+      toValue: openCalendrier ? 0 : 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+
+    // Animer la hauteur du palmarès
+    Animated.timing(heightCalendrierAnim, {
+      toValue: openCalendrier ? 0 : 1,
+      duration: 300,
+      useNativeDriver: false, // UseNativeDriver false for non-layout animations
+    }).start();
+  };
+
   const rotateStadeInterpolate = rotateStadeValue.interpolate({
     inputRange: [0, 1],
     outputRange: ["0deg", "180deg"],
   });
 
   const rotateSquadInterpolate = rotateSquadValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "180deg"],
+  });
+
+  const rotateCalendrierInterpolate = rotateCalendrierValue.interpolate({
     inputRange: [0, 1],
     outputRange: ["0deg", "180deg"],
   });
@@ -165,9 +192,31 @@ useEffect(() => {
   fetchSquad();
 }, [id]);
 
+useEffect(() => {
+  const fetchCalendrier = async () => {
+    try {
+      const response = await fetch(`https://v3.football.api-sports.io/fixtures?season=2025&team=${id}`, {
+        method: "GET",
+        headers: {
+          "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+          "x-rapidapi-host": "v3.football.api-sports.io",
+        },
+      });
+      const json = await response.json();
+      if (json.response.length > 0) {
+        setCalendrier(json.response);
+      }
+    } catch (error) {
+      console.error("error:", error);
+    }
+  };
+  fetchCalendrier();
+}, [id]);
+
 
 console.log(stats)
 console.log(squad)
+console.log(calendrier)
 
   if (!equipe) {
     return <Text>Loading...</Text>;
@@ -190,13 +239,13 @@ console.log(squad)
     <ScrollView contentContainerStyle={styles.container}>
       <LinearGradient colors={["black", "steelblue"]} style={styles.header}>
         <View>
-          <Text style={styles.team}>{equipe.team.name.toUpperCase()}</Text>
+          <Text style={styles.team}>{equipe.team.name === "Barcelona" ? "FC BARCELONE" : equipe.team.name.toUpperCase()}</Text>
           <Text style={{ color: "white", fontFamily: "Kanito" }}>{equipe.team.country === "England" ? "Angleterre" : equipe.team.country === "Spain" ? "Espagne" : equipe.team.country === "Germany" ? "Allemagne" : equipe.team.country === "Netherlands" ? "Pays Bas" : equipe.team.country}</Text>
           <Text style={{ color: "white", fontFamily: "Kanitus" }}>
             {equipe.team.national === false ? equipe.team.founded === null ? null : "Club fondé en " + equipe.team.founded : null}
           </Text>
         </View>
-        <Image source={{ uri: equipe.team.logo }} style={{ height: 70, width: 70, objectFit: "contain" }} />
+        <Image source={{ uri: equipe.team.logo }} style={{ height: 75, width: 75, objectFit: "contain" }} />
       </LinearGradient>
 
       <View style={styles.stade}>
@@ -252,8 +301,36 @@ console.log(squad)
         </Animated.View>
       </View>
 
+      <View style={[styles.stade, {alignItems: "center"}]}>
+        <TouchableOpacity onPress={collapseCalendrier} style={{width: "100%"}}>
+          <LinearGradient colors={["black", "steelblue"]} style={styles.stadeTitle}>
+            <Text style={styles.stadeText}>Calendrier</Text>
+
+            <Animated.Image
+              source={chevron}
+              style={[styles.chevron, { transform: [{ rotate: rotateCalendrierInterpolate }] }]}
+            />
+            
+          </LinearGradient>
+        </TouchableOpacity>
+        <Animated.View
+          style={[
+            styles.stadeInfos,
+            {
+              height: heightCalendrierAnim.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, 220], // Ajustez la hauteur en fonction du contenu
+              }),
+              width: "110%"
+            },
+          ]}
+        >
+          <Calendrier calendrier={calendrier} />
+        </Animated.View>
+      </View>
+
 <Text style></Text>
-      <Text style={styles.season}>2024/2025</Text>
+      <Text style={styles.season}>2025/2026</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={true} style={styles.leagues}>
       {leagues.map((element) => {if ( element.league.name === "Friendlies Clubs") return null ; const isSelected = selectedId === element.league.id;
      return <TouchableOpacity key={element.league.id} onPress={()=> {setCompet(element.league.id); setSelectedId(element.league.id)} } style={isSelected ? styles.selected : {opacity: 0.4}}> <Image source={element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : element.league.id === 15 ? fifaclubwc : { uri: element.league.logo}} style={{height: 60, width: 60, marginBottom: 20, objectFit: "contain", marginInline: 12}}/></TouchableOpacity>
@@ -349,7 +426,7 @@ padding: 10,
 alignItems: "center",
 marginTop: 60,
 flexGrow: 1,
-paddingBottom: 50
+paddingBottom: 100,
     },
     header: {
 flexDirection: "row",
@@ -357,7 +434,9 @@ justifyContent: "space-between",
 padding: 15,
 borderRadius: 15,
 marginBottom: 15,
-width: "98%"
+width: "98%",
+height: 130,
+alignItems: "center"
     },
     team: {
         color: "white",
@@ -374,7 +453,9 @@ width: "98%"
         paddingInline: 20,
         borderRadius: 5,
         flexDirection: "row",
-        justifyContent: "center"
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%"
       },
       stadeText: {
         fontSize: 16,
@@ -384,8 +465,8 @@ width: "98%"
     
       },
       chevron: {
-    position: "relative",
-    left: 120
+    position: "absolute",
+    right: 20
       },
       
       stadeInfos: {

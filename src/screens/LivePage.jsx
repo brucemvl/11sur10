@@ -166,14 +166,14 @@ const styles = StyleSheet.create({
     paddingInline: 4,
     borderRadius: 15,
     backgroundColor: "rgb(99, 164, 221)",
-    marginBottom: 20,
     width: '100%',
     marginTop: 20,
     shadowColor: '#000', // shadow color
         shadowOffset: { width: 0, height: 5 }, // shadow offset
         shadowOpacity: 0.8, // shadow opacity
         shadowRadius: 3,
-        elevation: 4
+        elevation: 4,
+        marginBottom: 130
   },
   title: {
     color: 'white',

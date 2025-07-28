@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import { View, Text, TouchableOpacity, Image, Animated, Easing } from "react-native";
 import { StyleSheet } from "react-native";
 import home from "../assets/home.png";
 import live from "../assets/live.png";
@@ -7,6 +7,8 @@ import shield from "../assets/shield.png";
 import { useNavigation } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { useState } from "react";
+
+
 
 function Menu() {
   const navigation = useNavigation();
@@ -57,6 +59,45 @@ function Menu() {
     setSelected4(true);
   };
 
+  function AnimatedMenuButton({ onPress, selected, label, icon }) {
+  const scale = useRef(new Animated.Value(1)).current;
+
+  const handlePressIn = () => {
+    Animated.spring(scale, {
+      toValue: 1.1,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const handlePressOut = () => {
+    Animated.spring(scale, {
+      toValue: 1,
+      friction: 3,
+      tension: 40,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
+      style={styles.button}
+    >
+      <Animated.View
+        style={[
+          selected ? styles.selected : { alignItems: "center", gap: 5 },
+          { transform: [{ scale }] }
+        ]}
+      >
+        <Text style={styles.text}>{label}</Text>
+        <Image source={icon} style={styles.img} />
+      </Animated.View>
+    </TouchableOpacity>
+  );
+}
+
   return (
     <View style={styles.Menu}>
       <TouchableOpacity onPress={openAccueil} style={styles.buttonLeft}>
@@ -93,19 +134,29 @@ function Menu() {
 const styles = StyleSheet.create({
     Menu: {
         flexDirection: "row",
-        flex: 0.09,
-        justifyContent: "space-around",
-        paddingTop: 10,
-        paddingBottom: 10,
-        backgroundColor: "grey",
-        borderTopWidth: 5,
+        paddingBlock: 10,
+        backgroundColor: "rgb(31, 160, 57)",
+        width: "85%",
+position: "absolute",
+bottom: 20,
+left: "7.5%",
+ borderRadius: 30,
+ shadowColor: '#000', // shadow color
+    shadowOffset: { width: 0, height: 0 }, // shadow offset
+    shadowOpacity: 0.9, // shadow opacity
+    shadowRadius: 5,
+    elevation: 4,
+    borderWidth: 2,
+    borderColor: "white",
+    elevation: 4
     },
+
     button: {
         borderRightWidth: 1,
         borderRightColor: "white",
         borderLeftWidth: 1,
         borderLeftColor: "white",
-        width: "25%"
+        width: "25.3%",
     },
     buttonLeft:{
         borderRightWidth: 1,
@@ -130,7 +181,7 @@ const styles = StyleSheet.create({
         gap: 5,
         shadowColor: 'white', // shadow color
         shadowOffset: { width: 0, height: -4 }, // shadow offset
-        shadowOpacity: 0.7, // shadow opacity
+        shadowOpacity: 0.9, // shadow opacity
         shadowRadius: 4,
     }
 })

@@ -177,6 +177,7 @@ console.log(injuries)
         setSelected3(false);
         setSelected4(false);
         setSelected5(false);
+        setSelected7(false);
         setSelected8(false)
         setApercu(false)
     };
@@ -442,7 +443,7 @@ console.log(injuries)
         const systemeDom = compoDom.formation
         const systemeExt = compoExt.formation
     
-        if (match.players.length === 0) {
+        if (match.players.length === 0 && match.lineups[0].formation === null) {
             return (
                 <View>
                 <Precedent />
@@ -452,9 +453,7 @@ console.log(injuries)
                 { match.statistics.length > 0 ? <TouchableOpacity onPress={openDetails} style={selected ? styles.selectedTab : styles.tab}>
                             <Text style={selected ? styles.selectedText : styles.text}>Details</Text>
                         </TouchableOpacity> : null }
-                    {match.lineups.length === 2 ? <TouchableOpacity onPress={openCompos} style={selected7 ? styles.selectedTab : styles.tab}>
-                            <Text style={selected7 ? styles.selectedText : styles.text}>Compos</Text>
-                        </TouchableOpacity> : null }
+                    
                 {match.events.length > 0 ? <TouchableOpacity onPress={openLive} style={selected3 ? styles.selectedTab : styles.tab}>
                             <Text style={selected3 ? styles.selectedText : styles.text}>Live</Text>
                         </TouchableOpacity> : null }
@@ -464,7 +463,6 @@ console.log(injuries)
                         </View>
                        {match.statistics.length > 0 ?  details && <Details match={match} possession={poss} expectedGoals={xg} tirs={tirs} tirsCadres={tirsCadres} jaune={jaune} rouge={rouge} passes={passes} passesReussies={passesReussies} accuracy={accuracy}/> : null }
 
-                        {compos2 && <SchemaAvance match={match} compoDom={compoDom} compoExt={compoExt} colors={colors} />}
 
                         {live && <Evenements match={match} />}
                         {classement && <Classement id={match.league.id}/>}
@@ -496,9 +494,10 @@ console.log(injuries)
                         <TouchableOpacity onPress={openDetails} style={selected ? styles.selectedTab : styles.tab}>
                             <Text style={selected ? styles.selectedText : styles.text}>Details</Text>
                         </TouchableOpacity>
+                        {match.players.length === 0 ? null :
                         <TouchableOpacity onPress={openCompos} style={selected2 ? styles.selectedTab : styles.tab}>
                             <Text style={selected2 ? styles.selectedText : styles.text}>Compos</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity>}
                         <TouchableOpacity onPress={openLive} style={selected3 ? styles.selectedTab : styles.tab}>
                             <Text style={selected3 ? styles.selectedText : styles.text}>Live</Text>
                         </TouchableOpacity>
@@ -530,7 +529,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingTop: 10,
         marginTop: 40,
-        paddingBottom: 50
+        paddingBottom: 120
     },
     section: {
         width: '100%',

@@ -15,7 +15,8 @@ import rodrygo from "../assets/portraits/rodrygo.jpg"
 import guller from "../assets/portraits/guller.jpg"
 import doue from "../assets/portraits/doue.png"
 import kvara from "../assets/portraits/kvara.png"
-import goat from "../assets/portraits/goat.jpg"
+import goat from "../assets/portraits/messi.webp"
+import suarez from "../assets/portraits/suarez.png"
 import darwin from "../assets/portraits/darwin.png"
 import salah from "../assets/portraits/salah.png"
 import kounde from "../assets/portraits/kounde.jpg"
@@ -26,7 +27,7 @@ import palmer from "../assets/portraits/palmer.png"
 import messi from "../assets/trophees/messi.jpg"
 import griezmann from "../assets/portraits/griezmann.png"
 import olise from "../assets/portraits/olise.jpg"
-import cherki from "../assets/portraits/cherki.jpg"
+import cherki from "../assets/portraits/cherki.png"
 import rabiot from "../assets/portraits/rabiot.jpg"
 import lacazette from "../assets/portraits/lacazette.jpg"
 import theo from "../assets/portraits/theo.jpg"
@@ -39,7 +40,7 @@ import vitinha from "../assets/portraits/vitinha.png"
 import pacho from "../assets/portraits/pacho.png"
 import joao from "../assets/portraits/joao.png"
 import safonov from "../assets/portraits/safonov.png"
-import tchouameni from "../assets/portraits/tchouameni.jpg"
+import tchouameni from "../assets/portraits/tchouameni.png"
 import kolo from "../assets/portraits/kolo.png"
 import kephren from "../assets/portraits/kephren.png"
 import adeyemi from "../assets/portraits/adeyemi.png"
@@ -57,7 +58,8 @@ import beraldo from "../assets/portraits/beraldo.png"
 import sorloth from "../assets/portraits/sorloth.png"
 import alvarez from "../assets/portraits/alvarez.png"
 import schik from "../assets/portraits/schik.png"
-import wirtz from "../assets/portraits/wirtz.jpg"
+import elanga from "../assets/portraits/elanga.png"
+import wirtz from "../assets/portraits/wirtz.png"
 import camavinga from "../assets/portraits/camavinga.jpg"
 import modric from "../assets/portraits/modric.jpg"
 import valverde from "../assets/portraits/valverde.png"
@@ -111,9 +113,11 @@ import marcus from "../assets/portraits/marcus.png"
 import doku from "../assets/portraits/doku.png"
 import bernardo from "../assets/portraits/bernardo.png"
 import rodri from "../assets/portraits/rodri.png"
-import fernandez from "../assets/portraits/fernandez.png"
+import enzo from "../assets/portraits/fernandez.png"
 import jackson from "../assets/portraits/jackson.png"
 import caicedo from "../assets/portraits/caicedo.png"
+import cristiano from "../assets/portraits/cristiano.png"
+import mane from "../assets/portraits/mane.png"
 import huijsen from "../assets/portraits/huijsen.png"
 import ake from "../assets/portraits/ake.png"
 import james from "../assets/portraits/james.png"
@@ -127,6 +131,14 @@ import guirassy from "../assets/portraits/guirassy.png"
 import kane from "../assets/portraits/kane.png"
 import biereth from "../assets/portraits/biereth.png"
 import martinez from "../assets/portraits/martinez.png"
+import bruno from "../assets/portraits/bruno.png"
+import nkunku from "../assets/portraits/nkunku.png"
+import gusto from "../assets/portraits/gusto.png"
+import delap from "../assets/portraits/delap.png"
+import pedro from "../assets/portraits/pedro.png"
+import benseghir from "../assets/portraits/benseghir.png"
+import akliouche from "../assets/portraits/akliouche.png"
+import greenwood from "../assets/portraits/greenwood.png"
 
 function Classement({ id }) {
   const [openButeurs, setOpenButeurs] = useState(false);
@@ -150,7 +162,7 @@ function Classement({ id }) {
 
 
   const fetchClassement = () => {
-    fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=${id === 71 || id === 253 ||id === 15? 2025 : 2024}`, {
+    fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=${id === 71 || id === 253 || id === 307 || id === 2 || id === 200 || id === 202 || id === 186 ? 2024 : 2025}`, {
       method: "GET",
       headers: {
         "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
@@ -158,17 +170,17 @@ function Classement({ id }) {
       }
     })
       .then((response) => response.json())
-      .then((json) =>  setTab(id === 15 ? json.response[0].league.standings : json.response[0].league.standings[0] ))
-      
+      .then((json) => setTab(id === 15 ? json.response[0].league.standings : json.response[0].league.standings[0]))
+
       .catch((error) => console.error("Error:", error));
 
-      
+
   };
 
   console.log(tab)
 
   const fetchButeurs = () => {
-    fetch(`https://v3.football.api-sports.io/players/topscorers?league=${id}&season=${id === 71 || id === 253 || id === 15 ? 2025 : 2024}`, {
+    fetch(`https://v3.football.api-sports.io/players/topscorers?league=${id}&season=${id === 71 || id === 253 || id === 307 || id === 2 || id === 200 || id === 202 || id === 186 ? 2024 : 2025}`, {
       method: "GET",
       headers: {
         "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
@@ -182,7 +194,7 @@ function Classement({ id }) {
 
   console.log(buteurs)
   const fetchPasseurs = () => {
-    fetch(`https://v3.football.api-sports.io/players/topassists?league=${id}&season=${id === 71 || id === 253 || id === 15 ? 2025 : 2024}`, {
+    fetch(`https://v3.football.api-sports.io/players/topassists?league=${id}&season=${id === 71 || id === 253 || id === 307 || id === 2 || id === 200 || id === 202 || id === 186 ? 2024 : 2025}`, {
       method: "GET",
       headers: {
         "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
@@ -207,13 +219,13 @@ function Classement({ id }) {
       duration: 300,
       useNativeDriver: true,
     }).start();
-  
+
     Animated.timing(heightClassement, {
       toValue: openClassement ? 0 : 1,
       duration: 300,
       useNativeDriver: false,
     }).start();
-    };
+  };
 
   const collapseButeurs = () => {
     setOpenButeurs(!openButeurs);
@@ -222,12 +234,13 @@ function Classement({ id }) {
       duration: 300,
       useNativeDriver: true,
     }).start();
-  
+
     Animated.timing(heightButeurs, {
       toValue: openButeurs ? 0 : 1,
       duration: 300,
       useNativeDriver: false,
-    }).start();  };
+    }).start();
+  };
 
   const collapsePasseurs = () => {
     setOpenPasseurs(!openPasseurs);
@@ -236,287 +249,260 @@ function Classement({ id }) {
       duration: 300,
       useNativeDriver: true,
     }).start();
-  
+
     Animated.timing(heightPasseurs, {
       toValue: openPasseurs ? 0 : 1,
       duration: 300,
       useNativeDriver: false,
-    }).start();  };
+    }).start();
+  };
 
-    const rotateClassementInterpolate = rotateClassement.interpolate({
-      inputRange: [0, 1],
-      outputRange: ['0deg', '180deg'],
-    });
-  
-    const rotateButeursInterpolate = rotateButeurs.interpolate({
-      inputRange: [0, 1],
-      outputRange: ['0deg', '180deg'],
-    });
-  
-    const rotatePasseursInterpolate = rotatePasseurs.interpolate({
-      inputRange: [0, 1],
-      outputRange: ['0deg', '180deg'],
-    });
+  const rotateClassementInterpolate = rotateClassement.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '180deg'],
+  });
+
+  const rotateButeursInterpolate = rotateButeurs.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '180deg'],
+  });
+
+  const rotatePasseursInterpolate = rotatePasseurs.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '180deg'],
+  });
 
 
 
-    if(id === 15 ){
-      return (
-        <View style={styles.container}>
-      {/* Classement */}
-      <LinearGradient       colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
-      style={{ marginBlock: 10, height: 40, justifyContent: "center", borderRadius: 10}}
+  if (id === 15) {
+    return (
+      <View style={styles.container}>
+        {/* Classement */}
+        <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
+          style={{ marginBlock: 10, height: 40, justifyContent: "center", borderRadius: 10 }}
         >
-      <TouchableOpacity onPress={collapseClassement} style={styles.header}>
-        <Text style={styles.title}>Classement</Text>
-        <Animated.Image
-            source={chevron}
-            style={[styles.chevron, { transform: [{ rotate: rotateClassementInterpolate }] }]}
-          />      </TouchableOpacity>
-      </LinearGradient>
-      <Animated.View style={tab.length < 20 ? [ styles.content, { height: heightClassement.interpolate({
+          <TouchableOpacity onPress={collapseClassement} style={styles.header}>
+            <Text style={styles.title}>Classement</Text>
+            <Animated.Image
+              source={chevron}
+              style={[styles.chevron, { transform: [{ rotate: rotateClassementInterpolate }] }]}
+            />      </TouchableOpacity>
+        </LinearGradient>
+        <Animated.View style={tab.length < 20 ? [styles.content, {
+          height: heightClassement.interpolate({
             inputRange: [0, 1],
-            outputRange: [0,  1500] // Ajustez la hauteur en fonction du contenu
-          }) }] : tab.length < 24 ? [ styles.content, { height: heightClassement.interpolate({
+            outputRange: [0, 1500] // Ajustez la hauteur en fonction du contenu
+          })
+        }] : tab.length < 24 ? [styles.content, {
+          height: heightClassement.interpolate({
             inputRange: [0, 1],
-            outputRange: [0,  980] // Ajustez la hauteur en fonction du contenu
-          }) }] : [ styles.content, { height: heightClassement.interpolate({
+            outputRange: [0, 980] // Ajustez la hauteur en fonction du contenu
+          })
+        }] : [styles.content, {
+          height: heightClassement.interpolate({
             inputRange: [0, 1],
-            outputRange: [0,  1800] // Si le classement comporte + de 24 equipes
-          }) }]}>
-            { tab.map((grp)=> 
+            outputRange: [0, 1800] // Si le classement comporte + de 24 equipes
+          })
+        }]}>
+          {tab.map((grp) =>
             <View style={styles.groupe}>
-  <Text style={{fontFamily: "Kanitt"}}>{grp[0].group}</Text>
-         <View style={styles.barre}>
-            <Text style={{width: "10%", color: "white", fontFamily: "Kanitus"}}>Rang</Text>
-            <Text style={{width: "36%", textAlign: "center", marginRight: 2, color: "white", fontFamily: "Kanitus"}}>Equipe</Text>
-            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>J</Text>
-            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>V</Text>
-            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>N</Text>
-            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>D</Text>
-            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>GA</Text>
-            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>Pts</Text>
-          </View>
-          <View style={{backgroundColor: "rgb(147, 147, 147)", borderRadius: 5, paddingBlock: 3}}>
-          {grp.map((equipe)=> 
-          <View style={{flexDirection: "row", alignItems: "center", marginBlock: 4}}>
-          <Text style={{width: "6%", color: "white", fontFamily: "Kanito", textAlign: "center"}}>{equipe.rank}</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("FicheEquipe", { id: equipe.team.id, league: equipe.group === "Ligue 1" ? 61 : equipe.group === "UEFA Champions League" ? 2 : equipe.group === "Premier League" ? 39 : equipe.group === "LaLiga" ? 140 : equipe.group.indexOf("Super League 1") !== -1 ? 197 : equipe.group === "Bundesliga" ? 78 : equipe.group === "Ligue 2: Regular Season" ? 62 : equipe.group === "Serie A" ? 135 : equipe.group === "UEFA Europa League" ? 3 : equipe.group === "Saudi League" ? 307 : equipe.group === "Eastern Conference" ? 253 : equipe.group === "Primeira Liga" ? 94 : equipe.description === "Promotion - FIFA Club World Cup (Play Offs: 1/8-finals)" ? 15 : equipe.group.indexOf("Group") != -1 ? 15 : null })} style={{width: "38%", flexDirection: "row"}}>
-          <Image source={{uri: equipe.team.logo}} style={{objectFit: "contain", height: 20, width: "18%"}} />
-            <Text style={{width: "82%", color: "white", fontFamily: "Kanito", textAlign: "center", fontSize: 13}}>{equipe.team.name === "Paris Saint Germain" ? "Paris SG" : equipe.team.name === "Stade Brestois 29" ? "Stade Brestois" : equipe.team.name === "Barcelona" ? "FC Barcelone" : equipe.team.name}</Text>
-            </TouchableOpacity>
-            <Text style={{width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center"}}>{equipe.all.played}</Text>
-            <Text style={{width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center"}}>{equipe.all.win}</Text>
-            <Text style={{width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center"}}>{equipe.all.draw}</Text>
-            <Text style={{width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center"}}>{equipe.all.lose}</Text>
-            <Text style={{width: "10%", color: "white", fontFamily: "Kanito", textAlign: "center"}}>{equipe.goalsDiff}</Text>
-            <Text style={{width: "10%", color: "white", fontFamily: "Kanito", textAlign: "center"}}>{equipe.points}</Text>
+              <Text style={{ fontFamily: "Kanitt" }}>{grp[0].group}</Text>
+              <View style={styles.barre}>
+                <Text style={{ width: "10%", color: "white", fontFamily: "Kanitus" }}>Rang</Text>
+                <Text style={{ width: "36%", textAlign: "center", marginRight: 2, color: "white", fontFamily: "Kanitus" }}>Equipe</Text>
+                <Text style={{ width: "9%", color: "white", fontFamily: "Kanitus" }}>J</Text>
+                <Text style={{ width: "9%", color: "white", fontFamily: "Kanitus" }}>V</Text>
+                <Text style={{ width: "9%", color: "white", fontFamily: "Kanitus" }}>N</Text>
+                <Text style={{ width: "9%", color: "white", fontFamily: "Kanitus" }}>D</Text>
+                <Text style={{ width: "9%", color: "white", fontFamily: "Kanitus" }}>GA</Text>
+                <Text style={{ width: "9%", color: "white", fontFamily: "Kanitus" }}>Pts</Text>
+              </View>
+              <View style={{ backgroundColor: "rgb(147, 147, 147)", borderRadius: 5, paddingBlock: 3 }}>
+                {grp.map((equipe) =>
+                  <View style={{ flexDirection: "row", alignItems: "center", marginBlock: 4 }}>
+                    <Text style={{ width: "6%", color: "white", fontFamily: "Kanito", textAlign: "center" }}>{equipe.rank}</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate("FicheEquipe", { id: equipe.team.id, league: equipe.group === "Ligue 1" ? 61 : equipe.group === "UEFA Champions League" ? 2 : equipe.group === "Premier League" ? 39 : equipe.group === "LaLiga" ? 140 : equipe.group.indexOf("Super League 1") !== -1 ? 197 : equipe.group === "Bundesliga" ? 78 : equipe.group === "Ligue 2: Regular Season" ? 62 : equipe.group === "Serie A" ? 135 : equipe.group === "UEFA Europa League" ? 3 : equipe.group === "Saudi League" ? 307 : equipe.group === "Eastern Conference" ? 253 : equipe.group === "Primeira Liga" ? 94 : equipe.description === "Promotion - FIFA Club World Cup (Play Offs: 1/8-finals)" ? 15 : equipe.group.indexOf("Group") != -1 ? 15 : null })} style={{ width: "38%", flexDirection: "row" }}>
+                      <Image source={{ uri: equipe.team.logo }} style={{ objectFit: "contain", height: 20, width: "18%" }} />
+                      <Text style={{ width: "82%", color: "white", fontFamily: "Kanito", textAlign: "center", fontSize: 13 }}>{equipe.team.name === "Paris Saint Germain" ? "Paris SG" : equipe.team.name === "Stade Brestois 29" ? "Stade Brestois" : equipe.team.name === "Barcelona" ? "FC Barcelone" : equipe.team.name}</Text>
+                    </TouchableOpacity>
+                    <Text style={{ width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center" }}>{equipe.all.played}</Text>
+                    <Text style={{ width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center" }}>{equipe.all.win}</Text>
+                    <Text style={{ width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center" }}>{equipe.all.draw}</Text>
+                    <Text style={{ width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center" }}>{equipe.all.lose}</Text>
+                    <Text style={{ width: "10%", color: "white", fontFamily: "Kanito", textAlign: "center" }}>{equipe.goalsDiff}</Text>
+                    <Text style={{ width: "10%", color: "white", fontFamily: "Kanito", textAlign: "center" }}>{equipe.points}</Text>
 
+                  </View>
+                )}
+              </View>
             </View>
+
+
           )}
-          </View>
-        </View>
-          
-          
-        )}
 
 
         </Animated.View>
 
 
-      {/* Meilleurs Buteurs */}
-      <LinearGradient       colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
-      style={{ marginBlock: 10, height: 40, justifyContent: "center", borderRadius: 10}}
-        >
-      <TouchableOpacity onPress={collapseButeurs} style={styles.header}>
-
-        <Text style={styles.title}>Meilleurs Buteurs</Text>
-        <Animated.Image
-            source={chevron}
-            style={[styles.chevron, { transform: [{ rotate: rotateButeursInterpolate }] }]}
-          />     
-           </TouchableOpacity>
-      </LinearGradient>
-        <Animated.View style={[ styles.content, { height: heightButeurs.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0, 500]  // Ajustez la hauteur en fonction du contenu
-          }) }]}>        <View style={styles.barre}>
-        <Text style={{width: "50%", color: "white", paddingStart: 20, fontFamily: "Kanitus"}}>Joueur</Text>
-        <Text style={{width: "30%", color: "white", textAlign: "center", fontFamily: "Kanitus"}}>Matchs Joués</Text>
-        <Text style={{width: "20%", color: "white", textAlign: "center", fontFamily: "Kanitus"}}>Buts</Text>
+        {/* Meilleurs Buteurs */}
         
       </View>
-        
-        </Animated.View>
-      
-
-      {/* Meilleurs Passeurs */}
-      <LinearGradient       colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
-      style={{ marginBlock: 10, height: 40, justifyContent: "center", borderRadius: 10}}
-        >
-      <TouchableOpacity onPress={collapsePasseurs} style={styles.header}>
-        <Text style={styles.title}>Meilleurs Passeurs</Text>
-        <Animated.Image
-            source={chevron}
-            style={[styles.chevron, { transform: [{ rotate: rotatePasseursInterpolate }] }]}
-          />     
-           </TouchableOpacity>
-      </LinearGradient>
-        <Animated.View style={[styles.content, { height: heightPasseurs.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0, 500]  // Ajustez la hauteur en fonction du contenu
-          }) }]}>
-                    <View style={styles.barre}>
-        <Text style={{width: "50%", color: "white", paddingStart: 20, fontFamily: "Kanitus"}}>Joueur</Text>
-        <Text style={{width: "30%", color: "white", textAlign: "center", fontFamily: "Kanitus"}}>Matchs Joués</Text>
-        <Text style={{width: "20%", color: "white", textAlign: "center", fontFamily: "Kanitus"}}>Passes D</Text>  
-      </View>
-       
-        </Animated.View>
-    </View>
-      )
-    }
+    )
+  }
 
 
   return (
     <View style={styles.container}>
-      {/* Classement */}
-      <LinearGradient       colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
-      style={{ marginBlock: 10, height: 40, justifyContent: "center", borderRadius: 10}}
-        >
-      <TouchableOpacity onPress={collapseClassement} style={styles.header}>
-        <Text style={styles.title}>Classement</Text>
-        <Animated.Image
-            source={chevron}
-            style={[styles.chevron, { transform: [{ rotate: rotateClassementInterpolate }] }]}
-          />      </TouchableOpacity>
-      </LinearGradient>
-      <Animated.View style={tab.length < 18 ? [ styles.content, { height: heightClassement.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0,  780] // Ajustez la hauteur en fonction du contenu
-          }) }] : tab.length < 20 ? [ styles.content, { height: heightClassement.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0,  870] // Ajustez la hauteur en fonction du contenu
-          }) }] : tab.length < 22 ? [ styles.content, { height: heightClassement.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0,  960] // Ajustez la hauteur en fonction du contenu
-          }) }] : tab.length < 26 ? [ styles.content, { height: heightClassement.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0,  1300] // Ajustez la hauteur en fonction du contenu
-          }) }] : [ styles.content, { height: heightClassement.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0,  1730] // Si le classement comporte + de 24 equipes
-          }) }]}>
-          <View style={styles.barre}>
-            <Text style={{width: "10%", color: "white", fontFamily: "Kanitus"}}>Rang</Text>
-            <Text style={{width: "36%", textAlign: "center", marginRight: 2, color: "white", fontFamily: "Kanitus"}}>Equipe</Text>
-            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>J</Text>
-            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>V</Text>
-            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>N</Text>
-            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>D</Text>
-            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>GA</Text>
-            <Text style={{width: "9%", color: "white", fontFamily: "Kanitus"}}>Pts</Text>
-          </View>
-        <View style={{backgroundColor: "rgb(178, 178, 178)", borderRadius: 5, marginTop: 5, paddingInline: 2}}>
-          {tab.map((equipe)=> 
-                    <TouchableOpacity onPress={() => navigation.navigate("FicheEquipe", { id: equipe.team.id, league: equipe.group === "Ligue 1" ? 61 : equipe.group === "UEFA Champions League" ? 2 : equipe.group === "Premier League" ? 39 : equipe.group === "LaLiga" ? 140 : equipe.group.indexOf("Super League 1") !== -1 ? 197 : equipe.group === "Bundesliga" ? 78 : equipe.group === "Ligue 2: Regular Season" ? 62 : equipe.group === "Serie A" ? 135 : equipe.group === "UEFA Europa League" ? 3 : equipe.group === "Saudi League" ? 307 : equipe.group === "Eastern Conference" ? 253 : equipe.group === "Primeira Liga" ? 94 : null })} style={{flexDirection: "row", flexDirection: "row", alignItems: "center",  borderBottomWidth: 1, paddingBlock: 12 }}>
-          <Text style={{width: "6%", color: "white", fontFamily: "Kanito", textAlign: "center"}}>{equipe.rank}</Text>
-          <Image source={{uri: equipe.team.logo}} style={{objectFit: "contain", height: 20, width: "6%"}} />
-            <Text style={{width: "30%", color: "white", fontFamily: "Kanito", textAlign: "center", fontSize: 13}}>{equipe.team.name === "Paris Saint Germain" ? "Paris SG" : equipe.team.name === "Stade Brestois 29" ? "Stade Brestois" : equipe.team.name === "Barcelona" ? "FC Barcelone" : equipe.team.name}</Text>
-            <Text style={{width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center"}}>{equipe.all.played}</Text>
-            <Text style={{width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center"}}>{equipe.all.win}</Text>
-            <Text style={{width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center"}}>{equipe.all.draw}</Text>
-            <Text style={{width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center"}}>{equipe.all.lose}</Text>
-            <Text style={{width: "10%", color: "white", fontFamily: "Kanito", textAlign: "center"}}>{equipe.goalsDiff}</Text>
-            <Text style={{width: "10%", color: "white", fontFamily: "Kanito", textAlign: "center"}}>{equipe.points}</Text>
 
-                        </TouchableOpacity>
+      <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
+        style={{ marginBlock: 10, height: 40, justifyContent: "center", borderRadius: 10 }}
+      >
+        <TouchableOpacity onPress={collapseClassement} style={styles.header}>
+          <Text style={styles.title}>Classement</Text>
+          <Animated.Image source={chevron} style={[styles.chevron, { transform: [{ rotate: rotateClassementInterpolate }] }]} />
+          </TouchableOpacity>
+      </LinearGradient>
+      <Animated.View style={tab.length < 18 ? [styles.content, {
+        height: heightClassement.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, 840] // Ajustez la hauteur en fonction du contenu
+        })
+      }] : tab.length < 20 ? [styles.content, {
+        height: heightClassement.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, 960] // Ajustez la hauteur en fonction du contenu
+        })
+      }] : tab.length < 22 ? [styles.content, {
+        height: heightClassement.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, 1070] // Ajustez la hauteur en fonction du contenu
+        })
+      }] : tab.length < 26 ? [styles.content, {
+        height: heightClassement.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, 1300] // Ajustez la hauteur en fonction du contenu
+        })
+      }] : [styles.content, {
+        height: heightClassement.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, 1870] 
+        })
+      }]}>
+        <View style={styles.barre}>
+          <Text style={{ width: "10%", color: "white", fontFamily: "Kanitus" }}>Rang</Text>
+          <Text style={{ width: "36%", textAlign: "center", marginRight: 2, color: "white", fontFamily: "Kanitus" }}>Equipe</Text>
+          <Text style={{ width: "9%", color: "white", fontFamily: "Kanitus" }}>J</Text>
+          <Text style={{ width: "9%", color: "white", fontFamily: "Kanitus" }}>V</Text>
+          <Text style={{ width: "9%", color: "white", fontFamily: "Kanitus" }}>N</Text>
+          <Text style={{ width: "9%", color: "white", fontFamily: "Kanitus" }}>D</Text>
+          <Text style={{ width: "9%", color: "white", fontFamily: "Kanitus" }}>GA</Text>
+          <Text style={{ width: "9%", color: "white", fontFamily: "Kanitus" }}>Pts</Text>
+        </View>
+        <LinearGradient colors={['rgb(186, 186, 186)', '#6e6e6e']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }} style={{ borderRadius: 5, marginTop: 5, paddingInline: 2 }}>
+          {tab.map((equipe) =>
+            <TouchableOpacity onPress={() => navigation.navigate("FicheEquipe", { id: equipe.team.id, league: equipe.group === "Ligue 1" ? 61 : equipe.group === "UEFA Champions League" ? 2 : equipe.group === "Premier League" ? 39 : equipe.group === "LaLiga" ? 140 : equipe.group.indexOf("Super League 1") !== -1 ? 197 : equipe.group === "Bundesliga" ? 78 : equipe.group === "Ligue 2: Regular Season" ? 62 : equipe.group === "Serie A" ? 135 : equipe.group === "UEFA Europa League" ? 3 : equipe.group === "Saudi League" ? 307 : equipe.group === "Eastern Conference" ? 253 : equipe.group === "Primeira Liga" ? 94 : null })} style={{ flexDirection: "row", flexDirection: "row", alignItems: "center", borderBottomWidth: 1, paddingBlock: 12 }}>
+              <Text style={{ width: "6%", color: "white", fontFamily: "Kanito", textAlign: "center" }}>{equipe.rank}</Text>
+              <Image source={{ uri: equipe.team.logo }} style={{ objectFit: "contain", height: 25, width: "8%" }} />
+              <Text style={{ width: "30%", color: "white", fontFamily: "Kanito", textAlign: "center", fontSize: 13 }}>{equipe.team.name === "Borussia Dortmund" ? "Dortmund" : equipe.team.name === "Borussia Mönchengladbach" ? "Mönchengladbach" : equipe.team.name === "Paris Saint Germain" ? "Paris SG" : equipe.team.name === "Stade Brestois 29" ? "Stade Brestois" : equipe.team.name === "Barcelona" ? "FC Barcelone" : equipe.team.name}</Text>
+              <Text style={{ width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center" }}>{equipe.all.played}</Text>
+              <Text style={{ width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center" }}>{equipe.all.win}</Text>
+              <Text style={{ width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center" }}>{equipe.all.draw}</Text>
+              <Text style={{ width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center" }}>{equipe.all.lose}</Text>
+              <Text style={{ width: "10%", color: "white", fontFamily: "Kanito", textAlign: "center" }}>{equipe.goalsDiff}</Text>
+              <Text style={{ width: "10%", color: "white", fontFamily: "Kanito", textAlign: "center" }}>{equipe.points}</Text>
+            </TouchableOpacity>
 
           )}
-        </View>
-        </Animated.View>
+        </LinearGradient>
+      </Animated.View>
 
 
-      {/* Meilleurs Buteurs */}
-      <LinearGradient       colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
-      style={{ marginBlock: 10, height: 40, justifyContent: "center", borderRadius: 10}}
-        >
-      <TouchableOpacity onPress={collapseButeurs} style={styles.header}>
+      <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={{ marginBlock: 10, height: 40, justifyContent: "center", borderRadius: 10 }}>
+        <TouchableOpacity onPress={collapseButeurs} style={styles.header}>
 
-        <Text style={styles.title}>Meilleurs Buteurs</Text>
-        <Animated.Image
+          <Text style={styles.title}>Meilleurs Buteurs</Text>
+          <Animated.Image
             source={chevron}
             style={[styles.chevron, { transform: [{ rotate: rotateButeursInterpolate }] }]}
-          />     
-           </TouchableOpacity>
+          />
+        </TouchableOpacity>
       </LinearGradient>
-        <Animated.View style={[ styles.content, { height: heightButeurs.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0, 555]  // Ajustez la hauteur en fonction du contenu
-          }) }]}>        <View style={styles.barre}>
-        <Text style={{width: "55%", color: "white", paddingStart: 20, fontFamily: "Kanitus", textAlign: "center"}}>Joueur</Text>
-        <Text style={{width: "28%", color: "white", textAlign: "center", fontFamily: "Kanitus"}}>Matchs Joués</Text>
-        <Text style={{width: "17%", color: "white", textAlign: "center", fontFamily: "Kanitus"}}>Buts</Text>
-        
-      </View>
-{buteurs.map((joueur) => 
-      <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: joueur.player.id })}>
-      <View style={styles.item}>
-          <Image source={joueur.player.id === 217 ? martinez : joueur.player.id === 283026 ? biereth : joueur.player.id === 184 ? kane : joueur.player.id === 21393 ? guirassy : joueur.player.id === 116117 ? caicedo : joueur.player.id === 152953 ? collwill : joueur.player.id === 47380 ? cucurella : joueur.player.id === 19545 ? james : joueur.player.id === 5996 ? enzo : joueur.player.id === 63577 ? mudryk : joueur.player.id === 1864 ? neto : joueur.player.id === 136723 ? madueke : joueur.player.id === 283058 ? jackson :joueur.player.id === 284322 ? mainoo : joueur.player.id === 545 ? mazraoui : joueur.player.id === 532 ? deligt : joueur.player.id === 288006 ? hojlund : joueur.player.id === 70100 ? zirkzee : joueur.player.id === 157997 ? amad : joueur.player.id === 180496 ? mikautadze : joueur.player.id === 21509 ? marcus : joueur.player.id === 984 ? brandt : joueur.player.id === 158644 ? beier : joueur.player.id === 744 ? brahim : joueur.player.id === 1323 ? olmo : joueur.player.id === 133609 ? pedri : joueur.player.id === 161928 ? balde : joueur.player.id === 47311 ? merino : joueur.player.id === 313245 ? skelly : joueur.player.id === 49 ? partey : joueur.player.id === 2937 ? rice : joueur.player.id === 909 ? rashford : joueur.player.id === 19366 ? watkins : joueur.player.id === 249 ? malen : joueur.player.id === 746 ? ascencio : joueur.player.id === 19170 ? rogers : joueur.player.id === 1622 ? donarumma : joueur.player.id === 9 ? hakimi : joueur.player.id === 263482 ? nuno : joueur.player.id === 33 ? hernandez : joueur.player.id === 257 ? marquinhos : joueur.player.id === 6420 ? retegui : joueur.player.id === 147859 ? deketelaere : joueur.player.id === 18767 ? lookman : joueur.player.id === 22090 ? saliba : joueur.player.id === 1946 ? trossard : joueur.player.id === 37127 ? odegard : joueur.player.id === 1460 ? saka : joueur.player.id === 372 ? militao : joueur.player.id === 733 ? carvajal : joueur.player.id === 51494 ? ugarte : joueur.player.id === 2467 ? lisandro : joueur.player.id === 1096 ? szoboszlai : joueur.player.id === 180317 ? bradley : joueur.player.id === 22236 ? leao : joueur.player.id === 745 ? isco : joueur.player.id === 9971 ? antony : joueur.player.id === 2207 ? camavinga : joueur.player.id === 756 ? valverde : joueur.player.id === 754 ? modric : joueur.player.id === 2285 ? rudiger : joueur.player.id === 794 ? schik : joueur.player.id === 203224 ? wirtz : joueur.player.id === 6009 ? alvarez : joueur.player.id === 8492 ? sorloth : joueur.player.id === 307835 ? beraldo : joueur.player.id === 262 ? kimpembe : joueur.player.id === 396623 ? cubarsi : joueur.player.id === 5 ? akanji : joueur.player.id === 81573 ? marmoush : joueur.player.id === 283 ? arnold : joueur.player.id === 2489 ? diaz : joueur.player.id === 6716 ? macallister : joueur.player.id === 247 ? gakpo : joueur.player.id === 409216 ? mayulu : joueur.player.id === 629 ? debruyne : joueur.player.id === 116 ? kephren : joueur.player.id === 7334 ? adeyemi : joueur.player.id === 21104 ? kolo : joueur.player.id === 1271 ? tchouameni : joueur.player.id === 2068 ? safonov : joueur.player.id === 1100 ? haaland : joueur.player.id === 161904 ? barcola : joueur.player.id === 336657 ? zaire : joueur.player.id === 153 ? dembele : joueur.player.id === 129718 ? bellingham : joueur.player.id === 386828 ? yamal : joueur.player.id === 10009 ? rodrygo : joueur.player.id === 18979 ? gyokeres : joueur.player.id === 291964 ? guller : joueur.player.id === 343027 ? doue : joueur.player.id === 483 ? kvara : joueur.player.id === 154 ? goat : joueur.player.id === 306 ? salah : joueur.player.id === 51617 ? darwin : joueur.player.id === 1257 ? kounde : joueur.player.id === 278 ? mbappe : joueur.player.id === 377122 ? endrick : joueur.player.id === 762 ? vini : joueur.player.id === 152982 ? palmer : joueur.player.id === 56 ? griezmann : joueur.player.id === 19617 ? olise : joueur.player.id === 272 ? rabiot : joueur.player.id === 156477 ? cherki : joueur.player.id === 1467 ? lacazette : joueur.player.id === 47300 ? theo : joueur.player.id === 1496 ? raphinha : joueur.player.id === 521 ? lewandowski : joueur.player.id === 2864 ? isak : joueur.player.id === 41585 ? ramos : joueur.player.id === 284324 ? garnacho : joueur.player.id === 128384 ? vitinha : joueur.player.id === 16367 ? pacho : joueur.player.id === 335051 ? joao : { uri: joueur.player.photo }} style={{height: 35, width: "9%", borderRadius: 50, marginRight: 5}} />
-        <Text style={{fontFamily: "Kanitt", width: "37%"}}>{joueur.player.id === 37784 ? "Mamadou Sissoko" : joueur.player.name}</Text>
-        <Image source={{ uri: joueur.statistics[0].team.logo }} style={styles.logo} />
-        <Text style={{fontFamily: "Kanito", width: "35%", textAlign: "center"}}>{joueur.statistics[0].games.appearences}</Text>
-        <Text style={{fontFamily: "Kanitt", width: "10%", textAlign:"center"}}>{joueur.statistics[0].goals.total}</Text>
+      <Animated.View style={[styles.content, {
+        height: heightButeurs.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, 555]  // Ajustez la hauteur en fonction du contenu
+        })
+      }]}>        <View style={styles.barre}>
+          <Text style={{ width: "55%", color: "white", paddingStart: 20, fontFamily: "Kanitus", textAlign: "center" }}>Joueur</Text>
+          <Text style={{ width: "28%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Matchs Joués</Text>
+          <Text style={{ width: "17%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Buts</Text>
 
-      </View>
-    </TouchableOpacity>
-)}
-        </Animated.View>
-      
+        </View>
+        <LinearGradient colors={['#e0e0e0', '#a6a6a6']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={{ borderRadius: 5, marginTop: 5, paddingInline: 2 }}>
+          {buteurs.map((joueur) =>
+            <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: joueur.player.id })}>
+              <View style={styles.item}>
+                <Image source={joueur.player.id === 157 ? suarez : joueur.player.id === 304 ? mane : joueur.player.id === 874 ? cristiano : joueur.player.id === 897 ? greenwood : joueur.player.id === 153430 ? elanga : joueur.player.id === 343320 ? benseghir : joueur.player.id === 274300 ? akliouche : joueur.player.id === 1485 ? bruno : joueur.player.id === 161948 ? delap : joueur.player.id === 10329 ? pedro : joueur.player.id === 269 ? nkunku : joueur.player.id === 217 ? martinez : joueur.player.id === 283026 ? biereth : joueur.player.id === 184 ? kane : joueur.player.id === 21393 ? guirassy : joueur.player.id === 116117 ? caicedo : joueur.player.id === 152953 ? collwill : joueur.player.id === 47380 ? cucurella : joueur.player.id === 19545 ? james : joueur.player.id === 5996 ? enzo : joueur.player.id === 63577 ? mudryk : joueur.player.id === 1864 ? neto : joueur.player.id === 136723 ? madueke : joueur.player.id === 283058 ? jackson : joueur.player.id === 284322 ? mainoo : joueur.player.id === 545 ? mazraoui : joueur.player.id === 532 ? deligt : joueur.player.id === 288006 ? hojlund : joueur.player.id === 70100 ? zirkzee : joueur.player.id === 157997 ? amad : joueur.player.id === 180496 ? mikautadze : joueur.player.id === 21509 ? marcus : joueur.player.id === 984 ? brandt : joueur.player.id === 158644 ? beier : joueur.player.id === 744 ? brahim : joueur.player.id === 1323 ? olmo : joueur.player.id === 133609 ? pedri : joueur.player.id === 161928 ? balde : joueur.player.id === 47311 ? merino : joueur.player.id === 313245 ? skelly : joueur.player.id === 49 ? partey : joueur.player.id === 2937 ? rice : joueur.player.id === 909 ? rashford : joueur.player.id === 19366 ? watkins : joueur.player.id === 249 ? malen : joueur.player.id === 746 ? ascencio : joueur.player.id === 19170 ? rogers : joueur.player.id === 1622 ? donarumma : joueur.player.id === 9 ? hakimi : joueur.player.id === 263482 ? nuno : joueur.player.id === 33 ? hernandez : joueur.player.id === 257 ? marquinhos : joueur.player.id === 6420 ? retegui : joueur.player.id === 147859 ? deketelaere : joueur.player.id === 18767 ? lookman : joueur.player.id === 22090 ? saliba : joueur.player.id === 1946 ? trossard : joueur.player.id === 37127 ? odegard : joueur.player.id === 1460 ? saka : joueur.player.id === 372 ? militao : joueur.player.id === 733 ? carvajal : joueur.player.id === 51494 ? ugarte : joueur.player.id === 2467 ? lisandro : joueur.player.id === 1096 ? szoboszlai : joueur.player.id === 180317 ? bradley : joueur.player.id === 22236 ? leao : joueur.player.id === 745 ? isco : joueur.player.id === 9971 ? antony : joueur.player.id === 2207 ? camavinga : joueur.player.id === 756 ? valverde : joueur.player.id === 754 ? modric : joueur.player.id === 2285 ? rudiger : joueur.player.id === 794 ? schik : joueur.player.id === 203224 ? wirtz : joueur.player.id === 6009 ? alvarez : joueur.player.id === 8492 ? sorloth : joueur.player.id === 307835 ? beraldo : joueur.player.id === 262 ? kimpembe : joueur.player.id === 396623 ? cubarsi : joueur.player.id === 5 ? akanji : joueur.player.id === 81573 ? marmoush : joueur.player.id === 283 ? arnold : joueur.player.id === 2489 ? diaz : joueur.player.id === 6716 ? macallister : joueur.player.id === 247 ? gakpo : joueur.player.id === 409216 ? mayulu : joueur.player.id === 629 ? debruyne : joueur.player.id === 116 ? kephren : joueur.player.id === 7334 ? adeyemi : joueur.player.id === 21104 ? kolo : joueur.player.id === 1271 ? tchouameni : joueur.player.id === 2068 ? safonov : joueur.player.id === 1100 ? haaland : joueur.player.id === 161904 ? barcola : joueur.player.id === 336657 ? zaire : joueur.player.id === 153 ? dembele : joueur.player.id === 129718 ? bellingham : joueur.player.id === 386828 ? yamal : joueur.player.id === 10009 ? rodrygo : joueur.player.id === 18979 ? gyokeres : joueur.player.id === 291964 ? guller : joueur.player.id === 343027 ? doue : joueur.player.id === 483 ? kvara : joueur.player.id === 154 ? goat : joueur.player.id === 306 ? salah : joueur.player.id === 51617 ? darwin : joueur.player.id === 1257 ? kounde : joueur.player.id === 278 ? mbappe : joueur.player.id === 377122 ? endrick : joueur.player.id === 762 ? vini : joueur.player.id === 152982 ? palmer : joueur.player.id === 56 ? griezmann : joueur.player.id === 19617 ? olise : joueur.player.id === 272 ? rabiot : joueur.player.id === 156477 ? cherki : joueur.player.id === 1467 ? lacazette : joueur.player.id === 47300 ? theo : joueur.player.id === 1496 ? raphinha : joueur.player.id === 521 ? lewandowski : joueur.player.id === 2864 ? isak : joueur.player.id === 41585 ? ramos : joueur.player.id === 284324 ? garnacho : joueur.player.id === 128384 ? vitinha : joueur.player.id === 16367 ? pacho : joueur.player.id === 335051 ? joao : { uri: joueur.player.photo }} style={{ height: 35, width: "9%", borderRadius: 50, marginRight: 5 }} />
+                <Text style={{ fontFamily: "Kanitt", width: "37%" }}>{joueur.player.id === 37784 ? "Mamadou Sissoko" : joueur.player.name}</Text>
+                <Image source={{ uri: joueur.statistics[0].team.logo }} style={styles.logo} />
+                <Text style={{ fontFamily: "Kanito", width: "35%", textAlign: "center" }}>{joueur.statistics[0].games.appearences}</Text>
+                <Text style={{ fontFamily: "Kanitt", width: "10%", textAlign: "center" }}>{joueur.statistics[0].goals.total}</Text>
 
-      {/* Meilleurs Passeurs */}
-      <LinearGradient       colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
-      style={{ marginBlock: 10, height: 40, justifyContent: "center", borderRadius: 10}}
-        >
-      <TouchableOpacity onPress={collapsePasseurs} style={styles.header}>
-        <Text style={styles.title}>Meilleurs Passeurs</Text>
-        <Animated.Image
+              </View>
+            </TouchableOpacity>
+          )}
+        </LinearGradient>
+
+      </Animated.View>
+
+
+      <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={{ marginBlock: 10, height: 40, justifyContent: "center", borderRadius: 10 }}>
+        <TouchableOpacity onPress={collapsePasseurs} style={styles.header}>
+          <Text style={styles.title}>Meilleurs Passeurs</Text>
+          <Animated.Image
             source={chevron}
             style={[styles.chevron, { transform: [{ rotate: rotatePasseursInterpolate }] }]}
-          />     
-           </TouchableOpacity>
+          />
+        </TouchableOpacity>
       </LinearGradient>
-        <Animated.View style={[styles.content, { height: heightPasseurs.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0, 555]  // Ajustez la hauteur en fonction du contenu
-          }) }]}>
-                    <View style={styles.barre}>
-        <Text style={{width: "50%", color: "white", paddingStart: 20, fontFamily: "Kanitus"}}>Joueur</Text>
-        <Text style={{width: "30%", color: "white", textAlign: "center", fontFamily: "Kanitus"}}>Matchs Joués</Text>
-        <Text style={{width: "20%", color: "white", textAlign: "center", fontFamily: "Kanitus"}}>Passes D</Text>  
-      </View>
-        
-        {passeurs.map((joueur) => 
-      <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: joueur.player.id })}>
-      <View style={styles.item}>
-          <Image source={joueur.player.id === 217 ? martinez : joueur.player.id === 283026 ? biereth : joueur.player.id === 184 ? kane : joueur.player.id === 21393 ? guirassy : joueur.player.id === 116117 ? caicedo : joueur.player.id === 152953 ? collwill : joueur.player.id === 47380 ? cucurella : joueur.player.id === 19545 ? james : joueur.player.id === 5996 ? enzo : joueur.player.id === 63577 ? mudryk : joueur.player.id === 1864 ? neto : joueur.player.id === 136723 ? madueke : joueur.player.id === 283058 ? jackson :joueur.player.id === 284322 ? mainoo : joueur.player.id === 545 ? mazraoui : joueur.player.id === 532 ? deligt : joueur.player.id === 288006 ? hojlund : joueur.player.id === 70100 ? zirkzee : joueur.player.id === 157997 ? amad : joueur.player.id === 180496 ? mikautadze : joueur.player.id === 21509 ? marcus : joueur.player.id === 984 ? brandt : joueur.player.id === 158644 ? beier : joueur.player.id === 744 ? brahim : joueur.player.id === 1323 ? olmo : joueur.player.id === 133609 ? pedri : joueur.player.id === 161928 ? balde : joueur.player.id === 47311 ? merino : joueur.player.id === 313245 ? skelly : joueur.player.id === 49 ? partey : joueur.player.id === 2937 ? rice : joueur.player.id === 909 ? rashford : joueur.player.id === 19366 ? watkins : joueur.player.id === 249 ? malen : joueur.player.id === 746 ? ascencio : joueur.player.id === 19170 ? rogers : joueur.player.id === 1622 ? donarumma : joueur.player.id === 9 ? hakimi : joueur.player.id === 263482 ? nuno : joueur.player.id === 33 ? hernandez : joueur.player.id === 257 ? marquinhos : joueur.player.id === 6420 ? retegui : joueur.player.id === 147859 ? deketelaere : joueur.player.id === 18767 ? lookman : joueur.player.id === 22090 ? saliba : joueur.player.id === 1946 ? trossard : joueur.player.id === 37127 ? odegard : joueur.player.id === 1460 ? saka : joueur.player.id === 372 ? militao : joueur.player.id === 733 ? carvajal : joueur.player.id === 51494 ? ugarte : joueur.player.id === 2467 ? lisandro : joueur.player.id === 1096 ? szoboszlai : joueur.player.id === 180317 ? bradley : joueur.player.id === 22236 ? leao : joueur.player.id === 745 ? isco : joueur.player.id === 9971 ? antony : joueur.player.id === 2207 ? camavinga : joueur.player.id === 756 ? valverde : joueur.player.id === 754 ? modric : joueur.player.id === 2285 ? rudiger : joueur.player.id === 794 ? schik : joueur.player.id === 203224 ? wirtz : joueur.player.id === 6009 ? alvarez : joueur.player.id === 8492 ? sorloth : joueur.player.id === 307835 ? beraldo : joueur.player.id === 262 ? kimpembe : joueur.player.id === 396623 ? cubarsi : joueur.player.id === 5 ? akanji : joueur.player.id === 81573 ? marmoush : joueur.player.id === 283 ? arnold : joueur.player.id === 2489 ? diaz : joueur.player.id === 6716 ? macallister : joueur.player.id === 247 ? gakpo : joueur.player.id === 409216 ? mayulu : joueur.player.id === 629 ? debruyne : joueur.player.id === 116 ? kephren : joueur.player.id === 7334 ? adeyemi : joueur.player.id === 21104 ? kolo : joueur.player.id === 1271 ? tchouameni : joueur.player.id === 2068 ? safonov : joueur.player.id === 1100 ? haaland : joueur.player.id === 161904 ? barcola : joueur.player.id === 336657 ? zaire : joueur.player.id === 153 ? dembele : joueur.player.id === 129718 ? bellingham : joueur.player.id === 386828 ? yamal : joueur.player.id === 10009 ? rodrygo : joueur.player.id === 18979 ? gyokeres : joueur.player.id === 291964 ? guller : joueur.player.id === 343027 ? doue : joueur.player.id === 483 ? kvara : joueur.player.id === 154 ? goat : joueur.player.id === 306 ? salah : joueur.player.id === 51617 ? darwin : joueur.player.id === 1257 ? kounde : joueur.player.id === 278 ? mbappe : joueur.player.id === 377122 ? endrick : joueur.player.id === 762 ? vini : joueur.player.id === 152982 ? palmer : joueur.player.id === 56 ? griezmann : joueur.player.id === 19617 ? olise : joueur.player.id === 272 ? rabiot : joueur.player.id === 156477 ? cherki : joueur.player.id === 1467 ? lacazette : joueur.player.id === 47300 ? theo : joueur.player.id === 1496 ? raphinha : joueur.player.id === 521 ? lewandowski : joueur.player.id === 2864 ? isak : joueur.player.id === 41585 ? ramos : joueur.player.id === 284324 ? garnacho : joueur.player.id === 128384 ? vitinha : joueur.player.id === 16367 ? pacho : joueur.player.id === 335051 ? joao : { uri: joueur.player.photo }} style={{height: 35, width: "9%", borderRadius: 50, marginRight: 5}} />
-        <Text style={{fontFamily: "Kanitt", width: "37%"}}>{joueur.player.id === 37784 ? "Mamadou Sissoko" : joueur.player.name}</Text>
-        <Image source={{ uri: joueur.statistics[0].team.logo }} style={styles.logo} />
-        <Text style={{fontFamily: "Kanito", width: "35%", textAlign: "center"}}>{joueur.statistics[0].games.appearences}</Text>
-        <Text style={{fontFamily: "Kanitt", width: "10%", textAlign:"center"}}>{joueur.statistics[0].goals.assists}</Text>
+      <Animated.View style={[styles.content, {
+        height: heightPasseurs.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, 555]  // Ajustez la hauteur en fonction du contenu
+        })
+      }]}>
+        <View style={styles.barre}>
+          <Text style={{ width: "55%", color: "white", paddingStart: 20, fontFamily: "Kanitus", textAlign: "center" }}>Joueur</Text>
+          <Text style={{ width: "27%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Matchs Joués</Text>
+          <Text style={{ width: "18%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Passes D</Text>
+        </View>
 
-      </View>
-    </TouchableOpacity>
-)}
-        </Animated.View>
+        <LinearGradient colors={['#d3d3d3', '#8e8e8e']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={{ borderRadius: 5, marginTop: 5, paddingInline: 2 }}>
+          {passeurs.map((joueur) =>
+            <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: joueur.player.id })}>
+              <View style={styles.item}>
+                <Image source={joueur.player.id === 157 ? suarez : joueur.player.id === 304 ? mane : joueur.player.id === 874 ? cristiano : joueur.player.id === 153430 ? elanga : joueur.player.id === 343320 ? benseghir : joueur.player.id === 274300 ? akliouche : joueur.player.id === 1485 ? bruno : joueur.player.id === 161948 ? delap : joueur.player.id === 10329 ? pedro : joueur.player.id === 269 ? nkunku : joueur.player.id === 217 ? martinez : joueur.player.id === 283026 ? biereth : joueur.player.id === 184 ? kane : joueur.player.id === 21393 ? guirassy : joueur.player.id === 116117 ? caicedo : joueur.player.id === 152953 ? collwill : joueur.player.id === 47380 ? cucurella : joueur.player.id === 19545 ? james : joueur.player.id === 5996 ? enzo : joueur.player.id === 63577 ? mudryk : joueur.player.id === 1864 ? neto : joueur.player.id === 136723 ? madueke : joueur.player.id === 283058 ? jackson : joueur.player.id === 284322 ? mainoo : joueur.player.id === 545 ? mazraoui : joueur.player.id === 532 ? deligt : joueur.player.id === 288006 ? hojlund : joueur.player.id === 70100 ? zirkzee : joueur.player.id === 157997 ? amad : joueur.player.id === 180496 ? mikautadze : joueur.player.id === 21509 ? marcus : joueur.player.id === 984 ? brandt : joueur.player.id === 158644 ? beier : joueur.player.id === 744 ? brahim : joueur.player.id === 1323 ? olmo : joueur.player.id === 133609 ? pedri : joueur.player.id === 161928 ? balde : joueur.player.id === 47311 ? merino : joueur.player.id === 313245 ? skelly : joueur.player.id === 49 ? partey : joueur.player.id === 2937 ? rice : joueur.player.id === 909 ? rashford : joueur.player.id === 19366 ? watkins : joueur.player.id === 249 ? malen : joueur.player.id === 746 ? ascencio : joueur.player.id === 19170 ? rogers : joueur.player.id === 1622 ? donarumma : joueur.player.id === 9 ? hakimi : joueur.player.id === 263482 ? nuno : joueur.player.id === 33 ? hernandez : joueur.player.id === 257 ? marquinhos : joueur.player.id === 6420 ? retegui : joueur.player.id === 147859 ? deketelaere : joueur.player.id === 18767 ? lookman : joueur.player.id === 22090 ? saliba : joueur.player.id === 1946 ? trossard : joueur.player.id === 37127 ? odegard : joueur.player.id === 1460 ? saka : joueur.player.id === 372 ? militao : joueur.player.id === 733 ? carvajal : joueur.player.id === 51494 ? ugarte : joueur.player.id === 2467 ? lisandro : joueur.player.id === 1096 ? szoboszlai : joueur.player.id === 180317 ? bradley : joueur.player.id === 22236 ? leao : joueur.player.id === 745 ? isco : joueur.player.id === 9971 ? antony : joueur.player.id === 2207 ? camavinga : joueur.player.id === 756 ? valverde : joueur.player.id === 754 ? modric : joueur.player.id === 2285 ? rudiger : joueur.player.id === 794 ? schik : joueur.player.id === 203224 ? wirtz : joueur.player.id === 6009 ? alvarez : joueur.player.id === 8492 ? sorloth : joueur.player.id === 307835 ? beraldo : joueur.player.id === 262 ? kimpembe : joueur.player.id === 396623 ? cubarsi : joueur.player.id === 5 ? akanji : joueur.player.id === 81573 ? marmoush : joueur.player.id === 283 ? arnold : joueur.player.id === 2489 ? diaz : joueur.player.id === 6716 ? macallister : joueur.player.id === 247 ? gakpo : joueur.player.id === 409216 ? mayulu : joueur.player.id === 629 ? debruyne : joueur.player.id === 116 ? kephren : joueur.player.id === 7334 ? adeyemi : joueur.player.id === 21104 ? kolo : joueur.player.id === 1271 ? tchouameni : joueur.player.id === 2068 ? safonov : joueur.player.id === 1100 ? haaland : joueur.player.id === 161904 ? barcola : joueur.player.id === 336657 ? zaire : joueur.player.id === 153 ? dembele : joueur.player.id === 129718 ? bellingham : joueur.player.id === 386828 ? yamal : joueur.player.id === 10009 ? rodrygo : joueur.player.id === 18979 ? gyokeres : joueur.player.id === 291964 ? guller : joueur.player.id === 343027 ? doue : joueur.player.id === 483 ? kvara : joueur.player.id === 154 ? goat : joueur.player.id === 306 ? salah : joueur.player.id === 51617 ? darwin : joueur.player.id === 1257 ? kounde : joueur.player.id === 278 ? mbappe : joueur.player.id === 377122 ? endrick : joueur.player.id === 762 ? vini : joueur.player.id === 152982 ? palmer : joueur.player.id === 56 ? griezmann : joueur.player.id === 19617 ? olise : joueur.player.id === 272 ? rabiot : joueur.player.id === 156477 ? cherki : joueur.player.id === 1467 ? lacazette : joueur.player.id === 47300 ? theo : joueur.player.id === 1496 ? raphinha : joueur.player.id === 521 ? lewandowski : joueur.player.id === 2864 ? isak : joueur.player.id === 41585 ? ramos : joueur.player.id === 284324 ? garnacho : joueur.player.id === 128384 ? vitinha : joueur.player.id === 16367 ? pacho : joueur.player.id === 335051 ? joao : { uri: joueur.player.photo }} style={{ height: 35, width: "9%", borderRadius: 50, marginRight: 5 }} />
+                <Text style={{ fontFamily: "Kanitt", width: "37%" }}>{joueur.player.id === 37784 ? "Mamadou Sissoko" : joueur.player.name}</Text>
+                <Image source={{ uri: joueur.statistics[0].team.logo }} style={styles.logo} />
+                <Text style={{ fontFamily: "Kanito", width: "35%", textAlign: "center" }}>{joueur.statistics[0].games.appearences}</Text>
+                <Text style={{ fontFamily: "Kanitt", width: "10%", textAlign: "center" }}>{joueur.statistics[0].goals.assists}</Text>
+
+              </View>
+            </TouchableOpacity>
+          )}
+        </LinearGradient>
+      </Animated.View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     padding: 10,
     flex: 1,
+    paddingBottom: 25
   },
   header: {
     paddingInline: 20,
@@ -532,8 +518,8 @@ const styles = StyleSheet.create({
 
   },
   content: {
-overflow: "hidden",
-justifyContent: "center"
+    overflow: "hidden",
+    justifyContent: "center"
   },
   barre: {
     flexDirection: "row",

@@ -31,6 +31,13 @@ import psg21 from "../assets/psgchampion/PSG21.webp"
 import psg22 from "../assets/psgchampion/PSG22.webp"
 import psg23 from "../assets/psgchampion/PSG23.webp"
 import psg24 from "../assets/psgchampion/PSG24.webp"
+import psg25 from "../assets/psgchampion/PSG25.webp"
+import psg26 from "../assets/psgchampion/PSG26.webp"
+import psg27 from "../assets/psgchampion/PSG27.webp"
+import psg28 from "../assets/psgchampion/PSG28.webp"
+import psg29 from "../assets/psgchampion/PSG29.webp"
+import psg30 from "../assets/psgchampion/PSG30.webp"
+
 
 
 
@@ -48,7 +55,7 @@ function TableauEurope({ id, currentRound, rounds }) {
 
   const photos = [
     psg, psg1, psg2, psg3, psg4, psg5,
-    psg6, psg7, psg8, psg9,psg10, psg11, psg12, psg13, psg14, psg15, psg16, psg17, psg18, psg19, psg20, psg21, psg22, psg23, psg24
+    psg6, psg7, psg8, psg9,psg10, psg11, psg12, psg13, psg14, psg15, psg16, psg17, psg18, psg19, psg20, psg21, psg22, psg23, psg24, psg25, psg26, psg27, psg28, psg29, psg30
   ]
 
   const [randomPhoto, setRandomPhoto] = useState(photos[Math.floor(Math.random() * photos.length)]);
@@ -65,7 +72,7 @@ function TableauEurope({ id, currentRound, rounds }) {
       // Animation pour rendre l'image invisible (opacity = 0)
       Animated.timing(fadeAnim, {
         toValue: 0, // Fade out
-        duration: 300,
+        duration: 1000,
         useNativeDriver: true,
       }).start(() => {
         // Une fois l'animation de fade-out terminée, changer la photo
@@ -75,7 +82,7 @@ function TableauEurope({ id, currentRound, rounds }) {
         // Animation pour faire réapparaître l'image (opacity = 1)
         Animated.timing(fadeAnim, {
           toValue: 1, // Fade in
-          duration: 800,
+          duration: 1000,
           useNativeDriver: true,
         }).start(() => setIsActive(true)); // Set active after fade in
       });
@@ -183,7 +190,7 @@ function TableauEurope({ id, currentRound, rounds }) {
       colors={id === 2 ? ['rgb(16, 19, 49)', 'rgba(16, 19, 49, 0.8)'] : ['rgb(50, 183, 255)', 'rgb(16, 19, 49)']}
       style={styles.container}
     >
-      <Text style={id === 15 ? styles.titleWc : styles.title}>Calendrier et Résultats</Text>
+      <Text style={id === 15 ? styles.titleWc : styles.title}>Calendrier & Résultats</Text>
       <Image
         source={id === 2 ? ucl : { uri: `https://media.api-sports.io/football/leagues/${id}.png` }}
         style={id === 2 ? { width: 80, height: 50, objectFit: 'contain' } : { width: 50, height: 50, objectFit: 'contain' }}
@@ -195,7 +202,6 @@ function TableauEurope({ id, currentRound, rounds }) {
       :
        null}
 
-      {/* Navigation entre rounds */}
       <View style={styles.navContainer}>
         <TouchableOpacity onPress={prev} disabled={index === 0} style={{ width: 60, height: 30, alignItems: "center" }}>
           <Text style={[id === 15 ? styles.buttonTextWc : styles.buttonText, index === 0 && { opacity: 0.3 }]}>{'<'}</Text>
@@ -221,7 +227,7 @@ function TableauEurope({ id, currentRound, rounds }) {
       </View>
 
       <Animated.View style={{ transform: [{ translateX: slideAnim }], width: "100%" }}>
-        {filteredMatches.map(match => (
+        {filteredMatches.map(match => 
           <Match
             key={match.fixture.id}
             id={match.fixture.id}
@@ -234,7 +240,7 @@ function TableauEurope({ id, currentRound, rounds }) {
             scoreExt={match.goals.away}
             date={match.fixture.date}
           />
-        ))}
+        )}
       </Animated.View>
     </LinearGradient>
 
@@ -244,10 +250,11 @@ function TableauEurope({ id, currentRound, rounds }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 10,
+    paddingVertical: 15,
     paddingInline: 4,
     borderRadius: 15,
-    alignItems: "center"
+    alignItems: "center",
+
   },
   title: {
     fontSize: 24,

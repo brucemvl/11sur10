@@ -4,7 +4,7 @@ import { useRoute } from '@react-navigation/native'; // Pour récupérer les par
 import redcard from "../assets/redcard.png";
 import chevron from "../assets/chevron.png";
 import { LinearGradient } from 'expo-linear-gradient';
-import player from "../assets/player.png";
+import terrain from "../assets/terrain.png";
 import goal from "../assets/goal.png"
 import tacle from "../assets/tacle.png"
 import target from "../assets/target.png"
@@ -12,6 +12,7 @@ import shoot from "../assets/shoot.png"
 import shoe from "../assets/shoe.png"
 import rating from "../assets/rating.png"
 import gardien from "../assets/gardien.png"
+import player from "../assets/player.png"
 import yellow from "../assets/yellow.png"
 import Precedent from '../components/Precedent';
 import ligue1 from "../assets/logoligue1.webp"
@@ -21,6 +22,7 @@ import pl from "../assets/trophees/pl.png"
 import copa from "../assets/trophees/copaamerica.png"
 import europa from "../assets/trophees/europaleague.png"
 import tropheeligue1 from "../assets/trophees/ligue1.png"
+import newtropheeligue1 from "../assets/trophees/ligue11.webp"
 import liga from "../assets/trophees/liga.png"
 import bundesliga from "../assets/trophees/bundesliga.png"
 import euro from "../assets/trophees/euro.png"
@@ -29,7 +31,7 @@ import seriea from "../assets/trophees/seriea.png"
 import can from "../assets/trophees/can.png"
 import nations from "../assets/trophees/nations.png"
 import fifa from "../assets/trophees/fifa.png"
-import haaland from "../assets/portraits/fiche/haaland.png"
+import haaland from "../assets/portraits/fiche/haaland.webp"
 import gyokeres from "../assets/portraits/gyokeres.jpg"
 import zaire from "../assets/portraits/fiche/zaire.png"
 import yamal from "../assets/portraits/fiche/yamal.png"
@@ -68,56 +70,63 @@ import tchouameni from "../assets/portraits/fiche/tchouameni.webp"
 import kolo from "../assets/portraits/kolo.png"
 import kephren from "../assets/portraits/kephren.png"
 import adeyemi from "../assets/portraits/fiche/adeyemi.png"
-import debruyne from "../assets/portraits/debruyne.png"
-import mayulu from "../assets/portraits/fiche/mayulu.png"
+import mayulu from "../assets/portraits/fiche/mayulu.avif"
 import diaz from "../assets/portraits/fiche/diaz.webp"
 import macallister from "../assets/portraits/fiche/macallister.webp"
+import gravenberch from "../assets/portraits/fiche/gravenberch.webp"
 import gakpo from "../assets/portraits/fiche/gakpo.webp"
 import arnold from "../assets/portraits/fiche/arnold.webp"
 import marmoush from "../assets/portraits/fiche/marmoush.webp"
 import akanji from "../assets/portraits/fiche/akanji.webp"
 import cubarsi from "../assets/portraits/fiche/cubarsi.webp"
 import kimpembe from "../assets/portraits/fiche/kimpembe.png"
+import leao from "../assets/portraits/fiche/leao.png"
+import debruyne from "../assets/portraits/fiche/debruyne.png"
 import beraldo from "../assets/portraits/beraldo.png"
 import sorloth from "../assets/portraits/fiche/sorloth.png"
 import alvarez from "../assets/portraits/fiche/alvarez.png"
 import schik from "../assets/portraits/schik.png"
-import wirtz from "../assets/portraits/wirtz.jpg"
+import wirtz from "../assets/portraits/fiche/wirtz.webp"
 import camavinga from "../assets/portraits/fiche/camavinga.webp"
 import modric from "../assets/portraits/fiche/modric.webp"
 import valverde from "../assets/portraits/fiche/valverde.webp"
 import rudiger from "../assets/portraits/fiche/rudiger.webp"
+import fran from "../assets/portraits/fiche/fran.webp"
 import antony from "../assets/portraits/fiche/antony.png"
 import isco from "../assets/portraits/isco.jpg"
-import leao from "../assets/portraits/Leao.jpg"
 import carvajal from "../assets/portraits/fiche/carvajal.webp"
 import militao from "../assets/portraits/fiche/militao.webp"
+import ekitike from "../assets/portraits/fiche/ekitike.webp"
 import ugarte from "../assets/portraits/ugarte.png"
 import lisandro from "../assets/portraits/lisandro.png"
 import szoboszlai from "../assets/portraits/fiche/szoboszlai.webp"
 import bradley from "../assets/portraits/fiche/bradley.webp"
 import reijnders from "../assets/portraits/fiche/reijnders.webp"
-import saka from "../assets/portraits/saka.png"
-import trossard from "../assets/portraits/trossard.png"
-import odegard from "../assets/portraits/odegard.png"
-import saliba from "../assets/portraits/saliba.png"
+import saka from "../assets/portraits/fiche/saka.png"
+import trossard from "../assets/portraits/fiche/trossard.png"
+import odegard from "../assets/portraits/fiche/odegaard.png"
+import saliba from "../assets/portraits/fiche/saliba.png"
 import lookman from "../assets/portraits/fiche/lookman.png"
 import retegui from "../assets/portraits/fiche/retegui.png"
 import deketelaere from "../assets/portraits/fiche/deketelaere.png"
 import donarumma from "../assets/portraits/fiche/donnarumma.png"
-import nuno from "../assets/portraits/fiche/nuno.png"
+import nuno from "../assets/portraits/fiche/nuno.avif"
 import hernandez from "../assets/portraits/fiche/hernandez.png"
-import hakimi from "../assets/portraits/fiche/hakimi.png"
-import marquinhos from "../assets/portraits/fiche/marquinhos.png"
+import hakimi from "../assets/portraits/fiche/hakimi.avif"
+import marquinhos from "../assets/portraits/fiche/marquinhos.avif"
 import ruiz from "../assets/portraits/fiche/ruiz.png"
+import greenwood from "../assets/portraits/fiche/greenwood.png"
 import ascencio from "../assets/portraits/ascencio.png"
 import rashford from "../assets/portraits/rashford.png"
 import watkins from "../assets/portraits/watkins.png"
 import malen from "../assets/portraits/malen.png"
 import rogers from "../assets/portraits/rogers.png"
-import rice from "../assets/portraits/rice.png"
+import rice from "../assets/portraits/fiche/rice.png"
+import raya from "../assets/portraits/fiche/raya.png"
+import martinelli from "../assets/portraits/fiche/martinelli.png"
+import white from "../assets/portraits/fiche/white.png"
 import partey from "../assets/portraits/partey.png"
-import skelly from "../assets/portraits/skelly.png"
+import skelly from "../assets/portraits/fiche/lewisskelly.png"
 import merino from "../assets/portraits/merino.png"
 import balde from "../assets/portraits/fiche/balde.webp"
 import pedri from "../assets/portraits/fiche/pedri.webp"
@@ -138,19 +147,24 @@ import simeone from "../assets/portraits/fiche/simeone.png"
 import marcus from "../assets/portraits/fiche/thuram.png"
 import sommer from "../assets/portraits/fiche/sommer.png"
 import barella from "../assets/portraits/fiche/barella.png"
-import dumfries from "../assets/portraits/fiche/dumfries.png"
-import bastoni from "../assets/portraits/fiche/bastoni.webp"
-import martinez from "../assets/portraits/fiche/martinez.webp"
+import biereth from "../assets/portraits/fiche/biereth.png"
+import akliouche from "../assets/portraits/fiche/akliouche.png"
+import benseghir from "../assets/portraits/fiche/benseghir.png"
+import bastoni from "../assets/portraits/fiche/bastoni.png"
+import martinez from "../assets/portraits/fiche/martinez.png"
 import gnabry from "../assets/portraits/fiche/gnabry.avif"
-import kane from "../assets/portraits/fiche/kane.avif"
-import sane from "../assets/portraits/fiche/sane.avif"
-import olise from "../assets/portraits/fiche/olise.avif"
-import coman from "../assets/portraits/fiche/coman.avif"
-import musiala from "../assets/portraits/fiche/musiala.avif"
-import kimmich from "../assets/portraits/fiche/kimmich.avif"
-import goretzka from "../assets/portraits/fiche/goretzka.avif"
-import davies from "../assets/portraits/fiche/davies.avif"
-import kim from "../assets/portraits/fiche/kim.avif"
+import kane from "../assets/portraits/fiche/kane.png"
+import sane from "../assets/portraits/fiche/sane.png"
+import olise from "../assets/portraits/fiche/olise.png"
+import coman from "../assets/portraits/fiche/coman.png"
+import musiala from "../assets/portraits/fiche/musiala.png"
+import kimmich from "../assets/portraits/fiche/kimmich.png"
+import goretzka from "../assets/portraits/fiche/goretzka.png"
+import davies from "../assets/portraits/fiche/davies.png"
+import kim from "../assets/portraits/fiche/kim.png"
+import tah from "../assets/portraits/fiche/tah.png"
+import neuer from "../assets/portraits/fiche/neuer.png"
+import upamecano from "../assets/portraits/fiche/upamecano.png"
 import caicedo from "../assets/portraits/fiche/caicedo.webp"
 import jackson from "../assets/portraits/fiche/jackson.webp"
 import foden from "../assets/portraits/fiche/foden.webp"
@@ -158,7 +172,7 @@ import fernandez from "../assets/portraits/fiche/fernandez.webp"
 import cucurella from "../assets/portraits/fiche/cucurella.webp"
 import fofana from "../assets/portraits/fiche/fofana.webp"
 import james from "../assets/portraits/fiche/james.webp"
-import madueke from "../assets/portraits/fiche/madueke.webp"
+import madueke from "../assets/portraits/fiche/madueke.png"
 import rodri from "../assets/portraits/fiche/rodri.webp"
 import ake from "../assets/portraits/fiche/ake.webp"
 import huijsen from "../assets/portraits/fiche/huijsen.webp"
@@ -168,9 +182,18 @@ import suarez from "../assets/portraits/fiche/suarez.png"
 import bruno from "../assets/portraits/fiche/bruno.png"
 import conceicao from "../assets/portraits/fiche/conceicao.png"
 import dimaria from "../assets/portraits/fiche/dimaria.png"
+import elanga from "../assets/portraits/fiche/elanga.png"
 import bernardo from "../assets/portraits/fiche/bernardo.webp"
 import savinho from "../assets/portraits/fiche/savinho.webp"
 import colwill from "../assets/portraits/fiche/colwill.webp"
+import benzema from "../assets/portraits/fiche/benzema.webp"
+import cristiano from "../assets/portraits/fiche/cristiano.webp"
+import mane from "../assets/portraits/fiche/mane.webp"
+import mudryk from "../assets/portraits/fiche/mudryk.webp"
+import gusto from "../assets/portraits/fiche/gusto.webp"
+import pedro from "../assets/portraits/fiche/pedro.webp"
+import nkunku from "../assets/portraits/fiche/nkunku.webp"
+import delap from "../assets/portraits/fiche/delap.webp"
 import rubendias from "../assets/portraits/fiche/rubendias.webp"
 import dembeleselec from "../assets/portraits/selection/dembouz.webp"
 import doueselec from "../assets/portraits/selection/doue.png"
@@ -182,10 +205,17 @@ import thuramselec from "../assets/portraits/selection/thuram.webp"
 import oliseselec from "../assets/portraits/selection/olise.png"
 import rabiotselec from "../assets/portraits/selection/rabiot.webp"
 import lukasselec from "../assets/portraits/selection/lukas.webp"
+import chevalierselec from "../assets/portraits/selection/chevalier.png"
+import konateselec from "../assets/portraits/selection/konate.webp"
+import guendouziselec from "../assets/portraits/selection/guendouzi.webp"
+import zaireselec from "../assets/portraits/selection/zaire.webp"
 import maignanselec from "../assets/portraits/selection/maignan.webp"
 import tchouameniselec from "../assets/portraits/selection/tchouameni.webp"
 import kolomuaniselec from "../assets/portraits/selection/kolomuani.webp"
-
+import stones from "../assets/portraits/fiche/stones.webp"
+import lewis from "../assets/portraits/fiche/lewis.webp"
+import gvardiol from "../assets/portraits/fiche/gvardiol.webp"
+import aitnouri from "../assets/portraits/fiche/aitnouri.webp"
 
 function FicheJoueur() {
   const [joueur, setJoueur] = useState(null);
@@ -251,8 +281,53 @@ function FicheJoueur() {
   console.log(joueur)
 
 
-
+/*
   const prec = () => {
+    if (annee > 2025 - 3) {
+      setAnnee((prev) => prev - 1)
+    }
+    if (annee === 2023) {
+      setOpaque(true)
+    }
+    if (annee === 2025) {
+      setOpaque2(false)
+    }
+
+    Animated.timing(rotateSeason, {
+      toValue: 1, // Valeur cible de la rotation
+      duration: 300,
+      useNativeDriver: true,
+    }).start(() => {
+      // Réinitialiser la valeur de la rotation à 0 après l'animation
+      rotateSeason.setValue(0);
+    });
+
+  }
+
+  const next = () => {
+    if (annee < 2025) {
+      setAnnee((next) => next + 1)
+    }
+    if (annee === 2022) {
+      setOpaque(false)
+    }
+    if (annee === 2024) {
+      setOpaque2(true)
+    }
+
+    Animated.timing(rotateSeason, {
+      toValue: 1, // Valeur cible de la rotation
+      duration: 300,
+      useNativeDriver: true,
+    }).start(() => {
+      // Réinitialiser la valeur de la rotation à 0 après l'animation
+      rotateSeason.setValue(0);
+    });
+
+  }
+*/
+
+const prec = () => {
     if (annee > 2024 - 3) {
       setAnnee((prev) => prev - 1)
     }
@@ -295,7 +370,6 @@ function FicheJoueur() {
     });
 
   }
-
 
   if (!joueur || !palmares) {
     return <View>
@@ -358,7 +432,7 @@ console.log(team)
     return acc;
   }, {});
 
-  const trophiesArray = Object.entries(trophies).map(([league, trophies]) => ({
+  const trophiesArray = Object.entries(trophies).map(([league, trophies, season]) => ({
     league,
     trophies,
   }));
@@ -372,7 +446,7 @@ console.log(team)
     inputRange: [0, 1],
     outputRange: ['0deg', '360deg'],
   });
-  console.log(palmares)
+  console.log(trophiesArray)
 
 
   return (
@@ -384,18 +458,18 @@ console.log(team)
 {team === 2 ? 
             <Image source={
               
-               joueur.player.id === 21104 ? kolomuaniselec : joueur.player.id === 22221 ? maignanselec : joueur.player.id === 1271 ? tchouameniselec : joueur.player.id === 33 ? lukasselec : joueur.player.id === 272 ? rabiotselec : joueur.player.id === 21509 ? thuramselec : joueur.player.id === 278 ? mbappeselec : joueur.player.id === 153 ? dembeleselec : joueur.player.id === 343027 ? doueselec : joueur.player.id === 19617 ? oliseselec : joueur.player.id === 47300 ? theoselec : joueur.player.id === 161904 ? barcolaselec : joueur.player.id === 156477 ? cherkiselec : {uri: joueur.player.photo}}
+               joueur.player.id === 336657 ? zaireselec : joueur.player.id === 1145 ? konateselec : joueur.player.id === 1454 ? guendouziselec : joueur.player.id === 162453 ? chevalierselec :joueur.player.id === 21104 ? kolomuaniselec : joueur.player.id === 22221 ? maignanselec : joueur.player.id === 1271 ? tchouameniselec : joueur.player.id === 33 ? lukasselec : joueur.player.id === 272 ? rabiotselec : joueur.player.id === 21509 ? thuramselec : joueur.player.id === 278 ? mbappeselec : joueur.player.id === 153 ? dembeleselec : joueur.player.id === 343027 ? doueselec : joueur.player.id === 19617 ? oliseselec : joueur.player.id === 47300 ? theoselec : joueur.player.id === 161904 ? barcolaselec : joueur.player.id === 156477 ? cherkiselec : {uri: joueur.player.photo}}
               style={{height: "190", width: "35%"}}/>
                :
               <Image source={
-              joueur.player.id === 1485 ? bruno : joueur.player.id === 21393 ? guirassy : joueur.player.id === 2897 ? kim : joueur.player.id === 509 ? davies : joueur.player.id === 502 ? kimmich : joueur.player.id === 511 ? goretzka : joueur.player.id === 1864 ? neto : joueur.player.id === 152953 ? colwill : joueur.player.id === 266657 ? savinho : joueur.player.id === 323935 ? simeone : joueur.player.id === 631 ? foden : joueur.player.id === 36902 ? reijnders : joueur.player.id === 161585 ? conceicao : joueur.player.id === 266 ? dimaria : joueur.player.id === 567 ? rubendias : joueur.player.id === 18861 ? ake : joueur.player.id === 361497 ? huijsen : joueur.player.id === 157 ? suarez : joueur.player.id === 1422 ? doku : joueur.player.id === 636 ? bernardo : joueur.player.id === 44 ? rodri : joueur.player.id === 116117 ? caicedo : joueur.player.id === 136723 ? madueke : joueur.player.id === 283058 ? jackson : joueur.player.id === 5996 ? fernandez : joueur.player.id === 22094 ? fofana : joueur.player.id === 19545 ? james : joueur.player.id === 47380 ? cucurella : joueur.player.id === 284322 ? mainoo : joueur.player.id === 545 ? mazraoui : joueur.player.id === 532 ? deligt : joueur.player.id === 288006 ? hojlund : joueur.player.id === 70100 ? zirkzee : joueur.player.id === 157997 ? amad : joueur.player.id === 184 ? kane : joueur.player.id === 180496 ? mikautadze : joueur.player.id === 21509 ? marcus : joueur.player.id === 15906 ? touf : joueur.player.id === 37784 ? mmd :joueur.player.id === 984 ? brandt : joueur.player.id === 158644 ? beier : joueur.player.id === 744 ? brahim : joueur.player.id === 161928 ? balde : joueur.player.id === 1323 ? olmo : joueur.player.id === 133609 ? pedri : joueur.player.id === 47311 ? merino : joueur.player.id === 313245 ? skelly : joueur.player.id === 49 ? partey : joueur.player.id === 2937 ? rice : joueur.player.id === 2802 ? sommer : joueur.player.id === 909 ? rashford : joueur.player.id === 19366 ? watkins : joueur.player.id === 249 ? malen : joueur.player.id === 746 ? ascencio : joueur.player.id === 19170 ? rogers : joueur.player.id === 263482 ? nuno : joueur.player.id === 33 ? hernandez : joueur.player.id === 257 ? marquinhos : joueur.player.id === 9 ? hakimi : joueur.player.id === 1622 ? donarumma : joueur.player.id === 328 ? ruiz : joueur.player.id === 508 ? coman : joueur.player.id === 181812 ? musiala : joueur.player.id === 644 ? sane  : joueur.player.id === 6420 ? retegui : joueur.player.id === 147859 ? deketelaere : joueur.player.id === 18767 ? lookman : joueur.player.id === 22090 ? saliba : joueur.player.id === 37127 ? odegard : joueur.player.id === 1946 ? trossard : joueur.player.id === 1460 ? saka : joueur.player.id === 372 ? militao : joueur.player.id === 733 ? carvajal : joueur.player.id === 51494 ? ugarte : joueur.player.id === 2467 ? lisandro : joueur.player.id === 1096 ? szoboszlai : joueur.player.id === 180317 ? bradley : joueur.player.id === 22236 ? leao : joueur.player.id === 226 ? dumfries : joueur.player.id === 31009 ? bastoni : joueur.player.id === 217 ? martinez : joueur.player.id === 30558 ? barella : joueur.player.id === 745 ? isco : joueur.player.id === 9971 ? antony : joueur.player.id === 2207 ? camavinga : joueur.player.id === 756 ? valverde : joueur.player.id === 754 ? modric : joueur.player.id === 2285 ? rudiger : joueur.player.id === 794 ? schik : joueur.player.id === 203224 ? wirtz : joueur.player.id === 6009 ? alvarez : joueur.player.id === 8492 ? sorloth : joueur.player.id === 307835 ? beraldo : joueur.player.id === 262 ? kimpembe : joueur.player.id === 396623 ? cubarsi : joueur.player.id === 5 ? akanji : joueur.player.id === 81573 ? marmoush : joueur.player.id === 283 ? arnold : joueur.player.id === 2489 ? diaz : joueur.player.id === 6716 ? macallister : joueur.player.id === 247 ? gakpo : joueur.player.id === 409216 ? mayulu : joueur.player.id === 629 ? debruyne : joueur.player.id === 116 ? kephren : joueur.player.id === 7334 ? adeyemi : joueur.player.id === 21104 ? kolo : joueur.player.id === 1271 ? tchouameni : joueur.player.id === 2068 ? safonov : joueur.player.id === 1100 ? haaland : joueur.player.id === 161904 ? barcola : joueur.player.id === 336657 ? zaire : joueur.player.id === 510 ? gnabry : joueur.player.id === 153 ? dembele : joueur.player.id === 129718 ? bellingham : joueur.player.id === 386828 ? yamal : joueur.player.id === 10009 ? rodrygo : joueur.player.id === 18979 ? gyokeres : joueur.player.id === 291964 ? guller : joueur.player.id === 343027 ? doue : joueur.player.id === 483 ? kvara : joueur.player.id === 154 ? goat : joueur.player.id === 306 ? salah : joueur.player.id === 51617 ? darwin : joueur.player.id === 1257 ? kounde : joueur.player.id === 278 ? mbappe : joueur.player.id === 377122 ? endrick : joueur.player.id === 762 ? vini : joueur.player.id === 152982 ? palmer : joueur.player.id === 56 ? griezmann : joueur.player.id === 19617 ? olise : joueur.player.id === 272 ? rabiot : joueur.player.id === 156477 ? cherki : joueur.player.id === 1467 ? lacazette : joueur.player.id === 47300 ? theo : joueur.player.id === 1496 ? raphinha : joueur.player.id === 521 ? lewandowski : joueur.player.id === 2864 ? isak : joueur.player.id === 41585 ? ramos : joueur.player.id === 284324 ? garnacho : joueur.player.id === 128384 ? vitinha : joueur.player.id === 16367 ? pacho : joueur.player.id === 335051 ? joao : { uri: joueur.player.photo }} 
+              joueur.player.id === 19959 ? white : joueur.player.id === 127769 ? martinelli : joueur.player.id === 19465 ? raya : joueur.player.id === 542 ? gravenberch : joueur.player.id === 174565 ? ekitike : joueur.player.id === 1149 ? upamecano : joueur.player.id === 497 ? neuer : joueur.player.id === 972 ? tah : joueur.player.id === 21138 ? aitnouri : joueur.player.id === 567 ? rubendias : joueur.player.id === 284230 ? lewis : joueur.player.id === 129033 ? gvardiol : joueur.player.id === 626 ? stones : joueur.player.id === 304 ? mane : joueur.player.id === 874 ? cristiano : joueur.player.id === 759 ? benzema : joueur.player.id === 897 ? greenwood : joueur.player.id === 153430 ? elanga : joueur.player.id === 736 ? fran : joueur.player.id === 343320 ? benseghir : joueur.player.id === 274300 ? akliouche : joueur.player.id === 283026 ? biereth : joueur.player.id === 63577 ? mudryk : joueur.player.id === 10329 ? pedro : joueur.player.id === 161948 ? delap : joueur.player.id === 161907 ? gusto : joueur.player.id === 269 ? nkunku : joueur.player.id === 1485 ? bruno : joueur.player.id === 21393 ? guirassy : joueur.player.id === 2897 ? kim : joueur.player.id === 509 ? davies : joueur.player.id === 502 ? kimmich : joueur.player.id === 511 ? goretzka : joueur.player.id === 1864 ? neto : joueur.player.id === 152953 ? colwill : joueur.player.id === 266657 ? savinho : joueur.player.id === 323935 ? simeone : joueur.player.id === 631 ? foden : joueur.player.id === 36902 ? reijnders : joueur.player.id === 161585 ? conceicao : joueur.player.id === 266 ? dimaria : joueur.player.id === 567 ? rubendias : joueur.player.id === 18861 ? ake : joueur.player.id === 361497 ? huijsen : joueur.player.id === 157 ? suarez : joueur.player.id === 1422 ? doku : joueur.player.id === 636 ? bernardo : joueur.player.id === 44 ? rodri : joueur.player.id === 116117 ? caicedo : joueur.player.id === 136723 ? madueke : joueur.player.id === 283058 ? jackson : joueur.player.id === 5996 ? fernandez : joueur.player.id === 22094 ? fofana : joueur.player.id === 19545 ? james : joueur.player.id === 47380 ? cucurella : joueur.player.id === 284322 ? mainoo : joueur.player.id === 545 ? mazraoui : joueur.player.id === 532 ? deligt : joueur.player.id === 288006 ? hojlund : joueur.player.id === 70100 ? zirkzee : joueur.player.id === 157997 ? amad : joueur.player.id === 184 ? kane : joueur.player.id === 180496 ? mikautadze : joueur.player.id === 21509 ? marcus : joueur.player.id === 15906 ? touf : joueur.player.id === 37784 ? mmd :joueur.player.id === 984 ? brandt : joueur.player.id === 158644 ? beier : joueur.player.id === 744 ? brahim : joueur.player.id === 161928 ? balde : joueur.player.id === 1323 ? olmo : joueur.player.id === 133609 ? pedri : joueur.player.id === 47311 ? merino : joueur.player.id === 313245 ? skelly : joueur.player.id === 49 ? partey : joueur.player.id === 2937 ? rice : joueur.player.id === 2802 ? sommer : joueur.player.id === 909 ? rashford : joueur.player.id === 19366 ? watkins : joueur.player.id === 249 ? malen : joueur.player.id === 746 ? ascencio : joueur.player.id === 19170 ? rogers : joueur.player.id === 263482 ? nuno : joueur.player.id === 33 ? hernandez : joueur.player.id === 257 ? marquinhos : joueur.player.id === 9 ? hakimi : joueur.player.id === 1622 ? donarumma : joueur.player.id === 328 ? ruiz : joueur.player.id === 508 ? coman : joueur.player.id === 181812 ? musiala : joueur.player.id === 644 ? sane  : joueur.player.id === 6420 ? retegui : joueur.player.id === 147859 ? deketelaere : joueur.player.id === 18767 ? lookman : joueur.player.id === 22090 ? saliba : joueur.player.id === 37127 ? odegard : joueur.player.id === 1946 ? trossard : joueur.player.id === 1460 ? saka : joueur.player.id === 372 ? militao : joueur.player.id === 733 ? carvajal : joueur.player.id === 51494 ? ugarte : joueur.player.id === 2467 ? lisandro : joueur.player.id === 1096 ? szoboszlai : joueur.player.id === 180317 ? bradley : joueur.player.id === 22236 ? leao : joueur.player.id === 226 ? dumfries : joueur.player.id === 31009 ? bastoni : joueur.player.id === 217 ? martinez : joueur.player.id === 30558 ? barella : joueur.player.id === 745 ? isco : joueur.player.id === 9971 ? antony : joueur.player.id === 2207 ? camavinga : joueur.player.id === 756 ? valverde : joueur.player.id === 754 ? modric : joueur.player.id === 2285 ? rudiger : joueur.player.id === 794 ? schik : joueur.player.id === 203224 ? wirtz : joueur.player.id === 6009 ? alvarez : joueur.player.id === 8492 ? sorloth : joueur.player.id === 307835 ? beraldo : joueur.player.id === 262 ? kimpembe : joueur.player.id === 396623 ? cubarsi : joueur.player.id === 5 ? akanji : joueur.player.id === 81573 ? marmoush : joueur.player.id === 283 ? arnold : joueur.player.id === 2489 ? diaz : joueur.player.id === 6716 ? macallister : joueur.player.id === 247 ? gakpo : joueur.player.id === 409216 ? mayulu : joueur.player.id === 629 ? debruyne : joueur.player.id === 116 ? kephren : joueur.player.id === 7334 ? adeyemi : joueur.player.id === 21104 ? kolo : joueur.player.id === 1271 ? tchouameni : joueur.player.id === 2068 ? safonov : joueur.player.id === 1100 ? haaland : joueur.player.id === 161904 ? barcola : joueur.player.id === 336657 ? zaire : joueur.player.id === 510 ? gnabry : joueur.player.id === 153 ? dembele : joueur.player.id === 129718 ? bellingham : joueur.player.id === 386828 ? yamal : joueur.player.id === 10009 ? rodrygo : joueur.player.id === 18979 ? gyokeres : joueur.player.id === 291964 ? guller : joueur.player.id === 343027 ? doue : joueur.player.id === 483 ? kvara : joueur.player.id === 154 ? goat : joueur.player.id === 306 ? salah : joueur.player.id === 51617 ? darwin : joueur.player.id === 1257 ? kounde : joueur.player.id === 278 ? mbappe : joueur.player.id === 377122 ? endrick : joueur.player.id === 762 ? vini : joueur.player.id === 152982 ? palmer : joueur.player.id === 56 ? griezmann : joueur.player.id === 19617 ? olise : joueur.player.id === 272 ? rabiot : joueur.player.id === 156477 ? cherki : joueur.player.id === 1467 ? lacazette : joueur.player.id === 47300 ? theo : joueur.player.id === 1496 ? raphinha : joueur.player.id === 521 ? lewandowski : joueur.player.id === 2864 ? isak : joueur.player.id === 41585 ? ramos : joueur.player.id === 284324 ? garnacho : joueur.player.id === 128384 ? vitinha : joueur.player.id === 16367 ? pacho : joueur.player.id === 335051 ? joao : { uri: joueur.player.photo }} 
               style={
                 
-              joueur.player.id === 2897 || joueur.player.id === 247 || joueur.player.id === 1864 || joueur.player.id === 152953 || joueur.player.id === 7334 || joueur.player.id === 336657 || joueur.player.id === 386828 || joueur.player.id === 1257 || joueur.player.id === 1323 || joueur.player.id === 9971 || joueur.player.id === 1100 || joueur.player.id === 133609 || joueur.player.id === 521 || joueur.player.id === 396623 || joueur.player.id === 1496 || joueur.player.id === 343027 || joueur.player.id === 263482 || joueur.player.id === 306 || joueur.player.id === 51617 || joueur.player.id === 6716 || joueur.player.id === 1096 || joueur.player.id === 180317 || joueur.player.id === 2489 || joueur.player.id === 147859 || joueur.player.id === 278 || joueur.player.id === 483 ? { height: 230, width: "39%"}:
-              joueur.player.id === 567 ||  joueur.player.id === 18861 || joueur.player.id === 409216 || joueur.player.id === 154 || joueur.player.id === 1622 || joueur.player.id === 128384  ? { height: "100%", width: "46%", marginRight: -30} :
-             joueur.player.id === 161928 || joueur.player.id === 372 || joueur.player.id === 291964 || joueur.player.id === 511 || joueur.player.id === 502 || joueur.player.id === 509 || joueur.player.id === 323935 || joueur.player.id === 631 || joueur.player.id === 36902 || joueur.player.id === 156477 || joueur.player.id === 161585 || joueur.player.id === 266 ||  joueur.player.id === 2068 || joueur.player.id === 6009 || joueur.player.id === 8492 || joueur.player.id === 56 || joueur.player.id === 744 || joueur.player.id === 1271 || joueur.player.id === 283 || joueur.player.id === 361497 || joueur.player.id === 9 ||  joueur.player.id === 41585 || joueur.player.id === 161904 || joueur.player.id === 33 || joueur.player.id === 257 || joueur.player.id === 16367 || joueur.player.id === 21509 || joueur.player.id === 2802 || joueur.player.id === 31009 || joueur.player.id === 30558 || joueur.player.id === 226 || joueur.player.id === 81573 || joueur.player.id === 5  ? {height: "100%", width: "40%", marginRight: -20} :
-                joueur.player.id === 1485 || joueur.player.id === 284324 || joueur.player.id === 266657 || joueur.player.id === 335051 || joueur.player.id === 157 || joueur.player.id === 262 || joueur.player.id === 1422 || joueur.player.id === 636 || joueur.player.id === 44 || joueur.player.id === 762 || joueur.player.id === 153 || joueur.player.id === 129718 || joueur.player.id === 10009 || joueur.player.id === 756 || joueur.player.id === 2207 || joueur.player.id === 377122 || joueur.player.id === 754 || joueur.player.id === 2285 || joueur.player.id === 733 || joueur.player.id === 328 || joueur.player.id === 217 || joueur.player.id === 18767 || joueur.player.id === 6420 || joueur.player.id === 510 || joueur.player.id === 184 || joueur.player.id === 19617 || joueur.player.id === 644 || joueur.player.id === 508 || joueur.player.id === 181812 || joueur.player.id === 47380 || joueur.player.id === 22094 || joueur.player.id === 152982 || joueur.player.id === 283058 || joueur.player.id === 5996 || joueur.player.id === 136723 || joueur.player.id === 19545 || joueur.player.id === 116117 ? {height: "105%", width: "43%", marginRight: -20} :
-                joueur.player.id === 21393 ? {height: "125%", width: "44%"}
+             joueur.player.id === 542 || joueur.player.id === 542 || joueur.player.id === 153 || joueur.player.id === 153 || joueur.player.id === 567 || joueur.player.id === 63577 || joueur.player.id === 2897 || joueur.player.id === 247 || joueur.player.id === 1864 || joueur.player.id === 152953 || joueur.player.id === 7334 || joueur.player.id === 336657 || joueur.player.id === 386828 || joueur.player.id === 1257 || joueur.player.id === 1323 || joueur.player.id === 9971 || joueur.player.id === 133609 || joueur.player.id === 521 || joueur.player.id === 396623 || joueur.player.id === 1496 || joueur.player.id === 343027 || joueur.player.id === 263482 || joueur.player.id === 306 || joueur.player.id === 51617 || joueur.player.id === 6716 || joueur.player.id === 1096 || joueur.player.id === 180317 || joueur.player.id === 2489 || joueur.player.id === 147859 || joueur.player.id === 278 || joueur.player.id === 483 ? { height: 230, width: "39%"}:
+              joueur.player.id === 18861 || joueur.player.id === 409216 || joueur.player.id === 154 || joueur.player.id === 1622 || joueur.player.id === 128384  ? { height: "100%", width: "46%", marginRight: -30} :
+             joueur.player.id === 19959 || joueur.player.id === 127769 || joueur.player.id === 19465 || joueur.player.id === 2937 || joueur.player.id === 1946 || joueur.player.id === 22090 || joueur.player.id === 1149 || joueur.player.id === 497 || joueur.player.id === 972 || joueur.player.id === 21138 || joueur.player.id === 129033 || joueur.player.id === 284230 || joueur.player.id === 626 || joueur.player.id === 153430 || joueur.player.id === 508 || joueur.player.id === 181812 || joueur.player.id === 6420 || joueur.player.id === 510 || joueur.player.id === 184 || joueur.player.id === 19617 || joueur.player.id === 161928 || joueur.player.id === 372 || joueur.player.id === 291964 || joueur.player.id === 511 || joueur.player.id === 502 || joueur.player.id === 509 || joueur.player.id === 323935 || joueur.player.id === 631 || joueur.player.id === 36902 || joueur.player.id === 156477 || joueur.player.id === 161585 || joueur.player.id === 266 ||  joueur.player.id === 2068 || joueur.player.id === 6009 || joueur.player.id === 8492 || joueur.player.id === 56 || joueur.player.id === 744 || joueur.player.id === 1271 || joueur.player.id === 283 || joueur.player.id === 361497 || joueur.player.id === 9 ||  joueur.player.id === 41585 || joueur.player.id === 161904 || joueur.player.id === 33 || joueur.player.id === 257 || joueur.player.id === 16367 || joueur.player.id === 21509 || joueur.player.id === 2802 || joueur.player.id === 31009 || joueur.player.id === 30558 || joueur.player.id === 226 || joueur.player.id === 81573 || joueur.player.id === 5  ? {height: "100%", width: "40%", marginRight: -20} :
+              joueur.player.id === 313245 || joueur.player.id === 629 || joueur.player.id === 174565 || joueur.player.id === 136723 || joueur.player.id === 304 || joueur.player.id === 874 || joueur.player.id === 759 || joueur.player.id === 1460 || joueur.player.id === 37127 || joueur.player.id === 1100 || joueur.player.id === 897 || joueur.player.id === 203224 || joueur.player.id === 736 || joueur.player.id === 274300 || joueur.player.id === 343320 || joueur.player.id === 283026 || joueur.player.id === 10329 || joueur.player.id === 161948 || joueur.player.id === 161907 || joueur.player.id === 1485 || joueur.player.id === 284324 || joueur.player.id === 266657 || joueur.player.id === 335051 || joueur.player.id === 157 || joueur.player.id === 262 || joueur.player.id === 1422 || joueur.player.id === 636 || joueur.player.id === 44 || joueur.player.id === 762 || joueur.player.id === 129718 || joueur.player.id === 10009 || joueur.player.id === 756 || joueur.player.id === 2207 || joueur.player.id === 377122 || joueur.player.id === 754 || joueur.player.id === 2285 || joueur.player.id === 733 || joueur.player.id === 328 || joueur.player.id === 217 || joueur.player.id === 18767 || joueur.player.id === 644 || joueur.player.id === 47380 || joueur.player.id === 22094 || joueur.player.id === 152982 || joueur.player.id === 283058 || joueur.player.id === 5996 || joueur.player.id === 19545 || joueur.player.id === 116117 ? {height: "105%", width: "43%", marginRight: -20, objectFit: "contain"} :
+               joueur.player.id === 22236 ||  joueur.player.id === 269 || joueur.player.id === 21393 ? {height: "125%", width: "44%", objectFit: "contain", marginLeft: -10}
                 : styles.photo}
                  />
               }
@@ -446,24 +520,24 @@ console.log(team)
                     ))}
                   </View>
                   <View style={styles.armoire}>
-                    {trophiesArray.map((element) => <View key={"trophy" + element.league + element.season} style={styles.box}> {element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee} /> : element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee} /> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : element.league === "UEFA Europa League" ? <Image source={europa} style={styles.trophee} /> : element.league === "Ligue 1" ? <Image source={tropheeligue1} style={styles.trophee} /> : element.league === "La Liga" ? <Image source={liga} style={styles.trophee} /> : element.league === "Bundesliga" ? <Image source={bundesliga} style={styles.trophee} /> : element.league === "UEFA European Championship" ? <Image source={euro} style={styles.trophee} /> : element.league === "UEFA Super Cup" ? <Image source={uefa} style={styles.trophee} /> : element.league === "Serie A" ? <Image source={seriea} style={styles.trophee} /> : element.league === "CAF Africa Cup of Nations" ? <Image source={can} style={styles.trophee} /> : element.league === "UEFA Nations League" ? <Image source={nations} style={styles.trophee} /> : element.league === "FIFA Intercontinental Cup" ? <Image source={fifa} style={styles.trophee} /> : null}</View>)}
+                    {trophiesArray.map((element) => <View key={"trophy" + element.league + element.trophies[0].season} style={styles.box}> {element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee} /> : element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee} /> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : element.league === "UEFA Europa League" ? <Image source={europa} style={styles.trophee} /> : element.league === "Ligue 1" ? element.trophies[0].season === "2024/2025" ? <Image source={newtropheeligue1} style={styles.trophee} /> : <Image source={tropheeligue1} style={styles.trophee} /> : element.league === "La Liga" ? <Image source={liga} style={styles.trophee} /> : element.league === "Bundesliga" ? <Image source={bundesliga} style={styles.trophee} /> : element.league === "UEFA European Championship" ? <Image source={euro} style={styles.trophee} /> : element.league === "UEFA Super Cup" ? <Image source={uefa} style={styles.trophee} /> : element.league === "Serie A" ? <Image source={seriea} style={styles.trophee} /> : element.league === "CAF Africa Cup of Nations" ? <Image source={can} style={styles.trophee} /> : element.league === "UEFA Nations League" ? <Image source={nations} style={styles.trophee} /> : element.league === "FIFA Intercontinental Cup" ? <Image source={fifa} style={styles.trophee} /> : null}</View>)}
                   </View>
 
                 </Animated.View> :
               palmares.length < 12 ? <Animated.View style={[styles.palmaresInfos, {
                 height: heightAnim.interpolate({
                   inputRange: [0, 1],
-                  outputRange: [0, 160]  // Ajustez la hauteur en fonction du contenu
+                  outputRange: [0, 190]  // Ajustez la hauteur en fonction du contenu
                 })
               }]}>
                 <View style={{ width: "55%" }}>
                   {trophiesArray.map((element, index) => (
-                    element.league === "Trofeo Joan Gamper" ? null : element.league === "FA Youth Cup" ? null : element.league === "Supercopa de Catalunya" ? null : element.league === "Copa del Rey Juvenil" ? null : element.league === "Audi Cup" ? null : element.league === "Ekstraklasa" ? null :
+                        element.league === "Cup" ? null : element.league === "Trofeo Joan Gamper" ? null : element.league === "FA Youth Cup" ? null : element.league === "Supercopa de Catalunya" ? null : element.league === "Copa del Rey Juvenil" ? null : element.league === "Audi Cup" ? null : element.league === "Ekstraklasa" ? null :
                       <Text style={{ fontFamily: "Kanito", marginInline: 10 }}>{element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league === "Trofeo Joan Gamper" ? null : element.league === "UEFA European Championship" ? "Euro" : element.league}</Text>
                   ))}
                 </View>
                 <View style={styles.armoire}>
-                  {trophiesArray.map((element) => <View style={styles.box}> {element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee} /> : element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee} /> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : element.league === "UEFA Europa League" ? <Image source={europa} style={styles.trophee} /> : element.league === "Ligue 1" ? <Image source={tropheeligue1} style={styles.trophee} /> : element.league === "La Liga" ? <Image source={liga} style={styles.trophee} /> : element.league === "Bundesliga" ? <Image source={bundesliga} style={styles.trophee} /> : element.league === "UEFA European Championship" ? <Image source={euro} style={styles.trophee} /> : element.league === "UEFA Super Cup" ? <Image source={uefa} style={styles.trophee} /> : element.league === "Serie A" ? <Image source={seriea} style={styles.trophee} /> : element.league === "CAF Africa Cup of Nations" ? <Image source={can} style={styles.trophee} /> : element.league === "UEFA Nations League" ? <Image source={nations} style={styles.trophee} /> : element.league === "FIFA Intercontinental Cup" ? <Image source={fifa} style={styles.trophee} /> : null}</View>)}
+                    {trophiesArray.map((element) => <View key={"trophy" + element.league + element.trophies[0].season} style={styles.box}> {element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee} /> : element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee} /> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : element.league === "UEFA Europa League" ? <Image source={europa} style={styles.trophee} /> : element.league === "Ligue 1" ? element.trophies[0].season === "2024/2025" ? <Image source={newtropheeligue1} style={styles.trophee} /> : <Image source={tropheeligue1} style={styles.trophee} /> : element.league === "La Liga" ? <Image source={liga} style={styles.trophee} /> : element.league === "Bundesliga" ? <Image source={bundesliga} style={styles.trophee} /> : element.league === "UEFA European Championship" ? <Image source={euro} style={styles.trophee} /> : element.league === "UEFA Super Cup" ? <Image source={uefa} style={styles.trophee} /> : element.league === "Serie A" ? <Image source={seriea} style={styles.trophee} /> : element.league === "CAF Africa Cup of Nations" ? <Image source={can} style={styles.trophee} /> : element.league === "UEFA Nations League" ? <Image source={nations} style={styles.trophee} /> : element.league === "FIFA Intercontinental Cup" ? <Image source={fifa} style={styles.trophee} /> : null}</View>)}
                 </View>
 
               </Animated.View> :
@@ -475,12 +549,12 @@ console.log(team)
                 }]}>
                   <View style={{ width: "55%" }}>
                     {trophiesArray.map((element, index) => (
-                      element.league === "Trofeo Joan Gamper" ? null : element.league === "FA Youth Cup" ? null : element.league === "Supercopa de Catalunya" ? null : element.league === "Copa del Rey Juvenil" ? null : element.league === "Audi Cup" ? null : element.league === "Ekstraklasa" ? null :
+                        element.league === "Cup" ? null : element.league === "Trofeo Joan Gamper" ? null : element.league === "FA Youth Cup" ? null : element.league === "Supercopa de Catalunya" ? null : element.league === "Copa del Rey Juvenil" ? null : element.league === "Audi Cup" ? null : element.league === "Ekstraklasa" ? null :
                         <Text style={{ fontFamily: "Kanito", marginInline: 10 }}>{element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league === "Trofeo Joan Gamper" ? null : element.league === "UEFA European Championship" ? "Euro" : element.league}</Text>
                     ))}
                   </View>
                   <View style={styles.armoire}>
-                    {trophiesArray.map((element) => <View style={styles.box}> {element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee} /> : element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee} /> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : element.league === "UEFA Europa League" ? <Image source={europa} style={styles.trophee} /> : element.league === "Ligue 1" ? <Image source={tropheeligue1} style={styles.trophee} /> : element.league === "La Liga" ? <Image source={liga} style={styles.trophee} /> : element.league === "Bundesliga" ? <Image source={bundesliga} style={styles.trophee} /> : element.league === "UEFA European Championship" ? <Image source={euro} style={styles.trophee} /> : element.league === "UEFA Super Cup" ? <Image source={uefa} style={styles.trophee} /> : element.league === "Serie A" ? <Image source={seriea} style={styles.trophee} /> : element.league === "CAF Africa Cup of Nations" ? <Image source={can} style={styles.trophee} /> : element.league === "UEFA Nations League" ? <Image source={nations} style={styles.trophee} /> : element.league === "FIFA Intercontinental Cup" ? <Image source={fifa} style={styles.trophee} /> : null}</View>)}
+                    {trophiesArray.map((element) => <View key={"trophy" + element.league + element.trophies[0].season} style={styles.box}> {element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee} /> : element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee} /> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : element.league === "UEFA Europa League" ? <Image source={europa} style={styles.trophee} /> : element.league === "Ligue 1" ? element.trophies[0].season === "2024/2025" ? <Image source={newtropheeligue1} style={styles.trophee} /> : <Image source={tropheeligue1} style={styles.trophee} /> : element.league === "La Liga" ? <Image source={liga} style={styles.trophee} /> : element.league === "Bundesliga" ? <Image source={bundesliga} style={styles.trophee} /> : element.league === "UEFA European Championship" ? <Image source={euro} style={styles.trophee} /> : element.league === "UEFA Super Cup" ? <Image source={uefa} style={styles.trophee} /> : element.league === "Serie A" ? <Image source={seriea} style={styles.trophee} /> : element.league === "CAF Africa Cup of Nations" ? <Image source={can} style={styles.trophee} /> : element.league === "UEFA Nations League" ? <Image source={nations} style={styles.trophee} /> : element.league === "FIFA Intercontinental Cup" ? <Image source={fifa} style={styles.trophee} /> : null}</View>)}
                   </View>
 
                 </Animated.View> :
@@ -492,12 +566,12 @@ console.log(team)
                   }]}>
                     <View style={{ width: "55%" }} >
                       {trophiesArray.map((element, index) => (
-                        element.league === "Trofeo Joan Gamper" ? null : element.league === "FA Youth Cup" ? null : element.league === "Supercopa de Catalunya" ? null : element.league === "Copa del Rey Juvenil" ? null : element.league === "Audi Cup" ? null : element.league === "Ekstraklasa" ? null :
+                        element.league === "Cup" ? null : element.league === "Trofeo Joan Gamper" ? null : element.league === "FA Youth Cup" ? null : element.league === "Supercopa de Catalunya" ? null : element.league === "Copa del Rey Juvenil" ? null : element.league === "Audi Cup" ? null : element.league === "Ekstraklasa" ? null :
                           <Text style={{ fontFamily: "Kanito", marginInline: 10 }}>{element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league === "Trofeo Joan Gamper" ? null : element.league === "UEFA European Championship" ? "Euro" : element.league}</Text>
                       ))}
                     </View>
                     <View style={styles.armoire}>
-                      {trophiesArray.map((element) => <View style={styles.box}> {element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee} /> : element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee} /> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : element.league === "UEFA Europa League" ? <Image source={europa} style={styles.trophee} /> : element.league === "Ligue 1" ? <Image source={tropheeligue1} style={styles.trophee} /> : element.league === "La Liga" ? <Image source={liga} style={styles.trophee} /> : element.league === "Bundesliga" ? <Image source={bundesliga} style={styles.trophee} /> : element.league === "UEFA European Championship" ? <Image source={euro} style={styles.trophee} /> : element.league === "UEFA Super Cup" ? <Image source={uefa} style={styles.trophee} /> : element.league === "Serie A" ? <Image source={seriea} style={styles.trophee} /> : element.league === "CAF Africa Cup of Nations" ? <Image source={can} style={styles.trophee} /> : element.league === "UEFA Nations League" ? <Image source={nations} style={styles.trophee} /> : element.league === "FIFA Intercontinental Cup" ? <Image source={fifa} style={styles.trophee} /> : null}</View>)}
+                    {trophiesArray.map((element) => <View key={"trophy" + element.league + element.trophies[0].season} style={styles.box}> {element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee} /> : element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee} /> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : element.league === "UEFA Europa League" ? <Image source={europa} style={styles.trophee} /> : element.league === "Ligue 1" ? element.trophies[0].season === "2024/2025" ? <Image source={newtropheeligue1} style={styles.trophee} /> : <Image source={tropheeligue1} style={styles.trophee} /> : element.league === "La Liga" ? <Image source={liga} style={styles.trophee} /> : element.league === "Bundesliga" ? <Image source={bundesliga} style={styles.trophee} /> : element.league === "UEFA European Championship" ? <Image source={euro} style={styles.trophee} /> : element.league === "UEFA Super Cup" ? <Image source={uefa} style={styles.trophee} /> : element.league === "Serie A" ? <Image source={seriea} style={styles.trophee} /> : element.league === "CAF Africa Cup of Nations" ? <Image source={can} style={styles.trophee} /> : element.league === "UEFA Nations League" ? <Image source={nations} style={styles.trophee} /> : element.league === "FIFA Intercontinental Cup" ? <Image source={fifa} style={styles.trophee} /> : null}</View>)}
                     </View>
 
                   </Animated.View>
@@ -539,7 +613,7 @@ console.log(team)
                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginInline: 10 }}>
                       <View style={styles.statList}>
                         <View style={styles.ligne}>
-                          <Image source={player} style={styles.icone} />
+                          <Image source={terrain} style={styles.icone} />
                           <Text style={styles.cle}>Matchs joués: </Text><Text style={styles.valeur}> {element.games.appearences}</Text>
                         </View>
                         {joueur.statistics[0].games.position === "Goalkeeper" ? 
@@ -568,6 +642,10 @@ console.log(team)
                           <Image source={tacle} style={styles.icone} />
                           <Text style={styles.cle}>Tacles:</Text><Text style={styles.valeur}> {element.tackles.total === null ? 0 : element.tackles.total}</Text>
                         </View> : null}
+                        {joueur.statistics[0].games.position === "Goalkeeper" ? null : <View style={styles.ligne}>
+                          <Image source={player} style={styles.icone} />
+                          <Text style={styles.cle}>Dribbles Tentés (Réussis): </Text><Text style={styles.valeur}> {element.dribbles.attempts} ({element.dribbles.success === null ? 0 : element.dribbles.success})</Text>
+                        </View>}
                         <View style={styles.ligne}>
                           <Image source={rating} style={styles.icone} />
                           <Text style={styles.cle}>Note moyenne: </Text><Text style={styles.valeur}> {element.games.rating ? element.games.rating.slice(0, 4) : "-"}</Text>
@@ -601,7 +679,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: '1%',
     marginTop: 65,
-    paddingBottom: 50
+    paddingBottom: 100
   },
   article: {
     flexDirection: 'column',

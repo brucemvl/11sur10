@@ -597,7 +597,7 @@ const [fontsLoaded] = useFonts({
                     element.league.name === "UEFA Champions League" &&
                     element.fixture.status.long != 'Match Finished' &&
                     element.fixture.status.elapsed !== null
-                  ) ? (
+                  ) ? 
                     <TouchableOpacity onPress={spoil} style={styles.button}>
                       <Animated.View
                         style={[
@@ -608,7 +608,7 @@ const [fontsLoaded] = useFonts({
                         <Text style={isActive ? styles.textspoil : styles.textnospoil}>{isActive ? 'Spoil' : 'No Spoil'}</Text>
                       </Animated.View>
                     </TouchableOpacity>
-                  ) : null} </View> 
+                   : null} </View> 
                         {todayMatch.map((element) => element.league.name === league ?
                     element.fixture.status.long === 'Not Started' ? 
                       <TouchableOpacity key={element.fixture.id} onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }}>
@@ -646,7 +646,7 @@ const [fontsLoaded] = useFonts({
                           <Image source={{ uri: element.league.logo }} style={styles.competitionLogo} resizeMode="contain"/>}
                           <View style={styles.teamContainerDom}>
                             <Image source={{ uri: element.teams.home.logo }} style={styles.teamLogo} resizeMode="contain" />
-                            <View style={{width: "85%", alignItems: "flex-end"}}><Text style={styles.teamName}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.home.name === "Central African Republic" ? "Centrafrique" : element.teams.home.name === "Netherlands" ? "Pays Bas" : element.teams.home.name === "Spain" ? "Espagne" : element.teams.home.name === "Germany" ? "Allemagne" : element.teams.home.name === "England" ? "Angleterre" : element.teams.home.name}</Text></View>
+                            <View style={{width: "80%", alignItems: "flex-end"}}><Text style={styles.teamName}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.home.name === "Central African Republic" ? "Centrafrique" : element.teams.home.name === "Netherlands" ? "Pays Bas" : element.teams.home.name === "Spain" ? "Espagne" : element.teams.home.name === "Germany" ? "Allemagne" : element.teams.home.name === "England" ? "Angleterre" : element.teams.home.name}</Text></View>
                           </View>
                           <View style={styles.scoreContainer}>
                             {element.goals.home === element.goals.away ? 
@@ -677,7 +677,7 @@ const [fontsLoaded] = useFonts({
                           </View>
                           <View style={styles.teamContainer}>
                             <Image source={{ uri: element.teams.away.logo }} style={styles.teamLogo} resizeMode="contain"/>
-                           <View style={{width: "85%", alignItems: "flex-start"}}> <Text style={styles.teamName}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.away.name === "Central African Republic" ? "Centrafrique" : element.teams.away.name === "Netherlands" ? "Pays Bas" : element.teams.away.name === "Spain" ? "Espagne" : element.teams.away.name === "Germany" ? "Allemagne" : element.teams.away.name === "England" ? "Angleterre" : element.teams.away.name}</Text></View>
+                           <View style={{width: "80%", alignItems: "flex-start"}}> <Text style={styles.teamName}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.away.name === "Central African Republic" ? "Centrafrique" : element.teams.away.name === "Netherlands" ? "Pays Bas" : element.teams.away.name === "Spain" ? "Espagne" : element.teams.away.name === "Germany" ? "Allemagne" : element.teams.away.name === "England" ? "Angleterre" : element.teams.away.name}</Text></View>
                           </View>
                         </LinearGradient>
                       </TouchableOpacity> 
@@ -793,7 +793,7 @@ const [fontsLoaded] = useFonts({
         </LinearGradient>
 
       </View> 
-      
+
   );
 };
 
@@ -958,7 +958,7 @@ const styles = StyleSheet.create({
     marginInline: 5
   },
   teamName: {
-    fontSize: 13,
+    fontSize: 12.5,
     fontFamily: "Kanito",
     textAlign: "center",
   },

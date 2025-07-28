@@ -1,114 +1,23 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions, Image, ImageBackground, TouchableOpacity } from 'react-native';
 import field from "../assets/field.webp"
-import yellow from "../assets/yellow.png";
-import red from "../assets/redcard.png"
+import psg from "../assets/maillots/psg.png"
+import marseille from "../assets/maillots/marseille.png"
+import lille from "../assets/maillots/lille.png"
+import lyon from "../assets/maillots/lyon.png"
+import pfc from "../assets/maillots/pfc.png"
+import lens from "../assets/maillots/lens.png"
+import nice from "../assets/maillots/nice.png"
+import brest from "../assets/maillots/brest.png"
+import monaco from "../assets/maillots/monaco.png"
+import nantes from "../assets/maillots/nantes.png"
+
+
+
+
 import { useNavigation } from '@react-navigation/native';
 
-import haaland from "../assets/portraits/haaland.png"
-import gyokeres from "../assets/portraits/gyokeres.jpg"
-import zaire from "../assets/portraits/zaire.png"
-import yamal from "../assets/portraits/yamal.jpg"
-import dembele from "../assets/portraits/dembele.png"
-import bellingham from "../assets/portraits/bellingham.png"
-import barcola from "../assets/portraits/barcola.png"
-import rodrygo from "../assets/portraits/rodrygo.jpg"
-import guller from "../assets/portraits/guller.jpg"
-import doue from "../assets/portraits/doue.png"
-import kvara from "../assets/portraits/kvara.png"
-import goat from "../assets/portraits/goat.jpg"
-import darwin from "../assets/portraits/darwin.png"
-import salah from "../assets/portraits/salah.png"
-import kounde from "../assets/portraits/kounde.jpg"
-import endrick from "../assets/portraits/endrick.jpg"
-import mbappe from "../assets/portraits/mbappe.png"
-import vini from "../assets/portraits/vini.png"
-import palmer from "../assets/portraits/palmer.png"
-import messi from "../assets/trophees/messi.jpg"
-import griezmann from "../assets/portraits/griezmann.png"
-import olise from "../assets/portraits/olise.jpg"
-import cherki from "../assets/portraits/cherki.jpg"
-import rabiot from "../assets/portraits/rabiot.jpg"
-import lacazette from "../assets/portraits/lacazette.jpg"
-import theo from "../assets/portraits/theo.jpg"
-import raphinha from "../assets/portraits/raphinha.png"
-import lewandowski from "../assets/portraits/lewandowski.png"
-import isak from "../assets/portraits/isak.png"
-import ramos from "../assets/portraits/ramos.png"
-import garnacho from "../assets/portraits/garnacho.jpg"
-import vitinha from "../assets/portraits/vitinha.png"
-import pacho from "../assets/portraits/pacho.png"
-import joao from "../assets/portraits/joao.png"
-import safonov from "../assets/portraits/safonov.png"
-import tchouameni from "../assets/portraits/tchouameni.jpg"
-import kolo from "../assets/portraits/kolo.png"
-import kephren from "../assets/portraits/kephren.png"
-import adeyemi from "../assets/portraits/adeyemi.png"
-import debruyne from "../assets/portraits/debruyne.png"
-import mayulu from "../assets/portraits/mayulu.png"
-import diaz from "../assets/portraits/diaz.png"
-import macallister from "../assets/portraits/macallister.png"
-import gakpo from "../assets/portraits/gakpo.png"
-import arnold from "../assets/portraits/arnold.png"
-import marmoush from "../assets/portraits/marmoush.png"
-import akanji from "../assets/portraits/akanji.png"
-import cubarsi from "../assets/portraits/cubarsi.jpg"
-import kimpembe from "../assets/portraits/kimpembe.png"
-import beraldo from "../assets/portraits/beraldo.png"
-import sorloth from "../assets/portraits/sorloth.png"
-import alvarez from "../assets/portraits/alvarez.png"
-import schik from "../assets/portraits/schik.png"
-import wirtz from "../assets/portraits/wirtz.jpg"
-import camavinga from "../assets/portraits/camavinga.jpg"
-import modric from "../assets/portraits/modric.jpg"
-import valverde from "../assets/portraits/valverde.png"
-import rudiger from "../assets/portraits/rudiger.jpg"
-import antony from "../assets/portraits/antony.jpg"
-import isco from "../assets/portraits/isco.jpg"
-import leao from "../assets/portraits/Leao.jpg"
-import carvajal from "../assets/portraits/carvajal.jpg"
-import militao from "../assets/portraits/militao.jpg"
-import ugarte from "../assets/portraits/ugarte.png"
-import lisandro from "../assets/portraits/lisandro.png"
-import szoboszlai from "../assets/portraits/szoboszlai.png"
-import bradley from "../assets/portraits/bradley.png"
-import saka from "../assets/portraits/saka.png"
-import trossard from "../assets/portraits/trossard.png"
-import odegard from "../assets/portraits/odegard.png"
-import saliba from "../assets/portraits/saliba.png"
-import lookman from "../assets/portraits/lookman.png"
-import retegui from "../assets/portraits/retegui.png"
-import deketelaere from "../assets/portraits/deketelaere.png"
-import donarumma from "../assets/portraits/donarumma.png"
-import nuno from "../assets/portraits/nuno.png"
-import hernandez from "../assets/portraits/hernandez.png"
-import hakimi from "../assets/portraits/hakimi.png"
-import marquinhos from "../assets/portraits/marquinhos.png"
-import ascencio from "../assets/portraits/ascencio.png"
-import rashford from "../assets/portraits/rashford.png"
-import watkins from "../assets/portraits/watkins.png"
-import malen from "../assets/portraits/malen.png"
-import rogers from "../assets/portraits/rogers.png"
-import rice from "../assets/portraits/rice.png"
-import partey from "../assets/portraits/partey.png"
-import skelly from "../assets/portraits/skelly.png"
-import merino from "../assets/portraits/merino.png"
-import balde from "../assets/portraits/balde.jpg"
-import pedri from "../assets/portraits/pedri.jpg"
-import olmo from "../assets/portraits/olmo.jpg"
-import brahim from "../assets/portraits/brahim.jpg"
-import beier from "../assets/portraits/beier.png"
-import brandt from "../assets/portraits/brandt.png"
-import mmd from "../assets/portraits/mmd.png"
-import touf from "../assets/portraits/touf.png"
-import mikautadze from "../assets/portraits/mikautadze.jpg"
-import zirkzee from "../assets/portraits/zirkzee.png"
-import hojlund from "../assets/portraits/hojlund.png"
-import amad from "../assets/portraits/amad.png"
-import mazraoui from "../assets/portraits/mazraoui.png"
-import mainoo from "../assets/portraits/mainoo.png"
-import deligt from "../assets/portraits/deligt.png"
-import marcus from "../assets/portraits/marcus.png"
+
 
 function SchemaAvance({ compoDom, compoExt, match, colors }) {
 
@@ -190,39 +99,56 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
                         {/* Gardien */}
                         {linesDom.G.map((player, index) => (
                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesExt.G.length, 1), { alignItems: "center", width: 55 }]}>
-                           <View style={[styles.player, { backgroundColor: "#" + colors.goalExt, borderColor: "#" + colors.goalExtBorder }]}>
-                               <Text style={[styles.number, { color: "#" + colors.goalExtNumber }]}>{player.number}</Text>
-                           </View>
+                           {match.league.id === 61 ?
+                               compoDom.team.id === 83 || compoDom.team.id === 85 || compoDom.team.id === 80 || compoDom.team.id === 91 || compoDom.team.id === 116 || compoDom.team.id === 81 || compoDom.team.id === 84 || compoDom.team.id === 106 || compoDom.team.id === 79 || compoDom.team.id === 114 ? <Image source={compoDom.team.id === 85 ? psg : compoDom.team.id === 114 ? pfc : compoDom.team.id === 91 ? monaco : compoDom.team.id === 116 ? lens : compoDom.team.id === 81 ? marseille : compoDom.team.id === 106 ? brest : compoDom.team.id === 84 ? nice : compoDom.team.id === 83 ? nantes : compoDom.team.id === 80 ? lyon : lille} style={{width: 35, height: 35}} /> 
+                                :
+                                <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
+                                    <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
+                                </View> : <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
+                                    <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
+                                </View> }
                            <Text style={styles.playerName}>{player.id === 283 ? "Arnold" : player.name.split(' ').slice(-1).join(' ')}</Text>
                        </TouchableOpacity>
                         ))}
                         {/* Défenseurs */}
                         {linesDom.D.map((player, index) => (
                             <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesDom.D.length, 2), { alignItems: "center", width: 50 }]}>
-                                
+                                {match.league.id === 61 ?
+                               compoDom.team.id === 83 || compoDom.team.id === 85 || compoDom.team.id === 80 || compoDom.team.id === 91 || compoDom.team.id === 116 || compoDom.team.id === 81 || compoDom.team.id === 84 || compoDom.team.id === 106 || compoDom.team.id === 79 || compoDom.team.id === 114 ? <Image source={compoDom.team.id === 85 ? psg : compoDom.team.id === 114 ? pfc : compoDom.team.id === 91 ? monaco : compoDom.team.id === 116 ? lens : compoDom.team.id === 81 ? marseille : compoDom.team.id === 106 ? brest : compoDom.team.id === 84 ? nice : compoDom.team.id === 83 ? nantes : compoDom.team.id === 80 ? lyon : lille} style={{width: 35, height: 35}} /> 
+                                :
                                 <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
                                     <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
-                                </View>
+                                </View> : <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
+                                    <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
+                                </View> }
                                 <Text style={styles.playerName}>{player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
                         {/* Milieux */}
                         {linesDom.M.map((player, index) => (
                             <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesDom.M.length, 3), { alignItems: "center", width: 50 }]}>
-                                
+                                {match.league.id === 61 ?
+                               compoDom.team.id === 83 || compoDom.team.id === 85 || compoDom.team.id === 80 || compoDom.team.id === 91 || compoDom.team.id === 116 || compoDom.team.id === 81 || compoDom.team.id === 84 || compoDom.team.id === 106 || compoDom.team.id === 79 || compoDom.team.id === 114 ? <Image source={compoDom.team.id === 85 ? psg : compoDom.team.id === 114 ? pfc : compoDom.team.id === 91 ? monaco : compoDom.team.id === 116 ? lens : compoDom.team.id === 81 ? marseille : compoDom.team.id === 106 ? brest : compoDom.team.id === 84 ? nice : compoDom.team.id === 83 ? nantes : compoDom.team.id === 80 ? lyon : lille} style={{width: 35, height: 35}} /> 
+                                :
                                 <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
                                     <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
-                                </View>
+                                </View> : <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
+                                    <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
+                                </View> }
                                 <Text style={styles.playerName}>{player.id === 283 ? "Arnold" : player.id === 762 ? "Vini Jr" :  player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
                         {/* Attaquants */}
                         {linesDom.F.map((player, index) => (
                             <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesDom.F.length, 4), { alignItems: "center", width: 53 }]}>
-                                
+                                {match.league.id === 61 ?
+                               compoDom.team.id === 83 || compoDom.team.id === 85 || compoDom.team.id === 80 || compoDom.team.id === 91 || compoDom.team.id === 116 || compoDom.team.id === 81 || compoDom.team.id === 84 || compoDom.team.id === 106 || compoDom.team.id === 79 || compoDom.team.id === 114 ? <Image source={compoDom.team.id === 85 ? psg : compoDom.team.id === 114 ? pfc : compoDom.team.id === 91 ? monaco : compoDom.team.id === 116 ? lens : compoDom.team.id === 81 ? marseille : compoDom.team.id === 106 ? brest : compoDom.team.id === 84 ? nice : compoDom.team.id === 83 ? nantes : compoDom.team.id === 80 ? lyon : lille} style={{width: 35, height: 35}} /> 
+                                :
                                 <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
                                     <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
-                                </View>
+                                </View> : <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
+                                    <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
+                                </View> }
                                 <Text style={styles.playerName}>{player.id === 283 ? "Arnold" : player.id === 762 ? "Vini Jr" : player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
@@ -234,39 +160,56 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
                         {/* Attaquants (inversés pour compoExt) */}
                         {linesExt.F.map((player, index) => (
                             <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesExt.F.length, 4), { alignItems: "center", width: 53 }]}>
-                                
-                                <View style={[styles.player, { backgroundColor: "#" + colors.primaryExt, borderColor: "#" + colors.borderExt }]}>
-                                    <Text style={[styles.number, { color: "#" + colors.numberExt }]}>{player.number}</Text>
-                                </View>
+                                {match.league.id === 61 ?
+                               compoExt.team.id === 83 || compoExt.team.id === 85 || compoExt.team.id === 80 || compoExt.team.id === 91 || compoExt.team.id === 116 || compoExt.team.id === 81 || compoExt.team.id === 84 || compoExt.team.id === 106 || compoExt.team.id === 79 || compoExt.team.id === 114 ? <Image source={compoExt.team.id === 85 ? psg : compoExt.team.id === 114 ? pfc : compoExt.team.id === 91 ? monaco : compoExt.team.id === 116 ? lens : compoExt.team.id === 81 ? marseille : compoExt.team.id === 106 ? brest : compoExt.team.id === 84 ? nice : compoExt.team.id === 83 ? nantes : compoExt.team.id === 80 ? lyon : lille} style={{width: 35, height: 35}} /> 
+                                :
+                                <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
+                                    <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
+                                </View> : <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
+                                    <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
+                                </View> }
                                 <Text style={styles.playerName}>{player.id === 762 ? "Vini Jr" : player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
                         {/* Milieux */}
                         {linesExt.M.map((player, index) => (
                             <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesExt.M.length, 3), { alignItems: "center", width: 50 }]}>
-                                
-                                <View style={[styles.player, { backgroundColor: "#" + colors.primaryExt, borderColor: "#" + colors.borderExt }]}>
-                                    <Text style={[styles.number, { color: "#" + colors.numberExt }]}>{player.number}</Text>
-                                </View>
+                                {match.league.id === 61 ?
+                               compoExt.team.id === 83 || compoExt.team.id === 85 || compoExt.team.id === 80 || compoExt.team.id === 91 || compoExt.team.id === 116 || compoExt.team.id === 81 || compoExt.team.id === 84 || compoExt.team.id === 106 || compoExt.team.id === 79 || compoExt.team.id === 114 ? <Image source={compoExt.team.id === 85 ? psg : compoExt.team.id === 114 ? pfc : compoExt.team.id === 91 ? monaco : compoExt.team.id === 116 ? lens : compoExt.team.id === 81 ? marseille : compoExt.team.id === 106 ? brest : compoExt.team.id === 84 ? nice : compoExt.team.id === 83 ? nantes : compoExt.team.id === 80 ? lyon : lille} style={{width: 35, height: 35}} /> 
+                                :
+                                <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
+                                    <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
+                                </View> : <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
+                                    <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
+                                </View> }
                                 <Text style={styles.playerName}>{player.id === 283 ? "Arnold" : player.id === 762 ? "Vini Jr" : player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
                         {/* Défenseurs */}
                         {linesExt.D.map((player, index) => (
                             <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesExt.D.length, 2), { alignItems: "center", width: 50 }]}>
-                                
-                                <View style={[styles.player, { backgroundColor: "#" + colors.primaryExt, borderColor: "#" + colors.borderExt }]}>
-                                    <Text style={[styles.number, { color: "#" + colors.numberExt }]}>{player.number}</Text>
-                                </View>
+                                {match.league.id === 61 ?
+                               compoExt.team.id === 83 || compoExt.team.id === 85 || compoExt.team.id === 80 || compoExt.team.id === 91 || compoExt.team.id === 116 || compoExt.team.id === 81 || compoExt.team.id === 84 || compoExt.team.id === 106 || compoExt.team.id === 79 || compoExt.team.id === 114 ? <Image source={compoExt.team.id === 85 ? psg : compoExt.team.id === 114 ? pfc : compoExt.team.id === 91 ? monaco : compoExt.team.id === 116 ? lens : compoExt.team.id === 81 ? marseille : compoExt.team.id === 106 ? brest : compoExt.team.id === 84 ? nice : compoExt.team.id === 83 ? nantes : compoExt.team.id === 80 ? lyon : lille} style={{width: 35, height: 35}} /> 
+                                :
+                                <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
+                                    <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
+                                </View> : <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
+                                    <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
+                                </View> }
                                 <Text style={styles.playerName}>{player.id === 283 ? "Arnold" : player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
                         {/* Gardien */}
                         {linesExt.G.map((player, index) => (
                             <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesExt.G.length, 1), { alignItems: "center", width: 55 }]}>
-                                <View style={[styles.player, { backgroundColor: "#" + colors.goalExt, borderColor: "#" + colors.goalExtBorder }]}>
-                                    <Text style={[styles.number, { color: "#" + colors.goalExtNumber }]}>{player.number}</Text>
-                                </View>
+                                {match.league.id === 61 ?
+                               compoExt.team.id === 83 || compoExt.team.id === 85 || compoExt.team.id === 80 || compoExt.team.id === 91 || compoExt.team.id === 116 || compoExt.team.id === 81 || compoExt.team.id === 84 || compoExt.team.id === 106 || compoExt.team.id === 79 || compoExt.team.id === 114 ? <Image source={compoExt.team.id === 85 ? psg : compoExt.team.id === 114 ? pfc : compoExt.team.id === 91 ? monaco : compoExt.team.id === 116 ? lens : compoExt.team.id === 81 ? marseille : compoExt.team.id === 106 ? brest : compoExt.team.id === 84 ? nice : compoExt.team.id === 83 ? nantes : compoExt.team.id === 80 ? lyon : lille} style={{width: 35, height: 35}} /> 
+                                :
+                                <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
+                                    <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
+                                </View> : <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
+                                    <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
+                                </View> }
                                 <Text style={styles.playerName}>{player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}

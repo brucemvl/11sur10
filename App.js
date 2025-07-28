@@ -35,6 +35,8 @@ export default function App() {
     }
   }, []);
 
+  console.log('🔔 Lancement enregistrement token')
+
   useEffect(() => {
     registerForPushNotificationsAsync();
 

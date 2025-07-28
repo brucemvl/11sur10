@@ -41,7 +41,7 @@ function Apropos() {
                         <TouchableOpacity style={{width: "27%", alignItems: "center"}} onPress={()=>openExternalLink("https://www.instagram.com/11_sur_10/")}>
                   <Image source={insta} style={{height: 48, width: 48}}/>
                   </TouchableOpacity>
-                  <View style={styles.droits}><Image source={bm} alt="logo developpeur" style={styles.logo}/><Text style={{color: "white", fontFamily: "Kanito", fontSize: 8}}>© 2024 BM Development. Tous droits réservés.</Text></View>
+                  <View style={styles.droits}><Image source={bm} alt="logo developpeur" style={styles.logo}/><Text style={{color: "white", fontFamily: "Kanito", fontSize: 8}}>© 2025 BM Development. Tous droits réservés.</Text></View>
             
                        <TouchableOpacity style={{width: "27%", alignItems: "center"}} onPress={()=> navigation.navigate("Contact")}><Text style={styles.link}>Nous contacter</Text></TouchableOpacity>
                        </View>
@@ -88,10 +88,12 @@ const styles = StyleSheet.create({
     footer: {
         flexDirection: "row-reverse",
         backgroundColor: "black",
-        alignItems: "center",
+        alignItems: "flex-start",
         width: "100%",
-        paddingVertical: 10,
-        height: "16%",
+        paddingVertical: 15,
+        height: 340,
+        position: "absolute",
+        bottom: 1
     },
 
     link: {

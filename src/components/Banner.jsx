@@ -1,4 +1,4 @@
-import banner3 from "../assets/banner4.jpg";
+import banner3 from "../assets/banner4.webp";
 import banner4 from "../assets/banner5.jpg";
 import banner5 from "../assets/banner6.jpg";
 import banner6 from "../assets/banner7.jpg";
@@ -7,26 +7,26 @@ import banner8 from "../assets/banner9.webp";
 import banner9 from "../assets/banner10.jpg";
 import banner10 from "../assets/banner11.jpg";
 import banner11 from "../assets/banner12.jpg";
-import banner12 from "../assets/banner13.jpg";
-import banner13 from "../assets/banner14.jpg";
-import banner14 from "../assets/banner15.jpg";
+import banner12 from "../assets/banner13.webp";
+import banner13 from "../assets/banner14.webp";
+import banner14 from "../assets/banner15.webp";
 import banner15 from "../assets/banner16.jpg";
 import banner16 from "../assets/banner17.jpg";
 import banner17 from "../assets/banner18.jpg";
 import banner18 from "../assets/banner19.jpg";
-import banner19 from "../assets/banner20.webp"
+import banner19 from "../assets/banner20.jpg"
 import banner20 from "../assets/banner21.webp"
-import banner21 from "../assets/banner22.jpg"
+import banner21 from "../assets/banner22.webp"
 import banner22 from "../assets/banner23.webp"
 import banner23 from "../assets/banner24.webp"
-import banner24 from "../assets/banner25.jpg"
+import banner24 from "../assets/banner25.webp"
 import banner25 from "../assets/banner26.webp"
 import banner26 from "../assets/banner27.jpg"
 import banner27 from "../assets/banner28.webp"
 import banner28 from "../assets/banner29.webp"
 import banner29 from "../assets/banner30.jpg"
 import banner30 from "../assets/banner31.jpg"
-import banner31 from "../assets/banner32.png"
+import banner31 from "../assets/banner32.webp"
 import banner32 from "../assets/banner33.webp"
 import banner33 from "../assets/banner34.jpg"
 import banner34 from "../assets/banner35.jpg"
@@ -50,9 +50,10 @@ import banner51 from "../assets/banner52.webp"
 import banner52 from "../assets/banner53.webp"
 import banner53 from "../assets/banner54.webp"
 import banner54 from "../assets/banner55.webp"
-import banner55 from "../assets/banner56.webp"
-import banner56 from "../assets/banner57.webp"
-import banner57 from "../assets/banner58.webp"
+import banner58 from "../assets/banner59.jpg"
+import banner59 from "../assets/banner60.webp"
+import banner60 from "../assets/banner61.webp"
+import banner61 from "../assets/banner62.webp"
 
 
 
@@ -62,7 +63,7 @@ import { View, Text, Image, StyleSheet, Animated } from "react-native"
 
 const photosBan = [
   banner3, banner4, banner5, banner6, banner7, banner8, banner9,
-  banner10, banner11, banner12, banner13, banner14, banner15, banner16, banner17, banner18, banner19, banner20, banner21, banner22, banner23, banner24, banner25, banner26, banner27, banner28, banner29, banner30, banner31, banner32, banner33, banner34, banner35, banner36, banner37, banner38, banner39, banner40, banner41, banner42, banner43, banner44, banner45, banner46, banner47, banner48, banner49, banner50, banner51,banner52, banner53, banner54, banner55, banner56, banner57
+  banner10, banner11, banner12, banner13, banner14, banner15, banner16, banner17, banner18, banner19, banner20, banner21, banner22, banner23, banner24, banner25, banner26, banner27, banner28, banner29, banner30, banner31, banner32, banner33, banner34, banner35, banner36, banner37, banner38, banner39, banner40, banner41, banner42, banner43, banner44, banner45, banner46, banner47, banner48, banner49, banner50, banner51,banner52, banner53, banner54, banner58, banner59, banner60, banner61
 ];
 
 

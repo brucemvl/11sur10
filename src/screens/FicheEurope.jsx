@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity } from 'react-native';
 import TableauEurope from '../components/TableauEurope';  // Assurez-vous que Tableau est compatible avec React Native
 import Classement from '../components/Classement';  // Idem pour ClassementChampionnat
 import { useState, useEffect } from 'react';
@@ -13,6 +13,19 @@ function FicheEurope({ route }) {
     
       const [loading, setLoading] = useState(true);
       const [error, setError] = useState(false);
+
+      const [calendrier, setCalendrier] = useState(true)
+          const [classement, setClassement] = useState(false)
+      
+          const openCalendrier = ()=> {
+            setCalendrier(true)
+            setClassement(false)
+          }
+      
+          const openClassement = ()=> {
+            setCalendrier(false)
+            setClassement(true)
+          }
     
         const [rounds, setRounds] = useState()
         
@@ -76,10 +89,16 @@ function FicheEurope({ route }) {
       <View style={{flex: 1}}>
             <Precedent />
             <ScrollView contentContainerStyle={styles.blocChamp}>
-
-            {/* Passer l'ID du championnat et la fonction setFilter aux composants */}
-            <TableauEurope id={id} currentRound={currentRound} rounds={rounds}/>
-            <Classement id={id} />
+<View style={{flexDirection: "row", marginBlock: 8, justifyContent: "center", gap: "5%"}}>
+  <TouchableOpacity onPress={openCalendrier} >
+    <Text style={calendrier ? styles.selected : styles.unSelected}>Calendrier</Text>
+  </TouchableOpacity>
+  <TouchableOpacity onPress={openClassement}>
+    <Text style={classement ? styles.selected : styles.unSelected}>Classement</Text>
+  </TouchableOpacity>
+</View>
+            {calendrier && <TableauEurope id={id} currentRound={currentRound} rounds={rounds} journey={journey} />}
+            {classement && <Classement id={id} />}
         </ScrollView>
         </View>
     );
@@ -93,8 +112,17 @@ const styles = StyleSheet.create({
         padding: 10,
         width: "100%",
         marginTop: 50,
-        paddingBottom: 50
+        paddingBottom: 130
     },
+    selected: {
+      fontFamily: "Kanitt",
+      textDecorationLine: "underline",
+
+    },
+    unSelected: {
+      fontFamily: "Kanitus",
+      color: "grey"
+    }
 });
 
 export default FicheEurope;

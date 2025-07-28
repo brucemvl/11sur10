@@ -4,7 +4,7 @@ import {LinearGradient} from 'expo-linear-gradient'; // Importation du dégradé
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import logo from '../assets/logoblanc.png';
-import insta from "../assets/insta.png"
+import info from "../assets/info.png"
 import cloche from "../assets/cloche.png"
 import clocheno from "../assets/clocheno.png"
 
@@ -19,8 +19,9 @@ import clocheno from "../assets/clocheno.png"
         { id: 33, name: 'Manchester United', logo: "https://media.api-sports.io/football/teams/33.png" },
     { id: 49, name: 'Chelsea', logo: "https://media.api-sports.io/football/teams/49.png" },
         { id: 42, name: 'Arsenal', logo: "https://media.api-sports.io/football/teams/42.png" },
+{ id: 40, name: 'Liverpool', logo: "https://media.api-sports.io/football/teams/40.png" },
     { id: 157, name: 'Bayern Munich', logo: "https://media.api-sports.io/football/teams/157.png" },
-
+        { id: 114, name: 'Paris FC', logo: "https://media.api-sports.io/football/teams/114.png" },
 ];
 
 const Header = forwardRef(({ notifsEnabled, selectedTeamId }, ref) => {
@@ -67,12 +68,9 @@ const selectedTeam = selectedTeamId
       style={styles.header}
     >
       <View style={{alignItems: "center"}}>
-      <TouchableOpacity onPress={()=>openExternalLink("https://www.instagram.com/11_sur_10/")} style={{position: "relative", bottom: 8}}>
-      <Image source={insta} style={{height: 44, width: 44}}/>
-      </TouchableOpacity>
+      
       <TouchableOpacity onPress={()=> navigation.navigate("Apropos")}>
-        <Text style={{fontFamily: "Kanitt", color: "white", textDecorationLine: "underline"}}>A Propos</Text>
-      </TouchableOpacity>
+<Image source={info} style={{height: 30, width:30}}/>      </TouchableOpacity>
       </View>
       <Image source={logo} style={styles.logo} />
       <TouchableOpacity onPress={() => navigation.navigate("Notifs")}>
@@ -99,7 +97,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',  // Alignement horizontal
     alignItems: 'center',  // Centrer verticalement
     justifyContent: 'space-between',
-    paddingHorizontal: '3%',  // Utilisation de pourcentage
+    paddingHorizontal: '4%',  // Utilisation de pourcentage
     flexGrow: 1,
     height: 135,
     paddingTop: 30

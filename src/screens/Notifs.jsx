@@ -25,7 +25,10 @@ const teams = [
         { id: 33, name: 'Manchester United', logo: "https://media.api-sports.io/football/teams/33.png" },
     { id: 49, name: 'Chelsea', logo: "https://media.api-sports.io/football/teams/49.png" },
         { id: 42, name: 'Arsenal', logo: "https://media.api-sports.io/football/teams/42.png" },
+        { id: 40, name: 'Liverpool', logo: "https://media.api-sports.io/football/teams/40.png" },
     { id: 157, name: 'Bayern Munich', logo: "https://media.api-sports.io/football/teams/157.png" },
+        { id: 114, name: 'Paris FC', logo: "https://media.api-sports.io/football/teams/114.png" },
+
 
 
 
@@ -121,7 +124,7 @@ const disablePushNotifications = async () => {
           ✅ Equipe actuelle : {teams.find((t) => t.id === savedTeam)?.name}
         </Text>
       )}
-
+<View style={{width: "100%", flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: 8, marginBlock: 12}}>
       {teams.map((team) => (
         <TouchableOpacity
           key={team.id}
@@ -131,17 +134,18 @@ const disablePushNotifications = async () => {
           ]}
           onPress={() => handleSelectTeam(team.id)}
         >
-          <Animated.Text
+          <Animated.Image
             style={[
-              styles.teamText,
+              styles.teamLogo,
               selectedTeam === team.id && { transform: [{ scale: scaleAnimMap[team.id] }]
-, color: "white", fontFamily: "Kanitt" },
+ },
             ]}
-          >
-            {team.name}
-          </Animated.Text>
+            source={{uri: team.logo}}
+          />
+            
         </TouchableOpacity>
       ))}
+      </View>
 
       <TouchableOpacity
         onPress={saveTeam}
@@ -173,34 +177,40 @@ const disablePushNotifications = async () => {
 }
 
 const styles = StyleSheet.create({
-  container: {alignItems: "center", padding: 10 },
+  container: {
+    alignItems: "center",
+     padding: 10,
+     paddingBottom: 120
+     },
   title: { fontSize: 18, fontWeight: 'bold',  fontFamily: "Kanitalik" },
   teamButton: {
     padding: 9,
-    marginVertical: 4,
     backgroundColor: 'rgb(210, 210, 210)',
     borderRadius: 6,
     alignItems: 'center',
     flexDirection: "row",
     justifyContent: "center",
-    width: "90%"
+    width: "26%",
+    height: 90
   },
   selectedTeam: {
     backgroundColor: '#4CAF50',
     shadowColor: '#000',
-        shadowOffset: { width: 0, height: 5 },
-        shadowOpacity: 0.3,
-        shadowRadius: 3,
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.8,
+        shadowRadius: 4,
+        elevation: 4
 
   },
-  teamText: {
-    fontSize: 15,
-    color: '#000',
-    fontFamily: "Kanito"
+  teamLogo: {
+    height: 40,
+    width: 40,
+    objectFit: "contain"
+    
   },
   saved: {
     marginTop: 5,
-    fontStyle: 'italic',
+    fontFamily: 'Kanitalic',
     color: 'green',
   },
 });
