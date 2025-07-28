@@ -79,3 +79,4 @@ yarn-error.*
 
 # @end expo-cli
 
+backend/config/*.json
