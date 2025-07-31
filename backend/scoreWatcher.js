@@ -17,13 +17,12 @@ async function refreshActiveMatches() {
       { $group: { _id: '$teamId', tokens: { $push: '$token' } } }
     ]);
 
-    const now = new Date();
-
-    for (const { _id: teamId } of groupedTokens) {
-      if (!teamId) continue;
+    for (const { _id: teamId, tokens } of groupedTokens) {
+  if (!teamId) continue;
+  console.log(`🔎 Vérification des matchs pour teamId: ${teamId} (${tokens.length} tokens)`);
 
       const { data } = await axios.get(
-        `https://v3.football.api-sports.io/fixtures?team=${teamId}&next=5`,
+        `https://v3.football.api-sports.io/fixtures?team=${teamId}&live=all`,
         {
           headers: {
             'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
@@ -31,20 +30,30 @@ async function refreshActiveMatches() {
           },
         }
       );
+            const matches = data.response;
 
-      const matches = data.response;
+
+      console.log(`📡 ${matches.length} match(s) récupéré(s) pour l'équipe ${teamId}`);
+
+
 
       for (const match of matches) {
-        const start = new Date(match.fixture.date);
-        const diff = Math.abs(start - now) / 60000;
+        const status = match.fixture.status.short;
+        const isActive = ['1H', '2H', 'ET', 'P', 'HT', 'LIVE'].includes(status); // Matchs en cours
 
-        if (diff <= 120) {
+        // 📝 Log de debug
+        console.log(`🔍 ${match.teams.home.name} vs ${match.teams.away.name} - Statut: ${status}`);
+console.log(`➡️ ${match.teams.home.name} vs ${match.teams.away.name} | Status: ${match.fixture.status.short}`);
+
+        if (isActive) {
           activeMatches.push({ matchId: match.fixture.id, teamId });
+          console.log(`✅ Match actif ajouté: ${match.fixture.id}`);
+
         }
       }
     }
 
-    console.log(`✅ ${activeMatches.length} match(s) à surveiller.`);
+    console.log(`✅ ${activeMatches.length} match(s) actif(s) à surveiller.`);
   } catch (err) {
     console.error('❌ Erreur dans refreshActiveMatches:', err.message);
   }
@@ -52,11 +61,14 @@ async function refreshActiveMatches() {
 
 // ✅ Vérifie les scores des matchs en direct
 async function checkMatchScore() {
+  console.log("🎯 Liste des matchs actifs :", activeMatches);
+
   try {
     if (activeMatches.length === 0) {
       console.log("⏸️ Aucun match actif à surveiller.");
       return;
     }
+    console.table(activeMatches)
 
     const tokenGroups = await PushToken.aggregate([
       { $group: { _id: '$teamId', tokens: { $push: '$token' } } }
@@ -168,4 +180,7 @@ cron.schedule('*/30 * * * *', refreshActiveMatches); // Toutes les 30 minutes
 cron.schedule('*/30 * * * * *', checkMatchScore);   // Toutes les 30 secondes
 
 // Démarrage initial
-refreshActiveMatches();
+(async () => {
+  await refreshActiveMatches();
+  setTimeout(() => checkMatchScore(), 10000); // Attendre 10s avant la première vérif
+})();

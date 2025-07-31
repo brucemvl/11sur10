@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const axios = require('axios');
@@ -7,10 +8,7 @@ const PushToken = require('./models/PushToken');
 
 const mongoURI = process.env.MONGO_URI;
 
-if (!mongoURI) {
-  console.error("❌ La variable d'environnement MONGO_URI est manquante.");
-  process.exit(1);
-}
+
 
 
 const app = express();
