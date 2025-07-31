@@ -11,18 +11,18 @@ let activeMatches = [];
 async function refreshActiveMatches() {
   try {
     console.log("🔄 Rafraîchissement des matchs à suivre...");
-    activeMatches = [];
+    activeMatches = [];  // Reset au début
 
     const groupedTokens = await PushToken.aggregate([
       { $group: { _id: '$teamId', tokens: { $push: '$token' } } }
     ]);
 
     for (const { _id: teamId, tokens } of groupedTokens) {
-  if (!teamId) continue;
-  console.log(`🔎 Vérification des matchs pour teamId: ${teamId} (${tokens.length} tokens)`);
+      if (!teamId) continue;
+      console.log(`🔎 Vérification des matchs pour teamId: ${teamId} (${tokens.length} tokens)`);
 
       const { data } = await axios.get(
-        `https://v3.football.api-sports.io/fixtures?team=${teamId}&live=all`,
+        `https://v3.football.api-sports.io/fixtures?team=${teamId}&next=5`,
         {
           headers: {
             'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
@@ -30,30 +30,48 @@ async function refreshActiveMatches() {
           },
         }
       );
-            const matches = data.response;
-
+      const matches = data.response;
 
       console.log(`📡 ${matches.length} match(s) récupéré(s) pour l'équipe ${teamId}`);
 
+      // Récupérer uniquement les matchs en cours
+      const liveMatches = matches.filter(match => ['1H', '2H', 'ET', 'P'].includes(match.fixture.status.short));
 
+      // Accumuler les matchs actifs avec teamId et matchId
+      liveMatches.forEach(match => {
+        activeMatches.push({
+          matchId: match.fixture.id,
+          teamId: teamId
+        });
+      });
 
-      for (const match of matches) {
-        const status = match.fixture.status.short;
-        const isActive = ['1H', '2H', 'ET', 'P', 'HT', 'LIVE'].includes(status); // Matchs en cours
+      // Si aucun match actif dans next=5, fallback sur live=all
+      if (liveMatches.length === 0) {
+        const { data: liveData } = await axios.get(
+          `https://v3.football.api-sports.io/fixtures?team=${teamId}&live=all`,
+          {
+            headers: {
+              'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
+              'x-rapidapi-host': 'v3.football.api-sports.io',
+            },
+          }
+        );
 
-        // 📝 Log de debug
-        console.log(`🔍 ${match.teams.home.name} vs ${match.teams.away.name} - Statut: ${status}`);
-console.log(`➡️ ${match.teams.home.name} vs ${match.teams.away.name} | Status: ${match.fixture.status.short}`);
+        const fallbackLiveMatches = liveData.response.filter(match =>
+          ['1H', '2H', 'ET', 'P'].includes(match.fixture.status.short)
+        );
 
-        if (isActive) {
-          activeMatches.push({ matchId: match.fixture.id, teamId });
-          console.log(`✅ Match actif ajouté: ${match.fixture.id}`);
-
-        }
+        fallbackLiveMatches.forEach(match => {
+          activeMatches.push({
+            matchId: match.fixture.id,
+            teamId: teamId
+          });
+        });
       }
     }
 
     console.log(`✅ ${activeMatches.length} match(s) actif(s) à surveiller.`);
+
   } catch (err) {
     console.error('❌ Erreur dans refreshActiveMatches:', err.message);
   }
