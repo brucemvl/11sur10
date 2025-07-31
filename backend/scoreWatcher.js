@@ -3,30 +3,26 @@ const cron = require('node-cron');
 const sendPushNotification = require('./utils/pushNotification');
 const PushToken = require('./models/PushToken');
 
-const previousScores = {};  // { matchId: { home, away } }
-const previousEvents = {};  // { eventKey: true }
-let activeMatches = [];     // [{ matchId, teamId }]
+const previousScores = {};
+const previousEvents = {};
+let activeMatches = [];
 
-// 🔁 Met à jour la liste des matchs actifs toutes les 30 minutes
+// 🔁 Rafraîchit la liste des matchs à suivre toutes les 30 minutes
 async function refreshActiveMatches() {
   try {
     console.log("🔄 Rafraîchissement des matchs à suivre...");
     activeMatches = [];
 
     const groupedTokens = await PushToken.aggregate([
-      {
-        $group: {
-          _id: '$teamId',
-          tokens: { $push: '$token' }
-        }
-      }
+      { $group: { _id: '$teamId', tokens: { $push: '$token' } } }
     ]);
 
-    for (const group of groupedTokens) {
-      const teamId = group._id;
+    const now = new Date();
+
+    for (const { _id: teamId } of groupedTokens) {
       if (!teamId) continue;
 
-      const response = await axios.get(
+      const { data } = await axios.get(
         `https://v3.football.api-sports.io/fixtures?team=${teamId}&next=5`,
         {
           headers: {
@@ -36,14 +32,12 @@ async function refreshActiveMatches() {
         }
       );
 
-      const now = new Date();
-      const matches = response.data.response;
+      const matches = data.response;
 
       for (const match of matches) {
         const start = new Date(match.fixture.date);
-        const diff = Math.abs(start - now) / 60000; // minutes
+        const diff = Math.abs(start - now) / 60000;
 
-        // Conserve les matchs à moins de 120 minutes
         if (diff <= 120) {
           activeMatches.push({ matchId: match.fixture.id, teamId });
         }
@@ -56,7 +50,7 @@ async function refreshActiveMatches() {
   }
 }
 
-// ✅ Vérifie le score seulement pour les matchs actifs
+// ✅ Vérifie les scores des matchs en direct
 async function checkMatchScore() {
   try {
     if (activeMatches.length === 0) {
@@ -76,23 +70,25 @@ async function checkMatchScore() {
     }
 
     for (const teamId of Object.keys(teamMatches)) {
+      const matchIds = teamMatches[teamId];
       const tokens = tokensByTeam[teamId] || [];
 
-      const response = await axios.get(
-        `https://v3.football.api-sports.io/fixtures?team=${teamId}&live=all`,
-        {
-          headers: {
-            'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
-            'x-rapidapi-host': 'v3.football.api-sports.io',
-          },
-        }
-      );
+      for (const matchId of matchIds) {
+        const { data } = await axios.get(
+          `https://v3.football.api-sports.io/fixtures?id=${matchId}`,
+          {
+            headers: {
+              'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
+              'x-rapidapi-host': 'v3.football.api-sports.io',
+            },
+          }
+        );
 
-      const matches = response.data.response;
+        const match = data.response[0];
+        if (!match) continue;
 
-      for (const match of matches) {
-        const matchId = match.fixture.id;
-        if (!teamMatches[teamId].includes(matchId)) continue;
+        const status = match.fixture.status.short;
+        if (!['1H', '2H', 'ET'].includes(status)) continue; // Vérifie que le match est en cours
 
         const homeTeam = match.teams.home.name;
         const awayTeam = match.teams.away.name;
@@ -101,10 +97,7 @@ async function checkMatchScore() {
 
         const prevScore = previousScores[matchId] || { home: null, away: null };
 
-        if (
-          prevScore.home !== currentHomeGoals ||
-          prevScore.away !== currentAwayGoals
-        ) {
+        if (prevScore.home !== currentHomeGoals || prevScore.away !== currentAwayGoals) {
           const scoreMsg = `⚽ Nouveau score : ${homeTeam} ${currentHomeGoals} - ${currentAwayGoals} ${awayTeam}`;
           console.log(scoreMsg);
 
@@ -112,6 +105,7 @@ async function checkMatchScore() {
             title: `${homeTeam} vs ${awayTeam}`,
             body: scoreMsg,
           });
+          console.log(`📲 Notification envoyée à ${tokens.length} token(s).`);
 
           previousScores[matchId] = {
             home: currentHomeGoals,
@@ -121,13 +115,12 @@ async function checkMatchScore() {
 
         const events = match.events || [];
         for (const event of events) {
-          const playerName = event.player?.name;
-          const teamName = event.team?.name;
-          const minute = event.time?.elapsed;
-          const type = event.type;
-          const detail = event.detail;
+          const { player, team, time, type, detail } = event;
+          if (!player?.name || !team?.name || time?.elapsed == null) continue;
 
-          if (!playerName || !teamName || minute == null) continue;
+          const playerName = player.name;
+          const teamName = team.name;
+          const minute = time.elapsed;
 
           if (type === 'Goal') {
             const eventKey = `${matchId}-GOAL-${playerName}-${minute}`;
@@ -137,15 +130,14 @@ async function checkMatchScore() {
             if (detail === 'Own Goal') {
               goalMsg = `😱 ${minute}e - CSC de ${playerName} (${teamName})`;
             } else if (detail === 'Penalty') {
-              goalMsg = `⚽ ${minute}e - Penalty de ${playerName}`;
+              goalMsg = `⚽ ${minute}e - But de ${playerName} sur penalty!`;
             }
 
             console.log(goalMsg);
             await sendPushNotification(tokens, {
-              title: `${homeTeam} vs ${awayTeam}`,
+              title: `${homeTeam} - ${awayTeam}`,
               body: goalMsg,
             });
-
             previousEvents[eventKey] = true;
           }
 
@@ -153,7 +145,7 @@ async function checkMatchScore() {
             const eventKey = `${matchId}-RED-${playerName}-${minute}`;
             if (previousEvents[eventKey]) continue;
 
-            const redCardMsg = `🟥 ${minute}e - ${playerName} (${teamName}) expulsé`;
+            const redCardMsg = `🟥 ${minute}e - Carton rouge pour ${playerName} (${teamName})`;
 
             console.log(redCardMsg);
             await sendPushNotification(tokens, {
@@ -171,11 +163,9 @@ async function checkMatchScore() {
   }
 }
 
-// ⏱ Rafraîchir la liste toutes les 30 minutes
-cron.schedule('*/30 * * * *', refreshActiveMatches);
-
-// ⏱ Vérifier les scores toutes les 3à secondes
-cron.schedule('*/30 * * * * *', checkMatchScore);
+// Planification CRON
+cron.schedule('*/30 * * * *', refreshActiveMatches); // Toutes les 30 minutes
+cron.schedule('*/30 * * * * *', checkMatchScore);   // Toutes les 30 secondes
 
 // Démarrage initial
 refreshActiveMatches();
