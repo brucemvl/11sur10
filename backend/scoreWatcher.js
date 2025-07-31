@@ -161,6 +161,8 @@ async function checkMatchScore() {
               goalMsg = `😱 ${minute}e - CSC de ${playerName} (${teamName})`;
             } else if (detail === 'Penalty') {
               goalMsg = `⚽ ${minute}e - But de ${playerName} sur penalty!`;
+            } else if (detail === 'Missed Penalty') {
+              goalMsg = `⚽ ${minute}e - Penalty manqué de ${playerName}!! (${teamName})`;
             }
 
             console.log(goalMsg);
