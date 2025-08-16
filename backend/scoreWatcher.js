@@ -7,11 +7,11 @@ const previousScores = {};
 const previousEvents = {};
 let activeMatches = [];
 
-// 🔁 Rafraîchit la liste des matchs à suivre toutes les 30 minutes
+// 🔁 Rafraîchit la liste des matchs à suivre (toutes les 5 min)
 async function refreshActiveMatches() {
   try {
     console.log("🔄 Rafraîchissement des matchs à suivre...");
-    activeMatches = [];  // Reset au début
+    activeMatches = [];
 
     const groupedTokens = await PushToken.aggregate([
       { $group: { _id: '$teamId', tokens: { $push: '$token' } } }
@@ -19,7 +19,6 @@ async function refreshActiveMatches() {
 
     for (const { _id: teamId, tokens } of groupedTokens) {
       if (!teamId) continue;
-      console.log(`🔎 Vérification des matchs pour teamId: ${teamId} (${tokens.length} tokens)`);
 
       const { data } = await axios.get(
         `https://v3.football.api-sports.io/fixtures?team=${teamId}&next=5`,
@@ -30,22 +29,22 @@ async function refreshActiveMatches() {
           },
         }
       );
+
       const matches = data.response;
+      const liveMatches = matches.filter(match =>
+        ['1H', '2H', 'ET', 'P'].includes(match.fixture.status.short)
+      );
 
-      console.log(`📡 ${matches.length} match(s) récupéré(s) pour l'équipe ${teamId}`);
-
-      // Récupérer uniquement les matchs en cours
-      const liveMatches = matches.filter(match => ['1H', '2H', 'ET', 'P'].includes(match.fixture.status.short));
-
-      // Accumuler les matchs actifs avec teamId et matchId
       liveMatches.forEach(match => {
-        activeMatches.push({
-          matchId: match.fixture.id,
-          teamId: teamId
-        });
+        const matchExists = activeMatches.some(
+          m => m.matchId === match.fixture.id && m.teamId === teamId
+        );
+        if (!matchExists) {
+          activeMatches.push({ matchId: match.fixture.id, teamId });
+        }
       });
 
-      // Si aucun match actif dans next=5, fallback sur live=all
+      // Fallback si aucun match actif
       if (liveMatches.length === 0) {
         const { data: liveData } = await axios.get(
           `https://v3.football.api-sports.io/fixtures?team=${teamId}&live=all`,
@@ -62,31 +61,33 @@ async function refreshActiveMatches() {
         );
 
         fallbackLiveMatches.forEach(match => {
-          activeMatches.push({
-            matchId: match.fixture.id,
-            teamId: teamId
-          });
+          activeMatches.push({ matchId: match.fixture.id, teamId });
         });
       }
     }
 
-    console.log(`✅ ${activeMatches.length} match(s) actif(s) à surveiller.`);
+    // ✅ Supprimer les doublons
+    activeMatches = Array.from(
+      new Map(
+        activeMatches.map(m => [`${m.matchId}-${m.teamId}`, m])
+      ).values()
+    );
 
+    console.log(`✅ ${activeMatches.length} match(s) actif(s) à surveiller.`);
   } catch (err) {
     console.error('❌ Erreur dans refreshActiveMatches:', err.message);
   }
 }
 
-// ✅ Vérifie les scores des matchs en direct
+// ✅ Vérifie les scores et événements des matchs actifs
 async function checkMatchScore() {
-  console.log("🎯 Liste des matchs actifs :", activeMatches);
-
   try {
     if (activeMatches.length === 0) {
       console.log("⏸️ Aucun match actif à surveiller.");
       return;
     }
-    console.table(activeMatches)
+
+    console.log("🎯 Liste des matchs actifs :", activeMatches);
 
     const tokenGroups = await PushToken.aggregate([
       { $group: { _id: '$teamId', tokens: { $push: '$token' } } }
@@ -118,7 +119,7 @@ async function checkMatchScore() {
         if (!match) continue;
 
         const status = match.fixture.status.short;
-        if (!['1H', '2H', 'ET'].includes(status)) continue; // Vérifie que le match est en cours
+        if (!['1H', '2H', 'ET'].includes(status)) continue;
 
         const homeTeam = match.teams.home.name;
         const awayTeam = match.teams.away.name;
@@ -128,20 +129,30 @@ async function checkMatchScore() {
         const prevScore = previousScores[matchId] || { home: null, away: null };
 
         if (prevScore.home !== currentHomeGoals || prevScore.away !== currentAwayGoals) {
-          const scoreMsg = `⚽ Nouveau score : ${homeTeam} ${currentHomeGoals} - ${currentAwayGoals} ${awayTeam}`;
-          console.log(scoreMsg);
+          const isFirstCheck = prevScore.home === null && prevScore.away === null;
+const scoreChanged = prevScore.home !== currentHomeGoals || prevScore.away !== currentAwayGoals;
 
-          await sendPushNotification(tokens, {
-            title: `${homeTeam} vs ${awayTeam}`,
-            body: scoreMsg,
-          });
-          console.log(`📲 Notification envoyée à ${tokens.length} token(s).`);
+// Évite d'envoyer une notif 0-0 au premier check
+if (scoreChanged && !(isFirstCheck && currentHomeGoals === 0 && currentAwayGoals === 0)) {
+  const scoreMsg = `⚽ Nouveau score : ${homeTeam} ${currentHomeGoals} - ${currentAwayGoals} ${awayTeam}`;
+  console.log(scoreMsg);
 
-          previousScores[matchId] = {
-            home: currentHomeGoals,
-            away: currentAwayGoals,
-          };
-        }
+  await sendPushNotification(tokens, {
+    title: `${homeTeam} vs ${awayTeam}`,
+    body: scoreMsg,
+    data: {
+      screen: 'FicheMatch',
+      matchId,
+    },
+  });
+
+  console.log(`📲 Notification envoyée à ${tokens.length} token(s).`);
+
+  previousScores[matchId] = {
+    home: currentHomeGoals,
+    away: currentAwayGoals,
+  };
+}
 
         const events = match.events || [];
         for (const event of events) {
@@ -167,9 +178,11 @@ async function checkMatchScore() {
 
             console.log(goalMsg);
             await sendPushNotification(tokens, {
-              title: `${homeTeam} - ${awayTeam}`,
+              title: `${homeTeam} ${currentHomeGoals} - ${currentAwayGoals} ${awayTeam}`,
               body: goalMsg,
+              data: { matchId },
             });
+
             previousEvents[eventKey] = true;
           }
 
@@ -183,6 +196,7 @@ async function checkMatchScore() {
             await sendPushNotification(tokens, {
               title: `${homeTeam} vs ${awayTeam}`,
               body: redCardMsg,
+              data: { matchId },
             });
 
             previousEvents[eventKey] = true;
@@ -195,12 +209,12 @@ async function checkMatchScore() {
   }
 }
 
-// Planification CRON
-cron.schedule('*/30 * * * *', refreshActiveMatches); // Toutes les 30 minutes
-cron.schedule('*/30 * * * * *', checkMatchScore);   // Toutes les 30 secondes
+// 🕓 Cron jobs
+cron.schedule('*/5 * * * *', refreshActiveMatches);      // Rafraîchit les matchs toutes les 5 minutes
+cron.schedule('*/30 * * * * *', checkMatchScore);        // Vérifie les scores toutes les 30 secondes
 
-// Démarrage initial
+// ▶️ Démarrage initial
 (async () => {
-  await refreshActiveMatches();
-  setTimeout(() => checkMatchScore(), 10000); // Attendre 10s avant la première vérif
+  await refreshActiveMatches();                          // Charge les matchs dès le lancement
+  setTimeout(() => checkMatchScore(), 10000);            // Démarre la première vérification après 10s
 })();

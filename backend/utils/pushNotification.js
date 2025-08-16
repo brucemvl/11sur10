@@ -31,6 +31,10 @@ async function sendPushNotification(tokens, message) {
   data: message?.data || undefined,
   channelId: 'default', // 🔴 Obligatoire sur Android
   _originalToken: token,
+data: {
+  screen: 'FicheMatch',
+  ...(message?.data || {}),
+},
 }));
 
   try {
