@@ -153,6 +153,7 @@ if (scoreChanged && !(isFirstCheck && currentHomeGoals === 0 && currentAwayGoals
     away: currentAwayGoals,
   };
 }
+        }
 
         const events = match.events || [];
         for (const event of events) {
