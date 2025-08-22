@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
-import { Link } from '@react-navigation/native';
 import flecheVerte from "../assets/flecheverte.png";
 import flecheRouge from "../assets/flecherouge.png";
 import redcard from "../assets/redcard.png";
@@ -10,6 +9,19 @@ import Schema from './Schema';
 import ancelotti from "../assets/portraits/ancelotti.jpg"
 import henrique from "../assets/portraits/henrique.png"
 import pep from "../assets/portraits/pep.png"
+import flick from "../assets/portraits/flick.png"
+import arteta from "../assets/portraits/arteta.png"
+import emery from "../assets/portraits/emery.png"
+import simeone from "../assets/portraits/dsimeone.png"
+import amorim from "../assets/portraits/amorim.webp"
+import genesio from "../assets/portraits/genesio.png"
+import alonso from "../assets/portraits/alonso.png"
+import maresca from "../assets/portraits/maresca.png"
+import kompany from "../assets/portraits/kompany.png"
+import slot from "../assets/portraits/slot.png"
+import beye from "../assets/portraits/beye.png"
+
+
 
 
 const Compositions = ({ match, titulairesDom, homeId, extId, titulairesExt, coachDom, coachExt, coachDomId, coachExtId, systemeDom, systemeExt, substituteDom, substituteExt, compoDom, compoExt, colors }) => {
@@ -58,6 +70,36 @@ useEffect(() => {
           });
   }, []);
 
+  const coachImages = {
+  12629: maresca,
+  6801: alonso,
+  68: genesio,
+  1595: simeone,
+  4720: amorim,
+  18: emery,
+  6472: flick,
+  4: pep,
+  7248: arteta,
+  2407: ancelotti,
+  193: henrique,
+  12590: kompany,
+  2006: slot,
+  17926: beye
+};
+
+const coachNames = {
+  17396: "Javier Mascherano",
+  6801: "Xabi Alonso",
+  193: "Luis Enrique",
+  12590: "Vincent Kompany",
+  2462: "José Mourinho",
+  2431: "Paulo Fonseca",
+  4720: "Ruben Amorim",
+  7248: "Mikel Arteta",
+  4: "Pep Guardiola",
+  6472: "Hans Flick",
+  1595: "Diego Simeone"
+}
   
   
   const noteDom = match.players[0].players.map((joueur)=> joueur.statistics[0].games.rating)
@@ -169,8 +211,8 @@ if (match.players.length === 0){
         </View>
 
           <View style={styles.coachs}>
-         {compoDom.coach.id === null ? null : <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5,  padding: 8, borderTopRightRadius: 15, borderBottomRightRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12, textAlign: "center" }}>{compoDom.coach.id === 17396 ? "Javier Mascherano" : compoDom.coach.id === 6801 ? "Xabi Alonso" : compoDom.coach.id === 193 ? "Luis Enrique" : compoDom.coach.id === 12590 ? "Vincent Kompany" : compoDom.coach.name}</Text><Image source={compoDom.coach.id === 4 ? pep : compoDom.coach.id === 2407 ? ancelotti : compoDom.coach.id === 193 ? henrique : {uri: compoDom.coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></View> }
-         {compoExt.coach.id === null ? null : <View style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, padding: 8, borderTopLeftRadius: 15, borderBottomLeftRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12, textAlign: "center" }}>{compoExt.coach.id === 17396 ? "Javier Mascherano" : compoExt.coach.id === 6801 ? "Xabi Alonso" : compoExt.coach.id === 193 ? "Luis Enrique" : compoExt.coach.id === 12590 ? "Vincent Kompany" : compoExt.coach.name}</Text><Image source={compoExt.coach.id === 4 ? pep : compoExt.coach.id === 2407 ? ancelotti : compoExt.coach.id === 193 ? henrique : {uri: compoExt.coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></View> }
+         {compoDom.coach.id === null ? null : <TouchableOpacity onPress={() => navigation.navigate('FicheCoach', { id: compoDom.coach.id })} style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5,  padding: 8, borderTopRightRadius: 15, borderBottomRightRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12, textAlign: "center" }}>{coachNames[compoDom.coach.id] || compoDom.coach.name}</Text><Image source={coachImages[compoDom.coach.id] || {uri: compoDom.coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></TouchableOpacity> }
+         {compoExt.coach.id === null ? null : <TouchableOpacity onPress={() => navigation.navigate('FicheCoach', { id: compoExt.coach.id })} style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, padding: 8, borderTopLeftRadius: 15, borderBottomLeftRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12, textAlign: "center" }}>{coachNames[compoExt.coach.id] || compoExt.coach.name}</Text><Image source={coachImages[compoExt.coach.id] || {uri: compoExt.coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></TouchableOpacity> }
       </View>
 
           <LinearGradient colors={["rgb(167, 167, 167)", "rgb(145, 145, 145)", "rgb(115, 115, 115)"]} style={styles.playersList}>

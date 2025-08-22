@@ -292,7 +292,7 @@ console.log(calendrier)
             {
               height: heightSquadAnim.interpolate({
                 inputRange: [0, 1],
-                outputRange:[0, 880], // Ajustez la hauteur en fonction du contenu
+                outputRange:[0, 950], // Ajustez la hauteur en fonction du contenu
               }),
             },
           ]}

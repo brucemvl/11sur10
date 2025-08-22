@@ -108,11 +108,10 @@ function FicheEurope({ route }) {
 
 const styles = StyleSheet.create({
     blocChamp: {
-        flexGrow: 1, // Cette ligne garantit que le contenu du ScrollView occupe l'espace disponible
         padding: 10,
         width: "100%",
         marginTop: 50,
-        paddingBottom: 130
+        paddingBottom: 140,
     },
     selected: {
       fontFamily: "Kanitt",

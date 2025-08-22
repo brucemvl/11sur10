@@ -38,7 +38,7 @@ function ClubPage() {
                 </LinearGradient>
                 <View style={styles.filtres}>
                     <View style={{flexDirection: "column"}}>
-                    <Text style={{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 10}}>Europe</Text>
+                    <Text style={{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 8}}>Europe</Text>
                     <View style={{flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center"}}>
                     {championnats.map(({ name, id, flag, logo }) => (
                         <TouchableOpacity
@@ -55,13 +55,15 @@ function ClubPage() {
                     </View>
                     </View>
                     <View style={{flexDirection: "column"}}>
-                    <Text style={{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 10}}>Reste du monde</Text>
+                    <Text style={{textAlign: "center", fontFamily: "Kanitus", color: "white",
+                        marginBlock: 8
+                    }}>Reste du monde</Text>
                     <View style={{flexDirection: "row", flexWrap: "wrap", gap: 9, justifyContent: "center"}}>  
                       {autres.map(({ name, id, logo, country }) => (
-                        <View style={{alignItems: "center", marginBottom: 10, width: "31%"}}>
+                        <View style={{alignItems: "center", marginBottom: 15, width: "31%"}}>
                         <TouchableOpacity
                             key={"lien autre" + id}
-                            style={{width: "100%", height: 125, alignItems: 'center', marginBottom: 1, borderWidth: 8, borderRadius: 15, borderColor: 'rgb(15, 23, 82)', paddingBlock: 6, backgroundColor: "aliceblue", flexDirection: "column-reverse"}}
+                            style={{width: "100%", height: 120, alignItems: 'center', marginBottom: 1, borderWidth: 8, borderRadius: 15, borderColor: 'rgb(15, 23, 82)', paddingBlock: 6, backgroundColor: "aliceblue", flexDirection: "column-reverse"}}
                             onPress={() => navigation.navigate('FicheChampionnat', { id })}
                         >
                             <Text style={styles.filtreTitle}>{name}</Text>
@@ -214,11 +216,12 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         flexWrap: 'wrap',
         alignItems: "center",
-        width: "100%"
+        width: "100%",
+        gap: 25
     },
     lien: {
         width: 100,  // Utilise une largeur fixe pour la petite taille d'écran
-        height: 125,
+        height: 100,
         alignItems: 'center',
         marginBottom: 1,
         borderWidth: 8,
@@ -273,7 +276,7 @@ const styles = StyleSheet.create({
     // Styles spécifiques à l'écran mobile
     lienMobile: {
         width: "31%", // Sur petits écrans, on ajuste la largeur
-        height: 125,
+        height: 115,
         alignItems: 'center',
         marginBottom: 1,
         borderWidth: 8,
@@ -285,8 +288,8 @@ const styles = StyleSheet.create({
 
     },
     lienTablet: {
-        width: 110, // Sur tablettes, on ajuste également
-        height: 125,
+        width: 160, // Sur tablettes, on ajuste également
+        height: 160,
         alignItems: 'center',
         marginBottom: 1,
         borderWidth: 8,

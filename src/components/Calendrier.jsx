@@ -140,7 +140,8 @@ const styles = StyleSheet.create({
     logo: {
         height: 60,
         width: 60,
-        objectFit: "contain"
+        objectFit: "contain",
+        zIndex: 3
 
     },
     logoExt: {
@@ -148,7 +149,6 @@ const styles = StyleSheet.create({
         width: 45,
         position: "relative",
         right: 14,
-        zIndex: -1,
         objectFit: "contain"
 
     },

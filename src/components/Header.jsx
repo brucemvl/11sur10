@@ -30,6 +30,7 @@ const Header = forwardRef(({ notifsEnabled, selectedTeamId }, ref) => {
   const navigation = useNavigation()
     const shakeAnim = useRef(new Animated.Value(0)).current;
 
+
 const selectedTeam = selectedTeamId
   ? teams.find(team => team.id === selectedTeamId)
   : null;
@@ -68,7 +69,6 @@ const selectedTeam = selectedTeamId
       style={styles.header}
     >
       <View style={{alignItems: "center"}}>
-      
       <TouchableOpacity onPress={()=> navigation.navigate("Apropos")}>
 <Image source={info} style={{height: 30, width:30}}/>      </TouchableOpacity>
       </View>
@@ -79,7 +79,7 @@ const selectedTeam = selectedTeamId
   <Image
     key={selectedTeamId}
     source={{ uri: selectedTeam.logo }}
-    style={{ width: 20, height: 20, position: "absolute", zIndex: 1, left: 20, bottom: 18 }}
+    style={{ width: 23, height: 23, position: "absolute", zIndex: 1, left: 20, bottom: 18, objectFit: "contain" }}
   />
 ) : null}
   <Animated.Image

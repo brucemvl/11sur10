@@ -20,6 +20,7 @@ import FicheMatch from '../screens/FicheMatch';
 import SelectionsPage from '../screens/SelectionsPage';
 import FicheSelections from '../screens/FicheSelections';
 import FicheEquipe from '../screens/FicheEquipe';
+import FicheCoach from '../screens/FicheCoach';
 import Notifs from '../screens/Notifs';
 
 
@@ -32,6 +33,8 @@ export default function AppNavigator() {
   const [notificationsEnabled, setNotificationsEnabled] = useState(null);
   const [loading, setLoading] = useState(true); // ← ajout pour loading
   const headerRef = useRef();
+    const homeRef = useRef();
+
 
   useEffect(() => {
   const loadInitialData = async () => {
@@ -81,7 +84,16 @@ export default function AppNavigator() {
         },
       }}
     >
-      <Stack.Screen name="Home" component={Home} />
+<Stack.Screen name="Home">
+  {(props) => (
+    <Home
+      {...props}
+      ref={homeRef}
+      notifsEnabled={notificationsEnabled}
+      selectedTeamId={selectedTeamId}
+    />
+  )}
+</Stack.Screen>
       <Stack.Screen name="Apropos" component={Apropos} />
       <Stack.Screen name="Contact" component={Contact} />
       <Stack.Screen name="FicheChampionnat" component={FicheChampionnat} />
@@ -93,6 +105,7 @@ export default function AppNavigator() {
       <Stack.Screen name="SelectionsPage" component={SelectionsPage} />
       <Stack.Screen name="FicheSelections" component={FicheSelections} />
       <Stack.Screen name="FicheEquipe" component={FicheEquipe} />
+      <Stack.Screen name="FicheCoach" component={FicheCoach} />
       <Stack.Screen name="Notifs">
         {(props) => (
           <Notifs

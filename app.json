@@ -2,7 +2,7 @@
   "expo": {
     "name": "11sur10",
     "slug": "11sur10",
-    "version": "2.3.7",
+    "version": "2.4.3",
     "orientation": "portrait",
     "icon": "./src/assets/logoapp7.png",
     "userInterfaceStyle": "light",
@@ -35,6 +35,8 @@
       },
       "package": "com.onzesur10.app",
       "versionCode": 2,
+      "compileSdkVersion": 34,
+      "targetSdkVersion": 34,
       "permissions": [
     "NOTIFICATIONS",
     "WAKE_LOCK",

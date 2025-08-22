@@ -215,7 +215,7 @@ const [fontsLoaded] = useFonts({
     
     todayMatch.length <= 0 ? 
     <View style={styles.today}>
-      <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={{ width: "100%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue", padding: 3 }} >
+      <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={{ width: "96%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue", padding: 3 }} >
       {selectedDate === "APRES-DEMAIN" ? 
       <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
         <TouchableOpacity onPress={handlePrevious}>
@@ -369,7 +369,7 @@ const [fontsLoaded] = useFonts({
       {demain && <ScrollView contentContainerStyle={styles.liveTableau}>
         {tomorrowMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match demain</Text> :
 
-          tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }} key={"league" + league}>
+          tomorrowLeagues.map((league) => <View style={{ marginBlock: 2 }} key={"league" + league}>
             <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
             {tomorrowMatch.map((element) => element.league.name === league ?
 
@@ -437,7 +437,7 @@ const [fontsLoaded] = useFonts({
         }
       >
         
-        <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={{ width: "100%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue", elevation: 4, padding:3 }} >
+        <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={{ width: "96%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue", elevation: 4, padding:3 }} >
           {selectedDate === "APRES-DEMAIN" ? <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
             <TouchableOpacity onPress={handlePrevious} >
               <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
@@ -590,19 +590,20 @@ const [fontsLoaded] = useFonts({
               />
             }>
 
-              {leagues.map((league) => <View style={{ marginBlock: 5 }}>
-                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBlock: 6 }}>
+              {leagues.map((league) => <View style={{ marginBlock: 2 }}>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBlock: 4 }}>
                   <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
                   {league === "UEFA Champions League" && todayMatch.some((element) =>
                     element.league.name === "UEFA Champions League" &&
                     element.fixture.status.long != 'Match Finished' &&
-                    element.fixture.status.elapsed !== null
+                    element.fixture.status.elapsed !== null &&
+                    element.league.round.indexOf("ualification") != -1
                   ) ? 
                     <TouchableOpacity onPress={spoil} style={styles.button}>
                       <Animated.View
                         style={[
                           styles.toggle,
-                          { transform: [{ translateX: position }] }, // Applique la transformation de position
+                          { transform: [{ translateX: position }] },
                         ]}
                       >
                         <Text style={isActive ? styles.textspoil : styles.textnospoil}>{isActive ? 'Spoil' : 'No Spoil'}</Text>
@@ -625,7 +626,7 @@ const [fontsLoaded] = useFonts({
                           <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
                           <Text style={{ marginInline: 4 }}>-</Text>
                           <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
-                          <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.away.name === "Central African Republic" ? "Centrafrique" : element.teams.away.name === "Netherlands" ? "Pays Bas" : element.teams.away.name === "Spain" ? "Espagne" : element.teams.away.name === "Germany" ? "Allemagne" : element.teams.away.name === "England" ? "Angleterre" : element.teams.away.name}</Text>
+                          <Text style={styles.matchEquipeExt}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.away.name === "Central African Republic" ? "Centrafrique" : element.teams.away.name === "Netherlands" ? "Pays Bas" : element.teams.away.name === "Spain" ? "Espagne" : element.teams.away.name === "Germany" ? "Allemagne" : element.teams.away.name === "England" ? "Angleterre" : element.teams.away.name === "Club Brugge KV" ? "Club Brugge" : element.teams.away.name}</Text>
                           
                           <View style={styles.rdv}>
                             <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
@@ -651,18 +652,18 @@ const [fontsLoaded] = useFonts({
                           <View style={styles.scoreContainer}>
                             {element.goals.home === element.goals.away ? 
                               <View style={styles.score}>
-                                {element.league.name === "UEFA Champions League" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={styles.scoreText}>{element.goals.home}</Text> : <Text style={styles.scoreText}>{element.goals.home}</Text>}
+                                {element.league.name === "UEFA Champions League" && element.league.round.indexOf("ualification") != -1 ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={styles.scoreText}>{element.goals.home}</Text> : <Text style={styles.scoreText}>{element.goals.home}</Text>}
                                 {element.fixture.status.elapsed > 0 && element.fixture.status.long != "Match Finished" ? 
                                                         element.fixture.status.long === "Halftime" ? <Text style={{color: "white", fontFamily: "Kanitalic", fontSize: 10, backgroundColor: "darkred", padding: 2, borderRadius: 4, marginInline: 3}}>MT</Text> :
                                                         <View style={styles.liveSticker}>
                                                                         <Text style={styles.liveText}>{element.fixture.status.elapsed}'</Text>
                                                                         <Animated.Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
                                                                       </View> : null}
-                                {element.league.name === "UEFA Champions League" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={styles.scoreText}>{element.goals.away}</Text> : <Text style={styles.scoreText}>{element.goals.away}</Text>}
+                                {element.league.name === "UEFA Champions League" && element.league.round.indexOf("ualification") != -1 ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={styles.scoreText}>{element.goals.away}</Text> : <Text style={styles.scoreText}>{element.goals.away}</Text>}
                               </View>
                              : 
                               <View style={styles.score}>
-                                {element.league.name === "UEFA Champions League" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text> : <Text style={element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text>}
+                                {element.league.name === "UEFA Champions League" && element.league.round.indexOf("ualification") != -1 ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text> : <Text style={element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text>}
                                 {element.fixture.status.elapsed > 0 && element.fixture.status.long != "Match Finished" ? 
                                                         element.fixture.status.long === "Halftime" ? <Text style={{color: "white", fontFamily: "Kanitalic", fontSize: 10, backgroundColor: "darkred", padding: 2, borderRadius: 4, marginInline: 3}}>MT</Text> :
                                                         <View style={styles.liveSticker}>
@@ -670,7 +671,7 @@ const [fontsLoaded] = useFonts({
                                                                         <Animated.Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
                                                                       </View> : null}
 
-                                {element.league.name === "UEFA Champions League" ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text> : <Text style={element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text>}
+                                {element.league.name === "UEFA Champions League" && element.league.round.indexOf("ualification") != -1 ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text> : <Text style={element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text>}
 
                               </View>
                             }
@@ -722,7 +723,7 @@ const [fontsLoaded] = useFonts({
 
           {demain && <ScrollView contentContainerStyle={styles.liveTableau}>
             {tomorrowMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match demain</Text> :
-              tomorrowLeagues.map((league) => <View style={{ marginBlock: 5 }}>
+              tomorrowLeagues.map((league) => <View style={{ marginBlock: 2 }}>
                 <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
                 {tomorrowMatch.map((element) => element.league.name === league ?
 
@@ -730,7 +731,7 @@ const [fontsLoaded] = useFonts({
                     key={element.fixture.id}
                     onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }}
                   >
-                    <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
+                    <LinearGradient colors={['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.3)']} style={styles.match}>
                       {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
                         source={ligue1}
                         style={styles.matchCompetition}

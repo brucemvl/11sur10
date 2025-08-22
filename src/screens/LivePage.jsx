@@ -56,10 +56,50 @@ console.log(lives)
 
     flash();
 
+   
+
     return () => fadeAnim.stopAnimation();
   }, [fadeAnim]);
 
-  
+   const countryTranslations = {
+  Denmark: "Danemark",
+  Belgium: "Belgique",
+  Hungary: "Hongrie",
+  England: "Angleterre",
+  Spain: "Espagne",
+  Germany: "Allemagne",
+  Poland: "Pologne",
+  Cyprus: "Chypre",
+  Sweden: "Suède",
+  "Czech-Republic": "République Tchèque",
+  Switzerland: "Suisse",
+  Serbia: "Serbie",
+  Algeria: "Algérie",
+  Tunisia: "Tunisie",
+  Turkey: "Turquie",
+  Singapore: "Singapour",
+  Latvia: "Lettonie",
+  Romania: "Roumanie",
+  Belarus: "Biélorussie",
+  Russia: "Russie",
+  Bulgaria: "Bulgarie",
+  Cameroon: "Cameroun",
+  Greece: "Grèce",
+  India: "Inde",
+  Cambodia: "Cambodge",
+  Austria: "Autriche",
+  Netherlands: "Pays-Bas",
+  "Ivory-Coast": "Côte d'Ivoire",
+  Wales: "Pays de Galles",
+  Scotland: "Écosse",
+  Italy: "Italie",
+  Mexico: "Mexique",
+  Lebanon: "Liban",
+  Norway: "Norvège",
+  Morocco: "Maroc",
+  Chile: "Chili",
+  Colombia: "Colombie"
+};
 
   return (
     <ScrollView
@@ -81,8 +121,9 @@ console.log(lives)
         
         (
           leagues.map((league) => <View style={{marginBottom: 10}} key={"ligue" + league}>
-            <Text style={{fontFamily: "Kanitus", color: "white"}}>{league === "Denmark" ? "Danemark" : league === "Belgium" ? "Belgique" : league === "Hungary" ? "Hongrie" : league === "England" ? "Angleterre" : league === "Spain" ? "Espagne" : league === "Germany" ? "Allemagne" : league === "Poland" ? "Pologne" : league === "Cyprus" ? "Chypre" : league === "Sweden" ? "Suede" : league === "Czech-Republic" ? "Republique Tcheque" : league === "Switzerland" ? "Suisse" : league === "Serbia" ? "Serbie" : league === "Algeria" ? "Algerie" : league === "Tunisia" ? "Tunisie" : league === "Turkey" ? "Turquie" : league === "Singapore" ? "Singapour" : league === "Latvia" ? "Letonie" : league === "Romania" ? "Roumanie" : league === "Belarus" ? "Bielorussie" : league === "Russia" ? "Russie" : league === "Bulgaria" ? "Bulgarie" : league === "Cameroon" ? "Cameroun" : league === "Greece" ? "Grece" : league === "India" ? "Inde" : league === "Cambodia" ? "Cambodge" : league === "Austria" ? "Autriche" : league === "Netherlands" ? "Pays Bas" : league === "Ivory-Coast" ? "Cote d'Ivoire" : league === "Wales" ? "Pays de Galles" : league === "Scotland" ? "Ecosse" : league === "Italy" ? "Italie" : league === "Mexico" ? "Mexique" : league === "Lebanon" ? "Liban" : league === "Norway" ? "Norvege" : league === "Morocco" ? "Maroc" : league === "Chile" ? "Chilie" : league}</Text>
-          {lives.map((live) => live.league.country === league ? 
+<Text style={{fontFamily: "Kanitus", color: "white"}}>
+  {countryTranslations[league] || league}
+</Text>          {lives.map((live) => live.league.country === league ? 
           <TouchableOpacity
       style={styles.matchContainer}
       onPress={() => navigation.navigate('FicheMatch', { id: live.fixture.id })} key={live.fixture.id}

@@ -1,11 +1,12 @@
 import { View, Text, ScrollView, RefreshControl, StyleSheet } from "react-native";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, forwardRef } from "react";
 import Filtres from "../components/Filtres";
 import Banner from "../components/Banner";
 import Aujourdhui from "../components/Aujourdhui";
+import Favorite from "../components/Favorite";
 import { useFonts } from "expo-font";
 
-function Home() {
+const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
   const [fontsLoaded] = useFonts({
     "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
     "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
@@ -32,8 +33,9 @@ function Home() {
   const [matchsAfrica, setMatchsAfrica] = useState([]);
   const [matchsEurope, setMatchsEurope] = useState([]);
   const [matchsConference, setMatchsConference] = useState([]);
-  const [matchsUefaSupercup, setMatchsUefaSupercup] = useState([]);
+  const [matchsalnassr, setMatchsalnassr] = useState([]);
   const [matchsMiami, setMatchsMiami] = useState([]);
+  const [matchsCommunity, setMatchsCommunity] = useState([]);
 
 
 
@@ -52,22 +54,24 @@ function Home() {
     };
 
     try {
-      const [ucl, france, england, spain, ger, italy, cdf, fac, copa, uel, africa, europe, conference, uefaSupercup, miami] = await Promise.all([
-        fetchData('https://v3.football.api-sports.io/fixtures?league=2&season=2024'),
+      const [ucl, france, england, spain, ger, italy, cdf, /*fac,*/ copa, uel, africa, europe, conference, alnassr, miami, community] = await Promise.all([
+        fetchData('https://v3.football.api-sports.io/fixtures?league=2&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=61&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=39&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=140&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=78&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=135&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=66&season=2025'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=45&season=2025'),
+       /* fetchData('https://v3.football.api-sports.io/fixtures?league=45&season=2025'),*/
         fetchData('https://v3.football.api-sports.io/fixtures?league=143&season=2025'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=3&season=2024'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=3&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=29&season=2023'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=32&season=2025'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=848&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=531&season=2025'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=848&season=2025'),
+        fetchData('https://v3.football.api-sports.io/fixtures?team=2939&season=2025'),
                 fetchData('https://v3.football.api-sports.io/fixtures?team=9568&season=2025'),
+                        fetchData('https://v3.football.api-sports.io/fixtures?league=528&season=2025'),
+
 
 
 
@@ -83,16 +87,15 @@ function Home() {
       setMatchsGer(ger);
       setMatchsItaly(italy);
       setMatchsCdf(cdf);
-      setMatchsFac(fac);
+      /*setMatchsFac(fac);*/
       setMatchsCopa(copa);
       setMatchsUel(uel);
       setMatchsAfrica(africa);
       setMatchsEurope(europe);
       setMatchsConference(conference);
-      setMatchsUefaSupercup(uefaSupercup);
+      setMatchsalnassr(alnassr);
       setMatchsMiami(miami)
-
-
+      setMatchsCommunity(community)
 
 
     } catch (error) {
@@ -110,9 +113,9 @@ function Home() {
     }, []);
   
 
-  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf, ...matchsFac, ...matchsCopa, ...matchsUel, ...matchsAfrica, ...matchsEurope, ... matchsConference, ... matchsUefaSupercup, ...matchsMiami]
+  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf,/* ...matchsFac,*/ ...matchsCopa, ...matchsUel, ...matchsAfrica, ...matchsEurope, ... matchsConference, ... matchsalnassr, ...matchsMiami, ...matchsCommunity]
 
-  
+  console.log(selectedTeamId)
 
   if (!fontsLoaded) {
     return <Text>Loading...</Text>;
@@ -124,23 +127,24 @@ function Home() {
     >
       <View style={styles.blocpage}>
         <Banner />
-        </View>
         <Filtres />
-        <View style={[styles.blocpage, {paddingBottom: 130}]}>
-        <Aujourdhui onRefresh={onRefresh} matchs={matchs} />
-      </View>
+        <Aujourdhui onRefresh={onRefresh} matchs={matchs} style={{marginBlock: 5}} />
+             {selectedTeamId != null ?  <Favorite selectedTeamId={selectedTeamId}/> : null}
+</View>
     </ScrollView>
   );
 }
+)
 
 const styles = StyleSheet.create({
   blocpage: {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    width: "98%",
-    paddingInlineStart: "2%",
+    width: "100%",
     marginBlock: 10,
+    gap: 8,
+    marginBottom: 85
   },
 });
 

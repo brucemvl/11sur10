@@ -5,6 +5,13 @@ import AppNavigator from './src/navigation/AppNavigator';
 import Menu from './src/components/Menu';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import registerForPushNotificationsAsync from './src/utils/registerPush';
+import NotificationHandler from './src/components/NotificationHandler';
+import { navigationRef } from './src/navigation/NavigationRef';
+import { navigate } from './src/navigation/NavigationRef';
+import Toast from 'react-native-toast-message';
+
+
+
 
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
@@ -35,8 +42,6 @@ export default function App() {
     }
   }, []);
 
-  console.log('🔔 Lancement enregistrement token')
-
   useEffect(() => {
     registerForPushNotificationsAsync();
 
@@ -45,8 +50,15 @@ export default function App() {
     });
 
     const subResponse = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log('📲 Réponse à la notif :', response);
-    });
+  console.log('📲 Réponse à la notif :', response);
+
+  const data = response.notification.request.content.data;
+  console.log('📲 Notif cliquée, data :', data);
+
+  if (data?.screen === 'FicheMatch' && data?.matchId) {
+    // 🛠️ Navigation ici
+  }
+});
 
     return () => {
       subReceived.remove();
@@ -63,9 +75,11 @@ export default function App() {
   }, []);
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <AppNavigator />
       <Menu />
+      <NotificationHandler />
+      <Toast />
     </NavigationContainer>
   );
 }

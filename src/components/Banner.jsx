@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   banner: {
     height: 170,
     borderRadius: 15,
-    width: "100%",
+    width: "96%",
     position: "relative",
     overflow: "hidden",
   },

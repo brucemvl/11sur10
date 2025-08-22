@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
 import ligue1 from "../assets/logoligue1.webp"
+import ligue2 from "../assets/ligue2.jpg"
 import ucl from "../assets/logoucl.png"
 import stade from "../assets/stade.png"
 import calendrier from "../assets/date.png"
@@ -20,6 +21,7 @@ import canal from "../assets/logos/canal.png"
 import bein from "../assets/logos/bein.png"
 import m6 from "../assets/logos/m6.png"
 import tf1 from "../assets/logos/tf1.png"
+import dazn from "../assets/logos/dazn.png"
 import fifaclubwc from "../assets/fifaclubwc2.png"
 import red from "../assets/redcard.png"
 
@@ -38,6 +40,14 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
     const [forme, setForme] = useState(0)
 
       const [fadeAnim] = useState(new Animated.Value(1)); // Animation de fade (opacité)
+
+      const teamName = {
+  "Germany": "Allemagne",
+  "Spain": "Espagne",
+  "Paris Saint Germain": "Paris St Germain",
+  "Barcelona" : "FC Barcelone",
+  "England" : "Angleterre"
+};
     
 useEffect(() => {
     const flash = () => {
@@ -63,7 +73,7 @@ useEffect(() => {
   return (
         <View style={styles.container}>
             <View style={styles.ligue}>
-                <Text style={{ fontFamily: "Kanitt", textAlign: "center" }}>{match.league.name.indexOf("Friendlies") != -1 ? match.league.name.replace("Friendlies", "Amicaux") : match.league.name} - {match.league.round.indexOf("Qualifying Round") != -1 ? "Match de Qualification" : match.league.round === "Knockout Round Play-offs" ? "Barrages" : match.league.round === "Regular Season - 1" ? "1ere Journee" : match.league.round === "Round of 16" ? "8eme de finale" : match.league.round === "Quarter-finals" ? "Quart de finale" : match.league.round === "Semi-finals" ? "Demi Finale" : match.league.round === "Final" ? "Finale" : match.league.round === "Relegation Round" ? "Barrage" : match.league.round === "3rd Place Final" ? "Match 3eme place" : match.league.round === "8th Finals" ? "8eme de Finale" : match.league.round === "4th Finals" ? "Quart de Finale" : `${roundd}eme Journee`}</Text>
+                <Text style={{ fontFamily: "Kanitt", textAlign: "center" }}>{match.league.name.indexOf("Friendlies") != -1 ? match.league.name.replace("Friendlies", "Amicaux") : match.league.name} - {match.league.round.indexOf("Qualifying Round") != -1 ? "Match de Qualification" : match.league.round === "Knockout Round Play-offs" || match.league.round === "Play-offs" ? "Barrages" : match.league.round === "Extra Preliminary Round" ? "Tour Preliminaire" : match.league.round === "Regular Season - 1" ? "1ere Journee" : match.league.round === "Round of 16" ? "8eme de finale" : match.league.round === "Quarter-finals" ? "Quart de finale" : match.league.round === "Semi-finals" ? "Demi Finale" : match.league.round === "Final" ? "Finale" : match.league.round === "Relegation Round" ? "Barrage" : match.league.round === "3rd Place Final" ? "Match 3eme place" : match.league.round === "8th Finals" ? "8eme de Finale" : match.league.round === "4th Finals" ? "Quart de Finale" : `${roundd}eme Journee`}</Text>
             </View>
             <View style={styles.datelieu}>
                 <View style={{ flexDirection: "row", gap: 5 }}>
@@ -86,7 +96,7 @@ useEffect(() => {
                 <ImageBackground source={match.league.id === 2 ? ucl2 : match.league.id === 61 ? grass : match.league.id === 39 ? pl : match.league.id === 78 ? bundesliga : liga} style={styles.afficheUcl} imageStyle={{ borderRadius: 10, filter: match.league.id === 61 ? "brightness(0.5)" : match.league.id === 39 ? "brightness(0.4)" : match.league.id === 140 ? "brightness(0.32)" : match.league.id === 78 ? "brightness(0.45)" : "brightness(0.9)" }}>
                     <TouchableOpacity style={styles.domicile} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo })}>
                         <Image source={{ uri: match.teams.home.logo }} style={[styles.teamLogo, match.teams.home.id === 81 ? { shadowRadius: 0.3 } : null]} />
-                        <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14, textAlign: "center" }}>{match.teams.home.name === "Barcelona" ? "FC Barcelone" : match.teams.home.name}</Text>
+                        <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14, textAlign: "center" }}>{teamName[match.teams.home.name] || match.teams.home.name}</Text>
                         <View style={{ gap: 5, flexDirection: "row", marginTop: 5 }}>{formeHome?.split('').map((char, index) => (
                             char === 'L' ? (
                                 <View style={styles.defaite} >
@@ -106,7 +116,7 @@ useEffect(() => {
                     </TouchableOpacity>
 
                     <View style={styles.score}>
-                        <Image source={match.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : match.league.logo === "https://media.api-sports.io/football/leagues/2.png" ? ucl : match.league.id === 15 ? fifaclubwc : { uri: match.league.logo }} style={{ height: 40, width: 40, objectFit: "contain", marginBlock: 1 }} />
+                        <Image source={match.league.id === 61 ? ligue1 : match.league.id === 2 ? ucl : match.league.id === 15 ? fifaclubwc : match.league.id === 62 ? ligue2 : { uri: match.league.logo }} style={{ height: 40, width: 40, objectFit: "contain", marginBlock: 1 }} />
 
                         <Text style={styles.scoreText}>
                             {match.goals.home} - {match.goals.away}
@@ -121,7 +131,7 @@ useEffect(() => {
 
                     <TouchableOpacity style={styles.exterieur} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo })}>
                         <Image source={{ uri: match.teams.away.logo }} style={[styles.teamLogo, match.teams.away.id === 81 ? { shadowRadius: 0.3 } : null]} />
-                        <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14, textAlign: "center" }}>{match.teams.away.name === "Barcelona" ? "FC Barcelone" : match.teams.away.name}</Text>
+                        <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14, textAlign: "center" }}>{teamName[match.teams.away.name] || match.teams.away.name}</Text>
                         <View style={{ gap: 5, flexDirection: "row", marginTop: 5 }}>{formeExt?.split('').map((char, index) => (
                             char === 'L' ? (
                                 <View style={styles.defaite} >
@@ -142,10 +152,10 @@ useEffect(() => {
                 </ImageBackground>
                 :
 
-                <LinearGradient colors={match.league.id === 15 ? ['rgb(80, 80, 80)', 'rgba(0, 0, 0, 0.8)'] : ['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.8)']} style={styles.affiche}>
+                <LinearGradient colors={match.league.id === 531 ? ['rgb(0, 0, 0)', 'rgba(80, 80, 80, 0.7)'] : match.league.id === 15 ? ['rgb(80, 80, 80)', 'rgba(0, 0, 0, 0.8)'] : ['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.8)']} style={styles.affiche}>
                     <TouchableOpacity style={styles.domicile} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo })}>
                         <Image source={{ uri: match.teams.home.logo }} style={styles.teamLogo} />
-                        <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14, textAlign: "center" }}>{match.teams.home.name === "Germany" ? "Allemagne" : match.teams.home.name === "Spain" ? "Espagne" : match.teams.home.name}</Text>
+                        <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14, textAlign: "center" }}>{teamName[match.teams.home.name] || match.teams.home.name}</Text>
                         <View style={{ gap: 5, flexDirection: "row", marginTop: 5 }}>{formeHome?.split('').map((char, index) => (
                             char === 'L' ? (
                                 <View style={styles.defaite}>
@@ -165,7 +175,7 @@ useEffect(() => {
                     </TouchableOpacity>
 
                     <View style={styles.score}>
-                        <Image source={match.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : match.league.logo === "https://media.api-sports.io/football/leagues/2.png" ? ucl : match.league.id === 15 ? fifaclubwc : { uri: match.league.logo }} style={{ height: 40, width: 40, objectFit: "contain", marginBlock: 1 }} />
+                        <Image source={match.league.id === 61 ? ligue1 : match.league.id === 2 ? ucl : match.league.id === 15 ? fifaclubwc : match.league.id === 62 ? ligue2 : { uri: match.league.logo }} style={{ height: 40, width: 40, objectFit: "contain", marginBlock: 1 }} />
 
                         <Text style={styles.scoreText}>
                             {match.goals.home} - {match.goals.away}
@@ -180,7 +190,7 @@ useEffect(() => {
 
                     <TouchableOpacity style={styles.exterieur} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo })}>
                         <Image source={{ uri: match.teams.away.logo }} style={match.teams.away.id === 81 ? styles.marseille : styles.teamLogo} />
-                        <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14, textAlign: "center" }}>{match.teams.away.name === "Germany" ? "Allemagne" : match.teams.away.name === "Spain" ? "Espagne" : match.teams.away.name}</Text>
+                        <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14, textAlign: "center" }}>{teamName[match.teams.away.name] || match.teams.away.name}</Text>
                         <View style={{ gap: 5, flexDirection: "row" }}>{formeExt?.split('').map((char, index) => (
                             char === 'L' ? (
                                 <View style={styles.defaite}>
@@ -199,7 +209,7 @@ useEffect(() => {
                         ))}</View>
                     </TouchableOpacity>
                 </LinearGradient>}
-{match.league.id === 307 || match.league.id === 61 || match.league.id === 2 || match.league.id === 140 || match.league.id === 39 || match.league.id === 15 || match.league.id === 5 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitu"}}>Match diffusé sur</Text><Image source={match.league.id === 61 || match.league.id === 15 ? ligue1plus : match.league.id === 2 || match.league.id === 39 || match.league.id === 307 ? canal : match.league.id === 140 ? bein : match.league.id === 5 ? tf1 : null} style={match.league.id === 61 ? {height: 25, width: 40, objectFit: "contain", marginLeft: 2}: match.league.id === 140  ? {height: 25, width: 65, objectFit: "contain", marginLeft: 5} : match.league.id === 39 || match.league.id === 2 ? {height: 25, width: 50, objectFit: "contain", marginLeft: 2} : {height: 25, width: 40, objectFit: "contain", marginLeft: 2} }/>{match.fixture.id === 1374812 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitu"}}>et</Text><Image source={m6} style={{height: 20, objectFit: "contain", width: 40}} /></View> : match.fixture.id === 1399365 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitu"}}>et</Text><Image source={tf1} style={{height: 20, objectFit: "contain", width: 40, marginLeft: 8}} /></View> : null}</View> : null}
+{match.league.id === 307 || match.league.id === 61 || match.league.id === 62 || match.league.id === 135 || match.league.id === 2 || match.league.id === 140 || match.league.id === 78 || match.league.id === 39 || match.league.id === 15 || match.league.id === 5 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitu"}}>Match diffusé sur</Text><Image source={match.league.id === 61 ? ligue1plus : match.league.id === 135 || match.league.id === 15 ? dazn : match.league.id === 2 || match.league.id === 39 || match.league.id === 307 ? canal : match.league.id === 140 || match.league.id === 62 || match.league.id === 78 ? bein : match.league.id === 5 ? tf1 : null} style={match.league.id === 61 ? {height: 25, width: 40, objectFit: "contain", marginLeft: 2}: match.league.id === 140  ? {height: 25, width: 65, objectFit: "contain", marginLeft: 5} : match.league.id === 39 || match.league.id === 2 ? {height: 25, width: 50, objectFit: "contain", marginLeft: 2} : {height: 25, width: 40, objectFit: "contain", marginLeft: 2} }/>{match.fixture.id === 1374812 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitu"}}>et</Text><Image source={m6} style={{height: 20, objectFit: "contain", width: 40}} /></View> : match.fixture.id === 1399365 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitu"}}>et</Text><Image source={tf1} style={{height: 20, objectFit: "contain", width: 40, marginLeft: 8}} /></View> : null}</View> : null}
             <View style={styles.buts}>
 {/*
                 <View style={styles.equipeDomicile}>
@@ -217,21 +227,21 @@ useEffect(() => {
 */}
 <View style={styles.equipeDomicile}>
     {match.events.map((evenement) => evenement.detail === "Red Card" || evenement.type === "Goal" && evenement.detail != "Missed Penalty" ? evenement.team.id === match.teams.home.id ? 
-    <View style={{flexDirection: "row", alignItems: "center"}}>
+    <TouchableOpacity onPress={() => navigation.navigate("FicheJoueur", { id: evenement.player.id })} style={{flexDirection: "row", alignItems: "center"}}>
         {evenement.detail === "Red Card" ? <View style={{flexDirection: "row", alignItems: "center"}}><Image source={red} style={{height: 22, width: 22, objectFit: "contain"}} /><Text style={styles.text}>{evenement.player.name}, </Text><Text style={{fontFamily: "Kanitalik", fontSize: 11.5}}>{evenement.time.elapsed}'{evenement.time.extra ? `+ ${evenement.time.extra}`:null}</Text></View> : null}
         :
         {evenement.type === "Goal" && evenement.detail != "Missed Penalty" && evenement.comments != "Penalty Shootout" ? <View><Text style={styles.text}><Text style={styles.goalIcon}>⚽</Text> {evenement.player.name === "R. Lewandowski" ? "Lewandowski" : evenement.player.name}, <Text style={{fontFamily: "Kanitalik"}}>{evenement.time.elapsed}'{evenement.time.extra  ? `+ ${evenement.time.extra}` : null}</Text> {evenement.detail === "Own Goal" ? <Text style={styles.csc}>(csc)</Text> : null} {evenement.detail === "Penalty" ? <Text style={styles.penalty}>(pen)</Text> : null}</Text></View> : null}
-    </View> : null : null)}
+    </TouchableOpacity> : null : null)}
 
 </View>
 
 <View style={styles.equipeExt}>
     {match.events.map((evenement) => evenement.detail === "Red Card" || evenement.type === "Goal" && evenement.detail != "Missed Penalty" ? evenement.team.id === match.teams.away.id ? 
-    <View style={{flexDirection: "row", alignItems: "start", justifyContent: "flex-end"}}>
+    <TouchableOpacity onPress={() => navigation.navigate("FicheJoueur", { id: evenement.player.id })} style={{flexDirection: "row", alignItems: "start", justifyContent: "flex-end"}}>
         {evenement.detail === "Red Card" ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={styles.text}>{evenement.player.name}, </Text><Text style={{fontFamily: "Kanitalik", fontSize: 11.5}}>{evenement.time.elapsed}'{evenement.time.extra ? `+ ${evenement.time.extra}` : null}</Text><Image source={red} style={{height: 22, width: 22, objectFit: "contain"}} /></View> : null}
         :
         {evenement.type === "Goal" && evenement.detail != "Missed Penalty" && evenement.comments != "Penalty Shootout" ? <View><Text style={styles.text}> {evenement.player.name === "R. Lewandowski" ? "Lewandowski" : evenement.player.name},{evenement.detail === "Own Goal" ? <Text style={styles.csc}>(csc)</Text> : null} {evenement.detail === "Penalty" ? <Text style={styles.penalty}>(pen) </Text> : null} <Text style={{fontFamily: "Kanitalik"}}>{evenement.time.elapsed}'{evenement.time.extra ? `+ ${evenement.time.extra}` : null}</Text> <Text style={styles.goalIcon}>⚽</Text></Text></View> : null}
-    </View> : null : null)}
+    </TouchableOpacity> : null : null)}
 
 </View>
 

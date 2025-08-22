@@ -7,13 +7,15 @@ import {
   TouchableOpacity,
   Animated,
   Image,
-  ScrollView
+  ScrollView,
+  ActivityIndicator
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import registerForPushNotificationsAsync from '../utils/registerPush';
 import axios from "axios"
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
+import Toast from 'react-native-toast-message';
 
 const teams = [
   { id: 85, name: 'Paris Saint Germain', logo: "https://media.api-sports.io/football/teams/85.png" },
@@ -30,20 +32,21 @@ const teams = [
         { id: 114, name: 'Paris FC', logo: "https://media.api-sports.io/football/teams/114.png" },
 
 
-
-
 ];
 
 function Notifs({ onSave, onNotifStatusChange, triggerHeaderShake }) {
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [savedTeam, setSavedTeam] = useState(null);
 const scaleAnimMap = useRef({}).current;
+const [loading, setLoading] = useState(false);
 
 teams.forEach(team => {
   if (!scaleAnimMap[team.id]) {
     scaleAnimMap[team.id] = new Animated.Value(1);
   }
 });
+
+
   useEffect(() => {
     const fetchSavedTeam = async () => {
       const stored = await AsyncStorage.getItem('teamId');
@@ -81,16 +84,22 @@ teams.forEach(team => {
 
   const saveTeam = async () => {
     try {
+          setLoading(true); // ⬅️ début du chargement
       await AsyncStorage.setItem('teamId', selectedTeam.toString());
       setSavedTeam(selectedTeam);
       onSave?.(selectedTeam);
       onNotifStatusChange?.(true);  // ← activer les notifs
       triggerHeaderShake?.();       // ← lancer l’animation
       await registerForPushNotificationsAsync();
-      alert('✅ Equipe enregistrée et notifs mises à jour !');
-    } catch (err) {
+Toast.show({
+  type: 'success',
+  text1: '✅ Équipe enregistrée',
+  text2: 'Tu recevras une notif lors des buts !',
+});    } catch (err) {
       console.error('Erreur enregistrement teamId:', err);
-    }
+    } finally {
+    setLoading(false); // ⬅️ fin du chargement
+  }
 }
 
 const disablePushNotifications = async () => {
@@ -106,12 +115,20 @@ const disablePushNotifications = async () => {
 
     console.log('🚫 Token supprimé côté serveur');
 
-    alert('🔕 Notifications désactivées');
-  } catch (error) {
+Toast.show({
+  type: 'info',
+  text1: '🔕 Notifications désactivées',
+  text2: 'Tu ne recevras plus d’alertes pour cette équipe.',
+});  } catch (error) {
     console.error('Erreur lors de la désactivation des notifications:', error.message);
     if (error.response) {
       console.error('Réponse du serveur :', error.response.data);
     }
+    Toast.show({
+      type: 'error',
+      text1: '❌ Erreur',
+      text2: 'Impossible de désactiver les notifications.',
+    });
   }
 };
 
@@ -119,13 +136,13 @@ const disablePushNotifications = async () => {
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Choisis ton equipe préférée :</Text>
 <Text style={{textAlign:"center", fontFamily: "Kanitalic", color: "rgb(49, 49, 49)", marginBottom: 10}}>et recois une notification lorsque celle ci marque ou encaisse un but</Text>
-{savedTeam && (
+{savedTeam && 
         <Text style={styles.saved}>
           ✅ Equipe actuelle : {teams.find((t) => t.id === savedTeam)?.name}
         </Text>
-      )}
+      }
 <View style={{width: "100%", flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: 8, marginBlock: 12}}>
-      {teams.map((team) => (
+      {teams.map((team) => 
         <TouchableOpacity
           key={team.id}
           style={[
@@ -144,17 +161,22 @@ const disablePushNotifications = async () => {
           />
             
         </TouchableOpacity>
-      ))}
+      )}
       </View>
 
       <TouchableOpacity
         onPress={saveTeam}
-              style={{backgroundColor: "#007BFF", height: 40, width: "40%", alignItems: "center", justifyContent: "center", marginBlock: 15, borderRadius: 10}}
+              style={{backgroundColor: "#007BFF", height: 40, width: "40%", alignItems: "center", justifyContent: "center", marginBlock: 10, borderRadius: 10}}
 
         disabled={selectedTeam === null}
       >
-        <Text style={{fontFamily: "Kanitt", fontSize: 16, color: "white"}}>Enregistrer</Text>
-        </TouchableOpacity>
+ {loading ? 
+    <ActivityIndicator size="small" color="#fff" />
+   : 
+    <Text style={{ fontFamily: "Kanitt", fontSize: 16, color: "white" }}>
+      Enregistrer
+    </Text>
+  }        </TouchableOpacity>
 
     <Button
   title='Desactiver les Notifs'
@@ -167,8 +189,11 @@ const disablePushNotifications = async () => {
     onSave?.(null); // ← force Header à effacer le logo
     triggerHeaderShake?.();
     await disablePushNotifications();
-    alert('🔕 Notifications désactivées');
-  }}
+Toast.show({
+  type: 'info',
+  text1: '🔕 Notifications désactivées',
+  text2: 'Tu ne recevras plus d’alertes pour cette équipe.',
+});  }}
 />
     
 

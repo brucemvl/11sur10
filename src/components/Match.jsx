@@ -18,8 +18,12 @@ function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id,
   const formattedDate = `${dateh.getDate().toString().padStart(2, '0')}/${(dateh.getMonth() + 1).toString().padStart(2, '0')}`;
   const formattedHour = `${dateh.getHours().toString().padStart(2, '0')}h${dateh.getMinutes().toString().padStart(2, '0')}`;
 
-
-  // Convert scores to numbers for accurate comparison
+const teamName = {
+  "Germany": "Allemagne",
+  "Spain": "Espagne",
+  "Paris Saint Germain": "Paris St Germain",
+  "Barcelona" : "FC Barcelone"
+};
   
 
   return (
@@ -35,13 +39,13 @@ function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id,
         <Text style={{fontSize: 8.5, fontFamily: "Kanitaliq", color: "white"}}>{formattedHour}</Text>
       </View>
 
-      <Text style={styles.equipeDom}>{equipeDom === "Paris Saint Germain" ? "Paris St Germain" : equipeDom === "Stade Brestois 29" ? "Stade Brestois" : equipeDom}</Text>
+      <Text style={styles.equipeDom}>{teamName[equipeDom] || equipeDom}</Text>
       <Image style={styles.logoDom} source={{ uri: logoDom }} />
 
       {scoreDom === scoreExt ? (
         <View style={styles.matchScore}>
-          <Text style={styles.nul}>{scoreDom === null ? "-" : scoreDom}</Text>
-          <Text style={styles.nul}>{scoreExt === null ? "-" : scoreExt}</Text>
+          <Text style={scoreDom === null ? styles.notStarted : styles.nul}>{scoreDom === null ? "-" : scoreDom}</Text>
+          <Text style={scoreExt === null ? styles.notStarted : styles.nul}>{scoreExt === null ? "-" : scoreExt}</Text>
         </View>
       ) : (
         <View style={styles.matchScore}>
@@ -51,7 +55,7 @@ function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id,
       )}
 
       <Image style={styles.logoExt} source={{ uri: logoExt }} />
-      <Text style={styles.equipeExt}>{equipeExt === "Paris Saint Germain" ? "Paris St Germain" : equipeExt === "Stade Brestois 29" ? "Stade Brestois" : equipeExt}</Text>
+      <Text style={styles.equipeExt}>{teamName[equipeExt] || equipeExt}</Text>
       </TouchableOpacity>
       </LinearGradient>
     
@@ -106,7 +110,7 @@ fontFamily: "Kanito"
   },
   nul: {
     fontSize: 16,
-    backgroundColor: 'gray',
+    backgroundColor: 'grey',
     color: "white",
     height: 25,
     width: 20,
@@ -114,6 +118,16 @@ fontFamily: "Kanito"
     textAlign: "center",
     fontFamily: "Kanitt"
 
+  },
+  notStarted: {
+fontSize: 16,
+    backgroundColor: 'black',
+    color: "white",
+    height: 25,
+    width: 20,
+    borderRadius: 5,
+    textAlign: "center",
+    fontFamily: "Kanitt"
   },
   winner: {
     fontSize: 16,

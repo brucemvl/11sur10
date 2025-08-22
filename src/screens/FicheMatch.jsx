@@ -13,6 +13,7 @@ import Histo from '../components/Histo.jsx';
 import Schema from '../components/Schema.jsx';
 import SchemaAvance from '../components/SchemaAvance.jsx';
 import Indisponibles from "../components/Indisponibles.jsx"
+import CompoBasique from '../components/CompoBasique.jsx';
 
 
 const FicheMatch = () => {
@@ -22,6 +23,7 @@ const FicheMatch = () => {
     const [compos, setCompos] = useState(false);
     const [compos2, setCompos2] = useState(true);
     const [apercu, setApercu] = useState(true)
+    const [compoBasique, setCompoBasique] = useState(false)
 
     const [injuries, setInjuries] = useState([]);
 
@@ -41,6 +43,8 @@ const FicheMatch = () => {
     const [selected7, setSelected7] = useState(true);
     const [selected8, setSelected8] = useState(true);
     const [selected9, setSelected9] = useState(false);
+        const [selected10, setSelected10] = useState(false);
+
 
 
 
@@ -49,8 +53,7 @@ const FicheMatch = () => {
     const [extStats, setExtStats] = useState(null);
     
     const route = useRoute();
-    const { id } = route.params;
-    const leagueMatch = match?.league?.id;
+const id = route.params?.id || route.params?.matchId;    const leagueMatch = match?.league?.id;
     const homeId = match?.teams?.home?.id;
     const extId = match?.teams?.away?.id;
 
@@ -171,6 +174,7 @@ console.log(injuries)
         setLive(false);
         setCompos(false);
         setHisto(false);
+        setCompoBasique(false)
         setClassement(false);
         setSelected(true);
         setSelected2(false);
@@ -180,6 +184,7 @@ console.log(injuries)
         setSelected7(false);
         setSelected8(false)
         setApercu(false)
+        setSelected10(false)
     };
 
     const openCompos = () => {
@@ -203,10 +208,34 @@ console.log(injuries)
 
     };
 
+    const openCompoBasique = () => {
+        setCompos(false);
+        setCompos2(false);
+setCompoBasique(true)
+        setLive(false);
+        setDetails(false);
+        setHisto(false);
+        setClassement(false);
+        setSelected(false);
+        setSelected2(false);
+        setSelected3(false);
+        setSelected4(false);
+        setSelected5(false);
+        setSelected7(false);
+        setSelected8(false)
+        setSelected9(false)
+        setSelected10(true)
+
+        setApercu(false)
+
+    };
+
     const openLive = () => {
         setLive(true);
         setCompos(false);
         setCompos2(false);
+        setHisto2(false)
+        setCompoBasique(false)
 
         setDetails(false);
         setHisto(false);
@@ -216,10 +245,12 @@ console.log(injuries)
         setSelected3(true);
         setSelected4(false);
         setSelected5(false);
+        setSelected6(false);
         setSelected7(false);
 
         setSelected8(false)
         setSelected9(false)
+        setSelected10(false)
 
         setApercu(false)
     };
@@ -232,6 +263,7 @@ console.log(injuries)
         setHisto(true);
         setHisto2(true);
         setCompos2(false);
+        setCompoBasique(false)
 
         setClassement(false);
         setSelected(false);
@@ -243,6 +275,7 @@ console.log(injuries)
         setSelected7(false);
         setSelected8(false)
         setSelected9(false)
+        setSelected10(false)
 
         setApercu(false)
 
@@ -252,6 +285,7 @@ console.log(injuries)
         setLive(false);
         setCompos(false);
         setCompos2(false);
+        setCompoBasique(false)
 
         setDetails(false);
         setClassement(false);
@@ -268,6 +302,7 @@ console.log(injuries)
         setSelected7(false);
         setSelected8(false)
         setSelected9(false)
+        setSelected10(false)
 
         setApercu(false)
 
@@ -425,6 +460,9 @@ console.log(injuries)
         <TouchableOpacity onPress={openApercu} style={selected8 ? styles.selectedTab : styles.tab}>
                             <Text style={selected8 ? styles.selectedText : styles.text}>Apercu</Text>
                         </TouchableOpacity> : null }
+                        {match.events.length > 0 ? <TouchableOpacity onPress={openLive} style={selected3 ? styles.selectedTab : styles.tab}>
+                            <Text style={selected3 ? styles.selectedText : styles.text}>Live</Text>
+                        </TouchableOpacity> : null}
         <TouchableOpacity onPress={openHisto} style={selected6 ? styles.selectedTab : styles.tab}>
                             <Text style={selected6 ? styles.selectedText : styles.text}>Historique</Text>
                         </TouchableOpacity>
@@ -434,7 +472,9 @@ console.log(injuries)
                         </View>
                        {injuries.length <= 0 ? null : apercu && <Indisponibles injuries={injuries} match={match} />}
                         {histo2 && <Histo historique={historique} />}
-                        {classement && <Classement id={match.league.id}/>}       
+                        {classement && <Classement id={match.league.id}/>} 
+                                                {live && <Evenements match={match} />}
+      
                          </ScrollView>
         </View>
         )
@@ -494,7 +534,13 @@ console.log(injuries)
                         <TouchableOpacity onPress={openDetails} style={selected ? styles.selectedTab : styles.tab}>
                             <Text style={selected ? styles.selectedText : styles.text}>Details</Text>
                         </TouchableOpacity>
-                        {match.players.length === 0 ? null :
+                        {match.players.length === 0 ?
+                        match.lineups.length === 2 ? 
+                        <TouchableOpacity onPress={openCompoBasique} style={selected10 ? styles.selectedTab : styles.tab}>
+                            <Text style={selected10 ? styles.selectedText : styles.text}>Compos</Text>
+                        </TouchableOpacity>
+                        :
+                        null :
                         <TouchableOpacity onPress={openCompos} style={selected2 ? styles.selectedTab : styles.tab}>
                             <Text style={selected2 ? styles.selectedText : styles.text}>Compos</Text>
                         </TouchableOpacity>}
@@ -515,6 +561,7 @@ console.log(injuries)
                 {live && <Evenements match={match} />}
                 {histo && <Histo historique={historique} />}
                 {classement && <Classement id={match.league.id}/>}
+                {compoBasique && <CompoBasique match={match} />}
 
 
                 </View>
@@ -542,7 +589,7 @@ const styles = StyleSheet.create({
     },
     tab: {
         backgroundColor: "lightgrey",
-        width: 84,
+        width: 86,
         height: 40,
         borderRadius: 5,
         marginInline: 4,
@@ -557,8 +604,8 @@ fontSize: 16
     selectedTab: {
         
         backgroundColor: '#007BFF',
-        width: 88,
-        height: 40,
+        width: 92,
+        height: 42,
         borderRadius: 5,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 8 },

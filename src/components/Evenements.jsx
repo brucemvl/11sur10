@@ -12,6 +12,7 @@ const Evenements = ({ match }) => {
       <Text style={styles.header}>Temps Forts</Text>
       <View style={styles.eventsContainer}>
         <FlatList
+        contentContainerStyle={{alignItems: "center"}}
           data={match.events}
           keyExtractor={(item) => item.id}
           renderItem={({ item: element }) => {
@@ -32,14 +33,14 @@ const Evenements = ({ match }) => {
                           style={styles.cardIcon}
                         />
                         <Text style={styles.playerName}>{element.player.name}</Text>
-                        {element.comments === "Handball" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Main)</Text> : element.comments === "Foul" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Faute)</Text> : element.comments === "Argument" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Protestation)</Text> : element.comments === "Violent conduct" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Comportement violent)</Text> : element.comments === "Simulation" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Simulation)</Text> : element.comments === "Professional foul last man" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Faute dernier defenseur)</Text> : element.comments === "Time wasting" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Joue la montre)</Text> : null}
+                        {element.comments === "Handball" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Main)</Text> : element.comments === "Foul" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Faute)</Text> : element.comments === "Argument" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Protestation)</Text> : element.comments === "Violent conduct" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Comportement violent)</Text> : element.comments === "Simulation" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Simulation)</Text> : element.comments === "Professional foul last man" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Faute dernier defenseur)</Text> : element.comments === "Time wasting" || element.comments === "Delay of game" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Joue la montre)</Text> : element.comments === "Roughing" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Contact brutal)</Text> : element.comments === "Tripping" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Croche pied)</Text> : element.comments === "Holding" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Retient l'adversaire)</Text> : element.comments === "Serious foul" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Grosse faute)</Text> :  null}
                       </>
                     )}
                     {element.detail === "Red Card" && (
                       <>
                         <Image source={redcard} style={styles.cardIcon} />
                         <Text style={styles.playerName}>{element.player.name}</Text>
-                        {element.comments === "Handball" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Main)</Text> : element.comments === "Foul" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Faute)</Text> : element.comments === "Argument" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Protestation)</Text> : element.comments === "Violent conduct" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Comportement violent)</Text> : element.comments === "Simulation" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Simulation)</Text> : element.comments === "Professional foul last man" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Faute dernier defenseur)</Text> : element.comments === "Time wasting" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Joue la montre)</Text> : null}
+                        {element.comments === "Handball" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Main)</Text> : element.comments === "Foul" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Faute)</Text> : element.comments === "Argument" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Protestation)</Text> : element.comments === "Violent conduct" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Comportement violent)</Text> : element.comments === "Simulation" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Simulation)</Text> : element.comments === "Professional foul last man" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Faute dernier defenseur)</Text> : element.comments === "Time wasting" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Joue la montre)</Text> : element.comments === "Roughing" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Contact brutal)</Text> : element.comments === "Tripping" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Croche pied)</Text> : element.comments === "Holding" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Retient l'adversaire)</Text> : element.comments === "Serious foul" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Grosse faute)</Text> :  null}
 
                       </>
                     )}
@@ -79,6 +80,7 @@ const Evenements = ({ match }) => {
                     )}
                     {(element.detail === "Goal Disallowed - offside" ||
                       element.detail === "Goal cancelled" ||
+                       element.detail === "Goal Disallowed" ||
                       element.detail === "Penalty confirmed" || element.detail === "Goal confirmed" || element.detail === "Penalty cancelled" ) && (
                         <View style={styles.varContainer}>
                           <Image
@@ -87,7 +89,7 @@ const Evenements = ({ match }) => {
                             }}
                             style={styles.varIcon}
                           />
-                          <Text style={styles.varText}>{element.detail === "Goal Disallowed - offside" ? "But refusé (Hors-Jeu)" : element.detail === "Goal cancelled" ? "But annulé" : element.detail === "Penalty confirmed" ? "Penalty confirmé !" : element.detail === "Goal confirmed" ? "But Confirmé !" : element.detail}</Text>
+                          <Text style={styles.varText}>{element.detail === "Goal Disallowed - offside" ? "But refusé (Hors-Jeu)" : element.detail === "Goal cancelled" || element.detail === "Goal Disallowed" ? "But annulé" : element.detail === "Penalty confirmed" ? "Penalty confirmé !" : element.detail === "Goal confirmed" ? "But Confirmé !" : element.detail}</Text>
                         </View>
                       )}
                   </View>
@@ -117,20 +119,23 @@ const styles = StyleSheet.create({
   },
   eventsContainer: {
     marginTop: 10,
+
   },
   domicile: {
     backgroundColor: '#f9f9f9',
     padding: 10,
     marginBottom: 5,
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    width: "90%"
   },
   exterieur: {
     backgroundColor: '#e0e0e0',
     padding: 10,
     marginBottom: 5,
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    width: "90%"
 
   },
   elapsedTime: {
@@ -138,12 +143,9 @@ const styles = StyleSheet.create({
     fontFamily: "Kanitalic",
     backgroundColor: "black",
     color: "white",
-    paddingLeft: 2,
     borderRadius: 5,
-    width: 34,
-    height: 32,
     textAlign: "center",
-    paddingTop: 7
+padding: 5    
   },
   eventDetails: {
     flexDirection: 'row',

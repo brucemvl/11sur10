@@ -37,7 +37,7 @@ function Tableau({ id, currentRound, rounds }) {
     const fetchFixtures = async () => {
       try {
         const response = await fetch(
-          `https://v3.football.api-sports.io/fixtures?league=${id}&season=${id === 307 || id === 186 || id === 200 || id === 202 ? 2024 : 2025}`,
+          `https://v3.football.api-sports.io/fixtures?league=${id}&season=${id === 186 || id === 200 || id === 202 ? 2024 : 2025}`,
           {
             method: "GET",
             headers: {
@@ -109,7 +109,7 @@ function Tableau({ id, currentRound, rounds }) {
 
   return (
     <LinearGradient
-      colors={id === 15 ? ["#505050", "#000"] : ["#32b7ff", "rgba(4,6,45,0.85)"]}
+      colors={id === 15 ? ["#505050", "#000"] : ['rgb(50, 183, 255)', 'rgb(16, 19, 49)']}
       style={styles.container}
     >
       <Text style={id === 15 ? styles.titleWc : styles.title}>Calendrier & Résultats</Text>
@@ -151,9 +151,9 @@ function Tableau({ id, currentRound, rounds }) {
           <Match
             key={match.fixture.id}
             id={match.fixture.id}
-            equipeDom={match.teams.home.name}
+            equipeDom={match.teams.home.name=== "Barcelona" ? "FC Barcelone" : match.teams.home.name}
             logoDom={match.teams.home.logo}
-            equipeExt={match.teams.away.name}
+            equipeExt={match.teams.away.name === "Barcelona" ? "FC Barcelone" : match.teams.away.name }
             logoExt={match.teams.away.logo}
             round={match.league.round}
             scoreDom={match.goals.home}
