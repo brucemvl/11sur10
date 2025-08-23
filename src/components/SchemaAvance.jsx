@@ -12,6 +12,9 @@ import brest from "../assets/maillots/brest.png"
 import monaco from "../assets/maillots/monaco.png"
 import nantes from "../assets/maillots/nantes.png"
 import lorient from "../assets/maillots/lorient.png"
+import auxerre from "../assets/maillots/auxerre.png"
+import metz from "../assets/maillots/metz.png"
+import toulouse from "../assets/maillots/toulouse.png"
 
 
 
@@ -97,7 +100,11 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
   83: nantes,
   80: lyon,
   79: lille,
-  97: lorient
+  97: lorient,
+  108: auxerre,
+  112: metz,
+  96: toulouse
+
 };
 
 
@@ -114,7 +121,7 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
                         {linesDom.G.map((player, index) => (
                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesExt.G.length, 1), { alignItems: "center", width: 55 }]}>
                            {match.league.id === 61 ?
-                               compoDom.team.id === 83 || compoDom.team.id === 85 || compoDom.team.id === 80 || compoDom.team.id === 91 || compoDom.team.id === 116 || compoDom.team.id === 81 || compoDom.team.id === 84 || compoDom.team.id === 106 || compoDom.team.id === 79 || compoDom.team.id === 114 || compo.team.id === 97 ? <Image source={teamImages[compoDom.team.id]} style={{ width: 35, height: 35 }}/> 
+                               compoDom.team.id === 108 || compoDom.team.id === 112 || compoDom.team.id === 96 || compoDom.team.id === 83 || compoDom.team.id === 85 || compoDom.team.id === 80 || compoDom.team.id === 91 || compoDom.team.id === 116 || compoDom.team.id === 81 || compoDom.team.id === 84 || compoDom.team.id === 106 || compoDom.team.id === 79 || compoDom.team.id === 114 || compo.team.id === 97 ? <Image source={teamImages[compoDom.team.id]} style={{ width: 35, height: 35 }}/> 
                                 :
                                 <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
                                     <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
@@ -128,7 +135,7 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
                         {linesDom.D.map((player, index) => (
                             <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesDom.D.length, 2), { alignItems: "center", width: 50 }]}>
                                 {match.league.id === 61 ?
-                               compoDom.team.id === 83 || compoDom.team.id === 85 || compoDom.team.id === 80 || compoDom.team.id === 91 || compoDom.team.id === 116 || compoDom.team.id === 81 || compoDom.team.id === 84 || compoDom.team.id === 106 || compoDom.team.id === 79 || compoDom.team.id === 114 || compo.team.id === 97 ? <Image source={teamImages[compoDom.team.id]} style={{ width: 35, height: 35 }}/> 
+                               compoDom.team.id === 108 || compoDom.team.id === 112 || compoDom.team.id === 96 || compoDom.team.id === 83 || compoDom.team.id === 85 || compoDom.team.id === 80 || compoDom.team.id === 91 || compoDom.team.id === 116 || compoDom.team.id === 81 || compoDom.team.id === 84 || compoDom.team.id === 106 || compoDom.team.id === 79 || compoDom.team.id === 114 || compo.team.id === 97 ? <Image source={teamImages[compoDom.team.id]} style={{ width: 35, height: 35 }}/> 
                                 :
                                 <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
                                     <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
@@ -142,7 +149,7 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
                         {linesDom.M.map((player, index) => (
                             <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesDom.M.length, 3), { alignItems: "center", width: 50 }]}>
                                 {match.league.id === 61 ?
-                               compoDom.team.id === 83 || compoDom.team.id === 85 || compoDom.team.id === 80 || compoDom.team.id === 91 || compoDom.team.id === 116 || compoDom.team.id === 81 || compoDom.team.id === 84 || compoDom.team.id === 106 || compoDom.team.id === 79 || compoDom.team.id === 114 || compo.team.id === 97 ? <Image source={teamImages[compoDom.team.id]} style={{ width: 35, height: 35 }}/> 
+                               compoDom.team.id === 108 || compoDom.team.id === 112 || compoDom.team.id === 96 || compoDom.team.id === 83 || compoDom.team.id === 85 || compoDom.team.id === 80 || compoDom.team.id === 91 || compoDom.team.id === 116 || compoDom.team.id === 81 || compoDom.team.id === 84 || compoDom.team.id === 106 || compoDom.team.id === 79 || compoDom.team.id === 114 || compo.team.id === 97 ? <Image source={teamImages[compoDom.team.id]} style={{ width: 35, height: 35 }}/> 
                                 :
                                 <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
                                     <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
@@ -156,7 +163,7 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
                         {linesDom.F.map((player, index) => (
                             <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesDom.F.length, 4), { alignItems: "center", width: 53 }]}>
                                 {match.league.id === 61 ?
-                               compoDom.team.id === 83 || compoDom.team.id === 85 || compoDom.team.id === 80 || compoDom.team.id === 91 || compoDom.team.id === 116 || compoDom.team.id === 81 || compoDom.team.id === 84 || compoDom.team.id === 106 || compoDom.team.id === 79 || compoDom.team.id === 114 || compo.team.id === 97 ? <Image source={teamImages[compoDom.team.id]} style={{ width: 35, height: 35 }}/> 
+                               compoDom.team.id === 108 || compoDom.team.id === 112 || compoDom.team.id === 96 || compoDom.team.id === 83 || compoDom.team.id === 85 || compoDom.team.id === 80 || compoDom.team.id === 91 || compoDom.team.id === 116 || compoDom.team.id === 81 || compoDom.team.id === 84 || compoDom.team.id === 106 || compoDom.team.id === 79 || compoDom.team.id === 114 || compo.team.id === 97 ? <Image source={teamImages[compoDom.team.id]} style={{ width: 35, height: 35 }}/> 
                                 :
                                 <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
                                     <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
@@ -175,7 +182,7 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
                         {linesExt.F.map((player, index) => (
                             <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesExt.F.length, 4), { alignItems: "center", width: 53 }]}>
                                 {match.league.id === 61 ?
-                               compoExt.team.id === 83 || compoExt.team.id === 85 || compoExt.team.id === 80 || compoExt.team.id === 91 || compoExt.team.id === 116 || compoExt.team.id === 81 || compoExt.team.id === 84 || compoExt.team.id === 106 || compoExt.team.id === 79 || compoExt.team.id === 114 || compoExt.team.id === 97 ? <Image source={teamImages[compoExt.team.id]} style={{ width: 35, height: 35 }}/> 
+                               compoExt.team.id === 108 || compoExt.team.id === 112 || compoExt.team.id === 96 || compoExt.team.id === 83 || compoExt.team.id === 85 || compoExt.team.id === 80 || compoExt.team.id === 91 || compoExt.team.id === 116 || compoExt.team.id === 81 || compoExt.team.id === 84 || compoExt.team.id === 106 || compoExt.team.id === 79 || compoExt.team.id === 114 || compoExt.team.id === 97 ? <Image source={teamImages[compoExt.team.id]} style={{ width: 35, height: 35 }}/> 
                                 :
                                 <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
                                     <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
@@ -189,7 +196,7 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
                         {linesExt.M.map((player, index) => (
                             <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesExt.M.length, 3), { alignItems: "center", width: 50 }]}>
                                 {match.league.id === 61 ?
-                               compoExt.team.id === 83 || compoExt.team.id === 85 || compoExt.team.id === 80 || compoExt.team.id === 91 || compoExt.team.id === 116 || compoExt.team.id === 81 || compoExt.team.id === 84 || compoExt.team.id === 106 || compoExt.team.id === 79 || compoExt.team.id === 114 || compoExt.team.id === 97 ? <Image source={teamImages[compoExt.team.id]} style={{ width: 35, height: 35 }}/> 
+                               compoExt.team.id === 108 || compoExt.team.id === 112 || compoExt.team.id === 96 || compoExt.team.id === 83 || compoExt.team.id === 85 || compoExt.team.id === 80 || compoExt.team.id === 91 || compoExt.team.id === 116 || compoExt.team.id === 81 || compoExt.team.id === 84 || compoExt.team.id === 106 || compoExt.team.id === 79 || compoExt.team.id === 114 || compoExt.team.id === 97 ? <Image source={teamImages[compoExt.team.id]} style={{ width: 35, height: 35 }}/> 
                                 :
                                 <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
                                     <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
@@ -203,7 +210,7 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
                         {linesExt.D.map((player, index) => (
                             <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesExt.D.length, 2), { alignItems: "center", width: 50 }]}>
                                 {match.league.id === 61 ?
-                               compoExt.team.id === 83 || compoExt.team.id === 85 || compoExt.team.id === 80 || compoExt.team.id === 91 || compoExt.team.id === 116 || compoExt.team.id === 81 || compoExt.team.id === 84 || compoExt.team.id === 106 || compoExt.team.id === 79 || compoExt.team.id === 114 || compoExt.team.id === 97 ? <Image source={teamImages[compoExt.team.id]} style={{ width: 35, height: 35 }}/> 
+                               compoExt.team.id === 108 || compoExt.team.id === 112 || compoExt.team.id === 96 || compoExt.team.id === 83 || compoExt.team.id === 85 || compoExt.team.id === 80 || compoExt.team.id === 91 || compoExt.team.id === 116 || compoExt.team.id === 81 || compoExt.team.id === 84 || compoExt.team.id === 106 || compoExt.team.id === 79 || compoExt.team.id === 114 || compoExt.team.id === 97 ? <Image source={teamImages[compoExt.team.id]} style={{ width: 35, height: 35 }}/> 
                                 :
                                 <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
                                     <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>
@@ -217,7 +224,7 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
                         {linesExt.G.map((player, index) => (
                             <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id })} style={[generatePositionStyle(index, linesExt.G.length, 1), { alignItems: "center", width: 55 }]}>
                                 {match.league.id === 61 ?
-                               compoExt.team.id === 83 || compoExt.team.id === 85 || compoExt.team.id === 80 || compoExt.team.id === 91 || compoExt.team.id === 116 || compoExt.team.id === 81 || compoExt.team.id === 84 || compoExt.team.id === 106 || compoExt.team.id === 79 || compoExt.team.id === 114 || compoExt.team.id === 97 ? <Image source={teamImages[compoExt.team.id]} style={{ width: 35, height: 35 }}/> 
+                               compoExt.team.id === 108 || compoExt.team.id === 112 || compoExt.team.id === 96 || compoExt.team.id === 83 || compoExt.team.id === 85 || compoExt.team.id === 80 || compoExt.team.id === 91 || compoExt.team.id === 116 || compoExt.team.id === 81 || compoExt.team.id === 84 || compoExt.team.id === 106 || compoExt.team.id === 79 || compoExt.team.id === 114 || compoExt.team.id === 97 ? <Image source={teamImages[compoExt.team.id]} style={{ width: 35, height: 35 }}/> 
                                 :
                                 <View style={[styles.player, { backgroundColor: "#" + colors.primaryDom, borderColor: "#" + colors.borderDom }]}>
                                     <Text style={[styles.number, { color: "#" + colors.numberDom }]}>{player.number}</Text>

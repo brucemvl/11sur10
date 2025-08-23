@@ -7,6 +7,10 @@ const previousScores = {};
 const previousEvents = {};
 let activeMatches = [];
 
+const teamNames = {
+  "Barcelona" : "FC Barcelone"
+}
+
 // 🔁 Rafraîchit la liste des matchs à suivre (toutes les 5 min)
 async function refreshActiveMatches() {
   try {
@@ -134,11 +138,11 @@ const scoreChanged = prevScore.home !== currentHomeGoals || prevScore.away !== c
 
 // Évite d'envoyer une notif 0-0 au premier check
 if (scoreChanged && !(isFirstCheck && currentHomeGoals === 0 && currentAwayGoals === 0)) {
-  const scoreMsg = `⚽ Nouveau score : ${homeTeam} ${currentHomeGoals} - ${currentAwayGoals} ${awayTeam}`;
+  const scoreMsg = `⚽ Nouveau score : ${teamNames[homeTeam] || homeTeam} ${currentHomeGoals} - ${currentAwayGoals} ${teamNames[awayTeam] || awayTeam}`;
   console.log(scoreMsg);
 
   await sendPushNotification(tokens, {
-    title: `${homeTeam} vs ${awayTeam}`,
+    title: `${teamNames[homeTeam] || homeTeam} vs ${teamNames[awayTeam] || awayTeam}`,
     body: scoreMsg,
     data: {
       screen: 'FicheMatch',
@@ -157,52 +161,60 @@ if (scoreChanged && !(isFirstCheck && currentHomeGoals === 0 && currentAwayGoals
 
         const events = match.events || [];
         for (const event of events) {
-          const { player, team, time, type, detail } = event;
-          if (!player?.name || !team?.name || time?.elapsed == null) continue;
+  const { player, team, time, type, detail } = event;
+  if (!player?.name || !team?.name || time?.elapsed == null) continue;
 
-          const playerName = player.name;
-          const teamName = team.name;
-          const minute = time.elapsed;
+  // Génère une clé unique à partir de l’objet complet
+  const eventKey = `${matchId}-${type}-${detail}-${team.name}-${player.name}-${time.elapsed}`;
+  const eventSerialized = JSON.stringify({
+    matchId,
+    type,
+    detail,
+    team: team.name,
+    player: player.name,
+    minute: time.elapsed,
+  });
 
-          if (type === 'Goal') {
-            const eventKey = `${matchId}-GOAL-${playerName}-${minute}`;
-            if (previousEvents[eventKey]) continue;
+  // Empêche les duplications même si la minute change
+  if (previousEvents[eventSerialized]) continue;
 
-            let goalMsg = `⚽ ${minute}e - But de ${playerName} pour ${teamName}`;
-            if (detail === 'Own Goal') {
-              goalMsg = `😱 ${minute}e - CSC de ${playerName} (${teamName})`;
-            } else if (detail === 'Penalty') {
-              goalMsg = `⚽ ${minute}e - But de ${playerName} sur penalty!`;
-            } else if (detail === 'Missed Penalty') {
-              goalMsg = `⚽ ${minute}e - Penalty manqué de ${playerName}!! (${teamName})`;
-            }
+  const playerName = player.name;
+  const teamName = team.name;
+  const minute = time.elapsed;
 
-            console.log(goalMsg);
-            await sendPushNotification(tokens, {
-              title: `${homeTeam} ${currentHomeGoals} - ${currentAwayGoals} ${awayTeam}`,
-              body: goalMsg,
-              data: { matchId },
-            });
+  if (type === 'Goal') {
+    let goalMsg = `⚽ ${minute}e - But de ${playerName} pour ${teamNames[teamName] || teamName}`;
+    if (detail === 'Own Goal') {
+      goalMsg = `😱 ${minute}e - CSC de ${playerName} (${teamNames[teamName] || teamName})`;
+    } else if (detail === 'Penalty') {
+      goalMsg = `⚽ ${minute}e - But de ${playerName} sur penalty!`;
+    } else if (detail === 'Missed Penalty') {
+      goalMsg = `⚽ ${minute}e - Penalty manqué de ${playerName}!! (${teamNames[teamName] || teamName})`;
+    }
 
-            previousEvents[eventKey] = true;
-          }
+    console.log(goalMsg);
+    await sendPushNotification(tokens, {
+      title: `${homeTeam} ${currentHomeGoals} - ${currentAwayGoals} ${awayTeam}`,
+      body: goalMsg,
+      data: { matchId },
+    });
 
-          if (type === 'Card' && detail === 'Red Card') {
-            const eventKey = `${matchId}-RED-${playerName}-${minute}`;
-            if (previousEvents[eventKey]) continue;
+    previousEvents[eventSerialized] = true;
+  }
 
-            const redCardMsg = `🟥 ${minute}e - Carton rouge pour ${playerName} (${teamName})`;
+  if (type === 'Card' && detail === 'Red Card') {
+    const redCardMsg = `🟥 ${minute}e - Carton rouge pour ${playerName} (${teamNames[teamName] || teamName})`;
 
-            console.log(redCardMsg);
-            await sendPushNotification(tokens, {
-              title: `${homeTeam} vs ${awayTeam}`,
-              body: redCardMsg,
-              data: { matchId },
-            });
+    console.log(redCardMsg);
+    await sendPushNotification(tokens, {
+      title: `${teamNames[homeTeam] || homeTeam} vs ${teamNames[awayTeam] || awayTeam}`,
+      body: redCardMsg,
+      data: { matchId },
+    });
 
-            previousEvents[eventKey] = true;
-          }
-        }
+    previousEvents[eventSerialized] = true;
+  }
+}
       }
     }
   } catch (err) {

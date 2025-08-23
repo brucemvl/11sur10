@@ -4,13 +4,20 @@ import { LinearGradient } from "expo-linear-gradient";
 import ligue1 from "../assets/logoligue1.webp"
 
 function Histo({ historique }) {
+
+
+  const historiqueTrie = [...historique].sort((b, a) => {
+    return new Date(a.fixture.date) - new Date(b.fixture.date);
+  });
+
+
     return (
-      <View style={{ paddingHorizontal: 10, alignItems: "center" }}>
+      <View style={{ padding: 10, alignItems: "center", backgroundColor: "rgba(215, 215, 215, 1)", borderRadius: 15, marginBlock: 10 }}>
         <Text style={{ fontFamily: "Kanitt", fontSize: 18, marginBottom: 10 }}>
           Derniers face-à-face
         </Text>
   
-        {historique.map((element) => {
+        {historiqueTrie.map((element) => {
           const date = new Date(element.fixture.date);
           const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1)
             .toString()
@@ -28,7 +35,7 @@ function Histo({ historique }) {
               </View>
   
               <LinearGradient
-                colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.3)']}
+                colors={['rgba(255, 255, 255, 0.04)', 'rgba(255, 255, 255, 1)']}
                 style={styles.match}
               >
                 <Image

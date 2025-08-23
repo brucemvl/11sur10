@@ -166,6 +166,8 @@ import lewis from "../assets/portraits/lewis.png"
 import musiala from "../assets/portraits/musiala.png"
 import davies from "../assets/portraits/davies.png"
 import gnabry from "../assets/portraits/gnabry.png"
+import boey from "../assets/portraits/boey.png"
+import pavlovic from "../assets/portraits/pavlovic.png"
 
 const playerImages = {
   340626: fermin,
@@ -322,7 +324,9 @@ const playerImages = {
                 284230: lewis,
                 181812: musiala,
                         509: davies,
-                        510: gnabry
+                        510: gnabry,
+                        2195: boey,
+                        328033: pavlovic
                 
 };
 
