@@ -33,7 +33,7 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
   const [matchsAfrica, setMatchsAfrica] = useState([]);
   const [matchsEurope, setMatchsEurope] = useState([]);
   const [matchsConference, setMatchsConference] = useState([]);
-  const [matchsalnassr, setMatchsalnassr] = useState([]);
+  const [matchsArabieSaoudite, setMatchsArabieSaoudite] = useState([]);
   const [matchsMiami, setMatchsMiami] = useState([]);
   const [matchsCommunity, setMatchsCommunity] = useState([]);
 
@@ -54,7 +54,7 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
     };
 
     try {
-      const [ucl, france, england, spain, ger, italy, cdf, /*fac,*/ copa, uel, africa, europe, conference, alnassr, miami, community] = await Promise.all([
+      const [ucl, france, england, spain, ger, italy, cdf, /*fac,*/ copa, uel, africa, europe, conference, arabieSaoudite, miami, community] = await Promise.all([
         fetchData('https://v3.football.api-sports.io/fixtures?league=2&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=61&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=39&season=2025'),
@@ -68,7 +68,7 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
         fetchData('https://v3.football.api-sports.io/fixtures?league=29&season=2023'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=32&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=848&season=2025'),
-        fetchData('https://v3.football.api-sports.io/fixtures?team=2939&season=2025'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=307&season=2025'),
                 fetchData('https://v3.football.api-sports.io/fixtures?team=9568&season=2025'),
                         fetchData('https://v3.football.api-sports.io/fixtures?league=528&season=2025'),
 
@@ -93,7 +93,7 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
       setMatchsAfrica(africa);
       setMatchsEurope(europe);
       setMatchsConference(conference);
-      setMatchsalnassr(alnassr);
+      setMatchsalnassr(arabieSaoudite);
       setMatchsMiami(miami)
       setMatchsCommunity(community)
 
@@ -113,7 +113,7 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
     }, []);
   
 
-  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf,/* ...matchsFac,*/ ...matchsCopa, ...matchsUel, ...matchsAfrica, ...matchsEurope, ... matchsConference, ... matchsalnassr, ...matchsMiami, ...matchsCommunity]
+  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf,/* ...matchsFac,*/ ...matchsCopa, ...matchsUel, ...matchsAfrica, ...matchsEurope, ... matchsConference, ... matchsArabieSaoudite, ...matchsMiami, ...matchsCommunity]
 
   console.log(selectedTeamId)
 
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     width: "100%",
     marginBlock: 10,
     gap: 8,
-    marginBottom: 85
+    marginBottom: 115
   },
 });
 

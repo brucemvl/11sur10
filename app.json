@@ -2,7 +2,7 @@
   "expo": {
     "name": "11sur10",
     "slug": "11sur10",
-    "version": "2.4.3",
+    "version": "2.4.5",
     "orientation": "portrait",
     "icon": "./src/assets/logoapp7.png",
     "userInterfaceStyle": "light",
@@ -18,6 +18,7 @@
       "pushNotifications": true,
       "buildNumber": "1",
      "infoPlist": {
+      "CFBundleLocalizations": ["fr", "en"],
   "ITSAppUsesNonExemptEncryption": false,
   "UIBackgroundModes": ["remote-notification"]
 }

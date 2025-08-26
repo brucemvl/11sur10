@@ -14,7 +14,7 @@ import banner15 from "../assets/banner16.jpg";
 import banner16 from "../assets/banner17.jpg";
 import banner17 from "../assets/banner18.jpg";
 import banner18 from "../assets/banner19.jpg";
-import banner19 from "../assets/banner20.jpg"
+import banner19 from "../assets/banner20.webp"
 import banner20 from "../assets/banner21.webp"
 import banner21 from "../assets/banner22.webp"
 import banner22 from "../assets/banner23.webp"
@@ -29,7 +29,7 @@ import banner30 from "../assets/banner31.jpg"
 import banner31 from "../assets/banner32.webp"
 import banner32 from "../assets/banner33.webp"
 import banner33 from "../assets/banner34.jpg"
-import banner34 from "../assets/banner35.jpg"
+import banner34 from "../assets/banner35.webp"
 import banner35 from "../assets/banner36.webp"
 import banner36 from "../assets/banner37.jpg"
 import banner37 from "../assets/banner38.jpg"
@@ -54,6 +54,8 @@ import banner58 from "../assets/banner59.jpg"
 import banner59 from "../assets/banner60.webp"
 import banner60 from "../assets/banner61.webp"
 import banner61 from "../assets/banner62.webp"
+import banner62 from "../assets/banner63.webp"
+import banner63 from "../assets/banner64.webp"
 
 
 
@@ -63,7 +65,8 @@ import { View, Text, Image, StyleSheet, Animated } from "react-native"
 
 const photosBan = [
   banner3, banner4, banner5, banner6, banner7, banner8, banner9,
-  banner10, banner11, banner12, banner13, banner14, banner15, banner16, banner17, banner18, banner19, banner20, banner21, banner22, banner23, banner24, banner25, banner26, banner27, banner28, banner29, banner30, banner31, banner32, banner33, banner34, banner35, banner36, banner37, banner38, banner39, banner40, banner41, banner42, banner43, banner44, banner45, banner46, banner47, banner48, banner49, banner50, banner51,banner52, banner53, banner54, banner58, banner59, banner60, banner61
+  banner10, banner11, banner12, banner13, banner14, banner15, banner16, banner17, banner18, banner19, banner20, banner21, banner22, banner23, banner24, banner25, banner26, banner27, banner28, banner29, banner30, banner31, banner32, banner33, banner34, banner35, banner36, banner37, banner38, banner39, banner40, banner41, banner42, banner43, banner44, banner45, banner46, banner47, banner48, banner49, banner50, banner51,banner52, banner53, banner54, banner58, banner59, banner60, banner61,
+  banner62, banner63
 ];
 
 
