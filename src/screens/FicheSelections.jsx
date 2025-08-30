@@ -19,6 +19,7 @@ function FicheSelections() {
 
 const [rounds, setRounds] = useState()
 
+
   useEffect(() => {
   const fetchRounds = async () => {
     try {
@@ -31,7 +32,8 @@ const [rounds, setRounds] = useState()
       });
 
       const result = await response.json();
-      setRounds(result.response);  
+     
+      setRounds( result.response);  
       setLoading(false);
     } catch (error) {
       console.error('Error fetching rounds:', error);
@@ -101,6 +103,25 @@ console.log(rounds)
 console.log('currentRound:', currentRound);
 console.log('rounds:', rounds);
 
+const teamName = {
+  "Germany" : "Allemagne",
+  "Wales" : "Pays de Galles",
+  "Netherlands" : "Pays Bas",
+  "Belgium" : "Belgique",
+  "Switzerland" : "Suisse",
+  "Scotland" : "Ecosse",
+  "Italy" : "Italie",
+  "Sweden" : "Suede",
+  "Austria" : "Autriche",
+  "Hungary" : "Hoongrie",
+    "Belarus" : "Bielorussie",
+    "Spain" : "Espagne",
+    "Morocco" : "Maroc",
+      "Ivory Coast" : "Cote d'Ivoire",
+      "Algeria" : "Algerie",
+
+}
+
   return (
     <View>
     <Precedent />
@@ -127,7 +148,7 @@ console.log('rounds:', rounds);
                 <View style={styles.equipe}>
                   <Text style={{width: "2%", marginInline: "2%", fontFamily: "Kanitus"}}>{item.rank}</Text>
                   <Image style={styles.flags} source={{ uri: item.team.logo }} />
-                  <Text style={{width: "34%", marginInline: "2%", fontFamily: "Kanito"}}>{item.team.name}</Text>
+                  <Text style={{width: "34%", marginInline: "2%", fontFamily: "Kanito"}}>{teamName[item.team.name] || item.team.name}</Text>
                   <Text style={{width: "10%", fontFamily: "Kanitus"}}>{item.all.played}</Text>
                   <Text style={{width: "10%", fontFamily: "Kanitus"}}>{item.all.win}</Text>
                   <Text style={{width: "10%", fontFamily: "Kanitus"}}>{item.all.draw}</Text>

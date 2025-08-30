@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Text, View, FlatList, Image, TouchableOpacity, Animated } from "react-native";
 import { StyleSheet } from "react-native";
 import Match from "./Match";
+import Ldc2025 from "./Ldc2025";
 import { LinearGradient } from "expo-linear-gradient";
 import ucl from "../assets/logoucl.png"
 import tabldc from "../assets/banner54.webp"
@@ -195,12 +196,9 @@ function TableauEurope({ id, currentRound, rounds }) {
         source={id === 2 ? ucl : { uri: `https://media.api-sports.io/football/leagues/${id}.png` }}
         style={id === 2 ? { width: 80, height: 50, objectFit: 'contain' } : { width: 50, height: 50, objectFit: 'contain' }}
       />
-      {id === 2 ? <Animated.Image
-              source={randomPhoto}
-              style={{ height: 280, width: "98%", objectFit: "contain", marginTop: 10, opacity: fadeAnim }}
-            />
-      :
-       null}
+      { id === 2 ?
+            <Ldc2025 /> : null
+      }
 
       <View style={styles.navContainer}>
         <TouchableOpacity onPress={prev} disabled={index === 0} style={{ width: 60, height: 30, alignItems: "center" }}>

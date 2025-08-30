@@ -20,6 +20,7 @@ import maresca from "../assets/portraits/maresca.png"
 import kompany from "../assets/portraits/kompany.png"
 import slot from "../assets/portraits/slot.png"
 import beye from "../assets/portraits/beye.png"
+import mourinho from "../assets/portraits/mourinho.png"
 
 
 
@@ -84,7 +85,8 @@ useEffect(() => {
   193: henrique,
   12590: kompany,
   2006: slot,
-  17926: beye
+  17926: beye,
+  2462: mourinho,
 };
 
 const coachNames = {

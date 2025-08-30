@@ -3,9 +3,7 @@ import { View, Text, TouchableOpacity, FlatList, Image, Animated, StyleSheet } f
 import { useNavigation } from '@react-navigation/native';
 import chevron from "../assets/chevron.png"
 import { LinearGradient } from "expo-linear-gradient";
-
 import {portraitsJoueurs} from "../datas/Portraits"
-
 
 function Classement({ id }) {
   const [openButeurs, setOpenButeurs] = useState(false);
@@ -394,7 +392,7 @@ console.log(tab)
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    paddingBlock: 10,
     flex: 1,
     paddingBottom: 25,
     gap: 20

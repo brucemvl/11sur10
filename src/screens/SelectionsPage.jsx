@@ -22,6 +22,13 @@ function SelectionsPage() {
     const isSmallScreen = width <= 767;
     const isMediumScreen = width <= 1024 && width > 767;
 
+    const nameCompet = {
+        "UEFA Nations League" : "Nations League",
+       "World Cup - Qualification Europe" : "CDM 2026 Europe" ,
+        "World Cup - Qualification Africa" : "CDM 2026 Afrique",
+         "World Cup - Qualification South America" : "CDM 2026 AmSud"
+    }
+
     return (
         <ScrollView contentContainerStyle={styles.competitions}>
             {/* Section Championnats */}
@@ -38,7 +45,7 @@ function SelectionsPage() {
                             style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
                             onPress={() => navigation.navigate('FicheSelections', { id })}
                         >
-                            <Text style={styles.filtreTitle}>{name === "UEFA Nations League" ? "Nations League" : name === "World Cup - Qualification Europe" ? "CDM 2026 Europe" : name === "World Cup - Qualification Africa" ? "CDM 2026 Afrique" : name}</Text>
+                            <Text style={styles.filtreTitle}>{nameCompet[name] || name}</Text>
                             <View style={styles.logoContainer}>
                                 <Image source={{ uri: logo }} style={styles.logo} />
                             </View>
@@ -106,10 +113,11 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         flexDirection: "column-reverse",
         borderWidth: 8,
-        borderRadius: 15,
+        borderRadius: 25,
         borderColor: 'rgb(15, 23, 82)',
         paddingBlock: 6,
         backgroundColor: "aliceblue",
+        overflow: "hidden"
     },
    
     logoContainer: {

@@ -25,7 +25,7 @@ const animateSlide = (dir = 'right') => {
  useEffect(() => {
   const fetchFixtures = async () => {
     try {
-      const response = await fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&season=${id === 29 ? '2023' : '2024'}`, {
+      const response = await fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&season=${id === 29 ? '2023' : id === 34? "2026" : '2024'}`, {
         method: 'GET',
         headers: {
           'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
@@ -33,8 +33,9 @@ const animateSlide = (dir = 'right') => {
         },
       });
       const json = await response.json();
+      
       setTeamF(json.response);
-
+      
       // 🧠 Détection automatique du prochain round
       const now = new Date();
       const futureRounds = json.response
@@ -52,7 +53,7 @@ const animateSlide = (dir = 'right') => {
 
   fetchFixtures();
 }, [id]);
-
+console.log(teamF)
   if(!teamF){
     return(
       <Text>Loading...</Text>
@@ -80,6 +81,26 @@ const next = () => {
   const currentRoundName = rounds[index];
 
 const filteredMatches = teamF.filter((match) => match.league.round === currentRoundName);
+
+const teamName = {
+  "Germany" : "Allemagne",
+  "Wales" : "Pays de Galles",
+  "Netherlands" : "Pays Bas",
+  "Belgium" : "Belgique",
+  "Switzerland" : "Suisse",
+  "Scotland" : "Ecosse",
+  "Italy" : "Italie",
+  "Sweden" : "Suede",
+  "Austria" : "Autriche",
+  "Hungary" : "Hongrie",
+  "Belarus" : "Bielorussie",
+      "Spain" : "Espagne",
+      "Morocco" : "Maroc",
+      "Ivory Coast" : "Cote d'Ivoire",
+      "Algeria" : "Algerie",
+      
+
+}
 
   return (
      <View style={styles.container}>
@@ -109,9 +130,9 @@ const filteredMatches = teamF.filter((match) => match.league.round === currentRo
     <Match
       key={match.fixture.id}
       id={match.fixture.id}
-      equipeDom={match.teams.home.name === "Spain" ? "Espagne" : match.teams.home.name === "Germany" ? "Allemagne" : match.teams.home.name === "England" ? "Angleterre" : match.teams.home.name}
+      equipeDom={teamName[match.teams.home.name] || match.teams.home.name}
       logoDom={match.teams.home.logo}
-      equipeExt={match.teams.away.name === "Spain" ? "Espagne" : match.teams.away.name === "Germany" ? "Allemagne" : match.teams.away.name === "England" ? "Angleterre" : match.teams.away.name}
+      equipeExt={teamName[match.teams.away.name] || match.teams.away.name}
       logoExt={match.teams.away.logo}
       round={match.league.round}
       scoreDom={match.goals.home}
@@ -127,10 +148,12 @@ const filteredMatches = teamF.filter((match) => match.league.round === currentRo
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
-    backgroundColor: '#f0f0f0',
+    padding: 8,
+    backgroundColor: 'rgba(178, 178, 178, 1)',
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    marginInline: 5,
+    borderRadius: 15
   },
   header: {
     fontSize: 20,

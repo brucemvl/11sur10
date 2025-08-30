@@ -61,7 +61,7 @@ async function refreshActiveMatches() {
         );
 
         const fallbackLiveMatches = liveData.response.filter(match =>
-          ['1H', '2H', 'ET', 'P'].includes(match.fixture.status.short)
+          ['1H', '2H', 'HT', 'ET', 'P'].includes(match.fixture.status.short)
         );
 
         fallbackLiveMatches.forEach(match => {

@@ -336,7 +336,7 @@ export const selections = [
 
             {
                 "id": 34,
-                "name": "World Cup - Qualification Asia",
+                "name": "World Cup - Qualification South America",
                 "logo": "https://media.api-sports.io/football/leagues/34.png",
                 "season": 2026,
                 },

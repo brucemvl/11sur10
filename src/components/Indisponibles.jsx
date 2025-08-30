@@ -52,7 +52,7 @@ function Indisponibles({ injuries, match }) {
             {incertain.length === 0 ? null :
             <View>
             <Text style={{ fontFamily: "Kanitt", fontSize: 18, marginBottom: 10 }}>Ils sont incertains</Text>
-             <View style={{ flexDirection: "row", backgroundColor: "rgb(203, 203, 203)", paddingBlock: 10, borderRadius: 10 }}>
+             <View style={{ flexDirection: "row", backgroundColor: "rgb(203, 203, 203)", paddingBlock: 10, borderRadius: 15 }}>
                 <View style={styles.domicile}>
                     {injuries.map((element) => element.team.id === match.teams.home.id && element.player.type === "Questionable" ?
                         <TouchableOpacity key={"blessure" + element.player.id} style={styles.carte} onPress={() => navigation.navigate('FicheJoueur', { id: element.player.id })}>
@@ -157,7 +157,7 @@ function Indisponibles({ injuries, match }) {
             </View> </View>}
 
             <Text style={{ fontFamily: "Kanitt", fontSize: 18, marginBlock: 10 }}>Ils manqueront la rencontre</Text>
-            <View style={{ flexDirection: "row", backgroundColor: "rgb(118, 118, 118)", paddingBlock: 10, borderRadius: 10, marginHorizontal: 1 }}>
+            <View style={{ flexDirection: "row", backgroundColor: "rgb(118, 118, 118)", paddingBlock: 10, borderRadius: 15, marginHorizontal: 1 }}>
                 <View style={styles.domicile}>
                     {injuries.map((element) => element.team.id === match.teams.home.id && element.player.type === "Missing Fixture" ?
                         <TouchableOpacity key={"blessure" + element.player.id} style={styles.carte} onPress={() => navigation.navigate('FicheJoueur', { id: element.player.id })}>

@@ -198,11 +198,20 @@ import carreras from "../assets/portraits/carreras.png"
 import ferland from "../assets/portraits/ferland.png"
 import gonzalogarcia from "../assets/portraits/gonzalogarcia.png"
 import mastantuono from "../assets/portraits/mastantuono.png"
+import bensebaini from "../assets/portraits/bensebaini.png"
+import sule from "../assets/portraits/sule.png"
+import sabitzer from "../assets/portraits/sabitzer.png"
+import schlotterbeck from "../assets/portraits/schlotterbeck.png"
 
 
 
 
 export const portraitsJoueurs = {
+    26243: schlotterbeck,
+    984: brandt,
+        1159: sabitzer,
+        2194: bensebaini,
+        506: sule,
     653: ferland,
         449249: mastantuono,
         336711: gonzalogarcia,

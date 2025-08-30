@@ -31,19 +31,15 @@ function ClubPage() {
             <View style={styles.competitions}>
             {/* Section Championnats */}
             <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.conteneur} >
-                <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
-                    style={styles.title}
-                >
+                <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.title}>
                     <Text style={styles.titleText}>Championnats</Text>
                 </LinearGradient>
                 <View style={styles.filtres}>
                     <View style={{flexDirection: "column"}}>
                     <Text style={{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 8}}>Europe</Text>
-                    <View style={{flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center"}}>
+                    <View style={{flexDirection: "row", flexWrap: "wrap", gap: 6, justifyContent: "center"}}>
                     {championnats.map(({ name, id, flag, logo }) => (
-                        <TouchableOpacity
-                            key={"lien championnat" + id}
-                            style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
+                        <TouchableOpacity key={"lien championnat" + id} style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
                             onPress={() => navigation.navigate('FicheChampionnat', { id })}
                         >
                             <Text style={styles.filtreTitle}>{name}</Text>
@@ -55,15 +51,13 @@ function ClubPage() {
                     </View>
                     </View>
                     <View style={{flexDirection: "column"}}>
-                    <Text style={{textAlign: "center", fontFamily: "Kanitus", color: "white",
-                        marginBlock: 8
-                    }}>Reste du monde</Text>
-                    <View style={{flexDirection: "row", flexWrap: "wrap", gap: 9, justifyContent: "center"}}>  
+                    <Text style={{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 8}}>Reste du monde</Text>
+                    <View style={{flexDirection: "row", flexWrap: "wrap", gap: 6, justifyContent: "center"}}>  
                       {autres.map(({ name, id, logo, country }) => (
-                        <View style={{alignItems: "center", marginBottom: 15, width: "31%"}}>
+                        <View style={{alignItems: "center", marginBottom: 15, width: "32%"}}>
                         <TouchableOpacity
                             key={"lien autre" + id}
-                            style={{width: "100%", height: 120, alignItems: 'center', marginBottom: 1, borderWidth: 8, borderRadius: 15, borderColor: 'rgb(15, 23, 82)', paddingBlock: 6, backgroundColor: "aliceblue", flexDirection: "column-reverse"}}
+                            style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet, {width: "100%"}]}
                             onPress={() => navigation.navigate('FicheChampionnat', { id })}
                         >
                             <Text style={styles.filtreTitle}>{name}</Text>
@@ -94,7 +88,7 @@ function ClubPage() {
                             onPress={() => navigation.navigate('FicheEurope', { id })}
                         >
                             <View style={styles.logoContainer}>
-                                <Image source={{ uri: logo }} style={styles.logo} />
+                                <Image source={{ uri: logo }} style={{width: "85%", height: "85%", objectFit: "contain"}} />
                             </View>
                         </TouchableOpacity>
                     ))}
@@ -172,7 +166,7 @@ function ClubPage() {
             */}
             </View>
         </ScrollView>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -232,17 +226,17 @@ const styles = StyleSheet.create({
         flexDirection: "column-reverse"
     },
     lienEurope: {
-        width: "31%",
+        width: "32%",
         alignItems: 'center',
         justifyContent: "center",
         marginBottom: 1,
         flexDirection: "column-reverse",
         borderWidth: 8,
-        borderRadius: 15,
+        borderRadius: 60,
         borderColor:  'rgb(11, 19, 81)',
         paddingBlock: 6,
-        backgroundColor: "aliceblue",
-        height: 125
+        backgroundColor: "white",
+        height: 120
     },
     logoContainer: {
         width: "85%",
@@ -262,10 +256,11 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: '400',
         paddingBlock: 5,
-        fontSize: 12.1,
+        fontSize: 10,
         flex: 1,
         alignItems: "center",
         fontFamily: "Permanent",
+        overflow: "hidden"
     },
     flag: {
        
@@ -275,16 +270,18 @@ const styles = StyleSheet.create({
 
     // Styles spécifiques à l'écran mobile
     lienMobile: {
-        width: "31%", // Sur petits écrans, on ajuste la largeur
-        height: 115,
+        width: "32%", // Sur petits écrans, on ajuste la largeur
+        height: 120,
         alignItems: 'center',
         marginBottom: 1,
         borderWidth: 8,
-        borderRadius: 15,
+        borderRadius: 60,
         borderColor: 'rgb(15, 23, 82)',
         paddingBlock: 6,
-        backgroundColor: "aliceblue",
-        flexDirection: "column-reverse"
+        backgroundColor: "white",
+        flexDirection: "column-reverse",
+                overflow: "hidden"
+
 
     },
     lienTablet: {

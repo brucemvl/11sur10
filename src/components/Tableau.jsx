@@ -153,7 +153,7 @@ function Tableau({ id, currentRound, rounds }) {
             id={match.fixture.id}
             equipeDom={match.teams.home.name=== "Barcelona" ? "FC Barcelone" : match.teams.home.name}
             logoDom={match.teams.home.logo}
-            equipeExt={match.teams.away.name === "Barcelona" ? "FC Barcelone" : match.teams.away.name }
+            equipeExt={match.teams.away.name === "Barcelona" ? "FC Barcelone" : match.teams.away.name === "Borussia Mönchengladbach" ? "Borussia Mönchengladbach" : match.teams.away.name }
             logoExt={match.teams.away.logo}
             round={match.league.round}
             scoreDom={match.goals.home}

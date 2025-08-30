@@ -1,10 +1,13 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
+import { View, Text, Image, StyleSheet, ImageBackground, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import ligue1 from "../assets/logoligue1.webp"
+import { useNavigation } from "@react-navigation/native";
 
 function Histo({ historique }) {
 
+        const navigation = useNavigation();
+  
 
   const historiqueTrie = [...historique].sort((b, a) => {
     return new Date(a.fixture.date) - new Date(b.fixture.date);
@@ -24,9 +27,10 @@ function Histo({ historique }) {
             .padStart(2, '0')}/${date.getFullYear()}`;
   
           return (
-            <View
+            <TouchableOpacity
               key={"affiche" + element.fixture.id}
               style={{ alignItems: "center", marginBottom: 20 }}
+              onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}
             >
               <View style={styles.dateheure}>
                 <Text style={{ fontSize: 8.5, fontFamily: "Kanitalic", color: "white" }}>
@@ -99,7 +103,7 @@ function Histo({ historique }) {
                     : element.teams.away.name}
                 </Text>
               </LinearGradient>
-            </View>
+            </TouchableOpacity>
           );
         })}
       </View>

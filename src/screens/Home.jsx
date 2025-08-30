@@ -70,7 +70,7 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
         fetchData('https://v3.football.api-sports.io/fixtures?league=848&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=307&season=2025'),
                 fetchData('https://v3.football.api-sports.io/fixtures?team=9568&season=2025'),
-                        fetchData('https://v3.football.api-sports.io/fixtures?league=528&season=2025'),
+                        fetchData('https://v3.football.api-sports.io/fixtures?league=48&season=2025'),
 
 
 
@@ -93,7 +93,7 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
       setMatchsAfrica(africa);
       setMatchsEurope(europe);
       setMatchsConference(conference);
-      setMatchsalnassr(arabieSaoudite);
+      setMatchsArabieSaoudite(arabieSaoudite);
       setMatchsMiami(miami)
       setMatchsCommunity(community)
 

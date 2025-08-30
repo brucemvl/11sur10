@@ -108,7 +108,7 @@ import fermin from "../assets/portraits/fiche/fermin.webp"
 import olmo from "../assets/portraits/fiche/olmo.webp"
 import brahim from "../assets/portraits/fiche/brahim.webp"
 import beier from "../assets/portraits/beier.png"
-import brandt from "../assets/portraits/brandt.png"
+import brandt from "../assets/portraits/fiche/brandt.webp"
 import mmd from "../assets/portraits/mmd.png"
 import touf from "../assets/portraits/touf.png"
 import zirkzee from "../assets/portraits/zirkzee.png"
@@ -232,10 +232,21 @@ import carreras from "../assets/portraits/fiche/carreras.webp"
 import ferland from "../assets/portraits/fiche/ferland.webp"
 import mastantuono from "../assets/portraits/fiche/mastantuono.webp"
 import gonzalogarcia from "../assets/portraits/fiche/gonzalogarcia.webp"
+import sule from "../assets/portraits/fiche/sule.png"
+import schlotterbeck from "../assets/portraits/fiche/schlotterbeck.png"
+import sabitzer from "../assets/portraits/fiche/sabitzer.png"
+import bensebaini from "../assets/portraits/fiche/bensebaini.png"
+
+
 
 
 
 export const fichesJoueurs = {
+    26243: schlotterbeck,
+    984: brandt,
+    1159: sabitzer,
+    2194: bensebaini,
+    506: sule,
     653: ferland,
     449249: mastantuono,
     336711: gonzalogarcia,

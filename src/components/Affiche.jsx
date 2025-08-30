@@ -46,7 +46,20 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
   "Spain": "Espagne",
   "Paris Saint Germain": "Paris St Germain",
   "Barcelona" : "FC Barcelone",
-  "England" : "Angleterre"
+  "England" : "Angleterre",
+  "Wales" : "Pays de Galles",
+  "Netherlands" : "Pays Bas",
+  "Belgium" : "Belgique",
+  "Switzerland" : "Suisse",
+  "Scotland" : "Ecosse",
+  "Italy" : "Italie",
+  "Sweden" : "Suede",
+  "Austria" : "Autriche",
+  "Hungary" : "Hongrie",
+  "Belarus" : "Bielorussie",
+  "Morocco" : "Maroc",
+      "Ivory Coast" : "Cote d'Ivoire",
+      "Algeria" : "Algerie",
 };
     
 useEffect(() => {
@@ -93,7 +106,7 @@ useEffect(() => {
                 </View>}
             </View>
             {match.league.id === 2 || match.league.id === 61 || match.league.id === 39 || match.league.id === 140 || match.league.id === 78 ?
-                <ImageBackground source={match.league.id === 2 ? ucl2 : match.league.id === 61 ? grass : match.league.id === 39 ? pl : match.league.id === 78 ? bundesliga : liga} style={styles.afficheUcl} imageStyle={{ borderRadius: 10, filter: match.league.id === 61 ? "brightness(0.5)" : match.league.id === 39 ? "brightness(0.4)" : match.league.id === 140 ? "brightness(0.32)" : match.league.id === 78 ? "brightness(0.45)" : "brightness(0.9)" }}>
+                <ImageBackground source={match.league.id === 2 ? ucl2 : match.league.id === 61 ? grass : match.league.id === 39 ? pl : match.league.id === 78 ? bundesliga : liga} style={styles.afficheUcl} imageStyle={{ borderRadius: 15, filter: match.league.id === 61 ? "brightness(0.5)" : match.league.id === 39 ? "brightness(0.4)" : match.league.id === 140 ? "brightness(0.32)" : match.league.id === 78 ? "brightness(0.45)" : "brightness(0.9)" }}>
                     <TouchableOpacity style={styles.domicile} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo })}>
                         <Image source={{ uri: match.teams.home.logo }} style={[styles.teamLogo, match.teams.home.id === 81 ? { shadowRadius: 0.3 } : null]} />
                         <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14, textAlign: "center" }}>{teamName[match.teams.home.name] || match.teams.home.name}</Text>
@@ -269,16 +282,16 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     container: {
-        paddingBlock: 10,
-        paddingInline: 15,
+        paddingBlock: 5,
+        paddingInline: 10,
         alignItems: 'center',
         width: "100%"
     },
     ligue: {
-        marginBottom: 10,
+        marginBottom: 5,
     },
     datelieu: {
-        marginBottom: 10,
+        marginBottom: 5,
         alignItems: 'center',
         gap: 5
     },
@@ -302,7 +315,7 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: "steelblue",
         padding: 15,
-        borderRadius: 10
+        borderRadius: 15
     },
     domicile: {
         alignItems: 'center',

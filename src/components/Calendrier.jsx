@@ -71,12 +71,12 @@ function Calendrier({ calendrier }) {
                                                 <Image source={element.league.id === 2 ? heureWhite : heure} style={styles.icone} />
                                             </View>
                                             <View style={{ flexDirection: "row", alignItems: "center" }}>
-                                                {element.fixture.status.long === "Match Finished" ? <Text style={[element.goals.home > element.goals.away ? { backgroundColor: "green" } : element.goals.home < element.goals.away ? { backgroundColor: "red" } : { backgroundColor: "grey" }, { color: "white", fontFamily: "Kanitt", paddingInline: 6, paddingBlock: 3, borderRadius: 5 }]}>{element.goals.home}</Text> : null}
+                                                {element.fixture.status.long === "Match Finished" ? <Text style={[element.goals.home > element.goals.away ? { backgroundColor: "green" } : element.goals.home < element.goals.away ? { backgroundColor: "red" } : { backgroundColor: "grey" }, { color: "white", fontFamily: "Kanitt", paddingInline: 8, paddingBlock: 5, borderRadius: 5, marginInline: 2 }]}>{element.goals.home}</Text> : null}
                                                 <View style={styles.logos}>
                                                     <Image source={{ uri: element.teams.home.logo }} style={styles.logo} />
                                                     <Image source={{ uri: element.teams.away.logo }} style={styles.logoExt} />
                                                 </View>
-                                                {element.fixture.status.long === "Match Finished" ? <Text style={[element.goals.away > element.goals.home ? { backgroundColor: "green" } : element.goals.away < element.goals.home ? { backgroundColor: "red" } : { backgroundColor: "grey" }, { color: "white", fontFamily: "Kanitt", paddingInline: 6, paddingBlock: 3, borderRadius: 5 }]}>{element.goals.away}</Text> : null}
+                                                {element.fixture.status.long === "Match Finished" ? <Text style={[element.goals.away > element.goals.home ? { backgroundColor: "green" } : element.goals.away < element.goals.home ? { backgroundColor: "red" } : { backgroundColor: "grey" }, { color: "white", fontFamily: "Kanitt", paddingInline: 8, paddingBlock: 5, borderRadius: 5, marginInline: 2 }]}>{element.goals.away}</Text> : null}
                                             </View>
                                             <View style={{ width: "98%", flexDirection: "row", alignItems: "center", gap: 5, justifyContent: "center" }}>
                                                 <View>
