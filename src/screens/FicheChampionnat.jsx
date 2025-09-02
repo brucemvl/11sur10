@@ -109,7 +109,7 @@ console.log('rounds:', rounds);
 const styles = StyleSheet.create({
     blocChamp: {
       marginTop: 50,
-        padding: 10,
+        paddingBlock: 10,
         width: "100%",
         flexGrow: 1,
         paddingBottom: 130,

@@ -34,14 +34,14 @@ function FicheEurope({ route }) {
         try {
     
           const [roundsRes, currentRoundRes] = await Promise.all([
-            fetch(`https://v3.football.api-sports.io/fixtures/rounds?league=${id}&season=2024`, {
+            fetch(`https://v3.football.api-sports.io/fixtures/rounds?league=${id}&season=2025`, {
               method: 'GET',
               headers: {
                 'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
                 'x-rapidapi-host': 'v3.football.api-sports.io',
               },
             }),
-            fetch(`https://v3.football.api-sports.io/fixtures/rounds?season=2024&league=${id}&current=true`, {
+            fetch(`https://v3.football.api-sports.io/fixtures/rounds?season=2025&league=${id}&current=true`, {
               method: "GET",
               headers: {
                 "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
@@ -108,7 +108,7 @@ function FicheEurope({ route }) {
 
 const styles = StyleSheet.create({
     blocChamp: {
-        padding: 10,
+        paddingBlock: 10,
         width: "100%",
         marginTop: 50,
         paddingBottom: 140,

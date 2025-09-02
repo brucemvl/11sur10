@@ -173,6 +173,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
     borderRadius: 15,
     alignItems: "center",
+    marginHorizontal: 10
   },
   title: {
     fontSize: 24,

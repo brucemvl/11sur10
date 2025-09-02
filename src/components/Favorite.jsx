@@ -36,43 +36,33 @@ const Favorite = forwardRef(({ notifsEnabled, selectedTeamId }, ref) => {
 
     const navigation = useNavigation();
     
-        const scrollRef = useRef(null);
-        const [positions, setPositions] = useState({});
-        
-    
-        useEffect(() => {
-            if (!calendrier || calendrier.length === 0 || Object.keys(positions).length !== calendrier.length) return;
-    
-            const now = new Date();
-            let closestIndex = 0;
-            let smallestDiff = Infinity;
-    
-            calendrier.forEach((element, index) => {
-                const matchDate = new Date(element.fixture.date);
-                const diff = Math.abs(matchDate - now);
-                if (diff < smallestDiff) {
-                    smallestDiff = diff;
-                    closestIndex = index;
-                }
-            });
-    
-            const targetX = positions[closestIndex]?.x ?? 0;
-            const targetWidth = positions[closestIndex]?.width ?? 160;
-            const offset = targetX - (screenWidth / 2 - targetWidth / 2);
-    
-            scrollRef.current?.scrollTo({ x: offset, animated: true });
-        }, [positions]);
+         const scrollViewRef = useRef(null);
+const [positions, setPositions] = useState({});
+const [firstUpcomingIndex, setFirstUpcomingIndex] = useState(null);
+
+useEffect(() => {
+  const now = new Date();
+  const index = calendrier
+    .slice()
+    .sort((a, b) => new Date(a.fixture.date) - new Date(b.fixture.date))
+    .findIndex(match => new Date(match.fixture.date) >= now);
+
+  setFirstUpcomingIndex(index);
+}, [calendrier]);
+
+useEffect(() => {
+  if (firstUpcomingIndex !== null && positions[firstUpcomingIndex]) {
+    scrollViewRef.current?.scrollTo({
+      x: positions[firstUpcomingIndex].x,
+      animated: true
+    });
+  }
+}, [positions, firstUpcomingIndex]);
 
 
       const [calendrier, setCalendrier] = useState([])
-    
 
-const selectedTeam = selectedTeamId
-  ? teams.find(team => team.id === selectedTeamId)
-  : null;
-
-
-  useEffect(() => {
+      useEffect(() => {
     const fetchCalendrier = async () => {
       try {
         const response = await fetch(`https://v3.football.api-sports.io/fixtures?season=2025&team=${selectedTeamId}`, {
@@ -92,6 +82,14 @@ const selectedTeam = selectedTeamId
     };
     fetchCalendrier();
   }, [selectedTeamId]);
+    
+
+const selectedTeam = selectedTeamId
+  ? teams.find(team => team.id === selectedTeamId)
+  : null;
+
+
+  
 
 
 
@@ -107,14 +105,17 @@ const selectedTeam = selectedTeamId
     return (
 <View style={styles.container}>
 
-            <ScrollView horizontal contentContainerStyle={{ gap: 18, padding: 12 }} ref={scrollRef}>
+            <ScrollView horizontal contentContainerStyle={{ gap: 18, padding: 12 }} ref={scrollViewRef}>
                 {
 
-                    calendrier.map((element, index) => {
-                        const date = element.fixture.date
-                        const dateh = new Date(date);
-                        const formattedDate = `${dateh.getDate().toString().padStart(2, '0')}/${(dateh.getMonth() + 1).toString().padStart(2, '0')}`;
-                        const formattedHour = `${dateh.getHours().toString().padStart(2, '0')}h${dateh.getMinutes().toString().padStart(2, '0')}`;
+                    calendrier
+  .slice()
+  .sort((a, b) => new Date(a.fixture.date) - new Date(b.fixture.date)) // ✅ Tri chronologique
+  .map((element, index) => {
+    const date = element.fixture.date;
+    const dateh = new Date(date);
+    const formattedDate = `${dateh.getDate().toString().padStart(2, '0')}/${(dateh.getMonth() + 1).toString().padStart(2, '0')}`;
+    const formattedHour = `${dateh.getHours().toString().padStart(2, '0')}h${dateh.getMinutes().toString().padStart(2, '0')}`;
 
                         return (
                             element.league.id === 15 ? null :

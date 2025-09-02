@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from "react-native"
+import { useNavigation } from '@react-navigation/native';
+
 
 
 
 function Ldc2025(){
 
+        const navigation = useNavigation()
+    
     const [selected, setSelected] = useState(false)
 
     const teams = [
@@ -77,8 +81,9 @@ setSelected(true)
 
             <View style={styles.tirage}>
             {matchs.map((element) => (
+                <TouchableOpacity key={element.fixture.id} onPress={() => navigation.navigate("FicheEquipe", { id: element.teams.home.id !== team ? element.teams.home.id : element.teams.away.id, league: element.league.id })}>
     <Image
-    key={element.fixture.id}
+    
       source={{
         uri:
           element.teams.home.id !== team
@@ -87,6 +92,7 @@ setSelected(true)
       }}
       style={styles.adversaires}
     />
+    </TouchableOpacity>
 ))}
 </View>
 </View>
@@ -110,7 +116,7 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(233, 233, 233, 1)",
         borderRadius: 40,
         overflow: "hidden",
-        height: "85%",
+        height: "80%",
     },
     tirage: {
         flexDirection: "row",

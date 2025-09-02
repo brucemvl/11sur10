@@ -202,11 +202,17 @@ import bensebaini from "../assets/portraits/bensebaini.png"
 import sule from "../assets/portraits/sule.png"
 import sabitzer from "../assets/portraits/sabitzer.png"
 import schlotterbeck from "../assets/portraits/schlotterbeck.png"
+import grealish from "../assets/portraits/grealish.png"
+import eze from "../assets/portraits/eze.png"
+import semenyo from "../assets/portraits/semenyo.png"
 
 
 
 
 export const portraitsJoueurs = {
+    19281: semenyo,
+    19586: eze,
+    19187: grealish,
     26243: schlotterbeck,
     984: brandt,
         1159: sabitzer,

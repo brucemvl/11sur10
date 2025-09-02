@@ -15,43 +15,43 @@ const screenWidth = Dimensions.get("window").width;
 function Calendrier({ calendrier }) {
     const navigation = useNavigation();
 
-    const scrollRef = useRef(null);
-    const [positions, setPositions] = useState({});
+    const scrollViewRef = useRef(null);
+const [positions, setPositions] = useState({});
+const [firstUpcomingIndex, setFirstUpcomingIndex] = useState(null);
 
-    useEffect(() => {
-        if (!calendrier || calendrier.length === 0 || Object.keys(positions).length !== calendrier.length) return;
+useEffect(() => {
+  const now = new Date();
+  const index = calendrier
+    .slice()
+    .sort((a, b) => new Date(a.fixture.date) - new Date(b.fixture.date))
+    .findIndex(match => new Date(match.fixture.date) >= now);
 
-        const now = new Date();
-        let closestIndex = 0;
-        let smallestDiff = Infinity;
+  setFirstUpcomingIndex(index);
+}, [calendrier]);
 
-        calendrier.forEach((element, index) => {
-            const matchDate = new Date(element.fixture.date);
-            const diff = Math.abs(matchDate - now);
-            if (diff < smallestDiff) {
-                smallestDiff = diff;
-                closestIndex = index;
-            }
-        });
-
-        const targetX = positions[closestIndex]?.x ?? 0;
-        const targetWidth = positions[closestIndex]?.width ?? 160;
-        const offset = targetX - (screenWidth / 2 - targetWidth / 2);
-
-        scrollRef.current?.scrollTo({ x: offset, animated: true });
-    }, [positions]);
+useEffect(() => {
+  if (firstUpcomingIndex !== null && positions[firstUpcomingIndex]) {
+    scrollViewRef.current?.scrollTo({
+      x: positions[firstUpcomingIndex].x,
+      animated: true
+    });
+  }
+}, [positions, firstUpcomingIndex]);
 
     return (
         <View style={styles.container}>
 
-            <ScrollView horizontal contentContainerStyle={{ gap: 18, padding: 12 }} ref={scrollRef}>
+            <ScrollView horizontal contentContainerStyle={{ gap: 18, padding: 12 }} ref={scrollViewRef}>
                 {
 
-                    calendrier.map((element, index) => {
-                        const date = element.fixture.date
-                        const dateh = new Date(date);
-                        const formattedDate = `${dateh.getDate().toString().padStart(2, '0')}/${(dateh.getMonth() + 1).toString().padStart(2, '0')}`;
-                        const formattedHour = `${dateh.getHours().toString().padStart(2, '0')}h${dateh.getMinutes().toString().padStart(2, '0')}`;
+                    calendrier
+  .slice()
+  .sort((a, b) => new Date(a.fixture.date) - new Date(b.fixture.date)) // ✅ Tri chronologique
+  .map((element, index) => {
+    const date = element.fixture.date;
+    const dateh = new Date(date);
+    const formattedDate = `${dateh.getDate().toString().padStart(2, '0')}/${(dateh.getMonth() + 1).toString().padStart(2, '0')}`;
+    const formattedHour = `${dateh.getHours().toString().padStart(2, '0')}h${dateh.getMinutes().toString().padStart(2, '0')}`;
 
                         return (
                             element.league.id === 15 ? null :
