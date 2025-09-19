@@ -21,6 +21,7 @@ import kompany from "../assets/portraits/kompany.png"
 import slot from "../assets/portraits/slot.png"
 import beye from "../assets/portraits/beye.png"
 import mourinho from "../assets/portraits/mourinho.png"
+import deschamps from "../assets/portraits/deschamps.png"
 
 
 
@@ -87,6 +88,7 @@ useEffect(() => {
   2006: slot,
   17926: beye,
   2462: mourinho,
+  180: deschamps
 };
 
 const coachNames = {
@@ -100,7 +102,8 @@ const coachNames = {
   7248: "Mikel Arteta",
   4: "Pep Guardiola",
   6472: "Hans Flick",
-  1595: "Diego Simeone"
+  1595: "Diego Simeone",
+  180: "Didier Deschamps"
 }
   
   

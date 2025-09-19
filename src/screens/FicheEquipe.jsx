@@ -333,7 +333,7 @@ console.log(calendrier)
       <Text style={styles.season}>2025/2026</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={true} style={styles.leagues}>
       {leagues.map((element) => {if ( element.league.name === "Friendlies Clubs") return null ; const isSelected = selectedId === element.league.id;
-     return <TouchableOpacity key={element.league.id} onPress={()=> {setCompet(element.league.id); setSelectedId(element.league.id)} } style={isSelected ? styles.selected : {opacity: 0.4}}> <Image source={element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : element.league.id === 15 ? fifaclubwc : { uri: element.league.logo}} style={{height: 60, width: 60, marginBottom: 20, objectFit: "contain", marginInline: 12}}/></TouchableOpacity>
+     return <TouchableOpacity key={element.league.id} onPress={()=> {setCompet(element.league.id); setSelectedId(element.league.id)} } style={isSelected ? styles.selected : {opacity: 0.3}}> <Image source={element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : element.league.id === 15 ? fifaclubwc : { uri: element.league.logo}} style={{height: 60, width: 60, marginBottom: 20, objectFit: "contain", marginInline: 12}}/></TouchableOpacity>
 })}
 </ScrollView>
       <View style={styles.bloc}>
@@ -451,7 +451,7 @@ alignItems: "center"
         color: 'white',
         paddingBlock: 5,
         paddingInline: 20,
-        borderRadius: 5,
+        borderRadius: 10,
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
@@ -513,8 +513,11 @@ alignItems: "center"
       leagues: {
         flexDirection: "row",
         width: 240,
-        height: 90,
+        height: 85,
         padding: 10,
+        backgroundColor: "rgba(223, 223, 223, 0.5)",
+        borderRadius: 35,
+        marginBottom: 10
       },
       selected: {
         opacity: 1,

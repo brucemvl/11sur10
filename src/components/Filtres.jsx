@@ -5,6 +5,7 @@ import { championnats, europe, autres, selections } from '../datas/Leagues'; // 
 import { useFonts } from 'expo-font';  // Importer le hook useFonts d'Expo
 import ligue1 from "../assets/logoligue1.webp"
 import ligue2 from "../assets/ligue2.jpg"
+import ucl from "../assets/logoucl.png"
 import fifaclubwc from "../assets/fifaclubwc2.png"
 import plus from "../assets/plus.png"
 
@@ -32,10 +33,10 @@ function Filtres() {
 
     return (
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.competitions}>
-            {europe.map(({ id, logo }) => id === 848 || id === 3 ? null : <TouchableOpacity key={"lien" + id} onPress={() => navigation.navigate('FicheEurope', { id })} style={{ marginInline: 4 }}><View style={[styles.lien, { backgroundColor: id === 2 ? 'rgb(213, 213, 213)' : null }]}> <Image source={{ uri: logo }} style={styles.logo} /></View></TouchableOpacity>)}
-            {championnats.map(({ id, logo }) => <TouchableOpacity key={"lien" + id} onPress={() => navigation.navigate('FicheChampionnat', { id })} style={{ marginInline: 4, shadowColor: "black" }}><View style={[styles.lien, { backgroundColor: id === 61 ? "#085dfe" : id === 135 || id === 62 ? "#fff" : id === 78 ? "#D10515" : id === 140 ? 'rgb(242, 235, 106)' : null }]}> <Image source={logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : logo === "https://media.api-sports.io/football/leagues/62.png" ? ligue2 : { uri: logo }} style={styles.logo} /></View></TouchableOpacity>)}
+            {europe.map(({ id, logo }) => id === 848 || id === 3 ? null : <TouchableOpacity key={"lien" + id} onPress={() => navigation.navigate('FicheEurope', { id })} style={{ marginInline: 4 }}><View style={[styles.lien, { backgroundColor: id === 2 ? 'rgba(32, 46, 91, 1)' : null }, isMediumScreen && styles.lienTablet]}> <Image source={id === 2 ? ucl : { uri: logo }} style={id === 2 ? {height: 35,  objectFit: "contain"} : styles.logo} /></View></TouchableOpacity>)}
+            {championnats.map(({ id, logo }) => <TouchableOpacity key={"lien" + id} onPress={() => navigation.navigate('FicheChampionnat', { id })} style={{ marginInline: 4, shadowColor: "black" }}><View style={[styles.lien, { backgroundColor: id === 61 ? "#085dfe" : id === 135 || id === 62 ? "#fff" : id === 78 ? "#D10515" : id === 140 ? 'rgb(242, 235, 106)' : null }, isMediumScreen && styles.lienTablet]}> <Image source={logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : logo === "https://media.api-sports.io/football/leagues/62.png" ? ligue2 : { uri: logo }} style={styles.logo} /></View></TouchableOpacity>)}
 <TouchableOpacity onPress={()=> navigation.navigate('ClubPage')}>
-    <View style={[styles.lien,]}> 
+    <View style={[styles.lien, isMediumScreen && styles.lienTablet]}> 
 <Image source={plus} style={{height: 40, width: 40}}/>    
 </View>
 </TouchableOpacity>
@@ -58,6 +59,11 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         padding: 35,
+    },
+
+    lienTablet: {
+height: 100,
+width: 100
     },
 
     logo: {

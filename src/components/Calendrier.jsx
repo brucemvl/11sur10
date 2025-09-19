@@ -10,7 +10,6 @@ import calendarWhite from "../assets/datewhite.png"
 import heureWhite from "../assets/heurewhite.png"
 import heure from "../assets/heure.png"
 
-const screenWidth = Dimensions.get("window").width;
 
 function Calendrier({ calendrier }) {
     const navigation = useNavigation();

@@ -32,7 +32,7 @@ function FicheChampionnat({ route }) {
       useEffect(() => {
   const fetchData = async () => {
     try {
-      const season =  id === 186 || id === 200 || id === 202 ? 2024 : 2025;
+      const season =  2025;
 
       const [roundsRes, currentRoundRes] = await Promise.all([
         fetch(`https://v3.football.api-sports.io/fixtures/rounds?league=${id}&season=${season}`, {

@@ -12,7 +12,6 @@ import fifaClubWc from "../assets/fifaclubwc2.png"
 import logoUcl from "../assets/logoucl.png"
 import { Animated } from "react-native";
 
-const screenWidth = Dimensions.get("window").width;
 
 
 const teams = [
@@ -31,8 +30,10 @@ const teams = [
         { id: 114, name: 'Paris FC', logo: "https://media.api-sports.io/football/teams/114.png" },
 ];
 
-const Favorite = forwardRef(({ notifsEnabled, selectedTeamId }, ref) => {
-
+const Favorite = forwardRef((props, ref) => {
+  const { notifsEnabled, selectedTeamId } = props;
+  
+      const [calendrier, setCalendrier] = useState([])
 
     const navigation = useNavigation();
     
@@ -60,7 +61,6 @@ useEffect(() => {
 }, [positions, firstUpcomingIndex]);
 
 
-      const [calendrier, setCalendrier] = useState([])
 
       useEffect(() => {
     const fetchCalendrier = async () => {
@@ -84,14 +84,7 @@ useEffect(() => {
   }, [selectedTeamId]);
     
 
-const selectedTeam = selectedTeamId
-  ? teams.find(team => team.id === selectedTeamId)
-  : null;
-
-
   
-
-
 
   console.log(calendrier)
 
@@ -110,7 +103,7 @@ const selectedTeam = selectedTeamId
 
                     calendrier
   .slice()
-  .sort((a, b) => new Date(a.fixture.date) - new Date(b.fixture.date)) // ✅ Tri chronologique
+  .sort((a, b) => new Date(a.fixture.date) - new Date(b.fixture.date)) // Tri chronologique
   .map((element, index) => {
     const date = element.fixture.date;
     const dateh = new Date(date);

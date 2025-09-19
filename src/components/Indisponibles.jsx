@@ -40,7 +40,7 @@ function Indisponibles({ injuries, match }) {
         643: "Gabriel Jesus",
         662: "Tanguy Ndombele",
         22163: "Dante",
-        377122: "endrick",
+        377122: "Endrick",
         266657: "Savinho",
         135775: "Ansu Fati",
         2207: "E. Camavinga"
@@ -50,9 +50,9 @@ function Indisponibles({ injuries, match }) {
     return (
         <View style={styles.bloc}>
             {incertain.length === 0 ? null :
-            <View>
+            <View style={{alignItems: "center"}}>
             <Text style={{ fontFamily: "Kanitt", fontSize: 18, marginBottom: 10 }}>Ils sont incertains</Text>
-             <View style={{ flexDirection: "row", backgroundColor: "rgb(203, 203, 203)", paddingBlock: 10, borderRadius: 15 }}>
+             <View style={{ flexDirection: "row", backgroundColor: "rgb(203, 203, 203)", paddingBlock: 10, borderRadius: 15, marginHorizontal: 1 }}>
                 <View style={styles.domicile}>
                     {injuries.map((element) => element.team.id === match.teams.home.id && element.player.type === "Questionable" ?
                         <TouchableOpacity key={"blessure" + element.player.id} style={styles.carte} onPress={() => navigation.navigate('FicheJoueur', { id: element.player.id })}>
@@ -190,7 +190,7 @@ function Indisponibles({ injuries, match }) {
                                                         {element.player.reason === "Knee Injury" || element.player.reason === "Knee injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Genou</Text> : element.player.reason === "Meniscus injur" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Menisque</Text> : element.player.reason === "adductor injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Adducteurs</Text> : element.player.reason === "Calf Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Mollet</Text> : element.player.reason === "Ankle Injury" || element.player.reason === "Injury to the ankle" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Cheville</Text> : element.player.reason === "Thigh Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Cuisse</Text> : element.player.reason === "Muscle Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Musculaire</Text> : element.player.reason === "Back Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Dos</Text> : element.player.reason === "Foot Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Pied</Text> : element.player.reason === "Leg Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Jambe</Text> : element.player.reason === "Groin Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Aine</Text> : element.player.reason === "Face Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Visage</Text> : element.player.reason === "Toe Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Orteil</Text> : element.player.reason === "Achilles Tendon Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 8 }}>Tendon d'achille</Text> : element.player.reason === "Hip Injury" || element.player.reason === "Hip injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Hanche</Text> : element.player.reason === "Ribs Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Cotes</Text> : element.player.reason === "Head Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Tête</Text> : element.player.reason === "Hamstring Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Ischios</Text> : element.player.reason === "Eye injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Oeil</Text> : element.player.reason === "Shin Injury" || element.player.reason === "Shinbone injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Tibia</Text> : element.player.reason === "Heel Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Talon</Text> : element.player.reason === "Lower Back Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Lombaires</Text> : element.player.reason === "Finger Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Doigt</Text> : element.player.reason === "Chest Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Poitrine</Text> : element.player.reason === "Elbow Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Coude</Text> : element.player.reason === "Cruciate ligament injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Ligaments croisés</Text> : element.player.reason === "Wrist Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Poignet</Text> : element.player.reason === "Foot injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Pied</Text> : null}
                                                     </View> : element.player.reason === "Achilles tendon problems" || element.player.reason === "Achilles tendon rupture" ? <View style={{ flexDirection: "row", gap: 5, alignItems: "baseline" }}>
                                                         <Image source={injury} style={[styles.icone, { position: "relative", top: 3 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Tendon d'achille</Text>
-                                                    </View> : element.player.reason === "Knee Problems" ? <View style={{ flexDirection: "row", gap: 5, alignItems: "baseline" }}>
+                                                    </View> : element.player.reason === "Knee Problems" || element.player.reason === "Jumpers knee" ? <View style={{ flexDirection: "row", gap: 5, alignItems: "baseline" }}>
                                                         <Image source={injury} style={[styles.icone, { position: "relative", top: 3 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Genou</Text>
                                                     </View> : element.player.reason === "torn muscle fiber in the adduc" ? <View style={{ flexDirection: "row", gap: 5, alignItems: "baseline" }}>
                                                         <Image source={injury} style={[styles.icone, { position: "relative", top: 3 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Dechirure adducteurs</Text>
@@ -214,7 +214,7 @@ function Indisponibles({ injuries, match }) {
                                                         <Image source={fracture} style={styles.icone} /><Text style={{ fontFamily: "Kanito", fontSize: 8 }}>Fracture cheville</Text>
                                                     </View> : element.player.reason === "Broken Leg" || element.player.reason === "Broken leg" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Image source={jambe} style={styles.icone} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Jambe cassée</Text>
-                                                    </View> : element.player.reason === "Ruptured cruciate ligament" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
+                                                    </View> : element.player.reason.indexOf("ruciate ligament") != -1 || element.player.reason.indexOf("ruciate Ligament") != -1 ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Image source={ligaments} style={styles.icone} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Ligaments croisés</Text>
                                                     </View> : element.player.reason === "Suspended" || element.player.reason === "Suspension" ? <View style={{ flexDirection: "row", alignItems: "center" }}>
                                                         <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Suspendu</Text>
@@ -222,15 +222,15 @@ function Indisponibles({ injuries, match }) {
                                                         <Image source={contusion} style={[styles.icone, { width: 28, height: 22 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Contusion</Text>
                                                     </View> : element.player.reason === "Concussion" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Image source={commotion} style={[styles.icone, { width: 25, height: 25 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Commotion</Text>
-                                                    </View> : element.player.reason === "Heart Problems" || element.player.reason === "Heart Condition" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
+                                                    </View> : element.player.reason.indexOf("heart") != -1 || element.player.reason.indexOf("Heart") != -1 ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Image source={coeur} style={[styles.icone, { width: 17, height: 18 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Problemes coeur</Text>
                                                     </View> : element.player.reason === "Rest" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Au Repos</Text>
-                                                    </View> : element.player.reason === "Lacking Match Fitness" || element.player.reason === "fitness" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
+                                                    </View> : element.player.reason === "Lacking Match Fitness" || element.player.reason === "fitness" || element.player.reason === "Fitness" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Manque de forme</Text>
                                                     </View> : element.player.reason === "Personal Reasons" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Raisons personnelles</Text>
-                                                    </View> : element.player.reason === "Muscular problems" || element.player.reason === "Torn Muscle Fibre" || element.player.reason === "Muscle fatigue" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
+                                                    </View> : element.player.reason === "Muscular problems" || element.player.reason === "Torn Muscle Fibre" || element.player.reason === "Muscle fatigue" || element.player.reason === "Muscle bruise" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Musculaire</Text>
                                                     </View> : element.player.reason === "Calf Problems" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "baseline" }}>
                                                         <Image source={injury} style={[styles.icone, {position: "relative", top: 3}]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Mollet</Text>
@@ -240,7 +240,7 @@ function Indisponibles({ injuries, match }) {
                                                         <Image source={injury} style={[styles.icone, { position: "relative", top: 3 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Hématome Genou</Text>
                                                     </View> : element.player.reason === "hamstring strain" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "baseline" }}>
                                                         <Image source={injury} style={[styles.icone, { position: "relative", top: 3 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Claquage ischios</Text>
-                                                    </View> : element.player.reason === "Ankle sprain" ? <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
+                                                    </View> : element.player.reason === "Ankle sprain" || element.player.reason === "Sprained ankle" ? <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
                                                         <Image source={entorse} style={[styles.icone, { width: 22, height: 22 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Entorse</Text>
                                                     </View> : element.player.reason === "Partial patellar tendon tear" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "baseline" }}>
                                                         <Image source={injury} style={[styles.icone, {position: "relative", top: 3}]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Tendon rotulien</Text>
@@ -250,11 +250,21 @@ function Indisponibles({ injuries, match }) {
                                                 <Image source={metatarse} style={styles.icone} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Metatarse</Text>
                                             </View> : element.player.reason === "Outer ligament tear" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                 <Image source={injury} style={styles.icone} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Dechirure ligament</Text>
-                                            </View> : element.player.reason === "Acromioclavicular joint disloc" ?
+                                            </View> : element.player.reason.indexOf("cromioclavicular joint disloc") != -1 ?
                                                     <View style={{ flexDirection: "row", alignItems: "center", gap: 1 }}>
                                                         <Image source={epaule} style={[styles.icone, { width: 19, height: 19 }]} />
                                                         <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Luxation clavicule</Text>
-                                                    </View> : <View></View>}
+                                                    </View> : element.player.reason === "Back bruise" ? <View style={{ flexDirection: "row", gap: 3, alignItems: "baseline" }}>
+                                                <Image source={injury} style={[styles.icone, { position: "relative", top: 2 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 10 }}>Dos</Text>
+                                            </View> : element.player.reason === "Inflammation" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "baseline" }}>
+                                                <Image source={injury} style={[styles.icone, { position: "relative", top: 2 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9.5 }}>Inflammation</Text>
+                                            </View> : element.player.reason === "Heel pain" ? <View style={{ flexDirection: "row", gap: 3, alignItems: "baseline" }}>
+                                                <Image source={injury} style={[styles.icone, { position: "relative", top: 2 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 10 }}>Talon</Text>
+                                            </View> : element.player.reason === "Wound" ? <View style={{ flexDirection: "row", gap: 3, alignItems: "baseline" }}>
+                                                <Image source={injury} style={[styles.icone, { position: "relative", top: 2 }]} />
+                                            </View> : element.player.reason === "Broken calfbone" ? <View style={{ flexDirection: "row", gap: 3}}>
+                                                <Image source={tibia} style={styles.icone} /><Text style={{ fontFamily: "Kanito", fontSize: 10 }}>Fracture péroné</Text>
+                                            </View> : <View></View>}
                             </LinearGradient>
                         </TouchableOpacity> : null)}</View>
 
@@ -290,7 +300,7 @@ function Indisponibles({ injuries, match }) {
                                                         {element.player.reason === "Knee Injury" || element.player.reason === "Knee injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Genou</Text> : element.player.reason === "Meniscus injur" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Menisque</Text> : element.player.reason === "adductor injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Adducteurs</Text> : element.player.reason === "Calf Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Mollet</Text> : element.player.reason === "Ankle Injury" || element.player.reason === "Injury to the ankle" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Cheville</Text> : element.player.reason === "Thigh Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Cuisse</Text> : element.player.reason === "Muscle Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Musculaire</Text> : element.player.reason === "Back Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Dos</Text> : element.player.reason === "Foot Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Pied</Text> : element.player.reason === "Leg Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Jambe</Text> : element.player.reason === "Groin Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Aine</Text> : element.player.reason === "Face Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Visage</Text> : element.player.reason === "Toe Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Orteil</Text> : element.player.reason === "Achilles Tendon Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 8 }}>Tendon d'achille</Text> : element.player.reason === "Hip Injury" || element.player.reason === "Hip injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Hanche</Text> : element.player.reason === "Ribs Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Cotes</Text> : element.player.reason === "Head Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Tête</Text> : element.player.reason === "Hamstring Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Ischios</Text> : element.player.reason === "Eye injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Oeil</Text> : element.player.reason === "Shin Injury" || element.player.reason === "Shinbone injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Tibia</Text> : element.player.reason === "Heel Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Talon</Text> : element.player.reason === "Lower Back Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Lombaires</Text> : element.player.reason === "Finger Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Doigt</Text> : element.player.reason === "Chest Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Poitrine</Text> : element.player.reason === "Elbow Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Coude</Text> : element.player.reason === "Cruciate ligament injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Ligaments croisés</Text> : element.player.reason === "Wrist Injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Poignet</Text> : element.player.reason === "Foot injury" ? <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Pied</Text> : null}
                                                     </View> : element.player.reason === "Achilles tendon problems" || element.player.reason === "Achilles tendon rupture" ? <View style={{ flexDirection: "row", gap: 5, alignItems: "baseline" }}>
                                                         <Image source={injury} style={[styles.icone, { position: "relative", top: 3 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Tendon d'achille</Text>
-                                                    </View> : element.player.reason === "Knee Problems" ? <View style={{ flexDirection: "row", gap: 5, alignItems: "baseline" }}>
+                                                    </View> : element.player.reason === "Knee Problems" || element.player.reason === "Jumpers knee" ? <View style={{ flexDirection: "row", gap: 5, alignItems: "baseline" }}>
                                                         <Image source={injury} style={[styles.icone, { position: "relative", top: 3 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Genou</Text>
                                                     </View> : element.player.reason === "torn muscle fiber in the adduc" ? <View style={{ flexDirection: "row", gap: 5, alignItems: "baseline" }}>
                                                         <Image source={injury} style={[styles.icone, { position: "relative", top: 3 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Dechirure adducteurs</Text>
@@ -316,7 +326,7 @@ function Indisponibles({ injuries, match }) {
                                                         <Image source={fracture} style={styles.icone} /><Text style={{ fontFamily: "Kanito", fontSize: 8.5 }}>Fracture cheville</Text>
                                                     </View> : element.player.reason === "Broken Leg" || element.player.reason === "Broken leg" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Image source={jambe} style={styles.icone} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Jambe cassée</Text>
-                                                    </View> : element.player.reason === "Ruptured cruciate ligament" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
+                                                    </View> : element.player.reason.indexOf("ruciate ligament") != -1 || element.player.reason.indexOf("ruciate Ligament") != -1 ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Image source={ligaments} style={styles.icone} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Ligaments croisés</Text>
                                                     </View> : element.player.reason === "Suspended" || element.player.reason === "Suspension" ? <View style={{ flexDirection: "row", alignItems: "center" }}>
                                                         <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Suspendu</Text>
@@ -326,13 +336,13 @@ function Indisponibles({ injuries, match }) {
                                                         <Image source={commotion} style={[styles.icone, { width: 25, height: 25 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Commotion</Text>
                                                     </View> : element.player.reason === "Rest" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Au Repos</Text>
-                                                    </View> : element.player.reason === "Heart Problems" || element.player.reason === "Heart Condition" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
+                                                    </View> : element.player.reason.indexOf("heart") != -1 || element.player.reason.indexOf("Heart") != -1 ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Image source={coeur} style={[styles.icone, { width: 17, height: 18 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Problemes coeur</Text>
-                                                    </View> : element.player.reason === "Lacking Match Fitness" || element.player.reason === "fitness" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
+                                                    </View> : element.player.reason === "Lacking Match Fitness" || element.player.reason === "fitness" || element.player.reason === "Fitness" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Manque de forme</Text>
                                                     </View> : element.player.reason === "Personal Reasons" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Raisons personnelles</Text>
-                                                    </View> : element.player.reason === "Muscular problems" || element.player.reason === "Torn Muscle Fibre" || element.player.reason === "Muscle fatigue" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
+                                                    </View> : element.player.reason === "Muscular problems" || element.player.reason === "Torn Muscle Fibre" || element.player.reason === "Muscle fatigue" || element.player.reason === "Muscle bruise" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Musculaire</Text>
                                                     </View> : element.player.reason === "Calf Problems" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "baseline" }}>
                                                         <Image source={injury} style={[styles.icone, {position: "relative", top: 3}]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Mollet</Text>
@@ -340,7 +350,7 @@ function Indisponibles({ injuries, match }) {
                                                         <Image source={injury} style={[styles.icone, { position: "relative", top: 3 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Hématome Genou</Text>
                                                     </View> : element.player.reason === "hamstring strain" ? <View style={{ flexDirection: "row", gap: 5, alignItems: "baseline" }}>
                                                         <Image source={injury} style={[styles.icone, { position: "relative", top: 3 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Claquage ischios</Text>
-                                                    </View> : element.player.reason === "Ankle sprain" ? <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
+                                                    </View> : element.player.reason === "Ankle sprain" || element.player.reason === "Sprained ankle" ? <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
                                                         <Image source={entorse} style={[styles.icone, { width: 22, height: 22 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Entorse</Text>
                                                     </View> : element.player.reason === "Partial patellar tendon tear" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "baseline" }}>
                                                         <Image source={injury} style={[styles.icone, {position: "relative", top: 3}]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Tendon rotulien</Text>
@@ -350,11 +360,21 @@ function Indisponibles({ injuries, match }) {
                                                 <Image source={metatarse} style={styles.icone} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Metatarse</Text>
                                             </View> : element.player.reason === "Outer ligament tear" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                 <Image source={injury} style={styles.icone} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Dechirure ligament</Text>
-                                            </View> : element.player.reason === "Acromioclavicular joint disloc" ?
+                                            </View> : element.player.reason.indexOf("cromioclavicular joint disloc") != -1 ?
                                                     <View style={{ flexDirection: "row", alignItems: "center", gap: 1 }}>
                                                         <Image source={epaule} style={[styles.icone, { width: 19, height: 19 }]} />
                                                         <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Luxation clavicule</Text>
-                                                    </View> : <View></View>}
+                                                    </View> : element.player.reason === "Back bruise" ? <View style={{ flexDirection: "row", gap: 3, alignItems: "baseline" }}>
+                                                <Image source={injury} style={[styles.icone, { position: "relative", top: 2 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 10 }}>Dos</Text>
+                                            </View> : element.player.reason === "Inflammation" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "baseline" }}>
+                                                <Image source={injury} style={[styles.icone, { position: "relative", top: 2 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9.5 }}>Inflammation</Text>
+                                            </View> : element.player.reason === "Heel pain" ? <View style={{ flexDirection: "row", gap: 3, alignItems: "baseline" }}>
+                                                <Image source={injury} style={[styles.icone, { position: "relative", top: 2 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 10 }}>Talon</Text>
+                                            </View> : element.player.reason === "Wound" ? <View style={{ flexDirection: "row", gap: 3, alignItems: "baseline" }}>
+                                                <Image source={injury} style={[styles.icone, { position: "relative", top: 2 }]} />
+                                            </View> : element.player.reason === "Broken calfbone" ? <View style={{ flexDirection: "row", gap: 3}}>
+                                                <Image source={tibia} style={styles.icone} /> <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Fracture péroné</Text>
+                                            </View> : <View></View>}
                             </LinearGradient>
                         </TouchableOpacity> : null)}</View>
             </View>
@@ -373,8 +393,8 @@ const styles = StyleSheet.create({
     domicile: {
         width: "50%",
         alignItems: "center",
-        gap: 8,
-        padding: 8,
+        gap: 6,
+        padding: 6,
         flexWrap: "wrap",
         flexDirection: "row",
         borderRightWidth: 2,
@@ -385,7 +405,7 @@ const styles = StyleSheet.create({
     exterieur: {
         width: "50%",
         alignItems: "center",
-        gap: 8,
+        gap: 6,
         padding: 8,
         flexWrap: "wrap",
         flexDirection: "row",

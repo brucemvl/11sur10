@@ -6,38 +6,6 @@ import Match from "./Match";
 import Ldc2025 from "./Ldc2025";
 import { LinearGradient } from "expo-linear-gradient";
 import ucl from "../assets/logoucl.png"
-import tabldc from "../assets/banner54.webp"
-import psg from "../assets/psgchampion/PSG.jpg"
-import psg1 from "../assets/psgchampion/PSG1.webp"
-import psg2 from "../assets/psgchampion/PSG2.jpg"
-import psg3 from "../assets/psgchampion/PSG3.webp"
-import psg4 from "../assets/psgchampion/PSG4.jpg"
-import psg5 from "../assets/psgchampion/PSG5.webp"
-import psg6 from "../assets/psgchampion/PSG6.jpg"
-import psg7 from "../assets/psgchampion/PSG7.webp"
-import psg8 from "../assets/psgchampion/PSG8.jpg"
-import psg9 from "../assets/psgchampion/PSG9.webp"
-import psg10 from "../assets/psgchampion/PSG10.webp"
-import psg11 from "../assets/psgchampion/PSG11.webp"
-import psg12 from "../assets/psgchampion/PSG12.webp"
-import psg13 from "../assets/psgchampion/PSG13.webp"
-import psg14 from "../assets/psgchampion/PSG14.webp"
-import psg15 from "../assets/psgchampion/PSG15.webp"
-import psg16 from "../assets/psgchampion/PSG16.webp"
-import psg17 from "../assets/psgchampion/PSG17.webp"
-import psg18 from "../assets/psgchampion/PSG18.webp"
-import psg19 from "../assets/psgchampion/PSG19.webp"
-import psg20 from "../assets/psgchampion/PSG20.webp"
-import psg21 from "../assets/psgchampion/PSG21.webp"
-import psg22 from "../assets/psgchampion/PSG22.webp"
-import psg23 from "../assets/psgchampion/PSG23.webp"
-import psg24 from "../assets/psgchampion/PSG24.webp"
-import psg25 from "../assets/psgchampion/PSG25.webp"
-import psg26 from "../assets/psgchampion/PSG26.webp"
-import psg27 from "../assets/psgchampion/PSG27.webp"
-import psg28 from "../assets/psgchampion/PSG28.webp"
-import psg29 from "../assets/psgchampion/PSG29.webp"
-import psg30 from "../assets/psgchampion/PSG30.webp"
 
 
 
@@ -54,46 +22,7 @@ function TableauEurope({ id, currentRound, rounds }) {
   const slideAnim = useState(new Animated.Value(0))[0];
   const [direction, setDirection] = useState("right");
 
-  const photos = [
-    psg, psg1, psg2, psg3, psg4, psg5,
-    psg6, psg7, psg8, psg9,psg10, psg11, psg12, psg13, psg14, psg15, psg16, psg17, psg18, psg19, psg20, psg21, psg22, psg23, psg24, psg25, psg26, psg27, psg28, psg29, psg30
-  ]
-
-  const [randomPhoto, setRandomPhoto] = useState(photos[Math.floor(Math.random() * photos.length)]);
-    const [isActive, setIsActive] = useState(true);
-
-    const fadeAnim = useState(new Animated.Value(1))[0]; // Initial opacity 0
   
-    function aleatoire(max) {
-      return Math.floor(Math.random() * max);
-    }
-  
-    const change = () => {
-      setIsActive(false);
-      // Animation pour rendre l'image invisible (opacity = 0)
-      Animated.timing(fadeAnim, {
-        toValue: 0, // Fade out
-        duration: 1000,
-        useNativeDriver: true,
-      }).start(() => {
-        // Une fois l'animation de fade-out terminée, changer la photo
-        let random = aleatoire(photos.length);
-        setRandomPhoto(photos[random]);
-  
-        // Animation pour faire réapparaître l'image (opacity = 1)
-        Animated.timing(fadeAnim, {
-          toValue: 1, // Fade in
-          duration: 1000,
-          useNativeDriver: true,
-        }).start(() => setIsActive(true)); // Set active after fade in
-      });
-    };
-  
-    // Utilisation de useEffect pour changer l'image toutes les 4 secondes
-    useEffect(() => {
-      const interval = setInterval(change, 4000); 
-      return () => clearInterval(interval);
-    }, []);
 
   const [rotateJournee, setRotateJournee] = useState(new Animated.Value(0));
 

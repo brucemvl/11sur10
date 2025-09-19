@@ -64,7 +64,7 @@ teams.forEach(team => {
   const animateText = (id) => {
   Animated.sequence([
     Animated.timing(scaleAnimMap[id], {
-      toValue: 1.5,
+      toValue: 1.7,
       duration: 150,
       useNativeDriver: true,
     }),

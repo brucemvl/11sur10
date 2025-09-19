@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';  // Pour le dégradé
 import { useNavigation } from '@react-navigation/native'; // Pour la navigation
 import { selections } from '../datas/Leagues'; // Import des données
 import { useFonts } from 'expo-font';  // Importer le hook useFonts d'Expo
+import cdm2026 from "../assets/cdm2026.png"
 
 
 function SelectionsPage() {
@@ -47,7 +48,7 @@ function SelectionsPage() {
                         >
                             <Text style={styles.filtreTitle}>{nameCompet[name] || name}</Text>
                             <View style={styles.logoContainer}>
-                                <Image source={{ uri: logo }} style={styles.logo} />
+                                <Image source={ id === 32 ? cdm2026 : {uri: logo }} style={styles.logo} />
                             </View>
                             <Image source={{ uri: flag }} style={styles.flag} />
                         </TouchableOpacity>

@@ -33,14 +33,14 @@ const Evenements = ({ match }) => {
                           style={styles.cardIcon}
                         />
                         <Text style={styles.playerName}>{element.player.name}</Text>
-                        {element.comments === "Handball" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Main)</Text> : element.comments === "Foul" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Faute)</Text> : element.comments === "Argument" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Protestation)</Text> : element.comments === "Violent conduct" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Comportement violent)</Text> : element.comments === "Simulation" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Simulation)</Text> : element.comments === "Professional foul last man" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Faute dernier defenseur)</Text> : element.comments === "Time wasting" || element.comments === "Delay of game" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Joue la montre)</Text> : element.comments === "Roughing" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Contact brutal)</Text> : element.comments === "Tripping" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Croche pied)</Text> : element.comments === "Holding" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Retient l'adversaire)</Text> : element.comments === "Serious foul" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Grosse faute)</Text> :  null}
+                        {element.comments === "Unsportsmanlike conduct" ? <Text style={styles.motif}> (Comportement Antisportif)</Text> : element.comments === "Handball" ? <Text style={styles.motif}> (Main)</Text> : element.comments === "Foul" ? <Text style={styles.motif}> (Faute)</Text> : element.comments === "Argument" ? <Text style={styles.motif}> (Protestation)</Text> : element.comments === "Violent conduct" ? <Text style={styles.motif}> (Comportement violent)</Text> : element.comments === "Simulation" ? <Text style={styles.motif}> (Simulation)</Text> : element.comments === "Professional foul last man" ? <Text style={styles.motif}> (Faute dernier defenseur)</Text> : element.comments === "Time wasting" || element.comments === "Delay of game" ? <Text style={styles.motif}> (Joue la montre)</Text> : element.comments === "Roughing" ? <Text style={styles.motif}> (Contact brutal)</Text> : element.comments === "Tripping" ? <Text style={styles.motif}> (Croche pied)</Text> : element.comments === "Holding" ? <Text style={styles.motif}> (Retient l'adversaire)</Text> : element.comments === "Serious foul" ? <Text style={styles.motif}> (Grosse faute)</Text> :  null}
                       </>
                     )}
                     {element.detail === "Red Card" && (
                       <>
                         <Image source={redcard} style={styles.cardIcon} />
                         <Text style={styles.playerName}>{element.player.name}</Text>
-                        {element.comments === "Handball" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Main)</Text> : element.comments === "Foul" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Faute)</Text> : element.comments === "Argument" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Protestation)</Text> : element.comments === "Violent conduct" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Comportement violent)</Text> : element.comments === "Simulation" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Simulation)</Text> : element.comments === "Professional foul last man" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Faute dernier defenseur)</Text> : element.comments === "Time wasting" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Joue la montre)</Text> : element.comments === "Roughing" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Contact brutal)</Text> : element.comments === "Tripping" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Croche pied)</Text> : element.comments === "Holding" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Retient l'adversaire)</Text> : element.comments === "Serious foul" ? <Text style={{ fontFamily: "Kanitalic", color: "#666" }}> (Grosse faute)</Text> :  null}
+                        {element.comments === "Unsportsmanlike conduct" ? <Text style={styles.motif}> (Comportement Antisportif)</Text> : element.comments === "Handball" ? <Text style={styles.motif}> (Main)</Text> : element.comments === "Foul" ? <Text style={styles.motif}> (Faute)</Text> : element.comments === "Argument" ? <Text style={styles.motif}> (Protestation)</Text> : element.comments === "Violent conduct" ? <Text style={styles.motif}> (Comportement violent)</Text> : element.comments === "Simulation" ? <Text style={styles.motif}> (Simulation)</Text> : element.comments === "Professional foul last man" ? <Text style={styles.motif}> (Faute dernier defenseur)</Text> : element.comments === "Time wasting" ? <Text style={styles.motif}> (Joue la montre)</Text> : element.comments === "Roughing" ? <Text style={styles.motif}> (Contact brutal)</Text> : element.comments === "Tripping" ? <Text style={styles.motif}> (Croche pied)</Text> : element.comments === "Holding" ? <Text style={styles.motif}> (Retient l'adversaire)</Text> : element.comments === "Serious foul" ? <Text style={styles.motif}> (Grosse faute)</Text> :  null}
 
                       </>
                     )}
@@ -167,12 +167,12 @@ padding: 5
     marginBlock: 10
   },
   goalText: {
-    fontSize: 14,
+    fontSize: 13,
     fontFamily: "Kanitt",
     color: '#333',
   },
   assistText: {
-    fontSize: 12,
+    fontSize: 11,
     fontFamily: "Kanito",
     color: '#666',
   },
@@ -203,10 +203,15 @@ padding: 5
     fontFamily: "Kanito"
   },
   playerName: {
-    fontSize: 14,
+    fontSize: 13,
     color: '#333',
     fontFamily: "Kanitt"
   },
+  motif: {
+    fontFamily: "Kanitalic",
+    color: "#666",
+    fontSize: 12
+  }
 });
 
 export default Evenements;

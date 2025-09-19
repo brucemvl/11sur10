@@ -37,7 +37,7 @@ function Tableau({ id, currentRound, rounds }) {
     const fetchFixtures = async () => {
       try {
         const response = await fetch(
-          `https://v3.football.api-sports.io/fixtures?league=${id}&season=${id === 186 || id === 200 || id === 202 ? 2024 : 2025}`,
+          `https://v3.football.api-sports.io/fixtures?league=${id}&season=${2025}`,
           {
             method: "GET",
             headers: {

@@ -22,7 +22,13 @@ const teamName = {
   "Germany": "Allemagne",
   "Spain": "Espagne",
   "Paris Saint Germain": "Paris St Germain",
-  "Barcelona" : "FC Barcelone"
+  "Barcelona" : "FC Barcelone",
+  "Italy" : "Italie",
+  "Austria" : "Autriche",
+  "Moldova" : "Moldavie",
+  "Cyprus" : "Chypre",
+  "Norway" : "Norvege",
+  "Hungary" : "Hongrie"
 };
   
 

@@ -13,7 +13,9 @@ import goat from "../assets/portraits/fiche/goat.png"
 import guirassy from "../assets/portraits/fiche/guirassy.png"
 import darwin from "../assets/portraits/fiche/darwin.webp"
 import salah from "../assets/portraits/fiche/salah.webp"
-import kounde from "../assets/portraits/fiche/kounde.webp"
+import kounde from "../assets/portraits/fiche/kounde.png"
+import dejong from "../assets/portraits/fiche/dejong.png"
+import garcia from "../assets/portraits/fiche/garcia.png"
 import endrick from "../assets/portraits/fiche/endrick.webp"
 import mbappe from "../assets/portraits/fiche/mbappe.png"
 import vini from "../assets/portraits/fiche/vini.webp"
@@ -25,8 +27,8 @@ import rabiot from "../assets/portraits/fiche/rabiot.png"
 import lacazette from "../assets/portraits/lacazette.jpg"
 import theo from "../assets/portraits/theo.jpg"
 import raphinha from "../assets/portraits/fiche/raphinha.png"
-import lewandowski from "../assets/portraits/fiche/lewandowski.webp"
-import isak from "../assets/portraits/isak.png"
+import lewandowski from "../assets/portraits/fiche/lewandowski.png"
+import isak from "../assets/portraits/fiche/isak.webp"
 import ramos from "../assets/portraits/fiche/ramos.png"
 import garnacho from "../assets/portraits/fiche/garnacho.png"
 import vitinha from "../assets/portraits/fiche/vitinha.png"
@@ -34,8 +36,6 @@ import pacho from "../assets/portraits/fiche/pacho.png"
 import joao from "../assets/portraits/fiche/joao.png"
 import safonov from "../assets/portraits/fiche/safonov.png"
 import tchouameni from "../assets/portraits/fiche/tchouameni.webp"
-import kolo from "../assets/portraits/kolo.png"
-import kephren from "../assets/portraits/kephren.png"
 import adeyemi from "../assets/portraits/fiche/adeyemi.png"
 import mayulu from "../assets/portraits/fiche/mayulu.avif"
 import diaz from "../assets/portraits/fiche/diaz.png"
@@ -45,7 +45,7 @@ import gakpo from "../assets/portraits/fiche/gakpo.webp"
 import arnold from "../assets/portraits/fiche/arnold.webp"
 import marmoush from "../assets/portraits/fiche/marmoush.webp"
 import akanji from "../assets/portraits/fiche/akanji.webp"
-import cubarsi from "../assets/portraits/fiche/cubarsi.webp"
+import cubarsi from "../assets/portraits/fiche/cubarsi.png"
 import kimpembe from "../assets/portraits/fiche/kimpembe.png"
 import leao from "../assets/portraits/fiche/leao.png"
 import debruyne from "../assets/portraits/fiche/debruyne.png"
@@ -56,7 +56,7 @@ import schik from "../assets/portraits/schik.png"
 import wirtz from "../assets/portraits/fiche/wirtz.webp"
 import camavinga from "../assets/portraits/fiche/camavinga.webp"
 import modric from "../assets/portraits/fiche/modric.webp"
-import valverde from "../assets/portraits/fiche/valverde.webp"
+import valverde from "../assets/portraits/fiche/valverde.png"
 import rudiger from "../assets/portraits/fiche/rudiger.webp"
 import fran from "../assets/portraits/fiche/fran.webp"
 import antony from "../assets/portraits/fiche/antony.png"
@@ -101,11 +101,11 @@ import white from "../assets/portraits/fiche/white.png"
 import partey from "../assets/portraits/partey.png"
 import skelly from "../assets/portraits/fiche/lewisskelly.png"
 import merino from "../assets/portraits/merino.png"
-import balde from "../assets/portraits/fiche/balde.webp"
+import balde from "../assets/portraits/fiche/balde.png"
 import pedri from "../assets/portraits/fiche/pedri.webp"
 import rashford from "../assets/portraits/fiche/rashford.webp"
-import fermin from "../assets/portraits/fiche/fermin.webp"
-import olmo from "../assets/portraits/fiche/olmo.webp"
+import fermin from "../assets/portraits/fiche/fermin.png"
+import olmo from "../assets/portraits/fiche/olmo.png"
 import brahim from "../assets/portraits/fiche/brahim.webp"
 import beier from "../assets/portraits/beier.png"
 import brandt from "../assets/portraits/fiche/brandt.png"
@@ -231,7 +231,7 @@ import kudus from "../assets/portraits/fiche/kudus.png"
 import carreras from "../assets/portraits/fiche/carreras.webp"
 import ferland from "../assets/portraits/fiche/ferland.webp"
 import mastantuono from "../assets/portraits/fiche/mastantuono.webp"
-import gonzalogarcia from "../assets/portraits/fiche/gonzalogarcia.webp"
+import gonzalogarcia from "../assets/portraits/fiche/gonzalogarcia.png"
 import sule from "../assets/portraits/fiche/sule.png"
 import schlotterbeck from "../assets/portraits/fiche/schlotterbeck.png"
 import sabitzer from "../assets/portraits/fiche/sabitzer.png"
@@ -239,12 +239,35 @@ import bensebaini from "../assets/portraits/fiche/bensebaini.png"
 import eze from "../assets/portraits/fiche/eze.png"
 import semenyo from "../assets/portraits/fiche/semenyo.png"
 import grealish from "../assets/portraits/fiche/grealish.webp"
+import yildiz from "../assets/portraits/fiche/yildiz.png"
+import zeghrova from "../assets/portraits/fiche/zeghrova.png"
+import xavisimmons from "../assets/portraits/fiche/xavisimmons.png"
+import kolomuani from "../assets/portraits/fiche/kolomuani.png"
+import kephren from "../assets/portraits/fiche/kephren.png"
+import tonali from "../assets/portraits/fiche/tonali.webp"
+import guimaraes from "../assets/portraits/fiche/guimaraes.webp"
+import zabarnyi from "../assets/portraits/fiche/zabarnyi.png"
+import dimarco from "../assets/portraits/fiche/dimarco.png"
+import ferran from "../assets/portraits/fiche/ferran.png"
+
+
+
 
 
 
 
 
 export const fichesJoueurs = {
+    931: ferran,
+    619: garcia,
+    538: dejong,
+    31010: dimarco,
+    161671: zabarnyi,
+    10135: guimaraes,
+    31146: tonali,
+    48392: zeghrova,
+    339883: yildiz,
+    162016: xavisimmons,
     19281: semenyo,
     19586: eze,
     19187: grealish,
@@ -404,7 +427,7 @@ export const fichesJoueurs = {
   629: debruyne,
   116: kephren,
   7334: adeyemi,
-  21104: kolo,
+  21104: kolomuani,
   1271: tchouameni,
   2068: safonov,
   1100: haaland,

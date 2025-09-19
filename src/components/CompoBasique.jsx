@@ -64,7 +64,7 @@ function CompoBasique({match}){
 
           <LinearGradient colors={["rgb(167, 167, 167)", "rgb(145, 145, 145)", "rgb(115, 115, 115)"]} style={styles.playersList}>
             <View style={styles.equipeDom}>
-            {match.lineups[0].startXI.map((player) => (
+            {match.lineups[0]?.startXI.map((player) => (
               <TouchableOpacity key={player.player.id} onPress={() => navigation.navigate('FicheJoueur', { id: player.player.id, team: match.teams.home.id })}>
              <View style={styles.playerContainer}>
                      <Image
@@ -83,7 +83,7 @@ function CompoBasique({match}){
             ))}
             </View>
             <View style={styles.equipeExt}>
-{match.lineups[1].startXI.map((player) => (
+{match.lineups[1]?.startXI.map((player) => (
               <TouchableOpacity key={player.player.id} onPress={() => navigation.navigate('FicheJoueur', { id: player.player.id, team: match.teams.away.id })} style={{ justifyContent: "flex-end" }}>
              <View style={styles.playerExtContainer}>
                      <Image

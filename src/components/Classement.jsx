@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, FlatList, Image, Animated, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, FlatList, Image, Animated, StyleSheet, ActivityIndicator, useWindowDimensions } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import chevron from "../assets/chevron.png"
 import { LinearGradient } from "expo-linear-gradient";
 import {portraitsJoueurs} from "../datas/Portraits"
 
 function Classement({ id }) {
+
+  const { width } = useWindowDimensions();
+          
+              const isMediumScreen = width <= 1024 && width > 767;
+
   const [openButeurs, setOpenButeurs] = useState(false);
   const [openPasseurs, setOpenPasseurs] = useState(false);
   const [openClassement, setOpenClassement] = useState(false);
@@ -27,7 +32,7 @@ function Classement({ id }) {
 
 
   const fetchClassement = () => {
-    fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=${id === 71 || id === 253 || id === 200 || id === 202 || id === 186 ? 2024 : 2025}`, {
+    fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=${id === 71 || id === 253 ? 2024 : 2025}`, {
       method: "GET",
       headers: {
         "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
@@ -45,7 +50,7 @@ function Classement({ id }) {
   console.log(tab)
 
   const fetchButeurs = () => {
-    fetch(`https://v3.football.api-sports.io/players/topscorers?league=${id}&season=${id === 71 || id === 253 || id === 200 || id === 202 || id === 186 ? 2024 : 2025}`, {
+    fetch(`https://v3.football.api-sports.io/players/topscorers?league=${id}&season=${id === 71 || id === 253   ? 2024 : 2025}`, {
       method: "GET",
       headers: {
         "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
@@ -59,7 +64,7 @@ function Classement({ id }) {
 
   console.log(buteurs)
   const fetchPasseurs = () => {
-    fetch(`https://v3.football.api-sports.io/players/topassists?league=${id}&season=${id === 71 || id === 253 || id === 200 || id === 202 || id === 186 ? 2024 : 2025}`, {
+    fetch(`https://v3.football.api-sports.io/players/topassists?league=${id}&season=${id === 71 || id === 253  ? 2024 : 2025}`, {
       method: "GET",
       headers: {
         "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
@@ -146,7 +151,13 @@ function Classement({ id }) {
   "Borussia Dortmund" : "Dortmund",
   "Borussia Mönchengladbach" : "Mönchengladbach",
   "New York Red Bulls" : "New York RB",
-  "Philadelphia Union" : "Philadelphia"
+  "Philadelphia Union" : "Philadelphia",
+  "Italy" : "Italie",
+  "Austria" : "Autriche",
+  "Moldova" : "Moldavie",
+  "Cyprus" : "Chypre",
+  "Norway" : "Norvege",
+  "Hungary" : "Hongrie"
 };
 
 console.log(tab)
@@ -227,6 +238,81 @@ console.log(tab)
     )
   }
 
+  if (id ===  29 || id === 32 || id === 34 || id === 5){
+  const [classement, setClassement] = useState();
+
+     const [loading, setLoading] = useState(true);
+    
+          const season = id === 34 ? "2026" : id === 29 ? "2023" : "2024";
+    
+    
+      useEffect(() => {
+        // Fetch data
+        fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=${season}`, {
+          method: 'GET',
+          headers: {
+            'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
+            'x-rapidapi-host': 'v3.football.api-sports.io',
+          },
+        })
+          .then((response) => response.json())
+          .then((result) => {
+            setClassement(result.response[0].league.standings);
+            setLoading(false);
+          })
+          .catch((error) => {
+            console.error(error);
+            setLoading(false);
+          });
+      }, [id]);
+    
+    
+      
+      if (loading ) {
+      return (
+        <View style={styles.loaderContainer}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      );
+    }
+
+    return (
+
+    <View style={styles.tableaux}>
+            {classement?.map((subArray, index) => (
+              <View key={`group${index}`} style={styles.groupe}>
+                <Text style={styles.groupTitle}>{subArray[0].group}</Text>
+                <View style={{margin: 10, borderRadius: 5, backgroundColor: "lightblue"}}>
+                <View style={styles.barreSelec}>
+                  <Text style={styles.barreItem_equipe}>Equipe</Text>
+                  <Text style={styles.barreItem}>J</Text>
+                  <Text style={styles.barreItem}>V</Text>
+                  <Text style={styles.barreItem}>N</Text>
+                  <Text style={styles.barreItem}>D</Text>
+                  <Text style={styles.barreItem}>Pts</Text>
+                </View>
+                <FlatList
+                  data={subArray}
+                  keyExtractor={(item) => `champ${item.team.id}`}
+                  renderItem={({ item }) => (
+                    <View style={styles.equipe}>
+                      <Text style={{width: "2%", marginInline: "2%", fontFamily: "Kanitus"}}>{item.rank}</Text>
+                      <Image style={styles.flags} source={{ uri: item.team.logo }} />
+                      <Text style={{width: "34%", marginInline: "2%", fontFamily: "Kanito"}}>{teamName[item.team.name] || item.team.name}</Text>
+                      <Text style={{width: "10%", fontFamily: "Kanitus"}}>{item.all.played}</Text>
+                      <Text style={{width: "10%", fontFamily: "Kanitus"}}>{item.all.win}</Text>
+                      <Text style={{width: "10%", fontFamily: "Kanitus"}}>{item.all.draw}</Text>
+                      <Text style={{width: "9%", fontFamily: "Kanitus"}}>{item.all.lose}</Text>
+                      <Text style={{width: "11%", fontFamily: "Kanitt"}}>{item.points}</Text>
+                    </View>
+                  )}
+                />
+                </View>
+              </View>
+            ))}
+          </View> )
+  }
+
 
   return (
     <View style={styles.container}>
@@ -240,15 +326,21 @@ console.log(tab)
             <Animated.Image source={chevron} style={[styles.chevron, { transform: [{ rotate: rotateClassementInterpolate }] }]} />
           </TouchableOpacity>
         </LinearGradient>
-        <Animated.View style={tab.length < 18 ? [styles.content, {
+        <Animated.View style={tab.length < 15 ? [styles.content, {
           height: heightClassement.interpolate({
             inputRange: [0, 1],
-            outputRange: [0, 840] // Ajustez la hauteur en fonction du contenu
+            outputRange: [0, 830] // Ajustez la hauteur en fonction du contenu
+          })
+        }] :
+        tab.length < 18 ? [styles.content, {
+          height: heightClassement.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, 880] // Ajustez la hauteur en fonction du contenu
           })
         }] : tab.length < 20 ? [styles.content, {
           height: heightClassement.interpolate({
             inputRange: [0, 1],
-            outputRange: [0, 1005] // Ajustez la hauteur en fonction du contenu
+            outputRange: [0, isMediumScreen ? 1190 : 1005] // Ajustez la hauteur en fonction du contenu
           })
         }] : tab.length < 22 ? [styles.content, {
           height: heightClassement.interpolate({
@@ -281,10 +373,10 @@ console.log(tab)
             </View>
 
             {tab.map((equipe) =>
-              <TouchableOpacity onPress={() => navigation.navigate("FicheEquipe", { id: equipe.team.id, league: equipe.group === "Ligue 1" ? 61 : equipe.group === "UEFA Champions League" ? 2 : equipe.group === "Premier League" ? 39 : equipe.group === "LaLiga" || equipe.group === "Primera División" ? 140 : equipe.group.indexOf("Super League 1") !== -1 ? 197 : equipe.group === "Bundesliga" ? 78 : equipe.group === "Ligue 2: Regular Season" ? 62 : equipe.group === "Serie A" ? 135 : equipe.group === "UEFA Europa League" ? 3 : equipe.group === "Saudi League" ? 307 : equipe.group === "Eastern Conference" ? 253 : equipe.group === "Primeira Liga" ? 94 : null })} style={{ flexDirection: "row", flexDirection: "row", alignItems: "center", borderBottomWidth: 1, paddingBlock: 13.7 }}>
+              <TouchableOpacity onPress={() => navigation.navigate("FicheEquipe", { id: equipe.team.id, league: equipe.group === "Ligue 1" ? 61 : equipe.group === "UEFA Champions League" ? 2 : equipe.group === "Premier League" ? 39 : equipe.group === "LaLiga" || equipe.group === "Primera División" ? 140 : equipe.group.indexOf("Super League 1") !== -1 ? 197 : equipe.group === "Bundesliga" ? 78 : equipe.group === "Ligue 2: Regular Season" ? 62 : equipe.group === "Serie A" ? 135 : equipe.group === "UEFA Europa League" ? 3 : equipe.group === "Saudi League" ? 307 : equipe.group === "Eastern Conference" ? 253 : equipe.group === "Primeira Liga" ? 94 : equipe.group === "Ligue 2 " ? 62 : null })} style={{ flexDirection: "row", flexDirection: "row", alignItems: "center", borderBottomWidth: 1, paddingBlock: 13.7 }}>
                 <Text style={{ width: "6%", color: "white", fontFamily: "Kanito", textAlign: "center" }}>{equipe.rank}</Text>
-                <Image source={{ uri: equipe.team.logo }} style={{ objectFit: "contain", height: 25, width: "8%" }} />
-                <Text style={{ width: "30%", color: "white", fontFamily: "Kanito", textAlign: "center", fontSize: 13 }}>{teamName[equipe.team.name] || equipe.team.name}</Text>
+                <Image source={{ uri: equipe.team.logo }} style={{ objectFit: "contain", height: isMediumScreen ? 35 : 25, width: "8%" }} />
+                <Text style={{ width: "30%", color: "white", fontFamily: "Kanito", textAlign: "center", fontSize: isMediumScreen? 15 : 13 }}>{teamName[equipe.team.name] || equipe.team.name}</Text>
                 <Text style={{ width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center" }}>{equipe.all.played}</Text>
                 <Text style={{ width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center" }}>{equipe.all.win}</Text>
                 <Text style={{ width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center" }}>{equipe.all.draw}</Text>
@@ -315,25 +407,25 @@ console.log(tab)
         <Animated.View style={[styles.content, {
           height: heightButeurs.interpolate({
             inputRange: [0, 1],
-            outputRange: [0, 556]  // Ajustez la hauteur en fonction du contenu
+            outputRange: [0, isMediumScreen ? 746 : 556]  // Ajustez la hauteur en fonction du contenu
           })
         }]}>
           <LinearGradient colors={['#e0e0e0', '#a6a6a6']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={{ marginTop: 5, paddingInline: 2 }}>
 
             <View style={styles.barre}>
-              <Text style={{ width: "55%", color: "white", paddingStart: 20, fontFamily: "Kanitus", textAlign: "center" }}>Joueur</Text>
-              <Text style={{ width: "28%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Matchs Joués</Text>
-              <Text style={{ width: "17%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Buts</Text>
+              <Text style={{ width: isMediumScreen? "60%" : "55%", color: "white", paddingStart: 20, fontFamily: "Kanitus", textAlign: "center" }}>Joueur</Text>
+              <Text style={{ width:  isMediumScreen ? "20%" : "28%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Matchs Joués</Text>
+              <Text style={{ width: isMediumScreen? "20%" : "17%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Buts</Text>
 
             </View>
             {buteurs.map((joueur) =>
               <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: joueur.player.id })}>
-                <View style={styles.item}>
-                  <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }} style={{ height: 35, width: "9%", borderRadius: 50, marginRight: 5 }}/>
+                <View style={[styles.item, isMediumScreen && {height: 72}]}>
+                  <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }} style={{ height: isMediumScreen? 60 : 35, width: "9%", borderRadius: 50, marginRight: isMediumScreen? 20 : 5 }}/>
                   <Text style={{ fontFamily: "Kanitt", width: "37%" }}>{joueur.player.id === 37784 ? "Mamadou Sissoko" : joueur.player.name}</Text>
-                  <Image source={{ uri: joueur.statistics[0].team.logo }} style={styles.logo} />
-                  <Text style={{ fontFamily: "Kanito", width: "35%", textAlign: "center" }}>{joueur.statistics[0].games.appearences}</Text>
-                  <Text style={{ fontFamily: "Kanitt", width: "10%", textAlign: "center" }}>{joueur.statistics[0].goals.total}</Text>
+                  <Image source={{ uri: joueur.statistics[0].team.logo }} style={[styles.logo, isMediumScreen && {height: 38}]} />
+                  <Text style={[{ fontFamily: "Kanito", width: isMediumScreen ? "27%" : "35%", textAlign: "center" }, isMediumScreen && {fontSize: 18}]}>{joueur.statistics[0].games.appearences}</Text>
+                  <Text style={[{ fontFamily: "Kanitt", width: isMediumScreen ? "18%" : "10%", textAlign: "center" }, isMediumScreen && {fontSize: 18}]}>{joueur.statistics[0].goals.total}</Text>
 
                 </View>
               </TouchableOpacity>
@@ -360,25 +452,25 @@ console.log(tab)
         <Animated.View style={[styles.content, {
           height: heightPasseurs.interpolate({
             inputRange: [0, 1],
-            outputRange: [0, 556]  // Ajustez la hauteur en fonction du contenu
+            outputRange: [0, isMediumScreen ? 746 : 556]  // Ajustez la hauteur en fonction du contenu
           })
         }]}>
           <LinearGradient colors={['#d3d3d3', '#8e8e8e']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={{ marginTop: 5, paddingInline: 2 }}>
 
             <View style={styles.barre}>
-              <Text style={{ width: "55%", color: "white", paddingStart: 20, fontFamily: "Kanitus", textAlign: "center" }}>Joueur</Text>
-              <Text style={{ width: "27%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Matchs Joués</Text>
-              <Text style={{ width: "18%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Passes D</Text>
+              <Text style={{ width: isMediumScreen? "60%" : "55%", color: "white", paddingStart: 20, fontFamily: "Kanitus", textAlign: "center" }}>Joueur</Text>
+              <Text style={{ width:  isMediumScreen ? "20%" : "28%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Matchs Joués</Text>
+              <Text style={{ width: isMediumScreen? "20%" : "17%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Passes D</Text>
             </View>
 
             {passeurs.map((joueur) =>
               <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: joueur.player.id })}>
-                <View style={styles.item}>
-                  <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }} style={{ height: 35, width: "9%", borderRadius: 50, marginRight: 5 }}/>
+                <View style={[styles.item, isMediumScreen && {height: 72}]}>
+                  <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }} style={{ height: isMediumScreen? 60 : 35, width: "9%", borderRadius: 50, marginRight: isMediumScreen? 20 : 5 }}/>
                   <Text style={{ fontFamily: "Kanitt", width: "37%" }}>{joueur.player.id === 37784 ? "Mamadou Sissoko" : joueur.player.name}</Text>
-                  <Image source={{ uri: joueur.statistics[0].team.logo }} style={styles.logo} />
-                  <Text style={{ fontFamily: "Kanito", width: "35%", textAlign: "center" }}>{joueur.statistics[0].games.appearences}</Text>
-                  <Text style={{ fontFamily: "Kanitt", width: "10%", textAlign: "center" }}>{joueur.statistics[0].goals.assists}</Text>
+                  <Image source={{ uri: joueur.statistics[0].team.logo }} style={[styles.logo, isMediumScreen && {height: 38}]} />
+                  <Text style={[{ fontFamily: "Kanito", width: isMediumScreen ? "27%" : "35%", textAlign: "center" }, isMediumScreen && {fontSize: 18}]}>{joueur.statistics[0].games.appearences}</Text>
+                  <Text style={[{ fontFamily: "Kanitt", width: isMediumScreen ? "18%" : "10%", textAlign: "center" }, isMediumScreen && {fontSize: 18}]}>{joueur.statistics[0].goals.assists}</Text>
 
                 </View>
               </TouchableOpacity>
@@ -453,7 +545,53 @@ const styles = StyleSheet.create({
   groupe: {
     marginBlock: 6,
     borderRadius: 10
-  }
+  },
+  tableaux: {
+    marginTop: 20,
+    paddingBottom: 100
+  },
+  groupe: {
+    marginBottom: 20,
+  },
+  groupTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    fontFamily: "Kanitt",
+    marginLeft: 20
+  },
+  barreSelec: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 10,
+    backgroundColor: "black",
+    borderTopStartRadius: 5,
+    borderTopEndRadius: 5
+  },
+  barreItem_equipe: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: "white",
+    width: "40%",
+    fontFamily: "Kanito"
+  },
+  barreItem: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: "white",
+    fontFamily: "Kanito"
+  },
+  equipe: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 5,
+    width: "100%"
+  },
+  flags: {
+    width: 30,
+    height: 20,
+    borderRadius: 2
+  },
 });
 
 export default Classement;

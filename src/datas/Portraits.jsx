@@ -12,7 +12,7 @@ import kvara from "../assets/portraits/kvara.png"
 import goat from "../assets/portraits/messi.webp"
 import darwin from "../assets/portraits/darwin.png"
 import salah from "../assets/portraits/salah.png"
-import kounde from "../assets/portraits/kounde.jpg"
+import kounde from "../assets/portraits/kounde.png"
 import endrick from "../assets/portraits/endrick.jpg"
 import mbappe from "../assets/portraits/mbappe.png"
 import vini from "../assets/portraits/vini.png"
@@ -29,15 +29,18 @@ import lacazette from "../assets/portraits/lacazette.jpg"
 import theo from "../assets/portraits/theo.jpg"
 import raphinha from "../assets/portraits/raphinha.png"
 import lewandowski from "../assets/portraits/lewandowski.png"
+import dejong from "../assets/portraits/dejong.png"
+import garcia from "../assets/portraits/garcia.png"
+import ferran from "../assets/portraits/ferran.png"
 import isak from "../assets/portraits/isak.png"
 import ramos from "../assets/portraits/ramos.png"
-import garnacho from "../assets/portraits/garnacho.jpg"
+import garnacho from "../assets/portraits/garnacho.png"
 import vitinha from "../assets/portraits/vitinha.png"
 import pacho from "../assets/portraits/pacho.png"
 import joao from "../assets/portraits/joao.png"
 import safonov from "../assets/portraits/safonov.png"
 import tchouameni from "../assets/portraits/tchouameni.png"
-import kolo from "../assets/portraits/kolo.png"
+import kolomuani from "../assets/portraits/kolomuani.png"
 import kephren from "../assets/portraits/kephren.png"
 import adeyemi from "../assets/portraits/adeyemi.png"
 import debruyne from "../assets/portraits/debruyne.png"
@@ -48,7 +51,7 @@ import gakpo from "../assets/portraits/gakpo.png"
 import arnold from "../assets/portraits/arnold.png"
 import marmoush from "../assets/portraits/marmoush.png"
 import akanji from "../assets/portraits/akanji.png"
-import cubarsi from "../assets/portraits/cubarsi.jpg"
+import cubarsi from "../assets/portraits/cubarsi.png"
 import kimpembe from "../assets/portraits/kimpembe.png"
 import beraldo from "../assets/portraits/beraldo.png"
 import sorloth from "../assets/portraits/sorloth.png"
@@ -90,9 +93,9 @@ import rice from "../assets/portraits/rice.png"
 import partey from "../assets/portraits/partey.png"
 import skelly from "../assets/portraits/skelly.png"
 import merino from "../assets/portraits/merino.png"
-import balde from "../assets/portraits/balde.jpg"
-import pedri from "../assets/portraits/pedri.jpg"
-import olmo from "../assets/portraits/olmo.jpg"
+import balde from "../assets/portraits/balde.png"
+import pedri from "../assets/portraits/pedri.png"
+import olmo from "../assets/portraits/olmo.png"
 import brahim from "../assets/portraits/brahim.jpg"
 import beier from "../assets/portraits/beier.png"
 import brandt from "../assets/portraits/brandt.png"
@@ -205,11 +208,36 @@ import schlotterbeck from "../assets/portraits/schlotterbeck.png"
 import grealish from "../assets/portraits/grealish.png"
 import eze from "../assets/portraits/eze.png"
 import semenyo from "../assets/portraits/semenyo.png"
+import xavisimmons from "../assets/portraits/xavisimmons.png"
+import zeghrova from "../assets/portraits/zeghrova.png"
+import yildiz from "../assets/portraits/yildiz.png"
+import conceicao from "../assets/portraits/conceicao.png"
+import tonali from "../assets/portraits/tonali.png"
+import guimaraes from "../assets/portraits/guimaraes.png"
+import barella from "../assets/portraits/barella.png"
+import bastoni from "../assets/portraits/bastoni.png"
+import sommer from "../assets/portraits/sommer.png"
+import dumfries from "../assets/portraits/dumfries.png"
+import dimarco from "../assets/portraits/dimarco.png"
 
 
 
 
 export const portraitsJoueurs = {
+    931: ferran,
+    538: dejong,
+    619: garcia,
+    31009: bastoni,
+    226: dumfries,
+    2802: sommer,
+    31010: dimarco,
+    30558: barella,
+    31146: tonali,
+    10135: guimaraes,
+    48392: zeghrova,
+        339883: yildiz,
+        162016: xavisimmons,
+          161585: conceicao,
     19281: semenyo,
     19586: eze,
     19187: grealish,
@@ -340,7 +368,7 @@ export const portraitsJoueurs = {
     629: debruyne,
     116: kephren,
     7334: adeyemi,
-    21104: kolo,
+    21104: kolomuani,
     1271: tchouameni,
     2068: safonov,
     1100: haaland,

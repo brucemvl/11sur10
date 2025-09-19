@@ -96,9 +96,10 @@ console.log(lives)
   Mexico: "Mexique",
   Lebanon: "Liban",
   Norway: "Norvège",
-  Morocco: "Maroc",
+  "Morocco" : "Maroc",
   Chile: "Chili",
-  Colombia: "Colombie"
+  Colombia: "Colombie",
+
 };
 
   return (
@@ -145,7 +146,7 @@ console.log(lives)
             style={styles.teamLogo}
             resizeMode="contain"
           />
-          <Text style={styles.teamName}>{live.teams.home.name}</Text>
+          <Text style={styles.teamName}>{countryTranslations[live.teams.home.name] || live.teams.home.name}</Text>
         </View>
         <View style={styles.scoreContainer}>
           {live.goals.home === live.goals.away ? (
@@ -187,7 +188,7 @@ console.log(lives)
             style={styles.teamLogo}
             resizeMode="contain"
           />
-          <Text style={styles.teamName}>{live.teams.away.name}</Text>
+          <Text style={styles.teamName}>{countryTranslations[live.teams.away.name] || live.teams.away.name}</Text>
         </View>
       </View>
     </TouchableOpacity>

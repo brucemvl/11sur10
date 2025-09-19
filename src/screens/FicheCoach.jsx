@@ -13,6 +13,8 @@ import maresca from "../assets/portraits/maresca.png"
 import beye from "../assets/portraits/beye.png"
 import slot from "../assets/portraits/slot.png"
 import mourinho from "../assets/portraits/mourinho.png"
+import deschamps from "../assets/portraits/deschamps.png"
+import dezerbi from "../assets/portraits/dezerbi.png"
 import { View, Text, Image, StyleSheet, ScrollView, Animated, TouchableOpacity } from "react-native"
 import { useEffect, useState } from "react"
 import { useRoute } from "@react-navigation/native";
@@ -148,6 +150,7 @@ function FicheCoach() {
   });
 
   const coachImages = {
+    2424: dezerbi,
     12629: maresca,
     6801: alonso,
     68: genesio,
@@ -162,7 +165,8 @@ function FicheCoach() {
     12590: kompany,
     2006: slot,
     17926: beye,
-    2462: mourinho
+    2462: mourinho,
+    180: deschamps
   };
 
 
@@ -172,7 +176,7 @@ function FicheCoach() {
       <ScrollView contentContainerStyle={styles.blocCoach}>
         <LinearGradient colors={["black", "steelblue"]} style={styles.infosCoach}>
           <Image source={coachImages[coach.id] || { uri: coach.photo }} style={{ height: 90, width: 90, borderRadius: 40, zIndex: 2 }} />
-          <Image source={{ uri: coach.team.logo }} style={{ height: 70, width: 70, position: "relative", right: 48, bottom: 20, objectFit: "contain"
+          <Image source={coach.id === 180 ? {uri: "https://media.api-sports.io/football/teams/2.png"} : {uri: coach.team.logo }} style={{ height: 70, width: 70, position: "relative", right: 48, bottom: 20, objectFit: "contain"
            }} />
           <View style={styles.bio}>
             <Text style={styles.name}>{coach.name}</Text>
@@ -208,6 +212,8 @@ function FicheCoach() {
           <Text style={{ fontFamily: "Kanitt", fontSize: 18 }}>Carriere</Text>
           {coach.career.map((mandat) =>
             <View style={styles.mandat}>
+                        {coach.id === 180 && mandat.team.name === "Spain" ? null :
+
               <View style={{ width: "90%", flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                 <Text style={{ fontFamily: "Kanitalik", fontSize: 11, width: "50%", textAlign: "center" }}>
                   {mandat.end === null
@@ -216,9 +222,9 @@ function FicheCoach() {
                 </Text>
                 <View style={styles.equipe}>
                   <Image source={{ uri: mandat.team.logo }} style={{ height: 40, width: 40, objectFit: "contain" }} />
-                  <Text style={{ fontFamily: "Kanitt" }}>{mandat.team.name === "Spain" ? "Espagne" : mandat.team.name === "Germany" ? "Allemagne" : mandat.team.name === "Barcelona" ? "FC Barcelone" : mandat.team.name}</Text>
+                  <Text style={{ fontFamily: "Kanitt" }}>{ mandat.team.name === "Spain" ? "Espagne" : mandat.team.name === "Germany" ? "Allemagne" : mandat.team.name === "Barcelona" ? "FC Barcelone" : mandat.team.name}</Text>
                 </View>
-              </View>
+              </View>}
 
             </View>)}
         </View>

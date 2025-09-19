@@ -6,12 +6,11 @@ import { LinearGradient } from 'expo-linear-gradient';
 function Precedent() {
   const navigation = useNavigation();
 
-  // Valeur animée pour le scale
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
   const onPressIn = () => {
     Animated.spring(scaleAnim, {
-      toValue: 1.3, // Grossit à 110%
+      toValue: 1.3, 
       useNativeDriver: true,
       friction: 4,
       tension: 100,
@@ -34,7 +33,7 @@ function Precedent() {
       onPressOut={onPressOut}
     >
       <Animated.View style={[styles.buttonWrapper, { transform: [{ scale: scaleAnim }] }]}>
-        <LinearGradient colors={["rgba(26, 71, 129, 0.67)", 'rgb(0, 0, 0)']} style={styles.button}>
+        <LinearGradient colors={["rgba(120, 169, 234, 0.95)", 'rgb(0, 0, 0)']} style={styles.button}>
           <Text style={styles.text}>{"<"}  Précédent</Text>
         </LinearGradient>
       </Animated.View>
@@ -57,7 +56,6 @@ const styles = StyleSheet.create({
     elevation: 0
   },
   button: {
-    backgroundColor: 'rgb(16, 26, 75)',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,

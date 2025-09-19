@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, RefreshControl, StyleSheet } from "react-native";
+import { View, Text, ScrollView, RefreshControl, StyleSheet, useWindowDimensions } from "react-native";
 import { useState, useEffect, useCallback, forwardRef } from "react";
 import Filtres from "../components/Filtres";
 import Banner from "../components/Banner";
@@ -17,6 +17,11 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
     "Kanitaliq": require("../assets/fonts/Kanit/Kanit-SemiBoldItalic.ttf"),
     "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf")
   });
+
+  const { width } = useWindowDimensions();
+  
+      const isSmallScreen = width <= 767;
+      const isMediumScreen = width <= 1024 && width > 767;
 
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -66,7 +71,7 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
         fetchData('https://v3.football.api-sports.io/fixtures?league=143&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=3&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=29&season=2023'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=32&season=2025'),
+        fetchData('https://v3.football.api-sports.io/fixtures?league=32&season=2024'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=848&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=307&season=2025'),
                 fetchData('https://v3.football.api-sports.io/fixtures?team=9568&season=2025'),
@@ -144,7 +149,7 @@ const styles = StyleSheet.create({
     width: "100%",
     marginBlock: 10,
     gap: 8,
-    marginBottom: 115
+    marginBottom: 125
   },
 });
 

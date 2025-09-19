@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from "react-native"
 import { useNavigation } from '@react-navigation/native';
-
+import domicile from "../assets/domicile.png"
+import exterieur from "../assets/exterieur.png"
 
 
 
@@ -63,7 +64,7 @@ const [team, setTeam] = useState(85)
     return (
         <View style={styles.container}>
             <View style={styles.scroll}>
-            <ScrollView contentContainerStyle={{gap: 20, paddingInline: 10, paddingBlock: 15}}>
+            <ScrollView nestedScrollEnabled={true} contentContainerStyle={{gap: 20, paddingInline: 10, paddingBlock: 15}}>
 {teams.map((element) => 
 {
             const isSelected = team === element.id
@@ -92,6 +93,7 @@ setSelected(true)
       }}
       style={styles.adversaires}
     />
+    {element.teams.away.id !== team ? <Image source={domicile} style={styles.icone}/> : <Image source={exterieur} style={styles.icone}/>}
     </TouchableOpacity>
 ))}
 </View>
@@ -143,6 +145,17 @@ width: 50,
         width: 40,
         height: 40,
         objectFit: "contain"
+    },
+    icone: {
+        height: 18,
+        width: 18,
+        objectFit: "contain",
+        backgroundColor: "white",
+        padding: 3,
+        borderRadius: 18,
+        position: "relative",
+        bottom: 9,
+        left: 24
     }
 })
 

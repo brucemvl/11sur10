@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRoute } from '@react-navigation/native';
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet,  Image } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet,  Image, useWindowDimensions } from 'react-native';
 import Details from "../components/Details.jsx";
 import Compositions from '../components/Compositions.jsx';
 import Evenements from '../components/Evenements.jsx';
@@ -17,6 +17,11 @@ import CompoBasique from '../components/CompoBasique.jsx';
 
 
 const FicheMatch = () => {
+
+    const { width } = useWindowDimensions();
+  
+      const isMediumScreen = width <= 1024 && width > 767;
+
     const [match, setMatch] = useState(null);
     const [live, setLive] = useState(false);
     const [details, setDetails] = useState(true);
@@ -362,7 +367,6 @@ setCompoBasique(true)
     const totalMatchsHome = homeStats?.fixtures?.played.total;
     const totalMatchsExt = extStats?.fixtures?.played.total;
 
-    // Additional logic to manage statistics
     const stats = match.statistics.filter((element) => element.statistics);
     const statss = stats.map((element) => element.statistics);
     
@@ -415,11 +419,11 @@ setCompoBasique(true)
     
 
     //LORQUE LES COMPOS SONT DISPONIBLES
-    if (match.lineups.length === 2 && match.fixture.status.long === "Not Started") {
+    if (match.lineups[0]?.startXI?.length > 0 && match.fixture.status.long === "Not Started") {
         return (
             <View>
                 <Precedent />
-                <ScrollView contentContainerStyle={styles.bloc}>
+            <ScrollView contentContainerStyle={[styles.bloc, isMediumScreen && {paddingInline: 40}]}>
                 <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt} />
                 <View style={{flexDirection: "row", marginBottom: 10}}>
                 <TouchableOpacity onPress={openCompos} style={selected7 ? styles.selectedTab : styles.tab}>
@@ -451,7 +455,7 @@ setCompoBasique(true)
             <View>
             <Precedent />
     
-        <ScrollView contentContainerStyle={styles.bloc}>
+            <ScrollView contentContainerStyle={[styles.bloc, isMediumScreen && {paddingInline: 40}]}>
         
         <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt} />
         <View style={{flexDirection: "row", marginBottom: 10}}>
@@ -487,13 +491,15 @@ setCompoBasique(true)
             return (
                 <View>
                 <Precedent />
-                <ScrollView contentContainerStyle={styles.bloc}>
+            <ScrollView contentContainerStyle={[styles.bloc, isMediumScreen && {paddingInline: 40}]}>
                 <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} />
                 <View style={{flexDirection: "row", marginBottom: 10}}>
                 { match.statistics.length > 0 ? <TouchableOpacity onPress={openDetails} style={selected ? styles.selectedTab : styles.tab}>
                             <Text style={selected ? styles.selectedText : styles.text}>Details</Text>
                         </TouchableOpacity> : null }
-                    
+                    <TouchableOpacity onPress={openHisto} style={selected4 ? styles.selectedTab : styles.tab}>
+                            <Text style={selected4 ? styles.selectedText : styles.text}>Historique</Text>
+                        </TouchableOpacity>
                 {match.events.length > 0 ? <TouchableOpacity onPress={openLive} style={selected3 ? styles.selectedTab : styles.tab}>
                             <Text style={selected3 ? styles.selectedText : styles.text}>Live</Text>
                         </TouchableOpacity> : null }
@@ -506,6 +512,8 @@ setCompoBasique(true)
 
                         {live && <Evenements match={match} />}
                         {classement && <Classement id={match.league.id}/>}
+                                        {histo && <Histo historique={historique} />}
+
 
                 </ScrollView>
                 </View>
@@ -521,13 +529,13 @@ setCompoBasique(true)
         const substituteExt = match?.players[1]?.players.slice(11, match.players[1].players.length)
         
         const remplacement = match.events.filter((element)=>
-        element.detail.indexOf( "Substitution"))
+        element?.detail?.indexOf( "Substitution"))
 
 
     return (
         <View>
             <Precedent />
-            <ScrollView contentContainerStyle={styles.bloc}>
+            <ScrollView contentContainerStyle={[styles.bloc, isMediumScreen && {paddingInline: 40}]}>
                 <Affiche match={match} roundd={roundd} homeStats={homeStats} extStats={extStats} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} />
                 <View style={styles.section}>
                     <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.ficheSelecteur}>
@@ -576,7 +584,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingTop: 10,
         marginTop: 40,
-        paddingBottom: 120
+        paddingBottom: 120,        
     },
     section: {
         width: '100%',
@@ -599,7 +607,7 @@ const styles = StyleSheet.create({
     },
     text: {
 fontFamily: "Kanitus",
-fontSize: 16
+fontSize: 16,
     },
     selectedTab: {
         

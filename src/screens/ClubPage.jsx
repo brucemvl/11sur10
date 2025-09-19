@@ -28,7 +28,7 @@ function ClubPage() {
 
     return (
         <ScrollView style={{flexGrow: 1}} >
-            <View style={styles.competitions}>
+            <View style={[styles.competitions, isMediumScreen && {width: "100%", paddingInlineEnd: "6%", paddingInlineStart: "6%"} ]}>
             {/* Section Championnats */}
             <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.conteneur} >
                 <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.title}>
@@ -36,13 +36,13 @@ function ClubPage() {
                 </LinearGradient>
                 <View style={styles.filtres}>
                     <View style={{flexDirection: "column"}}>
-                    <Text style={{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 8}}>Europe</Text>
-                    <View style={{flexDirection: "row", flexWrap: "wrap", gap: 6, justifyContent: "center"}}>
+                    <Text style={[{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 8}, isMediumScreen && {fontSize: 18}]}>Europe</Text>
+                    <View style={{flexDirection: "row", flexWrap: "wrap", gap: isMediumScreen? 16 : 6, justifyContent: "center"}}>
                     {championnats.map(({ name, id, flag, logo }) => (
                         <TouchableOpacity key={"lien championnat" + id} style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
                             onPress={() => navigation.navigate('FicheChampionnat', { id })}
                         >
-                            <Text style={styles.filtreTitle}>{name}</Text>
+                            <Text style={[styles.filtreTitle, isMediumScreen && styles.filtreTitleTablet]}>{name}</Text>
                             <View style={styles.logoContainer}>
                             { logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image source={ligue1} style={styles.logo} /> : logo === "https://media.api-sports.io/football/leagues/62.png" ? <Image source={ligue2} style={styles.logo} /> : <Image source={{ uri: logo }} style={styles.logo} />}
                             </View>
@@ -51,16 +51,16 @@ function ClubPage() {
                     </View>
                     </View>
                     <View style={{flexDirection: "column"}}>
-                    <Text style={{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 8}}>Reste du monde</Text>
-                    <View style={{flexDirection: "row", flexWrap: "wrap", gap: 6, justifyContent: "center"}}>  
+                    <Text style={[{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 8}, isMediumScreen && {fontSize: 18}]}>Reste du monde</Text>
+                    <View style={{flexDirection: "row", flexWrap: "wrap", gap: isMediumScreen ? 0 : 6, justifyContent: "center"}}>  
                       {autres.map(({ name, id, logo, country }) => (
                         <View style={{alignItems: "center", marginBottom: 15, width: "32%"}}>
                         <TouchableOpacity
                             key={"lien autre" + id}
-                            style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet, {width: "100%"}]}
+                            style={[styles.lien, isMediumScreen && styles.lienTablet]}
                             onPress={() => navigation.navigate('FicheChampionnat', { id })}
                         >
-                            <Text style={styles.filtreTitle}>{name}</Text>
+                            <Text style={[styles.filtreTitle, isMediumScreen && styles.filtreTitleTablet]}>{name}</Text>
                             <View style={styles.logoContainer}>
                             <Image source={id === 15 ? fifaClubWc : { uri: logo }} style={styles.logo} />
                             </View>
@@ -84,7 +84,7 @@ function ClubPage() {
                     {europe.map(({ name, id, logo }) => (
                         <TouchableOpacity
                             key={"lien europe" + id}
-                            style={styles.lienEurope}
+                            style={[styles.lienEurope, isMediumScreen && {width: 150, height: 150, borderRadius: 75}]}
                             onPress={() => navigation.navigate('FicheEurope', { id })}
                         >
                             <View style={styles.logoContainer}>
@@ -214,16 +214,17 @@ const styles = StyleSheet.create({
         gap: 25
     },
     lien: {
-        width: 100,  // Utilise une largeur fixe pour la petite taille d'écran
-        height: 100,
+        width: 120,  // Utilise une largeur fixe pour la petite taille d'écran
+        height: 120,
         alignItems: 'center',
         marginBottom: 1,
         borderWidth: 8,
-        borderRadius: 15,
+        borderRadius: 60,
         borderColor: 'rgb(11, 19, 81)',
         paddingBlock: 6,
         backgroundColor: "aliceblue",
-        flexDirection: "column-reverse"
+        flexDirection: "column-reverse",
+        overflow: "hidden"
     },
     lienEurope: {
         width: "32%",
@@ -254,7 +255,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#19721b',
         width: '100%',
         textAlign: 'center',
-        fontWeight: '400',
         paddingBlock: 5,
         fontSize: 10,
         flex: 1,
@@ -262,39 +262,31 @@ const styles = StyleSheet.create({
         fontFamily: "Permanent",
         overflow: "hidden"
     },
-    flag: {
-       
-       
-       
+    filtreTitleTablet: {
+        
+        paddingBlock: 6,
+        fontSize: 13,
     },
 
     // Styles spécifiques à l'écran mobile
     lienMobile: {
-        width: "32%", // Sur petits écrans, on ajuste la largeur
-        height: 120,
-        alignItems: 'center',
-        marginBottom: 1,
-        borderWidth: 8,
-        borderRadius: 60,
-        borderColor: 'rgb(15, 23, 82)',
-        paddingBlock: 6,
-        backgroundColor: "white",
-        flexDirection: "column-reverse",
-                overflow: "hidden"
+        width: "32%", // Sur petits écrans, on ajuste la largeur       
+        
 
 
     },
     lienTablet: {
-        width: 160, // Sur tablettes, on ajuste également
-        height: 160,
+        width: 150, // Sur tablettes, on ajuste également
+        height: 150,
         alignItems: 'center',
         marginBottom: 1,
         borderWidth: 8,
-        borderRadius: 15,
+        borderRadius: 75,
         borderColor: 'rgb(15, 23, 82)',
         paddingBlock: 6,
         backgroundColor: "aliceblue",
-        flexDirection: "column-reverse"
+        flexDirection: "column-reverse",
+        overflow: "hidden"
     },
 });
 

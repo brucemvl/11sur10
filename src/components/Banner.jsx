@@ -61,7 +61,7 @@ import banner63 from "../assets/banner64.webp"
 
 
 import { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet, Animated } from "react-native"
+import { View, Text, Image, StyleSheet, Animated, useWindowDimensions } from "react-native"
 
 const photosBan = [
   banner3, banner4, banner5, banner6, banner7, banner8, banner9,
@@ -71,6 +71,11 @@ const photosBan = [
 
 
 function Banner() {
+
+   const { width } = useWindowDimensions();
+        
+            const isMediumScreen = width <= 1024 && width > 767;
+
   const [randomPhoto, setRandomPhoto] = useState(photosBan[Math.floor(Math.random() * photosBan.length)]);
   const [isActive, setIsActive] = useState(true);
   const fadeAnim = useState(new Animated.Value(1))[0]; // Initial opacity 0
@@ -107,14 +112,14 @@ function Banner() {
   }, []);
 
   return (
-    <View style={styles.banner}>
+    <View style={[styles.banner, isMediumScreen && {height: 280, width: "90%"}]}>
       <Animated.Image
         source={randomPhoto}
         style={[styles.bannerImage, { opacity: fadeAnim }]} // Animated opacity
       />
       <View style={styles.bannerText}>
-        <Text style={styles.bannerTitle}>100% FOOT</Text>
-        <Text style={styles.bannerSubtitle}>Toutes vos infos Football en un clic</Text>
+        <Text style={[styles.bannerTitle, isMediumScreen && {fontSize: 42}]}>100% FOOT</Text>
+        <Text style={[styles.bannerSubtitle, isMediumScreen && {fontSize: 24}]}>Toutes vos infos Football en un clic</Text>
       </View>
     </View>
   );
@@ -138,6 +143,7 @@ const styles = StyleSheet.create({
     left: 0,
     borderRadius: 15,
     filter: "brightness(0.5)",
+        
   },
 
   bannerText: {

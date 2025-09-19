@@ -1,26 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet, ActivityIndicator, Image, ScrollView } from 'react-native';
+import { View, Text, FlatList, StyleSheet, ActivityIndicator, Image, ScrollView, TouchableOpacity } from 'react-native';
 import TableauSelections from '../components/TableauSelections'; // Assurez-vous que ce composant est aussi adapté pour React Native
 import { useRoute } from '@react-navigation/native';
 import Precedent from '../components/Precedent';
+import Classement from '../components/Classement';
 
 function FicheSelections() {
   const route = useRoute();
 
   const { id } = route.params;
+const [calendrier, setCalendrier] = useState(true)
+    const [classement, setClassement] = useState(false)
+    const [currentRound, setCurrentRound] = useState();
+    
+      const [loading, setLoading] = useState(true);
+      const [error, setError] = useState(false);
+    
+        const [rounds, setRounds] = useState()
+
+    const openCalendrier = ()=> {
+      setCalendrier(true)
+      setClassement(false)
+    }
+
+    const openClassement = ()=> {
+      setCalendrier(false)
+      setClassement(true)
+    }
+
+              const season = id === 34 ? "2026" : id === 29 ? "2023" : "2024";
 
 
-  const [classement, setClassement] = useState();
-  const [loading, setLoading] = useState(true);
-  const [currentRound, setCurrentRound] =  useState();
-
-      const season = id === 34 ? "2026" : id === 29 ? "2023" : "2024";
-
-
-const [rounds, setRounds] = useState()
-
-
-  useEffect(() => {
+       useEffect(() => {
   const fetchRounds = async () => {
     try {
       const response = await fetch(`https://v3.football.api-sports.io/fixtures/rounds?league=${id}&season=${season}`, {
@@ -64,39 +75,14 @@ console.log(rounds)
 
   fetchRound();
 }, [id]);
-
-
-
-
-  useEffect(() => {
-    // Fetch data
-    fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=${id === 29 ? "2023" : id === 34 ? "2026" : "2024"}`, {
-      method: 'GET',
-      headers: {
-        'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
-        'x-rapidapi-host': 'v3.football.api-sports.io',
-      },
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        setClassement(result.response[0].league.standings);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        setLoading(false);
-      });
-  }, [id]);
-
-
-  
-  if (loading || !rounds || !currentRound) {
-  return (
-    <View style={styles.loaderContainer}>
-      <ActivityIndicator size="large" color="#0000ff" />
-    </View>
-  );
-}
+    
+     if (loading) {
+      return <ActivityIndicator size="large" color="#0000ff" />;
+    }
+    
+    if (error) {
+      return <Text>Une erreur est survenue lors du chargement des données.</Text>;
+    }
 
   const journey = rounds.indexOf(currentRound);
 
@@ -127,40 +113,20 @@ const teamName = {
     <Precedent />
 
     <ScrollView style={styles.blocFicheSelections}>
-      <TableauSelections id={id} currentRound={currentRound} journey={journey} rounds={rounds} />
-      <View style={styles.tableaux}>
-        {classement?.map((subArray, index) => (
-          <View key={`group${index}`} style={styles.groupe}>
-            <Text style={styles.groupTitle}>{subArray[0].group}</Text>
-            <View style={{margin: 10, borderRadius: 5, backgroundColor: "lightblue"}}>
-            <View style={styles.barre}>
-              <Text style={styles.barreItem_equipe}>Equipe</Text>
-              <Text style={styles.barreItem}>J</Text>
-              <Text style={styles.barreItem}>V</Text>
-              <Text style={styles.barreItem}>N</Text>
-              <Text style={styles.barreItem}>D</Text>
-              <Text style={styles.barreItem}>Pts</Text>
-            </View>
-            <FlatList
-              data={subArray}
-              keyExtractor={(item) => `champ${item.team.id}`}
-              renderItem={({ item }) => (
-                <View style={styles.equipe}>
-                  <Text style={{width: "2%", marginInline: "2%", fontFamily: "Kanitus"}}>{item.rank}</Text>
-                  <Image style={styles.flags} source={{ uri: item.team.logo }} />
-                  <Text style={{width: "34%", marginInline: "2%", fontFamily: "Kanito"}}>{teamName[item.team.name] || item.team.name}</Text>
-                  <Text style={{width: "10%", fontFamily: "Kanitus"}}>{item.all.played}</Text>
-                  <Text style={{width: "10%", fontFamily: "Kanitus"}}>{item.all.win}</Text>
-                  <Text style={{width: "10%", fontFamily: "Kanitus"}}>{item.all.draw}</Text>
-                  <Text style={{width: "9%", fontFamily: "Kanitus"}}>{item.all.lose}</Text>
-                  <Text style={{width: "11%", fontFamily: "Kanitt"}}>{item.points}</Text>
-                </View>
-              )}
-            />
-            </View>
-          </View>
-        ))}
-      </View> 
+      <View style={{flexDirection: "row", marginBlock: 8, justifyContent: "center", gap: "5%"}}>
+        <TouchableOpacity onPress={openCalendrier} >
+          <Text style={calendrier ? styles.selected : styles.unSelected}>Calendrier</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={openClassement}>
+          <Text style={classement ? styles.selected : styles.unSelected}>Classement</Text>
+        </TouchableOpacity>
+      </View>
+      
+      {calendrier && <TableauSelections id={id} currentRound={currentRound} journey={journey} rounds={rounds} />}
+                  {classement && <Classement id={id} />}
+
+      
+    
     </ScrollView>
     </View>
   );
@@ -170,56 +136,25 @@ const styles = StyleSheet.create({
   blocFicheSelections: {
     paddingBlock: 10,
     backgroundColor: '#f0f0f0',
-    marginTop: 50
+    marginTop: 50,
+
   },
-  tableaux: {
-    marginTop: 20,
-  },
-  groupe: {
-    marginBottom: 20,
-  },
-  groupTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  barre: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 10,
-    backgroundColor: "black",
-    borderTopStartRadius: 5,
-    borderTopEndRadius: 5
-  },
-  barreItem_equipe: {
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: "white",
-    width: "40%",
-    fontFamily: "Kanito"
-  },
-  barreItem: {
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: "white",
-    fontFamily: "Kanito"
-  },
-  equipe: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 5,
-    width: "100%"
-  },
-  flags: {
-    width: 30,
-    height: 20,
-    borderRadius: 2
-  },
+  
   loaderContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  selected: {
+      fontFamily: "Kanitt",
+      textDecorationLine: "underline",
+
+    },
+    unSelected: {
+      fontFamily: "Kanitt",
+      color: "grey"
+    }
 });
 
 export default FicheSelections;

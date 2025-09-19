@@ -12,6 +12,15 @@ function Schema({ compoDom, compoExt, match, colors }) {
     const range = [1, 2, 3, 4, 5];
 
       const navigation = useNavigation();
+
+      const playerName = {
+        340626: "Fermin",
+        538: "De Jong",
+        629: "DeBruyne",
+        31156: "Savic",
+        283: "Arnold",
+        762: "Vinicius"
+      }
     
 
     // Récupération des dimensions de l'écran pour un ajustement réactif
@@ -98,7 +107,7 @@ console.log(compoDom)
                                                       <View style={[styles.player, { backgroundColor: "#f0f0f0" + colors.goalDom, borderColor: "#" + colors.goalDomBorder }]}>
                                { match.players[0].players.map((joueur) => joueur.player.id === player.id ? <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }}  style={styles.player}/> : null )}
                                 </View>
-                                <Text style={styles.playerName}>{player.name.split(' ').slice(-1).join(' ')}</Text>
+                                <Text style={styles.playerName}>{playerName[player.id] ||  player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
                         {/* Défenseurs */}
@@ -112,7 +121,7 @@ console.log(compoDom)
                                 <View style={[styles.player, { backgroundColor: "#f0f0f0", borderColor: "#" + colors.borderDom }]}>
                                { match.players[0].players.map((joueur) => joueur.player.id === player.id ? <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }}  style={styles.player}/> : null )}
                                 </View>
-                                <Text style={styles.playerName}>{player.id === 283 ? "Arnold" : player.id === 762 ? "Vinicius" : player.name.split(' ').slice(-1).join(' ')}</Text>
+                                <Text style={styles.playerName}>{playerName[player.id] || player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
                         {/* Milieux */}
@@ -126,7 +135,7 @@ console.log(compoDom)
                                 <View style={[styles.player, { backgroundColor: "#f0f0f0", borderColor: "#" + colors.borderDom }]}>
                                { match.players[0].players.map((joueur) => joueur.player.id === player.id ? <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }}  style={styles.player}/> : null )}
                                 </View>
-                                <Text style={styles.playerName}>{player.id === 283 ? "Arnold" : player.id === 762 ? "Vinicius" : player.name.split(' ').slice(-1).join(' ')}</Text>
+                                <Text style={styles.playerName}>{playerName[player.id] ||  player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
                         {/* Attaquants */}
@@ -140,7 +149,7 @@ console.log(compoDom)
                                 <View style={[styles.player, { backgroundColor: "#f0f0f0", borderColor: "#" + colors.borderDom }]}>
                                { match.players[0].players.map((joueur) => joueur.player.id === player.id ? <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }}  style={styles.player}/> : null )}
                                 </View>
-                                <Text style={styles.playerName}>{player.id === 762 ? "Vinicius" : player.name.split(' ').slice(-1).join(' ')}</Text>
+                                <Text style={styles.playerName}>{playerName[player.id] ||  player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
                     </View>
@@ -159,7 +168,7 @@ console.log(compoDom)
                                 <View style={[styles.player, { backgroundColor: "#f0f0f0", borderColor: "#" + colors.borderExt }]}>
                                { match.players[1].players.map((joueur) => joueur.player.id === player.id ? <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }}  style={styles.player}/> : null )}
                                 </View>
-                                <Text style={styles.playerName}>{player.id === 762 ? "Vinicius" : player.name.split(' ').slice(-1).join(' ')}</Text>
+                                <Text style={styles.playerName}>{playerName[player.id] ||  player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
                         {/* Milieux */}
@@ -173,7 +182,7 @@ console.log(compoDom)
                                 <View style={[styles.player, { backgroundColor: "#f0f0f0", borderColor: "#" + colors.borderExt }]}>
                                { match.players[1].players.map((joueur) => joueur.player.id === player.id ? <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }}  style={styles.player}/> : null )}
                                 </View>
-                                <Text style={styles.playerName}>{player.id === 283 ? "Arnold" : player.id === 762 ? "Vinicius" : player.name.split(' ').slice(-1).join(' ')}</Text>
+                                <Text style={styles.playerName}>{playerName[player.id] ||  player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
                         {/* Défenseurs */}
@@ -186,7 +195,7 @@ console.log(compoDom)
                                 <View style={[styles.player, { backgroundColor: "#f0f0f0", borderColor: "#" + colors.borderExt }]}>
                                { match.players[1].players.map((joueur) => joueur.player.id === player.id ? <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }}  style={styles.player}/> : null )}
                                 </View>
-                                <Text style={styles.playerName}>{player.id === 283 ? "Arnold" : player.id === 762 ? "Vinicius" : player.name.split(' ').slice(-1).join(' ')}</Text>
+                                <Text style={styles.playerName}>{playerName[player.id] ||  player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
                         {/* Gardien */}
@@ -197,7 +206,7 @@ console.log(compoDom)
                                 <View style={[styles.player, { backgroundColor: "#f0f0f0", borderColor: "#" + colors.goalExtBorder }]}>
                                 { match.players[1].players.map((joueur) => joueur.player.id === player.id ? <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }}  style={styles.player}/> : null )}
                                 </View>
-                                <Text style={styles.playerName}>{player.name.split(' ').slice(-1).join(' ')}</Text>
+                                <Text style={styles.playerName}>{playerName[player.id] ||  player.name.split(' ').slice(-1).join(' ')}</Text>
                             </TouchableOpacity>
                         ))}
                     </View>
