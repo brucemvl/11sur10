@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { View, Text, TouchableOpacity, FlatList, Image, Animated, StyleSheet, ActivityIndicator, useWindowDimensions } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import chevron from "../assets/chevron.png"
@@ -26,7 +26,9 @@ function Classement({ id }) {
   const [rotateButeurs, setRotateButeurs] = useState(new Animated.Value(0));
   const [rotatePasseurs, setRotatePasseurs] = useState(new Animated.Value(0));
 
-  const [heightClassement, setHeightClassement] = useState(new Animated.Value(0));
+const [contentHeight, setContentHeight] = useState(0);
+const animatedHeight = useRef(new Animated.Value(0)).current;
+const [heightClassement, setHeightClassement] = useState(new Animated.Value(0));
   const [heightButeurs, setHeightButeurs] = useState(new Animated.Value(0));
   const [heightPasseurs, setHeightPasseurs] = useState(new Animated.Value(0));
 
@@ -83,18 +85,23 @@ function Classement({ id }) {
   }, [id]);
 
   const collapseClassement = () => {
-    setOpenClassement(!openClassement);
-    Animated.timing(rotateClassement, {
+setOpenClassement(prev => {
+    const toValue = !prev ? contentHeight : 0;
+
+    Animated.timing(animatedHeight, {
+      toValue,
+      duration: 300,
+      useNativeDriver: false, // useNativeDriver must be false for height animations
+    }).start();
+
+    return !prev;
+  });
+      Animated.timing(rotateClassement, {
       toValue: openClassement ? 0 : 1,
       duration: 300,
       useNativeDriver: true,
     }).start();
 
-    Animated.timing(heightClassement, {
-      toValue: openClassement ? 0 : 1,
-      duration: 250,
-      useNativeDriver: false,
-    }).start();
   };
 
   const collapseButeurs = () => {
@@ -163,6 +170,9 @@ function Classement({ id }) {
 console.log(tab)
 
   if (id === 15) {
+
+    const collapseClassement = () => { setOpenClassement(!openClassement); Animated.timing(rotateClassement, { toValue: openClassement ? 0 : 1, duration: 300, useNativeDriver: true, }).start(); Animated.timing(heightClassement, { toValue: openClassement ? 0 : 1, duration: 250, useNativeDriver: false, }).start(); };
+
     return (
       <View style={styles.container}>
         {/* Classement */}
@@ -176,20 +186,10 @@ console.log(tab)
               style={[styles.chevron, { transform: [{ rotate: rotateClassementInterpolate }] }]}
             />      </TouchableOpacity>
         </LinearGradient>
-        <Animated.View style={tab.length < 20 ? [styles.content, {
+        <Animated.View style={[styles.content, {
           height: heightClassement.interpolate({
             inputRange: [0, 1],
-            outputRange: [0, 1500] // Ajustez la hauteur en fonction du contenu
-          })
-        }] : tab.length < 24 ? [styles.content, {
-          height: heightClassement.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0, 980] // Ajustez la hauteur en fonction du contenu
-          })
-        }] : [styles.content, {
-          height: heightClassement.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0, 1800] // Si le classement comporte + de 24 equipes
+            outputRange: [0, 1600] // Ajustez la hauteur en fonction du contenu
           })
         }]}>
           {tab.map((grp) =>
@@ -326,41 +326,14 @@ console.log(tab)
             <Animated.Image source={chevron} style={[styles.chevron, { transform: [{ rotate: rotateClassementInterpolate }] }]} />
           </TouchableOpacity>
         </LinearGradient>
-        <Animated.View style={tab.length < 15 ? [styles.content, {
-          height: heightClassement.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0, 830] // Ajustez la hauteur en fonction du contenu
-          })
-        }] :
-        tab.length < 18 ? [styles.content, {
-          height: heightClassement.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0, 880] // Ajustez la hauteur en fonction du contenu
-          })
-        }] : tab.length < 20 ? [styles.content, {
-          height: heightClassement.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0, isMediumScreen ? 1190 : 1005] // Ajustez la hauteur en fonction du contenu
-          })
-        }] : tab.length < 22 ? [styles.content, {
-          height: heightClassement.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0, 1125] // Ajustez la hauteur en fonction du contenu
-          })
-        }] : tab.length < 26 ? [styles.content, {
-          height: heightClassement.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0, 1300] // Ajustez la hauteur en fonction du contenu
-          })
-        }] : [styles.content, {
-          height: heightClassement.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0, 1980]
-          })
-        }]}>
+        <Animated.View style={[styles.content, { height: animatedHeight }]}>
+  
           <LinearGradient colors={['rgb(186, 186, 186)', 'rgba(110, 110, 110, 1)']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }} style={{ marginTop: 15, paddingInline: 2 }}>
+            style={{ position: 'absolute', top: 0, left: 0, right: 0 }}
+    onLayout={(event) => {
+      const height = event.nativeEvent.layout.height;
+      setContentHeight(height);
+    }}>
             <View style={styles.barre}>
               <Text style={{ width: "10%", color: "white", fontFamily: "Kanitus" }}>Rang</Text>
               <Text style={{ width: "36%", textAlign: "center", marginRight: 2, color: "white", fontFamily: "Kanitus" }}>Equipe</Text>

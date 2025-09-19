@@ -249,6 +249,7 @@ import guimaraes from "../assets/portraits/fiche/guimaraes.webp"
 import zabarnyi from "../assets/portraits/fiche/zabarnyi.png"
 import dimarco from "../assets/portraits/fiche/dimarco.png"
 import ferran from "../assets/portraits/fiche/ferran.png"
+import vlahovic from "../assets/portraits/fiche/vlahovic.png"
 
 
 
@@ -258,6 +259,7 @@ import ferran from "../assets/portraits/fiche/ferran.png"
 
 
 export const fichesJoueurs = {
+    30415: vlahovic,
     931: ferran,
     619: garcia,
     538: dejong,

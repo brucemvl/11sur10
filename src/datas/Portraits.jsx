@@ -219,11 +219,13 @@ import bastoni from "../assets/portraits/bastoni.png"
 import sommer from "../assets/portraits/sommer.png"
 import dumfries from "../assets/portraits/dumfries.png"
 import dimarco from "../assets/portraits/dimarco.png"
+import vlahovic from "../assets/portraits/vlahovic.png"
 
 
 
 
 export const portraitsJoueurs = {
+    30415: vlahovic,
     931: ferran,
     538: dejong,
     619: garcia,
