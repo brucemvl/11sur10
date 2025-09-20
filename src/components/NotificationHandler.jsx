@@ -17,7 +17,7 @@ export default function NotificationHandler() {
     });
 
     return () => {
-      Notifications.removeNotificationSubscription(responseListener.current);
+      subscription.remove();
     };
   }, []);
 

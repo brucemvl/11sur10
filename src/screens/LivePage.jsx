@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet, Animated, ScrollView, RefreshControl } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Animated, ScrollView, RefreshControl } from 'react-native';
 import ligue1 from "../assets/logoligue1.webp";
 import { LinearGradient } from 'expo-linear-gradient';
 import { SvgUri } from 'react-native-svg';

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useRoute } from '@react-navigation/native';
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet,  Image, useWindowDimensions } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet,  Image, useWindowDimensions, RefreshControl } from 'react-native';
 import Details from "../components/Details.jsx";
 import Compositions from '../components/Compositions.jsx';
 import Evenements from '../components/Evenements.jsx';
@@ -18,11 +18,15 @@ import CompoBasique from '../components/CompoBasique.jsx';
 
 const FicheMatch = () => {
 
+
     const { width } = useWindowDimensions();
   
       const isMediumScreen = width <= 1024 && width > 767;
 
-    const [match, setMatch] = useState(null);
+        const [isRefreshing, setIsRefreshing] = useState(false);
+
+
+    const [match, setMatch] = useState([]);
     const [live, setLive] = useState(false);
     const [details, setDetails] = useState(true);
     const [compos, setCompos] = useState(false);
@@ -58,119 +62,90 @@ const FicheMatch = () => {
     const [extStats, setExtStats] = useState(null);
     
     const route = useRoute();
-const id = route.params?.id || route.params?.matchId;    const leagueMatch = match?.league?.id;
+const id = route.params?.id || route.params?.matchId;
+    const leagueMatch = match?.league?.id;
     const homeId = match?.teams?.home?.id;
     const extId = match?.teams?.away?.id;
 
-    // Fetch match details
-    useEffect(() => {
-        fetch(`https://v3.football.api-sports.io/fixtures?id=${id}`, {
-            method: "GET",
-            headers: {
-                "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-                "x-rapidapi-host": "v3.football.api-sports.io",
-            }
-        })
-            .then((response) => response.json())
-            .then((result) => {
-                if (result.response && result.response[0]) {
-                    setMatch(result.response[0]);
-                }
-            })
-            .catch((error) => { 
-                console.error(error);
-                setMatch(null);
-            });
-    }, [id]);
 
-    useEffect(() => {
-        if (!homeId || !leagueMatch) return;
+   const fetchData = async (url) => {
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+      "x-rapidapi-host": "v3.football.api-sports.io",
+    },
+  });
 
-        // Fetch home team statistics
-        fetch(`https://v3.football.api-sports.io/teams/statistics?season=2024&team=${homeId}&league=${leagueMatch}`, {
-            method: "GET",
-            headers: {
-                "x-rapidapi-host": "v3.football.api-sports.io",
-                "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b"
-            }
-        })
-            .then((response) => response.json())
-            .then((json) => {
-                setHomeStats(json.response);
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    }, [homeId, leagueMatch]);
+  const result = await response.json();
+  return result.response;
+};
 
-    useEffect(() => {
-        if (!extId || !leagueMatch) return;
+const getMatchData = async () => {
+  try {
+    const matchData = await fetchData(`https://v3.football.api-sports.io/fixtures?id=${id}`);
+    setMatch(matchData[0]);
 
-        // Fetch away team statistics
-        fetch(`https://v3.football.api-sports.io/teams/statistics?season=2024&team=${extId}&league=${leagueMatch}`, {
-            method: "GET",
-            headers: {
-                "x-rapidapi-host": "v3.football.api-sports.io",
-                "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b"
-            }
-        })
-            .then((response) => response.json())
-            .then((json) => {
-                setExtStats(json.response);
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    }, [extId, leagueMatch]);
+    const injuriesData = await fetchData(`https://v3.football.api-sports.io/injuries?fixture=${id}`);
+    setInjuries(injuriesData);
+  } catch (error) {
+    console.error("Erreur lors de la récupération des données du match ou blessures", error);
+  }
+};
 
-    useEffect(() => {
+useEffect(() => {
+  if (!homeId || !leagueMatch) return;
 
-        // Fetch head-to-head history
-        fetch(`https://v3.football.api-sports.io/fixtures/headtohead?h2h=${homeId}-${extId}`, {
-            method: "GET",
-            headers: {
-                "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-                "x-rapidapi-host": "v3.football.api-sports.io",
-            }
-        })
-            .then((response) => response.json())
-            .then((result) => {
-                
-                    setHistorique(result.response);
-            })
-            .catch((error) => { 
-                console.error(error);
-                setHistorique(null)
-            });
-    }, [homeId, extId]);
+  const getTeamStats = async () => {
+    try {
+      const stats = await fetchData(`https://v3.football.api-sports.io/teams/statistics?season=2024&team=${homeId}&league=${leagueMatch}`);
+      setHomeStats(stats);
+    } catch (error) {
+      console.error("Erreur stats équipe domicile", error);
+    }
+  };
 
+  getTeamStats();
+}, [homeId, leagueMatch]);
 
-    
+useEffect(() => {
+  if (!extId || !leagueMatch) return;
 
-    console.log(historique)
+  const getTeamStats = async () => {
+    try {
+      const stats = await fetchData(`https://v3.football.api-sports.io/teams/statistics?season=2024&team=${extId}&league=${leagueMatch}`);
+      setExtStats(stats);
+    } catch (error) {
+      console.error("Erreur stats équipe extérieure", error);
+    }
+  };
 
-    // Fetch injuries
-    useEffect(() => {
-        fetch(`https://v3.football.api-sports.io/injuries?fixture=${id}`, {
-            method: "GET",
-            headers: {
-                "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-                "x-rapidapi-host": "v3.football.api-sports.io",
-            }
-        })
-            .then((response) => response.json())
-            .then((result) => {
-                if (result.response && result.response[0]) {
-                    setInjuries(result.response);
-                }
-            })
-            .catch((error) => { 
-                console.error(error);
-                setInjuries(null);
-            });
-    }, [id]);
+  getTeamStats();
+}, [extId, leagueMatch]);
 
-console.log(injuries)
+useEffect(() => {
+  if (!homeId || !extId) return;
+
+  const getHeadToHead = async () => {
+    try {
+      const history = await fetchData(`https://v3.football.api-sports.io/fixtures/headtohead?h2h=${homeId}-${extId}`);
+      setHistorique(history);
+    } catch (error) {
+      console.error("Erreur historique confrontations", error);
+    }
+  };
+
+  getHeadToHead();
+}, [homeId, extId]);
+
+useEffect(() => {
+  getMatchData();
+}, [id]);
+
+const onRefresh = () => {
+  setIsRefreshing(true);
+  getMatchData().finally(() => setIsRefreshing(false));
+};
 
 
     // Logic for switching between tabs
@@ -346,6 +321,9 @@ setCompoBasique(true)
     if (!historique ) {
         return <Text>Loading match info...</Text>;
     }
+
+    
+      
 
     const round = match.league.round;
     const roundd = round.slice(round.length - 2);
@@ -535,7 +513,7 @@ setCompoBasique(true)
     return (
         <View>
             <Precedent />
-            <ScrollView contentContainerStyle={[styles.bloc, isMediumScreen && {paddingInline: 40}]}>
+            <ScrollView contentContainerStyle={[styles.bloc, isMediumScreen && {paddingInline: 40}]} refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}>
                 <Affiche match={match} roundd={roundd} homeStats={homeStats} extStats={extStats} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} />
                 <View style={styles.section}>
                     <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.ficheSelecteur}>
