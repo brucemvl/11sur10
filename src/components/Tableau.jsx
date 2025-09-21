@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Text, Image, Animated, View, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, Image, Animated, View, TouchableOpacity, StyleSheet, useWindowDimensions } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFonts } from "expo-font";
 import Match from "./Match";
@@ -11,6 +11,10 @@ function Tableau({ id, currentRound, rounds }) {
   const [fontsLoaded] = useFonts({
     "Kanitt": require("../assets/fonts/Kanit/Kanit-Black.ttf"),
   });
+
+  const { width } = useWindowDimensions();
+    
+        const isMediumScreen = width <= 1024 && width > 767;
 
   const [team, setTeam] = useState([]);
   const [index, setIndex] = useState(0);
@@ -110,7 +114,7 @@ function Tableau({ id, currentRound, rounds }) {
   return (
     <LinearGradient
       colors={id === 15 ? ["#505050", "#000"] : ['rgb(50, 183, 255)', 'rgb(16, 19, 49)']}
-      style={styles.container}
+      style={[styles.container, isMediumScreen && {paddingInline: 20}]}
     >
       <Text style={id === 15 ? styles.titleWc : styles.title}>Calendrier & Résultats</Text>
       <Image
@@ -124,10 +128,10 @@ function Tableau({ id, currentRound, rounds }) {
       {/* Navigation entre rounds */}
       <View style={styles.navContainer}>
         <TouchableOpacity onPress={prev} disabled={index === 0} style={{ width: 60, height: 30, alignItems: "center" }}>
-          <Text style={[id === 15 ? styles.buttonTextWc : styles.buttonText, index === 0 && { opacity: 0.3 }]}>{'<'}</Text>
+          <Text style={[id === 15 ? styles.buttonTextWc : styles.buttonText, index === 0 && { opacity: 0.3 }, isMediumScreen && {fontSize: 28}]}>{'<'}</Text>
         </TouchableOpacity>
 
-        <Animated.Text style={[id === 15 ? styles.roundTextWc : styles.roundText, { transform: [{ rotate: rotateJourneeInterpolate }] }]}>
+        <Animated.Text style={[id === 15 ? styles.roundTextWc : styles.roundText, { transform: [{ rotate: rotateJourneeInterpolate }] }, isMediumScreen && {fontSize: 22, paddingTop: 10}]}>
           {currentRoundName?.indexOf("Group Stage") !== -1 ? currentRoundName.replace("Group Stage -", "Matchs de Poule") :
             currentRoundName === "Regular Season - 1" ? "1ere Journee" :
 
@@ -142,7 +146,7 @@ function Tableau({ id, currentRound, rounds }) {
         </Animated.Text>
 
         <TouchableOpacity onPress={next} disabled={index === rounds.length - 1} style={{ width: 60, height: 30, alignItems: "center" }}>
-          <Text style={[id === 15 ? styles.buttonTextWc : styles.buttonText, index === rounds.length - 1 && { opacity: 0.3 }]}>{'>'}</Text>
+          <Text style={[id === 15 ? styles.buttonTextWc : styles.buttonText, index === rounds.length - 1 && { opacity: 0.3 }, isMediumScreen && {fontSize: 28}]}>{'>'}</Text>
         </TouchableOpacity>
       </View>
 

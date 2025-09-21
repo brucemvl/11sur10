@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, View, ActivityIndicator, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, ScrollView, View, ActivityIndicator, TouchableOpacity, Text, useWindowDimensions } from 'react-native';
 import Tableau from '../components/Tableau';  // Assurez-vous que Tableau est compatible avec React Native
 import Classement from '../components/Classement';  // Idem pour ClassementChampionnat
 import { useState, useEffect } from 'react';
@@ -8,6 +8,9 @@ import Precedent from '../components/Precedent';
 function FicheChampionnat({ route }) {
     const { id } = route.params;  // Récupère l'ID du championnat depuis les paramètres de navigation
 
+    const { width } = useWindowDimensions();
+      
+          const isMediumScreen = width <= 1024 && width > 767;
 
     const [currentRound, setCurrentRound] = useState();
 
@@ -90,7 +93,7 @@ console.log('rounds:', rounds);
       <View style={{flex: 1}}>
       <Precedent />
 
-        <ScrollView contentContainerStyle={styles.blocChamp}>
+        <ScrollView contentContainerStyle={[styles.blocChamp, isMediumScreen && {padding: 30}]}>
           <View style={{flexDirection: "row", marginBlock: 8, justifyContent: "center", gap: "5%"}}>
   <TouchableOpacity onPress={openCalendrier} >
     <Text style={calendrier ? styles.selected : styles.unSelected}>Calendrier</Text>

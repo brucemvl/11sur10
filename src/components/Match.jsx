@@ -1,11 +1,15 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet, useWindowDimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { useFonts } from 'expo-font';
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id, date}) {
+
+  const { width } = useWindowDimensions();
+      
+          const isMediumScreen = width <= 1024 && width > 767;
 
     const [fontsLoaded] = useFonts({
         "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
@@ -41,27 +45,27 @@ const teamName = {
     >
 
       <View style={styles.dateheure}>
-        <Text style={{fontSize: 8.5, fontFamily: "Kanitaliq", color: "white"}}>{formattedDate}</Text>
-        <Text style={{fontSize: 8.5, fontFamily: "Kanitaliq", color: "white"}}>{formattedHour}</Text>
+        <Text style={{fontSize: isMediumScreen ? 10 : 8.5, fontFamily: "Kanitaliq", color: "white"}}>{formattedDate}</Text>
+        <Text style={{fontSize: isMediumScreen ? 10 : 8.5, fontFamily: "Kanitaliq", color: "white"}}>{formattedHour}</Text>
       </View>
 
-      <Text style={styles.equipeDom}>{teamName[equipeDom] || equipeDom}</Text>
-      <Image style={styles.logoDom} source={{ uri: logoDom }} />
+      <Text style={[styles.equipeDom, isMediumScreen && {fontSize: 14}]}>{teamName[equipeDom] || equipeDom}</Text>
+      <Image style={[styles.logoDom, isMediumScreen && {height: 35}]} source={{ uri: logoDom }} />
 
       {scoreDom === scoreExt ? (
         <View style={styles.matchScore}>
-          <Text style={scoreDom === null ? styles.notStarted : styles.nul}>{scoreDom === null ? "-" : scoreDom}</Text>
-          <Text style={scoreExt === null ? styles.notStarted : styles.nul}>{scoreExt === null ? "-" : scoreExt}</Text>
+          <Text style={[scoreDom === null ? styles.notStarted : styles.nul, isMediumScreen && {width: 25, height: 30, fontSize: 18}]}>{scoreDom === null ? "-" : scoreDom}</Text>
+          <Text style={[scoreExt === null ? styles.notStarted : styles.nul, isMediumScreen && {width: 25, height: 30, fontSize: 18}]}>{scoreExt === null ? "-" : scoreExt}</Text>
         </View>
       ) : (
         <View style={styles.matchScore}>
-          <Text style={scoreDom > scoreExt ? styles.winner : styles.looser}>{scoreDom}</Text>
-          <Text style={scoreExt > scoreDom ? styles.winner : styles.looser}>{scoreExt}</Text>
+          <Text style={[scoreDom > scoreExt ? styles.winner : styles.looser, isMediumScreen && {width: 25, height: 30, fontSize: 18}]}>{scoreDom}</Text>
+          <Text style={[scoreExt > scoreDom ? styles.winner : styles.looser, isMediumScreen && {width: 25, height: 30, fontSize: 18}]}>{scoreExt}</Text>
         </View>
       )}
 
-      <Image style={styles.logoExt} source={{ uri: logoExt }} />
-      <Text style={styles.equipeExt}>{teamName[equipeExt] || equipeExt}</Text>
+      <Image style={[styles.logoExt, isMediumScreen && {height: 35}]} source={{ uri: logoExt }} />
+      <Text style={[styles.equipeDom, isMediumScreen && {fontSize: 14}]}>{teamName[equipeExt] || equipeExt}</Text>
       </TouchableOpacity>
       </LinearGradient>
     

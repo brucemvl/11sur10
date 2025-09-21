@@ -2,7 +2,7 @@ import React from "react";
 import Calendrier from "../components/Calendrier";
 import { useState, useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
-import { View, Text, Button, StyleSheet, ScrollView, Image, Animated, TouchableOpacity } from "react-native";
+import { View, Text, Button, StyleSheet, ScrollView, Image, Animated, TouchableOpacity, useWindowDimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Precedent from "../components/Precedent";
 import chevron from "../assets/chevron.png";
@@ -14,6 +14,10 @@ import fifaclubwc from "../assets/fifaclubwc2.png";
 function FicheEquipe() {
   const route = useRoute();
   const { id, league, img } = route.params;
+
+  const { width } = useWindowDimensions();
+        
+            const isMediumScreen = width <= 1024 && width > 767;
 
   const [compet, setCompet] = useState(league)
   const [selectedId, setSelectedId] = useState(league);
@@ -236,22 +240,22 @@ function FicheEquipe() {
   return (
     <View>
       <Precedent />
-      <ScrollView contentContainerStyle={styles.container}>
-        <LinearGradient colors={["black", "steelblue"]} style={styles.header}>
+      <ScrollView contentContainerStyle={[styles.container, isMediumScreen && {padding: 40}]}>
+        <LinearGradient colors={["black", "steelblue"]} style={[styles.header, isMediumScreen && {padding: 50, height: 160}]}>
           <View>
-            <Text style={styles.team}>{equipe.team.name === "Barcelona" ? "FC BARCELONE" : equipe.team.name.toUpperCase()}</Text>
-            <Text style={{ color: "white", fontFamily: "Kanito" }}>{equipe.team.country === "England" ? "Angleterre" : equipe.team.country === "Spain" ? "Espagne" : equipe.team.country === "Germany" ? "Allemagne" : equipe.team.country === "Netherlands" ? "Pays Bas" : equipe.team.country}</Text>
-            <Text style={{ color: "white", fontFamily: "Kanitus" }}>
+            <Text style={[styles.team, isMediumScreen && {fontSize: 20}]}>{equipe.team.name === "Barcelona" ? "FC BARCELONE" : equipe.team.name.toUpperCase()}</Text>
+            <Text style={{ color: "white", fontFamily: "Kanito", fontSize: isMediumScreen ? 16 : 14 }}>{equipe.team.country === "England" ? "Angleterre" : equipe.team.country === "Spain" ? "Espagne" : equipe.team.country === "Germany" ? "Allemagne" : equipe.team.country === "Netherlands" ? "Pays Bas" : equipe.team.country}</Text>
+            <Text style={{ color: "white", fontFamily: "Kanitus", fontSize: isMediumScreen ? 15 : 14 }}>
               {equipe.team.national === false ? equipe.team.founded === null ? null : "Club fondé en " + equipe.team.founded : null}
             </Text>
           </View>
-          <Image source={{ uri: equipe.team.logo }} style={{ height: 75, width: 75, objectFit: "contain" }} />
+          <Image source={{ uri: equipe.team.logo }} style={{ height: isMediumScreen ? 90 : 75, width: isMediumScreen ? 90 : 75, objectFit: "contain" }} />
         </LinearGradient>
 
         <View style={styles.stade}>
           <TouchableOpacity onPress={collapseStade}>
-            <LinearGradient colors={["black", "steelblue"]} style={styles.stadeTitle}>
-              <Text style={styles.stadeText}>Stade</Text>
+            <LinearGradient colors={["black", "steelblue"]} style={[styles.stadeTitle, isMediumScreen && {paddingBlock: 10}]}>
+              <Text style={[styles.stadeText, isMediumScreen && {fontSize: 18}]}>Stade</Text>
               <Animated.Image
                 source={chevron}
                 style={[styles.chevron, { transform: [{ rotate: rotateStadeInterpolate }] }]}
@@ -278,8 +282,8 @@ function FicheEquipe() {
 
         <View style={styles.stade}>
           <TouchableOpacity onPress={collapseSquad}>
-            <LinearGradient colors={["black", "steelblue"]} style={styles.stadeTitle}>
-              <Text style={styles.stadeText}>Effectif</Text>
+            <LinearGradient colors={["black", "steelblue"]} style={[styles.stadeTitle, isMediumScreen && {paddingBlock: 10}]}>
+              <Text style={[styles.stadeText, isMediumScreen && {fontSize: 18}]}>Effectif</Text>
               <Animated.Image
                 source={chevron}
                 style={[styles.chevron, { transform: [{ rotate: rotateSquadInterpolate }] }]}
@@ -303,8 +307,8 @@ function FicheEquipe() {
 
         <View style={[styles.stade, { alignItems: "center" }]}>
           <TouchableOpacity onPress={collapseCalendrier} style={{ width: "100%" }}>
-            <LinearGradient colors={["black", "steelblue"]} style={styles.stadeTitle}>
-              <Text style={styles.stadeText}>Calendrier</Text>
+            <LinearGradient colors={["black", "steelblue"]} style={[styles.stadeTitle, isMediumScreen && {paddingBlock: 10}]}>
+              <Text style={[styles.stadeText, isMediumScreen && {fontSize: 18}]}>Calendrier</Text>
 
               <Animated.Image
                 source={chevron}
