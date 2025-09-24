@@ -173,7 +173,11 @@ useEffect(() => {
                 </ImageBackground>
                 :
 
-                <LinearGradient colors={match.league.id === 531 ? ['rgb(0, 0, 0)', 'rgba(80, 80, 80, 0.7)'] : match.league.id === 15 ? ['rgb(80, 80, 80)', 'rgba(0, 0, 0, 0.8)'] : ['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.8)']} style={styles.affiche}>
+                <LinearGradient colors={match.league.id === 531 ? ['rgb(0, 0, 0)', 'rgba(80, 80, 80, 0.7)'] : match.league.id === 15 ? ['rgb(80, 80, 80)', 'rgba(0, 0, 0, 0.8)'] : [
+        'rgba(153, 190, 215, 1)',
+        'rgba(70, 120, 160, 0.9)',
+        'rgba(30, 30, 30, 0.85)'
+      ]}  style={styles.affiche}>
                     <TouchableOpacity style={styles.domicile} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo })}>
                         <Image source={{ uri: match.teams.home.logo }} style={styles.teamLogo} />
                         <Text style={{ fontFamily: 'Kanito', color: 'white', fontSize: 14, textAlign: "center" }}>{teamName[match.teams.home.name] || match.teams.home.name}</Text>
@@ -331,7 +335,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 0,
         width: '100%',
-        backgroundColor: "steelblue",
         padding: 15,
         borderRadius: 15
     },

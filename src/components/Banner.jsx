@@ -56,6 +56,7 @@ import banner60 from "../assets/banner61.webp"
 import banner61 from "../assets/banner62.webp"
 import banner62 from "../assets/banner63.webp"
 import banner63 from "../assets/banner64.webp"
+import banner64 from "../assets/banner65.webp"
 
 
 
@@ -66,7 +67,7 @@ import { View, Text, Image, StyleSheet, Animated, useWindowDimensions } from "re
 const photosBan = [
   banner3, banner4, banner5, banner6, banner7, banner8, banner9,
   banner10, banner11, banner12, banner13, banner14, banner15, banner16, banner17, banner18, banner19, banner20, banner21, banner22, banner23, banner24, banner25, banner26, banner27, banner28, banner29, banner30, banner31, banner32, banner33, banner34, banner35, banner36, banner37, banner38, banner39, banner40, banner41, banner42, banner43, banner44, banner45, banner46, banner47, banner48, banner49, banner50, banner51,banner52, banner53, banner54, banner58, banner59, banner60, banner61,
-  banner62, banner63
+  banner62, banner63, banner64
 ];
 
 

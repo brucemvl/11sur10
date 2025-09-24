@@ -137,6 +137,8 @@ const styles = StyleSheet.create({
     paddingBlock: 10,
     backgroundColor: '#f0f0f0',
     marginTop: 50,
+            paddingBottom: 140,        
+
 
   },
   

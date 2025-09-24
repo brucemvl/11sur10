@@ -25,7 +25,7 @@ function Schema({ compoDom, compoExt, match, colors }) {
 
     // Récupération des dimensions de l'écran pour un ajustement réactif
     const { width } = Dimensions.get('window');
-    const fieldWidth = width * 0.47; // Chaque terrain occupe 80% de la largeur de l'écran
+    const fieldWidth = width * 0.48; // Chaque terrain occupe 48% de la largeur de l'écran
     const fieldHeight = fieldWidth * 1.2; // Hauteur ajustée du terrain pour lui donner une forme rectangulaire
 
     // Organiser les joueurs par ligne
@@ -250,9 +250,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     playerName: {
-        fontSize: 8.5,
+        fontSize: 8.3,
         color: '#fff',
         fontFamily: "Kanito",
+        textAlign: "center"
     },
     number: {
         fontSize: 9,

@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
         paddingBlock: 10,
         width: "100%",
         flexGrow: 1,
-        paddingBottom: 130,
+        paddingBottom: 140,
     },
     
     selected: {

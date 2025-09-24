@@ -431,7 +431,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 60,
     flexGrow: 1,
-    paddingBottom: 100,
+    paddingBottom: 140,
   },
   header: {
     flexDirection: "row",

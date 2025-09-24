@@ -148,7 +148,6 @@ const onRefresh = () => {
 };
 
 
-    // Logic for switching between tabs
     const openDetails = () => {
         setDetails(true);
         setLive(false);
@@ -562,7 +561,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingTop: 10,
         marginTop: 40,
-        paddingBottom: 120,        
+        paddingBottom: 140,        
     },
     section: {
         width: '100%',
