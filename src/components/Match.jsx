@@ -65,7 +65,7 @@ const teamName = {
       )}
 
       <Image style={[styles.logoExt, isMediumScreen && {height: 35}]} source={{ uri: logoExt }} />
-      <Text style={[styles.equipeDom, isMediumScreen && {fontSize: 14}]}>{teamName[equipeExt] || equipeExt}</Text>
+      <Text style={[styles.equipeExt, isMediumScreen && {fontSize: 14}]}>{teamName[equipeExt] || equipeExt}</Text>
       </TouchableOpacity>
       </LinearGradient>
     
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     width: "26%",
 textAlign: "center",
-fontFamily: "Kanito"
+fontFamily: "Bella"
 
   },
   logoDom: {
@@ -171,7 +171,7 @@ fontFamily: "Kanitt"
     fontSize: 12,
     width: "28%",
 textAlign: "center",
-fontFamily: "Kanito"
+fontFamily: "Bella"
 },
 
 });

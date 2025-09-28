@@ -196,7 +196,7 @@ console.log(tab)
             <View style={styles.groupe}>
               <Text style={{ fontFamily: "Kanitt" }}>{grp[0].group}</Text>
               <View style={styles.barre}>
-                <Text style={{ width: "10%", color: "white", fontFamily: "Kanitus" }}>Rang</Text>
+                <Text style={{ width: "10%", color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>Rang</Text>
                 <Text style={{ width: "36%", textAlign: "center", marginRight: 2, color: "white", fontFamily: "Kanitus" }}>Equipe</Text>
                 <Text style={{ width: "9%", color: "white", fontFamily: "Kanitus" }}>J</Text>
                 <Text style={{ width: "9%", color: "white", fontFamily: "Kanitus" }}>V</Text>
@@ -335,7 +335,7 @@ console.log(tab)
       setContentHeight(height);
     }}>
             <View style={styles.barre}>
-              <Text style={{ width: "10%", color: "white", fontFamily: "Kanitus" }}>Rang</Text>
+              <Text style={{ width: "10%", color: "white", fontFamily: "Kanitus", marginLeft: isMediumScreen ? 8 : 4 }}>Rang</Text>
               <Text style={{ width: "36%", textAlign: "center", marginRight: 2, color: "white", fontFamily: "Kanitus" }}>Equipe</Text>
               <Text style={{ width: "9%", color: "white", fontFamily: "Kanitus" }}>J</Text>
               <Text style={{ width: "10%", color: "white", fontFamily: "Kanitus" }}>V</Text>
@@ -349,7 +349,7 @@ console.log(tab)
               <TouchableOpacity onPress={() => navigation.navigate("FicheEquipe", { id: equipe.team.id, league: equipe.group === "Ligue 1" ? 61 : equipe.group === "UEFA Champions League" ? 2 : equipe.group === "Premier League" ? 39 : equipe.group === "LaLiga" || equipe.group === "Primera División" ? 140 : equipe.group.indexOf("Super League 1") !== -1 ? 197 : equipe.group === "Bundesliga" ? 78 : equipe.group === "Ligue 2: Regular Season" ? 62 : equipe.group === "Serie A" ? 135 : equipe.group === "UEFA Europa League" ? 3 : equipe.group === "Saudi League" ? 307 : equipe.group === "Eastern Conference" ? 253 : equipe.group === "Primeira Liga" ? 94 : equipe.group === "Ligue 2 " ? 62 : null })} style={{ flexDirection: "row", flexDirection: "row", alignItems: "center", borderBottomWidth: 1, paddingBlock: 13.7 }}>
                 <Text style={{ width: "6%", color: "white", fontFamily: "Kanito", textAlign: "center" }}>{equipe.rank}</Text>
                 <Image source={{ uri: equipe.team.logo }} style={{ objectFit: "contain", height: isMediumScreen ? 35 : 25, width: "8%" }} />
-                <Text style={{ width: "30%", color: "white", fontFamily: "Kanito", textAlign: "center", fontSize: isMediumScreen? 15 : 13 }}>{teamName[equipe.team.name] || equipe.team.name}</Text>
+                <Text style={{ width: "30%", color: "white", fontFamily: "Bella", textAlign: "center", fontSize: isMediumScreen? 16 : 14 }}>{teamName[equipe.team.name] || equipe.team.name}</Text>
                 <Text style={{ width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center" }}>{equipe.all.played}</Text>
                 <Text style={{ width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center" }}>{equipe.all.win}</Text>
                 <Text style={{ width: "9%", color: "white", fontFamily: "Kanito", textAlign: "center" }}>{equipe.all.draw}</Text>

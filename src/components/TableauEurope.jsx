@@ -1,6 +1,6 @@
 import { useFonts } from "expo-font";
 import { useState, useEffect } from "react";
-import { Text, View, FlatList, Image, TouchableOpacity, Animated } from "react-native";
+import { Text, View, FlatList, Image, TouchableOpacity, Animated, useWindowDimensions } from "react-native";
 import { StyleSheet } from "react-native";
 import Match from "./Match";
 import Ldc2025 from "./Ldc2025";
@@ -12,6 +12,9 @@ import ucl from "../assets/logoucl.png"
 
 function TableauEurope({ id, currentRound, rounds }) {
 
+  const { width } = useWindowDimensions();
+      
+          const isMediumScreen = width <= 1024 && width > 767;
 
   const [fontsLoaded] = useFonts({
     "Kanitt": require("../assets/fonts/Kanit/Kanit-Black.ttf"),
@@ -118,7 +121,7 @@ function TableauEurope({ id, currentRound, rounds }) {
 
     <LinearGradient
       colors={id === 2 ? ['rgb(16, 19, 49)', 'rgba(16, 19, 49, 0.8)'] : ['rgb(50, 183, 255)', 'rgb(16, 19, 49)']}
-      style={styles.container}
+      style={[styles.container, isMediumScreen && {paddingInline: 20}]}
     >
       <Text style={id === 15 ? styles.titleWc : styles.title}>Calendrier & Résultats</Text>
       <Image
@@ -131,10 +134,10 @@ function TableauEurope({ id, currentRound, rounds }) {
 
       <View style={styles.navContainer}>
         <TouchableOpacity onPress={prev} disabled={index === 0} style={{ width: 60, height: 30, alignItems: "center" }}>
-          <Text style={[id === 15 ? styles.buttonTextWc : styles.buttonText, index === 0 && { opacity: 0.3 }]}>{'<'}</Text>
+          <Text style={[id === 15 ? styles.buttonTextWc : styles.buttonText, index === 0 && { opacity: 0.3 }, isMediumScreen && {fontSize: 28}]}>{'<'}</Text>
         </TouchableOpacity>
 
-        <Animated.Text style={[id === 15 ? styles.roundTextWc : styles.roundText, { transform: [{ rotate: rotateJourneeInterpolate }] }]}>
+        <Animated.Text style={[styles.roundText, { transform: [{ rotate: rotateJourneeInterpolate }] }, isMediumScreen && {fontSize: 22, paddingTop: 10}]}>
           {currentRoundName.indexOf("Group Stage") !== -1 ? currentRoundName.replace("Group Stage -", "Matchs de Poule") :
             currentRoundName === "Regular Season - 1" ? "1ere Journee" :
 
@@ -149,7 +152,7 @@ function TableauEurope({ id, currentRound, rounds }) {
         </Animated.Text>
 
         <TouchableOpacity onPress={next} disabled={index === rounds.length - 1} style={{ width: 60, height: 30, alignItems: "center" }}>
-          <Text style={[id === 15 ? styles.buttonTextWc : styles.buttonText, index === rounds.length - 1 && { opacity: 0.3 }]}>{'>'}</Text>
+          <Text style={[id === 15 ? styles.buttonTextWc : styles.buttonText, index === rounds.length - 1 && { opacity: 0.3 }, isMediumScreen && {fontSize: 28}]}>{'>'}</Text>
         </TouchableOpacity>
       </View>
 

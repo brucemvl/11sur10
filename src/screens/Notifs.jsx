@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
   title: { fontSize: 18, fontWeight: 'bold',  fontFamily: "Kanitalik" },
   teamButton: {
     padding: 9,
-    backgroundColor: 'rgb(210, 210, 210)',
+    backgroundColor: 'rgba(215, 215, 215, 1)',
     borderRadius: 6,
     alignItems: 'center',
     flexDirection: "row",

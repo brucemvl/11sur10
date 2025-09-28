@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, ScrollView, StyleSheet, Animated, ActivityIndicator } from 'react-native';
+import { View, Text, Image, TouchableOpacity, ScrollView, StyleSheet, Animated, useWindowDimensions } from 'react-native';
 import { useRoute } from '@react-navigation/native'; // Pour récupérer les paramètres de la route
 import redcard from "../assets/redcard.png";
 import chevron from "../assets/chevron.png";
@@ -59,6 +59,11 @@ import kolomuaniselec from "../assets/portraits/selection/kolomuani.webp"
 import { fichesJoueurs } from "../datas/Fiches.jsx";
 
 function FicheJoueur() {
+    const { width } = useWindowDimensions();
+
+  const isSmallScreen = width <= 767;
+    const isMediumScreen = width <= 1024 && width > 767;
+
   const [joueur, setJoueur] = useState(null);
   const [palmares, setPalmares] = useState(null);
   const [annee, setAnnee] = useState(2025)
@@ -249,8 +254,8 @@ console.log(team)
     <View>
       <Precedent />
       <ScrollView contentContainerStyle={styles.blocJoueur}>
-        <View style={styles.article}>
-          <LinearGradient colors={["black", "steelblue"]} style={styles.infosJoueur}>
+        <View style={[styles.article, isMediumScreen && {width: "90%"}]}>
+          <LinearGradient colors={["black", "steelblue"]} style={[styles.infosJoueur, isMediumScreen && {height: 280}]}>
             {team === 2 ?
               <Image source={
 
@@ -259,14 +264,14 @@ console.log(team)
               :
               <Image
                 source={fichesJoueurs[joueur.player.id] || { uri: joueur.player.photo }}
-                style={
+                style={[
 
-                  fichesJoueurs[joueur.player.id] ? styles.fiche : styles.photo}
+                  fichesJoueurs[joueur.player.id] ? styles.fiche : styles.photo, isMediumScreen && {height: 260}]}
               />
             }
 
             <View style={styles.bio}>
-              <Text style={styles.name}>{joueur.player.id === 15906 ? "Toufik Chemakh" : joueur.player.id === 37784 ? "Mamadou Sissoko" : joueur.player.name}</Text>
+              <Text style={[styles.name, isMediumScreen && {fontSize: 22}]}>{joueur.player.id === 15906 ? "Toufik Chemakh" : joueur.player.id === 37784 ? "Mamadou Sissoko" : joueur.player.name}</Text>
               <View style={{ width: "100%", flexDirection: "column", alignItems: "center" }}> <Text style={styles.infoText}>Né le {joueur.player.id === 37784 ? "31/03/1999" : formattedDate}</Text><View style={{ flexDirection: "row", alignItems: "center" }}><Text style={{ fontFamily: "Kanitalic", color: "white" }}> à {joueur.player.id === 37784 || joueur.player.id === 15906 ? "Paris" : joueur.player.birth.place},</Text><Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: 15 }}> {joueur.player.id === 37784 || joueur.player.id === 15906 ? "France" : joueur.player.birth.country === "Spain" ? "Espagne" : joueur.player.birth.country === "Netherlands" ? "Pays-Bas" : joueur.player.birth.country === "Belgium" ? "Belgique" : joueur.player.birth.country === "Brazil" ? "Bresil" : joueur.player.birth.country === "England" ? "Angleterre" : joueur.player.birth.country === "Türkiye" ? "Turquie" : joueur.player.birth.country === "Switzerland" ? "Suisse" : joueur.player.birth.country === "Germany" ? "Allemagne" : joueur.player.birth.country}</Text></View></View>
               <View style={{ flexDirection: "row" }}><Text style={{ fontFamily: "Kanitalik", color: "white" }}> {joueur.player.height + "cm"} - {joueur.player.weight + "kg"}</Text></View>
               <Text style={styles.infoText}>Poste: {joueur.statistics[0].games.position === "Midfielder" ? "Milieu" : joueur.statistics[0].games.position === "Attacker" ? "Attaquant" : joueur.statistics[0].games.position === "Defender" ? "Defenseur" : joueur.statistics[0].games.position === "Goalkeeper" ? "Gardien" : joueur.statistics[0].games.position}</Text>
@@ -280,11 +285,11 @@ console.log(team)
 
           <View style={styles.palmares}>
             <TouchableOpacity onPress={collapsePalmares}>
-              <LinearGradient colors={["black", "steelblue"]} style={styles.palmaresTitle} >
-                <Text style={styles.palmaresText}>Palmarès</Text>
+              <LinearGradient colors={["black", "steelblue"]} style={[styles.palmaresTitle, isMediumScreen && {paddingBlock: 8} ]} >
+                <Text style={[styles.palmaresText, isMediumScreen && {fontSize: 20}]}>Palmarès</Text>
                 <Animated.Image
                   source={chevron}
-                  style={[styles.chevron, { transform: [{ rotate: rotateInterpolate }] }]}
+                  style={[styles.chevron, { transform: [{ rotate: rotateInterpolate }] }, isMediumScreen && {left: 250}]}
                 />
               </LinearGradient>
             </TouchableOpacity>
@@ -381,26 +386,26 @@ console.log(team)
           </View>
 
           <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>
-            {opaque === true ? <TouchableOpacity style={{ opacity: 0.2, marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center" }}><Text style={{ fontSize: 24, fontFamily: "Kanitt" }}>{"<"}</Text></TouchableOpacity> : <TouchableOpacity onPress={prec} style={{ marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center" }}><Text style={{ fontSize: 24, fontFamily: "Kanitt" }}>{"<"}</Text></TouchableOpacity>}
-            <Animated.Text style={[styles.season, { transform: [{ rotate: rotateSeasonInterpolate }] }]}>{annee}/{annee + 1}</Animated.Text>
-            {opaque2 === true ? <TouchableOpacity style={{ opacity: 0.2, marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center" }}><Text style={{ fontSize: 24, fontFamily: "Kanitt" }}>{">"}</Text></TouchableOpacity> : <TouchableOpacity onPress={next} style={{ marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center" }}><Text style={{ fontSize: 24, fontFamily: "Kanitt" }}>{">"}</Text></TouchableOpacity>}
+            {opaque === true ? <TouchableOpacity style={{ opacity: 0.2, marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center" }}><Text style={{ fontSize: isMediumScreen ? 28 : 24, fontFamily: "Kanitt" }}>{"<"}</Text></TouchableOpacity> : <TouchableOpacity onPress={prec} style={{ marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center" }}><Text style={{ fontSize:  isMediumScreen ? 28 : 24, fontFamily: "Kanitt" }}>{"<"}</Text></TouchableOpacity>}
+            <Animated.Text style={[styles.season, { transform: [{ rotate: rotateSeasonInterpolate }] }, isMediumScreen && {fontSize: 24}]}>{annee}/{annee + 1}</Animated.Text>
+            {opaque2 === true ? <TouchableOpacity style={{ opacity: 0.2, marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center" }}><Text style={{ fontSize: isMediumScreen ? 28 : 24, fontFamily: "Kanitt" }}>{">"}</Text></TouchableOpacity> : <TouchableOpacity onPress={next} style={{ marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center" }}><Text style={{ fontSize: isMediumScreen ? 28 :  24, fontFamily: "Kanitt" }}>{">"}</Text></TouchableOpacity>}
           </View>
 
           <View style={{ width: "70%", gap: 20, marginBlock: 10, flexDirection: "row", justifyContent: "space-evenly" }}>
 
             <View style={styles.stat}>
-              <View style={{ backgroundColor: "rgb(8, 4, 82)", borderRadius: 50, width: 45, height: 45, alignItems: "center", justifyContent: "center" }}><Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: 18 }}>{totalMatchs}</Text></View>
-              <Text style={styles.h5}>Matchs Joués</Text>
+              <View style={{ backgroundColor: "rgb(8, 4, 82)", borderRadius: 50, width: isMediumScreen ? 65 : 45, height: isMediumScreen ? 65 : 45, alignItems: "center", justifyContent: "center" }}><Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: isMediumScreen ? 22 : 18 }}>{totalMatchs}</Text></View>
+              <Text style={[styles.h5, isMediumScreen && {fontSize: 16 }]}>Matchs Joués</Text>
             </View>
 
             <View style={styles.stat}>
-              <View style={{ backgroundColor: "steelblue", borderRadius: 50, width: 45, height: 45, alignItems: "center", justifyContent: "center" }}><Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: 18 }}>{totalGoals}</Text></View>
-              <Text style={[styles.h5, { color: "steelblue" }]}>Buts</Text>
+              <View style={{ backgroundColor: "steelblue", borderRadius: 50, width: isMediumScreen ? 65 : 45, height: isMediumScreen ? 65 : 45, alignItems: "center", justifyContent: "center" }}><Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: isMediumScreen ? 22 :  18 }}>{totalGoals}</Text></View>
+              <Text style={[styles.h5, { color: "steelblue" }, isMediumScreen && {fontSize: 16 }]}>Buts</Text>
             </View>
 
             <View style={styles.stat}>
-              <View style={{ backgroundColor: "steelblue", borderRadius: 50, width: 45, height: 45, alignItems: "center", justifyContent: "center" }}><Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: 18 }}>{totalPasses}</Text></View>
-              <Text style={[styles.h5, { color: "steelblue" }]}>Passes Dec</Text>
+              <View style={{ backgroundColor: "steelblue", borderRadius: 50, width: isMediumScreen ? 65 : 45, height: isMediumScreen ? 65 : 45, alignItems: "center", justifyContent: "center" }}><Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: isMediumScreen ? 22 : 18 }}>{totalPasses}</Text></View>
+              <Text style={[styles.h5, { color: "steelblue" }, isMediumScreen && {fontSize: 16 }]}>Passes Dec</Text>
             </View>
           </View>
 

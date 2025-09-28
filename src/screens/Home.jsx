@@ -9,7 +9,7 @@ import { useFonts } from "expo-font";
 const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
   const [fontsLoaded] = useFonts({
     "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
-    "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
+    "Kanito": require("../assets/fonts/Carter_One/CarterOne-Regular.ttf"),
     "Kanitu": require("../assets/fonts/Kanit/Kanit-Regular.ttf"),
     "Kanitus": require("../assets/fonts/Kanit/Kanit-Light.ttf"),
     "Kanitalic": require("../assets/fonts/Kanit/Kanit-MediumItalic.ttf"),

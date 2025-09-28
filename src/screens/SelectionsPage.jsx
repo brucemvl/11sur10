@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView, useWindowDimensions } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';  // Pour le dégradé
-import { useNavigation } from '@react-navigation/native'; // Pour la navigation
+import { LinearGradient } from 'expo-linear-gradient'; 
+import { useNavigation } from '@react-navigation/native'; 
 import { selections } from '../datas/Leagues'; // Import des données
-import { useFonts } from 'expo-font';  // Importer le hook useFonts d'Expo
+import { useFonts } from 'expo-font';  
 import cdm2026 from "../assets/cdm2026.png"
 
 
@@ -16,10 +16,8 @@ function SelectionsPage() {
         "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf")
     });
 
-    // Utilisation du hook useWindowDimensions pour obtenir les dimensions de l'écran
     const { width } = useWindowDimensions();
 
-    // Déterminez la taille de l'écran pour ajuster les styles
     const isSmallScreen = width <= 767;
     const isMediumScreen = width <= 1024 && width > 767;
 

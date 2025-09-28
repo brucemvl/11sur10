@@ -103,7 +103,8 @@ const coachNames = {
   4: "Pep Guardiola",
   6472: "Hans Flick",
   1595: "Diego Simeone",
-  180: "Didier Deschamps"
+  180: "Didier Deschamps",
+  18: "Unai Emery"
 }
   
   

@@ -32,7 +32,12 @@ const [fontsLoaded] = useFonts({
     "Kanitus": require("../assets/fonts/Kanit/Kanit-Light.ttf"),
     "Kanitalic": require("../assets/fonts/Kanit/Kanit-MediumItalic.ttf"),
     "Kanitalik": require("../assets/fonts/Kanit/Kanit-ExtraBoldItalic.ttf"),
-    "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf")
+    "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf"),
+        "Carter": require("../assets/fonts/Carter_One/CarterOne-Regular.ttf"),
+        "Londrina": require("../assets/fonts/Londrina/LondrinaSolid-Light.ttf"),
+        "Bella": require("../assets/fonts/Bella/Belanosima-Regular.ttf"),
+        "Bellak": require("../assets/fonts/Bella/Belanosima-Bold.ttf"),
+
   });
 
   const teamNames = {
@@ -902,8 +907,8 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 6
   },
   matchEquipeDom: {
-    fontSize: 14,
-    fontFamily: "Kanito",
+    fontSize: 15,
+    fontFamily: "Bella",
     width: "27%",
     textAlign: "center"
 
@@ -931,8 +936,8 @@ const styles = StyleSheet.create({
     objectFit: 'contain',
   },
   matchEquipeExt: {
-    fontSize: 14,
-    fontFamily: "Kanito",
+    fontSize: 15,
+    fontFamily: "Bella",
     width: "27%",
     textAlign: "center"
 
@@ -1017,8 +1022,8 @@ const styles = StyleSheet.create({
     marginInline: 5
   },
   teamName: {
-    fontSize: 12.5,
-    fontFamily: "Kanito",
+    fontSize: 14.5,
+    fontFamily: "Bella",
     textAlign: "center",
   },
   scoreContainer: {
