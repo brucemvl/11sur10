@@ -83,7 +83,10 @@ useEffect(() => {
     fetchCalendrier();
   }, [selectedTeamId]);
     
-
+useEffect(() => {
+  // chaque fois que selectedTeamId change, on “nettoie” le calendrier
+  setCalendrier([]);
+}, [selectedTeamId]);
   
 
   console.log(calendrier)

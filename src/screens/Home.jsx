@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, RefreshControl, StyleSheet, useWindowDimensions } from "react-native";
+import { View, Text, ScrollView, RefreshControl, StyleSheet, useWindowDimensions, ActivityIndicator } from "react-native";
 import { useState, useEffect, useCallback, forwardRef } from "react";
 import Filtres from "../components/Filtres";
 import Banner from "../components/Banner";
@@ -133,8 +133,16 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
       <View style={styles.blocpage}>
         <Banner />
         <Filtres />
-        <Aujourdhui onRefresh={onRefresh} matchs={matchs} style={{marginBlock: 5}} />
-             {selectedTeamId != null ?  <Favorite selectedTeamId={selectedTeamId}/> : null}
+{
+  matchs.length > 0 ? (
+    <Aujourdhui onRefresh={onRefresh} matchs={matchs} style={{ marginBlock: 5 }} />
+  ) : (
+    <ActivityIndicator size="medium" color="black" style={{marginTop: 20}} />
+  )
+}
+{selectedTeamId != null && (
+          <Favorite selectedTeamId={selectedTeamId} />
+        )}
 </View>
     </ScrollView>
   );

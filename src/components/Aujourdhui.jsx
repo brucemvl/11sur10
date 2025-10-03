@@ -907,7 +907,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 6
   },
   matchEquipeDom: {
-    fontSize: 15,
+    fontSize: 13.5,
     fontFamily: "Bella",
     width: "27%",
     textAlign: "center"
@@ -936,7 +936,7 @@ const styles = StyleSheet.create({
     objectFit: 'contain',
   },
   matchEquipeExt: {
-    fontSize: 15,
+    fontSize: 13.5,
     fontFamily: "Bella",
     width: "27%",
     textAlign: "center"
@@ -1022,7 +1022,7 @@ const styles = StyleSheet.create({
     marginInline: 5
   },
   teamName: {
-    fontSize: 14.5,
+    fontSize: 13.5,
     fontFamily: "Bella",
     textAlign: "center",
   },
@@ -1068,7 +1068,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     height: 30,
     width: 25,
-    fontFamily: "Kanito",
+    fontFamily: "Kanitt",
     alignItems: "center",
     textAlign: "center",
     paddingTop: 4,

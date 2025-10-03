@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     padding: 1
   },
   equipeDom: {
-    fontSize: 12,
+    fontSize: 13,
     width: "26%",
 textAlign: "center",
 fontFamily: "Bella"
@@ -168,7 +168,7 @@ fontFamily: "Kanitt"
     objectFit: "contain",
   },
   equipeExt: {
-    fontSize: 12,
+    fontSize: 13,
     width: "28%",
 textAlign: "center",
 fontFamily: "Bella"

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, Image, StyleSheet, ImageBackground, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import ligue1 from "../assets/logoligue1.webp"
@@ -7,6 +7,11 @@ import { useNavigation } from "@react-navigation/native";
 function Histo({ historique }) {
 
         const navigation = useNavigation();
+        const [selected, setSelected] = useState(null)
+
+        const handleSelected = (id) => {
+  setSelected(id);
+};
   
 
   const historiqueTrie = [...historique].sort((b, a) => {
@@ -29,8 +34,8 @@ function Histo({ historique }) {
           return (
             <TouchableOpacity
               key={"affiche" + element.fixture.id}
-              style={{ alignItems: "center", marginBottom: 20 }}
-              onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}
+              style={[{ alignItems: "center", marginBottom: 20 }, selected === element.fixture.id && styles.selected]}
+              onPress={() => {navigation.navigate('FicheMatch', { id: element.fixture.id }), handleSelected(element.fixture.id)}}
             >
               <View style={styles.dateheure}>
                 <Text style={{ fontSize: 8.5, fontFamily: "Kanitalic", color: "white" }}>
@@ -192,6 +197,13 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontFamily: "Kanito"
     },
+    selected: {
+      shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.8,
+        shadowRadius: 4.5,
+        elevation: 5,
+    }
 });
 
 export default Histo;

@@ -164,7 +164,9 @@ setOpenClassement(prev => {
   "Moldova" : "Moldavie",
   "Cyprus" : "Chypre",
   "Norway" : "Norvege",
-  "Hungary" : "Hongrie"
+  "Hungary" : "Hongrie",
+  "Morocco" : "Maroc",
+  "Ivory Coast" : "Cote d'Ivoire"
 };
 
 console.log(tab)
@@ -296,9 +298,9 @@ console.log(tab)
                   keyExtractor={(item) => `champ${item.team.id}`}
                   renderItem={({ item }) => (
                     <View style={styles.equipe}>
-                      <Text style={{width: "2%", marginInline: "2%", fontFamily: "Kanitus"}}>{item.rank}</Text>
+                      <Text style={{width: "4%", marginInline: "2%", fontFamily: "Kanitus"}}>{item.rank}</Text>
                       <Image style={styles.flags} source={{ uri: item.team.logo }} />
-                      <Text style={{width: "34%", marginInline: "2%", fontFamily: "Kanito"}}>{teamName[item.team.name] || item.team.name}</Text>
+                      <Text style={{width: "32%", marginInline: "2%", fontFamily: "Bella"}}>{teamName[item.team.name] || item.team.name}</Text>
                       <Text style={{width: "10%", fontFamily: "Kanitus"}}>{item.all.played}</Text>
                       <Text style={{width: "10%", fontFamily: "Kanitus"}}>{item.all.win}</Text>
                       <Text style={{width: "10%", fontFamily: "Kanitus"}}>{item.all.draw}</Text>
@@ -391,7 +393,7 @@ console.log(tab)
               <Text style={{ width: isMediumScreen? "20%" : "17%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Buts</Text>
 
             </View>
-            {buteurs.map((joueur) =>
+            {buteurs.map((joueur) => joueur.player.id === 7398 ? null :
               <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: joueur.player.id })}>
                 <View style={[styles.item, isMediumScreen && {height: 72}]}>
                   <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }} style={{ height: isMediumScreen? 60 : 35, width: "9%", borderRadius: 50, marginRight: isMediumScreen? 20 : 5 }}/>
@@ -545,7 +547,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     color: "white",
-    width: "40%",
+    width: "42%",
     fontFamily: "Kanito"
   },
   barreItem: {

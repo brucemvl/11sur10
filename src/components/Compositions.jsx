@@ -140,7 +140,7 @@ const coachNames = {
               )}
               {player.statistics[0].games.minutes !== null && isSubstitute && (
                 <View style={styles.changeContainer}>
-                  <Text style={styles.changeTime}><Text style={{ fontStyle: "italic" }}>{90 - player.statistics[0].games.minutes}'</Text></Text>
+                  <Text style={styles.changeTime}><Text style={{ fontStyle: "italic" }}>{match.events.map((element) => element.assist.id === player.player.id ? `${element.time.elapsed}'` : null)}</Text></Text>
                   <Image source={flecheVerte} style={styles.arrowImage} />
                 </View>
               )}
@@ -178,7 +178,7 @@ const coachNames = {
               )}
               {player.statistics[0].games.minutes !== null && isSubstitute && (
                 <View style={styles.changeContainer}>
-                  <Text style={styles.changeTime}><Text style={{ fontStyle: "italic" }}>{90 - player.statistics[0].games.minutes}'</Text></Text>
+                  <Text style={styles.changeTime}><Text style={{ fontStyle: "italic" }}>{match.events.map((element) => element.assist.id === player.player.id ? `${element.time.elapsed}'` : null)}</Text></Text>
                   <Image source={flecheVerte} style={styles.arrowImage} />
                 </View>
               )}

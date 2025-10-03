@@ -98,7 +98,7 @@ const teamName = {
       "Morocco" : "Maroc",
       "Ivory Coast" : "Cote d'Ivoire",
       "Algeria" : "Algerie",
-      
+      "Faroe Islands" : "Iles Feroe"
 
 }
 
@@ -153,7 +153,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginInline: 5,
-    borderRadius: 15
+    borderRadius: 15,
+    marginBottom: 110
   },
   header: {
     fontSize: 20,

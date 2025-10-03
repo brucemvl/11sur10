@@ -291,7 +291,7 @@ const styles = StyleSheet.create({
   },
   teamName: {
     fontSize: 12,
-    fontFamily: "Kanito",
+    fontFamily: "Bella",
     width: "76%",
     textAlign: "center"
   },

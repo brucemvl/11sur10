@@ -37,7 +37,7 @@ import joao from "../assets/portraits/fiche/joao.png"
 import safonov from "../assets/portraits/fiche/safonov.png"
 import tchouameni from "../assets/portraits/fiche/tchouameni.webp"
 import adeyemi from "../assets/portraits/fiche/adeyemi.png"
-import mayulu from "../assets/portraits/fiche/mayulu.avif"
+import mayulu from "../assets/portraits/fiche/mayulu.png"
 import diaz from "../assets/portraits/fiche/diaz.png"
 import macallister from "../assets/portraits/fiche/macallister.webp"
 import gravenberch from "../assets/portraits/fiche/gravenberch.webp"
@@ -55,7 +55,7 @@ import alvarez from "../assets/portraits/fiche/alvarez.png"
 import schik from "../assets/portraits/schik.png"
 import wirtz from "../assets/portraits/fiche/wirtz.webp"
 import camavinga from "../assets/portraits/fiche/camavinga.webp"
-import modric from "../assets/portraits/fiche/modric.webp"
+import modric from "../assets/portraits/fiche/modric.png"
 import valverde from "../assets/portraits/fiche/valverde.png"
 import rudiger from "../assets/portraits/fiche/rudiger.webp"
 import fran from "../assets/portraits/fiche/fran.webp"
@@ -84,7 +84,7 @@ import retegui from "../assets/portraits/fiche/retegui.png"
 import pogba from "../assets/portraits/fiche/pogba.png"
 import deketelaere from "../assets/portraits/fiche/deketelaere.png"
 import donarumma from "../assets/portraits/fiche/donnarumma.png"
-import nuno from "../assets/portraits/fiche/nuno.avif"
+import nuno from "../assets/portraits/fiche/nuno.png"
 import hernandez from "../assets/portraits/fiche/hernandez.png"
 import hakimi from "../assets/portraits/fiche/hakimi.png"
 import marquinhos from "../assets/portraits/fiche/marquinhos.png"
@@ -250,6 +250,7 @@ import zabarnyi from "../assets/portraits/fiche/zabarnyi.png"
 import dimarco from "../assets/portraits/fiche/dimarco.png"
 import ferran from "../assets/portraits/fiche/ferran.png"
 import vlahovic from "../assets/portraits/fiche/vlahovic.png"
+import ajorque from "../assets/portraits/fiche/ajorque.png"
 
 
 
@@ -259,6 +260,7 @@ import vlahovic from "../assets/portraits/fiche/vlahovic.png"
 
 
 export const fichesJoueurs = {
+    22264: ajorque,
     30415: vlahovic,
     931: ferran,
     619: garcia,

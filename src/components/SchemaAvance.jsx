@@ -15,6 +15,11 @@ import lorient from "../assets/maillots/lorient.png"
 import auxerre from "../assets/maillots/auxerre.png"
 import metz from "../assets/maillots/metz.png"
 import toulouse from "../assets/maillots/toulouse.png"
+import lehavre from "../assets/maillots/lehavre.png"
+import angers from "../assets/maillots/angers.png"
+import strasbourg from "../assets/maillots/strasbourg.png"
+import rennes from "../assets/maillots/rennes.png"
+
 
 
 
@@ -104,7 +109,11 @@ function SchemaAvance({ compoDom, compoExt, match, colors }) {
   97: lorient,
   108: auxerre,
   112: metz,
-  96: toulouse
+  96: toulouse,
+  77: angers,
+  95: strasbourg,
+  111: lehavre,
+  94: rennes
 
 };
 

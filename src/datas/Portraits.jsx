@@ -220,11 +220,13 @@ import sommer from "../assets/portraits/sommer.png"
 import dumfries from "../assets/portraits/dumfries.png"
 import dimarco from "../assets/portraits/dimarco.png"
 import vlahovic from "../assets/portraits/vlahovic.png"
+import ajorque from "../assets/portraits/ajorque.png"
 
 
 
 
 export const portraitsJoueurs = {
+    22264: ajorque,
     30415: vlahovic,
     931: ferran,
     538: dejong,

@@ -36,7 +36,7 @@ async function refreshActiveMatches() {
 
       const matches = data.response;
       const liveMatches = matches.filter(match =>
-        ['1H', '2H', 'ET', 'P'].includes(match.fixture.status.short)
+        ['1H', '2H', 'HT', 'ET', 'P'].includes(match.fixture.status.short)
       );
 
       liveMatches.forEach(match => {
@@ -123,7 +123,7 @@ async function checkMatchScore() {
         if (!match) continue;
 
         const status = match.fixture.status.short;
-        if (!['1H', '2H', 'ET'].includes(status)) continue;
+        if (!['1H', '2H', 'HT', 'ET'].includes(status)) continue;
 
         const homeTeam = match.teams.home.name;
         const awayTeam = match.teams.away.name;
