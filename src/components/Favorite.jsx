@@ -10,7 +10,7 @@ import heure from "../assets/heure.png"
 import ligue1 from "../assets/logoligue1.webp"
 import fifaClubWc from "../assets/fifaclubwc2.png"
 import logoUcl from "../assets/logoucl.png"
-import { Animated } from "react-native";
+
 
 
 

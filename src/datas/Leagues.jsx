@@ -151,6 +151,15 @@ export const autres = [
         "season": 2024,
     },
 
+     {
+        "id": 128,
+        "name": "Liga Argentina",
+        "country": "Argentine",
+        "logo": "https://media.api-sports.io/football/leagues/128.png",
+        "flag": "https://media.api-sports.io/flags/ar.svg",
+        "season": 2025,
+    },
+
     {
         "id": 15,
         "name": "FIFA Club World Cup",

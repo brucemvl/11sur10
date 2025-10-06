@@ -55,6 +55,16 @@ import zaireselec from "../assets/portraits/selection/zaire.webp"
 import maignanselec from "../assets/portraits/selection/maignan.webp"
 import tchouameniselec from "../assets/portraits/selection/tchouameni.webp"
 import kolomuaniselec from "../assets/portraits/selection/kolomuani.webp"
+import kephrenselec from "../assets/portraits/selection/kephren.webp"
+import comanselec from "../assets/portraits/selection/coman.webp"
+import ekitikeselc from "../assets/portraits/selection/ekitike.webp"
+import aklioucheselec from "../assets/portraits/selection/akliouche.webp"
+import koneselec from "../assets/portraits/selection/kone.webp"
+import salibaselec from "../assets/portraits/selection/saliba.webp"
+import upamecanoselec from "../assets/portraits/selection/upamecano.webp"
+import camavingaselec from "../assets/portraits/selection/camavinga.webp"
+import gustoselec from "../assets/portraits/selection/gusto.webp"
+
 
 import { fichesJoueurs } from "../datas/Fiches.jsx";
 
@@ -222,7 +232,7 @@ console.log(team)
     year: 'numeric',
   });
 
-  const trophees = palmares?.filter((element) => element.place === "Winner");
+  const trophees = palmares?.filter((element) => element.place === "Winner" && element.season != null);
 
   const trophies = trophees.reduce((acc, trophy) => {
     if (!acc[trophy.league]) {
@@ -259,7 +269,7 @@ console.log(team)
             {team === 2 ?
               <Image source={
 
-                joueur.player.id === 2725 ? pavardselec : joueur.player.id === 2724 ? digneselec : joueur.player.id === 1257 ? koundeselec : joueur.player.id === 336657 ? zaireselec : joueur.player.id === 1145 ? konateselec : joueur.player.id === 1454 ? guendouziselec : joueur.player.id === 162453 ? chevalierselec : joueur.player.id === 21104 ? kolomuaniselec : joueur.player.id === 22221 ? maignanselec : joueur.player.id === 1271 ? tchouameniselec : joueur.player.id === 33 ? lukasselec : joueur.player.id === 272 ? rabiotselec : joueur.player.id === 21509 ? thuramselec : joueur.player.id === 278 ? mbappeselec : joueur.player.id === 153 ? dembeleselec : joueur.player.id === 343027 ? doueselec : joueur.player.id === 19617 ? oliseselec : joueur.player.id === 47300 ? theoselec : joueur.player.id === 161904 ? barcolaselec : joueur.player.id === 156477 ? cherkiselec : { uri: joueur.player.photo }}
+                joueur.player.id === 161907 ? gustoselec : joueur.player.id === 2207 ? camavingaselec : joueur.player.id === 1149 ? upamecanoselec : joueur.player.id === 22090 ? salibaselec : joueur.player.id === 116 ? kephrenselec : joueur.player.id === 274300 ? aklioucheselec : joueur.player.id === 508 ? comanselec : joueur.player.id === 174565 ? ekitikeselc : joueur.player.id === 22147 ? koneselec : joueur.player.id === 2725 ? pavardselec : joueur.player.id === 2724 ? digneselec : joueur.player.id === 1257 ? koundeselec : joueur.player.id === 336657 ? zaireselec : joueur.player.id === 1145 ? konateselec : joueur.player.id === 1454 ? guendouziselec : joueur.player.id === 162453 ? chevalierselec : joueur.player.id === 21104 ? kolomuaniselec : joueur.player.id === 22221 ? maignanselec : joueur.player.id === 1271 ? tchouameniselec : joueur.player.id === 33 ? lukasselec : joueur.player.id === 272 ? rabiotselec : joueur.player.id === 21509 ? thuramselec : joueur.player.id === 278 ? mbappeselec : joueur.player.id === 153 ? dembeleselec : joueur.player.id === 343027 ? doueselec : joueur.player.id === 19617 ? oliseselec : joueur.player.id === 47300 ? theoselec : joueur.player.id === 161904 ? barcolaselec : joueur.player.id === 156477 ? cherkiselec : { uri: joueur.player.photo }}
                 style={{ height: "190", width: "38%" }} />
               :
               <Image
@@ -273,7 +283,7 @@ console.log(team)
             <View style={styles.bio}>
               <Text style={[styles.name, isMediumScreen && {fontSize: 22}]}>{joueur.player.id === 15906 ? "Toufik Chemakh" : joueur.player.id === 37784 ? "Mamadou Sissoko" : joueur.player.name}</Text>
               <View style={{ width: "100%", flexDirection: "column", alignItems: "center" }}> <Text style={styles.infoText}>Né le {joueur.player.id === 37784 ? "31/03/1999" : formattedDate}</Text><View style={{ flexDirection: "row", alignItems: "center" }}><Text style={{ fontFamily: "Kanitalic", color: "white" }}> à {joueur.player.id === 37784 || joueur.player.id === 15906 ? "Paris" : joueur.player.birth.place},</Text><Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: 15 }}> {joueur.player.id === 37784 || joueur.player.id === 15906 ? "France" : joueur.player.birth.country === "Spain" ? "Espagne" : joueur.player.birth.country === "Netherlands" ? "Pays-Bas" : joueur.player.birth.country === "Belgium" ? "Belgique" : joueur.player.birth.country === "Brazil" ? "Bresil" : joueur.player.birth.country === "England" ? "Angleterre" : joueur.player.birth.country === "Türkiye" ? "Turquie" : joueur.player.birth.country === "Switzerland" ? "Suisse" : joueur.player.birth.country === "Germany" ? "Allemagne" : joueur.player.birth.country}</Text></View></View>
-              <View style={{ flexDirection: "row" }}><Text style={{ fontFamily: "Kanitalik", color: "white" }}> {joueur.player.height + "cm"} - {joueur.player.weight + "kg"}</Text></View>
+              <View style={{ flexDirection: "row" }}><Text style={{ fontFamily: "Kanitalik", color: "white" }}> {joueur.player.height + "cm"} {joueur.player.weight === null ? null : "- " + joueur.player.weight + "kg"}</Text></View>
               <Text style={styles.infoText}>Poste: {joueur.statistics[0].games.position === "Midfielder" ? "Milieu" : joueur.statistics[0].games.position === "Attacker" ? "Attaquant" : joueur.statistics[0].games.position === "Defender" ? "Defenseur" : joueur.statistics[0].games.position === "Goalkeeper" ? "Gardien" : joueur.statistics[0].games.position}</Text>
               <View style={styles.logos}>
                 {uniqueTeamNames.map((logo, index) => (logo === "https://media.api-sports.io/football/teams/10179.png" || logo === 'https://media.api-sports.io/football/teams/9256.png' || logo === 'https://media.api-sports.io/football/teams/8216.png' || logo === 'https://media.api-sports.io/football/teams/8190.png' || logo === 'https://media.api-sports.io/football/teams/12520.png' || logo === 'https://media.api-sports.io/football/teams/712.png' || logo === 'https://media.api-sports.io/football/teams/8194.png' ? null : logo === "https://media.api-sports.io/football/teams/10334.png" ? null : logo === "https://media.api-sports.io/football/teams/16621.png" ? null : logo === "https://media.api-sports.io/football/teams/10187.png" ? null :
@@ -518,7 +528,8 @@ objectFit: "contain"
   name: {
     fontSize: 19,
     color: 'white',
-    fontFamily: "Permanent"
+    fontFamily: "Permanent",
+    textAlign: "center"
   },
   infoText: {
     fontSize: 14,

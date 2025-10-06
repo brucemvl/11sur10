@@ -8,15 +8,18 @@ import { useFonts } from "expo-font";
 
 const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
   const [fontsLoaded] = useFonts({
-    "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
-    "Kanito": require("../assets/fonts/Carter_One/CarterOne-Regular.ttf"),
-    "Kanitu": require("../assets/fonts/Kanit/Kanit-Regular.ttf"),
-    "Kanitus": require("../assets/fonts/Kanit/Kanit-Light.ttf"),
-    "Kanitalic": require("../assets/fonts/Kanit/Kanit-MediumItalic.ttf"),
-    "Kanitalik": require("../assets/fonts/Kanit/Kanit-ExtraBoldItalic.ttf"),
-    "Kanitaliq": require("../assets/fonts/Kanit/Kanit-SemiBoldItalic.ttf"),
-    "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf")
-  });
+      "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
+      "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
+      "Kanitus": require("../assets/fonts/Kanit/Kanit-Light.ttf"),
+      "Kanitalic": require("../assets/fonts/Kanit/Kanit-MediumItalic.ttf"),
+      "Kanitalik": require("../assets/fonts/Kanit/Kanit-ExtraBoldItalic.ttf"),
+      "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf"),
+          "Carter": require("../assets/fonts/Carter_One/CarterOne-Regular.ttf"),
+          "Londrina": require("../assets/fonts/Londrina/LondrinaSolid-Light.ttf"),
+          "Bella": require("../assets/fonts/Bella/Belanosima-Regular.ttf"),
+          "Bellak": require("../assets/fonts/Bella/Belanosima-Bold.ttf"),
+  
+    });
 
   const { width } = useWindowDimensions();
   
@@ -78,10 +81,6 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
                         fetchData('https://v3.football.api-sports.io/fixtures?league=48&season=2025'),
 
 
-
-
-
-
       ]);
 
       // Mise à jour de l'état avec les nouveaux matchs récupérés
@@ -137,7 +136,7 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
   matchs.length > 0 ? (
     <Aujourdhui onRefresh={onRefresh} matchs={matchs} style={{ marginBlock: 5 }} />
   ) : (
-    <ActivityIndicator size="medium" color="black" style={{marginTop: 20}} />
+    <ActivityIndicator size="medium" color="blue" style={{marginTop: 20}} />
   )
 }
 {selectedTeamId != null && (

@@ -37,7 +37,26 @@ import can from "../assets/trophees/can.png"
 import nations from "../assets/trophees/nations.png"
 import fifa from "../assets/trophees/fifa.png"
 
-
+export const coachImages = {
+    2424: dezerbi,
+    12629: maresca,
+    6801: alonso,
+    68: genesio,
+    1595: simeone,
+    4720: amorim,
+    18: emery,
+    6472: flick,
+    4: pep,
+    7248: arteta,
+    2407: ancelotti,
+    193: henrique,
+    12590: kompany,
+    2006: slot,
+    17926: beye,
+    2462: mourinho,
+    180: deschamps,
+      5832: deschamps
+  };
 
 function FicheCoach() {
 
@@ -149,25 +168,7 @@ function FicheCoach() {
     year: 'numeric',
   });
 
-  const coachImages = {
-    2424: dezerbi,
-    12629: maresca,
-    6801: alonso,
-    68: genesio,
-    1595: simeone,
-    4720: amorim,
-    18: emery,
-    6472: flick,
-    4: pep,
-    7248: arteta,
-    2407: ancelotti,
-    193: henrique,
-    12590: kompany,
-    2006: slot,
-    17926: beye,
-    2462: mourinho,
-    180: deschamps
-  };
+  
 
 
   return (

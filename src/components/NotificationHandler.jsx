@@ -17,9 +17,11 @@ export default function NotificationHandler() {
     });
 
     return () => {
-      subscription.remove();
+      if (responseListener.current) {
+        responseListener.current.remove(); // ✅ C’est ici qu’on nettoie bien
+      }
     };
-  }, []);
+  }, [navigation]);
 
   return null;
 }

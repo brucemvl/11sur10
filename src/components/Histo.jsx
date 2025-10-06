@@ -35,7 +35,7 @@ function Histo({ historique }) {
             <TouchableOpacity
               key={"affiche" + element.fixture.id}
               style={[{ alignItems: "center", marginBottom: 20 }, selected === element.fixture.id && styles.selected]}
-              onPress={() => {navigation.navigate('FicheMatch', { id: element.fixture.id }), handleSelected(element.fixture.id)}}
+              onPress={() => {navigation.navigate('FicheMatch', { id: element.fixture.id }); handleSelected(element.fixture.id)}}
             >
               <View style={styles.dateheure}>
                 <Text style={{ fontSize: 8.5, fontFamily: "Kanitalic", color: "white" }}>

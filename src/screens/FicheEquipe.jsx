@@ -2,7 +2,7 @@ import React from "react";
 import Calendrier from "../components/Calendrier";
 import { useState, useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
-import { View, Text, Button, StyleSheet, ScrollView, Image, Animated, TouchableOpacity, useWindowDimensions } from "react-native";
+import { View, Text, Button, StyleSheet, ScrollView, Image, Animated, TouchableOpacity, useWindowDimensions, ActivityIndicator } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Precedent from "../components/Precedent";
 import chevron from "../assets/chevron.png";
@@ -27,6 +27,7 @@ function FicheEquipe() {
   const [stats, setStats] = useState(null);
   const [squad, setSquad] = useState([])
   const [calendrier, setCalendrier] = useState([])
+  const [coach, setCoach] = useState([])
 
 
 
@@ -218,12 +219,35 @@ function FicheEquipe() {
   }, [id]);
 
 
+  useEffect(() => {
+    const fetchCoach = async () => {
+      try {
+        const response = await fetch(`https://v3.football.api-sports.io/coachs?team=${id}`, {
+          method: "GET",
+          headers: {
+            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+            "x-rapidapi-host": "v3.football.api-sports.io",
+          },
+        });
+        const json = await response.json();
+        if (json.response.length > 0) {
+          setCoach(json.response[0]);
+        }
+      } catch (error) {
+        console.error("error:", error);
+      }
+    };
+    fetchCoach();
+  }, [id]);
+
+
   console.log(stats)
   console.log(squad)
   console.log(calendrier)
+  console.log(coach)
 
   if (!equipe) {
-    return <Text>Loading...</Text>;
+    return <ActivityIndicator size="medium" color="blue" style={{marginTop: 100}}/>;
   }
 
   if (!stats) {
@@ -232,6 +256,10 @@ function FicheEquipe() {
   }
 
   if (!squad) {
+    return <Text>Loading...</Text>
+  }
+
+  if (!coach) {
     return <Text>Loading...</Text>
   }
 
@@ -296,12 +324,12 @@ function FicheEquipe() {
               {
                 height: heightSquadAnim.interpolate({
                   inputRange: [0, 1],
-                  outputRange: [0, 950], // Ajustez la hauteur en fonction du contenu
+                  outputRange: [0, 1200], // Ajustez la hauteur en fonction du contenu
                 }),
               },
             ]}
           >
-            <Squad squad={squad} />
+            <Squad squad={squad} coach={coach}/>
           </Animated.View>
         </View>
 

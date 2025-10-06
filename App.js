@@ -7,7 +7,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import registerForPushNotificationsAsync from './src/utils/registerPush';
 import NotificationHandler from './src/components/NotificationHandler';
 import { navigationRef } from './src/navigation/NavigationRef';
-import { navigate } from './src/navigation/NavigationRef';
 import Toast from 'react-native-toast-message';
 
 
@@ -15,8 +14,7 @@ import Toast from 'react-native-toast-message';
 
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
-import Constants from 'expo-constants';
-import axios from 'axios';
+
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({

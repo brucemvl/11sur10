@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useRoute } from '@react-navigation/native';
-import { View, Text, TouchableOpacity, ScrollView, StyleSheet,  Image, useWindowDimensions, RefreshControl } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet,  Image, useWindowDimensions, RefreshControl, ActivityIndicator } from 'react-native';
 import Details from "../components/Details.jsx";
 import Compositions from '../components/Compositions.jsx';
 import Evenements from '../components/Evenements.jsx';
@@ -314,11 +314,11 @@ setCompoBasique(true)
 
     // If no match data available
     if (!match) {
-        return <Text>Loading match info...</Text>;
+        return <ActivityIndicator size="large" color="#0000ff" />;
     }
 
     if (!historique ) {
-        return <Text>Loading match info...</Text>;
+        return <ActivityIndicator style={{marginTop: 100}} size="large" color="#0000ff" />;
     }
 
     

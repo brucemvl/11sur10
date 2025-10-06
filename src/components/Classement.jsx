@@ -60,7 +60,7 @@ const [heightClassement, setHeightClassement] = useState(new Animated.Value(0));
       }
     })
       .then((response) => response.json())
-      .then((json) => setButeurs(json.response.slice(0, 10)))
+      .then((json) => setButeurs(json.response.slice(1, 11)))
       .catch((error) => console.error("Error:", error));
   };
 

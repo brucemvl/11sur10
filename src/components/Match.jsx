@@ -45,8 +45,8 @@ const teamName = {
     >
 
       <View style={styles.dateheure}>
-        <Text style={{fontSize: isMediumScreen ? 10 : 8.5, fontFamily: "Kanitaliq", color: "white"}}>{formattedDate}</Text>
-        <Text style={{fontSize: isMediumScreen ? 10 : 8.5, fontFamily: "Kanitaliq", color: "white"}}>{formattedHour}</Text>
+        <Text style={{fontSize: isMediumScreen ? 10 : 8.5, fontFamily: "Kanitalic", color: "white"}}>{formattedDate}</Text>
+        <Text style={{fontSize: isMediumScreen ? 10 : 8.5, fontFamily: "Kanitalic", color: "white"}}>{formattedHour}</Text>
       </View>
 
       <Text style={[styles.equipeDom, isMediumScreen && {fontSize: 14}]}>{teamName[equipeDom] || equipeDom}</Text>
