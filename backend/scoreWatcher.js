@@ -164,11 +164,11 @@ for (const event of events) {
   const { player, team, time, type, detail } = event;
   if (!player?.name || !team?.name) continue;
 
-  // 🔑 Clé unique plus stable (ignore la minute)
-  const eventKey = `${matchId}-${type}-${detail}-${team.name}-${player.name}`.toLowerCase();
+  // 🧩 Clé unique stable (ignore minute, gère null/undefined)
+const safeDetail = detail || '';
+const eventKey = `${matchId}-${type}-${safeDetail}-${team.name}-${player.name}`.toLowerCase().trim();
 
-  // Vérifie si on a déjà traité cet événement (même si l'API renvoie avec une minute différente)
-  if (previousEvents[eventKey]) continue;
+if (previousEvents[eventKey]) continue;
 
   const playerName = player.name;
   const teamName = team.name;
