@@ -6,6 +6,7 @@ import fifaClubWc from "../assets/fifaclubwc2.png"
 import cdm2026 from "../assets/cdm2026.png"
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
+import { SvgUri } from 'react-native-svg';
 
 function Aujourdhui({ matchs, onRefresh }) {
 
@@ -66,7 +67,14 @@ const [fontsLoaded] = useFonts({
   "Moldova" : "Moldavie",
   "Cyprus" : "Chypre",
   "Norway" : "Norvege",
-  "Hungary" : "Hongrie"
+  "Hungary" : "Hongrie",
+    "Cape Verde Islands" : "Cap Vert",
+    "Belarus" : "Bielorussie",
+    "Croatia" : "Croatie",
+    "Denmark" : "Danemark",
+    "Malta" : "Malte",
+    "Lithuania" : "Lituanie"
+
   }
 
   const spoil = () => {
@@ -145,6 +153,18 @@ const [fontsLoaded] = useFonts({
   const tomorrowLeagues = [... new Set(tomorrowMatch.map((element) => element.league.name))]
 
   const apresDemainLeagues = [... new Set(apresDemainMatch.map((element) => element.league.name))]
+
+  const flags = {
+    "Ligue 1" : "https://media.api-sports.io/flags/fr.svg",
+    "Coupe de France" : "https://media.api-sports.io/flags/fr.svg",
+    "Premier League" : "https://media.api-sports.io/flags/gb-eng.svg",
+    "La Liga" : "https://media.api-sports.io/flags/es.svg",
+    "Copa del Rey" : "https://media.api-sports.io/flags/es.svg",
+    "Bundesliga" : "https://media.api-sports.io/flags/de.svg",
+    "Serie A" : "https://media.api-sports.io/flags/it.svg",
+    "Pro League" : "https://media.api-sports.io/flags/sa.svg",
+    "Major League Soccer" : "https://media.api-sports.io/flags/us.svg"
+  }
 
 
   const handlePrevious = () => {
@@ -255,7 +275,7 @@ const [fontsLoaded] = useFonts({
     
     todayMatch.length <= 0 ? 
     <View style={[styles.today, isMediumScreen && {paddingInline: 40}]}>
-      <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={{ width: "96%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue", padding: 3 }} >
+      <LinearGradient colors={["rgba(255, 255, 255, 0.1)", 'rgba(0, 0, 0, 0.35)']} style={{ width: "96%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue", padding: 3 }} >
       {selectedDate === "APRES-DEMAIN" ? 
       <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
         <TouchableOpacity onPress={handlePrevious}>
@@ -321,7 +341,7 @@ const [fontsLoaded] = useFonts({
           {avanthier && <ScrollView contentContainerStyle={styles.liveTableau}>
         {avantHierMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match avant-hier</Text> :
           avantHierLeagues.map((league) => <View style={{ marginBlock: 5 }}>
-            <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
+            <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
             {avantHierMatch.map((element) => element.league.name === league ?
 
               <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}>
@@ -365,7 +385,7 @@ const [fontsLoaded] = useFonts({
       {hier && <ScrollView contentContainerStyle={styles.liveTableau}>
         {yesterdayMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match hier</Text> :
           yesterdayLeagues.map((league) => <View style={{ marginBlock: 5 }}>
-            <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
+            <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
             {yesterdayMatch.map((element) => element.league.name === league ?
 
               <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}>
@@ -414,7 +434,7 @@ const [fontsLoaded] = useFonts({
         {tomorrowMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match demain</Text> :
 
           tomorrowLeagues.map((league) => <View style={{ marginBlock: 2 }} key={"league" + league}>
-            <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
+            <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
             {tomorrowMatch.map((element) => element.league.name === league ?
 
               <TouchableOpacity key={element.fixture.id} style={styles.link} onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }} >
@@ -439,6 +459,7 @@ const [fontsLoaded] = useFonts({
                     <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
                   </View>
                 </View>
+                
               </TouchableOpacity> : null
             )}
           </View>)
@@ -449,7 +470,7 @@ const [fontsLoaded] = useFonts({
         {apresDemainMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match apres-demain</Text> :
 
           apresDemainLeagues.map((league) => <View style={{ marginBlock: 5 }}>
-            <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
+            <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
             {apresDemainMatch.map((element) => element.league.name === league ?
 
               <TouchableOpacity key={element.fixture.id} style={styles.link} onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }}>
@@ -486,7 +507,7 @@ const [fontsLoaded] = useFonts({
         }
       >
         
-        <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={[{ width: "96%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue", elevation: 4, padding:3 }, isMediumScreen && {padding: 20}]} >
+        <LinearGradient colors={["rgba(255, 255, 255, 0.15)", 'rgba(0, 0, 0, 0.35)']} style={[{ width: "96%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue", elevation: 4, padding:3 }, isMediumScreen && {padding: 20}]} >
           {selectedDate === "APRES-DEMAIN" ? <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
             <TouchableOpacity onPress={handlePrevious} >
               <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
@@ -543,10 +564,12 @@ const [fontsLoaded] = useFonts({
               {avantHierMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match avant-hier</Text> :
 
                 avantHierLeagues.map((league) => <View style={{ marginBlock: 5 }}>
-                  <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
+<View style={{flexDirection: "row", alignItems: "center"}}>
+                  <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
+                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
+                  </View>
                   {avantHierMatch.map((element) => element.league.name === league ?
-
-                    <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}>
+                  <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}>
                       <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
 
                         {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ?
@@ -590,9 +613,11 @@ const [fontsLoaded] = useFonts({
               {yesterdayMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match hier</Text> :
 
                 yesterdayLeagues.map((league) => <View style={{ marginBlock: 5 }}>
-                  <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
+<View style={{flexDirection: "row", alignItems: "center"}}>
+                  <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
+                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
+                  </View>
                   {yesterdayMatch.map((element) => element.league.name === league ?
-
                     <TouchableOpacity
                       style={styles.link}
                       onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}  // Naviguer vers la fiche du match
@@ -627,6 +652,7 @@ const [fontsLoaded] = useFonts({
                         <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
                   <Text style={styles.matchEquipeExt}>{teamNames[element.teams.away.name] || element.teams.away.name}</Text>
                       </LinearGradient>
+                      
                     </TouchableOpacity>
                     : null
                   )}
@@ -645,7 +671,10 @@ const [fontsLoaded] = useFonts({
 
               {leagues.map((league) => <View style={{ marginBlock: 2 }}>
                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBlock: 4 }}>
-                  <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
+                  <View style={{flexDirection: "row", alignItems: "center"}}>
+                  <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
+                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
+                  </View>
                   {league === "UEFA Champions League" && todayMatch.some((element) =>
                     element.league.name === "UEFA Champions League" &&
                     element.fixture.status.long !== 'Match Finished' &&
@@ -665,7 +694,7 @@ const [fontsLoaded] = useFonts({
                    : null} </View> 
                         {todayMatch.map((element) => element.league.name === league ?
                     element.fixture.status.long === 'Not Started' ? 
-                      <TouchableOpacity key={element.fixture.id} onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }}>
+                      <TouchableOpacity key={element.fixture.id} onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }} style={styles.link}>
                         <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
                           {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ?
                           <Image source={ligue1} style={styles.matchCompetition} resizeMode="contain"/>
@@ -691,7 +720,7 @@ const [fontsLoaded] = useFonts({
                       </TouchableOpacity>
                      : element.fixture.status.long != 'Match Finished' && element.fixture.status.elapsed != null ?
                      
-                     <TouchableOpacity key={element.fixture.id} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}>
+                     <TouchableOpacity key={element.fixture.id} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })} style={styles.link}>
                         <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
                           {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? 
                           <Image source={ligue1} style={styles.competitionLogo} resizeMode="contain" /> 
@@ -740,7 +769,7 @@ const [fontsLoaded] = useFonts({
                         </LinearGradient>
                       </TouchableOpacity> 
                       : element.fixture.status.long === 'Match Finished' ?
-                        <TouchableOpacity key={element.fixture.id} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}>
+                        <TouchableOpacity key={element.fixture.id} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })} style={styles.link}>
                           <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
 
                             {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? 
@@ -783,12 +812,15 @@ const [fontsLoaded] = useFonts({
           {demain && <ScrollView contentContainerStyle={styles.liveTableau}>
             {tomorrowMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match demain</Text> :
               tomorrowLeagues.map((league) => <View style={{ marginBlock: 2 }}>
-                <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
-                {tomorrowMatch.map((element) => element.league.name === league ?
+<View style={{flexDirection: "row", alignItems: "center"}}>
+                  <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
+                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
+                  </View>                {tomorrowMatch.map((element) => element.league.name === league ?
 
                   <TouchableOpacity
                     key={element.fixture.id}
                     onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }}
+                    style={styles.link}
                   >
                     <LinearGradient colors={['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.3)']} style={styles.match}>
                       {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
@@ -821,12 +853,15 @@ const [fontsLoaded] = useFonts({
           {apresdemain && <ScrollView contentContainerStyle={styles.liveTableau}>
             {apresDemainMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match apres-demain</Text> :
               apresDemainLeagues.map((league) => <View style={{ marginBlock: 5 }}>
-                <Text style={{ color: "white", fontFamily: "Kanitus" }}>{league}</Text>
-                {apresDemainMatch.map((element) => element.league.name === league ?
+<View style={{flexDirection: "row", alignItems: "center"}}>
+                  <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
+                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
+                  </View>                {apresDemainMatch.map((element) => element.league.name === league ?
 
                   <TouchableOpacity
                     key={element.fixture.id}
                     onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }}
+                    style={styles.link}
                   >
                     <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
                       {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? 
@@ -987,7 +1022,6 @@ const styles = StyleSheet.create({
     backgroundColor: "aliceblue",
     borderRadius: 10,
     paddingBlock: 9,
-    marginVertical: 5,
     paddingInline: 2
   },
 
@@ -1113,7 +1147,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     lineHeight: 10,
     color: "red"
+  },
+  link: {
+    marginBlock: 4,
   }
+ 
 });
 
 export default Aujourdhui;

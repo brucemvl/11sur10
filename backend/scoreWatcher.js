@@ -160,27 +160,19 @@ if (scoreChanged && !(isFirstCheck && currentHomeGoals === 0 && currentAwayGoals
         }
 
         const events = match.events || [];
-        for (const event of events) {
+for (const event of events) {
   const { player, team, time, type, detail } = event;
-  if (!player?.name || !team?.name || time?.elapsed == null) continue;
+  if (!player?.name || !team?.name) continue;
 
-  // Génère une clé unique à partir de l’objet complet
-  const eventKey = `${matchId}-${type}-${detail}-${team.name}-${player.name}-${time.elapsed}`;
-  const eventSerialized = JSON.stringify({
-    matchId,
-    type,
-    detail,
-    team: team.name,
-    player: player.name,
-    minute: time.elapsed,
-  });
+  // 🔑 Clé unique plus stable (ignore la minute)
+  const eventKey = `${matchId}-${type}-${detail}-${team.name}-${player.name}`.toLowerCase();
 
-  // Empêche les duplications même si la minute change
-  if (previousEvents[eventSerialized]) continue;
+  // Vérifie si on a déjà traité cet événement (même si l'API renvoie avec une minute différente)
+  if (previousEvents[eventKey]) continue;
 
   const playerName = player.name;
   const teamName = team.name;
-  const minute = time.elapsed;
+  const minute = time?.elapsed ?? '?';
 
   if (type === 'Goal') {
     let goalMsg = `⚽ ${minute}e - But de ${playerName} pour ${teamNames[teamName] || teamName}`;
@@ -194,12 +186,12 @@ if (scoreChanged && !(isFirstCheck && currentHomeGoals === 0 && currentAwayGoals
 
     console.log(goalMsg);
     await sendPushNotification(tokens, {
-      title: `${homeTeam} ${currentHomeGoals} - ${currentAwayGoals} ${awayTeam}`,
+      title: `${teamNames[homeTeam] || homeTeam} ${currentHomeGoals} - ${currentAwayGoals} ${teamNames[awayTeam] || awayTeam}`,
       body: goalMsg,
       data: { matchId },
     });
 
-    previousEvents[eventSerialized] = true;
+    previousEvents[eventKey] = true; // ✅ Marque comme déjà traité
   }
 
   if (type === 'Card' && detail === 'Red Card') {
@@ -212,7 +204,7 @@ if (scoreChanged && !(isFirstCheck && currentHomeGoals === 0 && currentAwayGoals
       data: { matchId },
     });
 
-    previousEvents[eventSerialized] = true;
+    previousEvents[eventKey] = true; // ✅ Marque comme déjà traité
   }
 }
       }

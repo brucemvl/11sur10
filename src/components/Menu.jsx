@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, Animated, Easing } from "react-native";
+import { View, Text, TouchableOpacity, Image, Animated, Easing, DeviceEventEmitter } from "react-native";
 import { StyleSheet } from "react-native";
 import home from "../assets/home.png";
 import live from "../assets/live.png";
@@ -28,12 +28,19 @@ function Menu() {
   }
 
   const openAccueil = () => {
+  if (navigation.getCurrentRoute()?.name === "Home") {
+    // Si on est déjà sur Home ➜ on déclenche un événement
+    DeviceEventEmitter.emit("scrollToTopHome");
+  } else {
+    // Sinon, on navigue vers Home
     navigation.navigate("Home");
-    setSelected(true);
-    setSelected2(false);
-    setSelected3(false);
-    setSelected4(false);
-  };
+  }
+
+  setSelected(true);
+  setSelected2(false);
+  setSelected3(false);
+  setSelected4(false);
+};
 
   const openLive = () => {
     navigation.navigate("LivePage");

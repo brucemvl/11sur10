@@ -251,15 +251,22 @@ import dimarco from "../assets/portraits/fiche/dimarco.png"
 import ferran from "../assets/portraits/fiche/ferran.png"
 import vlahovic from "../assets/portraits/fiche/vlahovic.png"
 import ajorque from "../assets/portraits/fiche/ajorque.png"
-
-
-
-
-
+import pepe from "../assets/portraits/fiche/pepe.png"
+import lang from "../assets/portraits/fiche/lang.png"
+import lukaku from "../assets/portraits/fiche/lukaku.png"
+import mctominay from "../assets/portraits/fiche/mctominay.png"
+import woltemade from "../assets/portraits/fiche/woltemade.png"
+import mateta from "../assets/portraits/fiche/mateta.webp"
 
 
 
 export const fichesJoueurs = {
+    158054: woltemade,
+    25927: mateta,
+    544: lang,
+    907: lukaku,
+    903: mctominay,
+    3246: pepe,
     22264: ajorque,
     30415: vlahovic,
     931: ferran,

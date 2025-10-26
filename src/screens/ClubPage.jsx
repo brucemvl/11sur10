@@ -30,7 +30,7 @@ function ClubPage() {
         <ScrollView style={{flexGrow: 1}} >
             <View style={[styles.competitions, isMediumScreen && {width: "100%", paddingInlineEnd: "6%", paddingInlineStart: "6%"} ]}>
             {/* Section Championnats */}
-            <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.conteneur} >
+            <LinearGradient colors={["rgba(0, 0, 0, 0.2)", 'rgba(0, 0, 0, 0.35)']} style={styles.conteneur} >
                 <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.title}>
                     <Text style={styles.titleText}>Championnats</Text>
                 </LinearGradient>

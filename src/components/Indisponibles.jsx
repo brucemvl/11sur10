@@ -29,7 +29,7 @@ function Indisponibles({ injuries, match }) {
     const navigation = useNavigation();
     const incertain = injuries.filter((element) => element.player.type === "Questionable")
 
-
+console.log(injuries)
 
     const nomsJoueurs = {
         154: "Lionel Messi",

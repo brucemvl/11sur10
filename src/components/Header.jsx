@@ -28,7 +28,6 @@ const Header = forwardRef(({ notifsEnabled, selectedTeamId }, ref) => {
   // Récupération des dimensions de l'écran
   const screenWidth = Dimensions.get('window').width;
   const navigation = useNavigation()
-    const shakeAnim = useRef(new Animated.Value(0)).current;
 
 
 const selectedTeam = selectedTeamId
@@ -43,21 +42,50 @@ const selectedTeam = selectedTeamId
     "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf")
   });
 
+  const rotateAnim = useRef(new Animated.Value(0)).current;
+
+  useImperativeHandle(ref, () => ({
+    triggerShake: () => {
+      Animated.sequence([
+        Animated.timing(rotateAnim, {
+          toValue: -10,
+          duration: 50,
+          useNativeDriver: true,
+        }),
+        Animated.timing(rotateAnim, {
+          toValue: 10,
+          duration: 50,
+          useNativeDriver: true,
+        }),
+        Animated.timing(rotateAnim, {
+          toValue: -6,
+          duration: 50,
+          useNativeDriver: true,
+        }),
+        Animated.timing(rotateAnim, {
+          toValue: 6,
+          duration: 50,
+          useNativeDriver: true,
+        }),
+        Animated.timing(rotateAnim, {
+          toValue: 0,
+          duration: 50,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    },
+  }));
+
+  const rotate = rotateAnim.interpolate({
+    inputRange: [-25, 25],
+    outputRange: ['-25deg', '25deg'],
+  });
 
   const openExternalLink = (url) => {
     Linking.openURL(url).catch((err) => console.error("Error opening URL:", err));
   };
 
-  useImperativeHandle(ref, () => ({
-    triggerShake: () => {
-      Animated.sequence([
-        Animated.timing(shakeAnim, { toValue: -8, duration: 50, useNativeDriver: true }),
-        Animated.timing(shakeAnim, { toValue: 8, duration: 50, useNativeDriver: true }),
-        Animated.timing(shakeAnim, { toValue: -8, duration: 50, useNativeDriver: true }),
-        Animated.timing(shakeAnim, { toValue: 0, duration: 50, useNativeDriver: true }),
-      ]).start();
-    }
-  }));
+
 
   if (!fontsLoaded) {
     return <Text>Loading...</Text>;  // Attendre que les polices et les données soient chargées
@@ -84,7 +112,7 @@ const selectedTeam = selectedTeamId
 ) : null}
   <Animated.Image
     source={notifsEnabled ? cloche : clocheno}
-    style={[{ height: 32, width: 32, marginRight: 10 }, { transform: [{ translateX: shakeAnim }] }]}
+    style={[{ height: 32, width: 32, marginRight: 10 }, { transform: [{ rotate }] }]}
   />
 </View>
 </TouchableOpacity>

@@ -6,7 +6,7 @@ import dembele from "../assets/portraits/dembele.png"
 import bellingham from "../assets/portraits/bellingham.png"
 import barcola from "../assets/portraits/barcola.png"
 import rodrygo from "../assets/portraits/rodrygo.jpg"
-import guller from "../assets/portraits/guller.jpg"
+import guller from "../assets/portraits/guller.png"
 import doue from "../assets/portraits/doue.png"
 import kvara from "../assets/portraits/kvara.png"
 import goat from "../assets/portraits/messi.webp"
@@ -101,7 +101,6 @@ import beier from "../assets/portraits/beier.png"
 import brandt from "../assets/portraits/brandt.png"
 import mmd from "../assets/portraits/mmd.png"
 import touf from "../assets/portraits/touf.png"
-import mikautadze from "../assets/portraits/mikautadze.png"
 import zirkzee from "../assets/portraits/zirkzee.png"
 import hojlund from "../assets/portraits/hojlund.png"
 import amad from "../assets/portraits/amad.png"
@@ -221,11 +220,13 @@ import dumfries from "../assets/portraits/dumfries.png"
 import dimarco from "../assets/portraits/dimarco.png"
 import vlahovic from "../assets/portraits/vlahovic.png"
 import ajorque from "../assets/portraits/ajorque.png"
+import mateta from "../assets/portraits/mateta.png"
 
 
 
 
 export const portraitsJoueurs = {
+        25927: mateta,
     22264: ajorque,
     30415: vlahovic,
     931: ferran,
@@ -311,7 +312,6 @@ export const portraitsJoueurs = {
     70100: zirkzee,
     157997: amad,
     542: gravenberch,
-    180496: mikautadze,
     21509: marcus,
     984: brandt,
     158644: beier,
@@ -411,8 +411,6 @@ export const portraitsJoueurs = {
     21497: blas,
     30807: sekofofana,
     21497: blas,
-    30807: sekofofana,
-    180496: mikautadze,
     904: pogba,
     1101: minamino,
     135775: fati,

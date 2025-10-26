@@ -81,6 +81,14 @@ export const championnats = [
         "logo": "https://media.api-sports.io/football/leagues/62.png",
         "flag": "https://media.api-sports.io/flags/fr.svg",
         "season": 2024,
+    },
+
+    {
+        "id": 63,
+        "name": "National 1",
+        "country": "France",
+        "logo": "https://media.api-sports.io/football/leagues/63.png",
+        "season": 2025,
     }
 
 
@@ -201,16 +209,6 @@ export const europe = [
 
 ]
 
-export const national = [
-
-    {
-        "id": 63,
-        "name": "National 1",
-        "country": "France",
-        "logo": "https://media.api-sports.io/football/leagues/63.png",
-        "season": 2024,
-    }
-]
 
 export const national2 = [
 

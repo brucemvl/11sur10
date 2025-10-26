@@ -60,11 +60,12 @@ const [heightClassement, setHeightClassement] = useState(new Animated.Value(0));
       }
     })
       .then((response) => response.json())
-      .then((json) => setButeurs(json.response.slice(1, 11)))
+      .then((json) => setButeurs(json.response.slice(0, 10)))
       .catch((error) => console.error("Error:", error));
   };
 
   console.log(buteurs)
+
   const fetchPasseurs = () => {
     fetch(`https://v3.football.api-sports.io/players/topassists?league=${id}&season=${id === 71 || id === 253  ? 2024 : 2025}`, {
       method: "GET",
@@ -166,7 +167,20 @@ setOpenClassement(prev => {
   "Norway" : "Norvege",
   "Hungary" : "Hongrie",
   "Morocco" : "Maroc",
-  "Ivory Coast" : "Cote d'Ivoire"
+  "Ivory Coast" : "Cote d'Ivoire",
+  "Switzerland" : "Suisse",
+  "Sweden" : "Suede",
+  "Scotland" : "Ecosse",
+  "Netherlands" : "Pays-Bas",
+  "Poland" : "Pologne",
+  "England" : "Angleterre",
+  "Central African Republic" : "Centrafrique",
+  "Cape Verde Islands" : "Cap Vert",
+    "Belarus" : "Bielorussie",
+    "Croatia" : "Croatie",
+    "Denmark" : "Danemark",
+    "Malta" : "Malte",
+    "Lithuania" : "Lituanie"
 };
 
 console.log(tab)
@@ -279,7 +293,7 @@ console.log(tab)
     }
 
     return (
-
+<View style={styles.container}>
     <View style={styles.tableaux}>
             {classement?.map((subArray, index) => (
               <View key={`group${index}`} style={styles.groupe}>
@@ -312,6 +326,7 @@ console.log(tab)
                 </View>
               </View>
             ))}
+          </View>
           </View> )
   }
 
@@ -393,11 +408,11 @@ console.log(tab)
               <Text style={{ width: isMediumScreen? "20%" : "17%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Buts</Text>
 
             </View>
-            {buteurs.map((joueur) => joueur.player.id === 7398 ? null :
+            {buteurs.map((joueur) =>
               <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: joueur.player.id })}>
                 <View style={[styles.item, isMediumScreen && {height: 72}]}>
                   <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }} style={{ height: isMediumScreen? 60 : 35, width: "9%", borderRadius: 50, marginRight: isMediumScreen? 20 : 5 }}/>
-                  <Text style={{ fontFamily: "Kanitt", width: "37%" }}>{joueur.player.id === 37784 ? "Mamadou Sissoko" : joueur.player.name}</Text>
+                  <Text style={{ fontFamily: "Kanitt", width: "37%" }}>{joueur.player.name}</Text>
                   <Image source={{ uri: joueur.statistics[0].team.logo }} style={[styles.logo, isMediumScreen && {height: 38}]} />
                   <Text style={[{ fontFamily: "Kanito", width: isMediumScreen ? "27%" : "35%", textAlign: "center" }, isMediumScreen && {fontSize: 18}]}>{joueur.statistics[0].games.appearences}</Text>
                   <Text style={[{ fontFamily: "Kanitt", width: isMediumScreen ? "18%" : "10%", textAlign: "center" }, isMediumScreen && {fontSize: 18}]}>{joueur.statistics[0].goals.total}</Text>
@@ -519,15 +534,14 @@ const styles = StyleSheet.create({
   },
   groupe: {
     marginBlock: 6,
-    borderRadius: 10
+    borderRadius: 10,
+    marginBottom: 20
   },
   tableaux: {
     marginTop: 20,
     paddingBottom: 100
   },
-  groupe: {
-    marginBottom: 20,
-  },
+  
   groupTitle: {
     fontSize: 18,
     fontWeight: 'bold',

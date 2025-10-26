@@ -67,7 +67,14 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
   "Moldova" : "Moldavie",
   "Cyprus" : "Chypre",
   "Norway" : "Norvege",
-  "Hungary" : "Hongrie"
+  "Hungary" : "Hongrie",
+  "Central African Republic" : "Centrafrique",
+  "Cape Verde Islands" : "Cap Vert",
+    "Belarus" : "Bielorussie",
+    "Croatia" : "Croatie",
+    "Denmark" : "Danemark",
+    "Malta" : "Malte",
+    "Lithuania" : "Lituanie"
 };
     
 useEffect(() => {
@@ -147,7 +154,8 @@ useEffect(() => {
                         <View style={styles.liveSticker}>
                                         <Text style={styles.liveText}>{match.fixture.status.elapsed}'</Text>
                                         <Animated.Text style={{ color: "white", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
-                                      </View> : null}
+                                      </View> : match.fixture.status.long === "Match Finished" ? <View style={[styles.liveSticker, {width: 105}]}>
+                                        <Text style={styles.liveText}>Match Terminé</Text></View> : null}
                     </View>
 
                     <TouchableOpacity style={styles.exterieur} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo })}>
@@ -210,7 +218,8 @@ useEffect(() => {
                         <View style={styles.liveSticker}>
                                         <Text style={styles.liveText}>{match.fixture.status.elapsed}'</Text>
                                         <Animated.Text style={{ color: "white", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
-                                      </View> : null}
+                                      </View> : match.fixture.status.long === "Match Finished" ? <View style={[styles.liveSticker, {width: 105}]}>
+                                        <Text style={styles.liveText}>Match Terminé</Text></View> : null}
                     </View>
 
                     <TouchableOpacity style={styles.exterieur} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo })}>
@@ -444,7 +453,8 @@ fontFamily: "Kanito",
         fontSize: 12,
         backgroundColor: "darkred",
         paddingInline: 4,
-        borderRadius: 5
+        borderRadius: 5,
+        textAlign: "center"
       },
 });
 

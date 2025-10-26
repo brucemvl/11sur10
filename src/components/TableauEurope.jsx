@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
   navContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginVertical: 10,
+    marginVertical: 15,
     gap: 15,
     justifyContent: "center"
   },
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: "white",
     marginHorizontal: 15,
-    fontFamily: "Kanitalic"
+    fontFamily: "Kanitt"
   },
   buttonTextWc: {
     fontSize: 22,
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
   },
   roundText: {
     color: "white",
-    fontSize: 16,
+    fontSize: 17,
     fontFamily: "Kanitalik",
   },
   roundTextWc: {

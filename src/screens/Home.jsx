@@ -1,10 +1,11 @@
-import { View, Text, ScrollView, RefreshControl, StyleSheet, useWindowDimensions, ActivityIndicator } from "react-native";
-import { useState, useEffect, useCallback, forwardRef } from "react";
+import { View, Text, ScrollView, RefreshControl, StyleSheet, useWindowDimensions, ActivityIndicator, DeviceEventEmitter } from "react-native";
+import { useState, useEffect, useCallback, forwardRef, useRef } from "react";
 import Filtres from "../components/Filtres";
 import Banner from "../components/Banner";
 import Aujourdhui from "../components/Aujourdhui";
 import Favorite from "../components/Favorite";
 import { useFonts } from "expo-font";
+
 
 const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
   const [fontsLoaded] = useFonts({
@@ -25,6 +26,18 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
   
       const isSmallScreen = width <= 767;
       const isMediumScreen = width <= 1024 && width > 767;
+
+      const scrollRef = useRef();
+
+  useEffect(() => {
+    const subscription = DeviceEventEmitter.addListener("scrollToTopHome", () => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollTo({ y: 0, animated: true });
+      }
+    });
+
+    return () => subscription.remove();
+  }, []);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -128,6 +141,7 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
   return (
     <ScrollView 
     refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}
+    ref={scrollRef}
     >
       <View style={styles.blocpage}>
         <Banner />
@@ -136,7 +150,7 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
   matchs.length > 0 ? (
     <Aujourdhui onRefresh={onRefresh} matchs={matchs} style={{ marginBlock: 5 }} />
   ) : (
-    <ActivityIndicator size="medium" color="blue" style={{marginTop: 20}} />
+    <ActivityIndicator size="large" color="blue" style={{marginTop: 20}} />
   )
 }
 {selectedTeamId != null && (

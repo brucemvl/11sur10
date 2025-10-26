@@ -64,6 +64,9 @@ import salibaselec from "../assets/portraits/selection/saliba.webp"
 import upamecanoselec from "../assets/portraits/selection/upamecano.webp"
 import camavingaselec from "../assets/portraits/selection/camavinga.webp"
 import gustoselec from "../assets/portraits/selection/gusto.webp"
+import thauvinselec from "../assets/portraits/selection/thauvin.webp"
+import nkunkuselec from "../assets/portraits/selection/nkunku.webp"
+import matetaselec from "../assets/portraits/selection/mateta.webp"
 
 
 import { fichesJoueurs } from "../datas/Fiches.jsx";
@@ -269,7 +272,7 @@ console.log(team)
             {team === 2 ?
               <Image source={
 
-                joueur.player.id === 161907 ? gustoselec : joueur.player.id === 2207 ? camavingaselec : joueur.player.id === 1149 ? upamecanoselec : joueur.player.id === 22090 ? salibaselec : joueur.player.id === 116 ? kephrenselec : joueur.player.id === 274300 ? aklioucheselec : joueur.player.id === 508 ? comanselec : joueur.player.id === 174565 ? ekitikeselc : joueur.player.id === 22147 ? koneselec : joueur.player.id === 2725 ? pavardselec : joueur.player.id === 2724 ? digneselec : joueur.player.id === 1257 ? koundeselec : joueur.player.id === 336657 ? zaireselec : joueur.player.id === 1145 ? konateselec : joueur.player.id === 1454 ? guendouziselec : joueur.player.id === 162453 ? chevalierselec : joueur.player.id === 21104 ? kolomuaniselec : joueur.player.id === 22221 ? maignanselec : joueur.player.id === 1271 ? tchouameniselec : joueur.player.id === 33 ? lukasselec : joueur.player.id === 272 ? rabiotselec : joueur.player.id === 21509 ? thuramselec : joueur.player.id === 278 ? mbappeselec : joueur.player.id === 153 ? dembeleselec : joueur.player.id === 343027 ? doueselec : joueur.player.id === 19617 ? oliseselec : joueur.player.id === 47300 ? theoselec : joueur.player.id === 161904 ? barcolaselec : joueur.player.id === 156477 ? cherkiselec : { uri: joueur.player.photo }}
+                joueur.player.id === 1922 ? thauvinselec : joueur.player.id === 269 ? nkunkuselec : joueur.player.id === 25927 ? matetaselec : joueur.player.id === 161907 ? gustoselec : joueur.player.id === 2207 ? camavingaselec : joueur.player.id === 1149 ? upamecanoselec : joueur.player.id === 22090 ? salibaselec : joueur.player.id === 116 ? kephrenselec : joueur.player.id === 274300 ? aklioucheselec : joueur.player.id === 508 ? comanselec : joueur.player.id === 174565 ? ekitikeselc : joueur.player.id === 22147 ? koneselec : joueur.player.id === 2725 ? pavardselec : joueur.player.id === 2724 ? digneselec : joueur.player.id === 1257 ? koundeselec : joueur.player.id === 336657 ? zaireselec : joueur.player.id === 1145 ? konateselec : joueur.player.id === 1454 ? guendouziselec : joueur.player.id === 162453 ? chevalierselec : joueur.player.id === 21104 ? kolomuaniselec : joueur.player.id === 22221 ? maignanselec : joueur.player.id === 1271 ? tchouameniselec : joueur.player.id === 33 ? lukasselec : joueur.player.id === 272 ? rabiotselec : joueur.player.id === 21509 ? thuramselec : joueur.player.id === 278 ? mbappeselec : joueur.player.id === 153 ? dembeleselec : joueur.player.id === 343027 ? doueselec : joueur.player.id === 19617 ? oliseselec : joueur.player.id === 47300 ? theoselec : joueur.player.id === 161904 ? barcolaselec : joueur.player.id === 156477 ? cherkiselec : { uri: joueur.player.photo }}
                 style={{ height: "190", width: "38%" }} />
               :
               <Image

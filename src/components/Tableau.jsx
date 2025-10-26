@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Text, Image, Animated, View, TouchableOpacity, StyleSheet, useWindowDimensions } from "react-native";
+import { useState, useEffect, useRef } from "react";
+import { Text, Image, Animated, View, TouchableOpacity, StyleSheet, useWindowDimensions, ActivityIndicator } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFonts } from "expo-font";
 import Match from "./Match";
@@ -20,6 +20,37 @@ function Tableau({ id, currentRound, rounds }) {
   const [index, setIndex] = useState(0);
   const slideAnim = useState(new Animated.Value(0))[0];
   const [direction, setDirection] = useState("right");
+
+  const scaleAnim = useRef(new Animated.Value(1)).current;
+  const scaleAnimNext = useRef(new Animated.Value(1)).current;
+
+  const handlePressIn = () => {
+    Animated.spring(scaleAnim, {
+      toValue: 1.9,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const handlePressOut = () => {
+    Animated.spring(scaleAnim, {
+      toValue: 1,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const handlePressInNext = () => {
+    Animated.spring(scaleAnimNext, {
+      toValue: 1.9,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const handlePressOutNext = () => {
+    Animated.spring(scaleAnimNext, {
+      toValue: 1,
+      useNativeDriver: true,
+    }).start();
+  };
 
   const [rotateJournee, setRotateJournee] = useState(new Animated.Value(0));
 
@@ -109,7 +140,8 @@ function Tableau({ id, currentRound, rounds }) {
   );
 
   if (!fontsLoaded) return <Text>Loading fonts...</Text>;
-  if (!team.length) return <Text>Loading matches...</Text>;
+  if (!team.length) return           <Text>Loading</Text>
+  ;
 
   return (
     <LinearGradient
@@ -127,8 +159,8 @@ function Tableau({ id, currentRound, rounds }) {
 
       {/* Navigation entre rounds */}
       <View style={styles.navContainer}>
-        <TouchableOpacity onPress={prev} disabled={index === 0} style={{ width: 60, height: 30, alignItems: "center" }}>
-          <Text style={[id === 15 ? styles.buttonTextWc : styles.buttonText, index === 0 && { opacity: 0.3 }, isMediumScreen && {fontSize: 28}]}>{'<'}</Text>
+        <TouchableOpacity onPressIn={handlePressIn} onPressOut={handlePressOut} onPress={prev} disabled={index === 0} style={{ width: 60, height: 30, alignItems: "center" }}>
+          <Animated.Text style={[id === 15 ? styles.buttonTextWc : styles.buttonText, index === 0 && { opacity: 0.3 }, isMediumScreen && {fontSize: 28}, { transform: [{ scale: scaleAnim }] }]}>{'<'}</Animated.Text>
         </TouchableOpacity>
 
         <Animated.Text style={[id === 15 ? styles.roundTextWc : styles.roundText, { transform: [{ rotate: rotateJourneeInterpolate }] }, isMediumScreen && {fontSize: 22, paddingTop: 10}]}>
@@ -145,8 +177,8 @@ function Tableau({ id, currentRound, rounds }) {
                             currentRoundName}
         </Animated.Text>
 
-        <TouchableOpacity onPress={next} disabled={index === rounds.length - 1} style={{ width: 60, height: 30, alignItems: "center" }}>
-          <Text style={[id === 15 ? styles.buttonTextWc : styles.buttonText, index === rounds.length - 1 && { opacity: 0.3 }, isMediumScreen && {fontSize: 28}]}>{'>'}</Text>
+        <TouchableOpacity onPressIn={handlePressInNext} onPressOut={handlePressOutNext} onPress={next} disabled={index === rounds.length - 1} style={{ width: 60, height: 30, alignItems: "center" }}>
+          <Animated.Text style={[id === 15 ? styles.buttonTextWc : styles.buttonText, index === rounds.length - 1 && { opacity: 0.3 }, isMediumScreen && {fontSize: 28}, { transform: [{ scale: scaleAnimNext }] }]}>{'>'}</Animated.Text>
         </TouchableOpacity>
       </View>
 
@@ -202,7 +234,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: "white",
     marginHorizontal: 15,
-    fontFamily: "Kanitalic"
+    fontFamily: "Kanitt"
   },
   buttonTextWc: {
     fontSize: 22,
@@ -213,7 +245,7 @@ const styles = StyleSheet.create({
   },
   roundText: {
     color: "white",
-    fontSize: 16,
+    fontSize: 17,
     fontFamily: "Kanitalik",
   },
   roundTextWc: {

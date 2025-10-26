@@ -247,20 +247,21 @@ function FicheEquipe() {
   console.log(coach)
 
   if (!equipe) {
-    return <ActivityIndicator size="medium" color="blue" style={{marginTop: 100}}/>;
+    return           <ActivityIndicator size="large" color="#0000ff" />
+    ;
   }
 
   if (!stats) {
-    return <Text> Loading...</Text>
+    return <ActivityIndicator size="large" color="#0000ff" />
 
   }
 
   if (!squad) {
-    return <Text>Loading...</Text>
+    return <ActivityIndicator size="large" color="#0000ff" />
   }
 
   if (!coach) {
-    return <Text>Loading...</Text>
+    return <ActivityIndicator size="large" color="#0000ff" />
   }
 
 
@@ -297,8 +298,8 @@ function FicheEquipe() {
                 height: heightStadeAnim.interpolate({
                   inputRange: [0, 1],
                   outputRange: [0, 280], // Ajustez la hauteur en fonction du contenu
-                }),
-              },
+                })
+              }
             ]}
           >
             <Image style={styles.stadeImage} source={{ uri: equipe.venue.image }} />
@@ -324,9 +325,9 @@ function FicheEquipe() {
               {
                 height: heightSquadAnim.interpolate({
                   inputRange: [0, 1],
-                  outputRange: [0, 1200], // Ajustez la hauteur en fonction du contenu
-                }),
-              },
+                  outputRange: [0, 970], // Ajustez la hauteur en fonction du contenu
+                })
+              }
             ]}
           >
             <Squad squad={squad} coach={coach}/>
@@ -354,7 +355,7 @@ function FicheEquipe() {
                   outputRange: [0, 220], // Ajustez la hauteur en fonction du contenu
                 }),
                 width: "110%"
-              },
+              }
             ]}
           >
             <Calendrier calendrier={calendrier} />
@@ -450,7 +451,7 @@ function FicheEquipe() {
 
       </ScrollView>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -493,7 +494,7 @@ const styles = StyleSheet.create({
   stadeText: {
     fontSize: 16,
     color: 'white',
-    fontFamily: "Permanent",
+    fontFamily: "Kanitalik",
 
 
   },
