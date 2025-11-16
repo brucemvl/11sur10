@@ -9,6 +9,8 @@ import { useFonts } from "expo-font";
 
 const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
   const [fontsLoaded] = useFonts({
+          "Kanitblack": require("../assets/fonts/Kanit/Kanit-Black.ttf"),
+          "Bangers": require("../assets/fonts/Bangers/Bangers-Regular.ttf"),
       "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
       "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
       "Kanitus": require("../assets/fonts/Kanit/Kanit-Light.ttf"),
@@ -16,7 +18,8 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
       "Kanitalik": require("../assets/fonts/Kanit/Kanit-ExtraBoldItalic.ttf"),
       "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf"),
           "Carter": require("../assets/fonts/Carter_One/CarterOne-Regular.ttf"),
-          "Londrina": require("../assets/fonts/Londrina/LondrinaSolid-Light.ttf"),
+                    "Londrina": require("../assets/fonts/Londrina/LondrinaSolid-Light.ttf"),
+          "Londrinak": require("../assets/fonts/Londrina/LondrinaSolid-Regular.ttf"),
           "Bella": require("../assets/fonts/Bella/Belanosima-Regular.ttf"),
           "Bellak": require("../assets/fonts/Bella/Belanosima-Bold.ttf"),
   

@@ -400,7 +400,7 @@ setCompoBasique(true)
         return (
             <View>
                 <Precedent />
-            <ScrollView contentContainerStyle={[styles.bloc, isMediumScreen && {paddingInline: 40}]}>
+            <ScrollView contentContainerStyle={[styles.bloc, isMediumScreen && {paddingInline: 40}]} refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}>
                 <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt} />
                 <View style={{flexDirection: "row", marginBottom: 10}}>
                 <TouchableOpacity onPress={openCompos} style={selected7 ? styles.selectedTab : styles.tab}>
@@ -432,7 +432,7 @@ setCompoBasique(true)
             <View>
             <Precedent />
     
-            <ScrollView contentContainerStyle={[styles.bloc, isMediumScreen && {paddingInline: 40}]}>
+            <ScrollView contentContainerStyle={[styles.bloc, isMediumScreen && {paddingInline: 40}]} refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}>
         
         <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt} />
         <View style={{flexDirection: "row", marginBottom: 10}}>
@@ -442,7 +442,7 @@ setCompoBasique(true)
                             <Text style={selected8 ? styles.selectedText : styles.text}>Apercu</Text>
                         </TouchableOpacity> : null }
                         {match.events.length > 0 ? <TouchableOpacity onPress={openLive} style={selected3 ? styles.selectedTab : styles.tab}>
-                            <Text style={selected3 ? styles.selectedText : styles.text}>Live</Text>
+                            <Text style={selected3 ? styles.selectedText : styles.text}>Evenements</Text>
                         </TouchableOpacity> : null}
         <TouchableOpacity onPress={openHisto} style={selected6 ? styles.selectedTab : styles.tab}>
                             <Text style={selected6 ? styles.selectedText : styles.text}>Historique</Text>
@@ -468,7 +468,7 @@ setCompoBasique(true)
             return (
                 <View>
                 <Precedent />
-            <ScrollView contentContainerStyle={[styles.bloc, isMediumScreen && {paddingInline: 40}]}>
+            <ScrollView contentContainerStyle={[styles.bloc, isMediumScreen && {paddingInline: 40}]} refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />} >
                 <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} />
                 <View style={{flexDirection: "row", marginBottom: 10}}>
                 { match.statistics.length > 0 ? <TouchableOpacity onPress={openDetails} style={selected ? styles.selectedTab : styles.tab}>
@@ -478,7 +478,7 @@ setCompoBasique(true)
                             <Text style={selected4 ? styles.selectedText : styles.text}>Historique</Text>
                         </TouchableOpacity>
                 {match.events.length > 0 ? <TouchableOpacity onPress={openLive} style={selected3 ? styles.selectedTab : styles.tab}>
-                            <Text style={selected3 ? styles.selectedText : styles.text}>Live</Text>
+                            <Text style={selected3 ? styles.selectedText : styles.text}>Evenements</Text>
                         </TouchableOpacity> : null }
                         { match.league.standings === true ?  <TouchableOpacity onPress={openClassement} style={selected5 ? styles.selectedTab : styles.tab}>
                             <Text style={selected5 ? styles.selectedText : styles.text}>Classement</Text>
@@ -530,7 +530,7 @@ setCompoBasique(true)
                             <Text style={selected2 ? styles.selectedText : styles.text}>Compos</Text>
                         </TouchableOpacity>}
                         <TouchableOpacity onPress={openLive} style={selected3 ? styles.selectedTab : styles.tab}>
-                            <Text style={selected3 ? styles.selectedText : styles.text}>Live</Text>
+                            <Text style={selected3 ? styles.selectedText : styles.text}>Evenements</Text>
                         </TouchableOpacity>
                         
                         <TouchableOpacity onPress={openHisto} style={selected4 ? styles.selectedTab : styles.tab}>
@@ -584,7 +584,7 @@ const styles = StyleSheet.create({
     },
     text: {
 fontFamily: "Kanitus",
-fontSize: 16,
+fontSize: 15,
     },
     selectedTab: {
         
@@ -603,7 +603,7 @@ fontSize: 16,
 
     },
     selectedText: {
-fontSize: 16,
+fontSize: 15,
         color: '#fff',
                 fontFamily: "Kanito", 
 

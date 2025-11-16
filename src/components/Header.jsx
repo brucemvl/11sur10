@@ -5,8 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import logo from '../assets/logoblanc.png';
 import info from "../assets/info.png"
-import cloche from "../assets/cloche.png"
-import clocheno from "../assets/clocheno.png"
+import cloche from "../assets/cloche3.png"
+import clocheno from "../assets/clocheno2.png"
 
  const teams = [
   { id: 85, name: 'Paris Saint Germain', logo: "https://media.api-sports.io/football/teams/85.png" },
@@ -107,12 +107,12 @@ const selectedTeam = selectedTeamId
   <Image
     key={selectedTeamId}
     source={{ uri: selectedTeam.logo }}
-    style={{ width: 23, height: 23, position: "absolute", zIndex: 1, left: 20, bottom: 18, objectFit: "contain" }}
+    style={{ width: 23, height: 23, position: "absolute", zIndex: -1, left: 20, bottom: 18, objectFit: "contain" }}
   />
 ) : null}
   <Animated.Image
     source={notifsEnabled ? cloche : clocheno}
-    style={[{ height: 32, width: 32, marginRight: 10 }, { transform: [{ rotate }] }]}
+    style={[{ height: 38, width: 38, marginRight: 10 }, { transform: [{ rotate }] }]}
   />
 </View>
 </TouchableOpacity>
@@ -127,13 +127,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: '4%',  // Utilisation de pourcentage
     flexGrow: 1,
-    height: 135,
-    paddingTop: 30
+    height: 125,
+    paddingTop: 30,
   },
   logo: {
     width: 100, 
     height: 80, 
-    marginLeft: 20, 
+    marginLeft: 30, 
     resizeMode: "contain",
   },
   // Tu peux ajouter un style pour mobile avec la largeur de l'écran

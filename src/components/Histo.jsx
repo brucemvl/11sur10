@@ -20,10 +20,12 @@ function Histo({ historique }) {
 
 
     return (
-      <View style={{ padding: 10, alignItems: "center", backgroundColor: "rgba(215, 215, 215, 1)", borderRadius: 15, marginBlock: 10 }}>
-        <Text style={{ fontFamily: "Kanitt", fontSize: 18, marginBottom: 10 }}>
+<View style={{padding: 5, alignItems: "center"}}>
+      <Text style={{ fontFamily: "Kanitt", fontSize: 18, marginBottom: 10 }}>
           Derniers face-à-face
         </Text>
+      <View style={{ padding: 10, alignItems: "center", backgroundColor: "rgba(215, 215, 215, 1)", borderRadius: 15, marginBlock: 10 }}>
+        
   
         {historiqueTrie.map((element) => {
           const date = new Date(element.fixture.date);
@@ -111,6 +113,7 @@ function Histo({ historique }) {
             </TouchableOpacity>
           );
         })}
+      </View>
       </View>
     );
   }

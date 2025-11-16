@@ -116,11 +116,10 @@ const styles = StyleSheet.create({
         gap: 2
     },
     titre: {
-        fontFamily: "Kanitt",
+        fontFamily: "Bangers",
         fontSize: 22,
         color: "white",
-        marginBottom: 15,
-        marginTop: 3,
+        marginBlock: 10,
         marginLeft: 15
     },
     carte:{

@@ -6,8 +6,9 @@ import { championnats, europe, autres, national, national2, national3 } from '..
 import { useFonts } from 'expo-font';  // Importer le hook useFonts d'Expo
 import ligue1 from "../assets/logoligue1.webp"
 import ligue2 from "../assets/ligue2.jpg"
-import  SvgUri  from 'react-native-svg';
 import fifaClubWc from "../assets/fifaclubwc2.png"
+import { SvgUri } from 'react-native-svg';
+
 
 
 function ClubPage() {
@@ -27,13 +28,38 @@ function ClubPage() {
     const isMediumScreen = width <= 1024 && width > 767;
 
     return (
-        <ScrollView style={{flexGrow: 1}} >
+        <ScrollView contentContainerStyle={{flexGrow: 1, justifyContent: "center"}} >
             <View style={[styles.competitions, isMediumScreen && {width: "100%", paddingInlineEnd: "6%", paddingInlineStart: "6%"} ]}>
+
+                {/* Section Compétitions Européennes */}
+            <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.title}
+                >
+                    <Text style={styles.titleText}>Compétitions Européennes</Text>
+                </LinearGradient>
+            <LinearGradient colors={["rgba(64, 82, 130, 1)", 'rgba(103, 131, 184, 1)']} style={styles.conteneur} >
+                
+                    <View style={{flexDirection: "row", gap: 10, justifyContent: "center", alignItems: "center"}}>
+                    {europe.map(({ name, id, logo }) => (
+                        <TouchableOpacity
+                            key={"lien europe" + id}
+                            style={[styles.lienEurope, isMediumScreen && {width: 150, height: 150, borderRadius: 75}]}
+                            onPress={() => navigation.navigate('FicheEurope', { id })}
+                        >
+                            <View style={styles.logoContainer}>
+                                <Image source={{ uri: logo }} style={{width: "85%", height: "85%", objectFit: "contain"}} />
+                            </View>
+                        </TouchableOpacity>
+                    ))}
+                    </View>
+
+            </LinearGradient>
+
             {/* Section Championnats */}
-            <LinearGradient colors={["rgba(0, 0, 0, 0.2)", 'rgba(0, 0, 0, 0.35)']} style={styles.conteneur} >
-                <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.title}>
+            <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.title}>
                     <Text style={styles.titleText}>Championnats</Text>
                 </LinearGradient>
+            <LinearGradient colors={["rgba(64, 82, 130, 1)", 'rgba(103, 131, 184, 1)']} style={styles.conteneur} >
+                
                 <View style={styles.filtres}>
                     <View style={{flexDirection: "column"}}>
                     <Text style={[{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 8}, isMediumScreen && {fontSize: 18}]}>Europe</Text>
@@ -53,7 +79,7 @@ function ClubPage() {
                     <View style={{flexDirection: "column"}}>
                     <Text style={[{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 8}, isMediumScreen && {fontSize: 18}]}>Reste du monde</Text>
                     <View style={{flexDirection: "row", flexWrap: "wrap", gap: isMediumScreen ? 0 : 6, justifyContent: "center"}}>  
-                      {autres.map(({ name, id, logo, country }) => (
+                      {autres.map(({ name, id, logo, country, flag }) => (
                         <View style={{alignItems: "center", marginBottom: 15, width: "32%"}}>
                         <TouchableOpacity
                             key={"lien autre" + id}
@@ -65,6 +91,7 @@ function ClubPage() {
                             <Image source={id === 15 ? fifaClubWc : { uri: logo }} style={styles.logo} />
                             </View>
                         </TouchableOpacity>
+                            <SvgUri uri={flag} width={30} height={20} style={{position: "relative", bottom: 14, transform:[{rotateZ: "-10deg"}], marginBottom: -10}}/>
                         <Text style={{fontFamily: "Kanitalic", color: "white", width: "100%", textAlign: "center"}}>{country === "Turkey" ? "Turquie" : country === "Saudi Arabia" ? "Arabie Saoudite" : country}</Text>
                         </View>
                     ))}
@@ -73,58 +100,18 @@ function ClubPage() {
                 </View>
             </LinearGradient>
 
-            {/* Section Compétitions Européennes */}
-            <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.conteneur} >
-                <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.title}
-                >
-                    <Text style={styles.titleText}>Compétitions Européennes</Text>
-                </LinearGradient>
-                <View style={styles.filtres}>
-                    <View style={{flexDirection: "row", gap: 10, width: "100%", justifyContent: "center"}}>
-                    {europe.map(({ name, id, logo }) => (
-                        <TouchableOpacity
-                            key={"lien europe" + id}
-                            style={[styles.lienEurope, isMediumScreen && {width: 150, height: 150, borderRadius: 75}]}
-                            onPress={() => navigation.navigate('FicheEurope', { id })}
-                        >
-                            <View style={styles.logoContainer}>
-                                <Image source={{ uri: logo }} style={{width: "85%", height: "85%", objectFit: "contain"}} />
-                            </View>
-                        </TouchableOpacity>
-                    ))}
-                    </View>
+                        <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.title}>
 
-                </View>
-            </LinearGradient>
-{/*
-            <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.conteneur} >
-                <LinearGradient colors={['rgba(3, 42, 176, 100)', 'rgba(39, 54, 50, 75)']} style={styles.title}
-                >
                     <Text style={styles.titleText}>Amateurs</Text>
                 </LinearGradient>
+
+            <LinearGradient colors={["rgba(64, 82, 130, 1)", 'rgba(103, 131, 184, 1)']} style={styles.conteneur} >
+                
                 <View style={styles.filtres}>
-                <View style={{flexDirection: "column"}}>
-                    <Text style={{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 10}}>National</Text>
-                    <View style={{flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center"}}>
-                    {national.map(({ name, id, flag, logo }) => (
-                        <TouchableOpacity
-                            key={"lien" + id}
-                            style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
-                            onPress={() => navigation.navigate('FicheChampionnat', { id })}
-                        >
-                            <Text style={styles.filtreTitle}>{name}</Text>
-                            <View style={styles.logoContainer}>
-                            <Image source={{ uri: logo }} style={styles.logo} />
-                            </View>
-
-                        </TouchableOpacity>
-                    ))}
-                    </View>
-
-                </View>
+                
                 <View style={{flexDirection: "column"}}>
                     <Text style={{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 10}}>National 2</Text>
-                    <View style={{flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center"}}>
+                    <View style={{flexDirection: "row", flexWrap: "wrap", gap: 6, justifyContent: "center"}}>
                     {national2.map(({ name, id, flag, logo }) => (
                         <TouchableOpacity
                             key={"lien" + id}
@@ -142,7 +129,7 @@ function ClubPage() {
 
                     <View style={{flexDirection: "column"}}>
                     <Text style={{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 10}}>National 3</Text>
-                    <View style={{flexDirection: "row", flexWrap: "wrap", gap: 10, justifyContent: "center"}}>
+                    <View style={{flexDirection: "row", flexWrap: "wrap", gap: 6, justifyContent: "center"}}>
                     {national3.map(({ name, id, flag, logo }) => (
                         <TouchableOpacity
                             key={"lien" + id}
@@ -163,7 +150,7 @@ function ClubPage() {
                 </View>
                 </View>
             </LinearGradient>
-            */}
+            
             </View>
         </ScrollView>
     )
@@ -172,24 +159,25 @@ function ClubPage() {
 const styles = StyleSheet.create({
     competitions: {
         width: "98%",
-        marginTop: 20,
+        marginTop: 10,
         paddingInlineStart: "2%",
         shadowColor: '#000', // shadow color
         shadowOffset: { width: 0, height: 5 }, // shadow offset
         shadowOpacity: 0.8, // shadow opacity
         shadowRadius: 3,
-        paddingBottom: 110
+        paddingBottom: 110,
+        alignItems: "center"
     },
     conteneur: {
         marginBottom: 20,
-        backgroundColor: "#b0c4de",
         borderRadius: 15,
-        flex: 1,
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         padding: 5,
-        elevation: 4
+        elevation: 4,
+        paddingBlock: 15,
+        width: "100%"
 
     },
     title: {
@@ -197,7 +185,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         alignItems: 'center',
         justifyContent: 'center',
-        marginVertical: 20,
+        marginVertical: 15,
         width: '75%',
         backgroundColor: "midnightblue",
     },
@@ -211,7 +199,8 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap',
         alignItems: "center",
         width: "100%",
-        gap: 25
+        gap: 25,
+        justifyContent: "center"
     },
     lien: {
         width: 120,  // Utilise une largeur fixe pour la petite taille d'écran
@@ -237,7 +226,8 @@ const styles = StyleSheet.create({
         borderColor:  'rgb(11, 19, 81)',
         paddingBlock: 6,
         backgroundColor: "white",
-        height: 120
+        height: 120,
+        overflow: "hidden"
     },
     logoContainer: {
         width: "85%",

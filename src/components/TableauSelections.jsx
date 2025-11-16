@@ -25,7 +25,7 @@ const animateSlide = (dir = 'right') => {
  useEffect(() => {
   const fetchFixtures = async () => {
     try {
-      const response = await fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&season=${id === 29 ? '2023' : id === 34? "2026" : '2024'}`, {
+      const response = await fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&season=${id === 29 ? '2023' : id === 34? "2026" : id === 6 ? "2025" : '2024'}`, {
         method: 'GET',
         headers: {
           'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
@@ -103,7 +103,7 @@ const teamName = {
 }
 
   return (
-     <View style={styles.container}>
+     <View style={[styles.container, id === 6 && {backgroundColor: "rgba(198, 94, 19, 1)"}]}>
 
 
     
@@ -111,17 +111,20 @@ const teamName = {
 
 <View style={{flexDirection: "row", alignItems: "center", gap: 10, marginBlock: 15, justifyContent: "center"}}>
 <TouchableOpacity onPress={prev} disabled={index === 0} style={{width: 30, height: 30, alignItems: "center"}}>
-  <Text style={[styles.buttonText, index === 0 && { opacity: 0.3 }]}>{'<'}</Text>
+  <Text style={[styles.buttonText, index === 0 && { opacity: 0.3 }, id === 6 && {color: "rgba(255, 255, 255, 1)" }]}>{'<'}</Text>
 </TouchableOpacity>
-       <Text style={{color: "black", fontFamily: "Kanitalik", fontSize: 16, marginInline: 10}}>
+       <Text style={{color:id === 6 ? "rgba(255, 255, 255, 1)" : "black", fontFamily: "Kanitalik", fontSize: 16, marginInline: 10}}>
           {currentRoundName === "Quarter-finals" ? "Quarts de finale" :
             currentRoundName === "Semi-finals" ? "Demi-finales" :
+            currentRoundName === "Semi-Finals" ? "Demi-finale" :
+                        currentRoundName === "c" ? "Demi-finale" :
             currentRoundName === "Final" ? "Finale" :
+            currentRoundName.indexOf("Group Stage") != -1 ? currentRoundName.replace("Group Stage", "Phase de Groupe") :
             currentRoundName === "Round of 16" ? "Huitièmes de finale" :
             currentRoundName}
         </Text>
 <TouchableOpacity onPress={next} disabled={index === rounds.length - 1} style={{width: 30, height: 30, alignItems: "center"}}>
-  <Text style={[styles.buttonText, index === rounds.length - 1 && { opacity: 0.3 }]}>{'>'}</Text>
+  <Text style={[styles.buttonText, index === rounds.length - 1 && { opacity: 0.3 }, id === 6 && {color: "rgba(255, 255, 255, 1)"}]}>{'>'}</Text>
 </TouchableOpacity> 
       </View>
 

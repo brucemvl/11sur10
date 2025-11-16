@@ -49,7 +49,7 @@ const teamName = {
         <Text style={{fontSize: isMediumScreen ? 10 : 8.5, fontFamily: "Kanitalic", color: "white"}}>{formattedHour}</Text>
       </View>
 
-      <Text style={[styles.equipeDom, isMediumScreen && {fontSize: 14}]}>{teamName[equipeDom] || equipeDom}</Text>
+      <Text style={[styles.equipeDom, isMediumScreen && {fontSize: 15}]}>{teamName[equipeDom] || equipeDom}</Text>
       <Image style={[styles.logoDom, isMediumScreen && {height: 35}]} source={{ uri: logoDom }} />
 
       {scoreDom === scoreExt ? (
@@ -65,7 +65,7 @@ const teamName = {
       )}
 
       <Image style={[styles.logoExt, isMediumScreen && {height: 35}]} source={{ uri: logoExt }} />
-      <Text style={[styles.equipeExt, isMediumScreen && {fontSize: 14}]}>{teamName[equipeExt] || equipeExt}</Text>
+      <Text style={[styles.equipeExt, isMediumScreen && {fontSize: 15}]}>{teamName[equipeExt] || equipeExt}</Text>
       </TouchableOpacity>
       </LinearGradient>
     
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     width: "9%",
     backgroundColor: "black",
-    borderRadius: 5,
+    borderRadius: 6,
     alignItems: "center",
     padding: 1
   },
@@ -123,7 +123,7 @@ fontFamily: "Bella"
     backgroundColor: 'grey',
     color: "white",
     height: 25,
-    width: 20,
+    width: 21,
     borderRadius: 5,
     textAlign: "center",
     fontFamily: "Kanitt"
@@ -134,7 +134,7 @@ fontSize: 16,
     backgroundColor: 'black',
     color: "white",
     height: 25,
-    width: 20,
+    width: 21,
     borderRadius: 5,
     textAlign: "center",
     fontFamily: "Kanitt"
@@ -144,7 +144,7 @@ fontSize: 16,
     backgroundColor: '#32b642',
     color: "white",
     height: 25,
-    width: 20,
+    width: 21,
     borderRadius: 5,
     textAlign: "center",
     fontFamily: "Kanitt"
@@ -155,7 +155,7 @@ fontSize: 16,
     backgroundColor: 'red',
     color: "white",
     height: 25,
-    width: 20,
+    width: 21,
     borderRadius: 5,
 textAlign: "center",
 fontFamily: "Kanitt"

@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
-import { ScrollView, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { ScrollView, Text, TextInput, Button, StyleSheet, useWindowDimensions } from 'react-native';
 import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const Contact = () => {
+
+  const { width } = useWindowDimensions();
+      
+          const isMediumScreen = width <= 1024 && width > 767;
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -45,9 +50,9 @@ const Contact = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Contact</Text>
-      <LinearGradient colors={[ 'rgba(24, 24, 91, 1)', 'rgba(0, 0, 0, 1)']} style={styles.inputs}>
+      <LinearGradient colors={[ 'rgba(24, 24, 91, 1)', 'rgba(0, 0, 0, 1)']} style={[styles.inputs, isMediumScreen && {width: "80%", padding: 40}]}>
       <TextInput
         style={styles.input}
         placeholder="Nom"
@@ -78,6 +83,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 20,
     marginTop: 80,
+    alignItems: "center"
   },
   title: {
     fontSize: 24,

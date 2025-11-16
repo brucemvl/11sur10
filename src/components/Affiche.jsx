@@ -16,6 +16,7 @@ import grass from "../assets/grass.jpg"
 import pl from "../assets/PL.jpg"
 import liga from "../assets/liga.webp"
 import bundesliga from "../assets/bundesliga.webp"
+import can from "../assets/can.webp"
 import arbitre from "../assets/arbitre.png"
 import ligue1plus from "../assets/logos/ligue1plus.webp"
 import canal from "../assets/logos/canal.png"
@@ -25,6 +26,16 @@ import tf1 from "../assets/logos/tf1.png"
 import dazn from "../assets/logos/dazn.png"
 import fifaclubwc from "../assets/fifaclubwc2.png"
 import red from "../assets/redcard.png"
+import parc from "../assets/stades/parc.jpg"
+import velodrome from "../assets/stades/velodrome.jpg"
+import louisII from "../assets/stades/louisll.jpeg"
+import bollaert from "../assets/stades/bollaert.jpg"
+import bernabeu from "../assets/stades/bernabeu.webp"
+import emirates from "../assets/stades/emirates.webp"
+import oldtrafford from "../assets/stades/oldtrafford.webp"
+import allianz from "../assets/stades/allianz.jpeg"
+import signal from "../assets/stades/signal.jpg"
+
 
 
 
@@ -97,7 +108,47 @@ useEffect(() => {
 
     return () => fadeAnim.stopAnimation();
   }, [fadeAnim]);
+
+ 
   
+  const imageBackgrounds = {
+  leagues: {
+    2: ucl2,
+    6: can,             // Coupe d’Afrique des Nations
+    61: {               // Ligue 1 (cas particuliers)
+      81: velodrome,    // Olympique de Marseille (Stade Vélodrome)
+      85: parc,         // Paris Saint-Germain (Parc des Princes)
+      91: louisII,
+      116: bollaert,
+      default: grass    // Autres clubs de Ligue 1
+    },
+    140: {
+        541: bernabeu,
+        default: liga
+    },
+    39: {
+        42: emirates,
+        33: oldtrafford,
+        default: pl
+    },
+    78: {
+        157: allianz,
+        165: signal,
+        default: bundesliga
+    }
+  },
+  default: grass
+};
+
+ const league = match.league.id;
+const homeTeam = match.teams.home.id;
+
+const backgroundSource =
+  imageBackgrounds.leagues[league]?.[homeTeam] ??
+  imageBackgrounds.leagues[league]?.default ??
+  imageBackgrounds.leagues[league] ??
+  imageBackgrounds.default;
+
   return (
         <View style={styles.container}>
             
@@ -119,8 +170,8 @@ useEffect(() => {
                 </View>
                 }
                 </LinearGradient>
-            {match.league.id === 2 || match.league.id === 61 || match.league.id === 39 || match.league.id === 140 || match.league.id === 78 ?
-                <ImageBackground source={match.league.id === 2 ? ucl2 : match.league.id === 61 ? grass : match.league.id === 39 ? pl : match.league.id === 78 ? bundesliga : liga} style={[styles.afficheUcl, isMediumScreen && {height: 260}]} imageStyle={{ borderRadius: 15, filter: match.league.id === 61 ? "brightness(0.5)" : match.league.id === 39 ? "brightness(0.4)" : match.league.id === 140 ? "brightness(0.32)" : match.league.id === 78 ? "brightness(0.45)" : "brightness(0.9)" }}>
+            {match.league.id === 2 || match.league.id === 61 || match.league.id === 39 || match.league.id === 140 || match.league.id === 78 || match.league.id === 6 ?
+                <ImageBackground source={backgroundSource} style={[styles.afficheUcl, isMediumScreen && {height: 260}]} imageStyle={{ borderRadius: 15, filter: match.league.id === 61 ? "brightness(0.5)" : match.league.id === 39 ? "brightness(0.4)" : match.league.id === 140 || match.league. id === 6 ? "brightness(0.32)" : match.league.id === 78 ? "brightness(0.45)" : "brightness(0.9)" }}>
                    
                     <TouchableOpacity style={styles.domicile} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo })}>
                         <Image source={{ uri: match.teams.home.logo }} style={[styles.teamLogo, isMediumScreen && { height: 100, width: 100}, match.teams.home.id === 81 ? { shadowRadius: 0.3 } : null]} />
@@ -244,9 +295,9 @@ useEffect(() => {
                     </TouchableOpacity>
                 </LinearGradient>}
                 <View style={styles.ligue}>
-                <Text style={{ fontFamily: "Kanitt", textAlign: "center" }}>{match.league.name.indexOf("Friendlies") != -1 ? match.league.name.replace("Friendlies", "Amicaux") : match.league.name} - {match.league.round.indexOf("Qualifying Round") != -1 ? "Match de Qualification" : match.league.round === "Knockout Round Play-offs" || match.league.round === "Play-offs" ? "Barrages" : match.league.round === "Extra Preliminary Round" ? "Tour Preliminaire" : match.league.round === "Regular Season - 1" || match.league.round === "League Stage - 1" ? "1ere Journee" : match.league.round === "Round of 16" ? "8eme de finale" : match.league.round === "Quarter-finals" ? "Quart de finale" : match.league.round === "Semi-finals" ? "Demi Finale" : match.league.round === "Final" ? "Finale" : match.league.round === "Relegation Round" ? "Barrage" : match.league.round === "3rd Place Final" ? "Match 3eme place" : match.league.round === "8th Finals" ? "8eme de Finale" : match.league.round === "4th Finals" ? "Quart de Finale" : `${roundd}eme Journee`}</Text>
+                <Text style={{ fontFamily: "Kanitt", paddingInline: 9, textAlign: "center" }}>{match.league.name.indexOf("Friendlies") != -1 ? match.league.name.replace("Friendlies", "Amicaux") : match.league.id === 6 ? "Coupe d'Afrique des Nations" : match.league.name} - {match.league.round.indexOf("Qualifying Round") != -1 ? "Match de Qualification" : match.league.round === "Knockout Round Play-offs" || match.league.round === "Play-offs" ? "Barrages" : match.league.round === "Extra Preliminary Round" ? "Tour Preliminaire" : match.league.round === "Regular Season - 1" || match.league.round === "League Stage - 1" || match.league.round === "Group Stage - 1" ? "1ere Journee" : match.league.round === "Round of 16" ? "8eme de finale" : match.league.round === "Quarter-finals" ? "Quart de finale" : match.league.round === "Semi-finals" ? "Demi Finale" : match.league.round === "Final" ? "Finale" : match.league.round === "Relegation Round" ? "Barrage" : match.league.round === "3rd Place Final" ? "Match 3eme place" : match.league.round === "8th Finals" ? "8eme de Finale" : match.league.round === "1/128-finals" ? "128e de Finale" : match.league.round === "1/64-finals" ? "64e de Finale" : match.league.round === "1/32-finals" ? "32e de Finale" : match.league.round === "4th Finals" ? "Quart de Finale" : `${roundd}eme Journee`}</Text>
             </View>
-{match.league.id === 307 || match.league.id === 61 || match.league.id === 62 || match.league.id === 135 || match.league.id === 2 || match.league.id === 140 || match.league.id === 78 || match.league.id === 39 || match.league.id === 15 || match.league.id === 5 ? <View style={{flexDirection: "row", alignItems: "center", justifyContent: "center"}}><Text style={{fontFamily: "Kanitus"}}>Match diffusé sur</Text><Image source={match.league.id === 61 ? ligue1plus : match.league.id === 135 || match.league.id === 15 ? dazn : match.league.id === 2 || match.league.id === 39 || match.league.id === 307 ? canal : match.league.id === 140 || match.league.id === 62 || match.league.id === 78 ? bein : match.league.id === 5 ? tf1 : null} style={match.league.id === 61 ? {height: 25, width: 40, objectFit: "contain", marginLeft: 2}: match.league.id === 140  ? {height: 25, width: 65, objectFit: "contain", marginLeft: 5} : match.league.id === 39 || match.league.id === 2 ? {height: 25, width: 50, objectFit: "contain", marginLeft: 2} : {height: 25, width: 40, objectFit: "contain", marginLeft: 2} }/>{match.fixture.id === 1374812 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitus"}}>et</Text><Image source={m6} style={{height: 20, objectFit: "contain", width: 40}} /></View> : match.fixture.id === 1399365 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitus"}}>et</Text><Image source={tf1} style={{height: 20, objectFit: "contain", width: 40, marginLeft: 8}} /></View> : null}</View> : null}
+{match.league.id === 307 || match.league.id === 61 || match.league.id === 62 || match.league.id === 135 || match.league.id === 2 || match.league.id === 140 || match.league.id === 78 || match.league.id === 39 || match.league.id === 15 || match.league.id === 5 || match.league.id === 6 ? <View style={{flexDirection: "row", alignItems: "center", justifyContent: "center"}}><Text style={{fontFamily: "Kanitus"}}>Match diffusé sur</Text><Image source={match.league.id === 61 ? ligue1plus : match.league.id === 135 || match.league.id === 15 ? dazn : match.league.id === 2 || match.league.id === 39 || match.league.id === 307 ? canal : match.league.id === 140 || match.league.id === 62 || match.league.id === 78 || match.league.id === 6 ? bein : match.league.id === 5 ? tf1 : null} style={match.league.id === 61 ? {height: 25, width: 40, objectFit: "contain", marginLeft: 2}: match.league.id === 140 || match.league.id === 6  ? {height: 25, width: 65, objectFit: "contain", marginLeft: 5} : match.league.id === 39 || match.league.id === 2 ? {height: 25, width: 50, objectFit: "contain", marginLeft: 2} : {height: 25, width: 40, objectFit: "contain", marginLeft: 2} }/>{match.fixture.id === 1374812 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitus"}}>et</Text><Image source={m6} style={{height: 20, objectFit: "contain", width: 40}} /></View> : match.fixture.id === 1399365 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitus"}}>et</Text><Image source={tf1} style={{height: 20, objectFit: "contain", width: 40, marginLeft: 8}} /></View> : null}</View> : null}
             <View style={styles.buts}>
 {/*
                 <View style={styles.equipeDomicile}>

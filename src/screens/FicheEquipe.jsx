@@ -24,7 +24,7 @@ function FicheEquipe() {
 
   const [equipe, setEquipe] = useState();
   const [leagues, setLeagues] = useState([])
-  const [stats, setStats] = useState(null);
+  const [stats, setStats] = useState();
   const [squad, setSquad] = useState([])
   const [calendrier, setCalendrier] = useState([])
   const [coach, setCoach] = useState([])
@@ -240,7 +240,11 @@ function FicheEquipe() {
     fetchCoach();
   }, [id]);
 
+if (!stats) {
+    return <ActivityIndicator size="large" color="#0000ff" />
 
+  }
+  
   console.log(stats)
   console.log(squad)
   console.log(calendrier)
@@ -252,9 +256,10 @@ function FicheEquipe() {
   }
 
   if (!stats) {
-    return <ActivityIndicator size="large" color="#0000ff" />
-
+    return           <ActivityIndicator size="large" color="#0000ff" />
+    ;
   }
+
 
   if (!squad) {
     return <ActivityIndicator size="large" color="#0000ff" />
@@ -376,15 +381,15 @@ function FicheEquipe() {
           <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
             <View style={{ alignItems: "center", width: "33%" }}>
               <Text style={styles.h4}>Victoires</Text>
-              <Text style={{ fontFamily: "Kanitt", color: "green", fontSize: 20 }}>{stats.fixtures.wins.total}</Text>
+              <Text style={{ fontFamily: "Kanitt", color: "green", fontSize: 20 }}>{stats?.fixtures?.wins.total}</Text>
             </View>
             <View style={{ alignItems: "center", width: "33%", borderLeftWidth: 2, borderRightWidth: 2 }}>
               <Text style={styles.h4}>Defaites</Text>
-              <Text style={{ fontFamily: "Kanitt", color: "red", fontSize: 20 }}>{stats.fixtures.loses.total}</Text>
+              <Text style={{ fontFamily: "Kanitt", color: "red", fontSize: 20 }}>{stats?.fixtures?.loses.total}</Text>
             </View>
             <View style={{ alignItems: "center", width: "33%" }}>
               <Text style={styles.h4}>Nuls</Text>
-              <Text style={{ fontFamily: "Kanitt", color: "grey", fontSize: 20 }}>{stats.fixtures.draws.total}</Text>
+              <Text style={{ fontFamily: "Kanitt", color: "grey", fontSize: 20 }}>{stats?.fixtures?.draws.total}</Text>
             </View>
           </View>
         </View>
@@ -393,12 +398,12 @@ function FicheEquipe() {
           <View style={{ flexDirection: "row", justifyContent: "center", width: "100%" }}>
             <View style={{ alignItems: "center", borderRightWidth: 1, paddingRight: 30 }}>
               <Text style={styles.h4}>Marqués</Text>
-              <Text style={{ fontFamily: "Kanitt", color: "green", fontSize: 20 }}>{stats.goals.for.total.total}</Text>
+              <Text style={{ fontFamily: "Kanitt", color: "green", fontSize: 20 }}>{stats?.goals?.for.total.total}</Text>
               <Text style={{ fontFamily: "Kanitus", fontSize: 11 }}>(Moyenne par match :<Text style={{ fontFamily: "Kanito" }}> {stats.goals.for.average.total}</Text>)</Text>
             </View>
             <View style={{ alignItems: "center", borderLeftWidth: 1, paddingLeft: 30 }}>
               <Text style={styles.h4}>Encaissés</Text>
-              <Text style={{ fontFamily: "Kanitt", color: "red", fontSize: 20 }}>{stats.goals.against.total.total}</Text>
+              <Text style={{ fontFamily: "Kanitt", color: "red", fontSize: 20 }}>{stats?.goals?.against.total.total}</Text>
               <Text style={{ fontFamily: "Kanitus", fontSize: 11 }}>(Moyenne par match :<Text style={{ fontFamily: "Kanito" }}>{stats.goals.against.average.total}</Text>)</Text>
 
             </View>

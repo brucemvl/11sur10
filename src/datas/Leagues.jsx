@@ -66,6 +66,14 @@ export const championnats = [
     },
 
     {
+        "id": 144,
+        "name": "Jupiler League",
+        "country": "Belgique",
+        "logo": "https://media.api-sports.io/football/leagues/144.png",
+        "season": 2025,
+    },
+
+    {
         "id": 197,
         "name": "Super League 1",
         "country": "Grece",
@@ -89,7 +97,7 @@ export const championnats = [
         "country": "France",
         "logo": "https://media.api-sports.io/football/leagues/63.png",
         "season": 2025,
-    }
+    },
 
 
 ]
@@ -217,7 +225,7 @@ export const national2 = [
         "name": "National 2 A",
         "country": "France",
         "logo": "https://media.api-sports.io/football/leagues/67.png",
-        "season": 2024,
+        "season": 2025,
     },
 
     {
@@ -225,7 +233,7 @@ export const national2 = [
         "name": "National 2 B",
         "country": "France",
         "logo": "https://media.api-sports.io/football/leagues/68.png",
-        "season": 2024,
+        "season": 2025,
     },
 
     {
@@ -233,7 +241,7 @@ export const national2 = [
         "name": "National 2 C",
         "country": "France",
         "logo": "https://media.api-sports.io/football/leagues/69.png",
-        "season": 2024,
+        "season": 2025,
     }
 ]
 
@@ -302,21 +310,6 @@ export const national3 = [
         "season": 2024, 
     },
 
-    {
-        "id": 468,
-        "name": "National 3 I",
-        "country": "France",
-        "logo": "https://media.api-sports.io/football/leagues/468.png",
-        "season": 2024, 
-    },
-
-    {
-        "id": 469,
-        "name": "National 3 J",
-        "country": "France",
-        "logo": "https://media.api-sports.io/football/leagues/469.png",
-        "season": 2024, 
-    },
 ]
 
 export const selections = [
@@ -330,20 +323,20 @@ export const selections = [
 */
     {
         "id": 29,
-        "name": "World Cup - Qualification Africa",
+        "name": "Zone Afrique",
         "logo": "https://media.api-sports.io/football/leagues/29.png",
         "season": 2023,
         },
         {
             "id": 32,
-            "name": "World Cup - Qualification Europe",
+            "name": "Zone Europe",
             "logo": "https://media.api-sports.io/football/leagues/32.png",
             "season": 2024,
             },
 
             {
                 "id": 34,
-                "name": "World Cup - Qualification South America",
+                "name": "Zone AmSud",
                 "logo": "https://media.api-sports.io/football/leagues/34.png",
                 "season": 2026,
                 },
@@ -353,6 +346,13 @@ export const selections = [
                     "name": "UEFA Nations League",
                     "logo": "https://media.api-sports.io/football/leagues/5.png",
                     "season": 2024,
+                    },
+
+                    {
+                    "id": 6,
+                    "name": "CAN",
+                    "logo": "https://media.api-sports.io/football/leagues/6.png",
+                    "season": 2025,
                     },
 
 ]

@@ -257,10 +257,36 @@ import lukaku from "../assets/portraits/fiche/lukaku.png"
 import mctominay from "../assets/portraits/fiche/mctominay.png"
 import woltemade from "../assets/portraits/fiche/woltemade.png"
 import mateta from "../assets/portraits/fiche/mateta.webp"
+import panichelli from "../assets/portraits/fiche/panichelli.png"
+import george from "../assets/portraits/fiche/george.webp"
+import gittens from "../assets/portraits/fiche/gittens.webp"
+import estevao from "../assets/portraits/fiche/estevao.webp"
+import adaribioyo from "../assets/portraits/fiche/adaribioyo.webp"
+import paixao from "../assets/portraits/fiche/paixao.png"
+import aguerd from "../assets/portraits/fiche/aguerd.png"
+import williams from "../assets/portraits/fiche/williams.png"
+import osimhen from "../assets/portraits/fiche/osimhen.png"
+import burn from "../assets/portraits/fiche/burn.png"
+import kebbal from "../assets/portraits/fiche/kebbal.png"
+import kone from "../assets/portraits/fiche/kone.png"
+
 
 
 
 export const fichesJoueurs = {
+    2290: konateselec,
+    22147: kone,
+    83831: kebbal,
+    18961: burn,
+    2780: osimhen,
+    183799: williams,
+    21694: aguerd,
+    9363: paixao,
+    19145: adaribioyo,
+    425733: estevao,
+    286894: gittens,
+    334037: george,
+        390742: panichelli,
     158054: woltemade,
     25927: mateta,
     544: lang,

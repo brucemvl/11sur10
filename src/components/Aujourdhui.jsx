@@ -42,6 +42,7 @@ const [fontsLoaded] = useFonts({
   });
 
   const teamNames = {
+    'Al-Hilal Saudi FC' : "Al-Hilal",
     "Borussia Mönchengladbach" : "B. Monchengladbach",
   "Nottingham Forest" : "Nottingham F.",
   "Paris Saint Germain" : "Paris SG",
@@ -73,7 +74,8 @@ const [fontsLoaded] = useFonts({
     "Croatia" : "Croatie",
     "Denmark" : "Danemark",
     "Malta" : "Malte",
-    "Lithuania" : "Lituanie"
+    "Lithuania" : "Lituanie",
+    "Cameroon" : "Cameroun"
 
   }
 
@@ -158,6 +160,7 @@ const [fontsLoaded] = useFonts({
     "Ligue 1" : "https://media.api-sports.io/flags/fr.svg",
     "Coupe de France" : "https://media.api-sports.io/flags/fr.svg",
     "Premier League" : "https://media.api-sports.io/flags/gb-eng.svg",
+    "League Cup" : "https://media.api-sports.io/flags/gb-eng.svg",
     "La Liga" : "https://media.api-sports.io/flags/es.svg",
     "Copa del Rey" : "https://media.api-sports.io/flags/es.svg",
     "Bundesliga" : "https://media.api-sports.io/flags/de.svg",
@@ -733,7 +736,7 @@ const [fontsLoaded] = useFonts({
                           <Image source={{ uri: element.league.logo }} style={styles.competitionLogo} resizeMode="contain"/>}
                           <View style={styles.teamContainerDom}>
                             <Image source={{ uri: element.teams.home.logo }} style={styles.teamLogo} resizeMode="contain" />
-                            <View style={{width: "80%", alignItems: "flex-end"}}><Text style={styles.teamName}>{element.teams.home.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.home.name === "Nottingham Forest" ? "Nottingham F." : element.teams.home.name === "Paris Saint Germain" ? "Paris SG" : element.teams.home.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.home.name === "Barcelona" ? "FC Barcelone" : element.teams.home.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.home.name === "Central African Republic" ? "Centrafrique" : element.teams.home.name === "Netherlands" ? "Pays Bas" : element.teams.home.name === "Spain" ? "Espagne" : element.teams.home.name === "Germany" ? "Allemagne" : element.teams.home.name === "England" ? "Angleterre" : element.teams.home.name}</Text></View>
+                            <View style={{width: "80%", alignItems: "flex-end"}}><Text style={styles.teamName}>{teamNames[element.teams.home.name] || element.teams.home.name}</Text></View>
                           </View>
                           <View style={styles.scoreContainer}>
                             {element.goals.home === element.goals.away ? 
@@ -764,7 +767,7 @@ const [fontsLoaded] = useFonts({
                           </View>
                           <View style={styles.teamContainer}>
                             <Image source={{ uri: element.teams.away.logo }} style={styles.teamLogo} resizeMode="contain"/>
-                           <View style={{width: "80%", alignItems: "flex-start"}}> <Text style={styles.teamName}>{element.teams.away.name === "Borussia Mönchengladbach" ? "B. Monchengladbach" : element.teams.away.name === "Nottingham Forest" ? "Nottingham F." : element.teams.away.name === "Paris Saint Germain" ? "Paris SG" : element.teams.away.name === "Stade Brestois 29" ? "Stade Brestois" : element.teams.away.name === "Barcelona" ? "FC Barcelone" : element.teams.away.name === "Ivory Coast" ? "Cote d'Ivoire" : element.teams.away.name === "Central African Republic" ? "Centrafrique" : element.teams.away.name === "Netherlands" ? "Pays Bas" : element.teams.away.name === "Spain" ? "Espagne" : element.teams.away.name === "Germany" ? "Allemagne" : element.teams.away.name === "England" ? "Angleterre" : element.teams.away.name}</Text></View>
+                           <View style={{width: "80%", alignItems: "flex-start"}}> <Text style={styles.teamName}>{teamNames[element.teams.away.name] || element.teams.away.name}</Text></View>
                           </View>
                         </LinearGradient>
                       </TouchableOpacity> 
@@ -944,7 +947,7 @@ const styles = StyleSheet.create({
   matchEquipeDom: {
     fontSize: 13.5,
     fontFamily: "Bella",
-    width: "27%",
+    width: "26%",
     textAlign: "center"
 
   },
@@ -978,40 +981,41 @@ const styles = StyleSheet.create({
 
   },
   nul: {
-    backgroundColor: 'gray',
+    backgroundColor: 'rgba(150, 150, 150, 1)',
     color: "white",
     height: 30,
-    width: 25,
+    width: 23,
     borderRadius: 5,
     textAlign: "center",
     fontFamily: "Kanito",
-    paddingTop: 4
+    paddingTop: 4,
+    
   },
   winner: {
-    backgroundColor: '#32b642',
+    backgroundColor: '#26a435ff',
     color: "white",
     height: 30,
-    width: 25,
+    width: 23,
     borderRadius: 5,
     textAlign: "center",
     fontFamily: "Kanito",
-    paddingTop: 4
+    paddingTop: 4,
 
   },
   looser: {
     backgroundColor: 'red',
     color: "white",
     height: 30,
-    width: 25,
+    width: 23,
     borderRadius: 5,
     textAlign: "center",
     fontFamily: "Kanito",
-    paddingTop: 4
+    paddingTop: 4,
 
   },
   matchScore: {
     flexDirection: "row",
-    width: "15%",
+    width: "14%",
     justifyContent: "space-around"
   },
   match: {
@@ -1041,7 +1045,7 @@ const styles = StyleSheet.create({
   teamContainerDom: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: "33%",
+    width: "32%",
     flexDirection: "row-reverse",
     gap: 2,
     marginInline: 1,

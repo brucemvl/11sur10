@@ -14,7 +14,7 @@ function Menu() {
   const navigation = useNavigation();
   const [fontsLoaded] = useFonts({
     "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
-    "Kanitus": require("../assets/fonts/Kanit/Kanit-Light.ttf"),
+        "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
   });
 
   const [selected, setSelected] = useState(true);
@@ -109,28 +109,28 @@ function Menu() {
     <View style={styles.Menu}>
       <TouchableOpacity onPress={openAccueil} style={styles.buttonLeft}>
         <View style={selected ? styles.selected : { alignItems: "center", gap: 5 }}>
-          <Text style={styles.text}>Accueil</Text>
+          <Text style={styles.text}>ACCUEIL</Text>
           <Image source={home} style={styles.img} />
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={openLive} style={styles.button}>
         <View style={selected2 ? styles.selected : { alignItems: "center", gap: 5 }}>
-          <Text style={styles.text}>Live</Text>
+          <Text style={styles.text}>LIVE</Text>
           <Image source={live} style={styles.img} />
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={openClubs} style={styles.button}>
         <View style={selected3 ? styles.selected : { alignItems: "center", gap: 5 }}>
-          <Text style={styles.text}>Clubs</Text>
+          <Text style={styles.text}>CLUBS</Text>
           <Image source={shield} style={styles.img} />
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={openSelect} style={styles.buttonRight}>
         <View style={selected4 ? styles.selected : { alignItems: "center", gap: 5 }}>
-          <Text style={styles.text}>Selections</Text>
+          <Text style={styles.text}>SELECTIONS</Text>
           <Image source={flag} style={styles.img} />
         </View>
       </TouchableOpacity>
@@ -166,18 +166,19 @@ left: "7.5%",
         width: "25.3%",
     },
     buttonLeft:{
-        borderRightWidth: 1,
+        borderRightWidth: 1.3,
         borderRightColor: "white",
         width: "25%"
     },
     buttonRight: {
-        borderLeftWidth: 1,
+        borderLeftWidth: 1.3,
         borderLeftColor: "white",
         width: "25%"
     },
     text: {
         color: "white",
-        fontFamily: "Kanito"
+        fontFamily: "Kanitt",
+        fontSize: 11
     },
     img: {
         height: 24,
@@ -186,10 +187,10 @@ left: "7.5%",
     selected: {
         alignItems: "center",
         gap: 5,
-        shadowColor: 'white', // shadow color
-        shadowOffset: { width: 0, height: -4 }, // shadow offset
-        shadowOpacity: 0.9, // shadow opacity
-        shadowRadius: 4,
+        shadowColor: 'white',
+        shadowOffset: { width: 0, height: -4 },
+        shadowOpacity: 0.9,
+        shadowRadius: 3,
     }
 })
 

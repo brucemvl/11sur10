@@ -61,6 +61,13 @@ import banner65 from "../assets/banner66.webp"
 import banner66 from "../assets/banner67.webp"
 import banner67 from "../assets/banner68.webp"
 import banner68 from "../assets/banner69.webp"
+import banner69 from "../assets/banner70.webp"
+import banner70 from "../assets/banner71.webp"
+import banner71 from "../assets/banner72.webp"
+import banner72 from "../assets/banner73.webp"
+import banner73 from "../assets/banner74.webp"
+import banner74 from "../assets/banner75.webp"
+
 
 
 
@@ -71,7 +78,7 @@ import { View, Text, Image, StyleSheet, Animated, useWindowDimensions } from "re
 const photosBan = [
   banner3, banner4, banner5, banner6, banner7, banner8, banner9,
   banner10, banner11, banner12, banner13, banner14, banner15, banner16, banner17, banner18, banner19, banner20, banner21, banner22, banner23, banner24, banner25, banner26, banner27, banner28, banner29, banner30, banner31, banner32, banner33, banner34, banner35, banner36, banner37, banner38, banner39, banner40, banner41, banner42, banner43, banner44, banner45, banner46, banner47, banner48, banner49, banner50, banner51,banner52, banner53, banner54, banner58, banner59, banner60, banner61,
-  banner62, banner63, banner64, banner65, banner66, banner67, banner68
+  banner62, banner63, banner64, banner65, banner66, banner67, banner68, banner69, banner70, banner71, banner72, banner73, banner74
 ];
 
 
@@ -124,7 +131,7 @@ function Banner() {
       />
       <View style={styles.bannerText}>
         <Text style={[styles.bannerTitle, isMediumScreen && {fontSize: 42}]}>100% FOOT</Text>
-        <Text style={[styles.bannerSubtitle, isMediumScreen && {fontSize: 24}]}>Toutes vos infos Football en un clic</Text>
+        <Text style={[styles.bannerSubtitle, isMediumScreen && {fontSize: 24}]}>Toute l'actu Football partout avec vous</Text>
       </View>
     </View>
   );
@@ -164,7 +171,7 @@ const styles = StyleSheet.create({
   bannerTitle: {
     fontSize: 32,
     color: "white",
-    fontFamily: "Kanitt",
+    fontFamily: "Kanitblack",
     textAlign: "center",
   },
 

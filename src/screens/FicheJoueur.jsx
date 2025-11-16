@@ -67,6 +67,7 @@ import gustoselec from "../assets/portraits/selection/gusto.webp"
 import thauvinselec from "../assets/portraits/selection/thauvin.webp"
 import nkunkuselec from "../assets/portraits/selection/nkunku.webp"
 import matetaselec from "../assets/portraits/selection/mateta.webp"
+import kanteselec from "../assets/portraits/selection/kante.webp"
 
 
 import { fichesJoueurs } from "../datas/Fiches.jsx";
@@ -272,7 +273,7 @@ console.log(team)
             {team === 2 ?
               <Image source={
 
-                joueur.player.id === 1922 ? thauvinselec : joueur.player.id === 269 ? nkunkuselec : joueur.player.id === 25927 ? matetaselec : joueur.player.id === 161907 ? gustoselec : joueur.player.id === 2207 ? camavingaselec : joueur.player.id === 1149 ? upamecanoselec : joueur.player.id === 22090 ? salibaselec : joueur.player.id === 116 ? kephrenselec : joueur.player.id === 274300 ? aklioucheselec : joueur.player.id === 508 ? comanselec : joueur.player.id === 174565 ? ekitikeselc : joueur.player.id === 22147 ? koneselec : joueur.player.id === 2725 ? pavardselec : joueur.player.id === 2724 ? digneselec : joueur.player.id === 1257 ? koundeselec : joueur.player.id === 336657 ? zaireselec : joueur.player.id === 1145 ? konateselec : joueur.player.id === 1454 ? guendouziselec : joueur.player.id === 162453 ? chevalierselec : joueur.player.id === 21104 ? kolomuaniselec : joueur.player.id === 22221 ? maignanselec : joueur.player.id === 1271 ? tchouameniselec : joueur.player.id === 33 ? lukasselec : joueur.player.id === 272 ? rabiotselec : joueur.player.id === 21509 ? thuramselec : joueur.player.id === 278 ? mbappeselec : joueur.player.id === 153 ? dembeleselec : joueur.player.id === 343027 ? doueselec : joueur.player.id === 19617 ? oliseselec : joueur.player.id === 47300 ? theoselec : joueur.player.id === 161904 ? barcolaselec : joueur.player.id === 156477 ? cherkiselec : { uri: joueur.player.photo }}
+                joueur.player.id === 2290 ? kanteselec : joueur.player.id === 1922 ? thauvinselec : joueur.player.id === 269 ? nkunkuselec : joueur.player.id === 25927 ? matetaselec : joueur.player.id === 161907 ? gustoselec : joueur.player.id === 2207 ? camavingaselec : joueur.player.id === 1149 ? upamecanoselec : joueur.player.id === 22090 ? salibaselec : joueur.player.id === 116 ? kephrenselec : joueur.player.id === 274300 ? aklioucheselec : joueur.player.id === 508 ? comanselec : joueur.player.id === 174565 ? ekitikeselc : joueur.player.id === 22147 ? koneselec : joueur.player.id === 2725 ? pavardselec : joueur.player.id === 2724 ? digneselec : joueur.player.id === 1257 ? koundeselec : joueur.player.id === 336657 ? zaireselec : joueur.player.id === 1145 ? konateselec : joueur.player.id === 1454 ? guendouziselec : joueur.player.id === 162453 ? chevalierselec : joueur.player.id === 21104 ? kolomuaniselec : joueur.player.id === 22221 ? maignanselec : joueur.player.id === 1271 ? tchouameniselec : joueur.player.id === 33 ? lukasselec : joueur.player.id === 272 ? rabiotselec : joueur.player.id === 21509 ? thuramselec : joueur.player.id === 278 ? mbappeselec : joueur.player.id === 153 ? dembeleselec : joueur.player.id === 343027 ? doueselec : joueur.player.id === 19617 ? oliseselec : joueur.player.id === 47300 ? theoselec : joueur.player.id === 161904 ? barcolaselec : joueur.player.id === 156477 ? cherkiselec : { uri: joueur.player.photo }}
                 style={{ height: "190", width: "38%" }} />
               :
               <Image
@@ -420,55 +421,55 @@ console.log(team)
                 {element.games.minutes > 0 && element.league.id !== 850 ?
                   <View>
                     <LinearGradient colors={["rgba(56, 103, 142, 1)", "rgba(203, 217, 228, 1)"]} style={{ borderTopLeftRadius: 15, borderTopRightRadius: 15 }}>
-                      <Text style={styles.leagueName}>{element.league.name === "Friendlies" ? "Amicaux" : element.league.name}</Text>
+                      <Text style={[styles.leagueName, isMediumScreen && {fontSize: 22}]}>{element.league.name.indexOf("Friendlies") != -1 ? element.league.name.replace("Friendlies", "Amicaux") : element.league.name}</Text>
                     </LinearGradient>
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginInline: 10, paddingInline: 5 }}>
+                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginInline: 10, paddingInline: isMediumScreen ? 25 : 8 }}>
                       <View style={styles.statList}>
                         <View style={styles.ligne}>
                           <Image source={terrain} style={styles.icone} />
-                          <Text style={styles.cle}>Matchs joués: </Text><Text style={styles.valeur}> {element.games.appearences}</Text>
+                          <Text style={[styles.cle, isMediumScreen && {fontSize: 18}]}>Matchs joués: </Text><Text style={[styles.valeur, isMediumScreen && {fontSize: 20}]}> {element.games.appearences}</Text>
                         </View>
                         {joueur.statistics[0].games.position === "Goalkeeper" ?
                           <View style={styles.ligne}>
                             <Image source={gardien} style={styles.icone} />
-                            <Text style={styles.cle}>Arrets:</Text><Text style={styles.valeur}> {element.goals.saves === null ? 0 : element.goals.saves}</Text>
+                            <Text style={[styles.cle, isMediumScreen && {fontSize: 18}]}>Arrets:</Text><Text style={[styles.valeur, isMediumScreen && {fontSize: 20}]}> {element.goals.saves === null ? 0 : element.goals.saves}</Text>
                           </View> : null}
                         <View style={styles.ligne}>
                           <Image source={goal} style={styles.icone} />
-                          <Text style={styles.cle}>Buts: </Text><Text style={styles.valeur}>{element.goals.total}</Text>
+                          <Text style={[styles.cle, isMediumScreen && {fontSize: 18}]}>Buts: </Text><Text style={[styles.valeur, isMediumScreen && {fontSize: 20}]}>{element.goals.total}</Text>
                         </View>
                         <View style={styles.ligne}>
                           <Image source={target} style={styles.icone} />
-                          <Text style={styles.cle}>Passes Dec: </Text><Text style={styles.valeur}> {element.goals.assists === null ? 0 : element.goals.assists}</Text>
+                          <Text style={[styles.cle, isMediumScreen && {fontSize: 18}]}>Passes Dec: </Text><Text style={[styles.valeur, isMediumScreen && {fontSize: 20}]}> {element.goals.assists === null ? 0 : element.goals.assists}</Text>
                         </View>
                         {joueur.statistics[0].games.position === "Goalkeeper" ? null : <View style={styles.ligne}>
                           <Image source={shoot} style={styles.icone} />
-                          <Text style={styles.cle}>Tirs (cadrés): </Text><Text style={styles.valeur}> {element.shots.total} ({element.shots.on === null ? 0 : element.shots.on})</Text>
+                          <Text style={[styles.cle, isMediumScreen && {fontSize: 18}]}>Tirs (cadrés): </Text><Text style={[styles.valeur, isMediumScreen && {fontSize: 20}]}> {element.shots.total} ({element.shots.on === null ? 0 : element.shots.on})</Text>
                         </View>}
                         <View style={styles.ligne}>
                           <Image source={shoe} style={styles.icone} />
-                          <Text style={styles.cle}>Passes:</Text><Text style={styles.valeur}> {element.passes.total === null ? 0 : element.passes.total}</Text>
+                          <Text style={[styles.cle, isMediumScreen && {fontSize: 18}]}>Passes:</Text><Text style={[styles.valeur, isMediumScreen && {fontSize: 20}]}> {element.passes.total === null ? 0 : element.passes.total}</Text>
                         </View>
                         {joueur.statistics[0].games.position === "Defender" ?
                           <View style={styles.ligne}>
                             <Image source={tacle} style={styles.icone} />
-                            <Text style={styles.cle}>Tacles:</Text><Text style={styles.valeur}> {element.tackles.total === null ? 0 : element.tackles.total}</Text>
+                            <Text style={[styles.cle, isMediumScreen && {fontSize: 18}]}>Tacles:</Text><Text style={[styles.valeur, isMediumScreen && {fontSize: 20}]}> {element.tackles.total === null ? 0 : element.tackles.total}</Text>
                           </View> : null}
                         {joueur.statistics[0].games.position === "Goalkeeper" ? null : <View style={styles.ligne}>
                           <Image source={player} style={styles.icone} />
-                          <Text style={styles.cle}>Dribbles Tentés (Réussis): </Text><Text style={styles.valeur}> {element.dribbles.attempts} ({element.dribbles.success === null ? 0 : element.dribbles.success})</Text>
+                          <Text style={[styles.cle, isMediumScreen && {fontSize: 18}]}>Dribbles Tentés (Réussis): </Text><Text style={[styles.valeur, isMediumScreen && {fontSize: 20}]}> {element.dribbles.attempts} ({element.dribbles.success === null ? 0 : element.dribbles.success})</Text>
                         </View>}
                         <View style={styles.ligne}>
                           <Image source={rating} style={styles.icone} />
-                          <Text style={styles.cle}>Note moyenne: </Text><Text style={styles.valeur}> {element.games.rating ? element.games.rating.slice(0, 4) : "-"}</Text>
+                          <Text style={[styles.cle, isMediumScreen && {fontSize: 18}]}>Note moyenne: </Text><Text style={[styles.valeur, isMediumScreen && {fontSize: 20}]}> {element.games.rating ? element.games.rating.slice(0, 4) : "-"}</Text>
                         </View>
                         <View style={styles.ligne}>
                           <Image source={yellow} style={{ height: 25, width: 25, marginRight: 8, shadowColor: "black", shadowOffset: { width: -1, height: 0 }, shadowOpacity: 0.9 }} />
-                          <Text style={styles.cle}>Cartons jaune: </Text><Text style={styles.valeur}> {element.cards.yellow}</Text>
+                          <Text style={[styles.cle, isMediumScreen && {fontSize: 18}]}>Cartons jaune: </Text><Text style={[styles.valeur, isMediumScreen && {fontSize: 20}]}> {element.cards.yellow}</Text>
                         </View>
                         <View style={styles.ligne}>
                           <Image source={redcard} style={styles.icone} />
-                          <Text style={styles.cle}>Cartons Rouge: </Text><Text style={styles.valeur}> {element.cards.red}</Text>
+                          <Text style={[styles.cle, isMediumScreen && {fontSize: 18}]}>Cartons Rouge: </Text><Text style={[styles.valeur, isMediumScreen && {fontSize: 20}]}> {element.cards.red}</Text>
                         </View>
                       </View>
                       <Image source={element.league.id === 61 ? ligue1 : element.league.id === 15 ? fifaclubwc : { uri: element.league.logo }} style={styles.logoCompet} />
@@ -599,8 +600,8 @@ objectFit: "contain"
 
   },
   leagueName: {
-    fontSize: 16,
-    fontFamily: "Permanent",
+    fontSize: 18,
+    fontFamily: "Bangers",
     textAlign: "center",
     color: "white",
     marginBlockStart: 7,
@@ -632,7 +633,7 @@ objectFit: "contain"
     overflow: "hidden",
     shadowColor: '#000', // shadow color
     shadowOffset: { width: -3, height: -3 }, // shadow offset
-    shadowOpacity: 0.3, // shadow opacity
+    shadowOpacity: 0.4, // shadow opacity
     shadowRadius: 3,
     padding: 7,
     margin: 2,
@@ -651,7 +652,7 @@ objectFit: "contain"
     width: "45%",
     flexWrap: "wrap",
     alignItems: "center",
-    paddingBlock: 6
+    paddingBlock: 6,
   },
   cle: {
     fontFamily: "Kanito",

@@ -221,11 +221,19 @@ import dimarco from "../assets/portraits/dimarco.png"
 import vlahovic from "../assets/portraits/vlahovic.png"
 import ajorque from "../assets/portraits/ajorque.png"
 import mateta from "../assets/portraits/mateta.png"
+import panichelli from "../assets/portraits/panichelli.png"
+import osimhen from "../assets/portraits/osimhen.png"
+import burn from "../assets/portraits/burn.png"
+import kebbal from "../assets/portraits/kebbal.png"
 
 
 
 
 export const portraitsJoueurs = {
+        83831: kebbal,
+    18961: burn,
+    2780: osimhen,
+    390742: panichelli,
         25927: mateta,
     22264: ajorque,
     30415: vlahovic,

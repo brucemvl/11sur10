@@ -35,7 +35,7 @@ function LivePage({ navigation }) {
 
   const leagues = [... new Set(lives.map((element) => element.league.country))]
   console.log(leagues)
-console.log(lives)
+  console.log(lives)
   const [fadeAnim] = useState(new Animated.Value(1)); // Animation de fade (opacité)
 
   useEffect(() => {
@@ -56,55 +56,55 @@ console.log(lives)
 
     flash();
 
-   
+
 
     return () => fadeAnim.stopAnimation();
   }, [fadeAnim]);
 
-   const countryTranslations = {
-  Denmark: "Danemark",
-  Belgium: "Belgique",
-  Hungary: "Hongrie",
-  England: "Angleterre",
-  Spain: "Espagne",
-  Germany: "Allemagne",
-  Poland: "Pologne",
-  Cyprus: "Chypre",
-  Sweden: "Suède",
-  "Czech-Republic": "République Tchèque",
-  Switzerland: "Suisse",
-  Serbia: "Serbie",
-  Algeria: "Algérie",
-  Tunisia: "Tunisie",
-  Turkey: "Turquie",
-  Singapore: "Singapour",
-  Latvia: "Lettonie",
-  Romania: "Roumanie",
-  Belarus: "Biélorussie",
-  Russia: "Russie",
-  Bulgaria: "Bulgarie",
-  Cameroon: "Cameroun",
-  Greece: "Grèce",
-  India: "Inde",
-  Cambodia: "Cambodge",
-  Austria: "Autriche",
-  Netherlands: "Pays-Bas",
-  "Ivory-Coast": "Côte d'Ivoire",
-  Wales: "Pays de Galles",
-  Scotland: "Écosse",
-  Italy: "Italie",
-  Mexico: "Mexique",
-  Lebanon: "Liban",
-  Norway: "Norvège",
-  "Morocco" : "Maroc",
-  Chile: "Chili",
-  Colombia: "Colombie",
+  const countryTranslations = {
+    Denmark: "Danemark",
+    Belgium: "Belgique",
+    Hungary: "Hongrie",
+    England: "Angleterre",
+    Spain: "Espagne",
+    Germany: "Allemagne",
+    Poland: "Pologne",
+    Cyprus: "Chypre",
+    Sweden: "Suède",
+    "Czech-Republic": "République Tchèque",
+    Switzerland: "Suisse",
+    Serbia: "Serbie",
+    Algeria: "Algérie",
+    Tunisia: "Tunisie",
+    Turkey: "Turquie",
+    Singapore: "Singapour",
+    Latvia: "Lettonie",
+    Romania: "Roumanie",
+    Belarus: "Biélorussie",
+    Russia: "Russie",
+    Bulgaria: "Bulgarie",
+    Cameroon: "Cameroun",
+    Greece: "Grèce",
+    India: "Inde",
+    Cambodia: "Cambodge",
+    Austria: "Autriche",
+    Netherlands: "Pays-Bas",
+    "Ivory-Coast": "Côte d'Ivoire",
+    Wales: "Pays de Galles",
+    Scotland: "Écosse",
+    Italy: "Italie",
+    Mexico: "Mexique",
+    Lebanon: "Liban",
+    Norway: "Norvège",
+    "Morocco": "Maroc",
+    Chile: "Chili",
+    Colombia: "Colombie",
 
-};
+  };
 
   return (
     <ScrollView
-      contentContainerStyle={{ width: "98%", paddingInlineStart: "2%", marginBlock: 5,  justifyContent: "center" }}
+      contentContainerStyle={{ width: "98%", paddingInlineStart: "2%", marginBlock: 5, justifyContent: "center" }}
       refreshControl={
         <RefreshControl
           refreshing={isRefreshing}
@@ -112,91 +112,93 @@ console.log(lives)
         />
       }
     >
-      <View style={styles.container}>
-        <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.titlecontainer}>
-          <Text style={styles.title}>LIVE</Text>
-        </LinearGradient>
-        {lives.length === 0 ? (
-          <Text style={styles.noMatch}>Aucun match pour le moment</Text>
-        ) :
-        
-        (
-          leagues.map((league) => <View style={{marginBottom: 10}} key={"ligue" + league}>
-<Text style={{fontFamily: "Kanitus", color: "white"}}>
-  {countryTranslations[league] || league}
-</Text>          {lives.map((live) => live.league.country === league ? 
-          <TouchableOpacity
-      style={styles.matchContainer}
-      onPress={() => navigation.navigate('FicheMatch', { id: live.fixture.id })} key={live.fixture.id}
-    >
-      <View style={styles.match}>
-        {live.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
-          source={ligue1}
-          style={styles.competitionLogo}
-          resizeMode="contain"
-        /> :
-        <Image
-          source={{ uri: live.league.logo }}
-          style={styles.competitionLogo}
-          resizeMode="contain"
-        />}
-        <View style={styles.teamContainerDom}>
-          <Image
-            source={{ uri: live.teams.home.logo }}
-            style={styles.teamLogo}
-            resizeMode="contain"
-          />
-          <Text style={styles.teamName}>{countryTranslations[live.teams.home.name] || live.teams.home.name}</Text>
-        </View>
-        <View style={styles.scoreContainer}>
-          {live.goals.home === live.goals.away ? (
-            <View style={styles.score}>
-              <Text style={styles.scoreText}>{live.goals.home}</Text>
-              <View style={styles.liveSticker}>
-                <Text style={styles.liveText}>{live.fixture.status.elapsed}'</Text>
-                <Animated.Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
-              </View>
-              <Text style={styles.scoreText}>{live.goals.away}</Text>
-            </View>
-          ) : (
-            <View style={styles.score}>
-              <Text
-                style={
-                  live.goals.home > live.goals.away ? styles.winner : styles.loser
-                }
-              >
-                {live.goals.home}
-              </Text>
-              <View style={styles.liveSticker}>
-                <Text style={styles.liveText}>{live.fixture.status.elapsed}'</Text>
-                <Animated.Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
-              </View>
 
-              <Text
-                style={
-                  live.goals.away > live.goals.home ? styles.winner : styles.loser
-                }
+      <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.titlecontainer}>
+
+        <Text style={styles.title}>LIVE</Text>
+      </LinearGradient>
+      <View style={styles.container}>
+        {lives.length === 0 ?
+          <Text style={styles.noMatch}>Aucun match pour le moment</Text>
+          :
+
+
+          leagues.map((league) => <View style={{ marginBottom: 10 }} key={"ligue" + league}>
+            <Text style={{ fontFamily: "Kanitus", color: "white" }}>
+              {countryTranslations[league] || league}
+            </Text>          {lives.map((live) => live.league.country === league ?
+              <TouchableOpacity
+                style={styles.matchContainer}
+                onPress={() => navigation.navigate('FicheMatch', { id: live.fixture.id })} key={live.fixture.id}
               >
-                {live.goals.away}
-              </Text>
-            </View>
-          )}
-        </View>
-        <View style={styles.teamContainer}>
-          <Image
-            source={{ uri: live.teams.away.logo }}
-            style={styles.teamLogo}
-            resizeMode="contain"
-          />
-          <Text style={styles.teamName}>{countryTranslations[live.teams.away.name] || live.teams.away.name}</Text>
-        </View>
-      </View>
-    </TouchableOpacity>
-    : null
-          )}
+                <View style={styles.match}>
+                  {live.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
+                    source={ligue1}
+                    style={styles.competitionLogo}
+                    resizeMode="contain"
+                  /> :
+                    <Image
+                      source={{ uri: live.league.logo }}
+                      style={styles.competitionLogo}
+                      resizeMode="contain"
+                    />}
+                  <View style={styles.teamContainerDom}>
+                    <Image
+                      source={{ uri: live.teams.home.logo }}
+                      style={styles.teamLogo}
+                      resizeMode="contain"
+                    />
+                    <Text style={styles.teamName}>{countryTranslations[live.teams.home.name] || live.teams.home.name}</Text>
+                  </View>
+                  <View style={styles.scoreContainer}>
+                    {live.goals.home === live.goals.away ? (
+                      <View style={styles.score}>
+                        <Text style={styles.scoreText}>{live.goals.home}</Text>
+                        <View style={styles.liveSticker}>
+                          <Text style={styles.liveText}>{live.fixture.status.elapsed}'</Text>
+                          <Animated.Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
+                        </View>
+                        <Text style={styles.scoreText}>{live.goals.away}</Text>
+                      </View>
+                    ) : (
+                      <View style={styles.score}>
+                        <Text
+                          style={
+                            live.goals.home > live.goals.away ? styles.winner : styles.loser
+                          }
+                        >
+                          {live.goals.home}
+                        </Text>
+                        <View style={styles.liveSticker}>
+                          <Text style={styles.liveText}>{live.fixture.status.elapsed}'</Text>
+                          <Animated.Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
+                        </View>
+
+                        <Text
+                          style={
+                            live.goals.away > live.goals.home ? styles.winner : styles.loser
+                          }
+                        >
+                          {live.goals.away}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
+                  <View style={styles.teamContainer}>
+                    <Image
+                      source={{ uri: live.teams.away.logo }}
+                      style={styles.teamLogo}
+                      resizeMode="contain"
+                    />
+                    <Text style={styles.teamName}>{countryTranslations[live.teams.away.name] || live.teams.away.name}</Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+              : null
+            )}
           </View>
-          )
-        )}
+
+          )}
       </View>
     </ScrollView>
   );
@@ -209,13 +211,13 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: "rgb(99, 164, 221)",
     width: '100%',
-    marginTop: 20,
+    marginTop: 10,
     shadowColor: '#000', // shadow color
-        shadowOffset: { width: 0, height: 5 }, // shadow offset
-        shadowOpacity: 0.8, // shadow opacity
-        shadowRadius: 3,
-        elevation: 4,
-        marginBottom: 130
+    shadowOffset: { width: 0, height: 5 }, // shadow offset
+    shadowOpacity: 0.8, // shadow opacity
+    shadowRadius: 3,
+    elevation: 4,
+    marginBottom: 130
   },
   title: {
     color: 'white',
@@ -228,7 +230,10 @@ const styles = StyleSheet.create({
     marginHorizontal: '35%',
     borderRadius: 10,
     height: 30,
-    marginBottom: 10,
+    shadowColor: '#000', // shadow color
+    shadowOffset: { width: 0, height: 5 }, // shadow offset
+    shadowOpacity: 0.8, // shadow opacity
+    shadowRadius: 3,
   },
   match: {
     flexDirection: 'row',
@@ -268,7 +273,7 @@ const styles = StyleSheet.create({
   },
   teamContainer: {
     flexDirection: 'row',
-    alignlives: 'center',
+    alignItems: 'center',
     width: "35%",
     gap: 2,
     marginInline: 1,

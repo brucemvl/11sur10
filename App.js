@@ -8,6 +8,7 @@ import registerForPushNotificationsAsync from './src/utils/registerPush';
 import NotificationHandler from './src/components/NotificationHandler';
 import { navigationRef } from './src/navigation/NavigationRef';
 import Toast from 'react-native-toast-message';
+import { initRatingSystem } from "./src/utils/RateManager";
 
 
 
@@ -26,6 +27,10 @@ Notifications.setNotificationHandler({
 
 export default function App() {
   const [selectedTeamId, setSelectedTeamId] = useState(null);
+
+   useEffect(() => {
+    initRatingSystem();  // se lance à chaque ouverture de l’app
+  }, []);
 
   // ✅ Setup du channel Android → à faire DANS le composant
   useEffect(() => {

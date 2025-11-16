@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Dimensions, Image, Linking, useWindowDime
 import React from "react"
 import { StyleSheet } from "react-native"
 import { useNavigation } from "@react-navigation/native";
-import insta from "../assets/insta.png"
+import insta from "../assets/instagram.png"
 import bm from "../assets/bm.png"
 
 
@@ -72,9 +72,9 @@ const styles = StyleSheet.create({
     },
 
     text: {
-        fontFamily: "Kanito",
+        fontFamily: "Londrinak",
         textAlign: "center",
-        fontSize: 14
+        fontSize: 17
 
     },
     lien: {

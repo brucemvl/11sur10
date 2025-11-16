@@ -31,14 +31,18 @@ function SelectionsPage() {
     return (
         <ScrollView contentContainerStyle={styles.competitions}>
             {/* Section Championnats */}
-            <LinearGradient colors={["rgb(176, 196, 222)", 'rgba(0, 0, 0, 0.35)']} style={styles.conteneur} >
-                <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
+
+            <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
                     style={styles.title}
                 >
-                    <Text style={styles.titleText}>Competitions</Text>
+                    <Text style={styles.titleText}>Qualifs CDM</Text>
                 </LinearGradient>
+
+            <LinearGradient colors={["rgba(64, 82, 130, 1)", 'rgba(103, 131, 184, 1)']} style={styles.conteneur} >
+                
                 <View style={styles.filtres}>
                     {selections.map(({ name, id, logo, flag, season }) => (
+                        id === 29 || id === 32 || id === 34 ?
                         <TouchableOpacity
                             key={"lien" + id}
                             style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
@@ -50,10 +54,37 @@ function SelectionsPage() {
                             </View>
                             <Image source={{ uri: flag }} style={styles.flag} />
                         </TouchableOpacity>
+                        : null
                     ))}
                 </View>
             </LinearGradient>
 
+            <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
+                    style={styles.title}
+                >
+                    <Text style={styles.titleText}>Competitions</Text>
+                </LinearGradient>
+
+<LinearGradient colors={["rgba(64, 82, 130, 1)", 'rgba(103, 131, 184, 1)']} style={styles.conteneur} >
+                
+                <View style={styles.filtres}>
+                    {selections.map(({ name, id, logo, flag, season }) => (
+                        id === 5 || id === 6 ?
+                        <TouchableOpacity
+                            key={"lien" + id}
+                            style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
+                            onPress={() => navigation.navigate('FicheSelections', { id })}
+                        >
+                            <Text style={styles.filtreTitle}>{nameCompet[name] || name}</Text>
+                            <View style={styles.logoContainer}>
+                                <Image source={ id === 32 ? cdm2026 : {uri: logo }} style={styles.logo} />
+                            </View>
+                            <Image source={{ uri: flag }} style={styles.flag} />
+                        </TouchableOpacity>
+                        : null
+                    ))}
+                </View>
+            </LinearGradient>
             
         </ScrollView>
     );
@@ -62,7 +93,7 @@ function SelectionsPage() {
 const styles = StyleSheet.create({
     competitions: {
         width: "98%",
-        marginTop: 20,
+        marginTop: 10,
         paddingInlineStart: "2%",
         shadowColor: '#000', // shadow color
         shadowOffset: { width: 0, height: 5 }, // shadow offset
@@ -73,7 +104,6 @@ const styles = StyleSheet.create({
     conteneur: {
         marginBottom: 30,
         width: "100%",
-        backgroundColor: "#b0c4de",
         borderRadius: 15,
         flex: 1,
         flexDirection: "column",
