@@ -14,6 +14,7 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { portraitsJoueurs } from "../datas/Portraits";
+import { allCompetitions } from "../datas/Leagues";
 
 function Classement({ id }) {
   const { width } = useWindowDimensions();
@@ -87,10 +88,16 @@ function Classement({ id }) {
 
   const fetchClassement = async () => {
     try {
+
+      const comp = allCompetitions.find((c) => c.id === id);
+
+
+    // Si non trouvée → fallback
+    const season = comp?.season ?? 2025; // saison par défaut si rien trouvé
+
+
       const res = await fetch(
-        `https://v3.football.api-sports.io/standings?league=${id}&season=${
-          id === 253 ? 2025 : 2025
-        }`,
+        `https://v3.football.api-sports.io/standings?league=${id}&season=${season}`,
         {
           method: "GET",
           headers: {
@@ -116,11 +123,16 @@ function Classement({ id }) {
   };
 
   const fetchButeurs = async () => {
+
+    const comp = allCompetitions.find((c) => c.id === id);
+
+
+    // Si non trouvée → fallback
+    const season = comp?.season ?? 2025; // saison par défaut si rien trouvé
+
     try {
       const res = await fetch(
-        `https://v3.football.api-sports.io/players/topscorers?league=${id}&season=${
-          id === 253 ? 2025 : 2025
-        }`,
+        `https://v3.football.api-sports.io/players/topscorers?league=${id}&season=${season}`,
         {
           method: "GET",
           headers: {
@@ -141,11 +153,16 @@ function Classement({ id }) {
   };
 
   const fetchPasseurs = async () => {
+
+    const comp = allCompetitions.find((c) => c.id === id);
+
+
+    // Si non trouvée → fallback
+    const season = comp?.season ?? 2025;
+
     try {
       const res = await fetch(
-        `https://v3.football.api-sports.io/players/topassists?league=${id}&season=${
-          id === 253 ? 2025 : 2025
-        }`,
+        `https://v3.football.api-sports.io/players/topassists?league=${id}&season=${season}`,
         {
           method: "GET",
           headers: {
