@@ -91,8 +91,6 @@ function Classement({ id }) {
 
       const comp = allCompetitions.find((c) => c.id === id);
 
-
-    // Si non trouvée → fallback
     const season = comp?.season ?? 2025; // saison par défaut si rien trouvé
 
 
@@ -126,8 +124,6 @@ function Classement({ id }) {
 
     const comp = allCompetitions.find((c) => c.id === id);
 
-
-    // Si non trouvée → fallback
     const season = comp?.season ?? 2025; // saison par défaut si rien trouvé
 
     try {

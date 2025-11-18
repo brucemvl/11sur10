@@ -32,9 +32,8 @@ function SelectionsPage() {
         <ScrollView contentContainerStyle={styles.competitions}>
             {/* Section Championnats */}
 
-            <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
-                    style={styles.title}
-                >
+                        <LinearGradient colors={['rgba(11, 38, 126, 0.9)', 'rgba(0, 0, 0, 0.85)']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.title}>
+            
                     <Text style={styles.titleText}>Qualifs CDM</Text>
                 </LinearGradient>
 
@@ -59,9 +58,8 @@ function SelectionsPage() {
                 </View>
             </LinearGradient>
 
-            <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
-                    style={styles.title}
-                >
+            <LinearGradient colors={['rgba(11, 38, 126, 0.9)', 'rgba(0, 0, 0, 0.85)']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.title}>
+            
                     <Text style={styles.titleText}>Competitions</Text>
                 </LinearGradient>
 
@@ -114,7 +112,7 @@ const styles = StyleSheet.create({
     },
     title: {
         padding: 10,
-        borderRadius: 15,
+        borderRadius: 18,
         alignItems: 'center',
         justifyContent: 'center',
         marginVertical: 20,
@@ -125,7 +123,9 @@ const styles = StyleSheet.create({
     titleText: {
         fontSize: 18,
         color: 'white',
-        fontFamily: "Kanitt",
+        fontFamily: "Bangers",
+        letterSpacing: 0.5,
+        paddingInline: 2
     },
     filtres: {
         flexDirection: 'row',

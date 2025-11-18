@@ -113,10 +113,16 @@ function LivePage({ navigation }) {
       }
     >
 
-      <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.titlecontainer}>
-
-        <Text style={styles.title}>LIVE</Text>
-      </LinearGradient>
+            <View style={styles.shadowWrapper}>
+  <LinearGradient
+    colors={['rgba(11, 38, 126, 0.9)', 'rgba(0, 0, 0, 0.85)']}
+    start={{ x: 0, y: 0 }}
+    end={{ x: 1, y: 1 }}
+    style={styles.titlecontainer}
+  >
+    <Text style={styles.title}>LIVE</Text>
+  </LinearGradient>
+</View>
       <View style={styles.container}>
         {lives.length === 0 ?
           <Text style={styles.noMatch}>Aucun match pour le moment</Text>
@@ -221,20 +227,31 @@ const styles = StyleSheet.create({
   },
   title: {
     color: 'white',
-    borderColor: 'white',
-    fontFamily: "Kanitt",
+    fontFamily: "Bangers",
+    fontSize: 18,
+    letterSpacing: 0.5,
+    padding: 2
   },
-  titlecontainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: '35%',
-    borderRadius: 10,
-    height: 30,
-    shadowColor: '#000', // shadow color
-    shadowOffset: { width: 0, height: 5 }, // shadow offset
-    shadowOpacity: 0.8, // shadow opacity
-    shadowRadius: 3,
-  },
+  shadowWrapper: {
+  marginHorizontal: '35%',
+  borderRadius: 18,
+
+  // Ombre iOS
+  shadowColor: '#000',
+  shadowOffset: { width: 0, height: 5 },
+  shadowOpacity: 4,
+  shadowRadius: 4,
+
+  // Ombre Android
+  elevation: 6,
+},
+titlecontainer: {
+  justifyContent: 'center',
+  alignItems: 'center',
+  borderRadius: 18,
+  height: 30,
+  overflow: "hidden", // OK ici
+},
   match: {
     flexDirection: 'row',
     alignItems: 'center',

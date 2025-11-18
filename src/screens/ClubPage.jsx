@@ -32,10 +32,9 @@ function ClubPage() {
             <View style={[styles.competitions, isMediumScreen && {width: "100%", paddingInlineEnd: "6%", paddingInlineStart: "6%"} ]}>
 
                 {/* Section Compétitions Européennes */}
-            <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.title}
-                >
-                    <Text style={styles.titleText}>Compétitions Européennes</Text>
-                </LinearGradient>
+            <LinearGradient colors={['rgba(11, 38, 126, 0.9)', 'rgba(0, 0, 0, 0.85)']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.title}>
+  <Text style={styles.titleText}>Compétitions Européennes</Text>
+</LinearGradient>
             <LinearGradient colors={["rgba(64, 82, 130, 1)", 'rgba(103, 131, 184, 1)']} style={styles.conteneur} >
                 
                     <View style={{flexDirection: "row", gap: 10, justifyContent: "center", alignItems: "center"}}>
@@ -55,7 +54,7 @@ function ClubPage() {
             </LinearGradient>
 
             {/* Section Championnats */}
-            <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.title}>
+            <LinearGradient colors={['rgba(11, 38, 126, 0.9)', 'rgba(0, 0, 0, 0.85)']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.title}>
                     <Text style={styles.titleText}>Championnats</Text>
                 </LinearGradient>
             <LinearGradient colors={["rgba(64, 82, 130, 1)", 'rgba(103, 131, 184, 1)']} style={styles.conteneur} >
@@ -100,7 +99,7 @@ function ClubPage() {
                 </View>
             </LinearGradient>
 
-                        <LinearGradient colors={[ 'rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.title}>
+            <LinearGradient colors={['rgba(11, 38, 126, 0.9)', 'rgba(0, 0, 0, 0.85)']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.title}>
 
                     <Text style={styles.titleText}>Amateurs</Text>
                 </LinearGradient>
@@ -180,20 +179,36 @@ const styles = StyleSheet.create({
         width: "100%"
 
     },
+    
     title: {
-        padding: 10,
-        borderRadius: 15,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginVertical: 15,
-        width: '75%',
-        backgroundColor: "midnightblue",
+        paddingVertical: 9,
+  paddingHorizontal: 18,
+  borderRadius: 18,
+  alignItems: "center",
+  justifyContent: "center",
+  marginVertical: 15,
+  width: "80%",
+
+  // effet moderne
+  borderWidth: 1,
+  borderColor: "rgba(255, 255, 255, 0.15)",
+  backgroundColor: "rgba(0,0,0,0.15)",
+  
+  // ombre légère
+  shadowColor: "#000",
+  shadowOpacity: 0.25,
+  shadowRadius: 8,
+  shadowOffset: { width: 0, height: 3 },
+  elevation: 5,
     },
     titleText: {
-        fontSize: 18,
-        color: 'white',
-        fontFamily: "Kanitt",
+        fontSize: 19,
+  color: "white",
+  fontFamily: "Bangers",
+  letterSpacing: 0.5,
+  paddingInline: 2
     },
+   
     filtres: {
         flexDirection: "column",
         flexWrap: 'wrap',
