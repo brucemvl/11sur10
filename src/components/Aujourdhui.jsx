@@ -344,8 +344,11 @@ const [fontsLoaded] = useFonts({
           {avanthier && <ScrollView contentContainerStyle={styles.liveTableau}>
         {avantHierMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match avant-hier</Text> :
           avantHierLeagues.map((league) => <View style={{ marginBlock: 5 }}>
-            <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
-            {avantHierMatch.map((element) => element.league.name === league ?
+<View style={{flexDirection: "row", alignItems: "center"}}>
+                  <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
+                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
+                  </View>
+                              {avantHierMatch.map((element) => element.league.name === league ?
 
               <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}>
                 <View style={styles.match}>
@@ -388,8 +391,10 @@ const [fontsLoaded] = useFonts({
       {hier && <ScrollView contentContainerStyle={styles.liveTableau}>
         {yesterdayMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match hier</Text> :
           yesterdayLeagues.map((league) => <View style={{ marginBlock: 5 }}>
-            <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
-            {yesterdayMatch.map((element) => element.league.name === league ?
+<View style={{flexDirection: "row", alignItems: "center"}}>
+                  <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
+                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
+                  </View>            {yesterdayMatch.map((element) => element.league.name === league ?
 
               <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}>
                 <View style={styles.match}>
@@ -437,8 +442,10 @@ const [fontsLoaded] = useFonts({
         {tomorrowMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match demain</Text> :
 
           tomorrowLeagues.map((league) => <View style={{ marginBlock: 2 }} key={"league" + league}>
-            <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
-            {tomorrowMatch.map((element) => element.league.name === league ?
+<View style={{flexDirection: "row", alignItems: "center"}}>
+                  <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
+                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
+                  </View>            {tomorrowMatch.map((element) => element.league.name === league ?
 
               <TouchableOpacity key={element.fixture.id} style={styles.link} onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }} >
                 <View style={styles.match}>
@@ -473,8 +480,10 @@ const [fontsLoaded] = useFonts({
         {apresDemainMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match apres-demain</Text> :
 
           apresDemainLeagues.map((league) => <View style={{ marginBlock: 5 }}>
-            <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
-            {apresDemainMatch.map((element) => element.league.name === league ?
+<View style={{flexDirection: "row", alignItems: "center"}}>
+                  <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
+                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
+                  </View>            {apresDemainMatch.map((element) => element.league.name === league ?
 
               <TouchableOpacity key={element.fixture.id} style={styles.link} onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }}>
                 <View style={styles.match}>
