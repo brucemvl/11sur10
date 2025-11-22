@@ -34,6 +34,7 @@ import bernabeu from "../assets/stades/bernabeu.webp"
 import emirates from "../assets/stades/emirates.webp"
 import oldtrafford from "../assets/stades/oldtrafford.webp"
 import allianz from "../assets/stades/allianz.jpeg"
+import anfield from "../assets/stades/anfield.webp"
 import signal from "../assets/stades/signal.jpg"
 
 
@@ -129,6 +130,7 @@ useEffect(() => {
     39: {
         42: emirates,
         33: oldtrafford,
+        40: anfield,
         default: pl
     },
     78: {

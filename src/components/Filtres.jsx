@@ -1,18 +1,18 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView, useWindowDimensions } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; // Pour la navigation
-import { championnats, europe, autres, selections } from '../datas/Leagues'; // Import des données
-import { useFonts } from 'expo-font';  // Importer le hook useFonts d'Expo
-import ligue1 from "../assets/logoligue1.webp"
-import ligue2 from "../assets/ligue2.jpg"
-import ucl from "../assets/logoucl.png"
-import fifaclubwc from "../assets/fifaclubwc2.png"
-import plus from "../assets/plus.png"
+import { useNavigation } from '@react-navigation/native';
+import { championnats, europe, selections } from '../datas/Leagues';
+import { useFonts } from 'expo-font';
 
+import ligue1 from "../assets/logoligue1.webp";
+import ligue2 from "../assets/ligue2.jpg";
+import ucl from "../assets/logoucl.png";
+import plus from "../assets/plus.png";
 
 function Filtres() {
     const navigation = useNavigation();
 
+    // fonts
     const [fontsLoaded] = useFonts({
         "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
         "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
@@ -21,56 +21,127 @@ function Filtres() {
         "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf")
     });
 
-    // Utilisation du hook useWindowDimensions pour obtenir les dimensions de l'écran
     const { width } = useWindowDimensions();
+    const isTablet = width > 767;
 
-    const isSmallScreen = width <= 767;
-    const isMediumScreen = width <= 1024 && width > 767;
+    if (!fontsLoaded) return <Text>Loading...</Text>;
 
-    if (!fontsLoaded) {
-        return <Text>Loading...</Text>;
-    }
-
-    return (
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.competitions}>
-            {europe.map(({ id, logo }) => id === 848 || id === 3 ? null : <TouchableOpacity key={"lien" + id} onPress={() => navigation.navigate('FicheEurope', { id })} style={{ marginInline: 4 }}><View style={[styles.lien, { backgroundColor: id === 2 ? 'rgba(32, 46, 91, 1)' : null }, isMediumScreen && styles.lienTablet]}><Image source={id === 2 ? ucl : { uri: logo }} style={id === 2 ? {height: 45,  objectFit: "contain"} : styles.logo} /></View></TouchableOpacity>)}
-            {championnats.map(({ id, logo }) => id === 197 || id === 144 ? null : <TouchableOpacity key={"lien" + id} onPress={() => navigation.navigate('FicheChampionnat', { id })} style={{ marginInline: 4, shadowColor: "black" }}><View style={[styles.lien, { backgroundColor: id === 61 ? "#085dfe" : id === 135 || id === 62 ? "#fff" : id === 78 ? "#D10515" : id === 140 ? 'rgb(242, 235, 106)' : null }, isMediumScreen && styles.lienTablet]}><Image source={logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : logo === "https://media.api-sports.io/football/leagues/62.png" ? ligue2 : { uri: logo }} style={styles.logo} /></View></TouchableOpacity>)}
-<TouchableOpacity onPress={()=> navigation.navigate('ClubPage')}>
-    <View style={[styles.lien, isMediumScreen && styles.lienTablet]}> 
-<Image source={plus} style={{height: 40, width: 40}}/>    
-</View>
-</TouchableOpacity>
-        </ScrollView>
+    // ---- UNIVERSAL RENDER FUNCTION ----
+    const renderItem = ({ id, logo, onPress, bgColor, localImage }) => (
+        <TouchableOpacity
+            key={`item-${id}`}
+            onPress={onPress}
+            style={[styles.touch, isTablet && styles.touchTablet, { marginHorizontal: 4 }]}
+        >
+            <View style={[styles.lien, { backgroundColor: bgColor }]}>
+                <Image
+                    source={localImage ? localImage : { uri: logo }}
+                    style={styles.logo}
+                />
+            </View>
+        </TouchableOpacity>
     );
 
+    return (
+        <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.competitions}
+        >
+
+            {/* SELECTIONS */}
+            {selections.map(({ id, logo }) =>
+                id === 6 &&
+                renderItem({
+                    id,
+                    logo,
+                    bgColor: 'rgba(227, 102, 13, 1)',
+                    onPress: () => navigation.navigate('FicheSelections', { id })
+                })
+            )}
+
+            {/* EUROPE */}
+            {europe.map(({ id, logo }) =>
+                (id === 848 || id === 3)
+                    ? null
+                    : renderItem({
+                        id,
+                        logo,
+                        bgColor: id === 2 ? 'rgba(32, 46, 91, 1)' : null,
+                        localImage: id === 2 ? ucl : null,
+                        onPress: () => navigation.navigate('FicheEurope', { id })
+                    })
+            )}
+
+            {/* CHAMPIONNATS */}
+            {championnats.map(({ id, logo }) =>
+                (id === 197 || id === 144)
+                    ? null
+                    : renderItem({
+                        id,
+                        logo,
+                        bgColor:
+                            id === 61 ? "#085dfe" :
+                            id === 62 || id === 135 ? "#fff" :
+                            id === 78 ? "#D10515" :
+                            id === 140 ? "rgb(242, 235, 106)" :
+                            null,
+                        localImage:
+                            logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 :
+                            logo === "https://media.api-sports.io/football/leagues/62.png" ? ligue2 :
+                            null,
+                        onPress: () => navigation.navigate('FicheChampionnat', { id })
+                    })
+            )}
+
+            {/* BOUTON + */}
+            <TouchableOpacity
+                onPress={() => navigation.navigate('ClubPage')}
+                style={[styles.touch, isTablet && styles.touchTablet, { marginHorizontal: 4 }]}
+            >
+                <View style={styles.lien}>
+                    <Image source={plus} style={styles.logo} />
+                </View>
+            </TouchableOpacity>
+
+        </ScrollView>
+    );
 }
 
 const styles = StyleSheet.create({
     competitions: {
-        alignItems: "center"
-
+        paddingVertical: 2,
+        alignItems: "center",
     },
+
+    // Hitbox du bouton
+    touch: {
+        height: 82,
+        width: 82
+    },
+
+    touchTablet: {
+        height: 100,
+        width: 100,
+    },
+
+    // Le cercle intérieur
     lien: {
+        flex: 1,
         borderWidth: 6,
         borderColor: 'rgb(11, 19, 81)',
-        borderRadius: 50,
-        height: 72,
-        width: 72,
+        borderRadius: 999,
         justifyContent: "center",
         alignItems: "center",
-        padding: 35,
+        overflow: "hidden"
     },
 
-    lienTablet: {
-height: 100,
-width: 100
-    },
-
+    // Logo au centre
     logo: {
-        width: 48,
-        height: 48,
-        objectFit: 'contain',
-    }
+        width: "60%",
+        height: "60%",
+        resizeMode: "contain",
+    },
 });
 
 export default Filtres;

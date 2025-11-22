@@ -119,13 +119,17 @@ const styles = StyleSheet.create({
         paddingBottom: 140,
     },
     selected: {
-      fontFamily: "Kanitt",
-      textDecorationLine: "underline",
+      fontFamily: "Bangers",
+      borderBottomColor: "red",
+      borderBottomWidth: 4,
+      letterSpacing: 1,
+      padding: 2
 
     },
     unSelected: {
-      fontFamily: "Kanitus",
-      color: "grey"
+      fontFamily: "Bangers",
+      color: "grey",
+      padding: 2
     }
 });
 

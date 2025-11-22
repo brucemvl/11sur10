@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     conteneur: {
-        marginBottom: 20,
+        marginBottom: 25,
         borderRadius: 15,
         flexDirection: "column",
         justifyContent: "center",
@@ -186,8 +186,8 @@ const styles = StyleSheet.create({
   borderRadius: 18,
   alignItems: "center",
   justifyContent: "center",
-  marginVertical: 15,
   width: "80%",
+  marginBottom: 15,
 
   // effet moderne
   borderWidth: 1,

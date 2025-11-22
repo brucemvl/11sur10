@@ -109,7 +109,7 @@ const teamName = {
 }
 
   return (
-    <View>
+    <View style={{flex: 1}}>
     <Precedent />
 
     <ScrollView style={styles.blocFicheSelections}>
@@ -139,7 +139,6 @@ const styles = StyleSheet.create({
     marginTop: 50,
             paddingBottom: 140,        
 
-
   },
   
   loaderContainer: {
@@ -149,13 +148,17 @@ const styles = StyleSheet.create({
   },
 
   selected: {
-      fontFamily: "Kanitt",
-      textDecorationLine: "underline",
+      fontFamily: "Bangers",
+      borderBottomColor: "red",
+      borderBottomWidth: 4,
+      letterSpacing: 1,
+      padding: 2
 
     },
     unSelected: {
-      fontFamily: "Kanitt",
-      color: "grey"
+      fontFamily: "Bangers",
+      color: "grey",
+      padding: 2
     }
 });
 

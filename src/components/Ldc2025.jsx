@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
        width: "96%",
        paddingInline: 20,
        borderRadius: 15,
-       height: 250,
+       height: 220,
        justifyContent: "space-between",
        marginBlock: 5
     },
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(233, 233, 233, 1)",
         borderRadius: 40,
         overflow: "hidden",
-        height: "80%",
+        height: "90%",
     },
     tirage: {
         flexDirection: "row",

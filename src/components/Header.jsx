@@ -96,10 +96,8 @@ const selectedTeam = selectedTeamId
       locations={[0, 0.6, 0.92, 1]} // Spécifie les positions des couleurs
       style={styles.header}
     >
-      <View style={{alignItems: "center"}}>
       <TouchableOpacity onPress={()=> navigation.navigate("Apropos")}>
 <Image source={info} style={{height: 30, width:30}}/>      </TouchableOpacity>
-      </View>
       <Image source={logo} style={styles.logo} />
       <TouchableOpacity onPress={() => navigation.navigate("Notifs")}>
   <View style={{ flexDirection: 'row', alignItems: 'center' }}>

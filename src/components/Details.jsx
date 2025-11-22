@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 function Details({
@@ -24,38 +24,42 @@ function Details({
   return (
     <View style={styles.article}>
       <Text style={styles.title}>Match en détails</Text>
+      <View style={{flexDirection: "row", justifyContent: "space-between",  width: "65%", paddingBlock: 10}}>
+        <Image source={{uri: match.teams.home.logo}} style={{width: 50, height: 50, objectFit: "contain"}} />
+        <Image source={{uri: match.teams.away.logo}} style={{width: 50, height: 50, objectFit: "contain"}} />
+      </View>
       <View style={styles.statistiques}>
-        <LinearGradient colors={['rgba(21, 80, 130, 0.6)', 'rgba(0, 0, 0, 0.8)']} style={styles.statistiquesItem}>
+        <LinearGradient colors={['rgba(21, 60, 130, 0.6)', 'rgba(0, 0, 0, 0.8)']} style={styles.statistiquesItem}>
           <Text style={styles.value}>{possession[0][0]?.value}</Text>
           <Text style={styles.label}>Possession</Text>
           <Text style={styles.value}>{possession[1][0]?.value}</Text>
         </LinearGradient>
-        <LinearGradient colors={['rgba(21, 80, 130, 0.6)', 'rgba(0, 0, 0, 0.8)']} style={styles.statistiquesItem}>
+        <LinearGradient colors={['rgba(21, 60, 130, 0.6)', 'rgba(0, 0, 0, 0.8)']} style={styles.statistiquesItem}>
           <Text style={styles.value}>{expectedGoals[0][0]?.value}</Text>
           <Text style={styles.label}>Expected Goals</Text>
           <Text style={styles.value}>{expectedGoals[1][0]?.value}</Text>
         </LinearGradient>
-        <LinearGradient colors={['rgba(21, 80, 130, 0.6)', 'rgba(0, 0, 0, 0.8)']} style={styles.statistiquesItem}>
+        <LinearGradient colors={['rgba(21, 60, 130, 0.6)', 'rgba(0, 0, 0, 0.8)']} style={styles.statistiquesItem}>
           <Text style={styles.value}>{tirs[0][0]?.value} ({tirsCadres[0][0]?.value})</Text>
           <Text style={styles.label}>Tirs (cadrés)</Text>
           <Text style={styles.value}>{tirs[1][0]?.value} ({tirsCadres[1][0]?.value})</Text>
         </LinearGradient>
-        <LinearGradient colors={['rgba(21, 80, 130, 0.6)', 'rgba(0, 0, 0, 0.8)']} style={styles.statistiquesItem}>
+        <LinearGradient colors={['rgba(21, 60, 130, 0.6)', 'rgba(0, 0, 0, 0.8)']} style={styles.statistiquesItem}>
           <Text style={styles.value}>{passes[0][0]?.value}</Text>
           <Text style={styles.label}>Passes</Text>
           <Text style={styles.value}>{passes[1][0]?.value}</Text>
         </LinearGradient>
-        <LinearGradient colors={['rgba(21, 80, 130, 0.6)', 'rgba(0, 0, 0, 0.8)']} style={styles.statistiquesItem}>
+        <LinearGradient colors={['rgba(21, 60, 130, 0.6)', 'rgba(0, 0, 0, 0.8)']} style={styles.statistiquesItem}>
           <Text style={styles.value}>{passesReussies[0][0]?.value} ({accuracy[0][0]?.value})</Text>
           <Text style={styles.label}>Passes réussies</Text>
           <Text style={styles.value}>{passesReussies[1][0]?.value} ({accuracy[1][0]?.value})</Text>
         </LinearGradient>
-        <LinearGradient colors={['rgba(21, 80, 130, 0.6)', 'rgba(0, 0, 0, 0.8)']} style={styles.statistiquesItem}>
+        <LinearGradient colors={['rgba(21, 60, 130, 0.6)', 'rgba(0, 0, 0, 0.8)']} style={styles.statistiquesItem}>
           <Text style={styles.value}>{jaune[0][0]?.value === null ? "0" : jaune[0][0]?.value}</Text>
           <Text style={styles.label}>Cartons jaune</Text>
           <Text style={styles.value}>{jaune[1][0]?.value === null ? "0" : jaune[1][0]?.value}</Text>
         </LinearGradient>
-        <LinearGradient colors={['rgba(21, 80, 130, 0.6)', 'rgba(0, 0, 0, 0.8)']} style={styles.statistiquesItem}>
+        <LinearGradient colors={['rgba(21, 60, 130, 0.6)', 'rgba(0, 0, 0, 0.8)']} style={styles.statistiquesItem}>
           <Text style={styles.value}>{rouge[0][0]?.value === null ? "0" : rouge[0][0]?.value}</Text>
           <Text style={styles.label}>Cartons rouge</Text>
           <Text style={styles.value}>{rouge[1][0]?.value === null ? "0" : rouge[1][0]?.value}</Text>

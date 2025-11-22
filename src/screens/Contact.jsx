@@ -52,7 +52,7 @@ const Contact = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Contact</Text>
-      <LinearGradient colors={[ 'rgba(24, 24, 91, 1)', 'rgba(0, 0, 0, 1)']} style={[styles.inputs, isMediumScreen && {width: "80%", padding: 40}]}>
+      <LinearGradient colors={[ 'rgba(24, 24, 91, 1)', 'rgba(0, 0, 0, 1)']} style={[styles.inputs, isMediumScreen && {padding: 40}]}>
       <TextInput
         style={styles.input}
         placeholder="Nom"
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 20,
     marginTop: 80,
-    alignItems: "center"
+    alignItems: "center",
   },
   title: {
     fontSize: 24,
@@ -96,6 +96,7 @@ backgroundColor: "midnightblue",
 padding: 20,
 marginBottom: 40,
 borderRadius: 15,
+width: "80%",
   },
   input: {
     height: 48,

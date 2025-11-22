@@ -177,101 +177,7 @@ function Classement({ id }) {
     }
   };
 
-
-
-   if (id === 29 || id === 32 || id === 34 || id === 5 || id === 15){
-const [rank, setRank] = useState()
-    
-          const season = id === 34 ? "2026" : id === 29 ? "2023" : id === 15 ? "2025" : "2024";
-    
-    
-      useEffect(() => {
-        // Fetch data
-        fetch(`https://v3.football.api-sports.io/standings?league=${id}&season=${season}`, {
-          method: 'GET',
-          headers: {
-            'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
-            'x-rapidapi-host': 'v3.football.api-sports.io',
-          },
-        })
-          .then((response) => response.json())
-          .then((result) => {
-            setRank(result.response[0].league.standings);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      }, [id]);
-    
-    
-      if (!rank){
-        return <Text>loading</Text>
-      }
-      
-
-    return (
-<View style={styles.container}>
-    <View style={styles.tableaux}>
-            {rank?.map((subArray, index) => (
-              <View key={`group${index}`} style={styles.groupe}>
-                <Text style={styles.groupTitle}>{subArray[0].group}</Text>
-                <View style={{margin: 10, borderRadius: 5, backgroundColor: "lightblue"}}>
-                <View style={styles.barreSelec}>
-                  <Text style={styles.barreItem_equipe}>Equipe</Text>
-                  <Text style={styles.barreItem}>J</Text>
-                  <Text style={styles.barreItem}>V</Text>
-                  <Text style={styles.barreItem}>N</Text>
-                  <Text style={styles.barreItem}>D</Text>
-                  <Text style={styles.barreItem}>Pts</Text>
-                </View>
-                <FlatList
-                  data={subArray}
-                  keyExtractor={(item) => `champ${item.team.id}`}
-                  renderItem={({ item }) => (
-                    <View style={styles.equipe}>
-                      <Text style={{width: "4%", marginInline: "2%", fontFamily: "Kanitus"}}>{item.rank}</Text>
-                      <Image style={styles.flags} source={{ uri: item.team.logo }} />
-                      <Text style={{width: "32%", marginInline: "2%", fontFamily: "Bella"}}>{teamName[item.team.name] || item.team.name}</Text>
-                      <Text style={{width: "10%", fontFamily: "Kanitus"}}>{item.all.played}</Text>
-                      <Text style={{width: "10%", fontFamily: "Kanitus"}}>{item.all.win}</Text>
-                      <Text style={{width: "10%", fontFamily: "Kanitus"}}>{item.all.draw}</Text>
-                      <Text style={{width: "9%", fontFamily: "Kanitus"}}>{item.all.lose}</Text>
-                      <Text style={{width: "11%", fontFamily: "Kanitt"}}>{item.points}</Text>
-                    </View>
-                  )}
-                />
-                </View>
-              </View>
-            ))}
-          </View>
-          </View> )
-  }
-
-  useEffect(() => {
-    const loadData = async () => {
-      setLoading(true);
-      setError(null);
-      await Promise.all([fetchClassement(), fetchButeurs(), fetchPasseurs()]);
-      setLoading(false);
-    };
-
-    loadData();
-  }, [id]);
-
-  // 🟡 AFFICHAGE DYNAMIQUE
-  if (loading) {
-    return (
-      <View style={styles.loaderContainer}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-  }
-
-
-
-
   
-
   /** 🔥 Animation combinée : hauteur + effet “bubble” */
   const animateSection = (heightAnim, scaleAnim, toValue) => {
   // Animation de la hauteur (JS)
@@ -343,6 +249,313 @@ const collapsePasseurs = () => {
   animateSection(animatedHeightClassement, scaleClassement, 0);
   animateSection(animatedHeightButeurs, scaleButeurs, 0);
 };
+
+
+
+   if (id === 29 || id === 32 || id === 34 || id === 5 || id === 15 || id === 6 ){
+const [rank, setRank] = useState()
+    
+         const fetchClassement = async () => {
+    try {
+
+      const comp = allCompetitions.find((c) => c.id === id);
+
+    const season = comp?.season ?? 2025; // saison par défaut si rien trouvé
+
+
+      const res = await fetch(
+        `https://v3.football.api-sports.io/standings?league=${id}&season=${season}`,
+        {
+          method: "GET",
+          headers: {
+            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+            "x-rapidapi-host": "v3.football.api-sports.io",
+          },
+        }
+      );
+
+      const json = await res.json();
+
+      if (!json.response?.length) throw new Error("Aucun classement trouvé");
+
+      setRank(json.response[0].league.standings);
+    } catch (err) {
+      console.error("Erreur fetchClassement:", err);
+      setError("Erreur de chargement du classement.");
+    }
+  };
+
+  const fetchButeurs = async () => {
+
+    const comp = allCompetitions.find((c) => c.id === id);
+
+    const season = comp?.season ?? 2025; // saison par défaut si rien trouvé
+
+    try {
+      const res = await fetch(
+        `https://v3.football.api-sports.io/players/topscorers?league=${id}&season=${season}`,
+        {
+          method: "GET",
+          headers: {
+            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+            "x-rapidapi-host": "v3.football.api-sports.io",
+          },
+        }
+      );
+
+      const json = await res.json();
+
+      if (!json.response?.length) throw new Error("Aucun buteur trouvé");
+      setButeurs(json.response.slice(0, 10));
+    } catch (err) {
+      console.error("Erreur fetchButeurs:", err);
+      setError("Erreur de chargement des buteurs.");
+    }
+  };
+
+  const fetchPasseurs = async () => {
+
+    const comp = allCompetitions.find((c) => c.id === id);
+
+
+    // Si non trouvée → fallback
+    const season = comp?.season ?? 2025;
+
+    try {
+      const res = await fetch(
+        `https://v3.football.api-sports.io/players/topassists?league=${id}&season=${season}`,
+        {
+          method: "GET",
+          headers: {
+            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+            "x-rapidapi-host": "v3.football.api-sports.io",
+          },
+        }
+      );
+
+      const json = await res.json();
+      if (!json.response?.length) throw new Error("Aucun passeur trouvé");
+      setPasseurs(json.response.slice(0, 10));
+    } catch (err) {
+      console.error("Erreur fetchPasseurs:", err);
+      setError("Erreur de chargement des passeurs.");
+    }
+  };
+
+  useEffect(() => {
+    const loadData = async () => {
+      setLoading(true);
+      setError(null);
+      await Promise.all([fetchClassement(), fetchButeurs(), fetchPasseurs()]);
+      setLoading(false);
+    };
+
+    loadData();
+  }, [id]);
+
+  console.log(rank)
+      console.log(buteurs)
+      console.log(passeurs)
+    
+      if (!rank || !buteurs || !passeurs){
+        return <Text>loading</Text>
+      }
+
+      
+      
+
+    return (
+<View style={styles.containerSelec}>
+
+  {/* BOUTONS */}
+      <View style={{ flexDirection: "row", gap: 15, marginBlock: 10, alignItems: "center" }}>
+        <TouchableOpacity onPress={collapseClassement}>
+          <LinearGradient
+            colors={["rgba(66, 66, 66, 1)", "rgba(165, 165, 165, 1)"]}
+            style={selectedClassement ? styles.boutonSelected : styles.bouton}
+          >
+            <Text style={selectedClassement ? styles.btnTextSelected : styles.btnText}>Classement</Text>
+          </LinearGradient>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={collapseButeurs}>
+          <LinearGradient
+            colors={["rgba(66, 66, 66, 1)", "rgba(165, 165, 165, 1)"]}
+            style={selectedButeurs ? styles.boutonSelected : styles.bouton}
+          >
+            <Text style={selectedButeurs ? styles.btnTextSelected : styles.btnText}>Buteurs</Text>
+          </LinearGradient>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={collapsePasseurs}>
+          <LinearGradient
+            colors={["rgba(66, 66, 66, 1)", "rgba(165, 165, 165, 1)"]}
+            style={selectedPasseurs ? styles.boutonSelected : styles.bouton}
+          >
+            <Text style={selectedPasseurs ? styles.btnTextSelected : styles.btnText}>Passeurs</Text>
+          </LinearGradient>
+        </TouchableOpacity>
+      </View>
+
+
+      <Animated.View style={{ height: animatedHeightClassement, overflow: "hidden"}}>
+  <Animated.View style={{ transform: [{ scale: scaleClassement }], paddingInline: 9, paddingBlock: 6 }}>
+        <View
+          onLayout={(e) => {
+            const h = e.nativeEvent.layout.height;
+            if (contentHeightClassement === 0 && h > 0)
+              setContentHeightClassement(h);
+          }}
+        >
+          
+            {rank?.map((subArray, index) => (
+              <View key={`group${index}`} style={styles.groupe}>
+                <Text style={styles.groupTitle}>{subArray[0].group}</Text>
+                <View style={{margin: 10, borderRadius: 5, backgroundColor: "lightblue"}}>
+                <View style={styles.barreSelec}>
+                  <Text style={styles.barreItem_equipe}>Equipe</Text>
+                  <Text style={styles.barreItem}>J</Text>
+                  <Text style={styles.barreItem}>V</Text>
+                  <Text style={styles.barreItem}>N</Text>
+                  <Text style={styles.barreItem}>D</Text>
+                  <Text style={styles.barreItem}>Pts</Text>
+                </View>
+                <FlatList
+                  data={subArray}
+                  keyExtractor={(item) => `champ${item.team.id}`}
+                  renderItem={({ item }) => (
+                                  <TouchableOpacity onPress={() => navigation.navigate("FicheEquipe", { id: item.team.id, league: item.group === "Ligue 1" || item.group === "Ligue 1 " ? 61 : item.group === "UEFA Champions League" ? 2 : item.group === "Premier League" ? 39 : item.group === "LaLiga" || item.group === "Primera División" ? 140 : item.group.indexOf("Super League 1") !== -1 ? 197 : item.group === "Bundesliga" ? 78 : item.group === "Ligue 2: Regular Season" ? 62 : item.group === "Serie A" ? 135 : item.group === "UEFA Europa League" ? 3 : item.group === "Saudi League" ? 307 : item.group === "Eastern Conference" ? 253 : item.group === "Primeira Liga" ? 94 : item.group === "Ligue 2 " ? 62 : item.group === "National " ? 63 : item.description.indexOf("Africa Cup of Nations") != -1 ? 6 : null })} style={styles.equipe}>
+
+                    <View style={styles.equipe}>
+                      <Text style={{width: "4%", marginInline: "2%", fontFamily: "Kanitus"}}>{item.rank}</Text>
+                      <Image style={styles.flags} source={{ uri: item.team.logo }} />
+                      <Text style={{width: "32%", marginInline: "2%", fontFamily: "Bella"}}>{teamName[item.team.name] || item.team.name}</Text>
+                      <Text style={{width: "10%", fontFamily: "Kanitus"}}>{item.all.played}</Text>
+                      <Text style={{width: "10%", fontFamily: "Kanitus"}}>{item.all.win}</Text>
+                      <Text style={{width: "10%", fontFamily: "Kanitus"}}>{item.all.draw}</Text>
+                      <Text style={{width: "9%", fontFamily: "Kanitus"}}>{item.all.lose}</Text>
+                      <Text style={{width: "11%", fontFamily: "Kanitt"}}>{item.points}</Text>
+                    </View>
+                    </TouchableOpacity>
+                  )}
+                />
+                </View>
+              </View>
+            ))}
+        </View>
+      </Animated.View>
+      </Animated.View>
+
+       {/* CONTENU BUTEURS */}
+      
+      <Animated.View style={{ height: animatedHeightButeurs, overflow: "hidden"}}>
+        
+  <Animated.View style={{ transform: [{ scale: scaleButeurs }], padding: 9}}>
+   
+        <View
+          onLayout={(e) => {
+            const h = e.nativeEvent.layout.height;
+            if (contentHeightButeurs === 0 && h > 0)
+              setContentHeightButeurs(h);
+          }}
+        >
+          <LinearGradient
+            colors={["rgba(199, 199, 199, 1)", "rgba(110,110,110,1)"]}
+            style={styles.gradientContent}
+          >
+            <View style={styles.barre}>
+              <Text style={{ width: isMediumScreen? "60%" : "50%", color: "white", paddingStart: 20, fontFamily: "Kanitus", textAlign: "center" }}>Joueur</Text>
+              <Text style={{ width:  isMediumScreen ? "20%" : "30%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Matchs Joués</Text>
+              <Text style={{ width: isMediumScreen? "20%" : "20%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Buts</Text>
+
+            </View>
+             {
+        buteurs.length === 0 ? <View style={{alignItems: "center", justifyContent: "center", height: 80}}><Text style={{fontFamily: "Permanent", color: "#fff"}}>Aucune donnée dispo</Text> </View>:
+           buteurs.map((joueur) =>
+              <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: joueur.player.id })}>
+                <View style={[styles.item, isMediumScreen && {height: 72}]}>
+                  <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }} style={{ height: isMediumScreen? 60 : 39, width: "9%", borderRadius: 50, marginInline: isMediumScreen? 20 : 5 }}/>
+                  <Text style={{ fontFamily: "Bella", width: "37%" }}>{joueur.player.name}</Text>
+                  <Image source={{ uri: joueur.statistics[0].team.logo }} style={[styles.logo, isMediumScreen && {height: 38}]} />
+                  <Text style={[{ fontFamily: "Kanito", width: isMediumScreen ? "27%" : "30%", textAlign: "center" }, isMediumScreen && {fontSize: 18}]}>{joueur.statistics[0].games.appearences}</Text>
+                  <Text style={[{ fontFamily: "Kanitt", width: isMediumScreen ? "18%" : "15%", textAlign: "center" }, isMediumScreen && {fontSize: 18}]}>{joueur.statistics[0].goals.total}</Text>
+
+                </View>
+              </TouchableOpacity>
+           
+            )}
+          </LinearGradient>
+        </View>
+
+      </Animated.View>
+
+      </Animated.View>
+
+      {/* CONTENU PASSEURS */}
+      
+      <Animated.View style={{ height: animatedHeightPasseurs, overflow: "hidden",}}>
+  <Animated.View style={{ transform: [{ scale: scalePasseurs }], padding: 9}}>
+        <View
+          onLayout={(e) => {
+            const h = e.nativeEvent.layout.height;
+            if (contentHeightPasseurs === 0 && h > 0)
+              setContentHeightPasseurs(h);
+          }}
+        >
+          <LinearGradient
+            colors={["rgba(200, 200, 200, 1)", "rgba(110,110,110,1)"]}
+            style={styles.gradientContent}
+          >
+            <View style={styles.barre}>
+              <Text style={{ width: isMediumScreen? "60%" : "50%", color: "white", paddingStart: 20, fontFamily: "Kanitus", textAlign: "center" }}>Joueur</Text>
+              <Text style={{ width:  isMediumScreen ? "20%" : "25%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Matchs Joués</Text>
+              <Text style={{ width: isMediumScreen? "20%" : "25%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Passes Dec</Text>
+
+            </View>
+                         {
+        passeurs.length === 0 ? <View style={{alignItems: "center", justifyContent: "center", height: 80}}><Text style={{fontFamily: "Permanent", color: "#fff"}}>Aucune donnée dispo</Text> </View>:
+            passeurs.map((joueur) =>
+              <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: joueur.player.id })}>
+                <View style={[styles.item, isMediumScreen && {height: 72}]}>
+                  <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }} style={{ height: isMediumScreen? 60 : 39, width: "9%", borderRadius: 50, marginInline: isMediumScreen? 12 : 5 }}/>
+                  <Text style={{ fontFamily: "Bella", width: "37%" }}>{joueur.player.id === 37784 ? "Mamadou Sissoko" : joueur.player.name}</Text>
+                  <Image source={{ uri: joueur.statistics[0].team.logo }} style={[styles.logo, isMediumScreen && {height: 38}]} />
+                  <Text style={[{ fontFamily: "Kanito", width: isMediumScreen ? "27%" : "30%", textAlign: "center" }, isMediumScreen && {fontSize: 18}]}>{joueur.statistics[0].games.appearences}</Text>
+                  <Text style={[{ fontFamily: "Kanitt", width: isMediumScreen ? "18%" : "15%", textAlign: "center" }, isMediumScreen && {fontSize: 18}]}>{joueur.statistics[0].goals.assists}</Text>
+
+                </View>
+              </TouchableOpacity>
+            )}
+          </LinearGradient>
+        </View>
+      </Animated.View>
+      </Animated.View>
+          </View> )
+  }
+
+  useEffect(() => {
+    const loadData = async () => {
+      setLoading(true);
+      setError(null);
+      await Promise.all([fetchClassement(), fetchButeurs(), fetchPasseurs()]);
+      setLoading(false);
+    };
+
+    loadData();
+  }, [id]);
+
+  // 🟡 AFFICHAGE DYNAMIQUE
+  if (loading) {
+    return (
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
+
+
+
 
 console.log(tab)
 
@@ -514,7 +727,13 @@ console.log(tab)
 
 const styles = StyleSheet.create({
   container: {
-flex: 1
+alignItems: "center",
+
+  },
+  containerSelec: {
+alignItems: "center",
+paddingBottom: 100
+
   },
   bouton: {
     width: 85,

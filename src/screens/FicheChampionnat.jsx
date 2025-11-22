@@ -97,10 +97,10 @@ console.log('rounds:', rounds);
         <ScrollView contentContainerStyle={[styles.blocChamp, isMediumScreen && {padding: 30}]}>
           <View style={{flexDirection: "row", marginBlock: 8, justifyContent: "center", gap: "5%"}}>
   <TouchableOpacity onPress={openCalendrier} >
-    <Text style={calendrier ? styles.selected : styles.unSelected}>Calendrier</Text>
+    <Text style={calendrier ? styles.selected : styles.unSelected}>CALENDRIER</Text>
   </TouchableOpacity>
   <TouchableOpacity onPress={openClassement}>
-    <Text style={classement ? styles.selected : styles.unSelected}>Classement</Text>
+    <Text style={classement ? styles.selected : styles.unSelected}>CLASSEMENT</Text>
   </TouchableOpacity>
 </View>
             {calendrier && <Tableau id={id} currentRound={currentRound} rounds={rounds} journey={journey} />}
@@ -120,13 +120,17 @@ const styles = StyleSheet.create({
     },
     
     selected: {
-      fontFamily: "Kanitt",
-      textDecorationLine: "underline",
+      fontFamily: "Bangers",
+      borderBottomColor: "red",
+      borderBottomWidth: 4,
+      letterSpacing: 1,
+      padding: 2
 
     },
     unSelected: {
-      fontFamily: "Kanitt",
-      color: "grey"
+      fontFamily: "Bangers",
+      color: "grey",
+      padding: 2
     }
 });
 

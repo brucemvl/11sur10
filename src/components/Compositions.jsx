@@ -104,7 +104,8 @@ const coachNames = {
   6472: "Hans Flick",
   1595: "Diego Simeone",
   180: "Didier Deschamps",
-  18: "Unai Emery"
+  18: "Unai Emery",
+  19134: "Didier Digard"
 }
   
   

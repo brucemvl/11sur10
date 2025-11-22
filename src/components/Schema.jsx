@@ -98,13 +98,13 @@ console.log(compoDom)
 
                         {/* Gardien */}
                         {linesDom.G.map((player, index) => (
-                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id, team: compoDom.team.id })} style={[generatePositionStyle(index, linesDom.G.length, 1), { alignItems: "center", width: 54 }]}>
+                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id, team: compoDom.team.id })} style={[generatePositionStyle(index, linesDom.G.length, 1), { alignItems: "center", width: 54, shadowColor: "black", shadowOpacity: 0.8, shadowRadius: 2, shadowOffset: {width: 0, height: 4} }]}>
 <View style={styles.infos}>{match.players[0].players.map((joueur) => joueur.player.id === player.id ? range.map((x) => joueur.statistics[0].goals.total >= x ? <Text key={x} style={{ fontSize: 9, marginInline: -3 }}>⚽</Text> : null) : null)}
                                 {match.players[0].players.map((joueur) => joueur.player.id === player.id ? joueur.statistics[0].cards.yellow > 0 ? <Image source={yellow} style={styles.card} /> : joueur.statistics[0].cards.red > 0 ? <Image source={red} style={styles.card} /> : null : null)}
                                 </View>          
                                 { match.fixture.status.long === "Match Finished" ? match.players[0].players.map((joueur) => joueur.player.id === player.id ? <View style={joueur.statistics[0].games.rating >= noteMax ? [styles.note, {backgroundColor: "gold"}] : styles.note}><Text style={joueur.statistics[0].games.rating >= noteMax ? styles.mvp : styles.rate}>{joueur.statistics[0].games.rating}</Text></View> : null ) : null}
 
-                                                      <View style={[styles.player, { backgroundColor: "#f0f0f0" + colors.goalDom, borderColor: "#" + colors.goalDomBorder }]}>
+                                                      <View style={[styles.player, { backgroundColor: "#f0f0f0", borderColor: "#" + colors.goalDomBorder }]}>
                                { match.players[0].players.map((joueur) => joueur.player.id === player.id ? <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }}  style={styles.player}/> : null )}
                                 </View>
                                 <Text style={styles.playerName}>{playerName[player.id] ||  player.name.split(' ').slice(-1).join(' ')}</Text>
@@ -112,7 +112,7 @@ console.log(compoDom)
                         ))}
                         {/* Défenseurs */}
                         {linesDom.D.map((player, index) => (
-                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id, team: compoDom.team.id })} style={[generatePositionStyle(index, linesDom.D.length, 2), { alignItems: "center", width: 50 }]}>
+                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id, team: compoDom.team.id })} style={[generatePositionStyle(index, linesDom.D.length, 2), { alignItems: "center", width: 50, shadowColor: "black", shadowOpacity: 0.8, shadowRadius: 2, shadowOffset: {width: 0, height: 4} }]}>
                                 <View style={styles.infos}>{match.players[0].players.map((joueur) => joueur.player.id === player.id ? range.map((x) => joueur.statistics[0].goals.total >= x ? <Text key={x} style={{ fontSize: 9, marginInline: -3 }}>⚽</Text> : null) : null)}
                                 {match.players[0].players.map((joueur) => joueur.player.id === player.id ? joueur.statistics[0].cards.yellow > 0 ? <Image source={yellow} style={styles.card} /> : joueur.statistics[0].cards.red > 0 ? <Image source={red} style={styles.card} /> : null : null)}
                                 </View>
@@ -126,7 +126,7 @@ console.log(compoDom)
                         ))}
                         {/* Milieux */}
                         {linesDom.M.map((player, index) => (
-                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id, team: compoDom.team.id })} style={[generatePositionStyle(index, linesDom.M.length, 3), { alignItems: "center", width: 50 }]}>
+                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id, team: compoDom.team.id })} style={[generatePositionStyle(index, linesDom.M.length, 3), { alignItems: "center", width: 50, shadowColor: "black", shadowOpacity: 0.8, shadowRadius: 2, shadowOffset: {width: 0, height: 4} }]}>
                                 <View style={styles.infos}>{match.players[0].players.map((joueur) => joueur.player.id === player.id ? range.map((x) => joueur.statistics[0].goals.total >= x ? <Text key={x} style={{ fontSize: 9, marginInline: -3 }}>⚽</Text> : null) : null)}
                                 {match.players[0].players.map((joueur) => joueur.player.id === player.id ? joueur.statistics[0].cards.yellow > 0 ? <Image source={yellow} style={styles.card} /> : joueur.statistics[0].cards.red > 0 ? <Image source={red} style={styles.card} /> : null : null)}
                                 </View>
@@ -140,7 +140,7 @@ console.log(compoDom)
                         ))}
                         {/* Attaquants */}
                         {linesDom.F.map((player, index) => (
-                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id, team: compoDom.team.id })} style={[generatePositionStyle(index, linesDom.F.length, 4), { alignItems: "center", width: 53 }]}>
+                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id, team: compoDom.team.id })} style={[generatePositionStyle(index, linesDom.F.length, 4), { alignItems: "center", width: 53, shadowColor: "black", shadowOpacity: 0.8, shadowRadius: 2, shadowOffset: {width: 0, height: 4} }]}>
                                 <View style={styles.infos}>{match.players[0].players.map((joueur) => joueur.player.id === player.id ? range.map((x) => joueur.statistics[0].goals.total >= x ? <Text key={x} style={{ fontSize: 9, marginInline: -3 }}>⚽</Text> : null) : null)}
                                 {match.players[0].players.map((joueur) => joueur.player.id === player.id ? joueur.statistics[0].cards.yellow > 0 ? <Image source={yellow} style={styles.card} /> : joueur.statistics[0].cards.red > 0 ? <Image source={red} style={styles.card} /> : null : null)}
                                 </View>
@@ -159,7 +159,7 @@ console.log(compoDom)
                     <View style={[styles.field, { width: fieldWidth, height: fieldHeight }]}>
                         {/* Attaquants (inversés pour compoExt) */}
                         {linesExt.F.map((player, index) => (
-                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id, team: compoExt.team.id })} style={[generatePositionStyle(index, linesExt.F.length, 4), { alignItems: "center", width: 53 }]}>
+                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id, team: compoExt.team.id })} style={[generatePositionStyle(index, linesExt.F.length, 4), { alignItems: "center", width: 53, shadowColor: "black", shadowOpacity: 0.8, shadowRadius: 2, shadowOffset: {width: 0, height: 4} }]}>
                                 <View style={styles.infos}> {match.players[1].players.map((joueur) => joueur.player.id === player.id ? range.map((x) => joueur.statistics[0].goals.total >= x ? <Text key={x} style={{ fontSize: 9, marginInline: -3 }}>⚽</Text> : null) : null)}
                                 {match.players[1].players.map((joueur) => joueur.player.id === player.id ? joueur.statistics[0].cards.yellow > 0 ? <Image source={yellow} style={styles.card} /> : joueur.statistics[0].cards.red > 0 ? <Image source={red} style={styles.card} /> : null : null)}
                                 </View>
@@ -173,7 +173,7 @@ console.log(compoDom)
                         ))}
                         {/* Milieux */}
                         {linesExt.M.map((player, index) => (
-                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id, team: compoExt.team.id })} style={[generatePositionStyle(index, linesExt.M.length, 3), { alignItems: "center", width: 50 }]}>
+                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id, team: compoExt.team.id })} style={[generatePositionStyle(index, linesExt.M.length, 3), { alignItems: "center", width: 50, shadowColor: "black", shadowOpacity: 0.8, shadowRadius: 2, shadowOffset: {width: 0, height: 4} }]}>
                                 <View style={styles.infos}> {match.players[1].players.map((joueur) => joueur.player.id === player.id ? range.map((x) => joueur.statistics[0].goals.total >= x ? <Text key={x} style={{ fontSize: 9, marginInline: -3 }}>⚽</Text> : null) : null)}
                                 {match.players[1].players.map((joueur) => joueur.player.id === player.id ? joueur.statistics[0].cards.yellow > 0 ? <Image source={yellow} style={styles.card} /> : joueur.statistics[0].cards.red > 0 ? <Image source={red} style={styles.card} /> : null : null)}
                             </View>
@@ -187,7 +187,7 @@ console.log(compoDom)
                         ))}
                         {/* Défenseurs */}
                         {linesExt.D.map((player, index) => (
-                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id, team: compoExt.team.id })} style={[generatePositionStyle(index, linesExt.D.length, 2), { alignItems: "center", width: 50 }]}>
+                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id, team: compoExt.team.id })} style={[generatePositionStyle(index, linesExt.D.length, 2), { alignItems: "center", width: 50, shadowColor: "black", shadowOpacity: 0.8, shadowRadius: 2, shadowOffset: {width: 0, height: 4} }]}>
                                 <View style={styles.infos}> {match.players[1].players.map((joueur) => joueur.player.id === player.id ? range.map((x) => joueur.statistics[0].goals.total >= x ? <Text key={x} style={{ fontSize: 9, marginInline: -3 }}>⚽</Text> : null) : null)}
                                 {match.players[1].players.map((joueur) => joueur.player.id === player.id ? joueur.statistics[0].cards.yellow > 0 ? <Image source={yellow} style={styles.card} /> : joueur.statistics[0].cards.red > 0 ? <Image source={red} style={styles.card} /> : null : null)}
                                 </View>
@@ -200,7 +200,7 @@ console.log(compoDom)
                         ))}
                         {/* Gardien */}
                         {linesExt.G.map((player, index) => (
-                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id, team: compoExt.team.id })} style={[generatePositionStyle(index, linesExt.G.length, 1), { alignItems: "center", width: 55 }]}>
+                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id, team: compoExt.team.id })} style={[generatePositionStyle(index, linesExt.G.length, 1), { alignItems: "center", width: 55, shadowColor: "black", shadowOpacity: 0.8, shadowRadius: 2, shadowOffset: {width: 0, height: 4} }]}>
                                 <View style={styles.infos}>{match.players[1].players.map((joueur) => joueur.player.id === player.id ? joueur.statistics[0].cards.yellow > 0 ? <Image source={yellow} style={styles.card} /> : joueur.statistics[0].cards.red > 0 ? <Image source={red} style={styles.card} /> : null : null)}</View>
                                 { match.fixture.status.long === "Match Finished" ? match.players[1].players.map((joueur) => joueur.player.id === player.id ? <View style={joueur.statistics[0].games.rating >= noteMax ? [styles.note, {backgroundColor: "gold"}] : styles.note}><Text style={joueur.statistics[0].games.rating >= noteMax ? styles.mvp : styles.rate}>{joueur.statistics[0].games.rating}</Text></View> : null ) : null}
                                 <View style={[styles.player, { backgroundColor: "#f0f0f0", borderColor: "#" + colors.goalExtBorder }]}>
@@ -243,8 +243,8 @@ const styles = StyleSheet.create({
     },
     player: {
         width: 32,  // Taille des joueurs
-        height: 32,
-        borderRadius: 25,
+        height: 35,
+        borderRadius: 10,
         alignItems: "center",
         justifyContent: "center",
         borderWidth: 1,
@@ -263,8 +263,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         position: "absolute",
         zIndex: 1,
-        bottom: 37,
-        left: 28,
+        bottom: 40,
+        left: 30,
         height: 12,
         alignItems: "center",
     },
