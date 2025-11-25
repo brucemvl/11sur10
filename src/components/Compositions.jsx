@@ -306,7 +306,11 @@ width: "100%"
   },
   systemeText: {
     fontSize: 18,
-    fontFamily: "Kanitt"
+    fontFamily: "Kanitt",
+    backgroundColor: "black",
+    color: "white",
+    padding: 4,
+    borderRadius: 10
   },
   subTitle: {
     fontSize: 16,

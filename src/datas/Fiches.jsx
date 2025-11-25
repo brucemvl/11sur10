@@ -102,7 +102,7 @@ import partey from "../assets/portraits/partey.png"
 import skelly from "../assets/portraits/fiche/lewisskelly.png"
 import merino from "../assets/portraits/merino.png"
 import balde from "../assets/portraits/fiche/balde.png"
-import pedri from "../assets/portraits/fiche/pedri.webp"
+import pedri from "../assets/portraits/fiche/pedri.png"
 import rashford from "../assets/portraits/fiche/rashford.webp"
 import fermin from "../assets/portraits/fiche/fermin.png"
 import olmo from "../assets/portraits/fiche/olmo.png"
@@ -148,7 +148,7 @@ import tah from "../assets/portraits/fiche/tah.png"
 import neuer from "../assets/portraits/fiche/neuer.png"
 import upamecano from "../assets/portraits/fiche/upamecano.png"
 import caicedo from "../assets/portraits/fiche/caicedo.webp"
-import jackson from "../assets/portraits/fiche/jackson.webp"
+import jackson from "../assets/portraits/fiche/jackson.png"
 import foden from "../assets/portraits/fiche/foden.webp"
 import fernandez from "../assets/portraits/fiche/fernandez.webp"
 import cucurella from "../assets/portraits/fiche/cucurella.webp"
@@ -254,10 +254,12 @@ import burn from "../assets/portraits/fiche/burn.png"
 import kebbal from "../assets/portraits/fiche/kebbal.png"
 import kone from "../assets/portraits/fiche/kone.png"
 import kante from "../assets/portraits/fiche/kante.png"
+import vandeven from "../assets/portraits/fiche/vandeven.png"
 
 
 
 export const fichesJoueurs = {
+    152849: vandeven,
     19720: chalobah,
     2290: kante,
     22147: kone,

@@ -32,7 +32,7 @@ const [fontsLoaded] = useFonts({
     "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
     "Kanitus": require("../assets/fonts/Kanit/Kanit-Light.ttf"),
     "Kanitalic": require("../assets/fonts/Kanit/Kanit-MediumItalic.ttf"),
-    "Kanitalik": require("../assets/fonts/Kanit/Kanit-ExtraBoldItalic.ttf"),
+    "Bangers": require("../assets/fonts/Kanit/Kanit-ExtraBoldItalic.ttf"),
     "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf"),
         "Carter": require("../assets/fonts/Carter_One/CarterOne-Regular.ttf"),
         "Londrina": require("../assets/fonts/Londrina/LondrinaSolid-Light.ttf"),
@@ -91,7 +91,7 @@ const [fontsLoaded] = useFonts({
   }).start();
 
 
-  const [selectedDate, setSelectedDate] = useState("AUJOURDHUI");
+  const [selectedDate, setSelectedDate] = useState("AUJOURD'HUI");
 
 
   const today = new Date().toISOString().slice(0, 10); // Date du jour au format YYYY-MM-DD
@@ -171,7 +171,7 @@ const [fontsLoaded] = useFonts({
 
 
   const handlePrevious = () => {
-    if (selectedDate === "AUJOURDHUI") {
+    if (selectedDate === "AUJOURD'HUI") {
       setSelectedDate("HIER");
       setHier(true)
       setAujourdhui(false)
@@ -181,7 +181,7 @@ const [fontsLoaded] = useFonts({
     } else if (selectedDate === "AVANT-HIER") {
       null
     } else if (selectedDate === "DEMAIN") {
-      setSelectedDate("AUJOURDHUI");
+      setSelectedDate("AUJOURD'HUI");
       setAujourdhui(true)
       setDemain(false)
       setHier(false)
@@ -204,7 +204,7 @@ const [fontsLoaded] = useFonts({
 
   // Fonction de navigation vers la date suivante (demain)
   const handleNext = () => {
-    if (selectedDate === "AUJOURDHUI") {
+    if (selectedDate === "AUJOURD'HUI") {
       setSelectedDate("DEMAIN");
       setDemain(true)
       setAujourdhui(false)
@@ -212,7 +212,7 @@ const [fontsLoaded] = useFonts({
       setavantHier(false)
       setapresDemain(false)
     } else if (selectedDate === "HIER") {
-      setSelectedDate("AUJOURDHUI");
+      setSelectedDate("AUJOURD'HUI");
       setAujourdhui(true)
       setHier(false)
       setDemain(false)
@@ -1137,7 +1137,8 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
-    position: "absolute"
+    position: "absolute",
+    
   },
   button: {
     backgroundColor: 'lightgrey',
@@ -1149,16 +1150,17 @@ const styles = StyleSheet.create({
     marginRight: 8
   },
   textspoil: {
-    fontFamily: "Permanent",
-    fontSize: 10,
+    fontFamily: "Bangers",
+    fontSize: 13,
     color: "green",
+    letterSpacing: 0.5
 
   },
   textnospoil: {
-    fontFamily: "Permanent",
-    fontSize: 10,
+    fontFamily: "Bangers",
+    fontSize: 12,
     textAlign: "center",
-    lineHeight: 10,
+    lineHeight: 12,
     color: "red"
   },
   link: {

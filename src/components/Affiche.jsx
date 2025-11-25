@@ -36,6 +36,10 @@ import oldtrafford from "../assets/stades/oldtrafford.webp"
 import allianz from "../assets/stades/allianz.jpeg"
 import anfield from "../assets/stades/anfield.webp"
 import signal from "../assets/stades/signal.jpg"
+import sansiro from "../assets/stades/sansiro.jpeg"
+import giuseppe from "../assets/stades/giuseppe.jpg"
+import diego from "../assets/stades/diego.jpg"
+
 
 
 
@@ -137,6 +141,12 @@ useEffect(() => {
         157: allianz,
         165: signal,
         default: bundesliga
+    },
+    135 : {
+        489: sansiro,
+        505: giuseppe,
+        492: diego,
+        default: pl
     }
   },
   default: grass
@@ -172,8 +182,8 @@ const backgroundSource =
                 </View>
                 }
                 </LinearGradient>
-            {match.league.id === 2 || match.league.id === 61 || match.league.id === 39 || match.league.id === 140 || match.league.id === 78 || match.league.id === 6 ?
-                <ImageBackground source={backgroundSource} style={[styles.afficheUcl, isMediumScreen && {height: 260}]} imageStyle={{ borderRadius: 15, filter: match.league.id === 61 ? "brightness(0.5)" : match.league.id === 39 ? "brightness(0.4)" : match.league.id === 140 || match.league. id === 6 ? "brightness(0.32)" : match.league.id === 78 ? "brightness(0.45)" : "brightness(0.9)" }}>
+            {match.league.id === 2 || match.league.id === 61 || match.league.id === 39 || match.league.id === 140 || match.league.id === 78 || match.league.id === 135 || match.league.id === 6 ?
+                <ImageBackground source={backgroundSource} style={[styles.afficheUcl, isMediumScreen && {height: 260}]} imageStyle={{ borderRadius: 15, filter: match.league.id === 61 || match.league.id === 135 ? "brightness(0.5)" : match.league.id === 39 ? "brightness(0.4)" : match.league.id === 140 || match.league. id === 6 ? "brightness(0.32)" : match.league.id === 78 ? "brightness(0.45)" : "brightness(0.9)" }}>
                    
                     <TouchableOpacity style={styles.domicile} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo })}>
                         <Image source={{ uri: match.teams.home.logo }} style={[styles.teamLogo, isMediumScreen && { height: 100, width: 100}, match.teams.home.id === 81 ? { shadowRadius: 0.3 } : null]} />
@@ -465,7 +475,7 @@ fontFamily: "Kanito",
         fontSize: 14,
     },
     csc: {
-        fontFamily: "Kanitalic ",
+        fontFamily: "Kanitus",
         color: 'red',
     },
     penalty: {

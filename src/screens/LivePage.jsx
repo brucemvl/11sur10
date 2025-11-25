@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 5 }, // shadow offset
     shadowOpacity: 0.8, // shadow opacity
     shadowRadius: 3,
-    elevation: 4,
+    elevation: 6,
     marginBottom: 130
   },
   title: {
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
     fontFamily: "Bangers",
     fontSize: 18,
     letterSpacing: 0.5,
-    padding: 2
+    padding: 6
   },
   shadowWrapper: {
   marginHorizontal: '35%',
@@ -249,7 +249,6 @@ titlecontainer: {
   justifyContent: 'center',
   alignItems: 'center',
   borderRadius: 18,
-  height: 30,
   overflow: "hidden", // OK ici
 },
   match: {

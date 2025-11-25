@@ -416,7 +416,7 @@ setCompoBasique(true)
                             <Text style={selected5 ? styles.selectedText : styles.text}>Classement</Text>
                         </TouchableOpacity> : null }
                         </View>
-                        {compos2 && <SchemaAvance match={match} compoDom={compoDom} compoExt={compoExt} colors={colors} />}
+                        {compos2 && <SchemaAvance id={match.fixture.id} match={match} compoDom={compoDom} compoExt={compoExt} colors={colors} />}
                         {apercu && <Indisponibles injuries={injuries} match={match} />}
                         {histo && <Histo historique={historique} />}
                         {classement && <Classement id={match.league.id}/>}    

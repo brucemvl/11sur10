@@ -108,7 +108,7 @@ const Evenements = ({ match }) => {
                         )}
                         {element.detail === "Red Card" && (
                           <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: element.player.id, team: element.team.id })} style={{ flexDirection: "row", alignItems: "center", paddingBlock: 5 }}>
-                            <Image source={portraitsJoueurs[element.player.id] || { uri: getPlayerPhoto(element.player.id, match) }} style={{ width: 35, height: 35, borderRadius: 20 }} />
+                            <Image source={portraitsJoueurs[element.player.id] || { uri: getPlayerPhoto(element.player.id, match) }} style={{ width: 35, height: 35, borderRadius: 20, marginRight: 5 }} />
                             <Text style={styles.playerName}>{element.player.name}</Text>
                             {element.comments === "Off the ball foul" ? <Text style={styles.motif}> (Faute sans ballon)</Text> : element.comments === "Unsportsmanlike conduct" ? <Text style={styles.motif}> (Comportement Antisportif)</Text> : element.comments === "Handball" ? <Text style={styles.motif}> (Main)</Text> : element.comments === "Foul" ? <Text style={styles.motif}> (Faute)</Text> : element.comments === "Argument" ? <Text style={styles.motif}> (Protestation)</Text> : element.comments === "Violent conduct" ? <Text style={styles.motif}> (Comportement violent)</Text> : element.comments === "Simulation" || element.comments === "Diving" ? <Text style={styles.motif}> (Simulation)</Text> : element.comments === "Professional foul last man" ? <Text style={styles.motif}> (Faute dernier defenseur)</Text> : element.comments === "Time wasting" ? <Text style={styles.motif}> (Joue la montre)</Text> : element.comments === "Roughing" ? <Text style={styles.motif}> (Contact brutal)</Text> : element.comments === "Tripping" ? <Text style={styles.motif}> (Croche pied)</Text> : element.comments === "Holding" ? <Text style={styles.motif}> (Retient l'adversaire)</Text> : element.comments === "Serious foul" ? <Text style={styles.motif}> (Grosse faute)</Text> : null}
 
@@ -161,7 +161,7 @@ const Evenements = ({ match }) => {
                           element.detail === "Penalty confirmed" || element.detail === "Goal confirmed" || element.detail === "Penalty cancelled") && (
                             <View style={styles.varContainer}>
 
-                              <Text style={styles.varText}>{element.detail === "Goal Disallowed - offside" ? "But refusé (Hors-Jeu)" : element.detail === "Goal cancelled" || element.detail === "Goal Disallowed" ? "❌   But annulé" : element.detail === "Penalty confirmed" ? "Penalty confirmé !" : element.detail === "Penalty cancelled" ? "❌   Penalty annulé !" : element.detail === "Goal confirmed" ? "But Confirmé !" : element.detail}</Text>
+                              <Text style={styles.varText}>{element.detail === "Goal Disallowed - offside" ? "❌  But refusé (Hors-Jeu)" : element.detail === "Goal cancelled" || element.detail === "Goal Disallowed" ? "❌   But annulé" : element.detail === "Penalty confirmed" ? "Penalty confirmé !" : element.detail === "Penalty cancelled" ? "❌   Penalty annulé !" : element.detail === "Goal confirmed" ? "But Confirmé !" : element.detail}</Text>
                             </View>
                           )}
                       </View>

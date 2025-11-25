@@ -105,7 +105,7 @@ const selectedTeam = selectedTeamId
   <Image
     key={selectedTeamId}
     source={{ uri: selectedTeam.logo }}
-    style={{ width: 23, height: 23, position: "absolute", zIndex: -1, left: 20, bottom: 18, objectFit: "contain" }}
+    style={{ width: 26, height: 26, position: "absolute", zIndex: -1, left: 20, bottom: 18, objectFit: "contain" }}
   />
 ) : null}
   <Animated.Image

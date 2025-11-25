@@ -36,7 +36,7 @@ function Filtres() {
             <View style={[styles.lien, { backgroundColor: bgColor }]}>
                 <Image
                     source={localImage ? localImage : { uri: logo }}
-                    style={styles.logo}
+                    style={[styles.logo, id === 62 && {width: "80%", height: "80%"}]}
                 />
             </View>
         </TouchableOpacity>
@@ -55,7 +55,7 @@ function Filtres() {
                 renderItem({
                     id,
                     logo,
-                    bgColor: 'rgba(227, 102, 13, 1)',
+                    bgColor: 'rgba(227, 52, 13, 1)',
                     onPress: () => navigation.navigate('FicheSelections', { id })
                 })
             )}
@@ -117,7 +117,8 @@ const styles = StyleSheet.create({
     // Hitbox du bouton
     touch: {
         height: 82,
-        width: 82
+        width: 82,
+        
     },
 
     touchTablet: {

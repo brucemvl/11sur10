@@ -369,7 +369,7 @@ const [rank, setRank] = useState()
 
   {/* BOUTONS */}
       <View style={{ flexDirection: "row", gap: 15, marginBlock: 10, alignItems: "center" }}>
-        <TouchableOpacity onPress={collapseClassement}>
+        <TouchableOpacity onPress={collapseClassement} style={ selectedClassement && styles.selected}>
           <LinearGradient
             colors={["rgba(66, 66, 66, 1)", "rgba(165, 165, 165, 1)"]}
             style={selectedClassement ? styles.boutonSelected : styles.bouton}
@@ -378,7 +378,7 @@ const [rank, setRank] = useState()
           </LinearGradient>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={collapseButeurs}>
+        <TouchableOpacity onPress={collapseButeurs} style={ selectedButeurs && styles.selected}>
           <LinearGradient
             colors={["rgba(66, 66, 66, 1)", "rgba(165, 165, 165, 1)"]}
             style={selectedButeurs ? styles.boutonSelected : styles.bouton}
@@ -387,7 +387,7 @@ const [rank, setRank] = useState()
           </LinearGradient>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={collapsePasseurs}>
+        <TouchableOpacity onPress={collapsePasseurs} style={ selectedPasseurs && styles.selected}>
           <LinearGradient
             colors={["rgba(66, 66, 66, 1)", "rgba(165, 165, 165, 1)"]}
             style={selectedPasseurs ? styles.boutonSelected : styles.bouton}
@@ -565,7 +565,7 @@ console.log(tab)
     <View style={{ flex: 1, alignItems: "center", paddingInline: 2 }}>
       {/* BOUTONS */}
       <View style={{ flexDirection: "row", gap: 15, marginBlock: 10, alignItems: "center" }}>
-        <TouchableOpacity onPress={collapseClassement}>
+        <TouchableOpacity onPress={collapseClassement} style={ selectedClassement && styles.selected}>
           <LinearGradient
             colors={["rgba(66, 66, 66, 1)", "rgba(165, 165, 165, 1)"]}
             style={selectedClassement ? styles.boutonSelected : styles.bouton}
@@ -574,7 +574,7 @@ console.log(tab)
           </LinearGradient>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={collapseButeurs}>
+        <TouchableOpacity onPress={collapseButeurs} style={ selectedButeurs && styles.selected}>
           <LinearGradient
             colors={["rgba(66, 66, 66, 1)", "rgba(165, 165, 165, 1)"]}
             style={selectedButeurs ? styles.boutonSelected : styles.bouton}
@@ -583,7 +583,7 @@ console.log(tab)
           </LinearGradient>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={collapsePasseurs}>
+        <TouchableOpacity onPress={collapsePasseurs} style={ selectedPasseurs && styles.selected}>
           <LinearGradient
             colors={["rgba(66, 66, 66, 1)", "rgba(165, 165, 165, 1)"]}
             style={selectedPasseurs ? styles.boutonSelected : styles.bouton}
@@ -749,7 +749,16 @@ paddingBottom: 100
     borderRadius: 15,
     alignItems: "center",
     justifyContent: "center",
-    opacity: 1
+    opacity: 1,
+    
+  },
+  selected: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+     shadowOpacity: 0.6,
+     shadowRadius: 3.5,
+     elevation: 5
+
   },
   btnText: {
     color: "black",
