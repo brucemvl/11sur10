@@ -73,10 +73,10 @@ import kanteselec from "../assets/portraits/selection/kante.webp"
 import { fichesJoueurs } from "../datas/Fiches.jsx";
 
 function FicheJoueur() {
-    const { width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   const isSmallScreen = width <= 767;
-    const isMediumScreen = width <= 1024 && width > 767;
+  const isMediumScreen = width <= 1024 && width > 767;
 
   const [joueur, setJoueur] = useState(null);
   const [palmares, setPalmares] = useState(null);
@@ -89,7 +89,7 @@ function FicheJoueur() {
   const route = useRoute();
   const { id, team } = route.params;
   const [rotateValue, setRotateValue] = useState(new Animated.Value(0));
-  const [heightAnim, setHeightAnim] = useState(new Animated.Value(0)); 
+  const [heightAnim, setHeightAnim] = useState(new Animated.Value(0));
 
   const [rotateSeason, setRotateSeason] = useState(new Animated.Value(0));
 
@@ -132,7 +132,7 @@ function FicheJoueur() {
       },
     })
       .then((response) => response.json())
-      
+
       .then((result) => setJoueur(result.response[0]))
       .catch((error) => { console.error(error) });
   }, [id, annee]);
@@ -216,7 +216,7 @@ function FicheJoueur() {
   console.log(totalGoals)
   console.log(totalPasses)
 
-console.log(team)
+  console.log(team)
 
 
   const teamNames = joueur?.statistics.map((element) => element.team.name);
@@ -262,30 +262,52 @@ console.log(team)
   });
   console.log(trophiesArray)
 
+  const trophyImages = {
+    "FIFA Club World Cup": clubwc,
+    "FIFA World Cup": cdm,
+    "UEFA Champions League": ucl,
+    "Premier League": pl,
+    "CONMEBOL Copa America": copa,
+    "UEFA Europa League": europa,
+    "La Liga": liga,
+    "Bundesliga": bundesliga,
+    "UEFA European Championship": euro,
+    "UEFA Super Cup": uefa,
+    "Serie A": seriea,
+    "CAF Africa Cup of Nations": can,
+    "UEFA Nations League": nations,
+    "FIFA Intercontinental Cup": fifa,
+  };
+
+  const getLigue1Image = (element) => {
+    return element.trophies[0].season === "2024/2025"
+      ? newtropheeligue1
+      : tropheeligue1;
+  };
 
 
   return (
     <View>
       <Precedent />
       <ScrollView contentContainerStyle={styles.blocJoueur}>
-        <View style={[styles.article, isMediumScreen && {width: "90%"}]}>
-          <LinearGradient colors={["black", "steelblue"]} style={[styles.infosJoueur, isMediumScreen && {height: 280}]}>
+        <View style={[styles.article, isMediumScreen && { width: "90%" }]}>
+          <LinearGradient colors={["black", "steelblue"]} style={[styles.infosJoueur, isMediumScreen && { height: 280 }]}>
             {team === 2 ?
               <Image source={
 
-                 joueur.player.id === 1922 ? thauvinselec : joueur.player.id === 269 ? nkunkuselec : joueur.player.id === 25927 ? matetaselec : joueur.player.id === 161907 ? gustoselec : joueur.player.id === 2207 ? camavingaselec : joueur.player.id === 1149 ? upamecanoselec : joueur.player.id === 22090 ? salibaselec : joueur.player.id === 116 ? kephrenselec : joueur.player.id === 274300 ? aklioucheselec : joueur.player.id === 508 ? comanselec : joueur.player.id === 174565 ? ekitikeselc : joueur.player.id === 22147 ? koneselec : joueur.player.id === 2725 ? pavardselec : joueur.player.id === 2724 ? digneselec : joueur.player.id === 1257 ? koundeselec : joueur.player.id === 336657 ? zaireselec : joueur.player.id === 1145 ? konateselec : joueur.player.id === 1454 ? guendouziselec : joueur.player.id === 162453 ? chevalierselec : joueur.player.id === 21104 ? kolomuaniselec : joueur.player.id === 22221 ? maignanselec : joueur.player.id === 1271 ? tchouameniselec : joueur.player.id === 33 ? lukasselec : joueur.player.id === 272 ? rabiotselec : joueur.player.id === 21509 ? thuramselec : joueur.player.id === 278 ? mbappeselec : joueur.player.id === 153 ? dembeleselec : joueur.player.id === 343027 ? doueselec : joueur.player.id === 19617 ? oliseselec : joueur.player.id === 47300 ? theoselec : joueur.player.id === 161904 ? barcolaselec : joueur.player.id === 156477 ? cherkiselec : { uri: joueur.player.photo }}
+                joueur.player.id === 1922 ? thauvinselec : joueur.player.id === 269 ? nkunkuselec : joueur.player.id === 25927 ? matetaselec : joueur.player.id === 161907 ? gustoselec : joueur.player.id === 2207 ? camavingaselec : joueur.player.id === 1149 ? upamecanoselec : joueur.player.id === 22090 ? salibaselec : joueur.player.id === 116 ? kephrenselec : joueur.player.id === 274300 ? aklioucheselec : joueur.player.id === 508 ? comanselec : joueur.player.id === 174565 ? ekitikeselc : joueur.player.id === 22147 ? koneselec : joueur.player.id === 2725 ? pavardselec : joueur.player.id === 2724 ? digneselec : joueur.player.id === 1257 ? koundeselec : joueur.player.id === 336657 ? zaireselec : joueur.player.id === 1145 ? konateselec : joueur.player.id === 1454 ? guendouziselec : joueur.player.id === 162453 ? chevalierselec : joueur.player.id === 21104 ? kolomuaniselec : joueur.player.id === 22221 ? maignanselec : joueur.player.id === 1271 ? tchouameniselec : joueur.player.id === 33 ? lukasselec : joueur.player.id === 272 ? rabiotselec : joueur.player.id === 21509 ? thuramselec : joueur.player.id === 278 ? mbappeselec : joueur.player.id === 153 ? dembeleselec : joueur.player.id === 343027 ? doueselec : joueur.player.id === 19617 ? oliseselec : joueur.player.id === 47300 ? theoselec : joueur.player.id === 161904 ? barcolaselec : joueur.player.id === 156477 ? cherkiselec : { uri: joueur.player.photo }}
                 style={{ height: "190", width: "38%" }} />
               :
               <Image
                 source={fichesJoueurs[joueur.player.id] || { uri: joueur.player.photo }}
                 style={[
 
-                  fichesJoueurs[joueur.player.id] ? styles.fiche : styles.photo, isMediumScreen && {height: 260}]}
+                  fichesJoueurs[joueur.player.id] ? styles.fiche : styles.photo, isMediumScreen && { height: 260 }]}
               />
             }
 
             <View style={styles.bio}>
-              <Text style={[styles.name, isMediumScreen && {fontSize: 22}]}>{joueur.player.id === 15906 ? "Toufik Chemakh" : joueur.player.id === 37784 ? "Mamadou Sissoko" : joueur.player.name}</Text>
+              <Text style={[styles.name, isMediumScreen && { fontSize: 22 }]}>{joueur.player.id === 15906 ? "Toufik Chemakh" : joueur.player.id === 37784 ? "Mamadou Sissoko" : joueur.player.name}</Text>
               <View style={{ width: "100%", flexDirection: "column", alignItems: "center" }}> <Text style={styles.infoText}>Né le {joueur.player.id === 37784 ? "31/03/1999" : formattedDate}</Text><View style={{ flexDirection: "row", alignItems: "center" }}><Text style={{ fontFamily: "Kanitalic", color: "white" }}> à {joueur.player.id === 37784 || joueur.player.id === 15906 ? "Paris" : joueur.player.birth.place},</Text><Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: 15 }}> {joueur.player.id === 37784 || joueur.player.id === 15906 ? "France" : joueur.player.birth.country === "Spain" ? "Espagne" : joueur.player.birth.country === "Netherlands" ? "Pays-Bas" : joueur.player.birth.country === "Belgium" ? "Belgique" : joueur.player.birth.country === "Brazil" ? "Bresil" : joueur.player.birth.country === "England" ? "Angleterre" : joueur.player.birth.country === "Türkiye" ? "Turquie" : joueur.player.birth.country === "Switzerland" ? "Suisse" : joueur.player.birth.country === "Germany" ? "Allemagne" : joueur.player.birth.country}</Text></View></View>
               <View style={{ flexDirection: "row" }}><Text style={{ fontFamily: "Kanitalik", color: "white" }}> {joueur.player.height + "cm"} {joueur.player.weight === null ? null : "- " + joueur.player.weight + "kg"}</Text></View>
               <Text style={styles.infoText}>Poste: {joueur.statistics[0].games.position === "Midfielder" ? "Milieu" : joueur.statistics[0].games.position === "Attacker" ? "Attaquant" : joueur.statistics[0].games.position === "Defender" ? "Defenseur" : joueur.statistics[0].games.position === "Goalkeeper" ? "Gardien" : joueur.statistics[0].games.position}</Text>
@@ -299,11 +321,11 @@ console.log(team)
 
           <View style={styles.palmares}>
             <TouchableOpacity onPress={collapsePalmares}>
-              <LinearGradient colors={["black", "steelblue"]} style={[styles.palmaresTitle, isMediumScreen && {paddingBlock: 8} ]} >
-                <Text style={[styles.palmaresText, isMediumScreen && {fontSize: 20}]}>Palmarès</Text>
+              <LinearGradient colors={["black", "steelblue"]} style={[styles.palmaresTitle, isMediumScreen && { paddingBlock: 8 }]} >
+                <Text style={[styles.palmaresText, isMediumScreen && { fontSize: 20 }]}>Palmarès</Text>
                 <Animated.Image
                   source={chevron}
-                  style={[styles.chevron, { transform: [{ rotate: rotateInterpolate }] }, isMediumScreen && {left: 250}]}
+                  style={[styles.chevron, { transform: [{ rotate: rotateInterpolate }] }, isMediumScreen && { left: 250 }]}
                 />
               </LinearGradient>
             </TouchableOpacity>
@@ -325,12 +347,38 @@ console.log(team)
                 }]}>
                   <View style={{ width: "55%" }} >
                     {trophiesArray.map((element, index) => (
-                       element.league === "Florida Cup" ? null :element.league === "Trofeo Joan Gamper" ? null : element.league === "FA Youth Cup" ? null : element.league === "Supercopa de Catalunya" ? null : element.league === "Copa del Rey Juvenil" ? null : element.league === "Audi Cup" ? null : element.league === "Ekstraklasa" ? null :
+                      element.league === "Florida Cup" ? null : element.league === "Trofeo Joan Gamper" ? null : element.league === "FA Youth Cup" ? null : element.league === "Supercopa de Catalunya" ? null : element.league === "Copa del Rey Juvenil" ? null : element.league === "Audi Cup" ? null : element.league === "Ekstraklasa" ? null :
                         <Text key={"trophee" + element.league + element.season} style={{ fontFamily: "Kanito", marginInline: 10, marginBlock: 2 }}>{element.league === "FIFA Club World Cup" ? 1 : element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league === "Trofeo Joan Gamper" ? null : element.league === "UEFA European Championship" ? "Euro" : element.league}</Text>
                     ))}
                   </View>
                   <View style={styles.armoire}>
-                    {trophiesArray.map((element) => <View key={"trophy" + element.league + element.trophies[0].season} style={styles.box}> {element.league === "FIFA Club World Cup" ? <Image source={clubwc} style={styles.trophee} /> : element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee} /> : element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee} /> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : element.league === "UEFA Europa League" ? <Image source={europa} style={styles.trophee} /> : element.league === "Ligue 1" ? element.trophies[0].season === "2024/2025" ? <Image source={newtropheeligue1} style={styles.trophee} /> : <Image source={tropheeligue1} style={styles.trophee} /> : element.league === "La Liga" ? <Image source={liga} style={styles.trophee} /> : element.league === "Bundesliga" ? <Image source={bundesliga} style={styles.trophee} /> : element.league === "UEFA European Championship" ? <Image source={euro} style={styles.trophee} /> : element.league === "UEFA Super Cup" ? <Image source={uefa} style={styles.trophee} /> : element.league === "Serie A" ? <Image source={seriea} style={styles.trophee} /> : element.league === "CAF Africa Cup of Nations" ? <Image source={can} style={styles.trophee} /> : element.league === "UEFA Nations League" ? <Image source={nations} style={styles.trophee} /> : element.league === "FIFA Intercontinental Cup" ? <Image source={fifa} style={styles.trophee} /> : null}</View>)}
+                    {trophiesArray.map((element) => {
+
+                      const key = `trophy_${element.league}_${element.trophies[0].season}`;
+
+                      // Cas spécial Ligue 1
+                      const image =
+                        element.league === "Ligue 1"
+                          ? getLigue1Image(element)
+                          : trophyImages[element.league];
+
+                      // 👉 Si le trophée n'existe pas dans trophyImages, alors on n'affiche rien
+                      if (!image) return null;
+
+                      return (
+                        <View key={key} style={styles.box}>
+                          <Image source={image} style={styles.trophee} />
+
+                          {element.trophies.length > 1 && (
+                            <Text
+                              style={styles.nombre}
+                            >
+                              x{element.trophies.length}
+                            </Text>
+                          )}
+                        </View>
+                      );
+                    })}
                   </View>
 
                 </Animated.View> :
@@ -343,12 +391,38 @@ console.log(team)
                 <View style={{ width: "55%" }}>
 
                   {trophiesArray.map((element, index) => (
-                       element.league === "Florida Cup" ? null : element.league === "Trofeo Joan Gamper" ? null : element.league === "FA Youth Cup" ? null : element.league === "Supercopa de Catalunya" ? null : element.league === "Copa del Rey Juvenil" ? null : element.league === "Audi Cup" ? null : element.league === "Ekstraklasa" ? null :
+                    element.league === "Florida Cup" ? null : element.league === "Trofeo Joan Gamper" ? null : element.league === "FA Youth Cup" ? null : element.league === "Supercopa de Catalunya" ? null : element.league === "Copa del Rey Juvenil" ? null : element.league === "Audi Cup" ? null : element.league === "Ekstraklasa" ? null :
                       <Text style={{ fontFamily: "Kanito", marginInline: 10 }}>{element.league === "FIFA Club World Cup" ? 1 : element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league === "Trofeo Joan Gamper" ? null : element.league === "UEFA European Championship" ? "Euro" : element.league}</Text>
                   ))}
                 </View>
                 <View style={styles.armoire}>
-                  {trophiesArray.map((element) => <View key={"trophy" + element.league + element.trophies[0].season} style={styles.box}> {element.league === "FIFA Club World Cup" ? <Image source={clubwc} style={styles.trophee} /> : element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee} /> : element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee} /> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : element.league === "UEFA Europa League" ? <Image source={europa} style={styles.trophee} /> : element.league === "Ligue 1" ? element.trophies[0].season === "2024/2025" ? <Image source={newtropheeligue1} style={styles.trophee} /> : <Image source={tropheeligue1} style={styles.trophee} /> : element.league === "La Liga" ? <Image source={liga} style={styles.trophee} /> : element.league === "Bundesliga" ? <Image source={bundesliga} style={styles.trophee} /> : element.league === "UEFA European Championship" ? <Image source={euro} style={styles.trophee} /> : element.league === "UEFA Super Cup" ? <Image source={uefa} style={styles.trophee} /> : element.league === "Serie A" ? <Image source={seriea} style={styles.trophee} /> : element.league === "CAF Africa Cup of Nations" ? <Image source={can} style={styles.trophee} /> : element.league === "UEFA Nations League" ? <Image source={nations} style={styles.trophee} /> : element.league === "FIFA Intercontinental Cup" ? <Image source={fifa} style={styles.trophee} /> : null}</View>)}
+                  {trophiesArray.map((element) => {
+
+                    const key = `trophy_${element.league}_${element.trophies[0].season}`;
+
+                    // Cas spécial Ligue 1
+                    const image =
+                      element.league === "Ligue 1"
+                        ? getLigue1Image(element)
+                        : trophyImages[element.league];
+
+                    // 👉 Si le trophée n'existe pas dans trophyImages, alors on n'affiche rien
+                    if (!image) return null;
+
+                    return (
+                      <View key={key} style={styles.box}>
+                        <Image source={image} style={styles.trophee} />
+
+                        {element.trophies.length > 1 && (
+                          <Text
+                            style={styles.nombre}
+                          >
+                            x{element.trophies.length}
+                          </Text>
+                        )}
+                      </View>
+                    );
+                  })}
                 </View>
 
               </Animated.View> :
@@ -367,7 +441,33 @@ console.log(team)
                   </View>
                   <View style={styles.armoire}>
 
-                    {trophiesArray.map((element) => <View key={"trophy" + element.league + element.trophies[0].season} style={styles.box}> {element.league === "FIFA Club World Cup" ? <Image source={clubwc} style={styles.trophee} /> : element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee} /> : element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee} /> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : element.league === "UEFA Europa League" ? <Image source={europa} style={styles.trophee} /> : element.league === "Ligue 1" ? element.trophies[0].season === "2024/2025" ? <Image source={newtropheeligue1} style={styles.trophee} /> : <Image source={tropheeligue1} style={styles.trophee} /> : element.league === "La Liga" ? <Image source={liga} style={styles.trophee} /> : element.league === "Bundesliga" ? <Image source={bundesliga} style={styles.trophee} /> : element.league === "UEFA European Championship" ? <Image source={euro} style={styles.trophee} /> : element.league === "UEFA Super Cup" ? <Image source={uefa} style={styles.trophee} /> : element.league === "Serie A" ? <Image source={seriea} style={styles.trophee} /> : element.league === "CAF Africa Cup of Nations" ? <Image source={can} style={styles.trophee} /> : element.league === "UEFA Nations League" ? <Image source={nations} style={styles.trophee} /> : element.league === "FIFA Intercontinental Cup" ? <Image source={fifa} style={styles.trophee} /> : null}</View>)}
+                    {trophiesArray.map((element) => {
+
+                      const key = `trophy_${element.league}_${element.trophies[0].season}`;
+
+                      // Cas spécial Ligue 1
+                      const image =
+                        element.league === "Ligue 1"
+                          ? getLigue1Image(element)
+                          : trophyImages[element.league];
+
+                      // 👉 Si le trophée n'existe pas dans trophyImages, alors on n'affiche rien
+                      if (!image) return null;
+
+                      return (
+                        <View key={key} style={styles.box}>
+                          <Image source={image} style={styles.trophee} />
+
+                          {element.trophies.length > 1 && (
+                            <Text
+                              style={styles.nombre}
+                            >
+                              x{element.trophies.length}
+                            </Text>
+                          )}
+                        </View>
+                      );
+                    })}
                   </View>
 
                 </Animated.View> :
@@ -384,7 +484,33 @@ console.log(team)
                       ))}
                     </View>
                     <View style={styles.armoire}>
-                      {trophiesArray.map((element) => <View key={"trophy" + element.league + element.trophies[0].season} style={styles.box}> {element.league === "FIFA Club World Cup" ? <Image source={clubwc} style={styles.trophee} /> : element.league === "FIFA World Cup" ? <Image source={cdm} style={styles.trophee} /> : element.league === "UEFA Champions League" ? <Image source={ucl} style={styles.trophee} /> : element.league === "Premier League" ? <Image source={pl} style={styles.trophee} /> : element.league === "CONMEBOL Copa America" ? <Image source={copa} style={styles.trophee} /> : element.league === "UEFA Europa League" ? <Image source={europa} style={styles.trophee} /> : element.league === "Ligue 1" ? element.trophies[0].season === "2024/2025" ? <Image source={newtropheeligue1} style={styles.trophee} /> : <Image source={tropheeligue1} style={styles.trophee} /> : element.league === "La Liga" ? <Image source={liga} style={styles.trophee} /> : element.league === "Bundesliga" ? <Image source={bundesliga} style={styles.trophee} /> : element.league === "UEFA European Championship" ? <Image source={euro} style={styles.trophee} /> : element.league === "UEFA Super Cup" ? <Image source={uefa} style={styles.trophee} /> : element.league === "Serie A" ? <Image source={seriea} style={styles.trophee} /> : element.league === "CAF Africa Cup of Nations" ? <Image source={can} style={styles.trophee} /> : element.league === "UEFA Nations League" ? <Image source={nations} style={styles.trophee} /> : element.league === "FIFA Intercontinental Cup" ? <Image source={fifa} style={styles.trophee} /> : null}</View>)}
+                      {trophiesArray.map((element) => {
+
+                        const key = `trophy_${element.league}_${element.trophies[0].season}`;
+
+                        // Cas spécial Ligue 1
+                        const image =
+                          element.league === "Ligue 1"
+                            ? getLigue1Image(element)
+                            : trophyImages[element.league];
+
+                        // 👉 Si le trophée n'existe pas dans trophyImages, alors on n'affiche rien
+                        if (!image) return null;
+
+                        return (
+                          <View key={key} style={styles.box}>
+                            <Image source={image} style={styles.trophee} />
+
+                            {element.trophies.length > 1 && (
+                              <Text
+                                style={styles.nombre}
+                              >
+                                x{element.trophies.length}
+                              </Text>
+                            )}
+                          </View>
+                        );
+                      })}
                     </View>
 
                   </Animated.View>
@@ -392,26 +518,26 @@ console.log(team)
           </View>
 
           <View style={{ flexDirection: "row", alignItems: "center", gap: 20 }}>
-            {opaque === true ? <TouchableOpacity style={{ opacity: 0.2, marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center" }}><Text style={{ fontSize: isMediumScreen ? 28 : 24, fontFamily: "Kanitt" }}>{"<"}</Text></TouchableOpacity> : <TouchableOpacity onPress={prec} style={{ marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center" }}><Text style={{ fontSize:  isMediumScreen ? 28 : 24, fontFamily: "Kanitt" }}>{"<"}</Text></TouchableOpacity>}
-            <Animated.Text style={[styles.season, { transform: [{ rotate: rotateSeasonInterpolate }] }, isMediumScreen && {fontSize: 24}]}>{annee}/{annee + 1}</Animated.Text>
-            {opaque2 === true ? <TouchableOpacity style={{ opacity: 0.2, marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center" }}><Text style={{ fontSize: isMediumScreen ? 28 : 24, fontFamily: "Kanitt" }}>{">"}</Text></TouchableOpacity> : <TouchableOpacity onPress={next} style={{ marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center" }}><Text style={{ fontSize: isMediumScreen ? 28 :  24, fontFamily: "Kanitt" }}>{">"}</Text></TouchableOpacity>}
+            {opaque === true ? <TouchableOpacity style={{ opacity: 0.2, marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center" }}><Text style={{ fontSize: isMediumScreen ? 28 : 24, fontFamily: "Kanitt" }}>{"<"}</Text></TouchableOpacity> : <TouchableOpacity onPress={prec} style={{ marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center" }}><Text style={{ fontSize: isMediumScreen ? 28 : 24, fontFamily: "Kanitt" }}>{"<"}</Text></TouchableOpacity>}
+            <Animated.Text style={[styles.season, { transform: [{ rotate: rotateSeasonInterpolate }] }, isMediumScreen && { fontSize: 24 }]}>{annee}/{annee + 1}</Animated.Text>
+            {opaque2 === true ? <TouchableOpacity style={{ opacity: 0.2, marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center" }}><Text style={{ fontSize: isMediumScreen ? 28 : 24, fontFamily: "Kanitt" }}>{">"}</Text></TouchableOpacity> : <TouchableOpacity onPress={next} style={{ marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center" }}><Text style={{ fontSize: isMediumScreen ? 28 : 24, fontFamily: "Kanitt" }}>{">"}</Text></TouchableOpacity>}
           </View>
 
           <View style={{ width: "70%", gap: 20, marginBlock: 10, flexDirection: "row", justifyContent: "space-evenly" }}>
 
             <View style={styles.stat}>
               <View style={{ backgroundColor: "rgb(8, 4, 82)", borderRadius: 50, width: isMediumScreen ? 65 : 45, height: isMediumScreen ? 65 : 45, alignItems: "center", justifyContent: "center" }}><Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: isMediumScreen ? 22 : 18 }}>{totalMatchs}</Text></View>
-              <Text style={[styles.h5, isMediumScreen && {fontSize: 16 }]}>Matchs Joués</Text>
+              <Text style={[styles.h5, isMediumScreen && { fontSize: 16 }]}>Matchs Joués</Text>
             </View>
 
             <View style={styles.stat}>
-              <View style={{ backgroundColor: "steelblue", borderRadius: 50, width: isMediumScreen ? 65 : 45, height: isMediumScreen ? 65 : 45, alignItems: "center", justifyContent: "center" }}><Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: isMediumScreen ? 22 :  18 }}>{totalGoals}</Text></View>
-              <Text style={[styles.h5, { color: "steelblue" }, isMediumScreen && {fontSize: 16 }]}>Buts</Text>
+              <View style={{ backgroundColor: "steelblue", borderRadius: 50, width: isMediumScreen ? 65 : 45, height: isMediumScreen ? 65 : 45, alignItems: "center", justifyContent: "center" }}><Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: isMediumScreen ? 22 : 18 }}>{totalGoals}</Text></View>
+              <Text style={[styles.h5, { color: "steelblue" }, isMediumScreen && { fontSize: 16 }]}>Buts</Text>
             </View>
 
             <View style={styles.stat}>
               <View style={{ backgroundColor: "steelblue", borderRadius: 50, width: isMediumScreen ? 65 : 45, height: isMediumScreen ? 65 : 45, alignItems: "center", justifyContent: "center" }}><Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: isMediumScreen ? 22 : 18 }}>{totalPasses}</Text></View>
-              <Text style={[styles.h5, { color: "steelblue" }, isMediumScreen && {fontSize: 16 }]}>Passes Dec</Text>
+              <Text style={[styles.h5, { color: "steelblue" }, isMediumScreen && { fontSize: 16 }]}>Passes Dec</Text>
             </View>
           </View>
 
@@ -421,55 +547,55 @@ console.log(team)
                 {element.games.minutes > 0 && element.league.id !== 850 ?
                   <View>
                     <LinearGradient colors={["rgba(56, 103, 142, 1)", "rgba(203, 217, 228, 1)"]} style={{ borderTopLeftRadius: 15, borderTopRightRadius: 15 }}>
-                      <Text style={[styles.leagueName, isMediumScreen && {fontSize: 22}]}>{element.league.name.indexOf("Friendlies") != -1 ? element.league.name.replace("Friendlies", "Amicaux") : element.league.name}</Text>
+                      <Text style={[styles.leagueName, isMediumScreen && { fontSize: 22 }]}>{element.league.name.indexOf("Friendlies") != -1 ? element.league.name.replace("Friendlies", "Amicaux") : element.league.name}</Text>
                     </LinearGradient>
                     <View style={{ flexDirection: "row", justifyContent: "space-between", marginInline: 10, paddingInline: isMediumScreen ? 25 : 8 }}>
                       <View style={styles.statList}>
                         <View style={styles.ligne}>
                           <Image source={terrain} style={styles.icone} />
-                          <Text style={[styles.cle, isMediumScreen && {fontSize: 18}]}>Matchs joués: </Text><Text style={[styles.valeur, isMediumScreen && {fontSize: 20}]}> {element.games.appearences}</Text>
+                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>Matchs joués: </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.games.appearences}</Text>
                         </View>
                         {joueur.statistics[0].games.position === "Goalkeeper" ?
                           <View style={styles.ligne}>
                             <Image source={gardien} style={styles.icone} />
-                            <Text style={[styles.cle, isMediumScreen && {fontSize: 18}]}>Arrets:</Text><Text style={[styles.valeur, isMediumScreen && {fontSize: 20}]}> {element.goals.saves === null ? 0 : element.goals.saves}</Text>
+                            <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>Arrets:</Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.goals.saves === null ? 0 : element.goals.saves}</Text>
                           </View> : null}
                         <View style={styles.ligne}>
                           <Image source={goal} style={styles.icone} />
-                          <Text style={[styles.cle, isMediumScreen && {fontSize: 18}]}>Buts: </Text><Text style={[styles.valeur, isMediumScreen && {fontSize: 20}]}>{element.goals.total}</Text>
+                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>Buts: </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}>{element.goals.total}</Text>
                         </View>
                         <View style={styles.ligne}>
                           <Image source={target} style={styles.icone} />
-                          <Text style={[styles.cle, isMediumScreen && {fontSize: 18}]}>Passes Dec: </Text><Text style={[styles.valeur, isMediumScreen && {fontSize: 20}]}> {element.goals.assists === null ? 0 : element.goals.assists}</Text>
+                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>Passes Dec: </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.goals.assists === null ? 0 : element.goals.assists}</Text>
                         </View>
                         {joueur.statistics[0].games.position === "Goalkeeper" ? null : <View style={styles.ligne}>
                           <Image source={shoot} style={styles.icone} />
-                          <Text style={[styles.cle, isMediumScreen && {fontSize: 18}]}>Tirs (cadrés): </Text><Text style={[styles.valeur, isMediumScreen && {fontSize: 20}]}> {element.shots.total} ({element.shots.on === null ? 0 : element.shots.on})</Text>
+                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>Tirs (cadrés): </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.shots.total} ({element.shots.on === null ? 0 : element.shots.on})</Text>
                         </View>}
                         <View style={styles.ligne}>
                           <Image source={shoe} style={styles.icone} />
-                          <Text style={[styles.cle, isMediumScreen && {fontSize: 18}]}>Passes:</Text><Text style={[styles.valeur, isMediumScreen && {fontSize: 20}]}> {element.passes.total === null ? 0 : element.passes.total}</Text>
+                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>Passes:</Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.passes.total === null ? 0 : element.passes.total}</Text>
                         </View>
                         {joueur.statistics[0].games.position === "Defender" ?
                           <View style={styles.ligne}>
                             <Image source={tacle} style={styles.icone} />
-                            <Text style={[styles.cle, isMediumScreen && {fontSize: 18}]}>Tacles:</Text><Text style={[styles.valeur, isMediumScreen && {fontSize: 20}]}> {element.tackles.total === null ? 0 : element.tackles.total}</Text>
+                            <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>Tacles:</Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.tackles.total === null ? 0 : element.tackles.total}</Text>
                           </View> : null}
                         {joueur.statistics[0].games.position === "Goalkeeper" ? null : <View style={styles.ligne}>
                           <Image source={player} style={styles.icone} />
-                          <Text style={[styles.cle, isMediumScreen && {fontSize: 18}]}>Dribbles Tentés (Réussis): </Text><Text style={[styles.valeur, isMediumScreen && {fontSize: 20}]}> {element.dribbles.attempts} ({element.dribbles.success === null ? 0 : element.dribbles.success})</Text>
+                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>Dribbles Tentés (Réussis): </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.dribbles.attempts} ({element.dribbles.success === null ? 0 : element.dribbles.success})</Text>
                         </View>}
                         <View style={styles.ligne}>
                           <Image source={rating} style={styles.icone} />
-                          <Text style={[styles.cle, isMediumScreen && {fontSize: 18}]}>Note moyenne: </Text><Text style={[styles.valeur, isMediumScreen && {fontSize: 20}]}> {element.games.rating ? element.games.rating.slice(0, 4) : "-"}</Text>
+                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>Note moyenne: </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.games.rating ? element.games.rating.slice(0, 4) : "-"}</Text>
                         </View>
                         <View style={styles.ligne}>
                           <Image source={yellow} style={{ height: 25, width: 25, marginRight: 8, shadowColor: "black", shadowOffset: { width: -1, height: 0 }, shadowOpacity: 0.9 }} />
-                          <Text style={[styles.cle, isMediumScreen && {fontSize: 18}]}>Cartons jaune: </Text><Text style={[styles.valeur, isMediumScreen && {fontSize: 20}]}> {element.cards.yellow}</Text>
+                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>Cartons jaune: </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.cards.yellow}</Text>
                         </View>
                         <View style={styles.ligne}>
                           <Image source={redcard} style={styles.icone} />
-                          <Text style={[styles.cle, isMediumScreen && {fontSize: 18}]}>Cartons Rouge: </Text><Text style={[styles.valeur, isMediumScreen && {fontSize: 20}]}> {element.cards.red}</Text>
+                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>Cartons Rouge: </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.cards.red}</Text>
                         </View>
                       </View>
                       <Image source={element.league.id === 61 ? ligue1 : element.league.id === 15 ? fifaclubwc : { uri: element.league.logo }} style={styles.logoCompet} />
@@ -512,9 +638,9 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   fiche: {
-height: 200,
-width: "40%",
-objectFit: "contain"
+    height: 200,
+    width: "40%",
+    objectFit: "contain"
   },
 
   photo: {
@@ -645,6 +771,17 @@ objectFit: "contain"
   box: {
     justifyContent: "center",
     alignItems: "center",
+  },
+  nombre: {
+    position: "relative",
+    bottom: 20,
+    left: 15,
+    backgroundColor: "black",
+    color: "white",
+    fontFamily: "Kanitalic",
+    paddingInline: 4,
+    borderRadius: 5,
+    fontSize: 11,
   },
   armoire: {
     flexDirection: "row",

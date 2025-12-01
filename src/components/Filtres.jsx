@@ -59,6 +59,7 @@ function Filtres() {
                     onPress: () => navigation.navigate('FicheSelections', { id })
                 })
             )}
+            
 
             {/* EUROPE */}
             {europe.map(({ id, logo }) =>

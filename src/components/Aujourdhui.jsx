@@ -1151,7 +1151,7 @@ const styles = StyleSheet.create({
   },
   textspoil: {
     fontFamily: "Bangers",
-    fontSize: 13,
+    fontSize: 12,
     color: "green",
     letterSpacing: 0.5
 

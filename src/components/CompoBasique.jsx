@@ -49,11 +49,12 @@ function CompoBasique({match}){
           
           <View style={styles.compo}>
             <Image source={{ uri: match?.teams.home.logo }} style={styles.logo} />
-            <Text style={styles.systemeText}></Text>
+            <Text style={styles.systemeText}>{match.lineups[0].formation}</Text>
           </View>
           <View style={styles.compo}>
-            <Text style={styles.systemeText}></Text>
             <Image source={{ uri: match?.teams.away.logo }} style={styles.logo} />
+                        <Text style={styles.systemeText}>{match.lineups[1].formation}</Text>
+
           </View>
         </View>
 
@@ -156,7 +157,8 @@ function CompoBasique({match}){
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    width: "100%"
+    width: "100%",
+    marginTop: 20
   },
   title: {
     fontSize: 18,
@@ -177,9 +179,10 @@ const styles = StyleSheet.create({
     width: '50%',
   },
   compo: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     marginBottom: 8,
+    gap: 5
   },
   coachs: {
 justifyContent: "space-around",
@@ -195,7 +198,11 @@ width: "100%"
   },
   systemeText: {
     fontSize: 18,
-    fontFamily: "Kanitt"
+    fontFamily: "Kanitt",
+    backgroundColor: "black",
+    color: "white",
+    padding: 3,
+    borderRadius: 5
   },
   subTitle: {
     fontSize: 16,

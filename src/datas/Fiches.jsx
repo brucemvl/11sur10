@@ -2,7 +2,7 @@ import haaland from "../assets/portraits/fiche/haaland.webp"
 import gyokeres from "../assets/portraits/fiche/gyokeres.png"
 import zaire from "../assets/portraits/fiche/zaire.png"
 import yamal from "../assets/portraits/fiche/yamal.png"
-import dembele from "../assets/portraits/fiche/dembouzzz.png"
+import dembele from "../assets/portraits/fiche/dembouzzz.gif"
 import bellingham from "../assets/portraits/fiche/bellingham.png"
 import barcola from "../assets/portraits/fiche/barcola.png"
 import rodrygo from "../assets/portraits/fiche/rodrygo.png"
@@ -103,7 +103,7 @@ import skelly from "../assets/portraits/fiche/lewisskelly.png"
 import merino from "../assets/portraits/merino.png"
 import balde from "../assets/portraits/fiche/balde.png"
 import pedri from "../assets/portraits/fiche/pedri.png"
-import rashford from "../assets/portraits/fiche/rashford.webp"
+import rashford from "../assets/portraits/fiche/rashford.png"
 import fermin from "../assets/portraits/fiche/fermin.png"
 import olmo from "../assets/portraits/fiche/olmo.png"
 import brahim from "../assets/portraits/fiche/brahim.webp"
@@ -255,10 +255,16 @@ import kebbal from "../assets/portraits/fiche/kebbal.png"
 import kone from "../assets/portraits/fiche/kone.png"
 import kante from "../assets/portraits/fiche/kante.png"
 import vandeven from "../assets/portraits/fiche/vandeven.png"
+import balogun from "../assets/portraits/fiche/balogun.png"
+import camara from "../assets/portraits/fiche/camara.png"
+import thauvin from "../assets/portraits/fiche/thauvin.png"
 
 
 
 export const fichesJoueurs = {
+    1922: thauvin,
+    138835: balogun,
+    374058: camara,
     152849: vandeven,
     19720: chalobah,
     2290: kante,

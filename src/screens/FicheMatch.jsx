@@ -98,7 +98,7 @@ useEffect(() => {
 
   const getTeamStats = async () => {
     try {
-      const stats = await fetchData(`https://v3.football.api-sports.io/teams/statistics?season=2024&team=${homeId}&league=${leagueMatch}`);
+      const stats = await fetchData(`https://v3.football.api-sports.io/teams/statistics?season=2025&team=${homeId}&league=${leagueMatch}`);
       setHomeStats(stats);
     } catch (error) {
       console.error("Erreur stats équipe domicile", error);
@@ -113,7 +113,7 @@ useEffect(() => {
 
   const getTeamStats = async () => {
     try {
-      const stats = await fetchData(`https://v3.football.api-sports.io/teams/statistics?season=2024&team=${extId}&league=${leagueMatch}`);
+      const stats = await fetchData(`https://v3.football.api-sports.io/teams/statistics?season=2025&team=${extId}&league=${leagueMatch}`);
       setExtStats(stats);
     } catch (error) {
       console.error("Erreur stats équipe extérieure", error);
@@ -593,10 +593,10 @@ fontSize: 15,
         height: 42,
         borderRadius: 5,
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 8 },
-        shadowOpacity: 0.3,
-        shadowRadius: 3.5,
-        elevation: 5,
+    shadowOffset: { width: 0, height: 8 },
+     shadowOpacity: 0.6,
+     shadowRadius: 3.5,
+     elevation: 5,
         marginInline: 4,
         alignItems: "center",
         justifyContent: "center"

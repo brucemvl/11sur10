@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
 
 function Details({
   match, 
@@ -15,6 +16,8 @@ function Details({
   accuracy
 }) {
 
+  const navigation = useNavigation()
+
   if (match.statistics.length === 0){
     return (
       <Text style={{fontFamily: "Permanent"}}>Aucune info pour le moment</Text>
@@ -25,8 +28,8 @@ function Details({
     <View style={styles.article}>
       <Text style={styles.title}>Match en détails</Text>
       <View style={{flexDirection: "row", justifyContent: "space-between",  width: "65%", paddingBlock: 10}}>
-        <Image source={{uri: match.teams.home.logo}} style={{width: 50, height: 50, objectFit: "contain"}} />
-        <Image source={{uri: match.teams.away.logo}} style={{width: 50, height: 50, objectFit: "contain"}} />
+       <TouchableOpacity onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.home.id, league: match.league.id})}> <Image source={{uri: match.teams.home.logo}} style={{width: 50, height: 50, objectFit: "contain"}} /></TouchableOpacity>
+        <TouchableOpacity onPress={()=> navigation.navigate("FicheEquipe", {id: match.teams.away.id, league: match.league.id})}><Image source={{uri: match.teams.away.logo}} style={{width: 50, height: 50, objectFit: "contain"}} /></TouchableOpacity>
       </View>
       <View style={styles.statistiques}>
         <LinearGradient colors={['rgba(21, 60, 130, 0.6)', 'rgba(0, 0, 0, 0.8)']} style={styles.statistiquesItem}>
