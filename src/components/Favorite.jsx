@@ -10,6 +10,7 @@ import heure from "../assets/heure.png"
 import ligue1 from "../assets/logoligue1.webp"
 import fifaClubWc from "../assets/fifaclubwc2.png"
 import logoUcl from "../assets/logoucl.png"
+import { teamName } from "../datas/teamNames";
 
 
 
@@ -92,13 +93,6 @@ useEffect(() => {
 
   console.log(calendrier)
 
-  const clubNames = {
-  "Borussia Mönchengladbach": "Mönchengladbach",
-  "Paris Saint Germain": "Paris SG",
-  "Barcelona": "FC Barcelone",
-  "Manchester United": "Manchester Utd"
-};
-
     return (
 <View style={styles.container}>
 
@@ -125,7 +119,7 @@ useEffect(() => {
                                     style={styles.carte}
                                 >
                                     <TouchableOpacity style={styles.carte} key={element.fixture.id} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })} >
-                                        <LinearGradient style={styles.affiche} colors={element.league.id === 2 ? ["rgb(10, 20, 40)", "rgb(24, 36, 70)"] : ["#fff", "rgb(146, 146, 146)"]} locations={[0.5, 0.9]}>
+                                        <LinearGradient style={styles.affiche} colors={element.league.id === 2 ? ["rgb(10, 20, 40)", "rgb(24, 36, 70)"] : element.league.id === 6 ? ["rgba(172, 101, 31, 1)", "rgba(128, 0, 0, 1)"] : ["#fff", "rgb(146, 146, 146)"]} locations={[0.5, 0.9]}>
                                             <View style={{ flexDirection: "row", gap: 5, borderBottomWidth: 1, paddingBottom: 5, borderBottomColor: element.league.id === 2 ? "white" : "black" }}>
                                                 <Image source={element.league.id === 2 ? calendarWhite : calendar} style={styles.icone} />
                                                 <Text style={element.league.id === 2 ? styles.textUcl : styles.text}>{formattedDate}  -  {formattedHour}</Text>
@@ -141,11 +135,11 @@ useEffect(() => {
                                             </View>
                                             <View style={{ width: "98%", flexDirection: "row", alignItems: "center", gap: 5, justifyContent: "center" }}>
                                                 <View>
-                                                    <Text style={{ fontFamily: "Kanitt", fontSize: 9.5, color: element.league.id === 2 ? "white" : "black" }}>{clubNames[element.teams.home.name] || element.teams.home.name}</Text>
+                                                    <Text style={{ fontFamily: "Kanitt", fontSize: 9.5, color: element.league.id === 2 || element.league.id === 6 ? "white" : "black" }}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
                                                 </View>
-                                                <Text style={{ color: element.league.id === 2 ? "white" : "black" }} >-</Text>
+                                                <Text style={{ color: element.league.id === 2 || element.league.id === 6 ? "white" : "black" }} >-</Text>
                                                 <View >
-                                                    <Text style={{ fontFamily: "Kanitt", fontSize: 9.5, color: element.league.id === 2 ? "white" : "black" }}>{clubNames[element.teams.away.name] || element.teams.away.name}</Text>
+                                                    <Text style={{ fontFamily: "Kanitt", fontSize: 9.5, color: element.league.id === 2 || element.league.id === 6 ? "white" : "black" }}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
 
                                                 </View>
                                             </View>

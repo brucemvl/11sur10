@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { selections } from '../datas/Leagues'; // Import des données
 import { useFonts } from 'expo-font';  
 import cdm2026 from "../assets/cdm2026.png"
+import can from "../assets/logocan.png"
 
 
 function SelectionsPage() {
@@ -75,7 +76,7 @@ function SelectionsPage() {
                         >
                             <Text style={styles.filtreTitle}>{nameCompet[name] || name}</Text>
                             <View style={styles.logoContainer}>
-                                <Image source={ id === 32 ? cdm2026 : {uri: logo }} style={styles.logo} />
+                                <Image source={ id === 6 ? can : {uri: logo }} style={styles.logo} />
                             </View>
                             <Image source={{ uri: flag }} style={styles.flag} />
                         </TouchableOpacity>

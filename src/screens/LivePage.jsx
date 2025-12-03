@@ -3,6 +3,7 @@ import { View, Text, Image, TouchableOpacity, StyleSheet, Animated, ScrollView, 
 import ligue1 from "../assets/logoligue1.webp";
 import { LinearGradient } from 'expo-linear-gradient';
 import { SvgUri } from 'react-native-svg';
+import { teamName } from '../datas/teamNames';
 
 function LivePage({ navigation }) {
   const [lives, setLives] = useState([]);
@@ -154,7 +155,7 @@ function LivePage({ navigation }) {
                       style={styles.teamLogo}
                       resizeMode="contain"
                     />
-                    <Text style={styles.teamName}>{countryTranslations[live.teams.home.name] || live.teams.home.name}</Text>
+                    <Text style={styles.teamName}>{teamName[live.teams.home.name] || live.teams.home.name}</Text>
                   </View>
                   <View style={styles.scoreContainer}>
                     {live.goals.home === live.goals.away ? (
@@ -196,7 +197,7 @@ function LivePage({ navigation }) {
                       style={styles.teamLogo}
                       resizeMode="contain"
                     />
-                    <Text style={styles.teamName}>{countryTranslations[live.teams.away.name] || live.teams.away.name}</Text>
+                    <Text style={styles.teamName}>{teamName[live.teams.away.name] || live.teams.away.name}</Text>
                   </View>
                 </View>
               </TouchableOpacity>

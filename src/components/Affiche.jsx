@@ -39,6 +39,7 @@ import signal from "../assets/stades/signal.jpg"
 import sansiro from "../assets/stades/sansiro.jpeg"
 import giuseppe from "../assets/stades/giuseppe.jpg"
 import diego from "../assets/stades/diego.jpg"
+import { teamName } from '../datas/teamNames';
 
 
 
@@ -62,36 +63,6 @@ const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP
 
       const [fadeAnim] = useState(new Animated.Value(1)); // Animation de fade (opacité)
 
-      const teamName = {
-  "Germany": "Allemagne",
-  "Spain": "Espagne",
-  "Paris Saint Germain": "Paris St Germain",
-  "Barcelona" : "FC Barcelone",
-  "England" : "Angleterre",
-  "Wales" : "Pays de Galles",
-  "Netherlands" : "Pays Bas",
-  "Belgium" : "Belgique",
-  "Switzerland" : "Suisse",
-  "Scotland" : "Ecosse",
-  "Italy" : "Italie",
-  "Sweden" : "Suede",
-  "Austria" : "Autriche",
-  "Belarus" : "Bielorussie",
-  "Morocco" : "Maroc",
-      "Ivory Coast" : "Cote d'Ivoire",
-      "Algeria" : "Algerie",
-  "Moldova" : "Moldavie",
-  "Cyprus" : "Chypre",
-  "Norway" : "Norvege",
-  "Hungary" : "Hongrie",
-  "Central African Republic" : "Centrafrique",
-  "Cape Verde Islands" : "Cap Vert",
-    "Belarus" : "Bielorussie",
-    "Croatia" : "Croatie",
-    "Denmark" : "Danemark",
-    "Malta" : "Malte",
-    "Lithuania" : "Lituanie"
-};
     
 useEffect(() => {
     const flash = () => {

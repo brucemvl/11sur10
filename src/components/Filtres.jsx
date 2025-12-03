@@ -6,6 +6,7 @@ import { useFonts } from 'expo-font';
 
 import ligue1 from "../assets/logoligue1.webp";
 import ligue2 from "../assets/ligue2.jpg";
+import can from "../assets/logocan.png";
 import ucl from "../assets/logoucl.png";
 import plus from "../assets/plus.png";
 
@@ -55,7 +56,8 @@ function Filtres() {
                 renderItem({
                     id,
                     logo,
-                    bgColor: 'rgba(227, 52, 13, 1)',
+                    bgColor: 'rgba(128, 0, 0, 1)',
+                                            localImage: id === 6 ? can : null,
                     onPress: () => navigation.navigate('FicheSelections', { id })
                 })
             )}

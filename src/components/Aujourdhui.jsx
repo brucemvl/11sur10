@@ -7,6 +7,7 @@ import cdm2026 from "../assets/cdm2026.png"
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { SvgUri } from 'react-native-svg';
+import { teamName } from '../datas/teamNames';
 
 function Aujourdhui({ matchs, onRefresh }) {
 
@@ -41,43 +42,7 @@ const [fontsLoaded] = useFonts({
 
   });
 
-  const teamNames = {
-    'Al-Hilal Saudi FC' : "Al-Hilal",
-    "Borussia Mönchengladbach" : "B. Monchengladbach",
-  "Nottingham Forest" : "Nottingham F.",
-  "Paris Saint Germain" : "Paris SG",
-  "Stade Brestois 29" : "Stade Brestois",
-  "Barcelona" : "FC Barcelone",
-  "Ivory Coast" : "Cote d'Ivoire",
-  "Central African Republic" : "Centrafrique",
-  "Netherlands" : "Pays Bas",
-  "Spain" : "Espagne",
-  "Germany" : "Allemagne",
-  "England" : "Angleterre",
-  "Morocco" : "Maroc",
-  "Switzerland" : "Suisse",
-  "Faroe Islands" : "Iles Feroe",
-  "Sweden" : "Suede",
-  "Scotland" : "Ecosse",
-  "Poland" : "Pologne",
-  "Wales" : "Pays de Galles",
-  "Belgium" : "Belgique",
-  "Algeria" : "Algerie",
-  "Italy" : "Italie",
-  "Austria" : "Autriche",
-  "Moldova" : "Moldavie",
-  "Cyprus" : "Chypre",
-  "Norway" : "Norvege",
-  "Hungary" : "Hongrie",
-    "Cape Verde Islands" : "Cap Vert",
-    "Belarus" : "Bielorussie",
-    "Croatia" : "Croatie",
-    "Denmark" : "Danemark",
-    "Malta" : "Malte",
-    "Lithuania" : "Lituanie",
-    "Cameroon" : "Cameroun"
 
-  }
 
   const spoil = () => {
     setNoSpoil(!noSpoil)
@@ -164,6 +129,7 @@ const [fontsLoaded] = useFonts({
     "La Liga" : "https://media.api-sports.io/flags/es.svg",
     "Copa del Rey" : "https://media.api-sports.io/flags/es.svg",
     "Bundesliga" : "https://media.api-sports.io/flags/de.svg",
+    "DFB Pokal" : "https://media.api-sports.io/flags/de.svg",
     "Serie A" : "https://media.api-sports.io/flags/it.svg",
     "Pro League" : "https://media.api-sports.io/flags/sa.svg",
     "Major League Soccer" : "https://media.api-sports.io/flags/us.svg"
@@ -362,7 +328,7 @@ const [fontsLoaded] = useFonts({
                    :
                   <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain" />}
 
-                  <Text style={styles.matchEquipeDom}>{teamNames[element.teams.home.name] || element.teams.home.name}</Text>
+                  <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
                   <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
 
                   {element.goals.home === element.goals.away ? 
@@ -378,7 +344,7 @@ const [fontsLoaded] = useFonts({
                   }
 
                   <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
-                  <Text style={styles.matchEquipeExt}>{teamNames[element.teams.away.name] || element.teams.away.name}</Text>
+                  <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
                 </View>
               </TouchableOpacity>
               : null
@@ -409,7 +375,7 @@ const [fontsLoaded] = useFonts({
                    :
                   <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain" />}
 
-                  <Text style={styles.matchEquipeDom}>{teamNames[element.teams.home.name] || element.teams.home.name}</Text>
+                  <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
                   <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
 
                   {element.goals.home === element.goals.away ? 
@@ -425,7 +391,7 @@ const [fontsLoaded] = useFonts({
                   }
 
                   <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
-                  <Text style={styles.matchEquipeExt}>{teamNames[element.teams.away.name] || element.teams.away.name}</Text>
+                  <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
                 </View>
               </TouchableOpacity>
               : null
@@ -459,11 +425,11 @@ const [fontsLoaded] = useFonts({
                    :
                   <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain"/>}
                   
-                  <Text style={styles.matchEquipeDom}>{teamNames[element.teams.home.name] || element.teams.home.name}</Text>
+                  <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
                   <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
                   <Text style={{ marginInline: 4 }}>-</Text>
                   <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
-                  <Text style={styles.matchEquipeExt}>{teamNames[element.teams.away.name] || element.teams.away.name}</Text>
+                  <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
                   <View style={styles.rdv}>
                     <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
                     <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
@@ -496,11 +462,11 @@ const [fontsLoaded] = useFonts({
                   <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
                    :
                   <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain"/>}
-                  <Text style={styles.matchEquipeDom}>{teamNames[element.teams.home.name] || element.teams.home.name}</Text>
+                  <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
                   <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
                   <Text style={{ marginInline: 4 }}>-</Text>
                   <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
-                  <Text style={styles.matchEquipeExt}>{teamNames[element.teams.away.name] || element.teams.away.name}</Text>
+                  <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
                   <View style={styles.rdv}>
                     <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
                     <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
@@ -594,7 +560,7 @@ const [fontsLoaded] = useFonts({
                    :
                         <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain" />}
 
-                  <Text style={styles.matchEquipeDom}>{teamNames[element.teams.home.name] || element.teams.home.name}</Text>
+                  <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
                         <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
 
                         {element.goals.home === element.goals.away ? 
@@ -610,7 +576,7 @@ const [fontsLoaded] = useFonts({
                         }
 
                         <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
-                  <Text style={styles.matchEquipeExt}>{teamNames[element.teams.away.name] || element.teams.away.name}</Text>
+                  <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
                       </LinearGradient>
                     </TouchableOpacity>
                     : null
@@ -646,7 +612,7 @@ const [fontsLoaded] = useFonts({
                    :
                         <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain" />}
 
-                  <Text style={styles.matchEquipeDom}>{teamNames[element.teams.home.name] || element.teams.home.name}</Text>
+                  <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
                         <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
 
                         {element.goals.home === element.goals.away ? 
@@ -662,7 +628,7 @@ const [fontsLoaded] = useFonts({
                         }
 
                         <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
-                  <Text style={styles.matchEquipeExt}>{teamNames[element.teams.away.name] || element.teams.away.name}</Text>
+                  <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
                       </LinearGradient>
                       
                     </TouchableOpacity>
@@ -718,11 +684,11 @@ const [fontsLoaded] = useFonts({
                    :
                           <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain"/>}
                           
-                  <Text style={styles.matchEquipeDom}>{teamNames[element.teams.home.name] || element.teams.home.name}</Text>
+                  <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
                           <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
                           <Text style={{ marginInline: 4 }}>-</Text>
                           <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
-                  <Text style={styles.matchEquipeExt}>{teamNames[element.teams.away.name] || element.teams.away.name}</Text>
+                  <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
                           
                           <View style={styles.rdv}>
                             <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
@@ -745,7 +711,7 @@ const [fontsLoaded] = useFonts({
                           <Image source={{ uri: element.league.logo }} style={styles.competitionLogo} resizeMode="contain"/>}
                           <View style={styles.teamContainerDom}>
                             <Image source={{ uri: element.teams.home.logo }} style={styles.teamLogo} resizeMode="contain" />
-                            <View style={{width: "80%", alignItems: "flex-end"}}><Text style={styles.teamName}>{teamNames[element.teams.home.name] || element.teams.home.name}</Text></View>
+                            <View style={{width: "80%", alignItems: "flex-end"}}><Text style={styles.teamName}>{teamName[element.teams.home.name] || element.teams.home.name}</Text></View>
                           </View>
                           <View style={styles.scoreContainer}>
                             {element.goals.home === element.goals.away ? 
@@ -776,7 +742,7 @@ const [fontsLoaded] = useFonts({
                           </View>
                           <View style={styles.teamContainer}>
                             <Image source={{ uri: element.teams.away.logo }} style={styles.teamLogo} resizeMode="contain"/>
-                           <View style={{width: "80%", alignItems: "flex-start"}}> <Text style={styles.teamName}>{teamNames[element.teams.away.name] || element.teams.away.name}</Text></View>
+                           <View style={{width: "80%", alignItems: "flex-start"}}> <Text style={styles.teamName}>{teamName[element.teams.away.name] || element.teams.away.name}</Text></View>
                           </View>
                         </LinearGradient>
                       </TouchableOpacity> 
@@ -794,7 +760,7 @@ const [fontsLoaded] = useFonts({
                    :
                             <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain"/>}
 
-                  <Text style={styles.matchEquipeDom}>{teamNames[element.teams.home.name] || element.teams.home.name}</Text>
+                  <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
                             <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
 
                             {element.goals.home === element.goals.away ? 
@@ -810,7 +776,7 @@ const [fontsLoaded] = useFonts({
                             }
 
                             <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
-                  <Text style={styles.matchEquipeExt}>{teamNames[element.teams.away.name] || element.teams.away.name}</Text>
+                  <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
                           </LinearGradient>
                         </TouchableOpacity>
                         : null
@@ -846,11 +812,11 @@ const [fontsLoaded] = useFonts({
                   <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
                    :
                         <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain" />}
-                  <Text style={styles.matchEquipeDom}>{teamNames[element.teams.home.name] || element.teams.home.name}</Text>
+                  <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
                       <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
                       <Text style={{ marginInline: 4 }}>-</Text>
                       <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
-                  <Text style={styles.matchEquipeExt}>{teamNames[element.teams.away.name] || element.teams.away.name}</Text>
+                  <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
                       <View style={styles.rdv}>
                         <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
                         <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
@@ -884,11 +850,11 @@ const [fontsLoaded] = useFonts({
                   <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
                    :
                         <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain" />}
-                  <Text style={styles.matchEquipeDom}>{teamNames[element.teams.home.name] || element.teams.home.name}</Text>
+                  <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
                       <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
                       <Text style={{ marginInline: 4 }}>-</Text>
                       <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
-                  <Text style={styles.matchEquipeExt}>{teamNames[element.teams.away.name] || element.teams.away.name}</Text>
+                  <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
                       <View style={styles.rdv}>
                         <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
                         <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>

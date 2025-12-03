@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useFonts } from 'expo-font';
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { teamName } from '../datas/teamNames';
 
 function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id, date}) {
 
@@ -22,19 +23,6 @@ function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id,
   const formattedDate = `${dateh.getDate().toString().padStart(2, '0')}/${(dateh.getMonth() + 1).toString().padStart(2, '0')}`;
   const formattedHour = `${dateh.getHours().toString().padStart(2, '0')}h${dateh.getMinutes().toString().padStart(2, '0')}`;
 
-const teamName = {
-  "Germany": "Allemagne",
-  "Spain": "Espagne",
-  "Paris Saint Germain": "Paris St Germain",
-  "Barcelona" : "FC Barcelone",
-  "Italy" : "Italie",
-  "Austria" : "Autriche",
-  "Moldova" : "Moldavie",
-  "Cyprus" : "Chypre",
-  "Norway" : "Norvege",
-  "Hungary" : "Hongrie"
-};
-  
 
   return (
    

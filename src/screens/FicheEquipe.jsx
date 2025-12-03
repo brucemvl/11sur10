@@ -9,6 +9,7 @@ import chevron from "../assets/chevron.png";
 import ligue1 from "../assets/logoligue1.webp"
 import Squad from "../components/Squad";
 import fifaclubwc from "../assets/fifaclubwc2.png";
+import { teamName } from "../datas/teamNames";
 
 
 function FicheEquipe() {
@@ -277,7 +278,7 @@ if (!stats) {
       <ScrollView contentContainerStyle={[styles.container, isMediumScreen && {padding: 40}]}>
         <LinearGradient colors={["black", "steelblue"]} style={[styles.header, isMediumScreen && {padding: 50, height: 160}]}>
           <View>
-            <Text style={[styles.team, isMediumScreen && {fontSize: 20}]}>{equipe.team.name === "Barcelona" ? "FC BARCELONE" : equipe.team.name.toUpperCase()}</Text>
+            <Text style={[styles.team, isMediumScreen && {fontSize: 20}]}>{teamName[equipe.team.name] || equipe.team.name.toUpperCase()}</Text>
             <Text style={{ color: "white", fontFamily: "Kanito", fontSize: isMediumScreen ? 16 : 14 }}>{equipe.team.country === "England" ? "Angleterre" : equipe.team.country === "Spain" ? "Espagne" : equipe.team.country === "Germany" ? "Allemagne" : equipe.team.country === "Netherlands" ? "Pays Bas" : equipe.team.country}</Text>
             <Text style={{ color: "white", fontFamily: "Kanitus", fontSize: isMediumScreen ? 15 : 14 }}>
               {equipe.team.national === false ? equipe.team.founded === null ? null : "Club fondé en " + equipe.team.founded : null}

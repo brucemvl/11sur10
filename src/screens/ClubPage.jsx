@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
         borderRadius: 60,
         borderColor: 'rgb(11, 19, 81)',
         paddingBlock: 6,
-        backgroundColor: "aliceblue",
+        backgroundColor: "white",
         flexDirection: "column-reverse",
         overflow: "hidden"
     },

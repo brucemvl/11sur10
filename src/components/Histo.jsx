@@ -3,6 +3,7 @@ import { View, Text, Image, StyleSheet, ImageBackground, TouchableOpacity } from
 import { LinearGradient } from "expo-linear-gradient";
 import ligue1 from "../assets/logoligue1.webp"
 import { useNavigation } from "@react-navigation/native";
+import { teamName } from "../datas/teamNames";
 
 function Histo({ historique }) {
 
@@ -64,11 +65,7 @@ function Histo({ historique }) {
                 />
   
                 <Text style={styles.equipeDom}>
-                  {element.teams.home.name === "Paris Saint Germain"
-                    ? "Paris St Germain"
-                    : element.teams.home.name === "Stade Brestois 29"
-                    ? "Stade Brestois"
-                    : element.teams.home.name}
+                  {teamName[element.teams.home.name] || element.teams.home.name}
                 </Text>
   
                 <Image style={styles.logoDom} source={{ uri: element.teams.home.logo }} />
@@ -103,11 +100,7 @@ function Histo({ historique }) {
   
                 <Image style={styles.logoExt} source={{ uri: element.teams.away.logo }} />
                 <Text style={styles.equipeExt}>
-                  {element.teams.away.name === "Paris Saint Germain"
-                    ? "Paris St Germain"
-                    : element.teams.away.name === "Stade Brestois 29"
-                    ? "Stade Brestois"
-                    : element.teams.away.name}
+                  {teamName[element.teams.away.name] || element.teams.away.name}
                 </Text>
               </LinearGradient>
             </TouchableOpacity>

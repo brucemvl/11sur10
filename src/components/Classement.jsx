@@ -15,6 +15,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { portraitsJoueurs } from "../datas/Portraits";
 import { allCompetitions } from "../datas/Leagues";
+import { teamName } from "../datas/teamNames";
 
 function Classement({ id }) {
   const { width } = useWindowDimensions();
@@ -51,39 +52,6 @@ function Classement({ id }) {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-
-  const teamName = {
-  "Germany": "Allemagne",
-  "Spain": "Espagne",
-  "Paris Saint Germain": "Paris St Germain",
-  "Barcelona" : "FC Barcelone",
-  "Borussia Dortmund" : "Dortmund",
-  "Borussia Mönchengladbach" : "Mönchengladbach",
-  "New York Red Bulls" : "New York RB",
-  "Philadelphia Union" : "Philadelphia",
-  "Italy" : "Italie",
-  "Austria" : "Autriche",
-  "Moldova" : "Moldavie",
-  "Cyprus" : "Chypre",
-  "Norway" : "Norvege",
-  "Hungary" : "Hongrie",
-  "Morocco" : "Maroc",
-  "Ivory Coast" : "Cote d'Ivoire",
-  "Switzerland" : "Suisse",
-  "Sweden" : "Suede",
-  "Scotland" : "Ecosse",
-  "Netherlands" : "Pays-Bas",
-  "Poland" : "Pologne",
-  "England" : "Angleterre",
-  "Central African Republic" : "Centrafrique",
-  "Cape Verde Islands" : "Cap Vert",
-    "Belarus" : "Bielorussie",
-    "Croatia" : "Croatie",
-    "Denmark" : "Danemark",
-    "Malta" : "Malte",
-    "Lithuania" : "Lituanie"
-};
 
 
   const fetchClassement = async () => {
