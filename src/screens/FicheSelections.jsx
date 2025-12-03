@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator, Image, ScrollView, TouchableOpacity } from 'react-native';
 import TableauSelections from '../components/TableauSelections'; // Assurez-vous que ce composant est aussi adapté pour React Native
 import { useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import Precedent from '../components/Precedent';
 import Classement from '../components/Classement';
+import cloche from "../assets/cloche3.png"
+
 
 function FicheSelections() {
   const route = useRoute();
+
+  const navigation = useNavigation()
 
   const { id } = route.params;
 const [calendrier, setCalendrier] = useState(true)
@@ -112,7 +117,12 @@ const teamName = {
     <View style={{flex: 1}}>
     <Precedent />
 
-    <ScrollView style={styles.blocFicheSelections}>
+    <ScrollView style={styles.blocFicheSelections} contentContainerStyle={{alignItems: "center"}}>
+      {id === 6 ? <TouchableOpacity onPress={() => navigation.navigate("Notifs", {openCan: true})} style={{marginBlock: 10, flexDirection: "row", alignItems: "center", gap: 5, borderWidth: 1, padding: 5, borderRadius: 10, backgroundColor: "rgba(121, 121, 121, 1)"}}>
+        <Image source={cloche} style={{height: 35, width: 35, objectFit: "contain"}}/>
+        <Text style={{fontFamily: "Kanitalik", color: "white", fontSize: 12}}>Selectionnez votre equipe favorite</Text>
+      </TouchableOpacity>
+      : null}
       <View style={{flexDirection: "row", marginBlock: 8, justifyContent: "center", gap: "5%"}}>
         <TouchableOpacity onPress={openCalendrier} >
           <Text style={calendrier ? styles.selected : styles.unSelected}>Calendrier</Text>
@@ -137,7 +147,7 @@ const styles = StyleSheet.create({
     paddingBlock: 10,
     backgroundColor: '#f0f0f0',
     marginTop: 50,
-            paddingBottom: 140,        
+            paddingBottom: 140,
 
   },
   

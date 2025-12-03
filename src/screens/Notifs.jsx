@@ -16,6 +16,7 @@ import axios from "axios"
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
 import Toast from 'react-native-toast-message';
+import { useRoute } from '@react-navigation/native';
 
 const teams = [
   { id: 85, name: 'Paris Saint Germain', logo: "https://media.api-sports.io/football/teams/85.png" },
@@ -34,13 +35,61 @@ const teams = [
 
 ];
 
+const african = [
+  { id: 31, name: 'Maroc', logo: "https://media.api-sports.io/football/teams/31.png" },
+  { id: 1500, name: 'Mali', logo: "https://media.api-sports.io/football/teams/1500.png" },
+  { id: 13, name: 'Senegal', logo: "https://media.api-sports.io/football/teams/13.png" },
+  { id: 28, name: 'Tunisie', logo: "https://media.api-sports.io/football/teams/28.png" },
+  { id: 1508, name: 'Congo', logo: "https://media.api-sports.io/football/teams/1508.png" },
+    { id: 1501, name: 'Cote d Ivoire', logo: "https://media.api-sports.io/football/teams/1501.png" },
+        { id: 1530, name: 'Cameroun', logo: "https://media.api-sports.io/football/teams/1530.png" },
+    { id: 1532, name: 'Algerie', logo: "https://media.api-sports.io/football/teams/1532.png" },
+    { id: 32, name: 'Egypte', logo: "https://media.api-sports.io/football/teams/32.png" },
+        { id: 1524, name: 'Comores', logo: "https://media.api-sports.io/football/teams/1524.png" },
+        { id: 1503, name: 'Gabon', logo: "https://media.api-sports.io/football/teams/1503.png" },
+        { id: 19, name: 'Nigeria', logo: "https://media.api-sports.io/football/teams/19.png" },
+
+
+];
+
+const allTeams = [...teams, ...african]
+
 function Notifs({ onSave, onNotifStatusChange, triggerHeaderShake }) {
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [savedTeam, setSavedTeam] = useState(null);
 const scaleAnimMap = useRef({}).current;
 const [loading, setLoading] = useState(false);
 
+const route = useRoute()
+
+const [clubs, setClubs]= useState(true)
+const [selectedClubs, setSelectedClubs]= useState(true)
+
+const [can, setCan] = useState(false)
+const [selectedCan, setSelectedCan]= useState(false)
+
+
+const openClubs = ()=> {
+  setClubs(true)
+  setCan(false)
+  setSelectedClubs(true)
+  setSelectedCan(false)
+}
+
+const openCan = ()=> {
+  setClubs(false)
+  setCan(true)
+  setSelectedClubs(false)
+  setSelectedCan(true)
+}
+
 teams.forEach(team => {
+  if (!scaleAnimMap[team.id]) {
+    scaleAnimMap[team.id] = new Animated.Value(1);
+  }
+});
+
+african.forEach(team => {
   if (!scaleAnimMap[team.id]) {
     scaleAnimMap[team.id] = new Animated.Value(1);
   }
@@ -132,15 +181,30 @@ Toast.show({
   }
 };
 
+useEffect(() => {
+  if (route.params?.openCan) {
+    setClubs(false);
+    setCan(true);
+    setSelectedClubs(false);
+    setSelectedCan(true);
+  }
+}, [route.params]);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Choisis ton equipe préférée :</Text>
 <Text style={{textAlign:"center", fontFamily: "Kanitalic", color: "rgb(49, 49, 49)", marginBottom: 10}}>et recois une notification lorsque celle ci marque ou encaisse un but</Text>
 {savedTeam && 
         <Text style={styles.saved}>
-          ✅ Equipe actuelle : {teams.find((t) => t.id === savedTeam)?.name}
+          ✅ Equipe actuelle : {allTeams.find((t) => t.id === savedTeam)?.name}
         </Text>
       }
+      <View style={{flexDirection: "row", gap: 20, marginBlock: 15}}>
+        <TouchableOpacity onPress={openClubs} style={[styles.bouton, selectedClubs && styles.selected]}><Text style={[styles.textbouton, selectedClubs && {color: "white", fontFamily: "Kanitt"}]}>Clubs</Text></TouchableOpacity>
+                <TouchableOpacity onPress={openCan} style={[styles.bouton, selectedCan && styles.selected]}><Text style={[styles.textbouton, selectedCan && {color: "white", fontFamily: "Kanitt"}]}>CAN</Text></TouchableOpacity>
+
+      </View>
+      { clubs &&
 <View style={{width: "100%", flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: 8, marginBlock: 12}}>
       {teams.map((team) => 
         <TouchableOpacity
@@ -163,6 +227,30 @@ Toast.show({
         </TouchableOpacity>
       )}
       </View>
+}
+{can && <View style={{width: "100%", flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: 8, marginBlock: 12}}>
+      {african.map((team) => 
+        <TouchableOpacity
+          key={team.id}
+          style={[
+            styles.teamButton,
+            selectedTeam === team.id && styles.selectedTeamCan,
+          ]}
+          onPress={() => handleSelectTeam(team.id)}
+        >
+          <Animated.Image
+            style={[
+              styles.teamLogo,
+              selectedTeam === team.id && { transform: [{ scale: scaleAnimMap[team.id] }]
+ },
+            ]}
+            source={{uri: team.logo}}
+          />
+            
+        </TouchableOpacity>
+      )}
+      </View>
+      }
 
       <TouchableOpacity
         onPress={saveTeam}
@@ -215,11 +303,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: "row",
     justifyContent: "center",
-    width: "26%",
-    height: 90
+    width: "24%",
+    height: 85
   },
   selectedTeam: {
     backgroundColor: '#4CAF50',
+    shadowColor: '#000',
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.8,
+        shadowRadius: 4,
+        elevation: 4
+
+  },
+  selectedTeamCan: {
+    backgroundColor: '#db590dff',
     shadowColor: '#000',
         shadowOffset: { width: 0, height: 0 },
         shadowOpacity: 0.8,
@@ -238,6 +335,26 @@ const styles = StyleSheet.create({
     fontFamily: 'Kanitalic',
     color: 'green',
   },
+  bouton: {
+    backgroundColor: "rgba(184, 184, 184, 1)",
+    width: 70,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 5
+  },
+  selected: {
+backgroundColor: "rgba(47, 142, 232, 1)",
+shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+     shadowOpacity: 0.6,
+     shadowRadius: 3.5,
+     elevation: 5,
+
+  },
+  textbouton: {
+    fontFamily: "Kanito"
+  }
 });
 
 export default Notifs;

@@ -22,6 +22,18 @@ import clocheno from "../assets/clocheno2.png"
 { id: 40, name: 'Liverpool', logo: "https://media.api-sports.io/football/teams/40.png" },
     { id: 157, name: 'Bayern Munich', logo: "https://media.api-sports.io/football/teams/157.png" },
         { id: 114, name: 'Paris FC', logo: "https://media.api-sports.io/football/teams/114.png" },
+        { id: 31, name: 'Maroc', logo: "https://media.api-sports.io/football/teams/31.png" },
+  { id: 1500, name: 'Mali', logo: "https://media.api-sports.io/football/teams/1500.png" },
+  { id: 13, name: 'Senegal', logo: "https://media.api-sports.io/football/teams/13.png" },
+  { id: 28, name: 'Tunisie', logo: "https://media.api-sports.io/football/teams/28.png" },
+  { id: 1508, name: 'Congo', logo: "https://media.api-sports.io/football/teams/1508.png" },
+    { id: 1501, name: 'Cote d Ivoire', logo: "https://media.api-sports.io/football/teams/1501.png" },
+        { id: 1530, name: 'Cameroun', logo: "https://media.api-sports.io/football/teams/1530.png" },
+    { id: 1532, name: 'Algerie', logo: "https://media.api-sports.io/football/teams/1532.png" },
+    { id: 32, name: 'Egypte', logo: "https://media.api-sports.io/football/teams/32.png" },
+        { id: 1524, name: 'Comores', logo: "https://media.api-sports.io/football/teams/1524.png" },
+        { id: 1503, name: 'Gabon', logo: "https://media.api-sports.io/football/teams/1503.png" },
+        { id: 19, name: 'Nigeria', logo: "https://media.api-sports.io/football/teams/19.png" },
 ];
 
 const Header = forwardRef(({ notifsEnabled, selectedTeamId }, ref) => {
