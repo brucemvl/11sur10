@@ -348,7 +348,7 @@ function FicheJoueur() {
                   <View style={{ width: "55%" }} >
                     {trophiesArray.map((element, index) => (
                       element.league === "Florida Cup" ? null : element.league === "Trofeo Joan Gamper" ? null : element.league === "FA Youth Cup" ? null : element.league === "Supercopa de Catalunya" ? null : element.league === "Copa del Rey Juvenil" ? null : element.league === "Audi Cup" ? null : element.league === "Ekstraklasa" ? null :
-                        <Text key={"trophee" + element.league + element.season} style={{ fontFamily: "Kanito", marginInline: 10, marginBlock: 2 }}>{element.league === "FIFA Club World Cup" ? 1 : element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league === "Trofeo Joan Gamper" ? null : element.league === "UEFA European Championship" ? "Euro" : element.league}</Text>
+                        <Text key={"trophee" + element.league + element.season} style={{ fontFamily: "Kanito",  marginInline: 10, marginBlock: 2 }}>{element.league === "FIFA Club World Cup" ? 1 : element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league === "Trofeo Joan Gamper" ? null : element.league === "UEFA European Championship" ? "Euro" : element.league}</Text>
                     ))}
                   </View>
                   <View style={styles.armoire}>
@@ -706,7 +706,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     overflow: "hidden",
     width: "100%",
-    alignItems: "center"
+    alignItems: "center",
+    
   },
 
   season: {

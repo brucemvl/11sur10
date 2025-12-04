@@ -61,6 +61,7 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
   const [matchsMiami, setMatchsMiami] = useState([]);
   const [matchsCommunity, setMatchsCommunity] = useState([]);
   const [matchsDfb, setMatchsDfb] = useState([]);
+  const [matchsInter, setMatchsInter] = useState([]);
 
 
 
@@ -79,7 +80,7 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
     };
 
     try {
-      const [ucl, france, england, spain, ger, italy, cdf, /*fac,*/ copa, uel, africa, europe, conference, arabieSaoudite, miami, community, dfb] = await Promise.all([
+      const [ucl, france, england, spain, ger, italy, cdf, fac, copa, uel, africa, europe, conference, arabieSaoudite, miami, community, dfb, inter] = await Promise.all([
         fetchData('https://v3.football.api-sports.io/fixtures?league=2&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=61&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=39&season=2025'),
@@ -87,7 +88,7 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
         fetchData('https://v3.football.api-sports.io/fixtures?league=78&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=135&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=66&season=2025'),
-       /* fetchData('https://v3.football.api-sports.io/fixtures?league=45&season=2025'),*/
+        fetchData('https://v3.football.api-sports.io/fixtures?league=45&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=143&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=3&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=29&season=2023'),
@@ -97,6 +98,8 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
                 fetchData('https://v3.football.api-sports.io/fixtures?team=9568&season=2025'),
                         fetchData('https://v3.football.api-sports.io/fixtures?league=48&season=2025'),
                                 fetchData('https://v3.football.api-sports.io/fixtures?league=81&season=2025'),
+                                        fetchData('https://v3.football.api-sports.io/fixtures?league=1168&season=2025'),
+
 
 
 
@@ -110,7 +113,7 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
       setMatchsGer(ger);
       setMatchsItaly(italy);
       setMatchsCdf(cdf);
-      /*setMatchsFac(fac);*/
+      setMatchsFac(fac);
       setMatchsCopa(copa);
       setMatchsUel(uel);
       setMatchsAfrica(africa);
@@ -120,6 +123,7 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
       setMatchsMiami(miami)
       setMatchsCommunity(community)
       setMatchsDfb(dfb)
+      setMatchsInter(inter)
 
 
     } catch (error) {
@@ -137,7 +141,7 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
     }, []);
   
 
-  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf,/* ...matchsFac,*/ ...matchsCopa, ...matchsUel, ...matchsAfrica, ...matchsEurope, ... matchsConference, ... matchsArabieSaoudite, ...matchsMiami, ...matchsCommunity, ...matchsDfb]
+  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf, ...matchsFac, ...matchsCopa, ...matchsUel, ...matchsAfrica, ...matchsEurope, ... matchsConference, ... matchsArabieSaoudite, ...matchsMiami, ...matchsCommunity, ...matchsDfb, ...matchsInter]
 
   console.log(selectedTeamId)
 

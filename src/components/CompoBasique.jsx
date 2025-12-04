@@ -36,6 +36,22 @@ function CompoBasique({match}){
         193: henrique,
       };
 
+      const coachNames = {
+  17396: "Javier Mascherano",
+  6801: "Xabi Alonso",
+  193: "Luis Enrique",
+  12590: "Vincent Kompany",
+  2462: "José Mourinho",
+  2431: "Paulo Fonseca",
+  4720: "Ruben Amorim",
+  7248: "Mikel Arteta",
+  4: "Pep Guardiola",
+  6472: "Hans Flick",
+  1595: "Diego Simeone",
+  180: "Didier Deschamps",
+  18: "Unai Emery",
+  19134: "Didier Digard"
+}
 
 
     return(
@@ -59,8 +75,8 @@ function CompoBasique({match}){
         </View>
 
           <View style={styles.coachs}>
-         {match.lineups[0].coach.id === null ? null : <TouchableOpacity onPress={() => navigation.navigate('FicheCoach', { id: match.lineups[0].coach.id })} style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5,  padding: 8, borderTopRightRadius: 15, borderBottomRightRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12, textAlign: "center" }}>{match.lineups[0].coach.id === 17396 ? "Javier Mascherano" : match.lineups[0].coach.id === 6801 ? "Xabi Alonso" : match.lineups[0].coach.id === 193 ? "Luis Enrique" : match.lineups[0].coach.id === 12590 ? "Vincent Kompany" : match.lineups[0].coach.name}</Text><Image source={coachImages[match.lineups[0].coach.id] || {uri: match.lineups[0].coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></TouchableOpacity> }
-         {match.lineups[1].coach.id === null ? null : <TouchableOpacity onPress={() => navigation.navigate('FicheCoach', { id: match.lineups[1].coach.id })} style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, padding: 8, borderTopLeftRadius: 15, borderBottomLeftRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12, textAlign: "center" }}>{match.lineups[1].coach.id === 17396 ? "Javier Mascherano" : match.lineups[1].coach.id === 6801 ? "Xabi Alonso" : match.lineups[1].coach.id === 193 ? "Luis Enrique" : match.lineups[1].coach.id === 12590 ? "Vincent Kompany" : match.lineups[1].coach.name}</Text><Image source={coachImages[match.lineups[1].coach.id] || {uri: match.lineups[1].coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></TouchableOpacity> }
+         {match.lineups[0].coach.id === null ? null : <TouchableOpacity onPress={() => navigation.navigate('FicheCoach', { id: match.lineups[0].coach.id })} style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5,  padding: 8, borderTopRightRadius: 15, borderBottomRightRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12, textAlign: "center" }}>{coachNames[match.lineups[0].coach.id] || match.lineups[0].coach.name}</Text><Image source={coachImages[match.lineups[0].coach.id] || {uri: match.lineups[0].coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></TouchableOpacity> }
+         {match.lineups[1].coach.id === null ? null : <TouchableOpacity onPress={() => navigation.navigate('FicheCoach', { id: match.lineups[1].coach.id })} style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, padding: 8, borderTopLeftRadius: 15, borderBottomLeftRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12, textAlign: "center" }}>{coachNames[match.lineups[1].coach.id] || match.lineups[1].coach.name}</Text><Image source={coachImages[match.lineups[1].coach.id] || {uri: match.lineups[1].coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></TouchableOpacity> }
       </View>
 
           <LinearGradient colors={["rgb(167, 167, 167)", "rgb(145, 145, 145)", "rgb(115, 115, 115)"]} style={styles.playersList}>

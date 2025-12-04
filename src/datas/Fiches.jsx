@@ -109,8 +109,6 @@ import olmo from "../assets/portraits/fiche/olmo.png"
 import brahim from "../assets/portraits/fiche/brahim.webp"
 import beier from "../assets/portraits/beier.png"
 import brandt from "../assets/portraits/fiche/brandt.png"
-import mmd from "../assets/portraits/mmd.png"
-import touf from "../assets/portraits/touf.png"
 import zirkzee from "../assets/portraits/zirkzee.png"
 import hojlund from "../assets/portraits/fiche/hojlund.png"
 import amad from "../assets/portraits/fiche/amad.png"
@@ -389,8 +387,6 @@ export const fichesJoueurs = {
   184: kane,
   180496: mikautadze,
   21509: marcus,
-  15906: touf,
-  37784: mmd,
   984: brandt,
   158644: beier,
   744: brahim,
