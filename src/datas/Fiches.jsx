@@ -256,10 +256,16 @@ import vandeven from "../assets/portraits/fiche/vandeven.png"
 import balogun from "../assets/portraits/fiche/balogun.png"
 import camara from "../assets/portraits/fiche/camara.png"
 import thauvin from "../assets/portraits/fiche/thauvin.png"
+import zubimendi from "../assets/portraits/fiche/zubimendi.png"
+import nico from "../assets/portraits/fiche/nico.webp"
+import oreilly from "../assets/portraits/fiche/oreilly.webp"
 
 
 
 export const fichesJoueurs = {
+    307123: oreilly,
+    161933: nico,
+    47315: zubimendi,
     1922: thauvin,
     138835: balogun,
     374058: camara,

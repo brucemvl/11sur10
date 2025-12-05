@@ -311,7 +311,7 @@ const [fontsLoaded] = useFonts({
         {avantHierMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match avant-hier</Text> :
           avantHierLeagues.map((league) => <View style={{ marginBlock: 5 }}>
 <View style={{flexDirection: "row", alignItems: "center"}}>
-                  <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
+                  <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20} /></View>
                   <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
                   </View>
                               {avantHierMatch.map((element) => element.league.name === league ?

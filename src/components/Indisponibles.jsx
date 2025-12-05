@@ -230,6 +230,8 @@ console.log(injuries)
                                                         <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Manque de forme</Text>
                                                     </View> : element.player.reason === "Personal Reasons" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Raisons personnelles</Text>
+                                                    </View> : element.player.reason === "Doping" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
+                                                        <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Dopage</Text>
                                                     </View> : element.player.reason === "Muscular problems" || element.player.reason === "Torn Muscle Fibre" || element.player.reason === "Muscle fatigue" || element.player.reason === "Muscle bruise" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Musculaire</Text>
                                                     </View> : element.player.reason === "Calf Problems" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "baseline" }}>
@@ -342,6 +344,8 @@ console.log(injuries)
                                                         <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Manque de forme</Text>
                                                     </View> : element.player.reason === "Personal Reasons" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Raisons personnelles</Text>
+                                                    </View> : element.player.reason === "Doping" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
+                                                        <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Dopage</Text>
                                                     </View> : element.player.reason === "Muscular problems" || element.player.reason === "Torn Muscle Fibre" || element.player.reason === "Muscle fatigue" || element.player.reason === "Muscle bruise" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Musculaire</Text>
                                                     </View> : element.player.reason === "Calf Problems" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "baseline" }}>
