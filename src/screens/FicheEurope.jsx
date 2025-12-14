@@ -4,6 +4,7 @@ import TableauEurope from '../components/TableauEurope';  // Assurez-vous que Ta
 import Classement from '../components/Classement';  // Idem pour ClassementChampionnat
 import { useState, useEffect } from 'react';
 import Precedent from '../components/Precedent';
+import * as Haptics from "expo-haptics"
 
 function FicheEurope({ route }) {
     const { id } = route.params;  // Récupère l'ID du championnat depuis les paramètres de navigation
@@ -22,11 +23,13 @@ function FicheEurope({ route }) {
           const [classement, setClassement] = useState(false)
       
           const openCalendrier = ()=> {
+                                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
             setCalendrier(true)
             setClassement(false)
           }
       
           const openClassement = ()=> {
+                                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
             setCalendrier(false)
             setClassement(true)
           }
@@ -93,12 +96,12 @@ function FicheEurope({ route }) {
     return (
       <View style={{flex: 1}}>
             <Precedent />
-            <ScrollView contentContainerStyle={[styles.blocChamp, isMediumScreen && {padding: 30}]}>
+            <ScrollView contentContainerStyle={[styles.blocChamp, isMediumScreen && {padding: 50}]}>
 <View style={{flexDirection: "row", marginBlock: 8, justifyContent: "center", gap: "5%"}}>
-  <TouchableOpacity onPress={openCalendrier} >
+  <TouchableOpacity onPress={openCalendrier} accessible accessibilityRole="button" accessibilityLabel="Calendrier"  accessibilityHint="Calendrier des matchs" >
     <Text style={calendrier ? styles.selected : styles.unSelected}>Calendrier</Text>
   </TouchableOpacity>
-  <TouchableOpacity onPress={openClassement}>
+  <TouchableOpacity onPress={openClassement} accessible accessibilityRole="button" accessibilityLabel="Classement"  accessibilityHint="Afficher les Classements">
     <Text style={classement ? styles.selected : styles.unSelected}>Classement</Text>
   </TouchableOpacity>
 </View>

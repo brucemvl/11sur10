@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, useWindowDimensions } from 'react-native';
 import Match from './Match';
 import { Animated, Easing } from 'react-native';
+import * as Haptics from "expo-haptics"
 
 
 function TableauSelections({ id, currentRound, rounds }) {
+
+  const { width } = useWindowDimensions();
+        
+            const isMediumScreen = width <= 1024 && width > 767;
+
   const [teamF, setTeamF] = useState([]);
   const currentIndex = rounds.findIndex(round => round === currentRound);
 const [index, setIndex] = useState(currentIndex !== -1 ? currentIndex : 0);
@@ -63,6 +69,7 @@ console.log(teamF)
   // Navigation entre les rounds
   const prev = () => {
   if (index > 0) {
+                          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     setDirection('left');
     animateSlide('left');
     setIndex((prevIndex) => prevIndex - 1);
@@ -71,6 +78,7 @@ console.log(teamF)
 
 const next = () => {
   if (index < rounds.length - 1) {
+                          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     setDirection('right');
     animateSlide('right');
     setIndex((prevIndex) => prevIndex + 1);
@@ -103,7 +111,7 @@ const teamName = {
 }
 
   return (
-     <View style={[styles.container, id === 6 && {backgroundColor: "rgba(198, 94, 19, 1)"}]}>
+     <View style={[styles.container, id === 6 && {backgroundColor: "rgba(198, 94, 19, 1)"}, isMediumScreen && {padding: 20}]}>
 
 
     
@@ -157,7 +165,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginInline: 5,
     borderRadius: 15,
-    marginBottom: 110
+    marginBottom: 110,
   },
   header: {
     fontSize: 20,

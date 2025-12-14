@@ -7,7 +7,7 @@ const previousScores = {};
 const previousEvents = {};
 let activeMatches = [];
 
-import { teamName } from '../src/datas/teamNames';
+import { teamNameNotif } from '../src/datas/teamNames';
 
 // 🔁 Rafraîchit la liste des matchs à suivre (toutes les 5 min)
 async function refreshActiveMatches() {
@@ -136,11 +136,11 @@ const scoreChanged = prevScore.home !== currentHomeGoals || prevScore.away !== c
 
 // Évite d'envoyer une notif 0-0 au premier check
 if (scoreChanged && !(isFirstCheck && currentHomeGoals === 0 && currentAwayGoals === 0)) {
-  const scoreMsg = `⚽ Nouveau score : ${teamName[homeTeam] || homeTeam} ${currentHomeGoals} - ${currentAwayGoals} ${teamName[awayTeam] || awayTeam}`;
+  const scoreMsg = `⚽ Nouveau score : ${teamNameNotif[homeTeam] || homeTeam} ${currentHomeGoals} - ${currentAwayGoals} ${teamNameNotif[awayTeam] || awayTeam}`;
   console.log(scoreMsg);
 
   await sendPushNotification(tokens, {
-    title: `${teamName[homeTeam] || homeTeam} vs ${teamName[awayTeam] || awayTeam}`,
+    title: `${teamNameNotif[homeTeam] || homeTeam} vs ${teamNameNotif[awayTeam] || awayTeam}`,
     body: scoreMsg,
     data: {
       screen: 'FicheMatch',
@@ -173,18 +173,18 @@ if (previousEvents[eventKey]) continue;
   const minute = time?.elapsed ?? '?';
 
   if (type === 'Goal') {
-    let goalMsg = `⚽ ${minute}e - But de ${playerName} pour ${teamName[teamName] || teamName}`;
+    let goalMsg = `⚽ ${minute}e - But de ${playerName} pour ${teamNameNotif[teamName] || teamName}`;
     if (detail === 'Own Goal') {
-      goalMsg = `😱 ${minute}e - CSC de ${playerName} (${teamName[teamName] || teamName})`;
+      goalMsg = `😱 ${minute}e - CSC de ${playerName} (${teamNameNotif[teamName] || teamName})`;
     } else if (detail === 'Penalty') {
       goalMsg = `⚽ ${minute}e - But de ${playerName} sur penalty!`;
     } else if (detail === 'Missed Penalty') {
-      goalMsg = `⚽ ${minute}e - Penalty manqué de ${playerName}!! (${teamName[teamName] || teamName})`;
+      goalMsg = `⚽ ${minute}e - Penalty manqué de ${playerName}!! (${teamNameNotif[teamName] || teamName})`;
     }
 
     console.log(goalMsg);
     await sendPushNotification(tokens, {
-      title: `${teamName[homeTeam] || homeTeam} ${currentHomeGoals} - ${currentAwayGoals} ${teamName[awayTeam] || awayTeam}`,
+      title: `${teamNameNotif[homeTeam] || homeTeam} ${currentHomeGoals} - ${currentAwayGoals} ${teamNameNotif[awayTeam] || awayTeam}`,
       body: goalMsg,
       data: { matchId },
     });
@@ -193,11 +193,11 @@ if (previousEvents[eventKey]) continue;
   }
 
   if (type === 'Card' && detail === 'Red Card') {
-    const redCardMsg = `🟥 ${minute}e - Carton rouge pour ${playerName} (${teamName[teamName] || teamName})`;
+    const redCardMsg = `🟥 ${minute}e - Carton rouge pour ${playerName} (${teamNameNotif[teamName] || teamName})`;
 
     console.log(redCardMsg);
     await sendPushNotification(tokens, {
-      title: `${teamName[homeTeam] || homeTeam} vs ${teamName[awayTeam] || awayTeam}`,
+      title: `${teamNameNotif[homeTeam] || homeTeam} vs ${teamNameNotif[awayTeam] || awayTeam}`,
       body: redCardMsg,
       data: { matchId },
     });

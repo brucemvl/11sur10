@@ -16,6 +16,7 @@ import { useNavigation } from "@react-navigation/native";
 import { portraitsJoueurs } from "../datas/Portraits";
 import { allCompetitions } from "../datas/Leagues";
 import { teamName } from "../datas/teamNames";
+import * as Haptics from "expo-haptics"
 
 function Classement({ id }) {
   const { width } = useWindowDimensions();
@@ -175,6 +176,7 @@ function Classement({ id }) {
 
   // Fonctions d’ouverture
  const collapseClassement = () => {
+                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
   const willOpen = !openClassement;
   setOpenClassement(willOpen);
   setOpenButeurs(false);
@@ -189,6 +191,7 @@ function Classement({ id }) {
 };
 
 const collapseButeurs = () => {
+                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
   const willOpen = !openButeurs;
   setOpenClassement(false);
   setOpenButeurs(willOpen);
@@ -204,6 +207,7 @@ const collapseButeurs = () => {
 };
 
 const collapsePasseurs = () => {
+                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
   const willOpen = !openPasseurs;
   setOpenClassement(false);
   setOpenButeurs(false);
@@ -632,8 +636,8 @@ console.log(tab)
            buteurs.map((joueur) =>
               <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: joueur.player.id })}>
                 <View style={[styles.item, isMediumScreen && {height: 72}]}>
-                  <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }} style={{ height: isMediumScreen? 60 : 39, width: "9%", borderRadius: 50, marginInline: isMediumScreen? 20 : 5 }}/>
-                  <Text style={{ fontFamily: "Bella", width: "37%" }}>{joueur.player.name}</Text>
+                  <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }} style={{ height: isMediumScreen? 60 : 39, width: "9%", borderRadius: 50, marginInline: isMediumScreen? 25 : 5 }}/>
+                  <Text style={{ fontFamily: "Bella", width: "37%", fontSize: isMediumScreen ? 18 : 14 }}>{joueur.player.name}</Text>
                   <Image source={{ uri: joueur.statistics[0].team.logo }} style={[styles.logo, isMediumScreen && {height: 38}]} />
                   <Text style={[{ fontFamily: "Kanito", width: isMediumScreen ? "27%" : "30%", textAlign: "center" }, isMediumScreen && {fontSize: 18}]}>{joueur.statistics[0].games.appearences}</Text>
                   <Text style={[{ fontFamily: "Kanitt", width: isMediumScreen ? "18%" : "15%", textAlign: "center" }, isMediumScreen && {fontSize: 18}]}>{joueur.statistics[0].goals.total}</Text>
@@ -675,8 +679,8 @@ console.log(tab)
             passeurs.map((joueur) =>
               <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: joueur.player.id })}>
                 <View style={[styles.item, isMediumScreen && {height: 72}]}>
-                  <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }} style={{ height: isMediumScreen? 60 : 39, width: "9%", borderRadius: 50, marginInline: isMediumScreen? 12 : 5 }}/>
-                  <Text style={{ fontFamily: "Bella", width: "37%" }}>{joueur.player.id === 37784 ? "Mamadou Sissoko" : joueur.player.name}</Text>
+                  <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }} style={{ height: isMediumScreen? 60 : 39, width: "9%", borderRadius: 50, marginInline: isMediumScreen? 25 : 5 }}/>
+                  <Text style={{ fontFamily: "Bella", width: "37%", fontSize: isMediumScreen ? 18 : 14 }}>{joueur.player.id === 37784 ? "Mamadou Sissoko" : joueur.player.name}</Text>
                   <Image source={{ uri: joueur.statistics[0].team.logo }} style={[styles.logo, isMediumScreen && {height: 38}]} />
                   <Text style={[{ fontFamily: "Kanito", width: isMediumScreen ? "27%" : "30%", textAlign: "center" }, isMediumScreen && {fontSize: 18}]}>{joueur.statistics[0].games.appearences}</Text>
                   <Text style={[{ fontFamily: "Kanitt", width: isMediumScreen ? "18%" : "15%", textAlign: "center" }, isMediumScreen && {fontSize: 18}]}>{joueur.statistics[0].goals.assists}</Text>

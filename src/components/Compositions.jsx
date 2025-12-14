@@ -105,7 +105,10 @@ const coachNames = {
   1595: "Diego Simeone",
   180: "Didier Deschamps",
   18: "Unai Emery",
-  19134: "Didier Digard"
+  19134: "Didier Digard",
+  2006: "Arne Slot",
+  3: "Manuel Pellegrini",
+  21528: "Cesc Fabregas"
 }
   
   

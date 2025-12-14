@@ -22,6 +22,7 @@ import FicheSelections from '../screens/FicheSelections';
 import FicheEquipe from '../screens/FicheEquipe';
 import FicheCoach from '../screens/FicheCoach';
 import Notifs from '../screens/Notifs';
+import NotifsPlus from '../screens/NotifsPlus';
 
 
 
@@ -114,7 +115,18 @@ export default function AppNavigator() {
             onNotifStatusChange={setNotificationsEnabled}
             triggerHeaderShake={() => headerRef.current?.triggerShake()}
                   onResetTeam={() => setSelectedTeamId(null)} // ✅ ← ajoute cette prop
-          />
+          />                    
+        )}
+      </Stack.Screen>
+      <Stack.Screen name="NotifsPlus">
+        {(props) => (
+          <NotifsPlus
+            {...props}
+            onSave={(id) => setSelectedTeamId(id)}
+            onNotifStatusChange={setNotificationsEnabled}
+            triggerHeaderShake={() => headerRef.current?.triggerShake()}
+                  onResetTeam={() => setSelectedTeamId(null)} // ✅ ← ajoute cette prop
+          />                    
         )}
       </Stack.Screen>
     </Stack.Navigator>

@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { SvgUri } from 'react-native-svg';
 import { teamName } from '../datas/teamNames';
+import * as Haptics from 'expo-haptics';
 
 function Aujourdhui({ matchs, onRefresh }) {
 
@@ -138,6 +139,7 @@ const [fontsLoaded] = useFonts({
 
   const handlePrevious = () => {
     if (selectedDate === "AUJOURD'HUI") {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
       setSelectedDate("HIER");
       setHier(true)
       setAujourdhui(false)
@@ -147,11 +149,13 @@ const [fontsLoaded] = useFonts({
     } else if (selectedDate === "AVANT-HIER") {
       null
     } else if (selectedDate === "DEMAIN") {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
       setSelectedDate("AUJOURD'HUI");
       setAujourdhui(true)
       setDemain(false)
       setHier(false)
     } else if (selectedDate === "HIER"){
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
       setSelectedDate("AVANT-HIER");
       setHier(false)
       setAujourdhui(false)
@@ -159,6 +163,7 @@ const [fontsLoaded] = useFonts({
       setavantHier(true)
       setapresDemain(false)
     } else if (selectedDate === "APRES-DEMAIN"){
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
       setSelectedDate("DEMAIN");
       setHier(false)
       setAujourdhui(false)
@@ -171,6 +176,7 @@ const [fontsLoaded] = useFonts({
   // Fonction de navigation vers la date suivante (demain)
   const handleNext = () => {
     if (selectedDate === "AUJOURD'HUI") {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
       setSelectedDate("DEMAIN");
       setDemain(true)
       setAujourdhui(false)
@@ -178,6 +184,7 @@ const [fontsLoaded] = useFonts({
       setavantHier(false)
       setapresDemain(false)
     } else if (selectedDate === "HIER") {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
       setSelectedDate("AUJOURD'HUI");
       setAujourdhui(true)
       setHier(false)
@@ -187,6 +194,7 @@ const [fontsLoaded] = useFonts({
     } else if (selectedDate === "APRES-DEMAIN") {
 
     } else if (selectedDate === "AVANT-HIER"){
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
       setSelectedDate("HIER");
       setHier(true)
       setAujourdhui(false)
@@ -195,6 +203,7 @@ const [fontsLoaded] = useFonts({
       setapresDemain(false)
     }
     else if (selectedDate === "DEMAIN"){
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
       setSelectedDate("APRES-DEMAIN");
       setHier(false)
       setAujourdhui(false)

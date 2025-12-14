@@ -1,91 +1,43 @@
-import React, { useRef, useImperativeHandle, forwardRef } from 'react';
+import React, { useRef, useImperativeHandle, forwardRef, useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity, Linking, Animated } from 'react-native';
-import {LinearGradient} from 'expo-linear-gradient'; // Importation du dégradé
+import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import logo from '../assets/logoblanc.png';
-import info from "../assets/info.png"
-import cloche from "../assets/cloche3.png"
-import clocheno from "../assets/clocheno2.png"
 
- const teams = [
-  { id: 85, name: 'Paris Saint Germain', logo: "https://media.api-sports.io/football/teams/85.png" },
-  { id: 81, name: 'Marseille', logo: "https://media.api-sports.io/football/teams/81.png" },
-  { id: 80, name: 'Lyon', logo: "https://media.api-sports.io/football/teams/80.png" },
-  { id: 84, name: 'Nice', logo: "https://media.api-sports.io/football/teams/84.png" },
-  { id: 91, name: 'Monaco', logo: "https://media.api-sports.io/football/teams/91.png" },
-  { id: 541, name: 'Real Madrid', logo: "https://media.api-sports.io/football/teams/541.png" },
-    { id: 529, name: 'FC Barcelone', logo: "https://media.api-sports.io/football/teams/529.png" },
-        { id: 33, name: 'Manchester United', logo: "https://media.api-sports.io/football/teams/33.png" },
-    { id: 49, name: 'Chelsea', logo: "https://media.api-sports.io/football/teams/49.png" },
-        { id: 42, name: 'Arsenal', logo: "https://media.api-sports.io/football/teams/42.png" },
-{ id: 40, name: 'Liverpool', logo: "https://media.api-sports.io/football/teams/40.png" },
-    { id: 157, name: 'Bayern Munich', logo: "https://media.api-sports.io/football/teams/157.png" },
-        { id: 114, name: 'Paris FC', logo: "https://media.api-sports.io/football/teams/114.png" },
-        { id: 31, name: 'Maroc', logo: "https://media.api-sports.io/football/teams/31.png" },
-  { id: 1500, name: 'Mali', logo: "https://media.api-sports.io/football/teams/1500.png" },
-  { id: 13, name: 'Senegal', logo: "https://media.api-sports.io/football/teams/13.png" },
-  { id: 28, name: 'Tunisie', logo: "https://media.api-sports.io/football/teams/28.png" },
-  { id: 1508, name: 'Congo', logo: "https://media.api-sports.io/football/teams/1508.png" },
-    { id: 1501, name: 'Cote d Ivoire', logo: "https://media.api-sports.io/football/teams/1501.png" },
-        { id: 1530, name: 'Cameroun', logo: "https://media.api-sports.io/football/teams/1530.png" },
-    { id: 1532, name: 'Algerie', logo: "https://media.api-sports.io/football/teams/1532.png" },
-    { id: 32, name: 'Egypte', logo: "https://media.api-sports.io/football/teams/32.png" },
-        { id: 1524, name: 'Comores', logo: "https://media.api-sports.io/football/teams/1524.png" },
-        { id: 1503, name: 'Gabon', logo: "https://media.api-sports.io/football/teams/1503.png" },
-        { id: 19, name: 'Nigeria', logo: "https://media.api-sports.io/football/teams/19.png" },
-];
+import logo from '../assets/logoblanc.png';
+import info from "../assets/info.png";
+import cloche from "../assets/cloche3.png";
+import clocheno from "../assets/clocheno2.png";
 
 const Header = forwardRef(({ notifsEnabled, selectedTeamId }, ref) => {
-  // Récupération des dimensions de l'écran
-  const screenWidth = Dimensions.get('window').width;
-  const navigation = useNavigation()
 
+  const navigation = useNavigation();
+  const [selectedTeam, setSelectedTeam] = useState(null);
 
-const selectedTeam = selectedTeamId
-  ? teams.find(team => team.id === selectedTeamId)
-  : null;
+  const fadeAnim = useRef(new Animated.Value(0)).current;
 
+  // Charge la police
   const [fontsLoaded] = useFonts({
     "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
     "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
     "Kanitus": require("../assets/fonts/Kanit/Kanit-Light.ttf"),
     "Kanitalic": require("../assets/fonts/Kanit/Kanit-MediumItalic.ttf"),
-    "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf")
+    "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf"),
   });
 
+  // Animation du shake sur la cloche
   const rotateAnim = useRef(new Animated.Value(0)).current;
 
   useImperativeHandle(ref, () => ({
     triggerShake: () => {
       Animated.sequence([
-        Animated.timing(rotateAnim, {
-          toValue: -10,
-          duration: 50,
-          useNativeDriver: true,
-        }),
-        Animated.timing(rotateAnim, {
-          toValue: 10,
-          duration: 50,
-          useNativeDriver: true,
-        }),
-        Animated.timing(rotateAnim, {
-          toValue: -6,
-          duration: 50,
-          useNativeDriver: true,
-        }),
-        Animated.timing(rotateAnim, {
-          toValue: 6,
-          duration: 50,
-          useNativeDriver: true,
-        }),
-        Animated.timing(rotateAnim, {
-          toValue: 0,
-          duration: 50,
-          useNativeDriver: true,
-        }),
+        Animated.timing(rotateAnim, { toValue: -10, duration: 50, useNativeDriver: true }),
+        Animated.timing(rotateAnim, { toValue: 10, duration: 50, useNativeDriver: true }),
+        Animated.timing(rotateAnim, { toValue: -6, duration: 50, useNativeDriver: true }),
+        Animated.timing(rotateAnim, { toValue: 6, duration: 50, useNativeDriver: true }),
+        Animated.timing(rotateAnim, { toValue: 0, duration: 50, useNativeDriver: true }),
       ]).start();
-    },
+    }
   }));
 
   const rotate = rotateAnim.interpolate({
@@ -93,64 +45,116 @@ const selectedTeam = selectedTeamId
     outputRange: ['-25deg', '25deg'],
   });
 
-  const openExternalLink = (url) => {
-    Linking.openURL(url).catch((err) => console.error("Error opening URL:", err));
-  };
+  // Fetch dynamique du logo
+  useEffect(() => {
+    if (!selectedTeamId) {
+      setSelectedTeam(null);
+      return;
+    }
 
+    const fetchTeamById = async () => {
+      try {
+        const response = await fetch(
+          `https://v3.football.api-sports.io/teams?id=${selectedTeamId}`,
+          {
+            method: "GET",
+            headers: {
+              "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+              "x-rapidapi-host": "v3.football.api-sports.io",
+            },
+          }
+        );
 
+        const json = await response.json();
 
-  if (!fontsLoaded) {
-    return <Text>Loading...</Text>;  // Attendre que les polices et les données soient chargées
-  }
+        if (json.response?.length > 0) {
+          setSelectedTeam(json.response[0].team);
+        }
+      } catch (error) {
+        console.error("Erreur fetch team:", error);
+      }
+    };
+
+    fetchTeamById();
+  }, [selectedTeamId]);
+
+  // Animation fade-in quand le logo change
+  useEffect(() => {
+    if (selectedTeam) {
+      fadeAnim.setValue(0);
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 250,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [selectedTeam]);
+
+  if (!fontsLoaded) return <Text>Loading...</Text>;
+
   return (
     <LinearGradient
       colors={['rgba(100, 160, 236, 1)', 'rgb(24, 29, 91)', 'rgba(0, 0, 0, 1)', "rgba(94, 94, 94, 0)"]}
-      locations={[0, 0.6, 0.92, 1]} // Spécifie les positions des couleurs
+      locations={[0, 0.6, 0.92, 1]}
       style={styles.header}
     >
-      <TouchableOpacity onPress={()=> navigation.navigate("Apropos")}>
-<Image source={info} style={{height: 30, width:30}}/>      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Apropos")}>
+        <Image source={info} style={{ height: 30, width: 30 }} />
+      </TouchableOpacity>
+
       <Image source={logo} style={styles.logo} />
-      <TouchableOpacity onPress={() => navigation.navigate("Notifs")}>
-  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-  {selectedTeamId && selectedTeam?.logo ? (
-  <Image
-    key={selectedTeamId}
-    source={{ uri: selectedTeam.logo }}
-    style={{ width: 26, height: 26, position: "absolute", zIndex: -1, left: 20, bottom: 18, objectFit: "contain" }}
-  />
-) : null}
-  <Animated.Image
-    source={notifsEnabled ? cloche : clocheno}
-    style={[{ height: 38, width: 38, marginRight: 10 }, { transform: [{ rotate }] }]}
-  />
-</View>
-</TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.navigate("Notifs")} accessible accessibilityLabel="Notifications" accessibilityRole="button" accessibilityHint='acceder aux parametres de notifications'>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+          {/* Logo dynamique avec fade-in */}
+          {selectedTeam?.logo && (
+            <Animated.Image
+              source={{ uri: selectedTeam.logo }}
+              style={{
+                opacity: fadeAnim,
+                width: 36,
+                height: 36,
+                position: "absolute",
+                left: 14,
+                bottom: 16,
+                resizeMode: "contain",
+                shadowColor: '#ffffffff', shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.6, shadowRadius: 3, elevation: 5, padding: 4
+              }}
+            />
+          )}
+
+          {/* Icône de cloche */}
+          <Animated.Image
+            source={notifsEnabled ? cloche : clocheno}
+            style={[
+              { height: 38, width: 38, marginRight: 10, shadowColor: '#ffffffff', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.6, shadowRadius: 2, elevation: 5, },
+              { transform: [{ rotate }] },
+            ]}
+          />
+        </View>
+      </TouchableOpacity>
+
     </LinearGradient>
   );
-})
+});
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection: 'row',  // Alignement horizontal
-    alignItems: 'center',  // Centrer verticalement
+    flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: '4%',  // Utilisation de pourcentage
+    paddingHorizontal: '4%',
     flexGrow: 1,
     height: 125,
     paddingTop: 30,
   },
   logo: {
-    width: 100, 
-    height: 80, 
-    marginLeft: 30, 
+    width: 100,
+    height: 80,
+    marginLeft: 30,
     resizeMode: "contain",
-  },
-  // Tu peux ajouter un style pour mobile avec la largeur de l'écran
-  logoSmall: {
-    width: 70,  // 5em
-    height: 70,  // 5em
-  },
+  }
 });
 
 export default Header;

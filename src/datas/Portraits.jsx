@@ -223,11 +223,15 @@ import panichelli from "../assets/portraits/panichelli.png"
 import osimhen from "../assets/portraits/osimhen.png"
 import burn from "../assets/portraits/burn.png"
 import kebbal from "../assets/portraits/kebbal.png"
+import lepaul from "../assets/portraits/lepaul.png"
+import embolo from "../assets/portraits/embolo.png"
 
 
 
 
 export const portraitsJoueurs = {
+    421: embolo,
+    163004: lepaul,
         83831: kebbal,
     18961: burn,
     2780: osimhen,

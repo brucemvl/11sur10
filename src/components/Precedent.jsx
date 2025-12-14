@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { View, Text, Animated, TouchableWithoutFeedback, StyleSheet, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
+import * as Haptics from 'expo-haptics';
 
 function Precedent() {
   const navigation = useNavigation();
@@ -9,6 +10,7 @@ function Precedent() {
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
   const onPressIn = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     Animated.spring(scaleAnim, {
       toValue: 1.3, 
       useNativeDriver: true,
@@ -28,6 +30,10 @@ function Precedent() {
 
   return (
     <TouchableWithoutFeedback
+    accessible
+  accessibilityRole="button"
+  accessibilityLabel="Precedent"
+  accessibilityHint="Retourner à l'ecran precedent"
       onPress={() => navigation.goBack()}
       onPressIn={onPressIn}
       onPressOut={onPressOut}

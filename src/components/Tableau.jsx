@@ -6,6 +6,9 @@ import Match from "./Match";
 import ligue1 from "../assets/logoligue1.webp";
 import ligue2 from "../assets/ligue2.jpg";
 import fifaclubwc from "../assets/fifaclubwc2.png";
+import * as Haptics from 'expo-haptics';
+
+
 
 function Tableau({ id, currentRound, rounds }) {
   const [fontsLoaded] = useFonts({
@@ -103,6 +106,7 @@ function Tableau({ id, currentRound, rounds }) {
 
   const prev = () => {
     if (index > 0) {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
       setDirection("left");
       animateSlide("left");
       setIndex(index - 1);
@@ -119,6 +123,7 @@ function Tableau({ id, currentRound, rounds }) {
 
   const next = () => {
     if (index < rounds.length - 1) {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
       setDirection("right");
       animateSlide("right");
       setIndex(index + 1);

@@ -8,7 +8,8 @@ import {
   Animated,
   Image,
   ScrollView,
-  ActivityIndicator
+  ActivityIndicator,
+  useWindowDimensions
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import registerForPushNotificationsAsync from '../utils/registerPush';
@@ -17,11 +18,12 @@ import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
 import Toast from 'react-native-toast-message';
 import { useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import * as Haptics from "expo-haptics"
 
 const teams = [
   { id: 85, name: 'Paris Saint Germain', logo: "https://media.api-sports.io/football/teams/85.png" },
   { id: 81, name: 'Marseille', logo: "https://media.api-sports.io/football/teams/81.png" },
-  { id: 84, name: 'Nice', logo: "https://media.api-sports.io/football/teams/84.png" },
   { id: 91, name: 'Monaco', logo: "https://media.api-sports.io/football/teams/91.png" },
   { id: 541, name: 'Real Madrid', logo: "https://media.api-sports.io/football/teams/541.png" },
     { id: 529, name: 'FC Barcelone', logo: "https://media.api-sports.io/football/teams/529.png" },
@@ -31,7 +33,6 @@ const teams = [
         { id: 40, name: 'Liverpool', logo: "https://media.api-sports.io/football/teams/40.png" },
     { id: 157, name: 'Bayern Munich', logo: "https://media.api-sports.io/football/teams/157.png" },
         { id: 114, name: 'Paris FC', logo: "https://media.api-sports.io/football/teams/114.png" },
-
 
 ];
 
@@ -60,6 +61,12 @@ function Notifs({ onSave, onNotifStatusChange, triggerHeaderShake }) {
 const scaleAnimMap = useRef({}).current;
 const [loading, setLoading] = useState(false);
 
+const { width } = useWindowDimensions();
+  
+      const isMediumScreen = width <= 1024 && width > 767;
+
+const navigation = useNavigation()
+
 const route = useRoute()
 
 const [clubs, setClubs]= useState(true)
@@ -70,6 +77,7 @@ const [selectedCan, setSelectedCan]= useState(false)
 
 
 const openClubs = ()=> {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
   setClubs(true)
   setCan(false)
   setSelectedClubs(true)
@@ -77,6 +85,7 @@ const openClubs = ()=> {
 }
 
 const openCan = ()=> {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
   setClubs(false)
   setCan(true)
   setSelectedClubs(false)
@@ -205,36 +214,50 @@ useEffect(() => {
 
       </View>
       { clubs &&
-<View style={{width: "100%", flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: 8, marginBlock: 12}}>
+<View style={{width: "100%", flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: isMediumScreen? 18 : 8, marginBlock: 12}}>
       {teams.map((team) => 
         <TouchableOpacity
           key={team.id}
           style={[
             styles.teamButton,
             selectedTeam === team.id && styles.selectedTeam,
+            isMediumScreen && {height: 125, width: "20%"}
           ]}
           onPress={() => handleSelectTeam(team.id)}
         >
           <Animated.Image
             style={[
               styles.teamLogo,
-              selectedTeam === team.id && { transform: [{ scale: scaleAnimMap[team.id] }]
- },
+              selectedTeam === team.id && { transform: [{ scale: scaleAnimMap[team.id] }]},
+              isMediumScreen && {height: 55, width: 55}
             ]}
             source={{uri: team.logo}}
           />
             
         </TouchableOpacity>
       )}
+
+      <TouchableOpacity
+          style={[
+            styles.teamButton,
+             isMediumScreen && {height: 125, width: "20%"}
+          ]}
+          onPress={() => { Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light); navigation.navigate("NotifsPlus")}}
+        >
+          <Text style={{fontFamily: "Kanitt", fontSize: 40}}>+</Text>
+            
+        </TouchableOpacity>
       </View>
 }
-{can && <View style={{width: "100%", flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: 8, marginBlock: 12}}>
+{can && <View style={{width: "100%", flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: isMediumScreen ? 18 : 8, marginBlock: 12}}>
       {african.map((team) => 
         <TouchableOpacity
           key={team.id}
           style={[
             styles.teamButton,
             selectedTeam === team.id && styles.selectedTeamCan,
+                        isMediumScreen && {height: 125, width: "20%"}
+
           ]}
           onPress={() => handleSelectTeam(team.id)}
         >
@@ -243,6 +266,8 @@ useEffect(() => {
               styles.teamLogo,
               selectedTeam === team.id && { transform: [{ scale: scaleAnimMap[team.id] }]
  },
+               isMediumScreen && {height: 55, width: 55}
+
             ]}
             source={{uri: team.logo}}
           />

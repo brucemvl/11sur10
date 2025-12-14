@@ -7,6 +7,7 @@ import shield from "../assets/shield.png";
 import { useNavigation } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { useState } from "react";
+import * as Haptics from "expo-haptics"
 
 
 
@@ -28,6 +29,8 @@ function Menu() {
   }
 
   const openAccueil = () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    
   if (navigation.getCurrentRoute()?.name === "Home") {
     // Si on est déjà sur Home ➜ on déclenche un événement
     DeviceEventEmitter.emit("scrollToTopHome");
@@ -43,6 +46,7 @@ function Menu() {
 };
 
   const openLive = () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     navigation.navigate("LivePage");
     setSelected(false);
     setSelected2(true);
@@ -51,6 +55,7 @@ function Menu() {
   };
 
   const openClubs = () => {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     navigation.navigate("ClubPage");
     setSelected(false);
     setSelected2(false);
@@ -59,6 +64,7 @@ function Menu() {
   };
 
   const openSelect = () => {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     navigation.navigate("SelectionsPage");
     setSelected(false);
     setSelected2(false);
@@ -107,28 +113,28 @@ function Menu() {
 
   return (
     <View style={styles.Menu}>
-      <TouchableOpacity onPress={openAccueil} style={styles.buttonLeft}>
+      <TouchableOpacity onPress={openAccueil} style={styles.buttonLeft} accessible accessibilityRole="button" accessibilityLabel="Accueil" accessibilityState={{ selected }} accessibilityHint="Ouvrir l'ecran d'accueil">
         <View style={selected ? styles.selected : { alignItems: "center", gap: 5 }}>
           <Text style={styles.text}>ACCUEIL</Text>
           <Image source={home} style={styles.img} />
         </View>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={openLive} style={styles.button}>
+      <TouchableOpacity onPress={openLive} style={styles.button} accessible accessibilityRole="button" accessibilityLabel="Live" accessibilityState={{ selected: selected2 }} accessibilityHint="Afficher les matchs en direct">
         <View style={selected2 ? styles.selected : { alignItems: "center", gap: 5 }}>
           <Text style={styles.text}>LIVE</Text>
           <Image source={live} style={styles.img} />
         </View>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={openClubs} style={styles.button}>
+      <TouchableOpacity onPress={openClubs} style={styles.button} accessible accessibilityRole="button" accessibilityLabel="Clubs" accessibilityState={{ selected: selected3 }} accessibilityHint="Afficher les competitions de clubs">
         <View style={selected3 ? styles.selected : { alignItems: "center", gap: 5 }}>
           <Text style={styles.text}>CLUBS</Text>
           <Image source={shield} style={styles.img} />
         </View>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={openSelect} style={styles.buttonRight}>
+      <TouchableOpacity onPress={openSelect} style={styles.buttonRight} accessible accessibilityRole="button" accessibilityLabel="Selections" accessibilityState={{ selected: selected4 }} accessibilityHint="Afficher les competitions d'equipes nationales">
         <View style={selected4 ? styles.selected : { alignItems: "center", gap: 5 }}>
           <Text style={styles.text}>SELECTIONS</Text>
           <Image source={flag} style={styles.img} />

@@ -2,7 +2,7 @@ import haaland from "../assets/portraits/fiche/haaland.webp"
 import gyokeres from "../assets/portraits/fiche/gyokeres.png"
 import zaire from "../assets/portraits/fiche/zaire.png"
 import yamal from "../assets/portraits/fiche/yamal.png"
-import dembele from "../assets/portraits/fiche/dembouzzz.gif"
+import dembele from "../assets/portraits/fiche/dembele.png"
 import bellingham from "../assets/portraits/fiche/bellingham.png"
 import barcola from "../assets/portraits/fiche/barcola.png"
 import rodrygo from "../assets/portraits/fiche/rodrygo.png"
@@ -52,7 +52,7 @@ import debruyne from "../assets/portraits/fiche/debruyne.png"
 import beraldo from "../assets/portraits/fiche/beraldo.png"
 import sorloth from "../assets/portraits/fiche/sorloth.png"
 import alvarez from "../assets/portraits/fiche/alvarez.png"
-import schik from "../assets/portraits/schik.png"
+import schik from "../assets/portraits/fiche/schick.png"
 import wirtz from "../assets/portraits/fiche/wirtz.webp"
 import camavinga from "../assets/portraits/fiche/camavinga.webp"
 import modric from "../assets/portraits/fiche/modric.png"
@@ -72,7 +72,7 @@ import kerkez from "../assets/portraits/fiche/kerkez.png"
 import konate from "../assets/portraits/fiche/konate.png"
 import vandijk from "../assets/portraits/fiche/vandijk.png"
 import alisson from "../assets/portraits/fiche/alisson.png"
-import frimpong from "../assets/portraits/fiche/frimpong.png"
+import frimpong from "../assets/portraits/fiche/frimpong.webp"
 import bradley from "../assets/portraits/fiche/bradley.webp"
 import reijnders from "../assets/portraits/fiche/reijnders.webp"
 import saka from "../assets/portraits/fiche/saka.png"
@@ -147,7 +147,7 @@ import neuer from "../assets/portraits/fiche/neuer.png"
 import upamecano from "../assets/portraits/fiche/upamecano.png"
 import caicedo from "../assets/portraits/fiche/caicedo.webp"
 import jackson from "../assets/portraits/fiche/jackson.png"
-import foden from "../assets/portraits/fiche/foden.webp"
+import foden from "../assets/portraits/fiche/foden.png"
 import fernandez from "../assets/portraits/fiche/fernandez.webp"
 import cucurella from "../assets/portraits/fiche/cucurella.webp"
 import fofana from "../assets/portraits/fiche/fofana.webp"
@@ -259,10 +259,36 @@ import thauvin from "../assets/portraits/fiche/thauvin.png"
 import zubimendi from "../assets/portraits/fiche/zubimendi.png"
 import nico from "../assets/portraits/fiche/nico.webp"
 import oreilly from "../assets/portraits/fiche/oreilly.webp"
+import raulasencio from "../assets/portraits/fiche/raulasencio.webp"
+import alaba from "../assets/portraits/fiche/alaba.webp"
+import mbaye from "../assets/portraits/fiche/mbaye.png"
+import ndjantou from "../assets/portraits/fiche/ndjantou.png"
+import lepaul from "../assets/portraits/fiche/lepaul.png"
+import embolo from "../assets/portraits/fiche/embolo.png"
+import mora from "../assets/portraits/fiche/mora.png"
+import pulisic from "../assets/portraits/fiche/pulisic.webp"
+import grimaldo from "../assets/portraits/fiche/grimaldo.png"
+import tolisso from "../assets/portraits/fiche/tolisso.png"
+import malickfofana from "../assets/portraits/fiche/malickfofana.png"
+import kalimuendo from "../assets/portraits/fiche/kalimuendo.png"
+
+
 
 
 
 export const fichesJoueurs = {
+    147831: kalimuendo,
+    361348: malickfofana,
+    519: tolisso,
+    563: grimaldo,
+    17: pulisic,
+    404097: mora,
+    505: alaba,
+    341640: raulasencio,
+        421: embolo,
+    163004: lepaul,
+    471107: ndjantou,
+    446249: mbaye,
     307123: oreilly,
     161933: nico,
     47315: zubimendi,

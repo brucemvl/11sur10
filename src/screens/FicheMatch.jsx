@@ -14,6 +14,7 @@ import Schema from '../components/Schema.jsx';
 import SchemaAvance from '../components/SchemaAvance.jsx';
 import Indisponibles from "../components/Indisponibles.jsx"
 import CompoBasique from '../components/CompoBasique.jsx';
+import * as Haptics from "expo-haptics"
 
 
 const FicheMatch = () => {
@@ -149,6 +150,7 @@ const onRefresh = () => {
 
 
     const openDetails = () => {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         setDetails(true);
         setLive(false);
         setCompos(false);
@@ -167,6 +169,7 @@ const onRefresh = () => {
     };
 
     const openCompos = () => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         setCompos(true);
         setCompos2(true);
 
@@ -188,6 +191,7 @@ const onRefresh = () => {
     };
 
     const openCompoBasique = () => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         setCompos(false);
         setCompos2(false);
 setCompoBasique(true)
@@ -210,6 +214,7 @@ setCompoBasique(true)
     };
 
     const openLive = () => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         setLive(true);
         setCompos(false);
         setCompos2(false);
@@ -236,6 +241,7 @@ setCompoBasique(true)
 
 
     const openHisto = () => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         setLive(false);
         setCompos(false);
         setDetails(false);
@@ -261,6 +267,7 @@ setCompoBasique(true)
     };
 
     const openClassement = () => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         setLive(false);
         setCompos(false);
         setCompos2(false);
@@ -289,6 +296,7 @@ setCompoBasique(true)
     };
 
     const openApercu = ()=>{
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         setLive(false);
         setCompos(false);
         setCompos2(false);

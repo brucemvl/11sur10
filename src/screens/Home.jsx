@@ -62,6 +62,7 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
   const [matchsCommunity, setMatchsCommunity] = useState([]);
   const [matchsDfb, setMatchsDfb] = useState([]);
   const [matchsInter, setMatchsInter] = useState([]);
+  const [matchsCan, setMatchsCan] = useState([]);
 
 
 
@@ -80,7 +81,7 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
     };
 
     try {
-      const [ucl, france, england, spain, ger, italy, cdf, fac, copa, uel, africa, europe, conference, arabieSaoudite, miami, community, dfb, inter] = await Promise.all([
+      const [ucl, france, england, spain, ger, italy, cdf, fac, copa, uel, africa, europe, conference, arabieSaoudite, miami, community, dfb, inter, can] = await Promise.all([
         fetchData('https://v3.football.api-sports.io/fixtures?league=2&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=61&season=2025'),
         fetchData('https://v3.football.api-sports.io/fixtures?league=39&season=2025'),
@@ -99,6 +100,7 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
                         fetchData('https://v3.football.api-sports.io/fixtures?league=48&season=2025'),
                                 fetchData('https://v3.football.api-sports.io/fixtures?league=81&season=2025'),
                                         fetchData('https://v3.football.api-sports.io/fixtures?league=1168&season=2025'),
+                                        fetchData('https://v3.football.api-sports.io/fixtures?league=6&season=2025'),
 
 
 
@@ -124,6 +126,7 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
       setMatchsCommunity(community)
       setMatchsDfb(dfb)
       setMatchsInter(inter)
+      setMatchsCan(can)
 
 
     } catch (error) {
@@ -141,7 +144,7 @@ const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
     }, []);
   
 
-  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf, ...matchsFac, ...matchsCopa, ...matchsUel, ...matchsAfrica, ...matchsEurope, ... matchsConference, ... matchsArabieSaoudite, ...matchsMiami, ...matchsCommunity, ...matchsDfb, ...matchsInter]
+  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf, ...matchsFac, ...matchsCopa, ...matchsUel, ...matchsAfrica, ...matchsEurope, ... matchsConference, ... matchsArabieSaoudite, ...matchsMiami, ...matchsCommunity, ...matchsDfb, ...matchsInter, ...matchsCan]
 
   console.log(selectedTeamId)
 

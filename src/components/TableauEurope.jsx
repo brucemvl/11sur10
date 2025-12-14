@@ -6,6 +6,7 @@ import Match from "./Match";
 import Ldc2025 from "./Ldc2025";
 import { LinearGradient } from "expo-linear-gradient";
 import ucl from "../assets/logoucl.png"
+import * as Haptics from 'expo-haptics';
 
 
 
@@ -78,6 +79,7 @@ function TableauEurope({ id, currentRound, rounds }) {
 
   const prev = () => {
     if (index > 0) {
+                      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
       setDirection("left");
       animateSlide("left");
       setIndex(index - 1);
@@ -94,6 +96,7 @@ function TableauEurope({ id, currentRound, rounds }) {
 
   const next = () => {
     if (index < rounds.length - 1) {
+                      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
       setDirection("right");
       animateSlide("right");
       setIndex(index + 1);
