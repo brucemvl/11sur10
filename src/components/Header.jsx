@@ -98,7 +98,7 @@ const Header = forwardRef(({ notifsEnabled, selectedTeamId }, ref) => {
       locations={[0, 0.6, 0.92, 1]}
       style={styles.header}
     >
-      <TouchableOpacity onPress={() => navigation.navigate("Apropos")}>
+      <TouchableOpacity onPress={() => navigation.navigate("Apropos")} accessible accessibilityLabel="A Propos" accessibilityRole="button" accessibilityHint='Infos et presentation de lapplication'>
         <Image source={info} style={{ height: 30, width: 30 }} />
       </TouchableOpacity>
 

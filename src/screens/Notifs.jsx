@@ -278,6 +278,7 @@ useEffect(() => {
       }
 
       <TouchableOpacity
+      accessible accessibilityRole="button" accessibilityLabel="Enregistrer"  accessibilityHint="Enregistrer l'equipe"
         onPress={saveTeam}
               style={{backgroundColor: "#007BFF", height: 40, width: "40%", alignItems: "center", justifyContent: "center", marginBlock: 10, borderRadius: 10}}
 

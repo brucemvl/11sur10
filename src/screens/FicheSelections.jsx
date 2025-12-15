@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import Precedent from '../components/Precedent';
 import Classement from '../components/Classement';
 import cloche from "../assets/cloche3.png"
+import * as Haptics from "expo-haptics"
 
 
 function FicheSelections() {
@@ -28,14 +29,16 @@ const [calendrier, setCalendrier] = useState(true)
         const [rounds, setRounds] = useState()
 
     const openCalendrier = ()=> {
-      setCalendrier(true)
-      setClassement(false)
-    }
-
-    const openClassement = ()=> {
-      setCalendrier(false)
-      setClassement(true)
-    }
+                                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          setCalendrier(true)
+          setClassement(false)
+        }
+    
+        const openClassement = ()=> {
+                                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          setCalendrier(false)
+          setClassement(true)
+        }
 
               const season = id === 34 ? "2026" : id === 29 ? "2023" : id === 6 ? "2025" : "2024";
 
@@ -128,10 +131,10 @@ const teamName = {
       </TouchableOpacity>
       : null}
       <View style={{flexDirection: "row", marginBlock: 8, justifyContent: "center", gap: "5%"}}>
-        <TouchableOpacity onPress={openCalendrier} >
+  <TouchableOpacity onPress={openCalendrier} accessible accessibilityRole="button" accessibilityLabel="Calendrier" accessibilityState={{ selected: calendrier }}  accessibilityHint="Calendrier des matchs" >
           <Text style={calendrier ? styles.selected : styles.unSelected}>Calendrier</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={openClassement}>
+  <TouchableOpacity onPress={openClassement} accessible accessibilityRole="button" accessibilityLabel="Classement" accessibilityState={{ selected: classement }}  accessibilityHint="Afficher les Classements">
           <Text style={classement ? styles.selected : styles.unSelected}>Classement</Text>
         </TouchableOpacity>
       </View>

@@ -1,180 +1,165 @@
-import { View, Text, ScrollView, RefreshControl, StyleSheet, useWindowDimensions, ActivityIndicator, DeviceEventEmitter } from "react-native";
-import { useState, useEffect, useCallback, forwardRef, useRef } from "react";
+import {
+  View,
+  Text,
+  ScrollView,
+  RefreshControl,
+  StyleSheet,
+  useWindowDimensions,
+  ActivityIndicator,
+  DeviceEventEmitter,
+} from "react-native";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
+import { useFonts } from "expo-font";
+
 import Filtres from "../components/Filtres";
 import Banner from "../components/Banner";
 import Aujourdhui from "../components/Aujourdhui";
 import Favorite from "../components/Favorite";
-import { useFonts } from "expo-font";
 
+// ⚠️ IDÉAL : mets la clé API dans un .env
+const API_KEY = "5ff22ea19db11151a018c36f7fd0213b";
 
-const Home = forwardRef(({ notifsEnabled, selectedTeamId }) => {
+// 📌 Liste des compétitions (facile à maintenir)
+const COMPETITIONS = {
+  ucl: "https://v3.football.api-sports.io/fixtures?league=2&season=2025",
+  france: "https://v3.football.api-sports.io/fixtures?league=61&season=2025",
+  england: "https://v3.football.api-sports.io/fixtures?league=39&season=2025",
+  spain: "https://v3.football.api-sports.io/fixtures?league=140&season=2025",
+  germany: "https://v3.football.api-sports.io/fixtures?league=78&season=2025",
+  italy: "https://v3.football.api-sports.io/fixtures?league=135&season=2025",
+  inter: "https://v3.football.api-sports.io/fixtures?league=1168&season=2025",
+  can: "https://v3.football.api-sports.io/fixtures?league=6&season=2025",
+  cdf: 'https://v3.football.api-sports.io/fixtures?league=66&season=2025',
+   fac: 'https://v3.football.api-sports.io/fixtures?league=45&season=2025',
+   copa: 'https://v3.football.api-sports.io/fixtures?league=143&season=2025',
+    uel: 'https://v3.football.api-sports.io/fixtures?league=3&season=2025',
+     conference: 'https://v3.football.api-sports.io/fixtures?league=848&season=2025',
+      arabiesaoudite: 'https://v3.football.api-sports.io/fixtures?league=307&season=2025',
+       miami: 'https://v3.football.api-sports.io/fixtures?team=9568&season=2025',
+        leaguecup: 'https://v3.football.api-sports.io/fixtures?league=48&season=2025',
+         dfbpokal: 'https://v3.football.api-sports.io/fixtures?league=81&season=2025'
+};
+
+const Home = ({ selectedTeamId }) => {
+  // ==========================
+  // Fonts
+  // ==========================
   const [fontsLoaded] = useFonts({
-          "Kanitblack": require("../assets/fonts/Kanit/Kanit-Black.ttf"),
-          "Bangers": require("../assets/fonts/Bangers/Bangers-Regular.ttf"),
-      "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
-      "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
-      "Kanitus": require("../assets/fonts/Kanit/Kanit-Light.ttf"),
-      "Kanitalic": require("../assets/fonts/Kanit/Kanit-MediumItalic.ttf"),
-      "Kanitalik": require("../assets/fonts/Kanit/Kanit-ExtraBoldItalic.ttf"),
-      "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf"),
-          "Carter": require("../assets/fonts/Carter_One/CarterOne-Regular.ttf"),
-                    "Londrina": require("../assets/fonts/Londrina/LondrinaSolid-Light.ttf"),
-          "Londrinak": require("../assets/fonts/Londrina/LondrinaSolid-Regular.ttf"),
-          "Bella": require("../assets/fonts/Bella/Belanosima-Regular.ttf"),
-          "Bellak": require("../assets/fonts/Bella/Belanosima-Bold.ttf"),
-  
-    });
+    Kanitblack: require("../assets/fonts/Kanit/Kanit-Black.ttf"),
+    Kanitt: require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
+    Kanito: require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
+    Kanitus: require("../assets/fonts/Kanit/Kanit-Light.ttf"),
+    Kanitalic: require("../assets/fonts/Kanit/Kanit-MediumItalic.ttf"),
+    Permanent: require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf"),
+  });
 
+  // ==========================
+  // Layout
+  // ==========================
   const { width } = useWindowDimensions();
-  
-      const isSmallScreen = width <= 767;
-      const isMediumScreen = width <= 1024 && width > 767;
-
-      const scrollRef = useRef();
+  const scrollRef = useRef(null);
 
   useEffect(() => {
-    const subscription = DeviceEventEmitter.addListener("scrollToTopHome", () => {
-      if (scrollRef.current) {
-        scrollRef.current.scrollTo({ y: 0, animated: true });
+    const subscription = DeviceEventEmitter.addListener(
+      "scrollToTopHome",
+      () => {
+        scrollRef.current?.scrollTo({ y: 0, animated: true });
       }
-    });
-
+    );
     return () => subscription.remove();
   }, []);
 
+  
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [matchsByKey, setMatchsByKey] = useState({});
 
- const [matchsEngland, setMatchsEngland] = useState([]);
-  const [matchsSpain, setMatchsSpain] = useState([]);
-  const [matchsFrance, setMatchsFrance] = useState([]);
-  const [matchsUcl, setMatchsUcl] = useState([]);
-  const [matchsGer, setMatchsGer] = useState([]);
-  const [matchsItaly, setMatchsItaly] = useState([]);
-  const [matchsCdf, setMatchsCdf] = useState([]);
-  const [matchsFac, setMatchsFac] = useState([]);
-  const [matchsCopa, setMatchsCopa] = useState([]);
-  const [matchsUel, setMatchsUel] = useState([]);
-  const [matchsAfrica, setMatchsAfrica] = useState([]);
-  const [matchsEurope, setMatchsEurope] = useState([]);
-  const [matchsConference, setMatchsConference] = useState([]);
-  const [matchsArabieSaoudite, setMatchsArabieSaoudite] = useState([]);
-  const [matchsMiami, setMatchsMiami] = useState([]);
-  const [matchsCommunity, setMatchsCommunity] = useState([]);
-  const [matchsDfb, setMatchsDfb] = useState([]);
-  const [matchsInter, setMatchsInter] = useState([]);
-  const [matchsCan, setMatchsCan] = useState([]);
+  
+  const fetchWithRetry = async (url, retries = 3) => {
+    try {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "x-rapidapi-key": API_KEY,
+          "x-rapidapi-host": "v3.football.api-sports.io",
+        },
+      });
 
+      const json = await response.json();
+
+      if (!json.response || json.response.length === 0) {
+        if (retries > 0) return fetchWithRetry(url, retries - 1);
+        return null;
+      }
+
+      return json.response;
+    } catch (error) {
+      if (retries > 0) return fetchWithRetry(url, retries - 1);
+      return null;
+    }
+  };
 
 
   const fetchMatches = async () => {
+    const results = {};
 
-    const fetchData = async (url) => {
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
-          'x-rapidapi-host': 'v3.football.api-sports.io',
-        },
-      });
-      const data = await response.json();
-      return data.response;
-    };
+    for (const [key, url] of Object.entries(COMPETITIONS)) {
+      const data = await fetchWithRetry(url);
+      if (data) {
+        results[key] = data;
+      }
+    }
 
-    try {
-      const [ucl, france, england, spain, ger, italy, cdf, fac, copa, uel, africa, europe, conference, arabieSaoudite, miami, community, dfb, inter, can] = await Promise.all([
-        fetchData('https://v3.football.api-sports.io/fixtures?league=2&season=2025'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=61&season=2025'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=39&season=2025'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=140&season=2025'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=78&season=2025'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=135&season=2025'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=66&season=2025'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=45&season=2025'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=143&season=2025'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=3&season=2025'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=29&season=2023'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=32&season=2024'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=848&season=2025'),
-        fetchData('https://v3.football.api-sports.io/fixtures?league=307&season=2025'),
-                fetchData('https://v3.football.api-sports.io/fixtures?team=9568&season=2025'),
-                        fetchData('https://v3.football.api-sports.io/fixtures?league=48&season=2025'),
-                                fetchData('https://v3.football.api-sports.io/fixtures?league=81&season=2025'),
-                                        fetchData('https://v3.football.api-sports.io/fixtures?league=1168&season=2025'),
-                                        fetchData('https://v3.football.api-sports.io/fixtures?league=6&season=2025'),
-
-
-
-
-      ]);
-
-      // Mise à jour de l'état avec les nouveaux matchs récupérés
-      setMatchsUcl(ucl);
-      setMatchsFrance(france);
-      setMatchsEngland(england);
-      setMatchsSpain(spain);
-      setMatchsGer(ger);
-      setMatchsItaly(italy);
-      setMatchsCdf(cdf);
-      setMatchsFac(fac);
-      setMatchsCopa(copa);
-      setMatchsUel(uel);
-      setMatchsAfrica(africa);
-      setMatchsEurope(europe);
-      setMatchsConference(conference);
-      setMatchsArabieSaoudite(arabieSaoudite);
-      setMatchsMiami(miami)
-      setMatchsCommunity(community)
-      setMatchsDfb(dfb)
-      setMatchsInter(inter)
-      setMatchsCan(can)
-
-
-    } catch (error) {
-      console.error('Erreur lors de la récupération des données', error);
-    } 
+    setMatchsByKey((prev) => ({
+      ...prev,
+      ...results,
+    }));
   };
 
-   const onRefresh = useCallback(() => {
-      setIsRefreshing(true);
-      fetchMatches().finally(() => setIsRefreshing(false)); // Rafraîchit les matchs et arrête le rafraîchissement
-    }, []);
   
-    useEffect(() => {
-      fetchMatches(); // Charger initialement les données au montage du composant
-    }, []);
+  const onRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    await fetchMatches();
+    setIsRefreshing(false);
+  }, []);
+
   
+  useEffect(() => {
+    fetchMatches();
+  }, []);
 
-  const matchs = [...matchsUcl, ...matchsFrance, ...matchsEngland, ...matchsSpain, ...matchsGer, ...matchsItaly, ...matchsCdf, ...matchsFac, ...matchsCopa, ...matchsUel, ...matchsAfrica, ...matchsEurope, ... matchsConference, ... matchsArabieSaoudite, ...matchsMiami, ...matchsCommunity, ...matchsDfb, ...matchsInter, ...matchsCan]
 
-  console.log(selectedTeamId)
+  const matchs = useMemo(() => {
+    return Object.values(matchsByKey).flat();
+  }, [matchsByKey]);
 
-  if (!fontsLoaded) {
-    return <Text>Loading...</Text>;
-  }
+  
+  if (!fontsLoaded) return null;
 
   return (
-    <ScrollView 
-    refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}
-    ref={scrollRef}
+    <ScrollView
+      ref={scrollRef}
+      refreshControl={
+        <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
+      }
     >
       <View style={styles.blocpage}>
         <Banner />
         <Filtres />
-{
-  matchs.length > 0 ? (
-    <Aujourdhui onRefresh={onRefresh} matchs={matchs} style={{ marginBlock: 5 }} />
-  ) : (
-    <ActivityIndicator size="large" color="blue" style={{marginTop: 20}} />
-  )
-}
-{selectedTeamId != null && (
+
+        {matchs.length > 0 ? (
+          <Aujourdhui matchs={matchs} onRefresh={onRefresh} />
+        ) : (
+          <ActivityIndicator size="large" style={{ marginTop: 30 }} />
+        )}
+
+        {selectedTeamId != null && (
           <Favorite selectedTeamId={selectedTeamId} />
         )}
-</View>
+      </View>
     </ScrollView>
   );
-}
-)
+};
+
 
 const styles = StyleSheet.create({
   blocpage: {

@@ -98,10 +98,10 @@ function FicheEurope({ route }) {
             <Precedent />
             <ScrollView contentContainerStyle={[styles.blocChamp, isMediumScreen && {padding: 50}]}>
 <View style={{flexDirection: "row", marginBlock: 8, justifyContent: "center", gap: "5%"}}>
-  <TouchableOpacity onPress={openCalendrier} accessible accessibilityRole="button" accessibilityLabel="Calendrier"  accessibilityHint="Calendrier des matchs" >
+  <TouchableOpacity onPress={openCalendrier} accessible accessibilityRole="button" accessibilityLabel="Calendrier" accessibilityState={{ selected: calendrier }}  accessibilityHint="Calendrier des matchs" >
     <Text style={calendrier ? styles.selected : styles.unSelected}>Calendrier</Text>
   </TouchableOpacity>
-  <TouchableOpacity onPress={openClassement} accessible accessibilityRole="button" accessibilityLabel="Classement"  accessibilityHint="Afficher les Classements">
+  <TouchableOpacity onPress={openClassement} accessible accessibilityRole="button" accessibilityLabel="Classement" accessibilityState={{ selected: classement }}  accessibilityHint="Afficher les Classements">
     <Text style={classement ? styles.selected : styles.unSelected}>Classement</Text>
   </TouchableOpacity>
 </View>
