@@ -202,7 +202,7 @@ useEffect(() => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Choisis ton equipe préférée :</Text>
-<Text style={{textAlign:"center", fontFamily: "Kanitalic", color: "rgb(49, 49, 49)", marginBottom: 10}}>et recois une notification lorsque celle ci marque ou encaisse un but</Text>
+<Text style={{textAlign:"center", fontFamily: "Kanitalic", color: "rgb(49, 49, 49)", marginBottom: 10}}>et reçois une notification lorsque celle ci marque ou encaisse un but</Text>
 {savedTeam && 
         <Text style={styles.saved}>
           ✅ Equipe actuelle : {allTeams.find((t) => t.id === savedTeam)?.name}
@@ -224,6 +224,7 @@ useEffect(() => {
             isMediumScreen && {height: 125, width: "20%"}
           ]}
           onPress={() => handleSelectTeam(team.id)}
+          accessible accessibilityRole='button' accessibilityLabel={`choisir ${team.name}`}
         >
           <Animated.Image
             style={[
@@ -260,6 +261,8 @@ useEffect(() => {
 
           ]}
           onPress={() => handleSelectTeam(team.id)}
+                    accessible accessibilityRole='button' accessibilityLabel={`choisir ${team.name}`}
+
         >
           <Animated.Image
             style={[

@@ -320,7 +320,7 @@ function FicheJoueur() {
           </LinearGradient>
 
           <View style={styles.palmares}>
-            <TouchableOpacity onPress={collapsePalmares}>
+            <TouchableOpacity onPress={collapsePalmares} accessible accessibilityLabel='palmares' accessibilityHint='afficher le palmares du joueur'>
               <LinearGradient colors={["black", "steelblue"]} style={[styles.palmaresTitle, isMediumScreen && { paddingBlock: 8 }]} >
                 <Text style={[styles.palmaresText, isMediumScreen && { fontSize: 20 }]}>Palmarès</Text>
                 <Animated.Image

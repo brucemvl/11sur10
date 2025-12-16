@@ -256,7 +256,7 @@ const [fontsLoaded] = useFonts({
       <LinearGradient colors={["rgba(255, 255, 255, 0.1)", 'rgba(0, 0, 0, 0.35)']} style={{ width: "96%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue", padding: 3 }} >
       {selectedDate === "APRES-DEMAIN" ? 
       <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-        <TouchableOpacity onPress={handlePrevious}>
+        <TouchableOpacity onPress={handlePrevious} accessible accessibilityRole='button' accessibilityLabel='précédent' accessibilityHint='naviguer vers le jour précédent'>
           <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
             <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{"<"}</Text>
           </LinearGradient>
@@ -288,7 +288,7 @@ const [fontsLoaded] = useFonts({
             </Text>
           </LinearGradient>
 
-          <TouchableOpacity onPress={handleNext}>
+          <TouchableOpacity onPress={handleNext} accessible accessibilityRole='button' accessibilityLabel='suivant' accessibilityHint='naviguer vers le jour suivant'>
             <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
               <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{">"}</Text>
             </LinearGradient>
@@ -296,7 +296,7 @@ const [fontsLoaded] = useFonts({
 
         </View> :
           <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-            <TouchableOpacity onPress={handlePrevious} >
+            <TouchableOpacity onPress={handlePrevious} accessible accessibilityRole='button' accessibilityLabel='précédent' accessibilityHint='naviguer vers le jour précédent' >
               <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
                 <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{"<"}</Text>
               </LinearGradient>
@@ -308,7 +308,7 @@ const [fontsLoaded] = useFonts({
               </Text>
             </LinearGradient>
 
-            <TouchableOpacity onPress={handleNext} >
+            <TouchableOpacity onPress={handleNext} accessible accessibilityRole='button' accessibilityLabel='suivant' accessibilityHint='naviguer vers le jour suivant' >
               <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
                 <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{">"}</Text>
               </LinearGradient>
@@ -487,16 +487,15 @@ const [fontsLoaded] = useFonts({
         }
       </ScrollView>}
 
-    </LinearGradient></View> :
+    </LinearGradient>
+    </View>
+     :
 
-      <View style={[styles.today, isMediumScreen && {paddingInline: 40}]} refreshControl={
-          <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
-        }
-      >
+      <View style={[styles.today, isMediumScreen && {paddingInline: 40}]} refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}>
         
         <LinearGradient colors={["rgba(255, 255, 255, 0.15)", 'rgba(0, 0, 0, 0.35)']} style={[{ width: "96%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue", elevation: 4, padding:3 }, isMediumScreen && {padding: 20}]} >
           {selectedDate === "APRES-DEMAIN" ? <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-            <TouchableOpacity onPress={handlePrevious} >
+            <TouchableOpacity onPress={handlePrevious} accessible accessibilityRole='button' accessibilityLabel='précédent' accessibilityHint='naviguer vers le jour précédent' >
               <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
                 <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{"<"}</Text>
               </LinearGradient>
@@ -520,7 +519,7 @@ const [fontsLoaded] = useFonts({
                 <Text style={styles.titreToday}>{selectedDate}</Text>
               </LinearGradient>
 
-              <TouchableOpacity onPress={handleNext} >
+              <TouchableOpacity onPress={handleNext} accessible accessibilityRole='button' accessibilityLabel='suivant' accessibilityHint='naviguer vers le jour suivant' >
                 <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
                   <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{">"}</Text>
                 </LinearGradient>
@@ -528,7 +527,7 @@ const [fontsLoaded] = useFonts({
 
             </View> :
               <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-                <TouchableOpacity onPress={handlePrevious} >
+                <TouchableOpacity onPress={handlePrevious} accessible accessibilityRole='button' accessibilityLabel='précédent' accessibilityHint='naviguer vers le jour précédent' >
                   <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
                     <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{"<"}</Text>
                   </LinearGradient>
@@ -538,7 +537,7 @@ const [fontsLoaded] = useFonts({
                   <Text style={styles.titreToday}>{selectedDate}</Text>
                 </LinearGradient>
 
-                <TouchableOpacity onPress={handleNext} >
+                <TouchableOpacity onPress={handleNext} accessible accessibilityRole='button' accessibilityLabel='suivant' accessibilityHint='naviguer vers le jour suivant' >
                   <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
                     <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{">"}</Text>
                   </LinearGradient>

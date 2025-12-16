@@ -98,13 +98,13 @@ const Header = forwardRef(({ notifsEnabled, selectedTeamId }, ref) => {
       locations={[0, 0.6, 0.92, 1]}
       style={styles.header}
     >
-      <TouchableOpacity onPress={() => navigation.navigate("Apropos")} accessible accessibilityLabel="A Propos" accessibilityRole="button" accessibilityHint='Infos et presentation de lapplication'>
+      <TouchableOpacity onPress={() => navigation.navigate("Apropos")} accessible accessibilityLabel="A Propos" accessibilityRole="button" accessibilityHint='Infos et présentation de lapplication'>
         <Image source={info} style={{ height: 30, width: 30 }} />
       </TouchableOpacity>
 
       <Image source={logo} style={styles.logo} />
 
-      <TouchableOpacity onPress={() => navigation.navigate("Notifs")} accessible accessibilityLabel="Notifications" accessibilityRole="button" accessibilityHint='acceder aux parametres de notifications'>
+      <TouchableOpacity onPress={() => navigation.navigate("Notifs")} accessible accessibilityLabel="Notifications" accessibilityRole="button" accessibilityHint='accéder aux paramètres de notifications'>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 
           {/* Logo dynamique avec fade-in */}

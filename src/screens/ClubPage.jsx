@@ -43,6 +43,7 @@ function ClubPage() {
                             key={"lien europe" + id}
                             style={[styles.lienEurope, isMediumScreen && {width: 150, height: 150, borderRadius: 75}]}
                             onPress={() => navigation.navigate('FicheEurope', { id })}
+                            accessible accessibilityLabel={`acceder au championnat ${name}`}
                         >
                             <View style={styles.logoContainer}>
                                 <Image source={{ uri: logo }} style={{width: "85%", height: "85%", objectFit: "contain"}} />
@@ -66,6 +67,8 @@ function ClubPage() {
                     {championnats.map(({ name, id, flag, logo }) => (
                         <TouchableOpacity key={"lien championnat" + id} style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
                             onPress={() => navigation.navigate('FicheChampionnat', { id })}
+                            accessible accessibilityLabel={`acceder au championnat ${name}`}
+
                         >
                             <Text style={[styles.filtreTitle, isMediumScreen && styles.filtreTitleTablet]}>{name}</Text>
                             <View style={styles.logoContainer}>
@@ -84,6 +87,8 @@ function ClubPage() {
                             key={"lien autre" + id}
                             style={[styles.lien, isMediumScreen && styles.lienTablet]}
                             onPress={() => navigation.navigate('FicheChampionnat', { id })}
+                            accessible accessibilityLabel={`acceder au championnat ${name}`}
+
                         >
                             <Text style={[styles.filtreTitle, isMediumScreen && styles.filtreTitleTablet]}>{name}</Text>
                             <View style={styles.logoContainer}>
@@ -116,6 +121,8 @@ function ClubPage() {
                             key={"lien" + id}
                             style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
                             onPress={() => navigation.navigate('FicheChampionnat', { id })}
+                                                        accessible accessibilityLabel={`acceder au championnat ${name}`}
+
                         >
                             <Text style={styles.filtreTitle}>{name}</Text>
                             <View style={styles.logoContainer}>
@@ -134,6 +141,8 @@ function ClubPage() {
                             key={"lien" + id}
                             style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}
                             onPress={() => navigation.navigate('FicheChampionnat', { id })}
+                                                        accessible accessibilityLabel={`acceder au championnat ${name}`}
+
                         >
                             <Text style={styles.filtreTitle}>{name}</Text>
                             <View style={styles.logoContainer}>

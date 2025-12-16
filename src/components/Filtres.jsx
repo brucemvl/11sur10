@@ -28,11 +28,12 @@ function Filtres() {
     if (!fontsLoaded) return <Text>Loading...</Text>;
 
     // ---- UNIVERSAL RENDER FUNCTION ----
-    const renderItem = ({ id, logo, onPress, bgColor, localImage }) => (
+    const renderItem = ({ id, logo, onPress, bgColor, localImage, name }) => (
         <TouchableOpacity
             key={`item-${id}`}
             onPress={onPress}
             style={[styles.touch, isTablet && styles.touchTablet, { marginHorizontal: 4 }]}
+            accessible accessibilityRole='button' accessibilityLabel={`championnat ${name}`} accessibilityHint={`acceder aux infos du championnat ${name}`}
         >
             <View style={[styles.lien, { backgroundColor: bgColor }]}>
                 <Image
@@ -51,11 +52,12 @@ function Filtres() {
         >
 
             {/* SELECTIONS */}
-            {selections.map(({ id, logo }) =>
+            {selections.map(({ id, logo, name }) =>
                 id === 6 &&
                 renderItem({
                     id,
                     logo,
+                    name,
                     bgColor: 'rgba(128, 0, 0, 1)',
                                             localImage: id === 6 ? can : null,
                     onPress: () => navigation.navigate('FicheSelections', { id })
@@ -64,12 +66,13 @@ function Filtres() {
             
 
             {/* EUROPE */}
-            {europe.map(({ id, logo }) =>
+            {europe.map(({ id, logo, name }) =>
                 (id === 848 || id === 3)
                     ? null
                     : renderItem({
                         id,
                         logo,
+                        name,
                         bgColor: id === 2 ? 'rgba(32, 46, 91, 1)' : null,
                         localImage: id === 2 ? ucl : null,
                         onPress: () => navigation.navigate('FicheEurope', { id })
@@ -77,12 +80,13 @@ function Filtres() {
             )}
 
             {/* CHAMPIONNATS */}
-            {championnats.map(({ id, logo }) =>
+            {championnats.map(({ id, logo, name }) =>
                 (id === 197 || id === 144)
                     ? null
                     : renderItem({
                         id,
                         logo,
+                        name,
                         bgColor:
                             id === 61 ? "#085dfe" :
                             id === 62 || id === 135 ? "#fff" :
@@ -101,6 +105,7 @@ function Filtres() {
             <TouchableOpacity
                 onPress={() => navigation.navigate('ClubPage')}
                 style={[styles.touch, isTablet && styles.touchTablet, { marginHorizontal: 4 }]}
+                accessible accessibilityRole='button' accessibilityLabel='+' accessibilityHint='acceder a plus de championnats'
             >
                 <View style={styles.lien}>
                     <Image source={plus} style={styles.logo} />
