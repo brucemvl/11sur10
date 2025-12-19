@@ -7,7 +7,16 @@ const previousScores = {};
 const previousEvents = {};
 let activeMatches = [];
 
-import { teamNameNotif } from '../datas/teamNames';
+const teamNameNotif = {
+    "Morocco" : "Maroc",
+      "Ivory Coast" : "Cote d'Ivoire",
+      "Algeria" : "Algerie",
+       "Paris Saint Germain": "Paris SG",
+  "Barcelona" : "FC Barcelone",
+  "Central African Republic" : "Centrafrique",
+  "Cape Verde Islands" : "Cap Vert",
+}
+
 
 // 🔁 Rafraîchit la liste des matchs à suivre (toutes les 5 min)
 async function refreshActiveMatches() {
