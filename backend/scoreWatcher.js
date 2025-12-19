@@ -7,7 +7,7 @@ const previousScores = {};
 const previousEvents = {};
 let activeMatches = [];
 
-import { teamNameNotif } from '../src/datas/teamNames';
+import { teamNameNotif } from '../datas/teamNames';
 
 // 🔁 Rafraîchit la liste des matchs à suivre (toutes les 5 min)
 async function refreshActiveMatches() {
