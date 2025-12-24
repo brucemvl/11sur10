@@ -75,8 +75,8 @@ function CompoBasique({match}){
         </View>
 
           <View style={styles.coachs}>
-         {match.lineups[0].coach.id === null ? null : <TouchableOpacity onPress={() => navigation.navigate('FicheCoach', { id: match.lineups[0].coach.id })} style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5,  padding: 8, borderTopRightRadius: 15, borderBottomRightRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12, textAlign: "center" }}>{coachNames[match.lineups[0].coach.id] || match.lineups[0].coach.name}</Text><Image source={coachImages[match.lineups[0].coach.id] || {uri: match.lineups[0].coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></TouchableOpacity> }
-         {match.lineups[1].coach.id === null ? null : <TouchableOpacity onPress={() => navigation.navigate('FicheCoach', { id: match.lineups[1].coach.id })} style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, padding: 8, borderTopLeftRadius: 15, borderBottomLeftRadius: 15}}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12, textAlign: "center" }}>{coachNames[match.lineups[1].coach.id] || match.lineups[1].coach.name}</Text><Image source={coachImages[match.lineups[1].coach.id] || {uri: match.lineups[1].coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></TouchableOpacity> }
+         {match.lineups[0].coach.id === null ? null : <TouchableOpacity onPress={() => navigation.navigate('FicheCoach', { id: match.lineups[0].coach.id })} style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5,  padding: 8, borderTopRightRadius: 15, borderBottomRightRadius: 15}} accessible accessibilityRole="button" accessibilityLabel="Fiche Coach" accessibilityHint={`Accéder a la fiche de l'entraineur ${coachNames[match.lineups[0].coach.id]}`}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12, textAlign: "center" }}>{coachNames[match.lineups[0].coach.id] || match.lineups[0].coach.name}</Text><Image source={coachImages[match.lineups[0].coach.id] || {uri: match.lineups[0].coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></TouchableOpacity> }
+         {match.lineups[1].coach.id === null ? null : <TouchableOpacity onPress={() => navigation.navigate('FicheCoach', { id: match.lineups[1].coach.id })} style={{flexDirection: "column-reverse", alignItems: "center", justifyContent:"center", gap: 5, padding: 8, borderTopLeftRadius: 15, borderBottomLeftRadius: 15}} accessible accessibilityRole="button" accessibilityLabel="Fiche Coach" accessibilityHint={`Accéder a la fiche de l'entraineur ${coachNames[match.lineups[1].coach.id]}`}> <Text style={{ fontFamily: "Kanitalik", color: "black", fontSize: 12, textAlign: "center" }}>{coachNames[match.lineups[1].coach.id] || match.lineups[1].coach.name}</Text><Image source={coachImages[match.lineups[1].coach.id] || {uri: match.lineups[1].coach.photo}} style={{width: 45, height: 45, borderRadius: 50, }}/></TouchableOpacity> }
       </View>
 
           <LinearGradient colors={["rgb(167, 167, 167)", "rgb(145, 145, 145)", "rgb(115, 115, 115)"]} style={styles.playersList}>
@@ -119,11 +119,11 @@ function CompoBasique({match}){
             ))}
             </View>
           </LinearGradient>
-
+{match.lineups[0] != undefined ? <View>
           <Text style={styles.subTitle}>Remplaçants</Text>
           <LinearGradient colors={["rgb(115, 115, 115)", "rgb(140, 140, 140)", "rgb(165, 165, 165)"]} style={styles.playersList}>
                         <View style={styles.equipeDom}>
-            {match.lineups[0].substitutes.map((player) => (
+            {match.lineups[0]?.substitutes?.map((player) => (
               <TouchableOpacity key={player.player.id} onPress={() => navigation.navigate('FicheJoueur', { id: player.player.id, team: match.teams.home.id })}>
               <View style={styles.playerContainer}>
                      <Image
@@ -142,7 +142,7 @@ function CompoBasique({match}){
             ))}
             </View>
                         <View style={styles.equipeExt}>
-                          {match.lineups[1].substitutes.map((player) => (
+                          {match.lineups[1]?.substitutes?.map((player) => (
               <TouchableOpacity key={player.player.id} onPress={() => navigation.navigate('FicheJoueur', { id: player.player.id, team: match.teams.away.id })} style={{ justifyContent: "flex-end" }}>
               <View style={styles.playerExtContainer}>
                      <Image
@@ -162,7 +162,9 @@ function CompoBasique({match}){
             </View>
 
           </LinearGradient>
-
+          </View>
+          : null
+}
       </View>
     </View>
 </View>
@@ -201,9 +203,9 @@ const styles = StyleSheet.create({
     gap: 5
   },
   coachs: {
-justifyContent: "space-around",
+justifyContent: "space-between",
 flexDirection: "row",
-width: "100%"
+width: "85%"
   },
   
   logo: {

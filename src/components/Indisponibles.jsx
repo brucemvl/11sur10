@@ -18,6 +18,7 @@ import entorse from "../assets/entorse.png"
 import epaule from "../assets/epaule.png"
 import tibia from "../assets/os.png"
 import metatarse from "../assets/metatarse.png"
+import flag from "../assets/flag.png"
 
 
 import { useNavigation } from "@react-navigation/native";
@@ -266,6 +267,8 @@ console.log(injuries)
                                                 <Image source={injury} style={[styles.icone, { position: "relative", top: 2 }]} />
                                             </View> : element.player.reason === "Broken calfbone" ? <View style={{ flexDirection: "row", gap: 3}}>
                                                 <Image source={tibia} style={styles.icone} /><Text style={{ fontFamily: "Kanito", fontSize: 10 }}>Fracture péroné</Text>
+                                            </View> : element.player.reason === "International duty" ? <View style={{ flexDirection: "row", gap: 3}}>
+                                                <Image source={flag} style={styles.icone} /><Text style={{ fontFamily: "Kanito", fontSize: 10 }}>En selection</Text>
                                             </View> : <View></View>}
                             </LinearGradient>
                         </TouchableOpacity> : null)}</View>
@@ -378,6 +381,8 @@ console.log(injuries)
                                                 <Image source={injury} style={[styles.icone, { position: "relative", top: 2 }]} />
                                             </View> : element.player.reason === "Broken calfbone" ? <View style={{ flexDirection: "row", gap: 3}}>
                                                 <Image source={tibia} style={styles.icone} /> <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Fracture péroné</Text>
+                                            </View> : element.player.reason === "International duty" ? <View style={{ flexDirection: "row", gap: 3}}>
+                                                <Image source={flag} style={styles.icone} /><Text style={{ fontFamily: "Kanito", fontSize: 10 }}>En selection</Text>
                                             </View> : <View></View>}
                             </LinearGradient>
                         </TouchableOpacity> : null)}</View>

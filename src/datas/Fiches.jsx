@@ -271,12 +271,25 @@ import grimaldo from "../assets/portraits/fiche/grimaldo.png"
 import tolisso from "../assets/portraits/fiche/tolisso.png"
 import malickfofana from "../assets/portraits/fiche/malickfofana.png"
 import kalimuendo from "../assets/portraits/fiche/kalimuendo.png"
+import gordon from "../assets/portraits/fiche/gordon.png"
+import sinayoko from "../assets/portraits/fiche/sinayoko.png"
+import mahrez from "../assets/portraits/fiche/mahrez.png"
+import amoura from "../assets/portraits/fiche/amoura.png"
+import luca from "../assets/portraits/fiche/luca.webp"
+import sarr from "../assets/portraits/fiche/sarr.webp"
+
 
 
 
 
 
 export const fichesJoueurs = {
+    2218: sarr,
+    732: luca,
+    200139: amoura,
+    635: mahrez,
+    90617: sinayoko,
+    138787: gordon,
     147831: kalimuendo,
     361348: malickfofana,
     519: tolisso,

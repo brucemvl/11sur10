@@ -118,7 +118,7 @@ const teamName = {
     
 
 <View style={{flexDirection: "row", alignItems: "center", gap: 10, marginBlock: 15, justifyContent: "center"}}>
-<TouchableOpacity onPress={prev} disabled={index === 0} style={{width: 30, height: 30, alignItems: "center"}}>
+<TouchableOpacity onPress={prev} disabled={index === 0} style={{width: 30, height: 30, alignItems: "center"}} accessible accessibilityRole="button" accessibilityLabel="Précédent" accessibilityHint="Naviguer vers la journée précédente">
   <Text style={[styles.buttonText, index === 0 && { opacity: 0.3 }, id === 6 && {color: "rgba(255, 255, 255, 1)" }]}>{'<'}</Text>
 </TouchableOpacity>
        <Text style={{color:id === 6 ? "rgba(255, 255, 255, 1)" : "black", fontFamily: "Kanitalik", fontSize: 16, marginInline: 10}}>
@@ -131,7 +131,7 @@ const teamName = {
             currentRoundName === "Round of 16" ? "Huitièmes de finale" :
             currentRoundName}
         </Text>
-<TouchableOpacity onPress={next} disabled={index === rounds.length - 1} style={{width: 30, height: 30, alignItems: "center"}}>
+<TouchableOpacity onPress={next} disabled={index === rounds.length - 1} style={{width: 30, height: 30, alignItems: "center"}} accessible accessibilityRole="button" accessibilityLabel="Suivant" accessibilityHint="Naviguer vers la journée suivante">
   <Text style={[styles.buttonText, index === rounds.length - 1 && { opacity: 0.3 }, id === 6 && {color: "rgba(255, 255, 255, 1)"}]}>{'>'}</Text>
 </TouchableOpacity> 
       </View>

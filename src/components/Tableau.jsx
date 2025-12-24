@@ -164,7 +164,7 @@ function Tableau({ id, currentRound, rounds }) {
 
       {/* Navigation entre rounds */}
       <View style={styles.navContainer}>
-        <TouchableOpacity onPressIn={handlePressIn} onPressOut={handlePressOut} onPress={prev} disabled={index === 0} style={{ width: 60, height: 30, alignItems: "center" }}>
+        <TouchableOpacity onPressIn={handlePressIn} onPressOut={handlePressOut} onPress={prev} disabled={index === 0} style={{ width: 60, height: 30, alignItems: "center" }} accessible accessibilityRole="button" accessibilityLabel="Précédent" accessibilityHint="Naviguer vers la journée précédente">
           <Animated.Text style={[id === 15 ? styles.buttonTextWc : styles.buttonText, index === 0 && { opacity: 0.3 }, isMediumScreen && {fontSize: 28}, { transform: [{ scale: scaleAnim }] }]}>{'<'}</Animated.Text>
         </TouchableOpacity>
 
@@ -182,7 +182,7 @@ function Tableau({ id, currentRound, rounds }) {
                             currentRoundName}
         </Animated.Text>
 
-        <TouchableOpacity onPressIn={handlePressInNext} onPressOut={handlePressOutNext} onPress={next} disabled={index === rounds.length - 1} style={{ width: 60, height: 30, alignItems: "center" }}>
+        <TouchableOpacity onPressIn={handlePressInNext} onPressOut={handlePressOutNext} onPress={next} disabled={index === rounds.length - 1} style={{ width: 60, height: 30, alignItems: "center" }} accessible accessibilityRole="button" accessibilityLabel="Suivant" accessibilityHint="Naviguer vers la journée suivante">
           <Animated.Text style={[id === 15 ? styles.buttonTextWc : styles.buttonText, index === rounds.length - 1 && { opacity: 0.3 }, isMediumScreen && {fontSize: 28}, { transform: [{ scale: scaleAnimNext }] }]}>{'>'}</Animated.Text>
         </TouchableOpacity>
       </View>

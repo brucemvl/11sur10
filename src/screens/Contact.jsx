@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ScrollView, Text, TextInput, Button, StyleSheet, useWindowDimensions } from 'react-native';
 import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -50,20 +50,29 @@ const Contact = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled" accessibilityLabel="Formulaire de contact">
       <Text style={styles.title}>Contact</Text>
-      <LinearGradient colors={[ 'rgba(24, 24, 91, 1)', 'rgba(0, 0, 0, 1)']} style={[styles.inputs, isMediumScreen && {padding: 40}]}>
+      <LinearGradient colors={[ 'rgba(24, 24, 91, 1)', 'rgba(0, 0, 0, 1)']} style={[styles.inputs, isMediumScreen && {padding: 40}]} accessible={false}>
       <TextInput
         style={styles.input}
         placeholder="Nom"
         value={name}
         onChangeText={setName}
+        accessibilityLabel="Champ nom"
+          accessibilityHint="Entrez votre nom"
       />
       <TextInput
         style={styles.input}
         placeholder="Adresse e-mail"
         value={email}
         onChangeText={setEmail}
+        accessibilityLabel="Champ adresse e-mail"
+          accessibilityHint="Entrez votre adresse e-mail"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={false}
+          textContentType="emailAddress"
+          returnKeyType="next"
       />
       <TextInput
         style={styles.input}
@@ -71,9 +80,12 @@ const Contact = () => {
         value={message}
         onChangeText={setMessage}
         multiline
+          accessibilityLabel="Champ message"
+          accessibilityHint="Écrivez votre message"
+          textAlignVertical="top"
       />
       </LinearGradient>
-      <Button title="Envoyer" onPress={sendEmail} />
+      <Button title="Envoyer" onPress={sendEmail} accessibilityRole="button" accessibilityLabel="Envoyer le message" />
     </ScrollView>
   );
 };

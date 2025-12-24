@@ -133,7 +133,7 @@ const [fontsLoaded] = useFonts({
     "DFB Pokal" : "https://media.api-sports.io/flags/de.svg",
     "Serie A" : "https://media.api-sports.io/flags/it.svg",
     "Pro League" : "https://media.api-sports.io/flags/sa.svg",
-    "Major League Soccer" : "https://media.api-sports.io/flags/us.svg"
+    "Major League Soccer" : "https://media.api-sports.io/flags/us.svg",
   }
 
 
@@ -321,7 +321,7 @@ const [fontsLoaded] = useFonts({
           avantHierLeagues.map((league) => <View style={{ marginBlock: 5 }}>
 <View style={{flexDirection: "row", alignItems: "center"}}>
                   <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20} /></View>
-                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
+                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league === "Africa Cup of Nations" ? "CAN" : league}</Text>
                   </View>
                               {avantHierMatch.map((element) => element.league.name === league ?
 
@@ -368,7 +368,7 @@ const [fontsLoaded] = useFonts({
           yesterdayLeagues.map((league) => <View style={{ marginBlock: 5 }}>
 <View style={{flexDirection: "row", alignItems: "center"}}>
                   <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
-                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
+                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league === "Africa Cup of Nations" ? "CAN" : league}</Text>
                   </View>            {yesterdayMatch.map((element) => element.league.name === league ?
 
               <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}>
@@ -419,7 +419,7 @@ const [fontsLoaded] = useFonts({
           tomorrowLeagues.map((league) => <View style={{ marginBlock: 2 }} key={"league" + league}>
 <View style={{flexDirection: "row", alignItems: "center"}}>
                   <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
-                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
+                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league === "Africa Cup of Nations" ? "CAN" : league}</Text>
                   </View>            {tomorrowMatch.map((element) => element.league.name === league ?
 
               <TouchableOpacity key={element.fixture.id} style={styles.link} onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }} >
@@ -457,7 +457,7 @@ const [fontsLoaded] = useFonts({
           apresDemainLeagues.map((league) => <View style={{ marginBlock: 5 }}>
 <View style={{flexDirection: "row", alignItems: "center"}}>
                   <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
-                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
+                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league === "Africa Cup of Nations" ? "CAN" : league}</Text>
                   </View>            {apresDemainMatch.map((element) => element.league.name === league ?
 
               <TouchableOpacity key={element.fixture.id} style={styles.link} onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }}>
@@ -552,7 +552,7 @@ const [fontsLoaded] = useFonts({
                 avantHierLeagues.map((league) => <View style={{ marginBlock: 5 }}>
 <View style={{flexDirection: "row", alignItems: "center"}}>
                   <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
-                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
+                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league === "Africa Cup of Nations" ? "CAN" : league}</Text>
                   </View>
                   {avantHierMatch.map((element) => element.league.name === league ?
                   <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}>
@@ -601,7 +601,7 @@ const [fontsLoaded] = useFonts({
                 yesterdayLeagues.map((league) => <View style={{ marginBlock: 5 }}>
 <View style={{flexDirection: "row", alignItems: "center"}}>
                   <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
-                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
+                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league === "Africa Cup of Nations" ? "CAN" : league}</Text>
                   </View>
                   {yesterdayMatch.map((element) => element.league.name === league ?
                     <TouchableOpacity
@@ -659,7 +659,7 @@ const [fontsLoaded] = useFonts({
                 <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBlock: 4 }}>
                   <View style={{flexDirection: "row", alignItems: "center"}}>
                   <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
-                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
+                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league === "Africa Cup of Nations" ? "CAN" : league}</Text>
                   </View>
                   {league === "UEFA Champions League" && todayMatch.some((element) =>
                     element.league.name === "UEFA Champions League" &&
@@ -800,7 +800,7 @@ const [fontsLoaded] = useFonts({
               tomorrowLeagues.map((league) => <View style={{ marginBlock: 2 }}>
 <View style={{flexDirection: "row", alignItems: "center"}}>
                   <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
-                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
+                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league === "Africa Cup of Nations" ? "CAN" : league}</Text>
                   </View>                {tomorrowMatch.map((element) => element.league.name === league ?
 
                   <TouchableOpacity
@@ -841,7 +841,7 @@ const [fontsLoaded] = useFonts({
               apresDemainLeagues.map((league) => <View style={{ marginBlock: 5 }}>
 <View style={{flexDirection: "row", alignItems: "center"}}>
                   <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
-                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league}</Text>
+                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league === "Africa Cup of Nations" ? "CAN" : league}</Text>
                   </View>                {apresDemainMatch.map((element) => element.league.name === league ?
 
                   <TouchableOpacity

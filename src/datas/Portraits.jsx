@@ -225,11 +225,15 @@ import burn from "../assets/portraits/burn.png"
 import kebbal from "../assets/portraits/kebbal.png"
 import lepaul from "../assets/portraits/lepaul.png"
 import embolo from "../assets/portraits/embolo.png"
+import gordon from "../assets/portraits/gordon.png"
+import sinayoko from "../assets/portraits/sinayoko.png"
 
 
 
 
 export const portraitsJoueurs = {
+        138787: gordon,
+        90617: sinayoko,
     421: embolo,
     163004: lepaul,
         83831: kebbal,

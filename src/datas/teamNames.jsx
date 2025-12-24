@@ -30,3 +30,13 @@ export const teamName = {
      "New York Red Bulls" : "New York RB",
   "Philadelphia Union" : "Philadelphia",
 };
+
+export const teamNameNotif = {
+    "Morocco" : "Maroc",
+      "Ivory Coast" : "Cote d'Ivoire",
+      "Algeria" : "Algerie",
+       "Paris Saint Germain": "Paris SG",
+  "Barcelona" : "FC Barcelone",
+  "Central African Republic" : "Centrafrique",
+  "Cape Verde Islands" : "Cap Vert",
+}

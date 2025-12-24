@@ -32,8 +32,8 @@ function Precedent() {
     <TouchableWithoutFeedback
     accessible
   accessibilityRole="button"
-  accessibilityLabel="Precedent"
-  accessibilityHint="Retourner à l'ecran precedent"
+  accessibilityLabel="Précédent"
+  accessibilityHint="Retourner à l'ecran précédent"
       onPress={() => navigation.goBack()}
       onPressIn={onPressIn}
       onPressOut={onPressOut}

@@ -309,7 +309,7 @@ function FicheJoueur() {
             <View style={styles.bio}>
               <Text style={[styles.name, isMediumScreen && { fontSize: 22 }]}>{joueur.player.id === 307123 ? "N. O'Reilly" : joueur.player.name}</Text>
               <View style={{ width: "100%", flexDirection: "column", alignItems: "center" }}> <Text style={styles.infoText}>Né le {joueur.player.id === 37784 ? "31/03/1999" : formattedDate}</Text><View style={{ flexDirection: "row", alignItems: "center" }}><Text style={{ fontFamily: "Kanitalic", color: "white" }}> à {joueur.player.id === 37784 || joueur.player.id === 15906 ? "Paris" : joueur.player.birth.place},</Text><Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: 15 }}> {joueur.player.id === 37784 || joueur.player.id === 15906 ? "France" : joueur.player.birth.country === "Spain" ? "Espagne" : joueur.player.birth.country === "Netherlands" ? "Pays-Bas" : joueur.player.birth.country === "Belgium" ? "Belgique" : joueur.player.birth.country === "Brazil" ? "Bresil" : joueur.player.birth.country === "England" ? "Angleterre" : joueur.player.birth.country === "Türkiye" ? "Turquie" : joueur.player.birth.country === "Switzerland" ? "Suisse" : joueur.player.birth.country === "Germany" ? "Allemagne" : joueur.player.birth.country}</Text></View></View>
-              <View style={{ flexDirection: "row" }}><Text style={{ fontFamily: "Kanitalik", color: "white" }}> {joueur.player.height + "cm"} {joueur.player.weight === null ? null : "- " + joueur.player.weight + "kg"}</Text></View>
+              {joueur.player.height === null && joueur.player.weight === null ? null : <View style={{ flexDirection: "row" }}><Text style={{ fontFamily: "Kanitalik", color: "white" }}> {joueur.player.height === null ? null : joueur.player.height + "cm"} {joueur.player.weight === null ? null : "- " + joueur.player.weight + "kg"}</Text></View>}
               <Text style={styles.infoText}>Poste: {joueur.statistics[0].games.position === "Midfielder" ? "Milieu" : joueur.statistics[0].games.position === "Attacker" ? "Attaquant" : joueur.statistics[0].games.position === "Defender" ? "Defenseur" : joueur.statistics[0].games.position === "Goalkeeper" ? "Gardien" : joueur.statistics[0].games.position}</Text>
               <View style={styles.logos}>
                 {uniqueTeamNames.map((logo, index) => (logo === "https://media.api-sports.io/football/teams/10179.png" || logo === 'https://media.api-sports.io/football/teams/9256.png' || logo === 'https://media.api-sports.io/football/teams/8216.png' || logo === 'https://media.api-sports.io/football/teams/8190.png' || logo === 'https://media.api-sports.io/football/teams/12520.png' || logo === 'https://media.api-sports.io/football/teams/712.png' || logo === 'https://media.api-sports.io/football/teams/8194.png' ? null : logo === "https://media.api-sports.io/football/teams/10334.png" ? null : logo === "https://media.api-sports.io/football/teams/16621.png" ? null : logo === "https://media.api-sports.io/football/teams/10187.png" ? null :
@@ -320,13 +320,12 @@ function FicheJoueur() {
           </LinearGradient>
 
           <View style={styles.palmares}>
-            <TouchableOpacity onPress={collapsePalmares} accessible accessibilityLabel='palmares' accessibilityHint='afficher le palmares du joueur'>
-              <LinearGradient colors={["black", "steelblue"]} style={[styles.palmaresTitle, isMediumScreen && { paddingBlock: 8 }]} >
+            <TouchableOpacity onPress={collapsePalmares} accessible accessibilityLabel='palmarès' accessibilityHint={ openPalmares ? "Masquer le palmarès" : "Afficher le palmarès" } accessibilityState={{ expanded: openPalmares }}>
+              <LinearGradient colors={["black", "steelblue"]} style={[styles.palmaresTitle, isMediumScreen && { paddingBlock: 8 }]} accessible={false} >
                 <Text style={[styles.palmaresText, isMediumScreen && { fontSize: 20 }]}>Palmarès</Text>
                 <Animated.Image
                   source={chevron}
-                  style={[styles.chevron, { transform: [{ rotate: rotateInterpolate }] }, isMediumScreen && { left: 250 }]}
-                />
+                  style={[styles.chevron, { transform: [{ rotate: rotateInterpolate }] }, isMediumScreen && { left: 250 }]} accessible={false} importantForAccessibility="no" />
               </LinearGradient>
             </TouchableOpacity>
 
@@ -345,7 +344,7 @@ function FicheJoueur() {
                     outputRange: [0, 380]  // Ajustez la hauteur en fonction du contenu
                   })
                 }]}>
-                  <View style={{ width: "55%" }} >
+                  <View style={{ width: "55%" }} accessibilityRole="list" accessibilityLabel="Liste des compétitions remportées" >
                     {trophiesArray.map((element, index) => (
                       element.league === "Florida Cup" ? null : element.league === "Trofeo Joan Gamper" ? null : element.league === "FA Youth Cup" ? null : element.league === "Supercopa de Catalunya" ? null : element.league === "Copa del Rey Juvenil" ? null : element.league === "Audi Cup" ? null : element.league === "Ekstraklasa" ? null :
                         <Text key={"trophee" + element.league + element.season} style={{ fontFamily: "Kanito",  marginInline: 10, marginBlock: 2 }}>{element.league === "FIFA Club World Cup" ? 1 : element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league === "Trofeo Joan Gamper" ? null : element.league === "UEFA European Championship" ? "Euro" : element.league}</Text>
@@ -388,7 +387,7 @@ function FicheJoueur() {
                   outputRange: [0, 190]  // Ajustez la hauteur en fonction du contenu
                 })
               }]}>
-                <View style={{ width: "55%" }}>
+                <View style={{ width: "55%" }} accessibilityRole="list" accessibilityLabel="Liste des compétitions remportées">
 
                   {trophiesArray.map((element, index) => (
                     element.league === "Florida Cup" ? null : element.league === "Trofeo Joan Gamper" ? null : element.league === "FA Youth Cup" ? null : element.league === "Supercopa de Catalunya" ? null : element.league === "Copa del Rey Juvenil" ? null : element.league === "Audi Cup" ? null : element.league === "Ekstraklasa" ? null :
@@ -432,7 +431,7 @@ function FicheJoueur() {
                     outputRange: [0, 120]  // Ajustez la hauteur en fonction du contenu
                   })
                 }]}>
-                  <View style={{ width: "55%" }}>
+                  <View style={{ width: "55%" }} accessibilityRole="list" accessibilityLabel="Liste des compétitions remportées">
 
                     {trophiesArray.map((element, index) => (
                       element.league === "Florida Cup" ? null : element.league === "Cup" ? null : element.league === "Trofeo Joan Gamper" ? null : element.league === "FA Youth Cup" ? null : element.league === "Supercopa de Catalunya" ? null : element.league === "Copa del Rey Juvenil" ? null : element.league === "Audi Cup" ? null : element.league === "Ekstraklasa" ? null :
@@ -477,7 +476,7 @@ function FicheJoueur() {
                       outputRange: [0, 250]  // Ajustez la hauteur en fonction du contenu
                     })
                   }]}>
-                    <View style={{ width: "55%" }} >
+                    <View style={{ width: "55%" }} accessibilityRole="list" accessibilityLabel="Liste des compétitions remportées" >
                       {trophiesArray.map((element, index) => (
                         element.league === "Florida Cup" ? null : element.league === "Cup" ? null : element.league === "Trofeo Joan Gamper" ? null : element.league === "FA Youth Cup" ? null : element.league === "Supercopa de Catalunya" ? null : element.league === "Copa del Rey Juvenil" ? null : element.league === "Audi Cup" ? null : element.league === "Ekstraklasa" ? null :
                           <Text style={{ fontFamily: "Kanito", marginInline: 10 }}>{element.league === "FIFA Club World Cup" ? 1 : element.trophies.length}x {element.league === "CAF Africa Cup of Nations" ? "CAN" : element.league === "UEFA European Championship" ? "Euro" : element.league}</Text>
