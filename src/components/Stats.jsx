@@ -59,7 +59,7 @@ if(!statsHome || !statsExt){
         <View style={styles.container}>
 
 
-            {statsHome.fixtures.loses.total === 0 && statsHome.fixtures.played.total != 0 ? 
+            {statsHome.fixtures.loses.total === 0 && statsHome.fixtures.played.total > 1 ? 
             statsHome.fixtures.wins.total === statsHome.fixtures.played.total ? 
             <Text style={{fontFamily: "Bangers", color: "darkblue", paddingInline: 1, textAlign: "center", marginBlock: 3}}>{teamName[statsHome.team.name] || statsHome.team.name} a gagné tous ses matchs en {statsHome.league.id === 6 ? "Coupe d'Afrique des Nations" : statsHome.league.name} cette saison</Text>
             :
@@ -70,7 +70,7 @@ if(!statsHome || !statsExt){
              : 
              null}
 
-             {statsHome.fixtures.loses.home === 0 && statsHome.fixtures.loses.total != 0 ? 
+             {statsHome.fixtures.loses.home === 0 && statsHome.fixtures.loses.total != 0 && statsHome.league.id != 6 ? 
              <View style={{marginBlock: 5, alignItems: "center"}}>
                 <Image source={warning} style={{height: 40, width: 40}}/>
             <Text style={{fontFamily: "Bangers", color: "darkblue", paddingInline: 1, textAlign: "center", marginBlock: 2}}>{teamName[statsHome.team.name] || statsHome.team.name} n'a jamais perdu a domicile en {statsHome.league.id === 6 ? "Coupe d'Afrique des Nations" : statsHome.league.name} cette saison</Text>
@@ -79,18 +79,18 @@ if(!statsHome || !statsExt){
              : 
              null}
 
-             {statsHome.failed_to_score.total === 0 && statsHome.fixtures.played.total != 0 ? 
+             {statsHome.failed_to_score.total === 0 && statsHome.fixtures.played.total > 1 ? 
              <Text style={{fontFamily: "Bangers", color: "darkblue", textAlign: "center", paddingInline: 1, textAlign: "center", marginBlock: 3}}>{teamName[statsHome.team.name] || statsHome.team.name} a marqué dans tous ses matchs de {statsHome.league.id === 6 ? "Coupe d'Afrique des Nations" : statsHome.league.name} cette saison</Text>
             : null
             }
 
-            {statsExt.failed_to_score.total === 0 && statsExt.fixtures.played.total != 0 ? 
+            {statsExt.failed_to_score.total === 0 && statsExt.fixtures.played.total > 1 ? 
              <Text style={{fontFamily: "Bangers", color: "rgba(90, 90, 90, 1)", textAlign: "center", paddingInline: 1, textAlign: "center", marginBlock: 3}}>{teamName[statsExt.team.name] || statsExt.team.name} a marqué dans tous ses matchs de {statsExt.league.id === 6 ? "Coupe d'Afrique des Nations" : statsExt.league.name} cette saison</Text>
             : null
             }
 
 
-{statsExt.fixtures.loses.total === 0 && statsExt.fixtures.played.total != 0 ? 
+{statsExt.fixtures.loses.total === 0 && statsExt.fixtures.played.total > 1 ? 
             statsExt.fixtures.wins.total === statsExt.fixtures.played.total ? 
             <Text style={{fontFamily: "Bangers", color: "rgba(90, 90, 90, 1)", paddingInline: 1, textAlign: "center", marginBlock: 3}}>{teamName[statsExt.team.name] || statsExt.team.name} a gagné tous ses matchs en {statsExt.league.id === 6 ? "Coupe d'Afrique des Nations" : statsExt.league.name} cette saison</Text>
             :
@@ -98,7 +98,7 @@ if(!statsHome || !statsExt){
              : 
              null}
 
-            {statsExt.fixtures.wins.away === 0 && statsExt.fixtures.played.total != 0 ? 
+            {statsExt.fixtures.wins.away === 0 && statsExt.fixtures.played.total > 1 && statsExt.league.id != 6 ? 
                          <View style={{marginBlock: 5}}>
             <Text style={{fontFamily: "Bangers", color: "rgba(90, 90, 90, 1)", paddingInline: 1, textAlign: "center", marginBlock: 2}}>{teamName[statsExt.team.name] || statsExt.team.name} n'a jamais gagné à l'exterieur en {statsExt.league.id === 6 ? "Coupe d'Afrique des Nations" : statsExt.league.name} cette saison</Text>
                          <Text style={{fontFamily: "Bangers", color: "rgba(90, 90, 90, 1)", paddingInline: 1, textAlign: "center"}}>({statsExt.fixtures.loses.away} {statsExt.fixtures.loses.away === 1 ? "defaite" : "defaites"} - {statsExt.fixtures.draws.away} {statsExt.fixtures.draws.away === 1 ? "nul" : "nuls"})</Text>

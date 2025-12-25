@@ -157,7 +157,7 @@ const backgroundSource =
             {match.league.id === 2 || match.league.id === 61 || match.league.id === 39 || match.league.id === 140 || match.league.id === 78 || match.league.id === 135 || match.league.id === 6 ?
                 <ImageBackground source={backgroundSource} style={[styles.afficheUcl, isMediumScreen && {height: 260}]} imageStyle={{ borderRadius: 15, filter: match.league.id === 61 || match.league.id === 135 ? "brightness(0.5)" : match.league.id === 39 ? "brightness(0.4)" : match.league.id === 140 || match.league. id === 6 ? "brightness(0.32)" : match.league.id === 78 ? "brightness(0.45)" : "brightness(0.9)" }}>
                    
-                    <TouchableOpacity style={styles.domicile} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo })}>
+                    <TouchableOpacity accessible accessibilityLabel={`logo de ${match.teams.home.name}`} accessibilityHint={`naviguer vers la fiche complète de ${match.teams.home.name}`} style={styles.domicile} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo })}>
                         <Image source={{ uri: match.teams.home.logo }} style={[styles.teamLogo, isMediumScreen && { height: 100, width: 100}, match.teams.home.id === 81 ? { shadowRadius: 0.3 } : null]} />
                         <Text style={[{ fontFamily: 'Bella', color: 'white', fontSize: 15, textAlign: "center" }, isMediumScreen && {fontSize: 18}]}>{teamName[match.teams.home.name] || match.teams.home.name}</Text>
                         <View style={{ gap: 5, flexDirection: "row", marginTop: 5 }}>{formeHome?.split('').map((char, index) => (
@@ -193,7 +193,7 @@ const backgroundSource =
                                         <Text style={styles.liveText}>Match Terminé</Text></View> : null}
                     </View>
 
-                    <TouchableOpacity style={styles.exterieur} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo })}>
+                    <TouchableOpacity accessible accessibilityLabel={`logo de ${match.teams.away.name}`} accessibilityHint={`naviguer vers la fiche complète de ${match.teams.away.name}`} style={styles.exterieur} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo })}>
                         <Image source={{ uri: match.teams.away.logo }} style={[styles.teamLogo, isMediumScreen && { height: 100, width: 100}, match.teams.away.id === 81 ? { shadowRadius: 0.3 } : null]} />
                         <Text style={[{ fontFamily: 'Bella', color: 'white', fontSize: 15, textAlign: "center" }, isMediumScreen && {fontSize: 18}]}>{teamName[match.teams.away.name] || match.teams.away.name}</Text>
                         <View style={{ gap: 5, flexDirection: "row", marginTop: 5 }}>{formeExt?.split('').map((char, index) => (
@@ -221,7 +221,7 @@ const backgroundSource =
         'rgba(42, 109, 164, 0.9)',
         'rgba(30, 30, 30, 0.85)'
       ]}  style={styles.affiche}>
-                    <TouchableOpacity style={styles.domicile} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo })}>
+                    <TouchableOpacity accessible accessibilityLabel={`logo de ${match.teams.home.name}`} accessibilityHint={`naviguer vers la fiche complète de ${match.teams.home.name}`} style={styles.domicile} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo })}>
                         <Image source={{ uri: match.teams.home.logo }} style={styles.teamLogo} />
                         <Text style={{ fontFamily: 'Bella', color: 'white', fontSize: 15, textAlign: "center" }}>{teamName[match.teams.home.name] || match.teams.home.name}</Text>
                         <View style={{ gap: 5, flexDirection: "row", marginTop: 5 }}>{formeHome?.split('').map((char, index) => (
@@ -257,7 +257,7 @@ const backgroundSource =
                                         <Text style={styles.liveText}>Match Terminé</Text></View> : null}
                     </View>
 
-                    <TouchableOpacity style={styles.exterieur} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo })}>
+                    <TouchableOpacity accessible accessibilityLabel={`logo de ${match.teams.away.name}`} accessibilityHint={`naviguer vers la fiche complète de ${match.teams.away.name}`} style={styles.exterieur} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo })}>
                         <Image source={{ uri: match.teams.away.logo }} style={match.teams.away.id === 81 ? styles.marseille : styles.teamLogo} />
                         <Text style={{ fontFamily: 'Bella', color: 'white', fontSize: 15, textAlign: "center" }}>{teamName[match.teams.away.name] || match.teams.away.name}</Text>
                         <View style={{ gap: 5, flexDirection: "row" }}>{formeExt?.split('').map((char, index) => (
@@ -303,17 +303,17 @@ const backgroundSource =
 */}
 <View style={styles.equipeDomicile}>
     {match.events.map((evenement) => evenement.detail === "Red Card" || evenement.type === "Goal" && evenement.detail != "Missed Penalty" ? evenement.team.id === match.teams.home.id ? 
-    <TouchableOpacity onPress={() => navigation.navigate("FicheJoueur", { id: evenement.player.id, team: evenement.team.id })} style={{flexDirection: "row", alignItems: "center"}}>
+    <TouchableOpacity accessible accessibilityLabel={`Afficher la fiche complète de ${evenement.player.name}`} accessibilityHint={evenement.detail === "Red Card" ? `carton rouge pour ${evenement.player.name} à la ${evenement.time.elapsed}ème minute` : `but de ${evenement.player.name} à la ${evenement.time.elapsed}ème minute`} onPress={() => navigation.navigate("FicheJoueur", { id: evenement.player.id, team: evenement.team.id })} style={{flexDirection: "row", alignItems: "center"}}>
         {evenement.detail === "Red Card" ? <View style={{flexDirection: "row", alignItems: "center"}}><Image source={red} style={{height: 22, width: 22, objectFit: "contain"}} /><Text style={[styles.text, {fontSize: isMediumScreen ? 14 : 11.5}]}>{evenement.player.name}, </Text><Text style={{fontFamily: "Kanitalik", fontSize: isMediumScreen ? 14 : 11.5}}>{evenement.time.elapsed}'{evenement.time.extra ? `+ ${evenement.time.extra}`:null}</Text></View> : null}
         :
-        {evenement.type === "Goal" && evenement.detail != "Missed Penalty" && evenement.comments != "Penalty Shootout" ? <View><Text style={styles.text}><Text style={styles.goalIcon}>⚽</Text> <Text style={{fontSize: isMediumScreen ? 14 : 11.5}}> {evenement.player.name === "R. Lewandowski" ? "Lewandowski" : evenement.player.name}, </Text> <Text style={{fontFamily: "Kanitalik", fontSize: isMediumScreen ? 14 : 11.5}}>{evenement.time.elapsed}'{evenement.time.extra  ? `+ ${evenement.time.extra}` : null}</Text> {evenement.detail === "Own Goal" ? <Text style={styles.csc}>(csc)</Text> : null} {evenement.detail === "Penalty" ? <Text style={styles.penalty}>(pen)</Text> : null}</Text></View> : null}
+        {evenement.type === "Goal" && evenement.detail != "Missed Penalty" && evenement.comments != "Penalty Shootout" ? <View style={{alignItems: "center"}}><Text style={styles.text}><Text style={styles.goalIcon}>⚽</Text> <Text style={{fontSize: isMediumScreen ? 14 : 11.5}}> {evenement.player.name === "R. Lewandowski" ? "Lewandowski" : evenement.player.name}, </Text> <Text style={{fontFamily: "Kanitalik", fontSize: isMediumScreen ? 14 : 11.5}}>{evenement.time.elapsed}'{evenement.time.extra  ? `+ ${evenement.time.extra}` : null}</Text> {evenement.detail === "Own Goal" ? <Text style={styles.csc}>(csc)</Text> : null} {evenement.detail === "Penalty" ? <Text style={styles.penalty}>(pen)</Text> : null}</Text></View> : null}
     </TouchableOpacity> : null : null)}
 
 </View>
 
 <View style={styles.equipeExt}>
     {match.events.map((evenement) => evenement.detail === "Red Card" || evenement.type === "Goal" && evenement.detail != "Missed Penalty" ? evenement.team.id === match.teams.away.id ? 
-    <TouchableOpacity onPress={() => navigation.navigate("FicheJoueur", { id: evenement.player.id, team: evenement.team.id })} style={{flexDirection: "row", alignItems: "start", justifyContent: "flex-end"}}>
+    <TouchableOpacity accessible accessibilityLabel={`Afficher la fiche complète de ${evenement.player.name}`} accessibilityHint={evenement.detail === "Red Card" ? `carton rouge pour ${evenement.player.name} à la ${evenement.time.elapsed}ème minute` : `but de ${evenement.player.name} à la ${evenement.time.elapsed}ème minute`} onPress={() => navigation.navigate("FicheJoueur", { id: evenement.player.id, team: evenement.team.id })} style={{flexDirection: "row", alignItems: "start", justifyContent: "flex-end"}}>
         {evenement.detail === "Red Card" ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={[styles.text, {fontSize: isMediumScreen ? 14 : 11.5}]}>{evenement.player.name}, </Text><Text style={{fontFamily: "Kanitalik", fontSize: isMediumScreen ? 14 : 11.5}}>{evenement.time.elapsed}'{evenement.time.extra ? `+ ${evenement.time.extra}` : null}</Text><Image source={red} style={{height: 22, width: 22, objectFit: "contain"}} /></View> : null}
         :
         {evenement.type === "Goal" && evenement.detail != "Missed Penalty" && evenement.comments != "Penalty Shootout" ? <View><Text style={styles.text}> <Text style={{fontSize: isMediumScreen ? 14 : 11.5}}> {evenement.player.name === "R. Lewandowski" ? "Lewandowski" : evenement.player.name}, </Text>{evenement.detail === "Own Goal" ? <Text style={styles.csc}>(csc)</Text> : null} {evenement.detail === "Penalty" ? <Text style={styles.penalty}>(pen) </Text> : null} <Text style={{fontFamily: "Kanitalik", fontSize: isMediumScreen ? 14 : 11.5}}>{evenement.time.elapsed}'{evenement.time.extra ? `+ ${evenement.time.extra}` : null}</Text> <Text style={styles.goalIcon}>⚽</Text></Text></View> : null}

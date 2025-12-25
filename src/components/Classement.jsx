@@ -341,7 +341,7 @@ const [rank, setRank] = useState()
 
   {/* BOUTONS */}
       <View style={{ flexDirection: "row", gap: 15, marginBlock: 10, alignItems: "center" }}>
-        <TouchableOpacity onPress={collapseClassement} style={ selectedClassement && styles.selected}>
+        <TouchableOpacity onPress={collapseClassement} style={ selectedClassement && styles.selected} accessible accessibilityRole="button" accessibilityLabel="classement" accessibilityState={openClassement}>
           <LinearGradient
             colors={["rgba(66, 66, 66, 1)", "rgba(165, 165, 165, 1)"]}
             style={selectedClassement ? styles.boutonSelected : styles.bouton}
@@ -350,7 +350,7 @@ const [rank, setRank] = useState()
           </LinearGradient>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={collapseButeurs} style={ selectedButeurs && styles.selected}>
+        <TouchableOpacity onPress={collapseButeurs} style={ selectedButeurs && styles.selected} accessible accessibilityRole="button" accessibilityLabel="buteurs" accessibilityState={{selected : openButeurs}}>
           <LinearGradient
             colors={["rgba(66, 66, 66, 1)", "rgba(165, 165, 165, 1)"]}
             style={selectedButeurs ? styles.boutonSelected : styles.bouton}
@@ -359,7 +359,7 @@ const [rank, setRank] = useState()
           </LinearGradient>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={collapsePasseurs} style={ selectedPasseurs && styles.selected}>
+        <TouchableOpacity onPress={collapsePasseurs} style={ selectedPasseurs && styles.selected} accessible accessibilityRole="button" accessibilityLabel="passeurs" accessibilityState={{selected : openPasseurs}}>
           <LinearGradient
             colors={["rgba(66, 66, 66, 1)", "rgba(165, 165, 165, 1)"]}
             style={selectedPasseurs ? styles.boutonSelected : styles.bouton}
@@ -537,7 +537,7 @@ console.log(tab)
     <View style={{ flex: 1, alignItems: "center", paddingInline: 2 }}>
       {/* BOUTONS */}
       <View style={{ flexDirection: "row", gap: 15, marginBlock: 10, alignItems: "center" }}>
-        <TouchableOpacity onPress={collapseClassement} style={ selectedClassement && styles.selected}>
+        <TouchableOpacity onPress={collapseClassement} style={ selectedClassement && styles.selected} accessible accessibilityRole="button" accessibilityLabel="classement" accessibilityState={{selected : openClassement}}>
           <LinearGradient
             colors={["rgba(66, 66, 66, 1)", "rgba(165, 165, 165, 1)"]}
             style={selectedClassement ? styles.boutonSelected : styles.bouton}
@@ -546,7 +546,7 @@ console.log(tab)
           </LinearGradient>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={collapseButeurs} style={ selectedButeurs && styles.selected}>
+        <TouchableOpacity onPress={collapseButeurs} style={ selectedButeurs && styles.selected} accessible accessibilityRole="button" accessibilityLabel="buteurs" accessibilityState={{selected : openButeurs}}>
           <LinearGradient
             colors={["rgba(66, 66, 66, 1)", "rgba(165, 165, 165, 1)"]}
             style={selectedButeurs ? styles.boutonSelected : styles.bouton}
@@ -555,7 +555,7 @@ console.log(tab)
           </LinearGradient>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={collapsePasseurs} style={ selectedPasseurs && styles.selected}>
+        <TouchableOpacity onPress={collapsePasseurs} style={ selectedPasseurs && styles.selected} accessible accessibilityRole="button" accessibilityLabel="passeurs" accessibilityState={{selected : openPasseurs}}>
           <LinearGradient
             colors={["rgba(66, 66, 66, 1)", "rgba(165, 165, 165, 1)"]}
             style={selectedPasseurs ? styles.boutonSelected : styles.bouton}

@@ -277,6 +277,8 @@ import mahrez from "../assets/portraits/fiche/mahrez.png"
 import amoura from "../assets/portraits/fiche/amoura.png"
 import luca from "../assets/portraits/fiche/luca.webp"
 import sarr from "../assets/portraits/fiche/sarr.webp"
+import amrabat from "../assets/portraits/fiche/amrabat.png"
+
 
 
 
@@ -284,6 +286,7 @@ import sarr from "../assets/portraits/fiche/sarr.webp"
 
 
 export const fichesJoueurs = {
+    74: amrabat,
     2218: sarr,
     732: luca,
     200139: amoura,

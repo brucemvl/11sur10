@@ -27,7 +27,6 @@ const COMPETITIONS = {
   spain: "https://v3.football.api-sports.io/fixtures?league=140&season=2025",
   germany: "https://v3.football.api-sports.io/fixtures?league=78&season=2025",
   italy: "https://v3.football.api-sports.io/fixtures?league=135&season=2025",
-  inter: "https://v3.football.api-sports.io/fixtures?league=1168&season=2025",
   can: "https://v3.football.api-sports.io/fixtures?league=6&season=2025",
   cdf: 'https://v3.football.api-sports.io/fixtures?league=66&season=2025',
    fac: 'https://v3.football.api-sports.io/fixtures?league=45&season=2025',

@@ -5,6 +5,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { SvgUri } from 'react-native-svg';
 import { teamName } from '../datas/teamNames';
 
+const apiKey = process.env.API_KEY;
+
 function LivePage({ navigation }) {
   const [lives, setLives] = useState([]);
   const [isRefreshing, setIsRefreshing] = useState(false); // État pour gérer le rafraîchissement

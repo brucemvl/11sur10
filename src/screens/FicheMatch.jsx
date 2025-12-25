@@ -480,7 +480,7 @@ setCompoBasique(true)
             <ScrollView contentContainerStyle={[styles.bloc, isMediumScreen && {paddingInline: 40}]} refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />} >
                 <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} />
                 <View style={{flexDirection: "row", marginBottom: 10}}>
-                { match.statistics.length > 0 ? <TouchableOpacity onPress={openDetails} style={selected ? styles.selectedTab : styles.tab}  accessible accessibilityRole='button' accessibilityLabel='Details du match' accessibilityHint='afficher les details du match' accessibilityState={{selected: selected}}>
+                { match.statistics.length > 0 ? <TouchableOpacity onPress={openDetails} style={selected ? styles.selectedTab : styles.tab}  accessible accessibilityRole='button' accessibilityLabel='Détails du match' accessibilityHint='afficher les détails du match' accessibilityState={{selected: selected}}>
                             <Text style={selected ? styles.selectedText : styles.text}>Details</Text>
                         </TouchableOpacity> : null }
                     <TouchableOpacity onPress={openHisto} style={selected4 ? styles.selectedTab : styles.tab} accessible accessibilityRole='button' accessibilityLabel='Historique' accessibilityHint='afficher lhistorique des rencontres entre les deux équipes' accessibilityState={{selected: selected4}}>
@@ -525,7 +525,7 @@ setCompoBasique(true)
                 <Affiche match={match} roundd={roundd} homeStats={homeStats} extStats={extStats} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} />
                 <View style={styles.section}>
                     <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.ficheSelecteur}>
-                        <TouchableOpacity onPress={openDetails} style={selected ? styles.selectedTab : styles.tab} accessible accessibilityRole='button' accessibilityLabel='Details du match' accessibilityHint='afficher les details du match' accessibilityState={{selected: selected}}>
+                        <TouchableOpacity onPress={openDetails} style={selected ? styles.selectedTab : styles.tab} accessible accessibilityRole='button' accessibilityLabel='Détails du match' accessibilityHint='afficher les détails du match' accessibilityState={{selected: selected}}>
                             <Text style={selected ? styles.selectedText : styles.text}>Details</Text>
                         </TouchableOpacity>
                         {match.players.length === 0 ?

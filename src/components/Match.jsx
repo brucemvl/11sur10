@@ -30,6 +30,7 @@ function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id,
                      <TouchableOpacity
       style={styles.match}
       onPress={() => navigation.navigate('FicheMatch', { id })}  // Naviguer vers la fiche du match
+      accessible accessibilityHint={`naviguer vers la fiche du match`}
     >
 
       <View style={styles.dateheure}>
