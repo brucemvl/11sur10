@@ -15,8 +15,33 @@ const teamNameNotif = {
   "Barcelona" : "FC Barcelone",
   "Central African Republic" : "Centrafrique",
   "Cape Verde Islands" : "Cap Vert",
+  "Tunisia" : "Tunisie",
+  "Manchester United" : "Manchester Utd",
+  "Manchester City" : "Man City"
 }
 
+const scoreMessages = {
+  opening: [
+    (team) => `⚽ ${team} ouvre le score !`,
+    (team) => `⚽ Ouverture du score pour ${team} !`,
+    (team) => `⚽ Premier but du match pour ${team} !`,
+  ],
+
+  equalizer: [
+    (team) => `⚽ Égalisation de ${team} !`,
+    (team) => `⚽ ${team} remet les compteurs à zéro !`,
+    (team) => `⚽ ${team} revient au score !`,
+  ],
+
+  scoreUpdate: [
+    (home, away, h, a) =>
+      `⚽ Nouveau score : ${home} ${h} - ${a} ${away}`,
+  ],
+};
+
+function pickRandom(messages) {
+  return messages[Math.floor(Math.random() * messages.length)];
+}
 
 // 🔁 Rafraîchit la liste des matchs à suivre (toutes les 5 min)
 async function refreshActiveMatches() {
@@ -145,11 +170,42 @@ const scoreChanged = prevScore.home !== currentHomeGoals || prevScore.away !== c
 
 // Évite d'envoyer une notif 0-0 au premier check
 if (scoreChanged && !(isFirstCheck && currentHomeGoals === 0 && currentAwayGoals === 0)) {
-  const scoreMsg = `⚽ Nouveau score : ${teamNameNotif[homeTeam] || homeTeam} ${currentHomeGoals} - ${currentAwayGoals} ${teamNameNotif[awayTeam] || awayTeam}`;
-  console.log(scoreMsg);
+  const home = teamNameNotif[homeTeam] || homeTeam;
+const away = teamNameNotif[awayTeam] || awayTeam;
+
+let scoreMsg = pickRandom(scoreMessages.scoreUpdate)(
+  home,
+  away,
+  currentHomeGoals,
+  currentAwayGoals
+);
+
+const prevHome = prevScore.home;
+const prevAway = prevScore.away;
+
+// 🟢 OUVERTURE DU SCORE
+if (prevHome === 0 && prevAway === 0) {
+  if (currentHomeGoals === 1 && currentAwayGoals === 0) {
+    scoreMsg = pickRandom(scoreMessages.opening)(home);
+  }
+  if (currentHomeGoals === 0 && currentAwayGoals === 1) {
+    scoreMsg = pickRandom(scoreMessages.opening)(away);
+  }
+}
+
+// ⚖️ ÉGALISATION
+if (prevHome !== null && prevAway !== null) {
+  if (prevHome < prevAway && currentHomeGoals === currentAwayGoals) {
+    scoreMsg = pickRandom(scoreMessages.equalizer)(home);
+  }
+
+  if (prevAway < prevHome && currentHomeGoals === currentAwayGoals) {
+    scoreMsg = pickRandom(scoreMessages.equalizer)(away);
+  }
+}
 
   await sendPushNotification(tokens, {
-    title: `${teamNameNotif[homeTeam] || homeTeam} vs ${teamNameNotif[awayTeam] || awayTeam}`,
+    title: `${teamNameNotif[homeTeam] || homeTeam} ${currentHomeGoals} - ${currentAwayGoals} ${teamNameNotif[awayTeam] || awayTeam}`,
     body: scoreMsg,
     data: {
       screen: 'FicheMatch',

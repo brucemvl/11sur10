@@ -15,6 +15,8 @@ import slot from "../assets/portraits/slot.png"
 import mourinho from "../assets/portraits/mourinho.png"
 import deschamps from "../assets/portraits/deschamps.png"
 import dezerbi from "../assets/portraits/dezerbi.png"
+import regragui from "../assets/portraits/regragui.png"
+import petkovic from "../assets/portraits/petkovic.png"
 import { View, Text, Image, StyleSheet, ScrollView, Animated, TouchableOpacity } from "react-native"
 import { useEffect, useState } from "react"
 import { useRoute } from "@react-navigation/native";
@@ -55,7 +57,10 @@ export const coachImages = {
     17926: beye,
     2462: mourinho,
     180: deschamps,
-      5832: deschamps
+      5832: deschamps,
+        2652: regragui,
+        1155: petkovic
+
   };
 
 function FicheCoach() {

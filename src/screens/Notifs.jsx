@@ -356,7 +356,7 @@ const styles = StyleSheet.create({
   teamLogo: {
     height: 40,
     width: 40,
-    objectFit: "contain"
+    resizeMode: "contain"
     
   },
   saved: {

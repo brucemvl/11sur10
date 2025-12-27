@@ -22,6 +22,8 @@ import slot from "../assets/portraits/slot.png"
 import beye from "../assets/portraits/beye.png"
 import mourinho from "../assets/portraits/mourinho.png"
 import deschamps from "../assets/portraits/deschamps.png"
+import regragui from "../assets/portraits/regragui.png"
+import petkovic from "../assets/portraits/petkovic.png"
 
 
 
@@ -88,7 +90,9 @@ useEffect(() => {
   2006: slot,
   17926: beye,
   2462: mourinho,
-  180: deschamps
+  180: deschamps,
+  2652: regragui,
+  1155: petkovic
 };
 
 const coachNames = {
@@ -108,7 +112,10 @@ const coachNames = {
   19134: "Didier Digard",
   2006: "Arne Slot",
   3: "Manuel Pellegrini",
-  21528: "Cesc Fabregas"
+  21528: "Cesc Fabregas",
+  2652: "Walid Regragui",
+    1155: "Vladimir Petkovic"
+
 }
   
   
@@ -117,7 +124,6 @@ const coachNames = {
 
   const noteMax = Math.max(...noteDom, ...noteExt)
 
-    console.log(coachDomicile)
 
   const renderPlayer = (player, isSubstitute = false) => {
     return (
