@@ -426,7 +426,7 @@ setCompoBasique(true)
                         </TouchableOpacity> : null }
                         </View>
                         {compos2 && <SchemaAvance id={match.fixture.id} match={match} compoDom={compoDom} compoExt={compoExt} colors={colors} />}
-                        {apercu && <Indisponibles injuries={injuries} match={match} />}
+                       {injuries.length <= 0 ? apercu &&  <Stats match={match}/> : apercu && <View><Stats match={match} /><Indisponibles injuries={injuries} match={match} /></View>}
                         {histo && <Histo historique={historique} />}
                         {classement && <Classement id={match.league.id}/>}    
 

@@ -74,9 +74,32 @@ app.post('/send-notification', async (req, res) => {
   }
 });
 
+app.get('/download', (req, res) => {
+  const userAgent = req.headers['user-agent'] || '';
+
+  // 📱 Android
+  if (/android/i.test(userAgent)) {
+    return res.redirect(
+      'https://play.google.com/store/apps/details?id=com.onzesur10.app'
+    );
+  }
+
+  // 🍎 iOS
+  if (/iphone|ipad|ipod/i.test(userAgent)) {
+    return res.redirect(
+      'https://apps.apple.com/fr/app/11sur10-r%C3%A9sultats-foot-live/id6739251747'
+    );
+  }
+
+  // 💻 Fallback (PC, autres)
+  return res.redirect('https://11sur10.app');
+});
+
 // ✅ Middleware 404
 app.use((req, res) => {
   res.status(404).json({ error: 'Route non trouvée' });
 });
+
+
 
 module.exports = app;

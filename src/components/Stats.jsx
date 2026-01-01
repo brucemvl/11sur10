@@ -2,8 +2,16 @@ import { View, Text, Image, TouchableOpacity, ActivityIndicator, StyleSheet } fr
 import { useState, useEffect } from "react";
 import { teamName } from "../datas/teamNames";
 import warning from "../assets/warning.png"
+import { Animated, Easing } from 'react-native';
+import { useRef } from "react";
+
+
 
 function Stats({match}){
+
+    const fadeAnim = useRef(new Animated.Value(0)).current;
+const translateAnim = useRef(new Animated.Value(10)).current;
+const pulseAnim = useRef(new Animated.Value(1)).current;
 
       const [statsHome, setStatsHome] = useState();
         const [statsExt, setStatsExt] = useState();
@@ -44,76 +52,170 @@ function Stats({match}){
         console.log(err);
       });
   }, [match.fixture.id]);
-      
-    
-console.log(statsHome)
-console.log(statsExt)
 
-if(!statsHome || !statsExt){
+
+
+ const messages = [];
+
+if (statsHome && statsExt) {
+
+  // 🏠 HOME — Invincibilité totale
+  if (
+    statsHome.fixtures?.loses?.total === 0 &&
+    statsHome.fixtures?.played?.total > 1
+  ) {
+    messages.push({
+      type: 'home',
+      text: `${teamName[statsHome.team.name] || statsHome.team.name} n'a jamais perdu ${statsHome.league.id === 6 ? "dans cette CAN" : "cette saison"}
+            (${statsHome.fixtures?.wins.total} ${statsHome.fixtures?.wins.total === 1 ? "victoire" : "victoires"} - ${statsHome.fixtures?.draws.total} ${statsHome.fixtures?.draws.total === 1 ? "nul" : "nuls"})`,
+
+    });
+  }
+
+  // 🏠 HOME — Invincibilité à domicile
+  if (
+    statsHome.fixtures?.loses?.home === 0 &&
+    statsHome.fixtures?.loses?.total !== 0 &&
+    statsHome.fixtures?.played?.total > 1 &&
+    statsHome.league?.id !== 6
+  ) {
+    messages.push({
+      type: 'home',
+      text: `${teamName[statsHome.team.name] || statsHome.team.name} n'a jamais perdu à domicile cette saison
+      (${statsHome.fixtures?.wins.home} ${statsHome.fixtures?.wins.home === 1 ? "victoire" : "victoires"} - ${statsHome.fixtures?.draws.home} ${statsHome.fixtures?.draws.home === 1 ? "nul" : "nuls"})`,
+    });
+  }
+
+  // 🏠 HOME — A marqué à chaque match
+  if (
+    statsHome.failed_to_score?.total === 0 &&
+    statsHome.fixtures?.played?.total > 1
+  ) {
+    messages.push({
+      type: 'home',
+      text: `${teamName[statsHome.team.name] || statsHome.team.name} a marqué dans tous ses matchs de ${statsHome?.league.id === 6 ? "la CAN" : statsHome?.league.name }`,
+    });
+  }
+
+  // ✈️ AWAY — A marqué à chaque match
+  if (
+    statsExt.failed_to_score?.total === 0 &&
+    statsExt.fixtures?.played?.total > 1
+  ) {
+    messages.push({
+      type: 'away',
+      text: `${teamName[statsExt.team.name] || statsExt.team.name} a marqué dans tous ses matchs de ${statsExt?.league.id === 6 ? "la CAN" : statsExt?.league.name}`,
+    });
+  }
+
+  // ✈️ AWAY — Invincibilité totale
+  if (
+    statsExt.fixtures?.loses?.total === 0 &&
+    statsExt.fixtures?.played?.total > 1
+  ) {
+    messages.push({
+      type: 'away',
+      text: `${teamName[statsExt.team.name] || statsExt.team.name} n'a jamais perdu ${statsExt.league.id === 6 ? "dans cette CAN" : "cette saison"}
+      (${statsExt.fixtures?.wins.total} ${statsExt.fixtures?.wins.total === 1 ? "victoire" : "victoires"} - ${statsExt.fixtures?.draws.total} ${statsExt.fixtures?.draws.total === 1 ? "nul" : "nuls"})`,
+    });
+  }
+
+  // ✈️ AWAY — Jamais gagné à l’extérieur
+  if (
+    statsExt.fixtures?.wins?.away === 0 &&
+    statsExt.fixtures?.played?.total > 1 &&
+    statsExt.league?.id !== 6
+  ) {
+    messages.push({
+      type: 'away',
+      text: `${teamName[statsExt.team.name] || statsExt.team.name} n'a jamais gagné à l'extérieur cette saison
+            (${statsExt.fixtures?.loses.away} ${statsExt.fixtures?.loses.away === 1 ? "défaite" : "défaites"} - ${statsExt.fixtures?.draws.away} ${statsExt.fixtures?.draws.away === 1 ? "nul" : "nuls"})`,
+
+    });
+  }
+}
+   
+
+
+useEffect(() => {
+  if (messages.length > 0) {
+    Animated.parallel([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 400,
+        useNativeDriver: true,
+      }),
+      Animated.timing(translateAnim, {
+        toValue: 0,
+        duration: 400,
+        easing: Easing.out(Easing.ease),
+        useNativeDriver: true,
+      }),
+    ]).start();
+
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulseAnim, {
+          toValue: 1.25,
+          duration: 800,
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulseAnim, {
+          toValue: 1,
+          duration: 800,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  }
+}, [messages.length]);
+
+
+   if(!statsHome || !statsExt){
     return (
         <ActivityIndicator />
     )
 }
 
     return (
-        <View style={styles.container}>
+  <View style={styles.container}>
+    {messages.length > 0 && (
+  <Animated.View
+    style={{
+      opacity: fadeAnim,
+      transform: [{ translateY: translateAnim }],
+      alignItems: 'center',
+    }}
+  >
+    <Animated.Image
+      source={warning}
+      style={{
+        width: 40,
+        height: 40,
+        marginBottom: 6,
+        transform: [{ scale: pulseAnim }],
+      }}
+      accessibilityLabel="Statistiques importantes"
+    />
 
-
-            {statsHome.fixtures.loses.total === 0 && statsHome.fixtures.played.total > 1 ? 
-             <View style={{marginBlock: 5, alignItems: "center"}}>
-                                <Image source={warning} style={{height: 40, width: 40}}/>
-            {statsHome.fixtures.wins.total === statsHome.fixtures.played.total ? 
-            <Text style={{fontFamily: "Bangers", color: "darkblue", paddingInline: 1, textAlign: "center", marginBlock: 3}}>{teamName[statsHome.team.name] || statsHome.team.name} a gagné tous ses matchs en {statsHome.league.id === 6 ? "Coupe d'Afrique des Nations" : statsHome.league.name} cette saison</Text>
-            :
-                         <View style={{marginBlock: 5}}>
-            <Text style={{fontFamily: "Bangers", color: "darkblue", paddingInline: 1, textAlign: "center", marginBlock: 2}}>{teamName[statsHome.team.name] || statsHome.team.name} n'a jamais perdu en {statsHome.league.id === 6 ? "Coupe d'Afrique des Nations" : statsHome.league.name} cette saison</Text>
-                          <Text style={{fontFamily: "Bangers", color: "darkblue", paddingInline: 1, textAlign: "center"}}>({statsHome.fixtures.wins.home} {statsHome.fixtures.wins.home === 1 ? "victoire" : "victoires"} - {statsHome.fixtures.draws.home} {statsHome.fixtures.draws.home === 1 ? "nul" : "nuls"})</Text>
-</View>}
-</View>
-             : 
-             null}
-
-             {statsHome.fixtures.loses.home === 0 && statsHome.fixtures.loses.total != 0 && statsHome.league.id != 6 ? 
-             <View style={{marginBlock: 5, alignItems: "center"}}>
-                <Image source={warning} style={{height: 40, width: 40}}/>
-            <Text style={{fontFamily: "Bangers", color: "darkblue", paddingInline: 1, textAlign: "center", marginBlock: 2}}>{teamName[statsHome.team.name] || statsHome.team.name} n'a jamais perdu a domicile en {statsHome.league.id === 6 ? "Coupe d'Afrique des Nations" : statsHome.league.name} cette saison</Text>
-             <Text style={{fontFamily: "Bangers", color: "darkblue", paddingInline: 1, textAlign: "center"}}>({statsHome.fixtures.wins.home} {statsHome.fixtures.wins.home === 1 ? "victoire" : "victoires"} - {statsHome.fixtures.draws.home} {statsHome.fixtures.draws.home === 1 ? "nul" : "nuls"})</Text>
-             </View>
-             : 
-             null}
-
-             {statsHome.failed_to_score.total === 0 && statsHome.fixtures.played.total > 1 ? 
-             <Text style={{fontFamily: "Bangers", color: "darkblue", textAlign: "center", paddingInline: 1, textAlign: "center", marginBlock: 3}}>{teamName[statsHome.team.name] || statsHome.team.name} a marqué dans tous ses matchs de {statsHome.league.id === 6 ? "Coupe d'Afrique des Nations" : statsHome.league.name} cette saison</Text>
-            : null
-            }
-
-            {statsExt.failed_to_score.total === 0 && statsExt.fixtures.played.total > 1 ? 
-             <Text style={{fontFamily: "Bangers", color: "rgba(90, 90, 90, 1)", textAlign: "center", paddingInline: 1, textAlign: "center", marginBlock: 3}}>{teamName[statsExt.team.name] || statsExt.team.name} a marqué dans tous ses matchs de {statsExt.league.id === 6 ? "Coupe d'Afrique des Nations" : statsExt.league.name} cette saison</Text>
-            : null
-            }
-
-
-{statsExt.fixtures.loses.total === 0 && statsExt.fixtures.played.total > 1 ? 
-<View style={{marginBlock: 5, alignItems: "center"}}>
-                                <Image source={warning} style={{height: 40, width: 40}}/>
-            {statsExt.fixtures.wins.total === statsExt.fixtures.played.total ? 
-            <Text style={{fontFamily: "Bangers", color: "rgba(90, 90, 90, 1)", paddingInline: 1, textAlign: "center", marginBlock: 3}}>{teamName[statsExt.team.name] || statsExt.team.name} a gagné tous ses matchs en {statsExt.league.id === 6 ? "Coupe d'Afrique des Nations" : statsExt.league.name} cette saison</Text>
-            :
-            <Text style={{fontFamily: "Bangers", color: "rgba(90, 90, 90, 1)", paddingInline: 1, textAlign: "center", marginBlock: 3}}>{teamName[statsExt.team.name] || statsExt.team.name} n'a jamais perdu en {statsExt.league.id === 6 ? "Coupe d'Afrique des Nations" : statsExt.league.name} cette saison</Text>
-}
-</View>
-             : 
-             null}
-
-            {statsExt.fixtures.wins.away === 0 && statsExt.fixtures.played.total > 1 && statsExt.league.id != 6 ? 
-                         <View style={{marginBlock: 5}}>
-            <Text style={{fontFamily: "Bangers", color: "rgba(90, 90, 90, 1)", paddingInline: 1, textAlign: "center", marginBlock: 2}}>{teamName[statsExt.team.name] || statsExt.team.name} n'a jamais gagné à l'exterieur en {statsExt.league.id === 6 ? "Coupe d'Afrique des Nations" : statsExt.league.name} cette saison</Text>
-                         <Text style={{fontFamily: "Bangers", color: "rgba(90, 90, 90, 1)", paddingInline: 1, textAlign: "center"}}>({statsExt.fixtures.loses.away} {statsExt.fixtures.loses.away === 1 ? "defaite" : "defaites"} - {statsExt.fixtures.draws.away} {statsExt.fixtures.draws.away === 1 ? "nul" : "nuls"})</Text>
-</View> 
-             : 
-             null}
-        </View>
-    )
+    {messages.map((item, index) => (
+      <Text
+        key={index}
+        style={{
+          fontFamily: 'Bangers',
+          color: item.type === 'home' ? 'darkblue' : 'rgba(90,90,90,1)',
+          textAlign: 'center',
+          marginVertical: 3,
+          paddingHorizontal: 3,
+        }}
+      >
+        {item.text}
+      </Text>
+    ))}
+  </Animated.View>
+)}
+  </View>
+);
 
 }
 

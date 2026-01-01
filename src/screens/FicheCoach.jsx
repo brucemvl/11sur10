@@ -185,7 +185,7 @@ function FicheCoach() {
           <Image source={coach.id === 180 ? {uri: "https://media.api-sports.io/football/teams/2.png"} : {uri: coach.team.logo }} style={{ height: 70, width: 70, position: "relative", right: 48, bottom: 20, objectFit: "contain"
            }} />
           <View style={styles.bio}>
-            <Text style={styles.name}>{coach.name}</Text>
+            <Text style={styles.name}>{coach.id === 2652 ? "Walid Regragui" : coach.name}</Text>
             <View style={{ width: "100%", flexDirection: "column", alignItems: "center" }}> <Text style={styles.infoText}>Né le {formattedDate}</Text><View style={{ flexDirection: "row", alignItems: "center" }}><Text style={{ fontFamily: "Kanitalic", color: "white" }}> à {coach.birth.place},</Text><Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: 15 }}> {coach.birth.country === "Spain" ? "Espagne" : coach.birth.country === "Netherlands" ? "Pays-Bas" : coach.birth.country === "Belgium" ? "Belgique" : coach.birth.country === "Brazil" ? "Bresil" : coach.birth.country === "England" ? "Angleterre" : coach.birth.country === "Türkiye" ? "Turquie" : coach.birth.country === "Switzerland" ? "Suisse" : coach.birth.country === "Germany" ? "Allemagne" : coach.birth.country}</Text></View></View>
 
           </View>

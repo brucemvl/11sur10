@@ -4,6 +4,9 @@ import {
   ScrollView,
   RefreshControl,
   StyleSheet,
+  TouchableOpacity,
+  Image,
+  Share,
   useWindowDimensions,
   ActivityIndicator,
   DeviceEventEmitter,
@@ -15,19 +18,19 @@ import Filtres from "../components/Filtres";
 import Banner from "../components/Banner";
 import Aujourdhui from "../components/Aujourdhui";
 import Favorite from "../components/Favorite";
+import share from "../assets/share.png"
 
-// ⚠️ IDÉAL : mets la clé API dans un .env
 const API_KEY = "5ff22ea19db11151a018c36f7fd0213b";
 
 // 📌 Liste des compétitions (facile à maintenir)
 const COMPETITIONS = {
   ucl: "https://v3.football.api-sports.io/fixtures?league=2&season=2025",
+    can: "https://v3.football.api-sports.io/fixtures?league=6&season=2025",
   france: "https://v3.football.api-sports.io/fixtures?league=61&season=2025",
   england: "https://v3.football.api-sports.io/fixtures?league=39&season=2025",
   spain: "https://v3.football.api-sports.io/fixtures?league=140&season=2025",
   germany: "https://v3.football.api-sports.io/fixtures?league=78&season=2025",
   italy: "https://v3.football.api-sports.io/fixtures?league=135&season=2025",
-  can: "https://v3.football.api-sports.io/fixtures?league=6&season=2025",
   cdf: 'https://v3.football.api-sports.io/fixtures?league=66&season=2025',
    fac: 'https://v3.football.api-sports.io/fixtures?league=45&season=2025',
    copa: 'https://v3.football.api-sports.io/fixtures?league=143&season=2025',
@@ -139,6 +142,20 @@ const Home = ({ selectedTeamId }) => {
   }, [matchsByKey]);
 
   
+  const shareApp = async () => {
+  try {
+    await Share.share({
+      message:
+        `⚽ Découvre 11sur10 !\n` +
+        `Scores en direct, stats, notifications ⚡\n` +
+        `👉 https://one1sur10.onrender.com/download`,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
   if (!fontsLoaded) return null;
 
   return (
@@ -161,7 +178,21 @@ const Home = ({ selectedTeamId }) => {
         {selectedTeamId != null && (
           <Favorite selectedTeamId={selectedTeamId} />
         )}
+
+        <TouchableOpacity
+  onPress={shareApp}
+  style={{
+    paddingTop: 10,
+    paddingHorizontal: 18,
+    borderRadius: 20,
+    alignSelf: 'center',
+    marginTop: 10,
+  }}
+>
+  <Image source={share} style={{height: 30, width: 30}}/>
+</TouchableOpacity>
       </View>
+      
     </ScrollView>
   );
 };
