@@ -19,6 +19,7 @@ import epaule from "../assets/epaule.png"
 import tibia from "../assets/os.png"
 import metatarse from "../assets/metatarse.png"
 import flag from "../assets/flag2.png"
+import main from "../assets/main.png"
 
 
 import { useNavigation } from "@react-navigation/native";
@@ -269,6 +270,8 @@ console.log(injuries)
                                                 <Image source={tibia} style={styles.icone} /><Text style={{ fontFamily: "Kanito", fontSize: 10 }}>Fracture péroné</Text>
                                             </View> : element.player.reason === "International duty" ? <View style={{ flexDirection: "row", gap: 3}}>
                                                 <Image source={flag} style={styles.icone} /><Text style={{ fontFamily: "Kanito", fontSize: 9.5 }}>En selection</Text>
+                                            </View> : element.player.reason === "Broken Hand" ? <View style={{ flexDirection: "row", gap: 3, alignItems: "center"}}>
+                                                <Image source={main} style={[styles.icone, {height: 22, width: 16}]} /><Text style={{ fontFamily: "Kanito", fontSize: 9.5 }}>Main cassée</Text>
                                             </View> : <View></View>}
                             </LinearGradient>
                         </TouchableOpacity> : null)}</View>
@@ -383,6 +386,8 @@ console.log(injuries)
                                                 <Image source={tibia} style={styles.icone} /> <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Fracture péroné</Text>
                                             </View> : element.player.reason === "International duty" ? <View style={{ flexDirection: "row", gap: 3}}>
                                                 <Image source={flag} style={styles.icone} /><Text style={{ fontFamily: "Kanito", fontSize: 9.5 }}>En selection</Text>
+                                            </View> : element.player.reason === "Broken Hand" ? <View style={{ flexDirection: "row", gap: 3, alignItems: "center"}}>
+                                                <Image source={main} style={[styles.icone, {height: 22, width: 16}]} /><Text style={{ fontFamily: "Kanito", fontSize: 9.5 }}>Main cassée</Text>
                                             </View> : <View></View>}
                             </LinearGradient>
                         </TouchableOpacity> : null)}</View>

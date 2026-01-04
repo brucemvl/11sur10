@@ -84,7 +84,7 @@ app.get('/download', (req, res) => {
     );
   }
 
-  // 🍎 iOS
+  //  iOS
   if (/iphone|ipad|ipod/i.test(userAgent)) {
     return res.redirect(
       'https://apps.apple.com/fr/app/11sur10-r%C3%A9sultats-foot-live/id6739251747'
@@ -92,7 +92,7 @@ app.get('/download', (req, res) => {
   }
 
   // 💻 Fallback (PC, autres)
-  return res.redirect('https://11sur10.app');
+  return res.redirect('https://apps.apple.com/fr/app/11sur10-r%C3%A9sultats-foot-live/id6739251747');
 });
 
 // ✅ Middleware 404

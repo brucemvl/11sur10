@@ -70,6 +70,7 @@ import banner74 from "../assets/banner75.webp"
 import banner75 from "../assets/banner76.webp"
 import banner76 from "../assets/banner77.webp"
 import banner77 from "../assets/banner78.webp"
+import banner78 from "../assets/banner79.webp"
 
 
 
@@ -81,7 +82,7 @@ import { View, Text, Image, StyleSheet, Animated, useWindowDimensions } from "re
 const photosBan = [
   banner3, banner4, banner5, banner6, banner7, banner8, banner9,
   banner10, banner11, banner12, banner13, banner14, banner15, banner16, banner17, banner18, banner19, banner20, banner21, banner22, banner23, banner24, banner25, banner26, banner27, banner28, banner29, banner30, banner31, banner32, banner33, banner34, banner35, banner36, banner37, banner38, banner39, banner40, banner41, banner42, banner43, banner44, banner45, banner46, banner47, banner48, banner49, banner50, banner51,banner52, banner53, banner54, banner58, banner59, banner60, banner61,
-  banner62, banner63, banner64, banner65, banner66, banner67, banner68, banner69, banner70, banner71, banner72, banner73, banner74, banner75, banner76, banner77
+  banner62, banner63, banner64, banner65, banner66, banner67, banner68, banner69, banner70, banner71, banner72, banner73, banner74, banner75, banner76, banner77, banner78
 ];
 
 

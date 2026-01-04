@@ -184,24 +184,33 @@ const prevHome = prevScore.home;
 const prevAway = prevScore.away;
 
 // 🟢 OUVERTURE DU SCORE
-if (prevHome === 0 && prevAway === 0) {
-  if (currentHomeGoals === 1 && currentAwayGoals === 0) {
-    scoreMsg = pickRandom(scoreMessages.opening)(home);
-  }
-  if (currentHomeGoals === 0 && currentAwayGoals === 1) {
-    scoreMsg = pickRandom(scoreMessages.opening)(away);
-  }
+const wasNil = prevHome === null && prevAway === null;
+const wasZeroZero = prevHome === 0 && prevAway === 0;
+
+// 🟢 OUVERTURE DU SCORE
+if (
+  (wasNil || wasZeroZero) &&
+  (
+    (currentHomeGoals === 1 && currentAwayGoals === 0) ||
+    (currentHomeGoals === 0 && currentAwayGoals === 1)
+  )
+) {
+  const scoringTeam =
+    currentHomeGoals > currentAwayGoals ? home : away;
+
+  scoreMsg = pickRandom(scoreMessages.opening)(scoringTeam);
 }
 
 // ⚖️ ÉGALISATION
-if (prevHome !== null && prevAway !== null) {
-  if (prevHome < prevAway && currentHomeGoals === currentAwayGoals) {
-    scoreMsg = pickRandom(scoreMessages.equalizer)(home);
-  }
 
-  if (prevAway < prevHome && currentHomeGoals === currentAwayGoals) {
-    scoreMsg = pickRandom(scoreMessages.equalizer)(away);
-  }
+const prevTotal = (prevHome ?? 0) + (prevAway ?? 0);
+const currentTotal = currentHomeGoals + currentAwayGoals;
+
+if (currentTotal > prevTotal && currentHomeGoals === currentAwayGoals) {
+  const equalizingTeam =
+    currentHomeGoals > prevHome ? home : away;
+
+  scoreMsg = pickRandom(scoreMessages.equalizer)(equalizingTeam);
 }
 
   await sendPushNotification(tokens, {
@@ -251,8 +260,10 @@ if (previousEvents[eventKey]) continue;
     await sendPushNotification(tokens, {
       title: `${teamNameNotif[homeTeam] || homeTeam} ${currentHomeGoals} - ${currentAwayGoals} ${teamNameNotif[awayTeam] || awayTeam}`,
       body: goalMsg,
-      data: { matchId },
-    });
+data: {
+      screen: 'FicheMatch',
+      matchId,
+    },    });
 
     previousEvents[eventKey] = true; // ✅ Marque comme déjà traité
   }
@@ -264,8 +275,10 @@ if (previousEvents[eventKey]) continue;
     await sendPushNotification(tokens, {
       title: `${teamNameNotif[homeTeam] || homeTeam} vs ${teamNameNotif[awayTeam] || awayTeam}`,
       body: redCardMsg,
-      data: { matchId },
-    });
+data: {
+      screen: 'FicheMatch',
+      matchId,
+    },    });
 
     previousEvents[eventKey] = true; // ✅ Marque comme déjà traité
   }

@@ -184,9 +184,7 @@ const Home = ({ selectedTeamId }) => {
   style={{
     paddingTop: 10,
     paddingHorizontal: 18,
-    borderRadius: 20,
     alignSelf: 'center',
-    marginTop: 10,
   }}
 >
   <Image source={share} style={{height: 30, width: 30}}/>
