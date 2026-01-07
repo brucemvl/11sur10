@@ -103,14 +103,14 @@ const Evenements = ({ match }) => {
                           <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: element.player.id, team: element.team.id })} style={{ flexDirection: "row", alignItems: "center" }}>
                             <Image source={portraitsJoueurs[element.player.id] || { uri: getPlayerPhoto(element.player.id, match) }} style={{ width: 35, height: 35, borderRadius: 20, marginRight: 5, marginBlock: 4 }} />
                             <Text style={styles.playerName}>{element.player.name}</Text>
-                            {element.comments === "Professional handball" ? <Text style={styles.motif}> (Main volontaire)</Text> : element.comments === "Off the ball foul" ? <Text style={styles.motif}> (Faute sans ballon)</Text> : element.comments === "Handling" ? <Text style={styles.motif}> (Main)</Text> : element.comments === "Unsportsmanlike conduct" ? <Text style={styles.motif}> (Comportement Antisportif)</Text> : element.comments === "Handball" ? <Text style={styles.motif}> (Main)</Text> : element.comments === "Foul" ? <Text style={styles.motif}> (Faute)</Text> : element.comments === "Argument" ? <Text style={styles.motif}> (Protestation)</Text> : element.comments === "Violent conduct" ? <Text style={styles.motif}> (Comportement violent)</Text> : element.comments === "Simulation" || element.comments === "Diving" ? <Text style={styles.motif}> averti pour simulation</Text> : element.comments === "Professional foul last man" ? <Text style={styles.motif}> (Faute dernier defenseur)</Text> : element.comments === "Time wasting" || element.comments === "Delay of game" ? <Text style={styles.motif}> averti pour avoir joué la montre</Text> : element.comments === "Roughing" ? <Text style={styles.motif}> averti pour un contact brutal</Text> : element.comments === "Tripping" ? <Text style={styles.motif}> sanctionné apres un tacle</Text> : element.comments === "Holding" ? <Text style={styles.motif}> averti pour avoir retenu l'adversaire</Text> : element.comments === "Serious foul" ? <Text style={styles.motif}> (Grosse faute)</Text> : null}
+                            {element.comments === "Elbowing" ? <Text style={styles.motif}> (Coup de coude)</Text> : element.comments === "Professional handball" ? <Text style={styles.motif}> (Main volontaire)</Text> : element.comments === "Off the ball foul" ? <Text style={styles.motif}> (Faute sans ballon)</Text> : element.comments === "Handling" ? <Text style={styles.motif}> (Main)</Text> : element.comments === "Unsportsmanlike conduct" ? <Text style={styles.motif}> (Comportement Antisportif)</Text> : element.comments === "Handball" ? <Text style={styles.motif}> (Main)</Text> : element.comments === "Foul" ? <Text style={styles.motif}> (Faute)</Text> : element.comments === "Argument" ? <Text style={styles.motif}> (Protestation)</Text> : element.comments === "Violent conduct" ? <Text style={styles.motif}> (Comportement violent)</Text> : element.comments === "Simulation" || element.comments === "Diving" ? <Text style={styles.motif}> averti pour simulation</Text> : element.comments === "Professional foul last man" ? <Text style={styles.motif}> (Faute dernier defenseur)</Text> : element.comments === "Time wasting" || element.comments === "Delay of game" ? <Text style={styles.motif}> averti pour avoir joué la montre</Text> : element.comments === "Roughing" ? <Text style={styles.motif}> averti pour un contact brutal</Text> : element.comments === "Tripping" ? <Text style={styles.motif}> sanctionné apres un tacle</Text> : element.comments === "Holding" ? <Text style={styles.motif}> averti pour avoir retenu l'adversaire</Text> : element.comments === "Serious foul" ? <Text style={styles.motif}> (Grosse faute)</Text> : null}
                           </TouchableOpacity>
                         )}
                         {element.detail === "Red Card" && (
                           <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: element.player.id, team: element.team.id })} style={{ flexDirection: "row", alignItems: "center", paddingBlock: 5 }}>
                             <Image source={portraitsJoueurs[element.player.id] || { uri: getPlayerPhoto(element.player.id, match) }} style={{ width: 35, height: 35, borderRadius: 20, marginRight: 5 }} />
                             <Text style={styles.playerName}>{element.player.name}</Text>
-                            {element.comments === "Professional handball" ? <Text style={styles.motif}> (Main volontaire)</Text> : element.comments === "Off the ball foul" ? <Text style={styles.motif}> (Faute sans ballon)</Text> : element.comments === "Unsportsmanlike conduct" ? <Text style={styles.motif}> (Comportement Antisportif)</Text> : element.comments === "Handball" ? <Text style={styles.motif}> (Main)</Text> : element.comments === "Foul" ? <Text style={styles.motif}> (Faute)</Text> : element.comments === "Argument" ? <Text style={styles.motif}> (Protestation)</Text> : element.comments === "Violent conduct" ? <Text style={styles.motif}> (Comportement violent)</Text> : element.comments === "Simulation" || element.comments === "Diving" ? <Text style={styles.motif}> (Simulation)</Text> : element.comments === "Professional foul last man" ? <Text style={styles.motif}> (Faute dernier defenseur)</Text> : element.comments === "Time wasting" ? <Text style={styles.motif}> (Joue la montre)</Text> : element.comments === "Roughing" ? <Text style={styles.motif}> (Contact brutal)</Text> : element.comments === "Tripping" ? <Text style={styles.motif}> (Tacle)</Text> : element.comments === "Holding" ? <Text style={styles.motif}> (Retient l'adversaire)</Text> : element.comments === "Serious foul" ? <Text style={styles.motif}> (Grosse faute)</Text> : null}
+                            {element.comments === "Elbowing" ? <Text style={styles.motif}> (Coup de coude)</Text> : element.comments === "Professional handball" ? <Text style={styles.motif}> (Main volontaire)</Text> : element.comments === "Off the ball foul" ? <Text style={styles.motif}> (Faute sans ballon)</Text> : element.comments === "Unsportsmanlike conduct" ? <Text style={styles.motif}> (Comportement Antisportif)</Text> : element.comments === "Handball" ? <Text style={styles.motif}> (Main)</Text> : element.comments === "Foul" ? <Text style={styles.motif}> (Faute)</Text> : element.comments === "Argument" ? <Text style={styles.motif}> (Protestation)</Text> : element.comments === "Violent conduct" ? <Text style={styles.motif}> (Comportement violent)</Text> : element.comments === "Simulation" || element.comments === "Diving" ? <Text style={styles.motif}> (Simulation)</Text> : element.comments === "Professional foul last man" ? <Text style={styles.motif}> (Faute dernier defenseur)</Text> : element.comments === "Time wasting" ? <Text style={styles.motif}> (Joue la montre)</Text> : element.comments === "Roughing" ? <Text style={styles.motif}> (Contact brutal)</Text> : element.comments === "Tripping" ? <Text style={styles.motif}> (Tacle)</Text> : element.comments === "Holding" ? <Text style={styles.motif}> (Retient l'adversaire)</Text> : element.comments === "Serious foul" ? <Text style={styles.motif}> (Grosse faute)</Text> : null}
 
                           </TouchableOpacity>
                         )}
@@ -201,22 +201,24 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     flexDirection: "row",
     justifyContent: "space-between",
-    width: 330,
+    width: 310,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "black",
-    overflow: "hidden" 
+    overflow: "hidden" ,
+    marginRight: 20
   },
   exterieur: {
     backgroundColor: '#d3d3d3ff',
     marginBottom: 15,
     flexDirection: "row",
     justifyContent: "space-between",
-    width: 330,
+    width: 310,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "black",
-    overflow: "hidden" 
+    overflow: "hidden" ,
+    marginLeft: 20
 
 
   },

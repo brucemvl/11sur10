@@ -133,7 +133,7 @@ function LivePage({ navigation }) {
 
 
           leagues.map((league) => <View style={{ marginBottom: 10 }} key={"ligue" + league}>
-            <Text style={{ fontFamily: "Kanitus", color: "white" }}>
+            <Text style={{ fontFamily: "Kanitus", color: "white", marginLeft: 10 }}>
               {countryTranslations[league] || league}
             </Text>          {lives.map((live) => live.league.country === league ?
               <TouchableOpacity
@@ -215,7 +215,7 @@ function LivePage({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingBlock: 10,
+    paddingBlock: 15,
     paddingInline: 4,
     borderRadius: 15,
     backgroundColor: "rgb(99, 164, 221)",

@@ -26,6 +26,8 @@ const API_KEY = "5ff22ea19db11151a018c36f7fd0213b";
 const COMPETITIONS = {
   ucl: "https://v3.football.api-sports.io/fixtures?league=2&season=2025",
     can: "https://v3.football.api-sports.io/fixtures?league=6&season=2025",
+    tropheechampions: "https://v3.football.api-sports.io/fixtures?league=526&season=2025",
+    supercoupeespagne: "https://v3.football.api-sports.io/fixtures?league=556&season=2025",
   france: "https://v3.football.api-sports.io/fixtures?league=61&season=2025",
   england: "https://v3.football.api-sports.io/fixtures?league=39&season=2025",
   spain: "https://v3.football.api-sports.io/fixtures?league=140&season=2025",
@@ -179,7 +181,7 @@ const Home = ({ selectedTeamId }) => {
           <Favorite selectedTeamId={selectedTeamId} />
         )}
 
-        <TouchableOpacity
+        <TouchableOpacity accessible accessibilityRole="button" accessibilityLabel="Partager l'application"
   onPress={shareApp}
   style={{
     paddingTop: 10,
@@ -187,7 +189,7 @@ const Home = ({ selectedTeamId }) => {
     alignSelf: 'center',
   }}
 >
-  <Image source={share} style={{height: 30, width: 30}}/>
+  <Image source={share} style={{height: 30, width: 30, resizeMode: "contain"}}/>
 </TouchableOpacity>
       </View>
       
@@ -204,7 +206,7 @@ const styles = StyleSheet.create({
     width: "100%",
     marginBlock: 10,
     gap: 8,
-    marginBottom: 125
+    marginBottom: 120
   },
 });
 

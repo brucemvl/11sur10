@@ -347,8 +347,8 @@ setCompoBasique(true)
     const buteurHomeP = buteursPen.filter((buteur) => buteur.team.name === match.teams.home.name);
     const buteurExtP = buteursPen.filter((buteur) => buteur.team.name === match.teams.away.name);
 
-    const formeHome = homeStats?.form?.slice(homeStats.form.length - 5, homeStats.form.length);
-    const formeExt = extStats?.form?.slice(extStats.form.length - 5, extStats.form.length);
+    const formeHome = homeStats?.form?.slice(homeStats.form.length < 5 ? - 4 : -5, homeStats.form.length);
+    const formeExt = extStats?.form?.slice(extStats.form.length < 5 ? -4 : - 5, extStats.form.length);
 
     const totalMatchsHome = homeStats?.fixtures?.played.total;
     const totalMatchsExt = extStats?.fixtures?.played.total;

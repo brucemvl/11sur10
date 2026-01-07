@@ -227,11 +227,17 @@ import lepaul from "../assets/portraits/lepaul.png"
 import embolo from "../assets/portraits/embolo.png"
 import gordon from "../assets/portraits/gordon.png"
 import sinayoko from "../assets/portraits/sinayoko.png"
+import elkaabi from "../assets/portraits/elkaabi.png"
+import mahrez from "../assets/portraits/mahrez.png"
+import thiago from "../assets/portraits/thiago.png"
 
 
 
 
 export const portraitsJoueurs = {
+        196156: thiago,
+    635: mahrez,
+    2722: elkaabi,
         138787: gordon,
         90617: sinayoko,
     421: embolo,

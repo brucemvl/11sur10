@@ -277,15 +277,19 @@ import mahrez from "../assets/portraits/fiche/mahrez.png"
 import amoura from "../assets/portraits/fiche/amoura.png"
 import luca from "../assets/portraits/fiche/luca.webp"
 import sarr from "../assets/portraits/fiche/sarr.webp"
+import paqueta from "../assets/portraits/fiche/paqueta.png"
 import amrabat from "../assets/portraits/fiche/amrabat.png"
-
-
-
-
+import elkaabi from "../assets/portraits/fiche/elkaabi.png"
+import wanbissaka from "../assets/portraits/fiche/wanbissaka.png"
+import thiago from "../assets/portraits/fiche/thiago.png"
 
 
 
 export const fichesJoueurs = {
+    196156: thiago,
+    18846: wanbissaka,
+    1646: paqueta,
+    2722: elkaabi,
     74: amrabat,
     2218: sarr,
     732: luca,

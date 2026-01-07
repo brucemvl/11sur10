@@ -231,6 +231,8 @@ if (currentTotal > prevTotal && currentHomeGoals === currentAwayGoals) {
 }
         }
 
+
+
         const events = match.events || [];
 for (const event of events) {
   const { player, team, time, type, detail } = event;
@@ -283,6 +285,19 @@ data: {
     previousEvents[eventKey] = true; // ✅ Marque comme déjà traité
   }
 }
+
+if(match.fixture.status.long === 'Match Finished'){
+
+          await sendPushNotification(tokens, {
+    title: `Match Terminé`,
+    body: `Score final: ${teamNameNotif[homeTeam] || homeTeam} ${currentHomeGoals} - ${currentAwayGoals} ${teamNameNotif[awayTeam] || awayTeam}`,
+    data: {
+      screen: 'FicheMatch',
+      matchId,
+    },
+  });
+        }
+        
       }
     }
   } catch (err) {

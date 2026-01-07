@@ -142,11 +142,13 @@ const backgroundSource =
                     <Text style={styles.textEntete}>{formattedDate} - {formattedHour}</Text>
                     <Image source={heure} style={styles.icone} />
                 </View>
+                {match.fixture.venue.name === null ? null :
                 <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
                     <Image source={stade} style={styles.icone} />
                     <Text style={styles.textEntete}>{match.fixture.venue.name === "Estadio Santiago Bernabéu" ? "Santiago Bernabeu" : match.fixture.venue.name} , {match.fixture.venue.city}</Text>
                     <Image source={loc} style={styles.icone} />
                 </View>
+}
                 {match.fixture.referee === null ? null : 
                 <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
                     <Image source={arbitre} style={[styles.icone, {backgroundColor: "white", borderRadius: 50}]} />
@@ -216,13 +218,13 @@ const backgroundSource =
                 </ImageBackground>
                 :
 
-                <LinearGradient colors={match.league.id === 531 ? ['rgb(0, 0, 0)', 'rgba(80, 80, 80, 0.7)'] : match.league.id === 15 || match.league.id === 1168 ? ['rgb(80, 80, 80)', 'rgba(0, 0, 0, 0.9)'] : [
+                <LinearGradient colors={match.league.id === 531 || match.league.id === 526 ? ['rgb(0, 0, 0)', 'rgba(80, 80, 80, 0.7)'] : match.league.id === 15 || match.league.id === 1168 || match.league.id === 556 ? ['rgb(80, 80, 80)', 'rgba(0, 0, 0, 0.9)'] : [
         'rgba(153, 190, 215, 1)',
         'rgba(42, 109, 164, 0.9)',
         'rgba(30, 30, 30, 0.85)'
       ]}  style={styles.affiche}>
                     <TouchableOpacity accessible accessibilityLabel={`logo de ${match.teams.home.name}`} accessibilityHint={`naviguer vers la fiche complète de ${match.teams.home.name}`} style={styles.domicile} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.home.id, league: match.league.id, img: match.teams.home.logo })}>
-                        <Image source={{ uri: match.teams.home.logo }} style={styles.teamLogo} />
+                        <Image source={{ uri: match.teams.home.logo }} style={match.teams.home.id === 81 ? styles.marseille : styles.teamLogo} />
                         <Text style={{ fontFamily: 'Bella', color: 'white', fontSize: 15, textAlign: "center" }}>{teamName[match.teams.home.name] || match.teams.home.name}</Text>
                         <View style={{ gap: 5, flexDirection: "row", marginTop: 5 }}>{formeHome?.split('').map((char, index) => (
                             char === 'L' ? (
@@ -409,7 +411,14 @@ const styles = StyleSheet.create({
         padding: 9
     },
     marseille: {
-        padding: 30
+        width: 70,
+        height: 70,
+        resizeMode: 'contain',
+        shadowColor: '#fff', // shadow color
+        shadowOffset: { width: 0, height: 0 }, // shadow offset
+        shadowOpacity: 1, // shadow opacity
+        shadowRadius: 0.5,
+        padding: 9
     },
     textEntete: {
 fontFamily: "Kanito",

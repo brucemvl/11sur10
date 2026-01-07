@@ -63,7 +63,7 @@ useEffect(() => {
                                     style={styles.carte}
                                 >
                                     <TouchableOpacity style={styles.carte} key={element.fixture.id} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })} >
-                                        <LinearGradient style={styles.affiche} colors={element.league.id === 2 ? ["rgb(10, 20, 40)", "rgb(24, 36, 70)"] : element.league.id === 6 ? ["rgba(172, 101, 31, 1)", "rgba(128, 0, 0, 1)"] : ["#fff", "rgb(146, 146, 146)"]} locations={[0.5, 0.9]}>
+                                        <LinearGradient style={styles.affiche} colors={element.league.id === 2 ? ["rgb(10, 20, 40)", "rgb(24, 36, 70)"] : element.league.id === 6 ? ["rgba(172, 101, 31, 1)", "rgba(128, 0, 0, 1)"] : element.league.standings === false ? ["rgba(123, 131, 151, 1)", "rgba(255, 255, 255, 1)"] : ["#fff", "rgb(146, 146, 146)"]} locations={[0.5, 0.9]}>
                                             <View style={{ flexDirection: "row", gap: 5, borderBottomWidth: 1, paddingBottom: 5, borderBottomColor: element.league.id === 2 ? "white" : "black" }}>
                                                 <Image source={element.league.id === 2 ? calendarWhite : calendar} style={styles.icone} />
                                                 <Text style={element.league.id === 2 ? styles.textUcl : styles.text}>{formattedDate}  -  {formattedHour}</Text>
