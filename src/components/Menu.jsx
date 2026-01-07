@@ -1,203 +1,232 @@
-import { View, Text, TouchableOpacity, Image, Animated, Easing, DeviceEventEmitter } from "react-native";
-import { StyleSheet } from "react-native";
-import home from "../assets/home.png";
-import live from "../assets/live.png";
-import flag from "../assets/flag.png";
-import shield from "../assets/shield.png";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  Animated,
+  DeviceEventEmitter,
+  StyleSheet,
+  Dimensions,
+} from "react-native";
+import { useState, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { useState } from "react";
-import * as Haptics from "expo-haptics"
+import * as Haptics from "expo-haptics";
 
+import home from "../assets/home.png";
+import home2 from "../assets/home2.png";
+import live from "../assets/live.png";
+import live2 from "../assets/live2.png";
+import flag from "../assets/flag.png";
+import flag2 from "../assets/flag3.png";
+import shield from "../assets/shield.png";
+import shield2 from "../assets/shield2.png";
 
+const SCREEN_WIDTH = Dimensions.get("window").width;
+const MENU_WIDTH = SCREEN_WIDTH * 0.85;
+const BUTTON_WIDTH = MENU_WIDTH / 4;
 
 function Menu() {
   const navigation = useNavigation();
+
   const [fontsLoaded] = useFonts({
-    "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
-        "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
+    Kanito: require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
+    Kanitt: require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
   });
 
-  const [selected, setSelected] = useState(true);
-  const [selected2, setSelected2] = useState(false);
-  const [selected3, setSelected3] = useState(false);
-  const [selected4, setSelected4] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const translateX = useRef(new Animated.Value(0)).current;
 
-  // Assurez-vous que fontsLoaded ne provoque pas de problème
-  if (!fontsLoaded) {
-    return <Text>Loading...</Text>; // Attendre que les polices et les données soient chargées
-  }
+  if (!fontsLoaded) return null;
 
-  const openAccueil = () => {
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    
-  if (navigation.getCurrentRoute()?.name === "Home") {
-    // Si on est déjà sur Home ➜ on déclenche un événement
-    DeviceEventEmitter.emit("scrollToTopHome");
-  } else {
-    // Sinon, on navigue vers Home
-    navigation.navigate("Home");
-  }
+  const moveBubble = (index) => {
+    setActiveIndex(index);
 
-  setSelected(true);
-  setSelected2(false);
-  setSelected3(false);
-  setSelected4(false);
-};
-
-  const openLive = () => {
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    navigation.navigate("LivePage");
-    setSelected(false);
-    setSelected2(true);
-    setSelected3(false);
-    setSelected4(false);
-  };
-
-  const openClubs = () => {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    navigation.navigate("ClubPage");
-    setSelected(false);
-    setSelected2(false);
-    setSelected3(true);
-    setSelected4(false);
-  };
-
-  const openSelect = () => {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    navigation.navigate("SelectionsPage");
-    setSelected(false);
-    setSelected2(false);
-    setSelected3(false);
-    setSelected4(true);
-  };
-
-  function AnimatedMenuButton({ onPress, selected, label, icon }) {
-  const scale = useRef(new Animated.Value(1)).current;
-
-  const handlePressIn = () => {
-    Animated.spring(scale, {
-      toValue: 1.1,
+    Animated.spring(translateX, {
+      toValue: index,
+      stiffness: 220,
+      damping: 12,
       useNativeDriver: true,
     }).start();
   };
 
-  const handlePressOut = () => {
-    Animated.spring(scale, {
-      toValue: 1,
-      friction: 3,
-      tension: 40,
-      useNativeDriver: true,
-    }).start();
-  };
+  const MenuButton = ({ index, label, icon, icon2, onPress, style }) => {
+    const isActive = activeIndex === index;
 
-  return (
-    <TouchableOpacity
-      onPress={onPress}
-      onPressIn={handlePressIn}
-      onPressOut={handlePressOut}
-      style={styles.button}
-    >
-      <Animated.View
-        style={[
-          selected ? styles.selected : { alignItems: "center", gap: 5 },
-          { transform: [{ scale }] }
-        ]}
+    return (
+      <TouchableOpacity
+        style={style}
+        accessibilityRole="button"
+        accessibilityState={{ selected: isActive }}
+        onPress={() => {
+                    onPress();
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+          moveBubble(index);
+        }}
       >
-        <Text style={styles.text}>{label}</Text>
-        <Image source={icon} style={styles.img} />
-      </Animated.View>
-    </TouchableOpacity>
-  );
-}
+        <View style={styles.buttonContent}>
+          <Text style={isActive ? styles.selectedText : styles.text}>{label}</Text>
+
+          {/* 🟢 ICÔNE AVEC GLOW */}
+          <View>
+            <Image
+              source={isActive ? icon2 : icon}
+              style={[
+                styles.img,
+                isActive && styles.activeIcon,
+              ]}
+            />
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View style={styles.Menu}>
-      <TouchableOpacity onPress={openAccueil} style={styles.buttonLeft} accessible accessibilityRole="button" accessibilityLabel="Accueil" accessibilityState={{ selected }} accessibilityHint="Ouvrir l'ecran d'accueil">
-        <View style={selected ? styles.selected : { alignItems: "center", gap: 5 }}>
-          <Text style={styles.text}>ACCUEIL</Text>
-          <Image source={home} style={styles.img} />
-        </View>
-      </TouchableOpacity>
 
-      <TouchableOpacity onPress={openLive} style={styles.button} accessible accessibilityRole="button" accessibilityLabel="Live" accessibilityState={{ selected: selected2 }} accessibilityHint="Afficher les matchs en direct">
-        <View style={selected2 ? styles.selected : { alignItems: "center", gap: 5 }}>
-          <Text style={styles.text}>LIVE</Text>
-          <Image source={live} style={styles.img} />
-        </View>
-      </TouchableOpacity>
+      {/* BULLE */}
+      <Animated.View
+        pointerEvents="none"
+        style={[
+          styles.bubble,
+          {
+            width: "24.2%",
+            transform: [
+              {
+                translateX: translateX.interpolate({
+                  inputRange: [0, 1, 2, 3],
+                  outputRange: [
+                    0,
+                    BUTTON_WIDTH,
+                    BUTTON_WIDTH * 2,
+                    BUTTON_WIDTH * 3,
+                  ],
+                }),
+              },
+            ],
+          },
+        ]}
+      />
 
-      <TouchableOpacity onPress={openClubs} style={styles.button} accessible accessibilityRole="button" accessibilityLabel="Clubs" accessibilityState={{ selected: selected3 }} accessibilityHint="Afficher les competitions de clubs">
-        <View style={selected3 ? styles.selected : { alignItems: "center", gap: 5 }}>
-          <Text style={styles.text}>CLUBS</Text>
-          <Image source={shield} style={styles.img} />
-        </View>
-      </TouchableOpacity>
+      <MenuButton
+        index={0}
+        label="ACCUEIL"
+        icon={home}
+        icon2={home2}
+        style={styles.buttonLeft}
+        onPress={() => {
+          if (navigation.getCurrentRoute()?.name === "Home") {
+            DeviceEventEmitter.emit("scrollToTopHome");
+          } else {
+            navigation.navigate("Home");
+          }
+        }}
+      />
 
-      <TouchableOpacity onPress={openSelect} style={styles.buttonRight} accessible accessibilityRole="button" accessibilityLabel="Selections" accessibilityState={{ selected: selected4 }} accessibilityHint="Afficher les competitions d'equipes nationales">
-        <View style={selected4 ? styles.selected : { alignItems: "center", gap: 5 }}>
-          <Text style={styles.text}>SELECTIONS</Text>
-          <Image source={flag} style={styles.img} />
-        </View>
-      </TouchableOpacity>
+      <MenuButton
+        index={1}
+        label="LIVE"
+        icon={live}
+        icon2={live2}
+        style={styles.button}
+        onPress={() => navigation.navigate("LivePage")}
+      />
+
+      <MenuButton
+        index={2}
+        label="CLUBS"
+        icon={shield}
+        icon2={shield2}
+        style={styles.button}
+        onPress={() => navigation.navigate("ClubPage")}
+      />
+
+      <MenuButton
+        index={3}
+        label="SÉLECTIONS"
+        icon={flag}
+        icon2={flag2}
+        style={styles.buttonRight}
+        onPress={() => navigation.navigate("SelectionsPage")}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-    Menu: {
-        flexDirection: "row",
-        paddingBlock: 10,
-        backgroundColor: "rgb(31, 160, 57)",
-        width: "85%",
-position: "absolute",
-bottom: 20,
-left: "7.5%",
- borderRadius: 30,
- shadowColor: '#000', // shadow color
-    shadowOffset: { width: 0, height: 0 }, // shadow offset
-    shadowOpacity: 0.9, // shadow opacity
-    shadowRadius: 5,
-    elevation: 4,
+  Menu: {
+    flexDirection: "row",
+    position: "absolute",
+    bottom: 20,
+    left: "8%",
+    width: "84%",
+    backgroundColor: "rgb(31, 160, 57)",
+    borderRadius: 30,
+    paddingVertical: 10,
     borderWidth: 2,
     borderColor: "white",
-    elevation: 4
-    },
+    shadowColor: "#000",
+    shadowOpacity: 0.9,
+    shadowRadius: 5,
+    elevation: 4,
+    overflow: "hidden",
+    alignItems: "center",
+  },
 
-    button: {
-        borderRightWidth: 1,
-        borderRightColor: "white",
-        borderLeftWidth: 1,
-        borderLeftColor: "white",
-        width: "25.3%",
-    },
-    buttonLeft:{
-        borderRightWidth: 1.3,
-        borderRightColor: "white",
-        width: "25%"
-    },
-    buttonRight: {
-        borderLeftWidth: 1.3,
-        borderLeftColor: "white",
-        width: "25%"
-    },
-    text: {
-        color: "white",
-        fontFamily: "Kanitt",
-        fontSize: 11
-    },
-    img: {
-        height: 24,
-        width: 24
-    },
-    selected: {
-        alignItems: "center",
-        gap: 5,
-        shadowColor: 'white',
-        shadowOffset: { width: 0, height: -4 },
-        shadowOpacity: 0.9,
-        shadowRadius: 3,
-    }
-})
+  bubble: {
+    position: "absolute",
+    height: 60,
+    backgroundColor: "rgba(255, 255, 255, 0.55)",
+    borderRadius: 30,
+  },
 
-export default Menu
+  button: {
+    width: "25.5%",
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderColor: "white",
+  },
+
+  buttonLeft: {
+    width: "25%",
+    borderRightWidth: 1,
+    borderColor: "white",
+  },
+
+  buttonRight: {
+    width: "25%",
+    borderLeftWidth: 1,
+    borderColor: "white",
+  },
+
+  buttonContent: {
+    alignItems: "center",
+    gap: 6,
+  },
+
+  text: {
+    color: "white",
+    fontFamily: "Kanitt",
+    fontSize: 11,
+  },
+  selectedText: {
+color: "green",
+    fontFamily: "Kanitt",
+    fontSize: 11,
+  },
+
+  img: {
+    width: 24,
+    height: 24,
+  },
+
+  /* ✨ GLOW */
+  
+
+  activeIcon: {
+    transform: [{ scale: 1.05 }],
+  },
+});
+
+export default Menu;
