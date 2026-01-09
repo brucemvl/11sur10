@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator, Image, ScrollView, TouchableOpacity, useWindowDimensions } from 'react-native';
-import TableauSelections from '../components/TableauSelections'; // Assurez-vous que ce composant est aussi adapté pour React Native
+import TableauSelections from '../components/TableauSelections';
 import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import Precedent from '../components/Precedent';
@@ -40,7 +40,7 @@ const [calendrier, setCalendrier] = useState(true)
           setClassement(true)
         }
 
-              const season = id === 34 ? "2026" : id === 29 ? "2023" : id === 6 ? "2025" : "2024";
+              const season = id === 34 || id === 1 ? "2026" : id === 29 ? "2023" : id === 6 ? "2025" : "2024";
 
 
        useEffect(() => {

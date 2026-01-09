@@ -4,6 +4,8 @@ import { teamName } from "../datas/teamNames";
 import warning from "../assets/warning.png"
 import { Animated, Easing } from 'react-native';
 import { useRef } from "react";
+import { portraitsJoueurs } from "../datas/Portraits";
+import { LinearGradient } from "expo-linear-gradient";
 
 
 
@@ -15,6 +17,8 @@ const pulseAnim = useRef(new Animated.Value(1)).current;
 
       const [statsHome, setStatsHome] = useState();
         const [statsExt, setStatsExt] = useState();
+        const [playersHome, setPlayersHome] = useState();
+        const [playersExt, setPlayersExt] = useState();
 
 
           useEffect(() => {
@@ -53,7 +57,44 @@ const pulseAnim = useRef(new Animated.Value(1)).current;
       });
   }, [match.fixture.id]);
 
+  useEffect(() => {
+        
+        fetch(`https://v3.football.api-sports.io/players?league=${match.league.id}&season=2025&team=${match.teams.home.id}`, {
+      method: "GET",
+      headers: {
+        "x-rapidapi-host": "v3.football.api-sports.io",
+        "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b"
+      }
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        setPlayersHome(json.response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, [match.fixture.id]);
 
+  useEffect(() => {
+        
+        fetch(`https://v3.football.api-sports.io/players?league=${match.league.id}&season=2025&team=${match.teams.away.id}`, {
+      method: "GET",
+      headers: {
+        "x-rapidapi-host": "v3.football.api-sports.io",
+        "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b"
+      }
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        setPlayersExt(json.response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, [match.fixture.id]);
+
+
+  
 
  const messages = [];
 
@@ -171,11 +212,101 @@ useEffect(() => {
 }, [messages.length]);
 
 
-   if(!statsHome || !statsExt){
+   if(!statsHome || !statsExt || !playersHome || !playersExt){
     return (
         <ActivityIndicator />
     )
 }
+
+const players = playersHome
+.filter(p => p.player.injured === false)
+.map(p => {
+    const stat = p.statistics[0];
+
+    return {
+      id: p.player.id,
+      name: p.player.name,
+      photo: p.player.photo,
+      goals: stat.goals?.total ?? 0,
+      minutes: stat.games?.minutes,
+    };
+  })
+  .filter(p => p.minutes !== null);
+
+const topScorerHome =
+  players.length > 0
+    ? players.reduce((best, p) => (p.goals > best.goals ? p : best))
+    : null;
+
+
+const ratedPlayers = playersHome
+.filter(p => p.player.injured === false)
+  .map(p => {
+    const stat = p.statistics[0];
+
+    return {
+      id: p.player.id,
+      name: p.player.name,
+      photo: p.player.photo,
+      rating: stat.games?.rating
+        ? parseFloat(stat.games.rating)
+        : null,
+      minutes: stat.games?.minutes,
+    };
+  })
+  .filter(p => p.rating !== null && p.minutes >= 90);
+
+const bestRatedHome =
+  ratedPlayers.length > 0
+    ? ratedPlayers.reduce((best, p) => (p.rating > best.rating ? p : best))
+    : null;
+
+const playerss = playersExt
+.filter(p => p.player.injured === false)
+.map(p => {
+    const stat = p.statistics[0];
+
+    return {
+      id: p.player.id,
+      name: p.player.name,
+      photo: p.player.photo,
+      goals: stat.goals?.total ?? 0,
+      minutes: stat.games?.minutes,
+    };
+  })
+  .filter(p => p.minutes !== null);
+
+const topScorerExt =
+  playerss.length > 0
+    ? playerss.reduce((best, p) => (p.goals > best.goals ? p : best))
+    : null;
+
+
+const ratedPlayerss = playersExt
+  .filter(p => p.player.injured === false)
+  .map(p => {
+    const stat = p.statistics[0];
+
+    return {
+      id: p.player.id,
+      name: p.player.name,
+      photo: p.player.photo,
+      rating: stat.games?.rating
+        ? parseFloat(stat.games.rating)
+        : null,
+      minutes: stat.games?.minutes,
+    };
+  })
+  .filter(p => p.rating !== null && p.minutes >= 90);
+
+const bestRatedExt =
+  ratedPlayerss.length > 0
+    ? ratedPlayerss.reduce((best, p) => (p.rating > best.rating ? p : best))
+    : null;
+
+console.log(bestRatedHome)
+console.log(bestRatedExt)
+
 
     return (
   <View style={styles.container}>
@@ -214,6 +345,72 @@ useEffect(() => {
     ))}
   </Animated.View>
 )}
+        {topScorerHome && (
+
+<View style={styles.joueurs}>
+    <Text style={{fontFamily: "Kanitt", fontSize: 18, textAlign: "center"}}>Joueurs à surveiller</Text>
+    <View style={styles.bloc}>
+        <LinearGradient colors={["black", "white"]} locations={[0.3, 0.99]} style={{height: 35, alignItems: "center", justifyContent: "center"}}>
+        <Text style={{fontFamily: "Bangers", color: "white", fontSize: 16,  paddingInline: 2}}>Buteurs</Text>
+        </LinearGradient>
+
+        <View style={{alignItems: "center", backgroundColor: "white", flexDirection: "row", gap: 25, paddingInline: 5}} >
+            <Image source={{uri: match.league.logo}} style={{height: 50, width: 50, resizeMode: "contain"}} />
+            <View>
+                        {topScorerHome && (
+
+            <View style={[styles.ligne, {borderBottomWidth: 1}]}>
+                <Image source={{uri: match.teams.home.logo}} style={styles.logoClub}/>
+                <Image source={portraitsJoueurs[topScorerHome.id] || {uri: topScorerHome.photo}} style={styles.photoJoueur} />
+                <Text style={{fontFamily: "Kanito", fontSize: 12, width: "55%"}}>{topScorerHome.name}</Text>
+                <Text style={{fontFamily: "Kanitalik"}}>{topScorerHome.goals} ⚽</Text>
+                </View>
+                        )}
+                                {topScorerExt && (
+
+            <View style={[styles.ligne, {borderTopWidth: 1}]}>
+<Image source={{uri: match.teams.away.logo}} style={styles.logoClub}/>
+                <Image source={portraitsJoueurs[topScorerExt.id] || {uri: topScorerExt.photo}} style={styles.photoJoueur} />
+                <Text style={{fontFamily: "Kanito", fontSize: 12, width: "55%"}}>{topScorerExt.name}</Text>
+                <Text style={{fontFamily: "Kanitalik"}}>{topScorerExt.goals} ⚽</Text>
+                </View>
+                                )}
+                </View>
+        </View>
+        
+    </View>
+
+    <View style={styles.bloc}>
+        <LinearGradient colors={["black", "white"]} locations={[0.3, 0.99]} style={{height: 35, alignItems: "center", justifyContent: "center"}}>
+        <Text style={{fontFamily: "Bangers", color: "white", fontSize: 16, paddingInline: 2}}>Les mieux notés</Text>
+        </LinearGradient>
+        <View style={{alignItems: "center", backgroundColor: "white", flexDirection: "row", gap: 15, paddingInline: 5}} >
+            <Image source={{uri: match.league.logo}} style={{height: 50, width: 50, resizeMode: "contain"}} />
+            <View>
+                        {bestRatedHome && (
+            <View style={[styles.ligne, {borderBottomWidth: 1}]}>
+                <Image source={{uri: match.teams.home.logo}} style={styles.logoClub}/>
+                <Image source={portraitsJoueurs[bestRatedHome.id] || {uri: bestRatedHome.photo}} style={styles.photoJoueur} />
+                <Text style={{fontFamily: "Kanito", fontSize: 12, width: "48%"}}>{bestRatedHome.name}</Text>
+                                <Text style={{fontFamily: "Kanitus", fontSize: 9.5, width: 40, textAlign: "center"}}>Note Moyenne:</Text>
+                <Text style={{fontFamily: "Kanitalik"}}>{bestRatedHome.rating}</Text>
+                </View>
+                        )}
+                                {bestRatedExt && (
+            <View style={[styles.ligne, {borderTopWidth: 1}]}>
+<Image source={{uri: match.teams.away.logo}} style={styles.logoClub}/>
+                <Image source={portraitsJoueurs[bestRatedExt.id] || {uri: bestRatedExt.photo}} style={styles.photoJoueur} />
+                <Text style={{fontFamily: "Kanito", fontSize: 12, width: "48%"}}>{bestRatedExt.name}</Text>
+                <Text style={{fontFamily: "Kanitus", fontSize: 9.5, width: 40, textAlign: "center"}}>Note Moyenne:</Text>
+                <Text style={{fontFamily: "Kanitalik"}}>{bestRatedExt.rating}</Text>
+                </View>
+                                )}
+                </View>
+        </View>
+
+    </View>
+</View>
+        )}
   </View>
 );
 
@@ -225,7 +422,36 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         paddingInline: 4,
         marginBlock: 5,
-        paddingTop: 5
-    }
+        paddingTop: 5,
+        width: "100%"
+    },
+    joueurs: {
+        width: "96%",
+        marginBlock: 15
+    },
+    bloc:{
+borderRadius: 15,
+borderWidth: 1,
+overflow: "hidden",
+marginTop: 10
+    },
+    ligne: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 10,
+        width: "85%",
+        height: 45,
+        
+    },
+     logoClub: {
+        height: 23,
+        width: 23,
+        resizeMode: "contain"
+     },
+     photoJoueur: {
+        height: 30,
+        width: 30,
+        resizeMode: "contain"
+     }
 })
 export default Stats

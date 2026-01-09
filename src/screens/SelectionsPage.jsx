@@ -68,7 +68,7 @@ function SelectionsPage() {
                 
                 <View style={styles.filtres}>
                     {selections.map(({ name, id, logo, flag, season }) => (
-                        id === 5 || id === 6 ?
+                        id === 5 || id === 6 || id === 1 ?
                         <TouchableOpacity
                             key={"lien" + id}
                             style={[styles.lien, isSmallScreen && styles.lienMobile, isMediumScreen && styles.lienTablet]}

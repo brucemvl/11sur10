@@ -224,7 +224,7 @@ const collapsePasseurs = () => {
 
 
 
-   if (id === 29 || id === 32 || id === 34 || id === 5 || id === 15 || id === 6 ){
+   if (id === 29 || id === 32 || id === 34 || id === 5 || id === 15 || id === 6 || id === 1 ){
 const [rank, setRank] = useState()
     
          const fetchClassement = async () => {

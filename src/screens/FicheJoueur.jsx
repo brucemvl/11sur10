@@ -693,7 +693,7 @@ const styles = StyleSheet.create({
   palmaresText: {
     fontSize: 16,
     color: 'white',
-    fontFamily: "Permanent",
+    fontFamily: "Kanitalik",
   },
   chevron: {
     position: "relative",

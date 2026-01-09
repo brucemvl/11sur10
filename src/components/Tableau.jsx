@@ -27,6 +27,8 @@ function Tableau({ id, currentRound, rounds }) {
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const scaleAnimNext = useRef(new Animated.Value(1)).current;
 
+  const season = id === 253 || id === 71 ? 2026 : 2025
+
   const handlePressIn = () => {
     Animated.spring(scaleAnim, {
       toValue: 1.9,
@@ -75,7 +77,7 @@ function Tableau({ id, currentRound, rounds }) {
     const fetchFixtures = async () => {
       try {
         const response = await fetch(
-          `https://v3.football.api-sports.io/fixtures?league=${id}&season=${2025}`,
+          `https://v3.football.api-sports.io/fixtures?league=${id}&season=${season}`,
           {
             method: "GET",
             headers: {

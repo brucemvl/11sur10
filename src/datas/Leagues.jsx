@@ -354,6 +354,13 @@ export const selections = [
                     "season": 2025,
                     },
 
+                    {
+                    "id": 1,
+                    "name": "CDM 2026",
+                    "logo": "https://media.api-sports.io/football/leagues/1.png",
+                    "season": 2026,
+                    },
+
 ]
 
 export const allCompetitions = [
