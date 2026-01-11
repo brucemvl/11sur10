@@ -282,10 +282,18 @@ import amrabat from "../assets/portraits/fiche/amrabat.png"
 import elkaabi from "../assets/portraits/fiche/elkaabi.png"
 import wanbissaka from "../assets/portraits/fiche/wanbissaka.png"
 import thiago from "../assets/portraits/fiche/thiago.png"
+import karl from "../assets/portraits/fiche/karl.png"
+import bardghji from "../assets/portraits/fiche/bardghji.png"
+import said from "../assets/portraits/fiche/said.png"
+import sima from "../assets/portraits/fiche/sima.png"
 
 
 
 export const fichesJoueurs = {
+        277191: sima,
+    21715: said,
+    338958: bardghji,
+    494131: karl,
     196156: thiago,
     18846: wanbissaka,
     1646: paqueta,

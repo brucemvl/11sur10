@@ -230,11 +230,15 @@ import sinayoko from "../assets/portraits/sinayoko.png"
 import elkaabi from "../assets/portraits/elkaabi.png"
 import mahrez from "../assets/portraits/mahrez.png"
 import thiago from "../assets/portraits/thiago.png"
+import said from "../assets/portraits/said.png"
+import sima from "../assets/portraits/sima.png"
 
 
 
 
 export const portraitsJoueurs = {
+    277191: sima,
+        21715: said,
         196156: thiago,
     635: mahrez,
     2722: elkaabi,
