@@ -24,6 +24,9 @@ import mourinho from "../assets/portraits/mourinho.png"
 import deschamps from "../assets/portraits/deschamps.png"
 import regragui from "../assets/portraits/regragui.png"
 import petkovic from "../assets/portraits/petkovic.png"
+import rosenior from "../assets/portraits/rosenior.png"
+import conte from "../assets/portraits/conte.png"
+
 
 
 
@@ -92,7 +95,9 @@ useEffect(() => {
   2462: mourinho,
   180: deschamps,
   2652: regragui,
-  1155: petkovic
+  1155: petkovic,
+  13350: rosenior,
+  2425: conte
 };
 
 const coachNames = {

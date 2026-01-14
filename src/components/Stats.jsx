@@ -281,7 +281,7 @@ function Stats({ match }) {
     <Text style={{fontFamily: "Kanitt", fontSize: 18, textAlign: "center"}}>Joueurs à surveiller</Text>
     <View style={styles.bloc}>
         <LinearGradient colors={["rgba(56, 56, 56, 1)", "white"]} locations={[0.35, 0.99]} style={{height: 35, alignItems: "center", justifyContent: "center"}}>
-        <Text style={{fontFamily: "Bangers", color: "white", fontSize: 16,  paddingInline: 2}}>Buteurs</Text>
+        <Text style={styles.title}>Buteurs</Text>
         </LinearGradient>
 
         <View style={{alignItems: "center", backgroundColor: "white", flexDirection: "row", gap: 25, paddingInline: 5,  paddingBlock: 5}} >
@@ -312,7 +312,7 @@ function Stats({ match }) {
 
     <View style={styles.bloc}>
         <LinearGradient colors={["rgba(56, 56, 56, 1)", "white"]} locations={[0.35, 0.99]} style={{height: 35, alignItems: "center", justifyContent: "center"}}>
-        <Text style={{fontFamily: "Bangers", color: "white", fontSize: 16,  paddingInline: 2}}>Passeurs</Text>
+        <Text style={styles.title}>Passeurs</Text>
         </LinearGradient>
 
         <View style={{alignItems: "center", backgroundColor: "white", flexDirection: "row", gap: 25, paddingInline: 5,  paddingBlock: 5}} >
@@ -343,7 +343,7 @@ function Stats({ match }) {
 
     <View style={styles.bloc}>
         <LinearGradient colors={["rgba(56, 56, 56, 1)", "white"]} locations={[0.35, 0.99]} style={{height: 35, alignItems: "center", justifyContent: "center"}}>
-        <Text style={{fontFamily: "Bangers", color: "white", fontSize: 16, paddingInline: 2}}>Les mieux notés</Text>
+        <Text style={styles.title}>Les mieux notés</Text>
         </LinearGradient>
         <View style={{alignItems: "center", backgroundColor: "white", flexDirection: "row", gap: 15, paddingInline: 5, paddingBlock: 5}} >
             <Image source={{uri: match.league.logo}} style={{height: 48, width: 48, resizeMode: "contain"}} />
@@ -387,7 +387,7 @@ const styles = StyleSheet.create({
         width: "100%"
     },
     joueurs: {
-        width: "92%",
+        width: "94%",
         marginBlock: 20
     },
     bloc:{
@@ -413,6 +413,16 @@ marginTop: 15,
         height: 30,
         width: 30,
         resizeMode: "contain"
+     },
+     title: {
+        fontFamily: "Bangers",
+        color: "white",
+        fontSize: 16,
+        paddingInline: 2,
+        shadowOffset: [{height: 0, width: 0}],
+        shadowColor: "black",
+        shadowRadius: 3,
+        shadowOpacity: 1
      }
 })
 export default Stats

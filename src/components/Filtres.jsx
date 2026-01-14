@@ -38,7 +38,7 @@ function Filtres() {
             <View style={[styles.lien, { backgroundColor: bgColor }]}>
                 <Image
                     source={localImage ? localImage : { uri: logo }}
-                    style={[styles.logo, id === 62 && {width: "80%", height: "80%"}]}
+                    style={[styles.logo, id === 61 && {width: "80%", height: "80%"}]}
                 />
             </View>
         </TouchableOpacity>
@@ -88,13 +88,11 @@ function Filtres() {
                         logo,
                         name,
                         bgColor:
-                            id === 61 ? "#085dfe" :
                             id === 62 || id === 135 ? "#fff" :
                             id === 78 ? "#D10515" :
                             id === 140 ? "rgb(242, 235, 106)" :
                             null,
                         localImage:
-                            logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 :
                             logo === "https://media.api-sports.io/football/leagues/62.png" ? ligue2 :
                             null,
                         onPress: () => navigation.navigate('FicheChampionnat', { id })

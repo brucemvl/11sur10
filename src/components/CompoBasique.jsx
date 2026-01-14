@@ -15,6 +15,8 @@ import amorim from "../assets/portraits/amorim.webp"
 import genesio from "../assets/portraits/genesio.png"
 import alonso from "../assets/portraits/alonso.png"
 import maresca from "../assets/portraits/maresca.png"
+import rosenior from "../assets/portraits/rosenior.png"
+import conte from "../assets/portraits/conte.png"
 
 function CompoBasique({match}){
 
@@ -34,6 +36,8 @@ function CompoBasique({match}){
         7248: arteta,
         2407: ancelotti,
         193: henrique,
+        13350: rosenior,
+          2425: conte
       };
 
       const coachNames = {

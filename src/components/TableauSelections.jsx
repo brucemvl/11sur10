@@ -111,7 +111,7 @@ const teamName = {
 }
 
   return (
-     <View style={[styles.container, id === 6 && {backgroundColor: "rgba(198, 94, 19, 1)"}, isMediumScreen && {padding: 20}, id === 1 && {backgroundColor: "rgba(212, 191, 32, 1)"}]}>
+     <View style={[styles.container, id === 6 && {backgroundColor: "rgba(198, 94, 19, 1)"}, isMediumScreen && {padding: 20}, id === 1 && {backgroundColor: "rgba(212, 167, 32, 1)"}]}>
 
 
     

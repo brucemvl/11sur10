@@ -17,6 +17,8 @@ import deschamps from "../assets/portraits/deschamps.png"
 import dezerbi from "../assets/portraits/dezerbi.png"
 import regragui from "../assets/portraits/regragui.png"
 import petkovic from "../assets/portraits/petkovic.png"
+import rosenior from "../assets/portraits/rosenior.png"
+import conte from "../assets/portraits/conte.png"
 import { View, Text, Image, StyleSheet, ScrollView, Animated, TouchableOpacity } from "react-native"
 import { useEffect, useState } from "react"
 import { useRoute } from "@react-navigation/native";
@@ -59,7 +61,9 @@ export const coachImages = {
     180: deschamps,
       5832: deschamps,
         2652: regragui,
-        1155: petkovic
+        1155: petkovic,
+        13350: rosenior,
+        2425: conte
 
   };
 
