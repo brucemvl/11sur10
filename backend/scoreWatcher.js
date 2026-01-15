@@ -126,8 +126,24 @@ async function checkMatchScore() {
       const match = data.response[0];
       if (!match) continue;
 
-      const status = match.fixture.status.short;
-      if (!['1H', '2H', 'HT', 'ET'].includes(status)) continue;
+      const statusShort = match.fixture.status.short;
+const statusLong = match.fixture.status.long;
+
+// ✅ MATCH TERMINÉ (FT)
+if (statusShort === 'FT') {
+  await sendPushNotification(tokens, {
+    title: `⏱️ Match terminé`,
+    body: `Score final : ${homeTeam} ${currentHomeGoals} - ${currentAwayGoals} ${awayTeam}`,
+    data: { screen: 'FicheMatch', matchId },
+  });
+
+  // ⛔ On arrête de suivre ce match
+  activeMatches = activeMatches.filter(m => m.matchId !== matchId);
+  continue;
+}
+
+// ⛔ Ignorer ce qui n'est pas en cours
+if (!['1H', '2H', 'HT', 'ET'].includes(statusShort)) continue;
 
       const homeTeam = match.teams.home.name;
       const awayTeam = match.teams.away.name;
@@ -212,13 +228,7 @@ async function checkMatchScore() {
         previousEvents[key] = true;
       }
 
-      if (match.fixture.status.long === 'Match Finished') {
-        await sendPushNotification(tokens, {
-          title: `Match Terminé`,
-          body: `Score final: ${homeTeam} ${currentHomeGoals} - ${currentAwayGoals} ${awayTeam}`,
-          data: { screen: 'FicheMatch', matchId },
-        });
-      }
+     
     }
   } catch (err) {
     console.error('❌ Erreur checkMatchScore:', err.message);
