@@ -44,44 +44,55 @@ function pickRandom(messages) {
 async function refreshActiveMatches() {
   try {
     console.log("🔄 Rafraîchissement des matchs à suivre...");
-    activeMatches = [];
 
     const groupedTokens = await PushToken.aggregate([
       { $group: { _id: '$teamId', tokens: { $push: '$token' } } }
     ]);
 
-    for (const { _id: teamId } of groupedTokens) {
-      if (!teamId) continue;
-
-      const { data } = await axios.get(
-  `https://v3.football.api-sports.io/fixtures?team=${teamId}&live=all`,
-  {
-    headers: {
-      'x-rapidapi-key': 'XXX',
-      'x-rapidapi-host': 'v3.football.api-sports.io',
-    },
-  }
-);
-
-      const matches = data.response || [];
-      const liveMatches = data.response || [];
-
-      console.log(
-  `🔍 ${teamId} → ${liveMatches.length} match(s) live`
-);
-
-      liveMatches.forEach(match => {
-        activeMatches.push({ matchId: match.fixture.id, teamId });
-      });
+    if (groupedTokens.length === 0) {
+      console.log('ℹ️ Aucun teamId en base');
+      return;
     }
 
+    const teamIds = groupedTokens.map(t => Number(t._id));
+
+    // 🔥 UNE SEULE REQUÊTE LIVE
+    const { data } = await axios.get(
+      'https://v3.football.api-sports.io/fixtures?live=all',
+      {
+        headers: {
+          'x-rapidapi-key': 'XXX',
+          'x-rapidapi-host': 'v3.football.api-sports.io',
+        },
+      }
+    );
+
+    const liveMatches = data.response || [];
+    console.log(`📡 ${liveMatches.length} match(s) live globalement`);
+
+    activeMatches = [];
+
+    for (const match of liveMatches) {
+      const homeId = match.teams.home.id;
+      const awayId = match.teams.away.id;
+
+      if (teamIds.includes(homeId)) {
+        activeMatches.push({ matchId: match.fixture.id, teamId: homeId });
+      }
+
+      if (teamIds.includes(awayId)) {
+        activeMatches.push({ matchId: match.fixture.id, teamId: awayId });
+      }
+    }
+
+    // 🔒 anti-doublons
     activeMatches = Array.from(
       new Map(activeMatches.map(m => [`${m.matchId}-${m.teamId}`, m])).values()
     );
 
     console.log(`✅ ${activeMatches.length} match(s) actif(s) à surveiller.`);
   } catch (err) {
-    console.error('❌ Erreur refreshActiveMatches:', err.message);
+    console.error('❌ Erreur refreshActiveMatches:', err);
   }
 }
 
