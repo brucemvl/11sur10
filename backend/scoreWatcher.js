@@ -6,6 +6,7 @@ const PushToken = require('./models/PushToken');
 const previousScores = {};
 const previousEvents = {};
 let activeMatches = [];
+const finishedMatches = {};
 
 const teamNameNotif = {
     "Morocco" : "Maroc",
@@ -42,7 +43,8 @@ function pickRandom(messages) {
 async function refreshActiveMatches() {
   try {
     console.log("🔄 Rafraîchissement des matchs à suivre...");
-    activeMatches = [];
+const stillActive = [...activeMatches];
+activeMatches = stillActive;
 
     const groupedTokens = await PushToken.aggregate([
       { $group: { _id: '$teamId', tokens: { $push: '$token' } } }
@@ -63,17 +65,20 @@ async function refreshActiveMatches() {
 
       const matches = data.response;
       const liveMatches = matches.filter(match =>
-        ['1H', '2H', 'HT', 'ET', 'P'].includes(match.fixture.status.short)
+        ['1H', '2H', 'HT', 'ET',  'P', 'FT'].includes(match.fixture.status.short)
       );
 
       liveMatches.forEach(match => {
-        const matchExists = activeMatches.some(
-          m => m.matchId === match.fixture.id && m.teamId === teamId
-        );
-        if (!matchExists) {
-          activeMatches.push({ matchId: match.fixture.id, teamId });
-        }
-      });
+  if (finishedMatches[match.fixture.id]) return;
+
+  const matchExists = activeMatches.some(
+    m => m.matchId === match.fixture.id && m.teamId === teamId
+  );
+
+  if (!matchExists) {
+    activeMatches.push({ matchId: match.fixture.id, teamId });
+  }
+});
 
       // Fallback si aucun match actif
       if (liveMatches.length === 0) {
@@ -88,12 +93,14 @@ async function refreshActiveMatches() {
         );
 
         const fallbackLiveMatches = liveData.response.filter(match =>
-          ['1H', '2H', 'HT', 'ET', 'P'].includes(match.fixture.status.short)
+          ['1H', '2H', 'HT', 'ET',  'P', 'FT'].includes(match.fixture.status.short)
         );
 
         fallbackLiveMatches.forEach(match => {
-          activeMatches.push({ matchId: match.fixture.id, teamId });
-        });
+  if (finishedMatches[match.fixture.id]) return;
+
+  activeMatches.push({ matchId: match.fixture.id, teamId });
+});
       }
     }
 
@@ -160,16 +167,23 @@ for (const { matchId, teamId } of activeMatches) {
       const awayGoals = match.goals.away;
 
       // 🏁 Match terminé
-      if (status === 'FT') {
-        await sendPushNotification(tokens, {
-          title: '⏱️ Match terminé',
-          body: `Score final : ${homeTeam} ${homeGoals} - ${awayGoals} ${awayTeam}`,
-          data: { screen: 'FicheMatch', matchId },
-        });
+if (status === 'FT') {
+  if (!finishedMatches[matchId]) {
+    await sendPushNotification(tokens, {
+      title: '⏱️ Match terminé',
+      body: `Score final : ${homeTeam} ${homeGoals} - ${awayGoals} ${awayTeam}`,
+      data: { screen: 'FicheMatch', matchId },
+    });
 
-        activeMatches = activeMatches.filter(m => m.matchId !== matchId);
-        continue;
-      }
+    finishedMatches[matchId] = true;
+  }
+
+  // 🧹 Nettoyage mémoire
+  delete previousScores[matchId];
+
+  activeMatches = activeMatches.filter(m => m.matchId !== matchId);
+  continue;
+}
 
       // ⛔ On ne traite que les matchs en cours
       if (!['1H', '2H', 'HT', 'ET'].includes(status)) continue;
