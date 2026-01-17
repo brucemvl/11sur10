@@ -218,9 +218,10 @@ for (const { matchId, teamId } of activeMatches) {
         let body = null;
 
         if (type === 'Goal') {
-          body = `⚽ ${minute}e - ${player.name} (${teamNameNotif[team.name] || team.name})`;
+          body = `⚽ ${minute}e - But de ${player.name} (${teamNameNotif[team.name] || team.name})`;
           if (detail === 'Own Goal') body = `😱 ${minute}e - CSC de ${player.name}`;
           if (detail === 'Penalty') body = `⚽ ${minute}e - ${player.name} marque sur penalty`;
+          if (detail === 'Missed Penalty') body = `❌ ${minute}e - Penalty raté de ${player.name}`;
         }
 
         if (type === 'Card' && detail === 'Red Card') {
