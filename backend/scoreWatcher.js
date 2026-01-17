@@ -127,8 +127,17 @@ async function checkMatchScore() {
       tokenGroups.map(g => [String(g._id), g.tokens])
     );
 
-    for (const { matchId, teamId } of activeMatches) {
-      const tokens = tokensByTeam[String(teamId)] || [];
+    const matchTokens = {}; // clé = matchId, valeur = Set de tokens
+
+for (const { matchId, teamId } of activeMatches) {
+  const tokens = tokensByTeam[teamId] || [];
+  if (!matchTokens[matchId]) matchTokens[matchId] = new Set();
+  tokens.forEach(t => matchTokens[matchId].add(t));
+}
+
+
+    for (const matchId of Object.keys(matchTokens)) {
+  const tokens = Array.from(matchTokens[matchId]);
       if (tokens.length === 0) continue;
 
       const { data } = await axios.get(
@@ -211,7 +220,7 @@ async function checkMatchScore() {
         if (type === 'Goal') {
           body = `⚽ ${minute}e - ${player.name} (${teamNameNotif[team.name] || team.name})`;
           if (detail === 'Own Goal') body = `😱 ${minute}e - CSC de ${player.name}`;
-          if (detail === 'Penalty') body = `⚽ ${minute}e - Penalty de ${player.name}`;
+          if (detail === 'Penalty') body = `⚽ ${minute}e - ${player.name} marque sur penalty`;
         }
 
         if (type === 'Card' && detail === 'Red Card') {
