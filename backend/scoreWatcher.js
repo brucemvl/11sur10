@@ -166,8 +166,7 @@ for (const { matchId, teamId } of activeMatches) {
       const homeGoals = match.goals.home;
       const awayGoals = match.goals.away;
 
-      // 🏁 Match terminé
-if (status === 'FT') {
+      if (status === 'FT') {
   if (!finishedMatches[matchId]) {
     await sendPushNotification(tokens, {
       title: '⏱️ Match terminé',
@@ -178,9 +177,7 @@ if (status === 'FT') {
     finishedMatches[matchId] = true;
   }
 
-  // 🧹 Nettoyage mémoire
   delete previousScores[matchId];
-
   activeMatches = activeMatches.filter(m => m.matchId !== matchId);
   continue;
 }
