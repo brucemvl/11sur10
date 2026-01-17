@@ -126,8 +126,14 @@ async function checkMatchScore() {
       const match = data.response[0];
       if (!match) continue;
 
-      const statusShort = match.fixture.status.short;
+      const homeTeam = match.teams.home.name;
+const awayTeam = match.teams.away.name;
+const currentHomeGoals = match.goals.home;
+const currentAwayGoals = match.goals.away;
+
+const statusShort = match.fixture.status.short;
 const statusLong = match.fixture.status.long;
+
 
 // ✅ MATCH TERMINÉ (FT)
 if (statusShort === 'FT') {
@@ -145,10 +151,6 @@ if (statusShort === 'FT') {
 // ⛔ Ignorer ce qui n'est pas en cours
 if (!['1H', '2H', 'HT', 'ET'].includes(statusShort)) continue;
 
-      const homeTeam = match.teams.home.name;
-      const awayTeam = match.teams.away.name;
-      const currentHomeGoals = match.goals.home;
-      const currentAwayGoals = match.goals.away;
 
       const prevScore = previousScores[matchId] || { home: null, away: null };
 
