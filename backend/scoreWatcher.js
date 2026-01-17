@@ -54,19 +54,21 @@ async function refreshActiveMatches() {
       if (!teamId) continue;
 
       const { data } = await axios.get(
-        `https://v3.football.api-sports.io/fixtures?team=${teamId}&next=5`,
-        {
-          headers: {
-            'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
-            'x-rapidapi-host': 'v3.football.api-sports.io',
-          },
-        }
-      );
+  `https://v3.football.api-sports.io/fixtures?team=${teamId}&live=all`,
+  {
+    headers: {
+      'x-rapidapi-key': 'XXX',
+      'x-rapidapi-host': 'v3.football.api-sports.io',
+    },
+  }
+);
 
       const matches = data.response || [];
-      const liveMatches = matches.filter(match =>
-        ['1H', '2H', 'HT', 'ET', 'P'].includes(match.fixture.status.short)
-      );
+      const liveMatches = data.response || [];
+
+      console.log(
+  `🔍 ${teamId} → ${liveMatches.length} match(s) live`
+);
 
       liveMatches.forEach(match => {
         activeMatches.push({ matchId: match.fixture.id, teamId });
