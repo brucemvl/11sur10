@@ -72,7 +72,7 @@ function ClubPage() {
                         >
                             <Text style={[styles.filtreTitle, isMediumScreen && styles.filtreTitleTablet]}>{name}</Text>
                             <View style={styles.logoContainer}>
-                            { logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image source={ligue1} style={styles.logo} /> : logo === "https://media.api-sports.io/football/leagues/62.png" ? <Image source={ligue2} style={styles.logo} /> : <Image source={{ uri: logo }} style={styles.logo} />}
+                            {logo === "https://media.api-sports.io/football/leagues/62.png" ? <Image source={ligue2} style={styles.logo} /> : <Image source={{ uri: logo }} style={styles.logo} />}
                             </View>
                         </TouchableOpacity>
                     ))}

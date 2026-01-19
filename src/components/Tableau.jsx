@@ -158,10 +158,10 @@ function Tableau({ id, currentRound, rounds }) {
       <Text style={id === 15 ? styles.titleWc : styles.title}>Calendrier & Résultats</Text>
       <Image
         source={
-          id === 61 ? ligue1 : id === 62 ? ligue2 : id === 15 ? fifaclubwc :
+          id === 62 ? ligue2 : id === 15 ? fifaclubwc :
             { uri: `https://media.api-sports.io/football/leagues/${id}.png` }
         }
-        style={{ width: 40, height: 40, resizeMode: "contain" }}
+        style={{ width: id === 61 ? 60 : 40, height: 40, resizeMode: "contain" }}
       />
 
       {/* Navigation entre rounds */}

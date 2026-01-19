@@ -77,6 +77,11 @@ console.log(injuries)
                                                 <Image source={malade} style={[styles.icone, { height: 19 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Malade</Text>
                                             </View>
                                             :
+                                            element.player.reason === "Health problems" ?
+                                            <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
+                                                <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Problèmes de santé</Text>
+                                            </View>
+                                            :
                                             element.player.reason === "Surgery" ? <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
                                                 <Image source={chirurgien} style={[styles.icone, { height: 22 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Operation</Text>
                                             </View> : element.player.reason === "Coach's decision" ? <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -101,7 +106,9 @@ console.log(injuries)
                                                 <Image source={injury} style={[styles.icone, { position: "relative", top: 3 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Adducteurs</Text>
                                             </View> : element.player.reason === "Bruise on the knee" ? <View style={{ flexDirection: "row", gap: 5, alignItems: "baseline" }}>
                                                 <Image source={injury} style={[styles.icone, { position: "relative", top: 3 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Hématome Genou</Text>
-                                            </View> :
+                                            </View> : element.player.reason === "Rest" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
+                                                        <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Au Repos</Text>
+                                                    </View> :
                                                 <View></View>}
                             </LinearGradient>
                         </TouchableOpacity> : null)}                </View>
@@ -153,7 +160,9 @@ console.log(injuries)
                                                 <Image source={injury} style={[styles.icone, { position: "relative", top: 3 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Hématome Genou</Text>
                                             </View> : element.player.reason === "Fracture of the fibula" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                 <Image source={tibia} style={styles.icone} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Tibia peroné</Text>
-                                            </View> :<View></View>}
+                                            </View> : element.player.reason === "Rest" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
+                                                        <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Au Repos</Text>
+                                                    </View> :<View></View>}
                             </LinearGradient>
                         </TouchableOpacity> : null)}                </View>
             </View> </View>}
@@ -272,7 +281,9 @@ console.log(injuries)
                                                 <Image source={flag} style={styles.icone} /><Text style={{ fontFamily: "Kanito", fontSize: 9.5 }}>En selection</Text>
                                             </View> : element.player.reason === "Broken Hand" ? <View style={{ flexDirection: "row", gap: 3, alignItems: "center"}}>
                                                 <Image source={main} style={[styles.icone, {height: 22, width: 16}]} /><Text style={{ fontFamily: "Kanito", fontSize: 9.5 }}>Main cassée</Text>
-                                            </View> : <View></View>}
+                                            </View> : element.player.reason === "Health problems" ?
+                                                <Text style={{ fontFamily: "Kanito", fontSize: 8 }}>Problèmes de santé</Text>
+                                            : <View></View>}
                             </LinearGradient>
                         </TouchableOpacity> : null)}</View>
 
@@ -388,7 +399,9 @@ console.log(injuries)
                                                 <Image source={flag} style={styles.icone} /><Text style={{ fontFamily: "Kanito", fontSize: 9.5 }}>En selection</Text>
                                             </View> : element.player.reason === "Broken Hand" ? <View style={{ flexDirection: "row", gap: 3, alignItems: "center"}}>
                                                 <Image source={main} style={[styles.icone, {height: 22, width: 16}]} /><Text style={{ fontFamily: "Kanito", fontSize: 9.5 }}>Main cassée</Text>
-                                            </View> : <View></View>}
+                                            </View> : element.player.reason === "Health problems" ?
+                                                <Text style={{ fontFamily: "Kanito", fontSize: 8 }}>Problèmes de santé</Text>
+                                            : <View></View>}
                             </LinearGradient>
                         </TouchableOpacity> : null)}</View>
             </View>

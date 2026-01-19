@@ -289,9 +289,8 @@ function FicheJoueur() {
   return (
     <View>
       <Precedent />
-      <ScrollView contentContainerStyle={styles.blocJoueur}>
-        <View style={[styles.article, isMediumScreen && { width: "90%" }]}>
-          <LinearGradient colors={["black", "steelblue"]} style={[styles.infosJoueur, isMediumScreen && { height: 280 }]}>
+      <View style={isMediumScreen ? {flexDirection: "row", paddingInline: 8} : null}>
+      {isMediumScreen ? <LinearGradient colors={["black", "steelblue"]} style={styles.infosJoueurTablet}>
             {team === 2 ?
               <Image source={
 
@@ -302,7 +301,38 @@ function FicheJoueur() {
                 source={fichesJoueurs[joueur.player.id] || { uri: joueur.player.photo }}
                 style={[
 
-                  fichesJoueurs[joueur.player.id] ? styles.fiche : styles.photo, isMediumScreen && { height: 260 }]}
+                  fichesJoueurs[joueur.player.id] ? styles.fiche : styles.photo, isMediumScreen && { height: 320, width: 180 }]}
+              />
+            }
+
+            <View style={styles.bio}>
+              <Text style={[styles.name, isMediumScreen && { fontSize: 22 }]}>{joueur.player.id === 307123 ? "N. O'Reilly" : joueur.player.name}</Text>
+              <View style={{ width: "100%", flexDirection: "column", alignItems: "center" }}> <Text style={styles.infoText}>Né le {joueur.player.id === 37784 ? "31/03/1999" : formattedDate}</Text><View style={{ flexDirection: "row", alignItems: "center" }}><Text style={{ fontFamily: "Kanitalic", color: "white" }}> à {joueur.player.id === 37784 || joueur.player.id === 15906 ? "Paris" : joueur.player.birth.place},</Text><Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: 15 }}> {joueur.player.id === 37784 || joueur.player.id === 15906 ? "France" : joueur.player.birth.country === "Spain" ? "Espagne" : joueur.player.birth.country === "Netherlands" ? "Pays-Bas" : joueur.player.birth.country === "Belgium" ? "Belgique" : joueur.player.birth.country === "Brazil" ? "Bresil" : joueur.player.birth.country === "England" ? "Angleterre" : joueur.player.birth.country === "Türkiye" ? "Turquie" : joueur.player.birth.country === "Switzerland" ? "Suisse" : joueur.player.birth.country === "Germany" ? "Allemagne" : joueur.player.birth.country}</Text></View></View>
+              {joueur.player.height === null && joueur.player.weight === null ? null : <View style={{ flexDirection: "row" }}><Text style={{ fontFamily: "Kanitalik", color: "white" }}> {joueur.player.height === null ? null : joueur.player.height.slice(0,1) + "m" + joueur.player.height.slice(1,3)} {joueur.player.weight === null ? null : "- " + joueur.player.weight.slice(0,2) + "kg"}</Text></View>}
+              <Text style={styles.infoText}>Poste: {joueur.statistics[0].games.position === "Midfielder" ? "Milieu" : joueur.statistics[0].games.position === "Attacker" ? "Attaquant" : joueur.statistics[0].games.position === "Defender" ? "Defenseur" : joueur.statistics[0].games.position === "Goalkeeper" ? "Gardien" : joueur.statistics[0].games.position}</Text>
+              <View style={styles.logos}>
+                {uniqueTeamNames.map((logo, index) => (logo === "https://media.api-sports.io/football/teams/10179.png" || logo === 'https://media.api-sports.io/football/teams/9256.png' || logo === 'https://media.api-sports.io/football/teams/8216.png' || logo === 'https://media.api-sports.io/football/teams/8190.png' || logo === 'https://media.api-sports.io/football/teams/12520.png' || logo === 'https://media.api-sports.io/football/teams/712.png' || logo === 'https://media.api-sports.io/football/teams/8194.png' ? null : logo === "https://media.api-sports.io/football/teams/10334.png" ? null : logo === "https://media.api-sports.io/football/teams/16621.png" ? null : logo === "https://media.api-sports.io/football/teams/10187.png" ? null :
+                  <Image key={`logo-${index}`} source={{ uri: logo }} style={styles.logo} />
+                ))}
+              </View>
+            </View>
+          </LinearGradient> : null }
+
+      <ScrollView contentContainerStyle={styles.blocJoueur}>
+        <View style={[styles.article, isMediumScreen && { width: "94%", gap: 10, flexDirection: "row" }]}>
+          {isMediumScreen ? null : 
+          <LinearGradient colors={["black", "steelblue"]} style={styles.infosJoueur}>
+            {team === 2 ?
+              <Image source={
+
+                joueur.player.id === 1922 ? thauvinselec : joueur.player.id === 269 ? nkunkuselec : joueur.player.id === 25927 ? matetaselec : joueur.player.id === 161907 ? gustoselec : joueur.player.id === 2207 ? camavingaselec : joueur.player.id === 1149 ? upamecanoselec : joueur.player.id === 22090 ? salibaselec : joueur.player.id === 116 ? kephrenselec : joueur.player.id === 274300 ? aklioucheselec : joueur.player.id === 508 ? comanselec : joueur.player.id === 174565 ? ekitikeselc : joueur.player.id === 22147 ? koneselec : joueur.player.id === 2725 ? pavardselec : joueur.player.id === 2724 ? digneselec : joueur.player.id === 1257 ? koundeselec : joueur.player.id === 336657 ? zaireselec : joueur.player.id === 1145 ? konateselec : joueur.player.id === 1454 ? guendouziselec : joueur.player.id === 162453 ? chevalierselec : joueur.player.id === 21104 ? kolomuaniselec : joueur.player.id === 22221 ? maignanselec : joueur.player.id === 1271 ? tchouameniselec : joueur.player.id === 33 ? lukasselec : joueur.player.id === 272 ? rabiotselec : joueur.player.id === 21509 ? thuramselec : joueur.player.id === 278 ? mbappeselec : joueur.player.id === 153 ? dembeleselec : joueur.player.id === 343027 ? doueselec : joueur.player.id === 19617 ? oliseselec : joueur.player.id === 47300 ? theoselec : joueur.player.id === 161904 ? barcolaselec : joueur.player.id === 156477 ? cherkiselec : { uri: joueur.player.photo }}
+                style={{ height: "190", width: "38%" }} />
+              :
+              <Image
+                source={fichesJoueurs[joueur.player.id] || { uri: joueur.player.photo }}
+                style={[
+
+                  fichesJoueurs[joueur.player.id] ? styles.fiche : styles.photo, isMediumScreen && { height: 320, width: 180 }]}
               />
             }
 
@@ -318,14 +348,15 @@ function FicheJoueur() {
               </View>
             </View>
           </LinearGradient>
-
+}
+<View style={{alignItems: "center"}}>
           <View style={styles.palmares}>
             <TouchableOpacity onPress={collapsePalmares} accessible accessibilityLabel='palmarès' accessibilityHint={ openPalmares ? "Masquer le palmarès" : "Afficher le palmarès" } accessibilityState={{ expanded: openPalmares }}>
               <LinearGradient colors={["black", "steelblue"]} style={[styles.palmaresTitle, isMediumScreen && { paddingBlock: 8 }]} accessible={false} >
                 <Text style={[styles.palmaresText, isMediumScreen && { fontSize: 20 }]}>Palmarès</Text>
                 <Animated.Image
                   source={chevron}
-                  style={[styles.chevron, { transform: [{ rotate: rotateInterpolate }] }, isMediumScreen && { left: 250 }]} accessible={false} importantForAccessibility="no" />
+                  style={[styles.chevron, { transform: [{ rotate: rotateInterpolate }] }, isMediumScreen && { left: 125 }]} accessible={false} importantForAccessibility="no" />
               </LinearGradient>
             </TouchableOpacity>
 
@@ -597,7 +628,7 @@ function FicheJoueur() {
                           <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>Cartons Rouge: </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.cards.red}</Text>
                         </View>
                       </View>
-                      <Image source={element.league.id === 61 ? ligue1 : element.league.id === 15 ? fifaclubwc : { uri: element.league.logo }} style={styles.logoCompet} />
+                      <Image source={element.league.id === 15 ? fifaclubwc : { uri: element.league.logo }} style={styles.logoCompet} />
                     </View>
                   </View>
                   : null
@@ -605,8 +636,10 @@ function FicheJoueur() {
               </View>
             ))}
           </View>
+          </View>
         </View>
       </ScrollView>
+      </View>
     </View>
   );
 }
@@ -635,6 +668,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     height: 220,
     alignItems: "center"
+  },
+  infosJoueurTablet: {
+height: "75%",
+width: "38%",
+flexDirection: "column",
+alignItems: "center",
+borderRadius: 15,
+marginTop: 70
   },
   fiche: {
     height: 200,

@@ -286,10 +286,14 @@ import karl from "../assets/portraits/fiche/karl.png"
 import bardghji from "../assets/portraits/fiche/bardghji.png"
 import said from "../assets/portraits/fiche/said.png"
 import sima from "../assets/portraits/fiche/sima.png"
+import sulc from "../assets/portraits/fiche/sulc.png"
+import cancelo from "../assets/portraits/fiche/cancelo.png"
 
 
 
 export const fichesJoueurs = {
+    855: cancelo,
+    66387: sulc,
         277191: sima,
     21715: said,
     338958: bardghji,

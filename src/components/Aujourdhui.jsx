@@ -335,22 +335,22 @@ const [fontsLoaded] = useFonts({
                    : element.league.id === 32 ? 
                   <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
                    :
-                  <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain" />}
+                  <Image source={{ uri: element.league.logo }} style={[styles.matchCompetition, element.league.id === 61 && {width: 38}]} resizeMode="contain" />}
 
                   <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
                   <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
 
                   {element.goals.home === element.goals.away ? 
-                    <View style={styles.matchScore}>
-                      <View> <Text style={styles.nul}>{element.goals.home === null ? "-" : element.goals.home}</Text> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
-                      <View> <Text style={styles.nul}>{element.goals.away === null ? "-" : element.goals.away}</Text>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
-                    </View>
-                   : 
-                    <View style={styles.matchScore}>
-                      <Text style={element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text>
-                      <Text style={element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text>
-                    </View>
-                  }
+                              <View style={styles.matchScore}>
+                                <View><View style={[styles.scoreBox, {backgroundColor: element.goals.home === null ? "black" : 'rgba(150, 150, 150, 1)' }]}><Text style={styles.scoreTxt}>{element.goals.home === null ? "-" : element.goals.home}</Text></View> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "absolute", top: 20, left: 14  }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
+                               <View> <View style={[styles.scoreBox, {backgroundColor: element.goals.away === null ? "black" : 'rgba(150, 150, 150, 1)' }]}> <Text style={styles.scoreTxt}>{element.goals.away === null ? "-" : element.goals.away}</Text></View>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "absolute", top: 20, left: 14 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
+                              </View>
+                             : 
+                              <View style={styles.matchScore}>
+                               <View style={[styles.scoreBox, {backgroundColor: element.goals.home > element.goals.away ?"rgba(23, 161, 49, 1)" : "red"}]}> <Text style={styles.scoreTxt}>{element.goals.home}</Text></View>
+                                <View style={[styles.scoreBox, {backgroundColor: element.goals.home > element.goals.away ? "red" : "rgba(23, 161, 49, 1)"}]}><Text style={styles.scoreTxt}>{element.goals.away}</Text></View>
+                              </View>
+                            }
 
                   <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
                   <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
@@ -382,22 +382,22 @@ const [fontsLoaded] = useFonts({
                    : element.league.id === 32 ? 
                   <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
                    :
-                  <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain" />}
+                  <Image source={{ uri: element.league.logo }} style={[styles.matchCompetition, element.league.id === 61 && {width: 38}]} resizeMode="contain" />}
 
                   <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
                   <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
 
                   {element.goals.home === element.goals.away ? 
-                    <View style={styles.matchScore}>
-                      <View> <Text style={styles.nul}>{element.goals.home === null ? "-" : element.goals.home}</Text> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
-                      <View> <Text style={styles.nul}>{element.goals.away === null ? "-" : element.goals.away}</Text>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
-                    </View>
-                   : 
-                    <View style={styles.matchScore}>
-                      <Text style={element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text>
-                      <Text style={element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text>
-                    </View>
-                  }
+                              <View style={styles.matchScore}>
+                                <View><View style={[styles.scoreBox, {backgroundColor: element.goals.home === null ? "black" : 'rgba(150, 150, 150, 1)' }]}><Text style={styles.scoreTxt}>{element.goals.home === null ? "-" : element.goals.home}</Text></View> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "absolute", top: 20, left: 14  }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
+                               <View> <View style={[styles.scoreBox, {backgroundColor: element.goals.away === null ? "black" : 'rgba(150, 150, 150, 1)' }]}> <Text style={styles.scoreTxt}>{element.goals.away === null ? "-" : element.goals.away}</Text></View>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "absolute", top: 20, left: 14 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
+                              </View>
+                             : 
+                              <View style={styles.matchScore}>
+                               <View style={[styles.scoreBox, {backgroundColor: element.goals.home > element.goals.away ?"rgba(23, 161, 49, 1)" : "red"}]}> <Text style={styles.scoreTxt}>{element.goals.home}</Text></View>
+                                <View style={[styles.scoreBox, {backgroundColor: element.goals.home > element.goals.away ? "red" : "rgba(23, 161, 49, 1)"}]}><Text style={styles.scoreTxt}>{element.goals.away}</Text></View>
+                              </View>
+                            }
 
                   <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
                   <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
@@ -432,7 +432,7 @@ const [fontsLoaded] = useFonts({
                    : element.league.id === 32 ? 
                   <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
                    :
-                  <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain"/>}
+                  <Image source={{ uri: element.league.logo }} style={[styles.matchCompetition, element.league.id === 61 && {width: 38}]} resizeMode="contain"/>}
                   
                   <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
                   <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
@@ -470,7 +470,7 @@ const [fontsLoaded] = useFonts({
                    : element.league.id === 32 ? 
                   <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
                    :
-                  <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain"/>}
+                  <Image source={{ uri: element.league.logo }} style={[styles.matchCompetition, element.league.id === 61 && {width: 38}]} resizeMode="contain"/>}
                   <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
                   <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
                   <Text style={{ marginInline: 4 }}>-</Text>
@@ -566,22 +566,22 @@ const [fontsLoaded] = useFonts({
                    : element.league.id === 32 ? 
                   <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
                    :
-                        <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain" />}
+                        <Image source={{ uri: element.league.logo }} style={[styles.matchCompetition, element.league.id === 61 && {width: 38}]} resizeMode="contain" />}
 
                   <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
                         <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
 
                         {element.goals.home === element.goals.away ? 
-                          <View style={styles.matchScore}>
-                            <View> <Text style={styles.nul}>{element.goals.home === null ? "-" : element.goals.home}</Text> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
-                            <View> <Text style={styles.nul}>{element.goals.away === null ? "-" : element.goals.away}</Text>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
-                          </View>
-                         : 
-                          <View style={styles.matchScore}>
-                            <Text style={element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text>
-                            <Text style={element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text>
-                          </View>
-                        }
+                              <View style={styles.matchScore}>
+                                <View><View style={[styles.scoreBox, {backgroundColor: element.goals.home === null ? "black" : 'rgba(150, 150, 150, 1)' }]}><Text style={styles.scoreTxt}>{element.goals.home === null ? "-" : element.goals.home}</Text></View> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "absolute", top: 20, left: 14  }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
+                               <View> <View style={[styles.scoreBox, {backgroundColor: element.goals.away === null ? "black" : 'rgba(150, 150, 150, 1)' }]}> <Text style={styles.scoreTxt}>{element.goals.away === null ? "-" : element.goals.away}</Text></View>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "absolute", top: 20, left: 14 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
+                              </View>
+                             : 
+                              <View style={styles.matchScore}>
+                               <View style={[styles.scoreBox, {backgroundColor: element.goals.home > element.goals.away ?"rgba(23, 161, 49, 1)" : "red"}]}> <Text style={styles.scoreTxt}>{element.goals.home}</Text></View>
+                                <View style={[styles.scoreBox, {backgroundColor: element.goals.home > element.goals.away ? "red" : "rgba(23, 161, 49, 1)"}]}><Text style={styles.scoreTxt}>{element.goals.away}</Text></View>
+                              </View>
+                            }
 
                         <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
                   <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
@@ -618,22 +618,22 @@ const [fontsLoaded] = useFonts({
                    : element.league.id === 32 ? 
                   <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
                    :
-                        <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain" />}
+                        <Image source={{ uri: element.league.logo }} style={[styles.matchCompetition, element.league.id === 61 && {width: 38}]} resizeMode="contain" />}
 
                   <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
                         <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
 
                         {element.goals.home === element.goals.away ? 
-                          <View style={styles.matchScore}>
-                            <View> <Text style={styles.nul}>{element.goals.home === null ? "-" : element.goals.home}</Text> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
-                            <View> <Text style={styles.nul}>{element.goals.away === null ? "-" : element.goals.away}</Text>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
-                          </View>
-                         : 
-                          <View style={styles.matchScore}>
-                            <Text style={element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text>
-                            <Text style={element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text>
-                          </View>
-                        }
+                              <View style={styles.matchScore}>
+                                <View><View style={[styles.scoreBox, {backgroundColor: element.goals.home === null ? "black" : 'rgba(150, 150, 150, 1)' }]}><Text style={styles.scoreTxt}>{element.goals.home === null ? "-" : element.goals.home}</Text></View> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "absolute", top: 20, left: 14  }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
+                               <View> <View style={[styles.scoreBox, {backgroundColor: element.goals.away === null ? "black" : 'rgba(150, 150, 150, 1)' }]}> <Text style={styles.scoreTxt}>{element.goals.away === null ? "-" : element.goals.away}</Text></View>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "absolute", top: 20, left: 14 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
+                              </View>
+                             : 
+                              <View style={styles.matchScore}>
+                               <View style={[styles.scoreBox, {backgroundColor: element.goals.home > element.goals.away ? "rgba(23, 161, 49, 1)" : "red"}]}> <Text style={styles.scoreTxt}>{element.goals.home}</Text></View>
+                                <View style={[styles.scoreBox, {backgroundColor: element.goals.home > element.goals.away ? "red" : "rgba(23, 161, 49, 1)"}]}><Text style={styles.scoreTxt}>{element.goals.away}</Text></View>
+                              </View>
+                            }
 
                         <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
                   <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
@@ -682,15 +682,12 @@ const [fontsLoaded] = useFonts({
                     element.fixture.status.long === 'Not Started' ? 
                       <TouchableOpacity key={element.fixture.id} onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }} style={styles.link}>
                         <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
-                          {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ?
-                          <Image source={ligue1} style={styles.matchCompetition} resizeMode="contain"/>
-                            :
-                            element.league.id === 15 ? 
+                          {element.league.id === 15 ? 
                   <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
                    : element.league.id === 32 ? 
                   <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
                    :
-                          <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain"/>}
+                          <Image source={{ uri: element.league.logo }} style={[styles.matchCompetition, element.league.id === 61 && {width: 38}]} resizeMode="contain"/>}
                           
                   <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
                           <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
@@ -708,10 +705,7 @@ const [fontsLoaded] = useFonts({
                      
                      <TouchableOpacity key={element.fixture.id} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })} style={styles.link}>
                         <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
-                          {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? 
-                          <Image source={ligue1} style={styles.competitionLogo} resizeMode="contain" /> 
-                          :
-                          element.league.id === 15 ? 
+                          {element.league.id === 15 ? 
                   <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
                    : element.league.id === 32 ? 
                   <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
@@ -758,28 +752,25 @@ const [fontsLoaded] = useFonts({
                         <TouchableOpacity key={element.fixture.id} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })} style={styles.link}>
                           <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
 
-                            {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? 
-                            <Image source={ligue1} style={styles.matchCompetition} resizeMode="contain"/> 
-                            :
-                            element.league.id === 15 ? 
+                            {element.league.id === 15 ? 
                   <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
                    : element.league.id === 32 ? 
                   <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
                    :
-                            <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain"/>}
+                            <Image source={{ uri: element.league.logo }} style={[styles.matchCompetition, element.league.id === 61 && {width: 38}]} resizeMode="contain"/>}
 
                   <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
                             <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
 
                             {element.goals.home === element.goals.away ? 
                               <View style={styles.matchScore}>
-                                <View> <Text style={styles.nul}>{element.goals.home === null ? "-" : element.goals.home}</Text> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
-                                <View> <Text style={styles.nul}>{element.goals.away === null ? "-" : element.goals.away}</Text>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "relative", bottom: 10, left: 12 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
+                                <View><View style={[styles.scoreBox, {backgroundColor: element.goals.home === null ? "black" : 'rgba(150, 150, 150, 1)' }]}><Text style={styles.scoreTxt}>{element.goals.home === null ? "-" : element.goals.home}</Text></View> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "absolute", top: 20, left: 14  }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
+                               <View> <View style={[styles.scoreBox, {backgroundColor: element.goals.away === null ? "black" : 'rgba(150, 150, 150, 1)' }]}> <Text style={styles.scoreTxt}>{element.goals.away === null ? "-" : element.goals.away}</Text></View>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "absolute", top: 20, left: 14 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
                               </View>
                              : 
                               <View style={styles.matchScore}>
-                                <Text style={element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text>
-                                <Text style={element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text>
+                               <View style={[styles.scoreBox, {backgroundColor: element.goals.home > element.goals.away ?"rgba(23, 161, 49, 1)" : "red"}]}> <Text style={styles.scoreTxt}>{element.goals.home}</Text></View>
+                                <View style={[styles.scoreBox, {backgroundColor: element.goals.home > element.goals.away ? "red" : "rgba(23, 161, 49, 1)"}]}><Text style={styles.scoreTxt}>{element.goals.away}</Text></View>
                               </View>
                             }
 
@@ -809,17 +800,12 @@ const [fontsLoaded] = useFonts({
                     style={styles.link}
                   >
                     <LinearGradient colors={['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.3)']} style={styles.match}>
-                      {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
-                        source={ligue1}
-                        style={styles.matchCompetition}
-                        resizeMode="contain"
-                      /> :
-                      element.league.id === 15 ? 
+                      {element.league.id === 15 ? 
                   <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
                    : element.league.id === 32 ? 
                   <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
                    :
-                        <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain" />}
+                        <Image source={{ uri: element.league.logo }} style={[styles.matchCompetition, element.league.id === 61 && {width: 38}]} resizeMode="contain" />}
                   <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
                       <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
                       <Text style={{ marginInline: 4 }}>-</Text>
@@ -850,14 +836,12 @@ const [fontsLoaded] = useFonts({
                     style={styles.link}
                   >
                     <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
-                      {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? 
-                      <Image source={ligue1} style={styles.matchCompetition} resizeMode="contain" /> :
-                      element.league.id === 15 ? 
+                      {element.league.id === 15 ? 
                   <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
                    : element.league.id === 32 ? 
                   <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
                    :
-                        <Image source={{ uri: element.league.logo }} style={styles.matchCompetition} resizeMode="contain" />}
+                        <Image source={{ uri: element.league.logo }} style={[styles.matchCompetition, element.league.id === 61 && {width: 38}]} resizeMode="contain" />}
                   <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
                       <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
                       <Text style={{ marginInline: 4 }}>-</Text>
@@ -968,7 +952,7 @@ const styles = StyleSheet.create({
     color: "white",
     height: 30,
     width: 23,
-    borderRadius: 5,
+    borderRadius: 8,
     textAlign: "center",
     fontFamily: "Kanito",
     paddingTop: 4,
@@ -979,7 +963,7 @@ const styles = StyleSheet.create({
     color: "white",
     height: 30,
     width: 23,
-    borderRadius: 5,
+    borderRadius: 8,
     textAlign: "center",
     fontFamily: "Kanito",
     paddingTop: 4,
@@ -990,17 +974,29 @@ const styles = StyleSheet.create({
     color: "white",
     height: 30,
     width: 23,
-    borderRadius: 5,
+    borderRadius: 8,
     textAlign: "center",
     fontFamily: "Kanito",
     paddingTop: 4,
 
   },
+  scoreBox: {
+height: 32,
+    width: 23,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 8
+  },
+  scoreTxt: {
+    fontFamily: "Kanitt",
+    color: "white",
+    fontSize: 15
+  },
   matchScore: {
     flexDirection: "row",
     width: "14%",
-    justifyContent: "space-around"
-  },
+    justifyContent: "space-around",
+alignItems: "center"  },
   match: {
     flexDirection: 'row',
     justifyContent: "space-around",

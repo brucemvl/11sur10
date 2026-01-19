@@ -32,7 +32,7 @@ function SelectionsPage() {
     return (
         <ScrollView contentContainerStyle={styles.competitions}>
             {/* Section Championnats */}
-
+{/*
                         <LinearGradient colors={['rgba(11, 38, 126, 0.9)', 'rgba(0, 0, 0, 0.85)']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.title}>
             
                     <Text style={styles.titleText}>Qualifs CDM</Text>
@@ -59,6 +59,8 @@ function SelectionsPage() {
                 </View>
             </LinearGradient>
 
+            */}
+
             <LinearGradient colors={['rgba(11, 38, 126, 0.9)', 'rgba(0, 0, 0, 0.85)']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.title}>
             
                     <Text style={styles.titleText}>Competitions</Text>
@@ -76,7 +78,7 @@ function SelectionsPage() {
                         >
                             <Text style={styles.filtreTitle}>{nameCompet[name] || name}</Text>
                             <View style={styles.logoContainer}>
-                                <Image source={ id === 6 ? can : {uri: logo }} style={styles.logo} />
+                                <Image source={ id === 6 ? can : id === 1 ? cdm2026 : {uri: logo }} style={[styles.logo, id === 1 && {width: 75}]} />
                             </View>
                             <Image source={{ uri: flag }} style={styles.flag} />
                         </TouchableOpacity>

@@ -232,11 +232,17 @@ import mahrez from "../assets/portraits/mahrez.png"
 import thiago from "../assets/portraits/thiago.png"
 import said from "../assets/portraits/said.png"
 import sima from "../assets/portraits/sima.png"
+import sulc from "../assets/portraits/sulc.png"
+import lang from "../assets/portraits/lang.png"
+import cancelo from "../assets/portraits/cancelo.png"
 
 
 
 
 export const portraitsJoueurs = {
+    855: cancelo,
+    544: lang,
+    66387: sulc,
     277191: sima,
         21715: said,
         196156: thiago,

@@ -62,6 +62,7 @@ const FicheMatch = () => {
 
     const [homeStats, setHomeStats] = useState(null);
     const [extStats, setExtStats] = useState(null);
+    const [tab, setTab] = useState([])
     
     const route = useRoute();
 const id = route.params?.id || route.params?.matchId;
@@ -90,13 +91,49 @@ const getMatchData = async () => {
 
     const injuriesData = await fetchData(`https://v3.football.api-sports.io/injuries?fixture=${id}`);
     setInjuries(injuriesData);
+
   } catch (error) {
     console.error("Erreur lors de la récupération des données du match ou blessures", error);
   }
 };
 
+
+
+
+  
+
 useEffect(() => {
   if (!homeId || !leagueMatch) return;
+
+  const fetchClassement = async () => {
+    try {
+
+
+    const season = 2025; // saison par défaut si rien trouvé
+
+
+      const res = await fetch(
+        `https://v3.football.api-sports.io/standings?league=${leagueMatch}&season=${season}`,
+        {
+          method: "GET",
+          headers: {
+            "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+            "x-rapidapi-host": "v3.football.api-sports.io",
+          },
+        }
+      );
+
+      const json = await res.json();
+
+      if (!json.response?.length) throw new Error("Aucun classement trouvé");
+
+      setTab(json.response[0].league.standings[0]);
+    } catch (err) {
+      console.error("Erreur fetchClassement:", err);
+    }
+  };
+
+  fetchClassement()
 
   const getTeamStats = async () => {
     try {
@@ -143,6 +180,10 @@ useEffect(() => {
 useEffect(() => {
   getMatchData();
 }, [id]);
+
+
+  console.log(tab)
+
 
 const onRefresh = () => {
   setIsRefreshing(true);
@@ -410,7 +451,7 @@ setCompoBasique(true)
             <View>
                 <Precedent />
             <ScrollView contentContainerStyle={[styles.bloc, isMediumScreen && {paddingInline: 40}]} refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}>
-                <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt} />
+                <Affiche match={match} classement={tab} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt} />
                 <View style={{flexDirection: "row", marginBottom: 10}}>
                 <TouchableOpacity onPress={openCompos} style={selected7 ? styles.selectedTab : styles.tab} accessible accessibilityRole='button' accessibilityLabel='Compositions' accessibilityHint='afficher les compositions déquipe' accessibilityState={{selected: selected7}}>
                             <Text style={selected7 ? styles.selectedText : styles.text}>Compos</Text>
@@ -443,7 +484,7 @@ setCompoBasique(true)
     
             <ScrollView contentContainerStyle={[styles.bloc, isMediumScreen && {paddingInline: 40}]} refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}>
         
-        <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt} />
+        <Affiche match={match} classement={tab} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt} />
         <View style={{flexDirection: "row", marginBottom: 10}}>
         {match.fixture.status.long === "Not Started" ? 
         
@@ -460,7 +501,7 @@ setCompoBasique(true)
                             <Text style={selected5 ? styles.selectedText : styles.text}>Classement</Text>
                         </TouchableOpacity> : null }
                         </View>
-                       {injuries.length <= 0 ? apercu &&  <Stats match={match}/> : apercu && <View style={{alignItems: "center"}}><Stats match={match} /><Indisponibles injuries={injuries} match={match} /></View>}
+                       {injuries.length === 0 ? apercu &&  <Stats match={match}/> : apercu && <View style={{alignItems: "center"}}><Stats match={match} /><Indisponibles injuries={injuries} match={match} /></View>}
                         {histo2 && <Histo historique={historique} />}
                         {classement && <Classement id={match.league.id}/>} 
                                                 {live && <Evenements match={match} />}
@@ -478,7 +519,7 @@ setCompoBasique(true)
                 <View>
                 <Precedent />
             <ScrollView contentContainerStyle={[styles.bloc, isMediumScreen && {paddingInline: 40}]} refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />} >
-                <Affiche match={match} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} />
+                <Affiche match={match} classement={tab} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} />
                 <View style={{flexDirection: "row", marginBottom: 10}}>
                 { match.statistics.length > 0 ? <TouchableOpacity onPress={openDetails} style={selected ? styles.selectedTab : styles.tab}  accessible accessibilityRole='button' accessibilityLabel='Détails du match' accessibilityHint='afficher les détails du match' accessibilityState={{selected: selected}}>
                             <Text style={selected ? styles.selectedText : styles.text}>Details</Text>
@@ -522,7 +563,7 @@ setCompoBasique(true)
         <View>
             <Precedent />
             <ScrollView contentContainerStyle={[styles.bloc, isMediumScreen && {paddingInline: 40}]} refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}>
-                <Affiche match={match} roundd={roundd} homeStats={homeStats} extStats={extStats} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} />
+                <Affiche match={match} classement={tab} roundd={roundd} homeStats={homeStats} extStats={extStats} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} />
                 <View style={styles.section}>
                     <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.ficheSelecteur}>
                         <TouchableOpacity onPress={openDetails} style={selected ? styles.selectedTab : styles.tab} accessible accessibilityRole='button' accessibilityLabel='Détails du match' accessibilityHint='afficher les détails du match' accessibilityState={{selected: selected}}>

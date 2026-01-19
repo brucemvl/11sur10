@@ -115,27 +115,24 @@ function LivePage({ navigation }) {
         />
       }
     >
-
-            <View style={styles.shadowWrapper}>
-  <LinearGradient
+      <View style={styles.shadowWrapper}>
+        <LinearGradient
     colors={['rgba(11, 38, 126, 0.9)', 'rgba(0, 0, 0, 0.85)']}
     start={{ x: 0, y: 0 }}
     end={{ x: 1, y: 1 }}
     style={styles.titlecontainer}
   >
     <Text style={styles.title}>LIVE</Text>
-  </LinearGradient>
-</View>
+    </LinearGradient>
+    </View>
       <View style={styles.container}>
         {lives.length === 0 ?
-          <Text style={styles.noMatch}>Aucun match pour le moment</Text>
-          :
-
-
-          leagues.map((league) => <View style={{ marginBottom: 10 }} key={"ligue" + league}>
-            <Text style={{ fontFamily: "Kanitus", color: "white", marginLeft: 10 }}>
-              {countryTranslations[league] || league}
-            </Text>          {lives.map((live) => live.league.country === league ?
+        <Text style={styles.noMatch}>Aucun match pour le moment</Text>
+        :
+        leagues.map((league) =>
+        <View style={{ marginBottom: 10 }} key={"ligue" + league}>
+          <Text style={{ fontFamily: "Kanitus", color: "white", marginLeft: 10 }}>{countryTranslations[league] || league}</Text>
+          {lives.map((live) => live.league.country === league ?
               <TouchableOpacity
                 style={styles.matchContainer}
                 onPress={() => navigation.navigate('FicheMatch', { id: live.fixture.id })} key={live.fixture.id}
@@ -145,13 +142,14 @@ function LivePage({ navigation }) {
                     source={ligue1}
                     style={styles.competitionLogo}
                     resizeMode="contain"
-                  /> :
-                    <Image
+                  />
+                  :
+                  <Image
                       source={{ uri: live.league.logo }}
                       style={styles.competitionLogo}
                       resizeMode="contain"
                     />}
-                  <View style={styles.teamContainerDom}>
+                    <View style={styles.teamContainerDom}>
                     <Image
                       source={{ uri: live.teams.home.logo }}
                       style={styles.teamLogo}
@@ -160,7 +158,7 @@ function LivePage({ navigation }) {
                     <Text style={styles.teamName}>{teamName[live.teams.home.name] || live.teams.home.name}</Text>
                   </View>
                   <View style={styles.scoreContainer}>
-                    {live.goals.home === live.goals.away ? (
+                    live.goals.home === live.goals.away ? 
                       <View style={styles.score}>
                         <Text style={styles.scoreText}>{live.goals.home}</Text>
                         <View style={styles.liveSticker}>
@@ -169,7 +167,7 @@ function LivePage({ navigation }) {
                         </View>
                         <Text style={styles.scoreText}>{live.goals.away}</Text>
                       </View>
-                    ) : (
+                     : 
                       <View style={styles.score}>
                         <Text
                           style={
@@ -183,15 +181,9 @@ function LivePage({ navigation }) {
                           <Animated.Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
                         </View>
 
-                        <Text
-                          style={
-                            live.goals.away > live.goals.home ? styles.winner : styles.loser
-                          }
-                        >
-                          {live.goals.away}
-                        </Text>
+                        <Text style={live.goals.away > live.goals.home ? styles.winner : styles.loser}>{live.goals.away}</Text>
                       </View>
-                    )}
+                    
                   </View>
                   <View style={styles.teamContainer}>
                     <Image

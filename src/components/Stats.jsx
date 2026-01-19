@@ -289,7 +289,7 @@ function Stats({ match }) {
             <View>
                         {topScorerHome && (
 
-            <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: topScorerHome.id})} style={[styles.ligne, {borderBottomWidth: 1}]}>
+            <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: topScorerHome.id})} style={[styles.ligne, {borderBottomWidth: 2}]}>
                 <Image source={{uri: match.teams.home.logo}} style={styles.logoClub}/>
                 <Image source={portraitsJoueurs[topScorerHome.id] || {uri: topScorerHome.photo}} style={styles.photoJoueur} />
                 <Text style={{fontFamily: "Kanito", fontSize: 12, width: "58%"}}>{topScorerHome.name}</Text>
@@ -298,7 +298,7 @@ function Stats({ match }) {
                         )}
                                 {topScorerExt && (
 
-            <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: topScorerExt.id})} style={[styles.ligne, {borderTopWidth: 1}]}>
+            <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: topScorerExt.id})} style={styles.ligne}>
 <Image source={{uri: match.teams.away.logo}} style={styles.logoClub}/>
                 <Image source={portraitsJoueurs[topScorerExt.id] || {uri: topScorerExt.photo}} style={styles.photoJoueur} />
                 <Text style={{fontFamily: "Kanito", fontSize: 12, width: "58%"}}>{topScorerExt.name}</Text>
@@ -320,7 +320,7 @@ function Stats({ match }) {
             <View>
                         {topAssistHome && (
 
-            <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: topAssistHome.id})} style={[styles.ligne, {borderBottomWidth: 1}]}>
+            <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: topAssistHome.id})} style={[styles.ligne, {borderBottomWidth: 2}]}>
                 <Image source={{uri: match.teams.home.logo}} style={styles.logoClub}/>
                 <Image source={portraitsJoueurs[topAssistHome.id] || {uri: topAssistHome.photo}} style={styles.photoJoueur} />
                 <Text style={{fontFamily: "Kanito", fontSize: 12, width: "55%"}}>{topAssistHome.name}</Text>
@@ -329,7 +329,7 @@ function Stats({ match }) {
                         )}
                                 {topAssistExt && (
 
-            <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: topAssistExt.id})} style={[styles.ligne, {borderTopWidth: 1}]}>
+            <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: topAssistExt.id})} style={styles.ligne}>
 <Image source={{uri: match.teams.away.logo}} style={styles.logoClub}/>
                 <Image source={portraitsJoueurs[topAssistExt.id] || {uri: topAssistExt.photo}} style={styles.photoJoueur} />
                 <Text style={{fontFamily: "Kanito", fontSize: 12, width: "55%"}}>{topAssistExt.name}</Text>
@@ -349,7 +349,7 @@ function Stats({ match }) {
             <Image source={{uri: match.league.logo}} style={{height: 48, width: 48, resizeMode: "contain"}} />
             <View>
                         {bestRatedHome && (
-            <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: bestRatedHome.id})} style={[styles.ligne, {borderBottomWidth: 1, gap: 5}]}>
+            <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: bestRatedHome.id})} style={[styles.ligne, {borderBottomWidth: 2, gap: 5}]}>
                 <Image source={{uri: match.teams.home.logo}} style={styles.logoClub}/>
                 <Image source={portraitsJoueurs[bestRatedHome.id] || {uri: bestRatedHome.photo}} style={styles.photoJoueur} />
                 <Text style={{fontFamily: "Kanito", fontSize: 12, width: "48%"}}>{bestRatedHome.name}</Text>
@@ -358,7 +358,7 @@ function Stats({ match }) {
                 </TouchableOpacity>
                         )}
                                 {bestRatedExt && (
-            <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: bestRatedExt.id})} style={[styles.ligne, {borderTopWidth: 1, gap: 5}]}>
+            <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: bestRatedExt.id})} style={[styles.ligne, { gap: 5}]}>
 <Image source={{uri: match.teams.away.logo}} style={styles.logoClub}/>
                 <Image source={portraitsJoueurs[bestRatedExt.id] || {uri: bestRatedExt.photo}} style={styles.photoJoueur} />
                 <Text style={{fontFamily: "Kanito", fontSize: 12, width: "48%"}}>{bestRatedExt.name}</Text>

@@ -373,7 +373,7 @@ if (!stats) {
         <ScrollView horizontal showsHorizontalScrollIndicator={true} style={styles.leagues}>
           {leagues.map((element) => {
             if (element.league.name === "Friendlies Clubs") return null; const isSelected = selectedId === element.league.id;
-            return <TouchableOpacity key={element.league.id} onPress={() => { setCompet(element.league.id); setSelectedId(element.league.id) }} style={isSelected ? styles.selected : { opacity: 0.3 }}> <Image source={element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? ligue1 : element.league.id === 15 ? fifaclubwc : { uri: element.league.logo }} style={{ height: 60, width: 60, marginBottom: 20, objectFit: "contain", marginInline: 12 }} /></TouchableOpacity>
+            return <TouchableOpacity key={element.league.id} onPress={() => { setCompet(element.league.id); setSelectedId(element.league.id) }} style={isSelected ? styles.selected : { opacity: 0.3 }}> <Image source={element.league.id === 15 ? fifaclubwc : { uri: element.league.logo }} style={{ height: 60, width: 60, marginBottom: 20, objectFit: "contain", marginInline: 12 }} /></TouchableOpacity>
           })}
         </ScrollView>
         <View style={styles.bloc}>

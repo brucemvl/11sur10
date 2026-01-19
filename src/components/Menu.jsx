@@ -7,6 +7,7 @@ import {
   DeviceEventEmitter,
   StyleSheet,
   Dimensions,
+  useWindowDimensions
 } from "react-native";
 import { useState, useRef } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -22,12 +23,20 @@ import flag2 from "../assets/flag3.png";
 import shield from "../assets/shield.png";
 import shield2 from "../assets/shield2.png";
 
-const SCREEN_WIDTH = Dimensions.get("window").width;
-const MENU_WIDTH = SCREEN_WIDTH * 0.85;
-const BUTTON_WIDTH = MENU_WIDTH / 4;
+
+
+
 
 function Menu() {
+
+  const { width } = useWindowDimensions();
+      
+          const isMediumScreen = width <= 1024 && width > 767;
   const navigation = useNavigation();
+
+  const SCREEN_WIDTH = Dimensions.get("window").width;
+const MENU_WIDTH = isMediumScreen ? SCREEN_WIDTH * 0.75 : SCREEN_WIDTH * 0.85;
+const BUTTON_WIDTH = MENU_WIDTH / 4;
 
   const [fontsLoaded] = useFonts({
     Kanito: require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
@@ -83,7 +92,7 @@ function Menu() {
   };
 
   return (
-    <View style={styles.Menu}>
+    <View style={[styles.Menu, isMediumScreen && {width: "74%", left: "13%"}]}>
 
       {/* BULLE */}
       <Animated.View
@@ -225,7 +234,7 @@ color: "green",
   
 
   activeIcon: {
-    transform: [{ scale: 1.05 }],
+    transform: [{ scale: 1.10 }],
   },
 });
 
