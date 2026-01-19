@@ -65,8 +65,8 @@ activeMatches = stillActive;
 
       const matches = data.response;
       const liveMatches = matches.filter(match =>
-        ['1H', '2H', 'HT', 'ET',  'P', 'FT'].includes(match.fixture.status.short)
-      );
+  ['1H', '2H', 'HT', 'ET'].includes(match.fixture.status.short)
+);
 
       liveMatches.forEach(match => {
   if (finishedMatches[match.fixture.id]) return;
@@ -93,7 +93,7 @@ activeMatches = stillActive;
         );
 
         const fallbackLiveMatches = liveData.response.filter(match =>
-          ['1H', '2H', 'HT', 'ET',  'P', 'FT'].includes(match.fixture.status.short)
+          ['1H', '2H', 'HT', 'ET'].includes(match.fixture.status.short)
         );
 
         fallbackLiveMatches.forEach(match => {
