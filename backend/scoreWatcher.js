@@ -7,6 +7,8 @@ const previousScores = {};
 const previousEvents = {};
 let activeMatches = [];
 const finishedMatches = {};
+const penaltyNotified = {};
+
 
 const teamNameNotif = {
     "Morocco" : "Maroc",
@@ -166,11 +168,34 @@ for (const { matchId, teamId } of activeMatches) {
       const homeGoals = match.goals.home;
       const awayGoals = match.goals.away;
 
-      if (status === 'FT') {
+      // 🎯 Tirs au but
+if (status === 'P' && !penaltyNotified[matchId]) {
+  await sendPushNotification(tokens, {
+    title: '🎯 Tirs au but',
+    body: `${homeTeam} vs ${awayTeam} – place aux penalties !`,
+    data: { screen: 'FicheMatch', matchId },
+  });
+
+  penaltyNotified[matchId] = true;
+}
+
+// Match terminé
+if (['FT', 'AET', 'PEN'].includes(status)) {
   if (!finishedMatches[matchId]) {
+
+    // Déterminer le vainqueur
+    let winner = null;
+    if (homeGoals > awayGoals) winner = homeTeam;
+    else if (awayGoals > homeGoals) winner = awayTeam;
+
+    let bodyMessage = `Score final : ${homeTeam} ${homeGoals} - ${awayGoals} ${awayTeam}`;
+    if (status === 'PEN' && winner) {
+      bodyMessage = `🏆 Vainqueur aux tirs au but : ${winner} ! (${homeGoals}-${awayGoals})`;
+    }
+
     await sendPushNotification(tokens, {
       title: '⏱️ Match terminé',
-      body: `Score final : ${homeTeam} ${homeGoals} - ${awayGoals} ${awayTeam}`,
+      body: bodyMessage,
       data: { screen: 'FicheMatch', matchId },
     });
 
@@ -178,6 +203,13 @@ for (const { matchId, teamId } of activeMatches) {
   }
 
   delete previousScores[matchId];
+  delete penaltyNotified[matchId];
+
+  // Nettoyer events
+  Object.keys(previousEvents).forEach(key => {
+    if (key.startsWith(`${matchId}-`)) delete previousEvents[key];
+  });
+
   activeMatches = activeMatches.filter(m => m.matchId !== matchId);
   continue;
 }
