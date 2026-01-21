@@ -222,10 +222,23 @@ if (['FT', 'AET', 'PEN'].includes(status)) {
 
       // 🚫 Évite notif 0-0 au premier passage
       if (scoreChanged && !(prev.home === null && homeGoals === 0 && awayGoals === 0)) {
-        let message = `⚽ Nouveau score : ${homeTeam} ${homeGoals} - ${awayGoals} ${awayTeam}`;
 
         const prevTotal = (prev.home ?? 0) + (prev.away ?? 0);
         const currentTotal = homeGoals + awayGoals;
+
+        if (currentTotal < prevTotal) {
+    await sendPushNotification(tokens, {
+      title:  `${homeTeam} ${homeGoals} - ${awayGoals} ${awayTeam}`,
+      body: '❌ VAR - But annulé!',
+      data: { screen: 'FicheMatch', matchId },
+    });
+
+    previousScores[matchId] = { home: homeGoals, away: awayGoals };
+    continue; // ⛔ très important
+  }
+        let message = `⚽ Nouveau score : ${homeTeam} ${homeGoals} - ${awayGoals} ${awayTeam}`;
+
+        
 
         // ⚽ Ouverture du score
         if (prevTotal === 0 && currentTotal === 1) {
