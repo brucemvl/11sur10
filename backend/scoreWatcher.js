@@ -110,45 +110,78 @@ async function refreshActiveMatches() {
 // ✅ Vérifie les scores et événements des matchs actifs
 async function checkMatchScore() {
   try {
-    if (activeMatches.length === 0) {
-      console.log("⏸️ Aucun match actif à surveiller.");
-      return;
-    }
-
-    console.log("🎯 Liste des matchs actifs :", activeMatches);
-
+    // 1️⃣ Récupérer les équipes suivies + tokens
     const tokenGroups = await PushToken.aggregate([
       { $group: { _id: '$teamId', tokens: { $push: '$token' } } }
     ]);
+
+    if (tokenGroups.length === 0) return;
+
     const tokensByTeam = Object.fromEntries(
       tokenGroups.map(g => [String(g._id), g.tokens])
     );
 
-    const matchTokens = {}; // clé = matchId, valeur = Set de tokens
+    const followedTeamIds = new Set(
+      tokenGroups.map(g => Number(g._id)).filter(Boolean)
+    );
 
-for (const { matchId, teamId } of activeMatches) {
-  const tokens = tokensByTeam[teamId] || [];
-  if (!matchTokens[matchId]) matchTokens[matchId] = new Set();
-  tokens.forEach(t => matchTokens[matchId].add(t));
-}
+    // 2️⃣ UN SEUL appel API : tous les matchs live
+    const { data } = await axios.get(
+      'https://v3.football.api-sports.io/fixtures?live=all',
+      {
+        headers: {
+          'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
+          'x-rapidapi-host': 'v3.football.api-sports.io',
+        },
+      }
+    );
 
+    const liveMatches = data.response;
 
-    for (const matchId of Object.keys(matchTokens)) {
-  const tokens = Array.from(matchTokens[matchId]);
+    // 3️⃣ Construire matchId → tokens (dynamique)
+    const matchTokens = {};
+
+    for (const match of liveMatches) {
+      const matchId = match.fixture.id;
+      if (finishedMatches[matchId]) continue;
+
+      const homeId = match.teams.home.id;
+      const awayId = match.teams.away.id;
+
+      let tokens = [];
+
+      if (followedTeamIds.has(homeId)) {
+        tokens = tokens.concat(tokensByTeam[homeId] || []);
+if (!activeMatches.some(m => m.matchId === matchId && m.teamId === homeId)) {
+  activeMatches.push({ matchId, teamId: homeId });
+}      }
+
+      if (followedTeamIds.has(awayId)) {
+        tokens = tokens.concat(tokensByTeam[awayId] || []);
+if (!activeMatches.some(m => m.matchId === matchId && m.teamId === awayId)) {
+  activeMatches.push({ matchId, teamId: awayId });
+}      }
+
       if (tokens.length === 0) continue;
 
-      const { data } = await axios.get(
-        `https://v3.football.api-sports.io/fixtures?id=${matchId}`,
-        {
-          headers: {
-            'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
-            'x-rapidapi-host': 'v3.football.api-sports.io',
-          },
-        }
-      );
+      matchTokens[matchId] = Array.from(new Set(tokens));
 
-      const match = data.response?.[0];
-      if (!match) continue;
+      // Init pour ne jamais rater le premier but
+      if (!previousScores[matchId]) {
+        previousScores[matchId] = { home: null, away: null };
+      }
+    }
+
+    // Nettoyage des doublons activeMatches
+    activeMatches = Array.from(
+      new Map(activeMatches.map(m => [`${m.matchId}-${m.teamId}`, m])).values()
+    );
+
+    // 4️⃣ Traitement score + events
+    for (const match of liveMatches) {
+      const matchId = match.fixture.id;
+      const tokens = matchTokens[matchId];
+      if (!tokens || tokens.length === 0) continue;
 
       const status = match.fixture.status.short;
       const homeTeam = teamNameNotif[match.teams.home.name] || match.teams.home.name;
@@ -157,84 +190,74 @@ for (const { matchId, teamId } of activeMatches) {
       const awayGoals = match.goals.away;
 
       // 🎯 Tirs au but
-if (status === 'P' && !penaltyNotified[matchId]) {
-  await sendPushNotification(tokens, {
-    title: '🎯 Tirs au but',
-    body: `${homeTeam} vs ${awayTeam} – place aux penalties !`,
-    data: { screen: 'FicheMatch', matchId },
-  });
+      if (status === 'P' && !penaltyNotified[matchId]) {
+        await sendPushNotification(tokens, {
+          title: '🎯 Tirs au but',
+          body: `${homeTeam} vs ${awayTeam} – place aux penalties !`,
+          data: { screen: 'FicheMatch', matchId },
+        });
+        penaltyNotified[matchId] = true;
+      }
 
-  penaltyNotified[matchId] = true;
-}
+      // ⏱️ Match terminé
+      if (['FT', 'AET', 'PEN'].includes(status)) {
+        if (!finishedMatches[matchId]) {
+          let winner = null;
+          if (homeGoals > awayGoals) winner = homeTeam;
+          else if (awayGoals > homeGoals) winner = awayTeam;
 
-// Match terminé
-if (['FT', 'AET', 'PEN'].includes(status)) {
-  if (!finishedMatches[matchId]) {
+          let bodyMessage = `Score final : ${homeTeam} ${homeGoals} - ${awayGoals} ${awayTeam}`;
+          if (status === 'PEN' && winner) {
+            bodyMessage = `🏆 Vainqueur aux tirs au but : ${winner} ! (${homeGoals}-${awayGoals})`;
+          }
 
-    // Déterminer le vainqueur
-    let winner = null;
-    if (homeGoals > awayGoals) winner = homeTeam;
-    else if (awayGoals > homeGoals) winner = awayTeam;
+          await sendPushNotification(tokens, {
+            title: '⏱️ Match terminé',
+            body: bodyMessage,
+            data: { screen: 'FicheMatch', matchId },
+          });
 
-    let bodyMessage = `Score final : ${homeTeam} ${homeGoals} - ${awayGoals} ${awayTeam}`;
-    if (status === 'PEN' && winner) {
-      bodyMessage = `🏆 Vainqueur aux tirs au but : ${winner} ! (${homeGoals}-${awayGoals})`;
-    }
+          finishedMatches[matchId] = true;
+        }
 
-    await sendPushNotification(tokens, {
-      title: '⏱️ Match terminé',
-      body: bodyMessage,
-      data: { screen: 'FicheMatch', matchId },
-    });
+        delete previousScores[matchId];
+        delete penaltyNotified[matchId];
 
-    finishedMatches[matchId] = true;
-  }
+        Object.keys(previousEvents).forEach(key => {
+          if (key.startsWith(`${matchId}-`)) delete previousEvents[key];
+        });
 
-  delete previousScores[matchId];
-  delete penaltyNotified[matchId];
+        activeMatches = activeMatches.filter(m => m.matchId !== matchId);
+        continue;
+      }
 
-  // Nettoyer events
-  Object.keys(previousEvents).forEach(key => {
-    if (key.startsWith(`${matchId}-`)) delete previousEvents[key];
-  });
-
-  activeMatches = activeMatches.filter(m => m.matchId !== matchId);
-  continue;
-}
-
-      // ⛔ On ne traite que les matchs en cours
+      // ⛔ Match en cours seulement
       if (!['1H', '2H', 'HT', 'ET'].includes(status)) continue;
 
-      const prev = previousScores[matchId] ?? { home: null, away: null };
+      const prev = previousScores[matchId];
       const scoreChanged = prev.home !== homeGoals || prev.away !== awayGoals;
 
-      // 🚫 Évite notif 0-0 au premier passage
       if (scoreChanged && !(prev.home === null && homeGoals === 0 && awayGoals === 0)) {
-
         const prevTotal = (prev.home ?? 0) + (prev.away ?? 0);
         const currentTotal = homeGoals + awayGoals;
 
         if (currentTotal < prevTotal) {
-    await sendPushNotification(tokens, {
-      title:  `${homeTeam} ${homeGoals} - ${awayGoals} ${awayTeam}`,
-      body: '❌ VAR - But annulé!',
-      data: { screen: 'FicheMatch', matchId },
-    });
+          await sendPushNotification(tokens, {
+            title: `${homeTeam} ${homeGoals} - ${awayGoals} ${awayTeam}`,
+            body: '❌ VAR - But annulé !',
+            data: { screen: 'FicheMatch', matchId },
+          });
+          previousScores[matchId] = { home: homeGoals, away: awayGoals };
+          continue;
+        }
 
-    previousScores[matchId] = { home: homeGoals, away: awayGoals };
-    continue; // ⛔ très important
-  }
         let message = `⚽ Nouveau score : ${homeTeam} ${homeGoals} - ${awayGoals} ${awayTeam}`;
 
-        
-
-        // ⚽ Ouverture du score
         if (prevTotal === 0 && currentTotal === 1) {
           const scorer = homeGoals > awayGoals ? homeTeam : awayTeam;
           message = pickRandom(scoreMessages.opening)(scorer);
         }
 
-        // ⚖️ Égalisation
         if (currentTotal > prevTotal && homeGoals === awayGoals) {
           const equalizer = homeGoals > prev.home ? homeTeam : awayTeam;
           message = pickRandom(scoreMessages.equalizer)(equalizer);
@@ -246,11 +269,10 @@ if (['FT', 'AET', 'PEN'].includes(status)) {
           data: { screen: 'FicheMatch', matchId },
         });
 
-        console.log(`📲 Notification score envoyée (${matchId})`);
         previousScores[matchId] = { home: homeGoals, away: awayGoals };
       }
 
-      // 🧾 ÉVÉNEMENTS (buts, rouges)
+      // 🧾 Événements
       for (const event of match.events || []) {
         const { player, team, time, type, detail } = event;
         if (!player?.name || !team?.name) continue;
@@ -278,9 +300,7 @@ if (['FT', 'AET', 'PEN'].includes(status)) {
             body,
             data: { matchId },
           });
-
           previousEvents[eventKey] = true;
-          console.log(`📲 Événement envoyé : ${body}`);
         }
       }
     }
@@ -290,7 +310,7 @@ if (['FT', 'AET', 'PEN'].includes(status)) {
 }
 
 // 🕓 Cron jobs
-cron.schedule('*/5 * * * *', refreshActiveMatches);      // Rafraîchit les matchs toutes les 5 minutes
+cron.schedule('*/15 * * * *', refreshActiveMatches);      // Rafraîchit les matchs toutes les 15 minutes
 cron.schedule('*/30 * * * * *', checkMatchScore);        // Vérifie les scores toutes les 30 secondes
 
 // ▶️ Démarrage initial
