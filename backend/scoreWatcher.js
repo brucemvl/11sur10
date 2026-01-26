@@ -45,71 +45,59 @@ function pickRandom(messages) {
 async function refreshActiveMatches() {
   try {
     console.log("🔄 Rafraîchissement des matchs à suivre...");
-const stillActive = [...activeMatches];
-activeMatches = stillActive;
 
+    // 🔹 1. Récupérer les équipes suivies
     const groupedTokens = await PushToken.aggregate([
       { $group: { _id: '$teamId', tokens: { $push: '$token' } } }
     ]);
 
-    for (const { _id: teamId, tokens } of groupedTokens) {
-      if (!teamId) continue;
+    const followedTeamIds = new Set(
+      groupedTokens.map(g => Number(g._id)).filter(Boolean)
+    );
 
-      const { data } = await axios.get(
-        `https://v3.football.api-sports.io/fixtures?team=${teamId}&next=5`,
-        {
-          headers: {
-            'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
-            'x-rapidapi-host': 'v3.football.api-sports.io',
-          },
-        }
-      );
+    if (followedTeamIds.size === 0) {
+      activeMatches = [];
+      return;
+    }
 
-      const matches = data.response;
-      const liveMatches = matches.filter(match =>
-  ['1H', '2H', 'HT', 'ET'].includes(match.fixture.status.short)
-);
+    // 🔹 2. UN SEUL appel API : tous les matchs live
+    const { data } = await axios.get(
+      'https://v3.football.api-sports.io/fixtures?live=all',
+      {
+        headers: {
+          'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
+          'x-rapidapi-host': 'v3.football.api-sports.io',
+        },
+      }
+    );
 
-      liveMatches.forEach(match => {
-  if (finishedMatches[match.fixture.id]) return;
+    const liveMatches = data.response.filter(match =>
+      ['1H', '2H', 'HT', 'ET', 'P'].includes(match.fixture.status.short)
+    );
 
-  const matchExists = activeMatches.some(
-    m => m.matchId === match.fixture.id && m.teamId === teamId
-  );
+    const newActiveMatches = [];
 
-  if (!matchExists) {
-    activeMatches.push({ matchId: match.fixture.id, teamId });
-  }
-});
+    // 🔹 3. Filtrer uniquement les matchs qui concernent une équipe suivie
+    for (const match of liveMatches) {
+      const matchId = match.fixture.id;
+      if (finishedMatches[matchId]) continue;
 
-      // Fallback si aucun match actif
-      if (liveMatches.length === 0) {
-        const { data: liveData } = await axios.get(
-          `https://v3.football.api-sports.io/fixtures?team=${teamId}&live=all`,
-          {
-            headers: {
-              'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
-              'x-rapidapi-host': 'v3.football.api-sports.io',
-            },
-          }
-        );
+      const homeId = match.teams.home.id;
+      const awayId = match.teams.away.id;
 
-        const fallbackLiveMatches = liveData.response.filter(match =>
-          ['1H', '2H', 'HT', 'ET'].includes(match.fixture.status.short)
-        );
+      if (followedTeamIds.has(homeId)) {
+        newActiveMatches.push({ matchId, teamId: homeId });
+      }
 
-        fallbackLiveMatches.forEach(match => {
-  if (finishedMatches[match.fixture.id]) return;
-
-  activeMatches.push({ matchId: match.fixture.id, teamId });
-});
+      if (followedTeamIds.has(awayId)) {
+        newActiveMatches.push({ matchId, teamId: awayId });
       }
     }
 
-    // ✅ Supprimer les doublons
+    // 🔹 4. Supprimer les doublons
     activeMatches = Array.from(
       new Map(
-        activeMatches.map(m => [`${m.matchId}-${m.teamId}`, m])
+        newActiveMatches.map(m => [`${m.matchId}-${m.teamId}`, m])
       ).values()
     );
 
