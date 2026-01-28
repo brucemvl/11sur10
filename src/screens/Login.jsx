@@ -30,7 +30,7 @@ export default function Login() {
       console.log('Token push enregistré:', pushToken);
 
       // Naviguer vers l'écran principal ou dashboard
-      navigation.replace('Home');
+      navigation.replace('AccueilJeu');
     } else {
       Alert.alert('Erreur', result.error || 'Échec de la connexion');
     }

@@ -38,6 +38,7 @@ export default function Register() {
 
       await AsyncStorage.setItem('jwtToken', token);
       await AsyncStorage.setItem('userId', userId);
+      await AsyncStorage.setItem('username', username);
 
       console.log('✅ Inscription réussie, JWT stocké');
 

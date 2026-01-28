@@ -15,10 +15,11 @@ export async function login(email, password) {
       password,
     });
 
-    const { token, userId } = response.data;
+    const { token, userId, username } = response.data;
 
     await AsyncStorage.setItem('jwtToken', token);
     await AsyncStorage.setItem('userId', userId);
+    await AsyncStorage.setItem('username', username);
 
     console.log('✅ Login réussi, JWT stocké');
     return { success: true };
