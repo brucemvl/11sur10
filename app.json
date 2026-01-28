@@ -2,12 +2,12 @@
   "expo": {
     "name": "11sur10",
     "slug": "11sur10",
-    "version": "2.6.7",
+    "version": "2.7.0",
     "orientation": "portrait",
     "icon": "./src/assets/logoapp7.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    "jsEngine": "hermes",
+    "jsEngine": "jsc",
     "splash": {
       "image": "./src/assets/logopnn.png",
       "resizeMode": "contain",

@@ -117,87 +117,78 @@ function LivePage({ navigation }) {
     >
       <View style={styles.shadowWrapper}>
         <LinearGradient
-    colors={['rgba(11, 38, 126, 0.9)', 'rgba(0, 0, 0, 0.85)']}
-    start={{ x: 0, y: 0 }}
-    end={{ x: 1, y: 1 }}
-    style={styles.titlecontainer}
-  >
-    <Text style={styles.title}>LIVE</Text>
-    </LinearGradient>
-    </View>
+          colors={['rgba(11, 38, 126, 0.9)', 'rgba(0, 0, 0, 0.85)']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={styles.titlecontainer}
+        >
+          <Text style={styles.title}>LIVE</Text>
+        </LinearGradient>
+      </View>
       <View style={styles.container}>
         {lives.length === 0 ?
-        <Text style={styles.noMatch}>Aucun match pour le moment</Text>
-        :
-        leagues.map((league) =>
-        <View style={{ marginBottom: 10 }} key={"ligue" + league}>
-          <Text style={{ fontFamily: "Kanitus", color: "white", marginLeft: 10 }}>{countryTranslations[league] || league}</Text>
-          {lives.map((live) => live.league.country === league ?
-              <TouchableOpacity
-                style={styles.matchContainer}
-                onPress={() => navigation.navigate('FicheMatch', { id: live.fixture.id })} key={live.fixture.id}
-              >
-                <View style={styles.match}>
-                  {live.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
-                    source={ligue1}
-                    style={styles.competitionLogo}
-                    resizeMode="contain"
-                  />
-                  :
-                  <Image
-                      source={{ uri: live.league.logo }}
+          <Text style={styles.noMatch}>Aucun match pour le moment</Text>
+          :
+          leagues.map((league) =>
+            <View style={{ marginBottom: 10 }} key={"ligue" + league}>
+              <Text style={{ fontFamily: "Kanitus", color: "white", marginLeft: 10 }}>{countryTranslations[league] || league}</Text>
+              {lives.map((live) => live.league.country === league ?
+                <TouchableOpacity
+                  style={styles.matchContainer}
+                  onPress={() => navigation.navigate('FicheMatch', { id: live.fixture.id })} key={live.fixture.id}
+                >
+                  <View style={styles.match}>
+                    {live.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
+                      source={ligue1}
                       style={styles.competitionLogo}
                       resizeMode="contain"
-                    />}
+                    />
+                      :
+                      <Image
+                        source={{ uri: live.league.logo }}
+                        style={styles.competitionLogo}
+                        resizeMode="contain"
+                      />}
                     <View style={styles.teamContainerDom}>
-                    <Image
-                      source={{ uri: live.teams.home.logo }}
-                      style={styles.teamLogo}
-                      resizeMode="contain"
-                    />
-                    <Text style={styles.teamName}>{teamName[live.teams.home.name] || live.teams.home.name}</Text>
-                  </View>
-                  <View style={styles.scoreContainer}>
-                    live.goals.home === live.goals.away ? 
-                      <View style={styles.score}>
-                        <Text style={styles.scoreText}>{live.goals.home}</Text>
-                        <View style={styles.liveSticker}>
-                          <Text style={styles.liveText}>{live.fixture.status.elapsed}'</Text>
-                          <Animated.Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
-                        </View>
-                        <Text style={styles.scoreText}>{live.goals.away}</Text>
-                      </View>
-                     : 
-                      <View style={styles.score}>
-                        <Text
-                          style={
-                            live.goals.home > live.goals.away ? styles.winner : styles.loser
-                          }
-                        >
-                          {live.goals.home}
-                        </Text>
-                        <View style={styles.liveSticker}>
-                          <Text style={styles.liveText}>{live.fixture.status.elapsed}'</Text>
-                          <Animated.Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
-                        </View>
+                      <Image
+                        source={{ uri: live.teams.home.logo }}
+                        style={styles.teamLogo}
+                        resizeMode="contain"
+                      />
+                      <Text style={styles.teamName}>{teamName[live.teams.home.name] || live.teams.home.name}</Text>
+                    </View>
+                    <View style={styles.scoreContainer}>
+                      
+                        <View style={styles.score}>
+                          <Text
+                            style={
+                              live.goals.home > live.goals.away ?  styles.winner : live.goals.home < live.goals.away ? styles.loser : styles.scoreText
+                            }
+                          >
+                            {live.goals.home}
+                          </Text>
+                          <View style={styles.liveSticker}>
+                            <Text style={styles.liveText}>{live.fixture.status.elapsed}'</Text>
+                            <Animated.Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
+                          </View>
 
-                        <Text style={live.goals.away > live.goals.home ? styles.winner : styles.loser}>{live.goals.away}</Text>
-                      </View>
-                    
+                          <Text style={live.goals.home < live.goals.away ?  styles.winner : live.goals.home > live.goals.away ? styles.loser : styles.scoreText}>{live.goals.away}</Text>
+                        </View>
+                      
+                    </View>
+                    <View style={styles.teamContainer}>
+                      <Image
+                        source={{ uri: live.teams.away.logo }}
+                        style={styles.teamLogo}
+                        resizeMode="contain"
+                      />
+                      <Text style={styles.teamName}>{teamName[live.teams.away.name] || live.teams.away.name}</Text>
+                    </View>
                   </View>
-                  <View style={styles.teamContainer}>
-                    <Image
-                      source={{ uri: live.teams.away.logo }}
-                      style={styles.teamLogo}
-                      resizeMode="contain"
-                    />
-                    <Text style={styles.teamName}>{teamName[live.teams.away.name] || live.teams.away.name}</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-              : null
-            )}
-          </View>
+                </TouchableOpacity>
+                : null
+              )}
+            </View>
 
           )}
       </View>
@@ -228,24 +219,24 @@ const styles = StyleSheet.create({
     padding: 6
   },
   shadowWrapper: {
-  marginHorizontal: '35%',
-  borderRadius: 18,
+    marginHorizontal: '35%',
+    borderRadius: 18,
 
-  // Ombre iOS
-  shadowColor: '#000',
-  shadowOffset: { width: 0, height: 5 },
-  shadowOpacity: 4,
-  shadowRadius: 4,
+    // Ombre iOS
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 4,
+    shadowRadius: 4,
 
-  // Ombre Android
-  elevation: 6,
-},
-titlecontainer: {
-  justifyContent: 'center',
-  alignItems: 'center',
-  borderRadius: 18,
-  overflow: "hidden", // OK ici
-},
+    // Ombre Android
+    elevation: 6,
+  },
+  titlecontainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 18,
+    overflow: "hidden", // OK ici
+  },
   match: {
     flexDirection: 'row',
     alignItems: 'center',

@@ -7,7 +7,7 @@ import { portraitsJoueurs } from "../datas/Portraits";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 
-function Stats({ match }) {
+function Stats({ match, injuries }) {
   const navigation = useNavigation();
 
   // 🔹 Animations
@@ -168,74 +168,87 @@ function Stats({ match }) {
     return <ActivityIndicator style={{ marginTop: 50 }} />;
   }
 
-  // 🔹 Calculs joueurs comme avant (topScorer, topAssist, bestRated) ...
+  
+
+  const injuredPlayerIds = new Set(
+  injuries?.map(i => i.player?.id).filter(Boolean)
+);
+
   const players = playersHome
-    .filter(p => p.player.injured === false)
-    .map(p => {
-      const stat = p.statistics[0];
-      return {
-        id: p.player.id,
-        name: p.player.name,
-        photo: p.player.photo,
-        goals: stat.goals?.total ?? 0,
-        assists: stat.goals?.assists ?? 0,
-        minutes: stat.games?.minutes,
-      };
-    })
-    .filter(p => p.minutes !== null);
+  .filter(p => !injuredPlayerIds.has(p.player.id))
+  .map(p => {
+    const stat = p.statistics[0];
+    return {
+      id: p.player.id,
+      name: p.player.name,
+      photo: p.player.photo,
+      goals: stat.goals?.total ?? 0,
+      assists: stat.goals?.assists ?? 0,
+      minutes: stat.games?.minutes,
+    };
+  })
+  .filter(p => p.minutes !== null);
 
   const topScorerHome = players.length > 0 ? players.reduce((best, p) => (p.goals > best.goals ? p : best)) : null;
   const topAssistHome = players.length > 0 ? players.reduce((best, p) => (p.assists > best.assists ? p : best)) : null;
 
   const ratedPlayers = playersHome
-    .filter(p => p.player.injured === false)
-    .map(p => {
-      const stat = p.statistics[0];
-      return {
-        id: p.player.id,
-        name: p.player.name,
-        photo: p.player.photo,
-        rating: stat.games?.rating ? parseFloat(stat.games.rating) : null,
-        minutes: stat.games?.minutes,
-      };
-    })
-    .filter(p => p.rating !== null && p.minutes >= 90);
+  .filter(p => !injuredPlayerIds.has(p.player.id))
+  .map(p => {
+    const stat = p.statistics[0];
+    return {
+      id: p.player.id,
+      name: p.player.name,
+      photo: p.player.photo,
+      rating: stat.games?.rating ? parseFloat(stat.games.rating) : null,
+      minutes: stat.games?.minutes,
+    };
+  })
+  .filter(p => p.rating !== null && p.minutes >= 90);
 
   const bestRatedHome = ratedPlayers.length > 0 ? ratedPlayers.reduce((best, p) => (p.rating > best.rating ? p : best)) : null;
 
   const playersExtFiltered = playersExt
-    .filter(p => p.player.injured === false)
-    .map(p => {
-      const stat = p.statistics[0];
-      return {
-        id: p.player.id,
-        name: p.player.name,
-        photo: p.player.photo,
-        goals: stat.goals?.total ?? 0,
-        assists: stat.goals?.assists ?? 0,
-        minutes: stat.games?.minutes,
-      };
-    })
-    .filter(p => p.minutes !== null);
+  .filter(p => !injuredPlayerIds.has(p.player.id))
+  .map(p => {
+    const stat = p.statistics[0];
+    return {
+      id: p.player.id,
+      name: p.player.name,
+      photo: p.player.photo,
+      goals: stat.goals?.total ?? 0,
+      assists: stat.goals?.assists ?? 0,
+      minutes: stat.games?.minutes,
+    };
+  })
+  .filter(p => p.minutes !== null);
 
   const topScorerExt = playersExtFiltered.length > 0 ? playersExtFiltered.reduce((best, p) => (p.goals > best.goals ? p : best)) : null;
   const topAssistExt = playersExtFiltered.length > 0 ? playersExtFiltered.reduce((best, p) => (p.assists > best.assists ? p : best)) : null;
 
   const ratedPlayersExt = playersExt
-    .filter(p => p.player.injured === false)
-    .map(p => {
-      const stat = p.statistics[0];
-      return {
-        id: p.player.id,
-        name: p.player.name,
-        photo: p.player.photo,
-        rating: stat.games?.rating ? parseFloat(stat.games.rating) : null,
-        minutes: stat.games?.minutes,
-      };
-    })
-    .filter(p => p.rating !== null && p.minutes >= 90);
+  .filter(p => !injuredPlayerIds.has(p.player.id))
+  .map(p => {
+    const stat = p.statistics[0];
+    return {
+      id: p.player.id,
+      name: p.player.name,
+      photo: p.player.photo,
+      rating: stat.games?.rating ? parseFloat(stat.games.rating) : null,
+      minutes: stat.games?.minutes,
+    };
+  })
+  .filter(p => p.rating !== null && p.minutes >= 90);
 
   const bestRatedExt = ratedPlayersExt.length > 0 ? ratedPlayersExt.reduce((best, p) => (p.rating > best.rating ? p : best)) : null;
+
+  const hasAnyTopPlayer =
+  topScorerHome ||
+  topScorerExt ||
+  topAssistHome ||
+  topAssistExt ||
+  bestRatedHome ||
+  bestRatedExt;
 
     return (
   <View style={styles.container}>
@@ -275,7 +288,7 @@ function Stats({ match }) {
     ))}
   </Animated.View>
 )}
-        {topScorerHome && (
+        {hasAnyTopPlayer && (
 
 <View style={styles.joueurs}>
     <Text style={{fontFamily: "Kanitt", fontSize: 18, textAlign: "center"}}>Joueurs à surveiller</Text>

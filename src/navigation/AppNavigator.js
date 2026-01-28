@@ -23,6 +23,8 @@ import FicheEquipe from '../screens/FicheEquipe';
 import FicheCoach from '../screens/FicheCoach';
 import Notifs from '../screens/Notifs';
 import NotifsPlus from '../screens/NotifsPlus';
+import Login from '../screens/Login';
+import Register from '../screens/Register';
 
 
 
@@ -107,6 +109,8 @@ export default function AppNavigator() {
       <Stack.Screen name="FicheSelections" component={FicheSelections} />
       <Stack.Screen name="FicheEquipe" component={FicheEquipe} />
       <Stack.Screen name="FicheCoach" component={FicheCoach} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="Notifs">
         {(props) => (
           <Notifs

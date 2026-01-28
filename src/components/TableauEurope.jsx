@@ -136,7 +136,7 @@ function TableauEurope({ id, currentRound, rounds }) {
       }
 
       <View style={styles.navContainer}>
-        <TouchableOpacity onPress={prev} disabled={index === 0} style={{ width: 60, height: 30, alignItems: "center" }}>
+        <TouchableOpacity onPress={prev} disabled={index === 0} style={{ width: 60, height: 30, alignItems: "center" }} accessible accessibilityRole="button" accessibilityLabel="Précédent" accessibilityHint="Naviguer vers la journée précédente">
           <Text style={[id === 15 ? styles.buttonTextWc : styles.buttonText, index === 0 && { opacity: 0.3 }, isMediumScreen && {fontSize: 28}]}>{'<'}</Text>
         </TouchableOpacity>
 
@@ -154,7 +154,7 @@ function TableauEurope({ id, currentRound, rounds }) {
                             currentRoundName}
         </Animated.Text>
 
-        <TouchableOpacity onPress={next} disabled={index === rounds.length - 1} style={{ width: 60, height: 30, alignItems: "center" }}>
+        <TouchableOpacity onPress={next} disabled={index === rounds.length - 1} style={{ width: 60, height: 30, alignItems: "center" }} accessible accessibilityRole="button" accessibilityLabel="Suivant" accessibilityHint="Naviguer vers la journée suivante">
           <Text style={[id === 15 ? styles.buttonTextWc : styles.buttonText, index === rounds.length - 1 && { opacity: 0.3 }, isMediumScreen && {fontSize: 28}]}>{'>'}</Text>
         </TouchableOpacity>
       </View>

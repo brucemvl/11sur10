@@ -1,126 +1,96 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Animated, RefreshControl, useWindowDimensions } from 'react-native';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Animated,
+  RefreshControl,
+  useWindowDimensions,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import ligue1 from "../assets/logoligue1.webp"
-import fifaClubWc from "../assets/fifaclubwc2.png"
-import cdm2026 from "../assets/cdm2026.png"
 import { useNavigation } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { SvgUri } from 'react-native-svg';
-import { teamName } from '../datas/teamNames';
 import * as Haptics from 'expo-haptics';
+import { SvgUri } from 'react-native-svg';
+import { useFonts } from 'expo-font';
 
-function Aujourdhui({ matchs, onRefresh }) {
+import ligue1 from "../assets/logoligue1.webp";
+import fifaClubWc from "../assets/fifaclubwc2.png";
+import cdm2026 from "../assets/cdm2026.png";
+import { teamName } from '../datas/teamNames';
 
+
+
+export default function Aujourdhui({ matchs, onRefresh }) {
+
+  const daysScrollRef = React.useRef(null);
+
+  const scrollToDay = (index) => {
+    const ITEM_WIDTH = 72; // largeur approximative d’un jour
+    daysScrollRef.current?.scrollTo({
+      x: index * ITEM_WIDTH - ITEM_WIDTH,
+      animated: true,
+    });
+  };
+
+  const formatDateAndTime = (dateString) => {
+    const matchDate = new Date(dateString);
+    const formattedDate = `${matchDate.getDate().toString().padStart(2, '0')}/${(matchDate.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}`;
+    const formattedHour = `${matchDate.getHours().toString().padStart(2, '0')}h${matchDate.getMinutes()
+      .toString()
+      .padStart(2, '0')}`;
+    return { formattedDate, formattedHour };
+  };
+
+  const DAYS = [
+    { label: formatDateAndTime(new Date()).formattedDate, offset: -3 },
+    { labelDate: formatDateAndTime(new Date()).formattedDate, label: 'AVANT-HIER', offset: -2 },
+    { labelDate: formatDateAndTime(new Date()).formattedDate, label: 'HIER', offset: -1 },
+    { labelDate: formatDateAndTime(new Date()).formattedDate, label: "AUJOURD'HUI", offset: 0 },
+    { labelDate: formatDateAndTime(new Date()).formattedDate, label: 'DEMAIN', offset: 1 },
+    { labelDate: formatDateAndTime(new Date()).formattedDate, label: 'APRÈS-DEMAIN', offset: 2 },
+    { label: formatDateAndTime(new Date()).formattedDate, offset: 3 },
+  ];
+
+  const [dayIndex, setDayIndex] = useState(3); // AUJOURD'HUI
+
+
+  /* -------------------- DATE COURANTE -------------------- */
+  const currentDate = useMemo(() => {
+    const d = new Date();
+    d.setDate(d.getDate() + DAYS[dayIndex].offset);
+    return d.toISOString().slice(0, 10);
+  }, [dayIndex]);
+
+  /* -------------------- MATCHS DU JOUR -------------------- */
+  const matchesOfDay = useMemo(() => {
+    return matchs.filter(
+      m => m.fixture.date.slice(0, 10) === currentDate
+    );
+  }, [matchs, currentDate]);
+
+  /* -------------------- LIGUES -------------------- */
+  const leagues = useMemo(() => {
+    return [...new Set(matchesOfDay.map(m => m.league.id))];
+  }, [matchesOfDay]);
+
+
+
+
+  const navigation = useNavigation();
   const { width } = useWindowDimensions();
-    
-        const isSmallScreen = width <= 767;
-        const isMediumScreen = width <= 1024 && width > 767;
 
-  const navigation = useNavigation()
-  const [hier, setHier] = useState(false)
-  const [aujourdhui, setAujourdhui] = useState(true)
-  const [demain, setDemain] = useState(false)
-  const [avanthier, setavantHier] = useState(false)
-  const [apresdemain, setapresDemain] = useState(false)
-  const [isRefreshing, setIsRefreshing] = useState(false); // État pour gérer le rafraîchissement
+  const isSmallScreen = width <= 767;
+  const isMediumScreen = width > 767 && width <= 1024;
 
-  const [noSpoil, setNoSpoil] = useState(true)
-  const [isActive, setIsActive] = useState(false);
-  const [position, setPosition] = useState(new Animated.Value(0));
-  
-const [fontsLoaded] = useFonts({
-    "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
-    "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
-    "Kanitus": require("../assets/fonts/Kanit/Kanit-Light.ttf"),
-    "Kanitalic": require("../assets/fonts/Kanit/Kanit-MediumItalic.ttf"),
-    "Bangers": require("../assets/fonts/Kanit/Kanit-ExtraBoldItalic.ttf"),
-    "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf"),
-        "Carter": require("../assets/fonts/Carter_One/CarterOne-Regular.ttf"),
-        "Londrina": require("../assets/fonts/Londrina/LondrinaSolid-Light.ttf"),
-        "Bella": require("../assets/fonts/Bella/Belanosima-Regular.ttf"),
-        "Bellak": require("../assets/fonts/Bella/Belanosima-Bold.ttf"),
-
-  });
-
-
-
-  const spoil = () => {
-    setNoSpoil(!noSpoil)
-    setIsActive(!isActive)
-  }
-
-  Animated.timing(position, {
-    toValue: isActive ? 0 : 25, // Déplace le bouton à gauche ou à droite
-    duration: 300, // Durée de l'animation
-    useNativeDriver: true, // Utilisation du moteur natif pour la fluidité
-  }).start();
-
-
-  const [selectedDate, setSelectedDate] = useState("AUJOURD'HUI");
-
-
-  const today = new Date().toISOString().slice(0, 10); // Date du jour au format YYYY-MM-DD
-  console.log(today)
-
-  const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-  // Soustrait 1 jour à la date d'aujourd'hui
-  const yesterdayDate = yesterday.toISOString().slice(0, 10); // Formate la date au format YYYY-MM-DD
-  console.log(yesterdayDate);
-
-  const avantHier = new Date();
-  avantHier.setDate(avantHier.getDate() - 2);
-  // Soustrait 2 jour à la date d'aujourd'hui
-  const avantHierDate = avantHier.toISOString().slice(0, 10); // Formate la date au format YYYY-MM-DD
-
-  const tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  // Ajoute 1 jour à la date d'aujourd'hui
-  const tomorrowDate = tomorrow.toISOString().slice(0, 10); // Formate la date au format YYYY-MM-DD
-  console.log(tomorrowDate);
-
-  const apresDemain = new Date();
-  apresDemain.setDate(apresDemain.getDate() + 2);
-  // Ajoute 2 jour à la date d'aujourd'hui
-  const apresDemainDate = apresDemain.toISOString().slice(0, 10); // Formate la date au format YYYY-MM-DD
-
-  const todayMatch = matchs.filter((match) => {
-    const matchDate = match.fixture.date.slice(0, 10);
-    return matchDate === today;
-  });
-
-  const yesterdayMatch = matchs.filter((match) => {
-    const matchDate = match.fixture.date.slice(0, 10);
-    return matchDate === yesterdayDate;
-  })
-
-  const avantHierMatch = matchs.filter((match) => {
-    const matchDate = match.fixture.date.slice(0, 10);
-    return matchDate === avantHierDate;
-  })
-
-  const tomorrowMatch = matchs.filter((match) => {
-    const matchDate = match.fixture.date.slice(0, 10);
-    return matchDate === tomorrowDate;
-  })
-
-  const apresDemainMatch = matchs.filter((match) => {
-    const matchDate = match.fixture.date.slice(0, 10);
-    return matchDate === apresDemainDate;
-  })
-
-  const leagues = [... new Set(todayMatch.map((element) => element.league.name))]
-  console.log(leagues)
-
-  const yesterdayLeagues = [... new Set(yesterdayMatch.map((element) => element.league.name))]
-
-  const avantHierLeagues = [... new Set(avantHierMatch.map((element) => element.league.name))]
-
-
-  const tomorrowLeagues = [... new Set(tomorrowMatch.map((element) => element.league.name))]
-
-  const apresDemainLeagues = [... new Set(apresDemainMatch.map((element) => element.league.name))]
+  const [refreshing, setRefreshing] = useState(false);
+  const [noSpoil, setNoSpoil] = useState(true);
+  const [toggleAnim] = useState(new Animated.Value(0));
 
   const flags = {
     "Ligue 1" : "https://media.api-sports.io/flags/fr.svg",
@@ -136,971 +106,417 @@ const [fontsLoaded] = useFonts({
     "Major League Soccer" : "https://media.api-sports.io/flags/us.svg",
   }
 
+  const [fontsLoaded] = useFonts({
+    Kanitt: require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
+    Kanito: require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
+    Kanitus: require("../assets/fonts/Kanit/Kanit-Light.ttf"),
+    Bellak: require("../assets/fonts/Bella/Belanosima-Bold.ttf"),
+  });
 
-  const handlePrevious = () => {
-    if (selectedDate === "AUJOURD'HUI") {
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-      setSelectedDate("HIER");
-      setHier(true)
-      setAujourdhui(false)
-      setDemain(false)
-      setavantHier(false)
-      setapresDemain(false)
-    } else if (selectedDate === "AVANT-HIER") {
-      null
-    } else if (selectedDate === "DEMAIN") {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-      setSelectedDate("AUJOURD'HUI");
-      setAujourdhui(true)
-      setDemain(false)
-      setHier(false)
-    } else if (selectedDate === "HIER"){
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-      setSelectedDate("AVANT-HIER");
-      setHier(false)
-      setAujourdhui(false)
-      setDemain(false)
-      setavantHier(true)
-      setapresDemain(false)
-    } else if (selectedDate === "APRES-DEMAIN"){
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-      setSelectedDate("DEMAIN");
-      setHier(false)
-      setAujourdhui(false)
-      setDemain(true)
-      setavantHier(false)
-      setapresDemain(false)
-    }
+  const [activeAnim] = useState(new Animated.Value(0));
+
+
+
+
+  /* -------------------- ANIMATION SPOIL -------------------- */
+  useEffect(() => {
+    Animated.timing(toggleAnim, {
+      toValue: noSpoil ? 0 : 25, // Déplace le bouton à gauche ou à droite
+      duration: 300, // Durée de l'animation
+      useNativeDriver: true, // Utilisation du moteur natif pour la fluidité
+    }).start();
+  })
+
+  const toggleSpoil = () => {
+    Haptics.selectionAsync();
+    setNoSpoil(prev => !prev);
   };
 
-  // Fonction de navigation vers la date suivante (demain)
-  const handleNext = () => {
-    if (selectedDate === "AUJOURD'HUI") {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-      setSelectedDate("DEMAIN");
-      setDemain(true)
-      setAujourdhui(false)
-      setHier(false)
-      setavantHier(false)
-      setapresDemain(false)
-    } else if (selectedDate === "HIER") {
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-      setSelectedDate("AUJOURD'HUI");
-      setAujourdhui(true)
-      setHier(false)
-      setDemain(false)
-      setavantHier(false)
-      setapresDemain(false)
-    } else if (selectedDate === "APRES-DEMAIN") {
+  const changeDay = (direction) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
 
-    } else if (selectedDate === "AVANT-HIER"){
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-      setSelectedDate("HIER");
-      setHier(true)
-      setAujourdhui(false)
-      setDemain(false)
-      setavantHier(false)
-      setapresDemain(false)
-    }
-    else if (selectedDate === "DEMAIN"){
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-      setSelectedDate("APRES-DEMAIN");
-      setHier(false)
-      setAujourdhui(false)
-      setDemain(false)
-      setavantHier(false)
-      setapresDemain(true)
-    }
+    setDayIndex(prev => {
+      const next = Math.min(6, Math.max(0, prev + direction));
+      scrollToDay(next);
+      return next;
+    });
   };
 
-  console.log(todayMatch)
-  console.log(tomorrowMatch)
-  const formatDateAndTime = (dateString) => {
-    const matchDate = new Date(dateString);
-    const formattedDate = `${matchDate.getDate().toString().padStart(2, '0')}/${(matchDate.getMonth() + 1)
-      .toString()
-      .padStart(2, '0')}`;
-    const formattedHour = `${matchDate.getHours().toString().padStart(2, '0')}h${matchDate.getMinutes()
-      .toString()
-      .padStart(2, '0')}`;
-    return { formattedDate, formattedHour };
+  const scaleAnim = useRef(new Animated.Value(1)).current;
+  const scaleAnim2 = useRef(new Animated.Value(1)).current;
+
+  const onPressIn = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    Animated.spring(scaleAnim, {
+      toValue: 1.3,
+      useNativeDriver: true,
+      friction: 4,
+      tension: 100,
+    }).start();
   };
 
-  const [fadeAnim] = useState(new Animated.Value(1)); // Animation de fade (opacité)
+  const onPressOut = () => {
+    Animated.spring(scaleAnim, {
+      toValue: 1, // Retour à la taille normale
+      useNativeDriver: true,
+      friction: 4,
+      tension: 100,
+    }).start();
+  };
+
+  const onPressIn2 = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    Animated.spring(scaleAnim2, {
+      toValue: 1.3,
+      useNativeDriver: true,
+      friction: 4,
+      tension: 100,
+    }).start();
+  };
+
+  const onPressOut2 = () => {
+    Animated.spring(scaleAnim2, {
+      toValue: 1, // Retour à la taille normale
+      useNativeDriver: true,
+      friction: 4,
+      tension: 100,
+    }).start();
+  };
 
   useEffect(() => {
-    const flash = () => {
+    // Centre AUJOURD'HUI au premier rendu
+    scrollToDay(dayIndex);
+  }, []);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      scrollToDay(dayIndex);
+    }, 50);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  useEffect(() => {
+    Animated.timing(activeAnim, {
+      toValue: dayIndex,
+      duration: 250,
+      useNativeDriver: false,
+    }).start();
+  }, [dayIndex]);
+
+  if (!fontsLoaded) return null;
+
+  const showNoSpoil = useMemo(() => {
+    return matchs.some(m =>
+      m.league.id === 2 &&
+      ['1H', '2H', 'HT', 'ET'].includes(m.fixture.status.short)
+    );
+  }, [matchs]);
+
+  const fadeAnim = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    const animation = Animated.loop(
       Animated.sequence([
         Animated.timing(fadeAnim, {
           toValue: 0,
-          duration: 1000,
+          duration: 900,
           useNativeDriver: true,
         }),
         Animated.timing(fadeAnim, {
           toValue: 1,
-          duration: 1000,
+          duration: 900,
           useNativeDriver: true,
         }),
-      ]).start(() => flash());
+      ])
+    );
+
+    animation.start();
+
+    return () => {
+      animation.stop();
     };
+  }, []);
 
-    flash();
+  const getDayLabel = (offset, label) => {
+    if (offset === -3) {
+      const date = new Date();
+      date.setDate(date.getDate() + offset);
+      return formatDateAndTime(date).formattedDate;
+    }
+    if (offset === 3) {
+      const date = new Date();
+      date.setDate(date.getDate() + offset);
+      return formatDateAndTime(date).formattedDate;
+    }
+    return label;
+  };
 
-    return () => fadeAnim.stopAnimation();
-  }, [fadeAnim]);
+  const getDateLabel = (offset, labelDate) => {
+    if (offset === -3) {
 
+      return null;
+    }
+    if (offset === 3) {
+
+      return null;
+    }
+    else {
+      const date = new Date();
+      date.setDate(date.getDate() + offset);
+      return formatDateAndTime(date).formattedDate;
+    }
+    return labelDate;
+  };
+
+  /* ====================== RENDER ====================== */
   return (
-    
-    todayMatch.length <= 0 ? 
-    <View style={[styles.today, isMediumScreen && {paddingInline: 40}]}>
-      <LinearGradient colors={["rgba(255, 255, 255, 0.1)", 'rgba(0, 0, 0, 0.35)']} style={{ width: "96%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue", padding: 3 }} >
-      {selectedDate === "APRES-DEMAIN" ? 
-      <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-        <TouchableOpacity onPress={handlePrevious} accessible accessibilityRole='button' accessibilityLabel='précédent' accessibilityHint='naviguer vers le jour précédent'>
-          <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-            <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{"<"}</Text>
-          </LinearGradient>
-        </TouchableOpacity>
+    <View style={[styles.container, isMediumScreen && {width: "90%"}]}>
+      <LinearGradient colors={["rgba(255, 255, 255, 0.1)", 'rgba(0, 0, 0, 0.35)']} style={{ alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue", paddingInline: isMediumScreen ? 20 : 2, paddingBlock: isMediumScreen? 10 : 5, width: "100%" }} >
 
-        <LinearGradient
-          colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']}
-          style={styles.titre}
-        >
-          <Text style={styles.titreToday}>
-            {selectedDate}
-          </Text>
-        </LinearGradient>
+        {/* ----------- HEADER DATE ----------- */}
+        <View style={styles.dateHeader}>
+          <TouchableWithoutFeedback disabled={dayIndex === 0} onPress={() => changeDay(-1)} onPressIn={onPressIn} onPressOut={onPressOut} accessible accessibilityRole='button' accessibilityLabel='précédent' accessibilityHint='naviguer vers le jour précédent' >
+            <Animated.View style={{ opacity: dayIndex === 0 ? 0.3 : 1, backgroundColor: "rgba(11, 19, 81, 1)", borderRadius: 10, width: 32, height: 32, alignItems: "center", justifyContent: "center", transform: [{ scale: scaleAnim }] }}>
+              <Text style={styles.arrow}>◀</Text>
+            </Animated.View>
+          </TouchableWithoutFeedback>
 
-        <TouchableOpacity style={{ width: 50 }}>
+          <ScrollView
+            horizontal
+            ref={daysScrollRef}
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.daysScroll}
+            style={{ borderRadius: 20, backgroundColor: "rgba(235, 235, 235, 1)" }}
+          >
+            {DAYS.map((day, index) => {
+              const scale = activeAnim.interpolate({
+                inputRange: [index - 1, index, index + 1],
+                outputRange: [1, 1.15, 1],
+                extrapolate: 'clamp',
+              });
 
-        </TouchableOpacity>
+              const opacity = activeAnim.interpolate({
+                inputRange: [index - 1, index, index + 1],
+                outputRange: [0.6, 1, 0.6],
+                extrapolate: 'clamp',
+              });
 
-      </View> :
-        selectedDate === "AVANT-HIER" ? 
-        <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-          <TouchableOpacity style={{ width: 50 }}>
+              const backgroundColor = activeAnim.interpolate({
+                inputRange: [index - 1, index, index + 1],
+                outputRange: [
+                  'rgba(140, 140, 140, 0.4)',
+                  'rgba(11, 19, 81, 1)',
+                  'rgba(140, 140, 140, 0.4)',
+                ],
+                extrapolate: 'clamp',
+              });
+              return (
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => {
+                    Haptics.selectionAsync();
+                    setDayIndex(index);
+                    scrollToDay(index);
+                  }}
 
-          </TouchableOpacity>
+                >
+                  <Animated.View style={[styles.dayItem, { backgroundColor }]}>
+                    {getDateLabel(day.offset, day.labelDate) && (
+                      <Animated.Text style={[
+                        styles.dayText,
+                        { transform: [{ scale }], opacity, fontSize: 9, fontFamily: "Kanitalik" },
 
-          <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.titre}>
-            <Text style={styles.titreToday}>
-              {selectedDate}
-            </Text>
-          </LinearGradient>
+                      ]}>
+                        {getDateLabel(day.offset, day.labelDate)}
+                      </Animated.Text>
+                    )}
 
-          <TouchableOpacity onPress={handleNext} accessible accessibilityRole='button' accessibilityLabel='suivant' accessibilityHint='naviguer vers le jour suivant'>
-            <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-              <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{">"}</Text>
-            </LinearGradient>
-          </TouchableOpacity>
-
-        </View> :
-          <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-            <TouchableOpacity onPress={handlePrevious} accessible accessibilityRole='button' accessibilityLabel='précédent' accessibilityHint='naviguer vers le jour précédent' >
-              <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-                <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{"<"}</Text>
-              </LinearGradient>
-            </TouchableOpacity>
-
-            <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.titre}>
-              <Text style={styles.titreToday}>
-                {selectedDate}
-              </Text>
-            </LinearGradient>
-
-            <TouchableOpacity onPress={handleNext} accessible accessibilityRole='button' accessibilityLabel='suivant' accessibilityHint='naviguer vers le jour suivant' >
-              <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-                <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{">"}</Text>
-              </LinearGradient>
-            </TouchableOpacity>
-
-          </View>}
-
-          {avanthier && <ScrollView contentContainerStyle={styles.liveTableau}>
-        {avantHierMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match avant-hier</Text> :
-          avantHierLeagues.map((league) => <View style={{ marginBlock: 5 }}>
-<View style={{flexDirection: "row", alignItems: "center"}}>
-                  <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20} /></View>
-                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league === "Africa Cup of Nations" ? "CAN" : league}</Text>
-                  </View>
-                              {avantHierMatch.map((element) => element.league.name === league ?
-
-              <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}>
-                <View style={styles.match}>
-                  {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? 
-                  <Image source={ligue1} style={styles.matchCompetition} resizeMode="contain" />
-                   :
-                   element.league.id === 15 ? 
-                  <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
-                   : element.league.id === 32 ? 
-                  <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
-                   :
-                  <Image source={{ uri: element.league.logo }} style={[styles.matchCompetition, element.league.id === 61 && {width: 38}]} resizeMode="contain" />}
-
-                  <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
-                  <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
-
-                  {element.goals.home === element.goals.away ? 
-                              <View style={styles.matchScore}>
-                                <View><View style={[styles.scoreBox, {backgroundColor: element.goals.home === null ? "black" : 'rgba(150, 150, 150, 1)' }]}><Text style={styles.scoreTxt}>{element.goals.home === null ? "-" : element.goals.home}</Text></View> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "absolute", top: 20, left: 14  }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
-                               <View> <View style={[styles.scoreBox, {backgroundColor: element.goals.away === null ? "black" : 'rgba(150, 150, 150, 1)' }]}> <Text style={styles.scoreTxt}>{element.goals.away === null ? "-" : element.goals.away}</Text></View>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "absolute", top: 20, left: 14 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
-                              </View>
-                             : 
-                              <View style={styles.matchScore}>
-                               <View style={[styles.scoreBox, {backgroundColor: element.goals.home > element.goals.away ?"rgba(23, 161, 49, 1)" : "red"}]}> <Text style={styles.scoreTxt}>{element.goals.home}</Text></View>
-                                <View style={[styles.scoreBox, {backgroundColor: element.goals.home > element.goals.away ? "red" : "rgba(23, 161, 49, 1)"}]}><Text style={styles.scoreTxt}>{element.goals.away}</Text></View>
-                              </View>
-                            }
-
-                  <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
-                  <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
-                </View>
-              </TouchableOpacity>
-              : null
-            )}
-          </View>
-          )
-        }
-      </ScrollView>}
-
-      {hier && <ScrollView contentContainerStyle={styles.liveTableau}>
-        {yesterdayMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match hier</Text> :
-          yesterdayLeagues.map((league) => <View style={{ marginBlock: 5 }}>
-<View style={{flexDirection: "row", alignItems: "center"}}>
-                  <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
-                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league === "Africa Cup of Nations" ? "CAN" : league}</Text>
-                  </View>            {yesterdayMatch.map((element) => element.league.name === league ?
-
-              <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}>
-                <View style={styles.match}>
-
-                  {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? 
-                  <Image source={ligue1} style={styles.matchCompetition} resizeMode="contain"/>
-                   : 
-                   element.league.id === 15 ? 
-                  <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
-                   : element.league.id === 32 ? 
-                  <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
-                   :
-                  <Image source={{ uri: element.league.logo }} style={[styles.matchCompetition, element.league.id === 61 && {width: 38}]} resizeMode="contain" />}
-
-                  <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
-                  <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
-
-                  {element.goals.home === element.goals.away ? 
-                              <View style={styles.matchScore}>
-                                <View><View style={[styles.scoreBox, {backgroundColor: element.goals.home === null ? "black" : 'rgba(150, 150, 150, 1)' }]}><Text style={styles.scoreTxt}>{element.goals.home === null ? "-" : element.goals.home}</Text></View> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "absolute", top: 20, left: 14  }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
-                               <View> <View style={[styles.scoreBox, {backgroundColor: element.goals.away === null ? "black" : 'rgba(150, 150, 150, 1)' }]}> <Text style={styles.scoreTxt}>{element.goals.away === null ? "-" : element.goals.away}</Text></View>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "absolute", top: 20, left: 14 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
-                              </View>
-                             : 
-                              <View style={styles.matchScore}>
-                               <View style={[styles.scoreBox, {backgroundColor: element.goals.home > element.goals.away ?"rgba(23, 161, 49, 1)" : "red"}]}> <Text style={styles.scoreTxt}>{element.goals.home}</Text></View>
-                                <View style={[styles.scoreBox, {backgroundColor: element.goals.home > element.goals.away ? "red" : "rgba(23, 161, 49, 1)"}]}><Text style={styles.scoreTxt}>{element.goals.away}</Text></View>
-                              </View>
-                            }
-
-                  <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
-                  <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
-                </View>
-              </TouchableOpacity>
-              : null
-            )}
-          </View>)
-        }
-      </ScrollView>}
-
-
-      {aujourdhui &&
-        <Text style={styles.nomatch}>Pas de match aujourdhui</Text>
-      }
-      {demain && <ScrollView contentContainerStyle={styles.liveTableau}>
-        {tomorrowMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match demain</Text> :
-
-          tomorrowLeagues.map((league) => <View style={{ marginBlock: 2 }} key={"league" + league}>
-<View style={{flexDirection: "row", alignItems: "center"}}>
-                  <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
-                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league === "Africa Cup of Nations" ? "CAN" : league}</Text>
-                  </View>            {tomorrowMatch.map((element) => element.league.name === league ?
-
-              <TouchableOpacity key={element.fixture.id} style={styles.link} onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }} >
-                <View style={styles.match}>
-                  {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? 
-                  <Image source={ligue1} style={styles.matchCompetition} resizeMode="contain"/> 
-                  :
-                  element.league.id === 15 ? 
-                  <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
-                   : element.league.id === 32 ? 
-                  <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
-                   :
-                  <Image source={{ uri: element.league.logo }} style={[styles.matchCompetition, element.league.id === 61 && {width: 38}]} resizeMode="contain"/>}
-                  
-                  <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
-                  <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
-                  <Text style={{ marginInline: 4 }}>-</Text>
-                  <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
-                  <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
-                  <View style={styles.rdv}>
-                    <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
-                    <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
-                  </View>
-                </View>
-                
-              </TouchableOpacity> : null
-            )}
-          </View>)
-        }
-      </ScrollView>}
-
-      {apresdemain && <ScrollView contentContainerStyle={styles.liveTableau}>
-        {apresDemainMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match apres-demain</Text> :
-
-          apresDemainLeagues.map((league) => <View style={{ marginBlock: 5 }}>
-<View style={{flexDirection: "row", alignItems: "center"}}>
-                  <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
-                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league === "Africa Cup of Nations" ? "CAN" : league}</Text>
-                  </View>            {apresDemainMatch.map((element) => element.league.name === league ?
-
-              <TouchableOpacity key={element.fixture.id} style={styles.link} onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }}>
-                <View style={styles.match}>
-                  {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ?
-                   <Image source={ligue1} style={styles.matchCompetition} resizeMode="contain"/> 
-                   :
-                   element.league.id === 15 ? 
-                  <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
-                   : element.league.id === 32 ? 
-                  <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
-                   :
-                  <Image source={{ uri: element.league.logo }} style={[styles.matchCompetition, element.league.id === 61 && {width: 38}]} resizeMode="contain"/>}
-                  <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
-                  <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
-                  <Text style={{ marginInline: 4 }}>-</Text>
-                  <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
-                  <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
-                  <View style={styles.rdv}>
-                    <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
-                    <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
-                  </View>
-                </View>
-              </TouchableOpacity> : null
-            )}
-          </View>)
-        }
-      </ScrollView>}
-
-    </LinearGradient>
-    </View>
-     :
-
-      <View style={[styles.today, isMediumScreen && {paddingInline: 40}]} refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />}>
-        
-        <LinearGradient colors={["rgba(255, 255, 255, 0.15)", 'rgba(0, 0, 0, 0.35)']} style={[{ width: "96%", alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue", elevation: 4, padding:3 }, isMediumScreen && {padding: 20}]} >
-          {selectedDate === "APRES-DEMAIN" ? <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-            <TouchableOpacity onPress={handlePrevious} accessible accessibilityRole='button' accessibilityLabel='précédent' accessibilityHint='naviguer vers le jour précédent' >
-              <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-                <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{"<"}</Text>
-              </LinearGradient>
-            </TouchableOpacity>
-
-            <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.titre}>
-              <Text style={styles.titreToday}>{selectedDate}</Text>
-            </LinearGradient>
-
-            <TouchableOpacity style={{ width: 50 }}>
-
-            </TouchableOpacity>
-
-          </View> :
-            selectedDate === "AVANT-HIER" ? <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-              <TouchableOpacity style={{ width: 50 }}>
-
-              </TouchableOpacity>
-
-              <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.titre} >
-                <Text style={styles.titreToday}>{selectedDate}</Text>
-              </LinearGradient>
-
-              <TouchableOpacity onPress={handleNext} accessible accessibilityRole='button' accessibilityLabel='suivant' accessibilityHint='naviguer vers le jour suivant' >
-                <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-                  <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{">"}</Text>
-                </LinearGradient>
-              </TouchableOpacity>
-
-            </View> :
-              <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-                <TouchableOpacity onPress={handlePrevious} accessible accessibilityRole='button' accessibilityLabel='précédent' accessibilityHint='naviguer vers le jour précédent' >
-                  <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-                    <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{"<"}</Text>
-                  </LinearGradient>
+                    <Animated.Text style={[
+                      styles.dayText,
+                      { transform: [{ scale }], opacity }
+                    ]}>
+                      {getDayLabel(day.offset, day.label)}
+                    </Animated.Text>
+                  </Animated.View>
                 </TouchableOpacity>
+              );
+            })}
+          </ScrollView>
 
-                <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.titre}>
-                  <Text style={styles.titreToday}>{selectedDate}</Text>
-                </LinearGradient>
+          <TouchableWithoutFeedback disabled={dayIndex === 6} onPress={() => changeDay(1)} onPressIn={onPressIn2} onPressOut={onPressOut2} accessible accessibilityRole='button' accessibilityLabel='suivant' accessibilityHint='naviguer vers le jour suivant' >
+            <Animated.View style={{opacity: dayIndex === 6 ? 0.3 : 1, backgroundColor: "rgba(11, 19, 81, 1)", borderRadius: 10, width: 32, height: 32, alignItems: "center", justifyContent: "center", transform: [{ scale: scaleAnim2 }] }}>
+              <Text style={styles.arrow}>▶</Text>
+            </Animated.View>
+          </TouchableWithoutFeedback>
+        </View>
 
-                <TouchableOpacity onPress={handleNext} accessible accessibilityRole='button' accessibilityLabel='suivant' accessibilityHint='naviguer vers le jour suivant' >
-                  <LinearGradient colors={['rgb(11, 38, 126)', 'rgb(0, 0, 0)']} style={styles.arrow}>
-                    <Text style={{ color: "white", fontFamily: "Kanitalik", fontSize: 18 }}>{">"}</Text>
-                  </LinearGradient>
-                </TouchableOpacity>
+        {/* ----------- TOGGLE SPOIL ----------- */}
+        {showNoSpoil && (
+          <TouchableOpacity onPress={toggleSpoil} style={styles.spoilContainer}>
+            <Animated.View
+              style={[
+                styles.toggleCircle,
+                { transform: [{ translateX: toggleAnim }] },
+              ]}
+            >
+              <Text style={[styles.spoilText, noSpoil && { color: "red" }]}>{noSpoil ? "No spoil" : "Spoil"}</Text>
+            </Animated.View>
+          </TouchableOpacity>
+        )}
 
-              </View>}
-
-              {avanthier &&
-            <ScrollView contentContainerStyle={styles.liveTableau}>
-              {avantHierMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match avant-hier</Text> :
-
-                avantHierLeagues.map((league) => <View style={{ marginBlock: 5 }}>
-<View style={{flexDirection: "row", alignItems: "center"}}>
-                  <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
-                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league === "Africa Cup of Nations" ? "CAN" : league}</Text>
-                  </View>
-                  {avantHierMatch.map((element) => element.league.name === league ?
-                  <TouchableOpacity style={styles.link} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}>
-                      <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
-
-                        {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ?
-                         <Image source={ligue1} style={styles.matchCompetition} resizeMode="contain" /> 
-                         :
-                         element.league.id === 15 ? 
-                  <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
-                   : element.league.id === 32 ? 
-                  <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
-                   :
-                        <Image source={{ uri: element.league.logo }} style={[styles.matchCompetition, element.league.id === 61 && {width: 38}]} resizeMode="contain" />}
-
-                  <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
-                        <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
-
-                        {element.goals.home === element.goals.away ? 
-                              <View style={styles.matchScore}>
-                                <View><View style={[styles.scoreBox, {backgroundColor: element.goals.home === null ? "black" : 'rgba(150, 150, 150, 1)' }]}><Text style={styles.scoreTxt}>{element.goals.home === null ? "-" : element.goals.home}</Text></View> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "absolute", top: 20, left: 14  }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
-                               <View> <View style={[styles.scoreBox, {backgroundColor: element.goals.away === null ? "black" : 'rgba(150, 150, 150, 1)' }]}> <Text style={styles.scoreTxt}>{element.goals.away === null ? "-" : element.goals.away}</Text></View>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "absolute", top: 20, left: 14 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
-                              </View>
-                             : 
-                              <View style={styles.matchScore}>
-                               <View style={[styles.scoreBox, {backgroundColor: element.goals.home > element.goals.away ?"rgba(23, 161, 49, 1)" : "red"}]}> <Text style={styles.scoreTxt}>{element.goals.home}</Text></View>
-                                <View style={[styles.scoreBox, {backgroundColor: element.goals.home > element.goals.away ? "red" : "rgba(23, 161, 49, 1)"}]}><Text style={styles.scoreTxt}>{element.goals.away}</Text></View>
-                              </View>
-                            }
-
-                        <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
-                  <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
-                      </LinearGradient>
-                    </TouchableOpacity>
-                    : null
-                  )}
-                </View>)
-              }
-
-            </ScrollView>}
-
-          {hier &&
-            <ScrollView contentContainerStyle={styles.liveTableau}>
-              {yesterdayMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match hier</Text> :
-
-                yesterdayLeagues.map((league) => <View style={{ marginBlock: 5 }}>
-<View style={{flexDirection: "row", alignItems: "center"}}>
-                  <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
-                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league === "Africa Cup of Nations" ? "CAN" : league}</Text>
-                  </View>
-                  {yesterdayMatch.map((element) => element.league.name === league ?
-                    <TouchableOpacity
-                      style={styles.link}
-                      onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}  // Naviguer vers la fiche du match
-                    >
-                      <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
-
-                        {element.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? 
-                        <Image source={ligue1} style={styles.matchCompetition} resizeMode="contain"/>
-                         :
-                         element.league.id === 15 ? 
-                  <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
-                   : element.league.id === 32 ? 
-                  <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
-                   :
-                        <Image source={{ uri: element.league.logo }} style={[styles.matchCompetition, element.league.id === 61 && {width: 38}]} resizeMode="contain" />}
-
-                  <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
-                        <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
-
-                        {element.goals.home === element.goals.away ? 
-                              <View style={styles.matchScore}>
-                                <View><View style={[styles.scoreBox, {backgroundColor: element.goals.home === null ? "black" : 'rgba(150, 150, 150, 1)' }]}><Text style={styles.scoreTxt}>{element.goals.home === null ? "-" : element.goals.home}</Text></View> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "absolute", top: 20, left: 14  }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
-                               <View> <View style={[styles.scoreBox, {backgroundColor: element.goals.away === null ? "black" : 'rgba(150, 150, 150, 1)' }]}> <Text style={styles.scoreTxt}>{element.goals.away === null ? "-" : element.goals.away}</Text></View>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "absolute", top: 20, left: 14 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
-                              </View>
-                             : 
-                              <View style={styles.matchScore}>
-                               <View style={[styles.scoreBox, {backgroundColor: element.goals.home > element.goals.away ? "rgba(23, 161, 49, 1)" : "red"}]}> <Text style={styles.scoreTxt}>{element.goals.home}</Text></View>
-                                <View style={[styles.scoreBox, {backgroundColor: element.goals.home > element.goals.away ? "red" : "rgba(23, 161, 49, 1)"}]}><Text style={styles.scoreTxt}>{element.goals.away}</Text></View>
-                              </View>
-                            }
-
-                        <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
-                  <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
-                      </LinearGradient>
-                      
-                    </TouchableOpacity>
-                    : null
-                  )}
-                </View>)
-              }
-
-            </ScrollView>}
-
-          {aujourdhui &&
-            <ScrollView contentContainerStyle={styles.liveTableau} refreshControl={
-              <RefreshControl
-                refreshing={isRefreshing}
-                onRefresh={onRefresh}
-              />
-            }>
-
-              {leagues.map((league) => <View style={{ marginBlock: 2 }}>
-                <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBlock: 4 }}>
-                  <View style={{flexDirection: "row", alignItems: "center"}}>
-                  <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
-                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league === "Africa Cup of Nations" ? "CAN" : league}</Text>
-                  </View>
-                  {league === "UEFA Champions League" && todayMatch.some((element) =>
-                    element.league.name === "UEFA Champions League" &&
-                    element.fixture.status.long !== 'Match Finished' &&
-                    element.fixture.status.elapsed !== null &&
-                    element.league.round.indexOf("ualification") === -1
-                  ) ? 
-                    <TouchableOpacity onPress={spoil} style={styles.button}>
-                      <Animated.View
-                        style={[
-                          styles.toggle,
-                          { transform: [{ translateX: position }] },
-                        ]}
-                      >
-                        <Text style={isActive ? styles.textspoil : styles.textnospoil}>{isActive ? 'Spoil' : 'No Spoil'}</Text>
-                      </Animated.View>
-                    </TouchableOpacity>
-                   : null} </View> 
-                        {todayMatch.map((element) => element.league.name === league ?
-                    element.fixture.status.long === 'Not Started' ? 
-                      <TouchableOpacity key={element.fixture.id} onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }} style={styles.link}>
-                        <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
-                          {element.league.id === 15 ? 
-                  <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
-                   : element.league.id === 32 ? 
-                  <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
-                   :
-                          <Image source={{ uri: element.league.logo }} style={[styles.matchCompetition, element.league.id === 61 && {width: 38}]} resizeMode="contain"/>}
-                          
-                  <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
-                          <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
-                          <Text style={{ marginInline: 4 }}>-</Text>
-                          <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
-                  <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
-                          
-                          <View style={styles.rdv}>
-                            <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
-                            <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
-                          </View>
-                        </LinearGradient>
-                      </TouchableOpacity>
-                     : element.fixture.status.long != 'Match Finished' && element.fixture.status.elapsed != null ?
-                     
-                     <TouchableOpacity key={element.fixture.id} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })} style={styles.link}>
-                        <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
-                          {element.league.id === 15 ? 
-                  <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
-                   : element.league.id === 32 ? 
-                  <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
-                   :
-                          <Image source={{ uri: element.league.logo }} style={styles.competitionLogo} resizeMode="contain"/>}
-                          <View style={styles.teamContainerDom}>
-                            <Image source={{ uri: element.teams.home.logo }} style={styles.teamLogo} resizeMode="contain" />
-                            <View style={{width: "80%", alignItems: "flex-end"}}><Text style={styles.teamName}>{teamName[element.teams.home.name] || element.teams.home.name}</Text></View>
-                          </View>
-                          <View style={styles.scoreContainer}>
-                            {element.goals.home === element.goals.away ? 
-                              <View style={styles.score}>
-                                {element.league.name === "UEFA Champions League" && element.league.round.indexOf("ualification") === -1 ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={styles.scoreText}>{element.goals.home}</Text> : <Text style={styles.scoreText}>{element.goals.home}</Text>}
-                                {element.fixture.status.elapsed > 0 && element.fixture.status.long != "Match Finished" ? 
-                                                        element.fixture.status.long === "Halftime" ? <Text style={{color: "white", fontFamily: "Kanitalic", fontSize: 10, backgroundColor: "darkred", padding: 2, borderRadius: 4, marginInline: 3}}>MT</Text> :
-                                                        <View style={styles.liveSticker}>
-                                                                        <Text style={styles.liveText}>{element.fixture.status.elapsed}'</Text>
-                                                                        <Animated.Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
-                                                                      </View> : null}
-                                {element.league.name === "UEFA Champions League" && element.league.round.indexOf("ualification") === -1 ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={styles.scoreText}>{element.goals.away}</Text> : <Text style={styles.scoreText}>{element.goals.away}</Text>}
-                              </View>
-                             : 
-                              <View style={styles.score}>
-                                {element.league.name === "UEFA Champions League" && element.league.round.indexOf("ualification") === -1 ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text> : <Text style={element.goals.home > element.goals.away ? styles.winner : styles.looser}>{element.goals.home}</Text>}
-                                {element.fixture.status.elapsed > 0 && element.fixture.status.long != "Match Finished" ? 
-                                                        element.fixture.status.long === "Halftime" ? <Text style={{color: "white", fontFamily: "Kanitalic", fontSize: 10, backgroundColor: "darkred", padding: 2, borderRadius: 4, marginInline: 3}}>MT</Text> :
-                                                        <View style={styles.liveSticker}>
-                                                                        <Text style={styles.liveText}>{element.fixture.status.elapsed}'</Text>
-                                                                        <Animated.Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
-                                                                      </View> : null}
-
-                                {element.league.name === "UEFA Champions League" && element.league.round.indexOf("ualification") === -1 ? noSpoil ? <Text style={styles.nospoil}>?</Text> : <Text style={element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text> : <Text style={element.goals.away > element.goals.home ? styles.winner : styles.looser}>{element.goals.away}</Text>}
-
-                              </View>
-                            }
-                          </View>
-                          <View style={styles.teamContainer}>
-                            <Image source={{ uri: element.teams.away.logo }} style={styles.teamLogo} resizeMode="contain"/>
-                           <View style={{width: "80%", alignItems: "flex-start"}}> <Text style={styles.teamName}>{teamName[element.teams.away.name] || element.teams.away.name}</Text></View>
-                          </View>
-                        </LinearGradient>
-                      </TouchableOpacity> 
-                      : element.fixture.status.long === 'Match Finished' ?
-                        <TouchableOpacity key={element.fixture.id} onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })} style={styles.link}>
-                          <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
-
-                            {element.league.id === 15 ? 
-                  <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
-                   : element.league.id === 32 ? 
-                  <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
-                   :
-                            <Image source={{ uri: element.league.logo }} style={[styles.matchCompetition, element.league.id === 61 && {width: 38}]} resizeMode="contain"/>}
-
-                  <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
-                            <Image style={styles.matchLogoDom} source={{ uri: element.teams.home.logo }} />
-
-                            {element.goals.home === element.goals.away ? 
-                              <View style={styles.matchScore}>
-                                <View><View style={[styles.scoreBox, {backgroundColor: element.goals.home === null ? "black" : 'rgba(150, 150, 150, 1)' }]}><Text style={styles.scoreTxt}>{element.goals.home === null ? "-" : element.goals.home}</Text></View> {element.fixture.status.short === "PEN" && element.teams.home.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "absolute", top: 20, left: 14  }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
-                               <View> <View style={[styles.scoreBox, {backgroundColor: element.goals.away === null ? "black" : 'rgba(150, 150, 150, 1)' }]}> <Text style={styles.scoreTxt}>{element.goals.away === null ? "-" : element.goals.away}</Text></View>{element.fixture.status.short === "PEN" && element.teams.away.winner === true ? <View style={{ backgroundColor: "green", textAlign: "center", width: 12, height: 14, justifyContent: "center", alignItems: "center", borderRadius: 3, position: "absolute", top: 20, left: 14 }}><Text style={{ fontFamily: "Kanito", fontSize: 10, color: "white" }}>P</Text></View> : null}</View>
-                              </View>
-                             : 
-                              <View style={styles.matchScore}>
-                               <View style={[styles.scoreBox, {backgroundColor: element.goals.home > element.goals.away ?"rgba(23, 161, 49, 1)" : "red"}]}> <Text style={styles.scoreTxt}>{element.goals.home}</Text></View>
-                                <View style={[styles.scoreBox, {backgroundColor: element.goals.home > element.goals.away ? "red" : "rgba(23, 161, 49, 1)"}]}><Text style={styles.scoreTxt}>{element.goals.away}</Text></View>
-                              </View>
-                            }
-
-                            <Image style={styles.matchLogoExt} source={{ uri: element.teams.away.logo }} />
-                  <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
-                          </LinearGradient>
-                        </TouchableOpacity>
-                        : null
-                    : null
-                  )}
-              </View>)
-              }
-            </ScrollView>
+        {/* ----------- LISTE MATCHS ----------- */}
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={async () => {
+                setRefreshing(true);
+                await onRefresh();
+                setRefreshing(false);
+              }}
+            />
           }
-
-          {demain && <ScrollView contentContainerStyle={styles.liveTableau}>
-            {tomorrowMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match demain</Text> :
-              tomorrowLeagues.map((league) => <View style={{ marginBlock: 2 }}>
-<View style={{flexDirection: "row", alignItems: "center"}}>
-                  <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
-                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league === "Africa Cup of Nations" ? "CAN" : league}</Text>
-                  </View>                {tomorrowMatch.map((element) => element.league.name === league ?
-
-                  <TouchableOpacity
-                    key={element.fixture.id}
-                    onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }}
-                    style={styles.link}
-                  >
-                    <LinearGradient colors={['rgba(255, 255, 255, 0)', 'rgba(0, 0, 0, 0.3)']} style={styles.match}>
-                      {element.league.id === 15 ? 
-                  <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
-                   : element.league.id === 32 ? 
-                  <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
-                   :
-                        <Image source={{ uri: element.league.logo }} style={[styles.matchCompetition, element.league.id === 61 && {width: 38}]} resizeMode="contain" />}
-                  <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
-                      <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
-                      <Text style={{ marginInline: 4 }}>-</Text>
-                      <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
-                  <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
-                      <View style={styles.rdv}>
-                        <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
-                        <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
-                      </View>
-                    </LinearGradient>
-                  </TouchableOpacity> : null
-                )}
-              </View>)
-            }
-          </ScrollView>}
-
-          {apresdemain && <ScrollView contentContainerStyle={styles.liveTableau}>
-            {apresDemainMatch.length <= 0 ? <Text style={styles.nomatch}>Aucun match apres-demain</Text> :
-              apresDemainLeagues.map((league) => <View style={{ marginBlock: 5 }}>
-<View style={{flexDirection: "row", alignItems: "center"}}>
-                  <View style={{borderRadius: 7, overflow: "hidden"}}><SvgUri uri={flags[league]} width={20} height={20}/></View>
-                  <Text style={{ color: "white", fontFamily: "Kanitus", marginLeft: 5 }}>{league === "Africa Cup of Nations" ? "CAN" : league}</Text>
-                  </View>                {apresDemainMatch.map((element) => element.league.name === league ?
-
-                  <TouchableOpacity
-                    key={element.fixture.id}
-                    onPress={() => { navigation.navigate("FicheMatch", { id: element.fixture.id }) }}
-                    style={styles.link}
-                  >
-                    <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={styles.match}>
-                      {element.league.id === 15 ? 
-                  <Image source={fifaClubWc} style={styles.matchCompetition} resizeMode="contain"/>
-                   : element.league.id === 32 ? 
-                  <Image source={cdm2026} style={styles.matchCompetition} resizeMode="contain"/>
-                   :
-                        <Image source={{ uri: element.league.logo }} style={[styles.matchCompetition, element.league.id === 61 && {width: 38}]} resizeMode="contain" />}
-                  <Text style={styles.matchEquipeDom}>{teamName[element.teams.home.name] || element.teams.home.name}</Text>
-                      <Image source={{ uri: element.teams.home.logo }} style={styles.matchLogoDom} />
-                      <Text style={{ marginInline: 4 }}>-</Text>
-                      <Image source={{ uri: element.teams.away.logo }} style={styles.matchLogoExt} />
-                  <Text style={styles.matchEquipeExt}>{teamName[element.teams.away.name] || element.teams.away.name}</Text>
-                      <View style={styles.rdv}>
-                        <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedDate}</Text>
-                        <Text style={{ fontFamily: "Kanitalic", fontSize: 11, color: "white" }}>{formatDateAndTime(element.fixture.date).formattedHour}</Text>
-                      </View>
-                    </LinearGradient>
-                  </TouchableOpacity> : null
-                )}
-              </View>)
-            }
-          </ScrollView>}
+        >
+          {leagues.map(leagueId => {
+            const leagueMatches = matchesOfDay.filter(
+              m => m.league.id === leagueId
+            );
+            const league = leagueMatches[0].league;
 
 
-        </LinearGradient>
 
-      </View> 
+            return (
+              <View key={leagueId} style={styles.leagueBlock}>
+                <View style={styles.leagueHeader}>
+                  <View style={{ borderRadius: 8, overflow: "hidden" }}>
+                    <SvgUri uri={flags[league.name]} width={22} height={20} />
+                  </View>
+                  <Text style={styles.leagueName}>{league.name}</Text>
+                </View>
 
+                {leagueMatches.map(match => {
+                  const home = teamName[match.teams.home.name] || match.teams.home.name;
+                  const away = teamName[match.teams.away.name] || match.teams.away.name;
+                  const hideScore = noSpoil && match.league.id === 2 &&
+                    ['1H', '2H', 'HT', 'ET'].includes(match.fixture.status.short);
+                  const isLive = match.fixture.status.elapsed > 0 && match.fixture.status.long != "Match Finished"
+                  const finished = match.fixture.status.long === "Match Finished"
+
+                  return (
+                    <TouchableOpacity
+                      key={match.fixture.id}
+                      style={styles.matchCard}
+                      onPress={() =>
+                        navigation.navigate('FicheMatch', { matchId: match.fixture.id })
+                      }
+                      accessible accessibilityHint={`naviguer vers la fiche du match: ${match.teams.home.name} ${match.teams.away.name}`}
+                    >
+                      <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={[styles.match, isMediumScreen && {height: 60}]}>
+
+                        <Image source={{ uri: league.logo }} style={[styles.leagueLogo, isMediumScreen && {height: 30}]} />
+
+                        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "flex-end", width: finished ? "38%" : "35%", gap: isMediumScreen ? 16 : 3 }}>
+                          <Text style={[styles.team, isMediumScreen && {fontSize: 18}]}>{home}</Text>
+                          <Image source={{ uri: match.teams.home.logo }} style={[styles.teamLogo, isMediumScreen && {width: 36, height: 36}]} />
+                        </View>
+
+                        <LinearGradient
+                          colors={['rgba(0,0,0,0.85)', 'rgba(110,85,20,1)', 'rgba(0,0,0,0.85)']}
+                          style={[styles.scoreBox, isLive && { width: "18%" }, finished && { width: "15%" }, isMediumScreen && {height: 42, marginInline: 4}]}
+                        >
+                          <View style={[match.goals.home > match.goals.away ? isLive ? styles.liveView : styles.winner : match.goals.home < match.goals.away ? isLive ? styles.liveView : styles.looser : finished ? styles.neutre : {alignItems: "center", justifyContent: "center"}, isMediumScreen && {height: 32}]}>
+                            <Text style={styles.score}>
+                              {
+                                match.fixture.status.short === "NS" ? " - " :
+                                  hideScore ? '?' :
+                                    match.goals.home}
+                            </Text>
+                          </View>
+                          {isLive ?
+                            match.fixture.status.long === "Halftime" ? <Text style={{ color: "white", fontFamily: "Kanitalic", fontSize: 10, backgroundColor: "darkred", padding: 2, borderRadius: 4, marginInline: 3 }}>MT</Text> :
+                              <View style={styles.liveSticker}>
+                                <Text style={styles.liveText}>{match.fixture.status.elapsed}'</Text>
+                                <Animated.Text style={{ color: "white", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim, marginTop: -3 }}>live</Animated.Text>
+                              </View> : <Text style={styles.score}> : </Text>}
+
+                          <View style={[match.goals.home < match.goals.away ? isLive ? styles.liveView : styles.winner : match.goals.home > match.goals.away ? isLive ? styles.liveView : styles.looser : finished ? styles.neutre : {alignItems: "center", justifyContent: "center"}, isMediumScreen && {height: 32}]}>
+                            <Text style={styles.score}>
+                              {
+                                match.fixture.status.short === "NS" ? " - " :
+                                  hideScore ? '?' :
+                                    match.goals.away}
+                            </Text>
+                          </View>
+                        </LinearGradient>
+
+                        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "flex-start", width: finished ? "38%" : "33%", gap: isMediumScreen ? 16 : 3 }}>
+                          <Image source={{ uri: match.teams.away.logo }} style={[styles.teamLogo, isMediumScreen && {width: 36, height: 36}]} />
+                          <Text style={[styles.team, isMediumScreen && {fontSize: 18}]}>{away}</Text>
+                        </View>
+
+                        {isLive || finished ? null :
+                          <View style={[styles.rdv, isMediumScreen && {height: 38, borderRadius: 10}]}>
+                            <Text style={{ fontFamily: "Kanitalic", fontSize: isMediumScreen? 12 : 10.5, color: "white" }}>{formatDateAndTime(match.fixture.date).formattedDate}</Text>
+                            <Text style={{ fontFamily: "Kanitalic", fontSize: isMediumScreen? 12 : 10.5, color: "white" }}>{formatDateAndTime(match.fixture.date).formattedHour}</Text>
+                          </View>
+                        }
+                      </LinearGradient>
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
+            );
+          })}
+        </ScrollView>
+      </LinearGradient>
+    </View>
   );
-};
+}
 
+/* ====================== STYLES ====================== */
 const styles = StyleSheet.create({
-  today: {
-    flex: 1,
+  container: { flex: 1, width: "97%", alignItems: "center" },
+
+  dateHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    width: "100%",
-    shadowColor: '#000', // shadow color
-    shadowOffset: { width: 0, height: 5 }, // shadow offset
-    shadowOpacity: 0.8, // shadow opacity
-    shadowRadius: 3,
-    elevation: 4
-
+    padding: 15,
+    width: 350,
+    gap: 10
   },
-  titre: {
-    width: 150,
-    borderRadius: 10,
-    marginBlock: 10,
+  arrow: { color: 'rgb(255, 255, 255)', fontSize: 20 },
+
+
+  spoilContainer: {
+    backgroundColor: '#212121ff',
+    width: 60,
     height: 35,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  titreToday: {
-    color: 'white',
-    fontFamily: "Kanitalik",
-  },
-  nomatch: {
-    color: 'white',
-    width: 200,
-    textAlign: 'center',
-    fontFamily: 'Permanent',
-    borderRadius: 5,
-    height: 40,
-    marginBlock: 10,
-  },
-  liveTableau: {
-    width: '100%',
-    justifyContent: "center"
-  },
-
-  matchCompetition: {
-    height: 35,
-    width: "7%",
-    objectFit: 'contain',
-    borderTopLeftRadius: 6,
-    borderBottomLeftRadius: 6
-  },
-  matchEquipeDom: {
-    fontSize: 13.5,
-    fontFamily: "Bella",
-    width: "26%",
-    textAlign: "center"
-
-  },
-  matchLogoDom: {
-    height: 35,
-    width: "9%",
-    objectFit: 'contain',
-  },
-
-  rdv: {
-    alignItems: 'center',
+    borderRadius: 25,
     justifyContent: 'center',
+    paddingHorizontal: 10,
+    marginRight: 8, alignSelf: "flex-end"
+  },
+  spoilText: {
+    fontFamily: "Bangers",
     fontSize: 12,
-    width: "10%",
-    backgroundColor: "black",
-    borderRadius: 5,
-
-
-
-  },
-  matchLogoExt: {
-    height: 35,
-    width: "9%",
-    objectFit: 'contain',
-  },
-  matchEquipeExt: {
-    fontSize: 13.5,
-    fontFamily: "Bella",
-    width: "27%",
+    color: "green",
+    letterSpacing: 0.5,
     textAlign: "center"
-
-  },
-  nul: {
-    backgroundColor: 'rgba(150, 150, 150, 1)',
-    color: "white",
-    height: 30,
-    width: 23,
-    borderRadius: 8,
-    textAlign: "center",
-    fontFamily: "Kanito",
-    paddingTop: 4,
-    
-  },
-  winner: {
-    backgroundColor: '#26a435ff',
-    color: "white",
-    height: 30,
-    width: 23,
-    borderRadius: 8,
-    textAlign: "center",
-    fontFamily: "Kanito",
-    paddingTop: 4,
-
-  },
-  looser: {
-    backgroundColor: 'red',
-    color: "white",
-    height: 30,
-    width: 23,
-    borderRadius: 8,
-    textAlign: "center",
-    fontFamily: "Kanito",
-    paddingTop: 4,
-
-  },
-  scoreBox: {
-height: 32,
-    width: 23,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 8
-  },
-  scoreTxt: {
-    fontFamily: "Kanitt",
-    color: "white",
-    fontSize: 15
-  },
-  matchScore: {
-    flexDirection: "row",
-    width: "14%",
-    justifyContent: "space-around",
-alignItems: "center"  },
-  match: {
-    flexDirection: 'row',
-    justifyContent: "space-around",
-    alignItems: 'center',
-    width: "100%",
-    backgroundColor: "aliceblue",
-    borderRadius: 10,
-    paddingBlock: 9,
-    paddingInline: 2
   },
 
-  competitionLogo: {
-    height: 25,
-    width: 25,
-    objectFit: 'contain',
-  },
-  teamContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: "35%",
-    gap: 2,
-    marginInline: 1
-
-  },
-  teamContainerDom: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: "32%",
-    flexDirection: "row-reverse",
-    gap: 2,
-    marginInline: 1,
-
-
-  },
-  teamLogo: {
-    height: 38,
-    width: 29,
-    objectFit: 'contain',
-    alignItems: "center",
-    marginInline: 5
-  },
-  teamName: {
-    fontSize: 13.5,
-    fontFamily: "Bella",
-    textAlign: "center",
-  },
-  scoreContainer: {
-    alignItems: 'center',
-    width: "22%",
-    marginInline: 1
-  },
-  liveSticker: {
-    alignItems: "center",
-    marginInline: 5
-
-  },
-  liveText: {
-    color: "white",
-    fontFamily: "Kanitalic",
-    fontSize: 12,
-    backgroundColor: "darkred",
-    paddingInline: 5,
-    borderRadius: 5
-
-
-  },
-  score: {
-    flexDirection: 'row',
-    alignItems: 'center',
-
-  },
-  scoreText: {
-    backgroundColor: 'grey',
-    color: 'white',
-    borderRadius: 5,
-    height: 30,
-    width: 25,
-    fontFamily: "Kanito",
-    alignItems: "center",
-    textAlign: "center",
-    paddingTop: 4
-  },
-  nospoil: {
-    backgroundColor: 'black',
-    color: 'white',
-    borderRadius: 5,
-    height: 30,
-    width: 25,
-    fontFamily: "Kanitt",
-    alignItems: "center",
-    textAlign: "center",
-    paddingTop: 4,
-
-  },
-  arrow: {
-    color: "white",
-    fontFamily: "Kanitt",
-    height: 35,
-    width: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10
-  },
   toggle: {
+    backgroundColor: 'white',
+    width: 38,
+    height: 38,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: "absolute",
+
+  },
+  toggleCircle: {
     backgroundColor: 'white',
     width: 35,
     height: 35,
@@ -1108,35 +524,143 @@ alignItems: "center"  },
     justifyContent: 'center',
     alignItems: 'center',
     position: "absolute",
-    
   },
-  button: {
-    backgroundColor: 'lightgrey',
-    width: 60,
-    height: 35,
-    borderRadius: 25,
-    justifyContent: 'center',
-    paddingHorizontal: 10,
-    marginRight: 8
-  },
-  textspoil: {
-    fontFamily: "Bangers",
-    fontSize: 12,
-    color: "green",
-    letterSpacing: 0.5
 
+  leagueBlock: {
+    marginVertical: 10
   },
-  textnospoil: {
-    fontFamily: "Bangers",
-    fontSize: 12,
-    textAlign: "center",
-    lineHeight: 12,
-    color: "red"
+  leagueHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingHorizontal: 5,
   },
-  link: {
+  leagueLogo: {
+    width: "7%",
+    height: 25,
+    resizeMode: "contain",
+  },
+
+  leagueName: {
+    color: '#fff',
+    fontFamily: 'Kanitus'
+  },
+
+  matchCard: {
+
     marginBlock: 4,
-  }
- 
-});
+  },
+  match: {
+    flexDirection: 'row',
+    justifyContent: "space-around",
+    alignItems: 'center',
+    width: "100%",
+    backgroundColor: "aliceblue",
+    borderRadius: 10,
+    paddingBlock: 6,
+    paddingInline: 2,
+    height: 48
+  },
+  team: {
+    color: '#000000ff',
+    fontFamily: "Bella",
+    fontSize: 13.5,
+    textAlign: "center"
 
-export default Aujourdhui;
+  },
+  teamLogo: {
+    height: 29,
+    width: 29,
+    resizeMode: "contain"
+  },
+  scoreBox: {
+    paddingVertical: 3,
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+    marginInline: 3,
+    flexDirection: "row",
+    width: "13%",
+    height: 36
+  },
+  score: {
+    color: '#fff',
+    fontFamily: 'Kanitt',
+    fontSize: 16, 
+  },
+  rdv: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: "10%",
+    backgroundColor: "black",
+    borderRadius: 5,
+  },
+  winner: {
+    backgroundColor: "green",
+    borderRadius: 4,
+    alignItems: "center",
+    justifyContent: "center",
+    width: "32%",
+  },
+  looser: {
+    backgroundColor: "red",
+    borderRadius: 4,
+    alignItems: "center",
+    justifyContent: "center",
+    width: "32%"
+
+  },
+  neutre: {
+    backgroundColor: "grey",
+    borderRadius: 4,
+    alignItems: "center",
+    justifyContent: "center",
+    width: "32%"
+  },
+  liveView: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: "30%"
+  },
+  liveText: {
+    color: "darkred",
+    fontFamily: "Kanitalic",
+    paddingInline: 2,
+    borderRadius: 4,
+    fontSize: 11,
+    backgroundColor: "white"
+  },
+  liveSticker: {
+    justifyContent: "space-between",
+    marginInline: 4
+  },
+  daysScroll: {
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    height: 70,
+    justifyContent: "center",
+  },
+
+  dayItem: {
+    paddingHorizontal: 4,
+    paddingVertical: 6,
+    borderRadius: 15,
+    marginHorizontal: 2,
+    height: "90%",
+    justifyContent: "center",
+    width: 68,
+    justifyContent: "space-around"
+  },
+
+  dayItemActive: {
+  },
+  dayText: {
+    fontSize: 7.5,
+    fontFamily: "Kanitalik",
+    textAlign: "center",
+    color: "white",
+
+  },
+  dayTextActive: {
+  },
+});

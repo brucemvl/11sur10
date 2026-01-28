@@ -50,8 +50,8 @@ function Filtres() {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.competitions}
         >
-
             {/* SELECTIONS */}
+            {/*}
             {selections.map(({ id, logo, name }) =>
                 id === 6 &&
                 renderItem({
@@ -63,7 +63,7 @@ function Filtres() {
                     onPress: () => navigation.navigate('FicheSelections', { id })
                 })
             )}
-            
+                /*}
 
             {/* EUROPE */}
             {europe.map(({ id, logo, name }) =>

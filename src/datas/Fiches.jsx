@@ -288,10 +288,20 @@ import said from "../assets/portraits/fiche/said.png"
 import sima from "../assets/portraits/fiche/sima.png"
 import sulc from "../assets/portraits/fiche/sulc.png"
 import cancelo from "../assets/portraits/fiche/cancelo.png"
+import edouard from "../assets/portraits/fiche/edouard.png"
+import diop from "../assets/portraits/fiche/diop.png"
+import thomasson from "../assets/portraits/fiche/thomasson.png"
+import guela from "../assets/portraits/fiche/guela.png"
+import felix from "../assets/portraits/fiche/felix.png"
 
 
 
 export const fichesJoueurs = {
+    583: felix,
+        161747: guela,
+    107: diop,
+    22261: thomasson,
+    1135: edouard,
     855: cancelo,
     66387: sulc,
         277191: sima,

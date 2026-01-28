@@ -24,7 +24,7 @@ import banner25 from "../assets/banner26.webp"
 import banner26 from "../assets/banner27.jpg"
 import banner27 from "../assets/banner28.webp"
 import banner28 from "../assets/banner29.webp"
-import banner29 from "../assets/banner30.jpg"
+import banner29 from "../assets/banner30.webp"
 import banner30 from "../assets/banner31.jpg"
 import banner31 from "../assets/banner32.webp"
 import banner32 from "../assets/banner33.webp"
@@ -71,6 +71,21 @@ import banner75 from "../assets/banner76.webp"
 import banner76 from "../assets/banner77.webp"
 import banner77 from "../assets/banner78.webp"
 import banner78 from "../assets/banner79.webp"
+import banner79 from "../assets/banner80.webp"
+import banner80 from "../assets/banner81.webp"
+import banner81 from "../assets/banner82.webp"
+import banner82 from "../assets/banner83.webp"
+import banner83 from "../assets/banner84.webp"
+import banner84 from "../assets/banner85.webp"
+import banner85 from "../assets/banner86.webp"
+import banner86 from "../assets/banner87.webp"
+
+
+
+
+
+
+
 
 
 
@@ -82,7 +97,7 @@ import { View, Text, Image, StyleSheet, Animated, useWindowDimensions } from "re
 const photosBan = [
   banner3, banner4, banner5, banner6, banner7, banner8, banner9,
   banner10, banner11, banner12, banner13, banner14, banner15, banner16, banner17, banner18, banner19, banner20, banner21, banner22, banner23, banner24, banner25, banner26, banner27, banner28, banner29, banner30, banner31, banner32, banner33, banner34, banner35, banner36, banner37, banner38, banner39, banner40, banner41, banner42, banner43, banner44, banner45, banner46, banner47, banner48, banner49, banner50, banner51,banner52, banner53, banner54, banner58, banner59, banner60, banner61,
-  banner62, banner63, banner64, banner65, banner66, banner67, banner68, banner69, banner70, banner71, banner72, banner73, banner74, banner75, banner76, banner77, banner78
+  banner62, banner63, banner64, banner65, banner66, banner67, banner68, banner69, banner70, banner71, banner72, banner73, banner74, banner75, banner76, banner77, banner78, banner79, banner80, banner81, banner82, banner83, banner84, banner85, banner86
 ];
 
 
@@ -135,7 +150,7 @@ function Banner() {
       />
       <View style={styles.bannerText}>
         <Text style={[styles.bannerTitle, isMediumScreen && {fontSize: 42}]}>100% FOOT</Text>
-        <Text style={[styles.bannerSubtitle, isMediumScreen && {fontSize: 24}]}>Toute l'actu Football partout avec vous</Text>
+        <Text style={[styles.bannerSubtitle, isMediumScreen && {fontSize: 24}]}>Vivez le foot simplement</Text>
       </View>
     </View>
   );

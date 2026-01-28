@@ -25,8 +25,8 @@ const API_KEY = "5ff22ea19db11151a018c36f7fd0213b";
 // 📌 Liste des compétitions (facile à maintenir)
 const COMPETITIONS = {
   ucl: "https://v3.football.api-sports.io/fixtures?league=2&season=2025",
-    can: "https://v3.football.api-sports.io/fixtures?league=6&season=2025",
-   /* tropheechampions: "https://v3.football.api-sports.io/fixtures?league=526&season=2025",
+    /* can: "https://v3.football.api-sports.io/fixtures?league=6&season=2025",
+    tropheechampions: "https://v3.football.api-sports.io/fixtures?league=526&season=2025",
     supercoupeespagne: "https://v3.football.api-sports.io/fixtures?league=556&season=2025", */
   france: "https://v3.football.api-sports.io/fixtures?league=61&season=2025",
   england: "https://v3.football.api-sports.io/fixtures?league=39&season=2025",

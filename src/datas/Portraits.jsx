@@ -235,11 +235,25 @@ import sima from "../assets/portraits/sima.png"
 import sulc from "../assets/portraits/sulc.png"
 import lang from "../assets/portraits/lang.png"
 import cancelo from "../assets/portraits/cancelo.png"
+import tolisso from "../assets/portraits/tolisso.png"
+import edouard from "../assets/portraits/edouard.png"
+import thomasson from "../assets/portraits/thomasson.png"
+import diop from "../assets/portraits/diop.png"
+import guela from "../assets/portraits/guela.png"
+import coman from "../assets/portraits/coman.png"
+import felix from "../assets/portraits/felix.png"
 
 
 
 
 export const portraitsJoueurs = {
+    583: felix,
+    508: coman,
+    161747: guela,
+    107: diop,
+        22261: thomasson,
+        1135: edouard,
+        519: tolisso,
     855: cancelo,
     544: lang,
     66387: sulc,

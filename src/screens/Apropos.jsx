@@ -4,6 +4,7 @@ import { StyleSheet } from "react-native"
 import { useNavigation } from "@react-navigation/native";
 import insta from "../assets/instagram.png"
 import bm from "../assets/bm.png"
+import laposte from "../assets/laposte.png"
 
 
 
@@ -23,6 +24,9 @@ function Apropos() {
 
     return (
         <View style={{ flexDirection: "column", height: screenHeight, gap: 15,alignItems: "center" }}>
+            <TouchableOpacity style={{position: "absolute", left: 340}} onPress={()=> navigation.navigate("Login")}>
+                <Image source={laposte} style={{height: 40, width: 40, resizeMode: "contain"}}  />
+            </TouchableOpacity>
             <View style={[styles.bloc, isMediumScreen && {width: "86%", gap: 20}]}>
                 <Text style={[styles.titre, isMediumScreen && {fontSize: 30}]}>Bienvenue sur 11/10 !</Text>
                 <Text style={[styles.text, isMediumScreen && {fontSize: 18}]}>Vous pourrez retrouver ici toutes les infos concernant le ballon rond. Les resultats des matchs de la veille? Le classement de votre équipe favorite? Les statistiques des joueurs ou simplement la date du prochain choc? Toutes ces infos sont disponibles sur 11/10.</Text>    

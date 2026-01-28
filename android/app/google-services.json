@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "817907451624",
+    "project_id": "notifs-2e789",
+    "storage_bucket": "notifs-2e789.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:817907451624:android:6f1a1232e7d49f9f832b5d",
+        "android_client_info": {
+          "package_name": "com.onzesur10.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhG0UHvyFHMUtU4AlKDDZumrx7u0WdiMI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -467,7 +467,7 @@ setCompoBasique(true)
                         </TouchableOpacity> : null }
                         </View>
                         {compos2 && <SchemaAvance id={match.fixture.id} match={match} compoDom={compoDom} compoExt={compoExt} colors={colors} />}
-                       {injuries.length <= 0 ? apercu &&  <Stats match={match}/> : apercu && <View><Stats match={match} /><Indisponibles injuries={injuries} match={match} /></View>}
+                       {injuries.length <= 0 ? apercu &&  <Stats match={match}/> : apercu && <View style={{alignItems: "center"}}><Stats match={match} injuries={injuries} /><Indisponibles injuries={injuries} match={match} /></View>}
                         {histo && <Histo historique={historique} />}
                         {classement && <Classement id={match.league.id}/>}    
 
@@ -501,7 +501,7 @@ setCompoBasique(true)
                             <Text style={selected5 ? styles.selectedText : styles.text}>Classement</Text>
                         </TouchableOpacity> : null }
                         </View>
-                       {injuries.length === 0 ? apercu &&  <Stats match={match}/> : apercu && <View style={{alignItems: "center"}}><Stats match={match} /><Indisponibles injuries={injuries} match={match} /></View>}
+                       {injuries.length === 0 ? apercu &&  <Stats match={match} injuries={injuries}/> : apercu && <View style={{alignItems: "center"}}><Stats match={match} injuries={injuries} /><Indisponibles injuries={injuries} match={match} /></View>}
                         {histo2 && <Histo historique={historique} />}
                         {classement && <Classement id={match.league.id}/>} 
                                                 {live && <Evenements match={match} />}

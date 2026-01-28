@@ -5,6 +5,7 @@ const axios = require('axios');
 const sendPushNotification = require('./utils/pushNotification');
 const pushTokenRoutes = require('./routes/pushToken.js');
 const PushToken = require('./models/PushToken');
+const authRoutes = require('./routes/auth.js');
 
 const mongoURI = process.env.MONGO_URI;
 
@@ -47,7 +48,8 @@ mongoose.connect(mongoURI, {
   .catch(err => console.error('❌ Connexion à MongoDB échouée :', err));
 
 // ✅ Enregistrement des routes
-app.use('/api', pushTokenRoutes);     // autres routes liées aux tokens (si nécessaire)
+app.use('/api', pushTokenRoutes);
+app.use('/auth', authRoutes);
 
 // ✅ Route d'envoi de notification à un utilisateur spécifique
 app.post('/send-notification', async (req, res) => {

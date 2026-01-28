@@ -208,11 +208,12 @@ useEffect(() => {
           ✅ Equipe actuelle : {allTeams.find((t) => t.id === savedTeam)?.name}
         </Text>
       }
+      {/*
       <View style={{flexDirection: "row", gap: 20, marginBlock: 15}}>
         <TouchableOpacity onPress={openClubs} style={[styles.bouton, selectedClubs && styles.selected]}><Text style={[styles.textbouton, selectedClubs && {color: "white", fontFamily: "Kanitt"}]}>Clubs</Text></TouchableOpacity>
-                <TouchableOpacity onPress={openCan} style={[styles.bouton, selectedCan && styles.selected]}><Text style={[styles.textbouton, selectedCan && {color: "white", fontFamily: "Kanitt"}]}>CAN</Text></TouchableOpacity>
+               <TouchableOpacity onPress={openCan} style={[styles.bouton, selectedCan && styles.selected]}><Text style={[styles.textbouton, selectedCan && {color: "white", fontFamily: "Kanitt"}]}>CAN</Text></TouchableOpacity>
 
-      </View>
+      </View> */}
       { clubs &&
 <View style={{width: "100%", flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: isMediumScreen? 18 : 8, marginBlock: 12}}>
       {teams.map((team) => 
