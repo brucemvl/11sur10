@@ -3,32 +3,32 @@ const router = express.Router();
 const PushToken = require('../models/PushToken');
 const { sendPushNotification } = require('../utils/pushNotification');
 const auth = require('../middleware/auth');
+const optionalAuth = require('../middleware/optionalAuth');
 
 // 🟢 REGISTER / UPDATE PUSH TOKEN
-router.post('/register-push-token', auth, async (req, res) => {
+router.post('/register-push-token', optionalAuth, async (req, res) => {
   const { token, teamId, platform } = req.body;
-  const userId = req.userId; // 🔐 sécurisé depuis le JWT
+  const userId = req.userId; // null ou ObjectId
 
   if (!token || teamId == null) {
     return res.status(400).json({ error: 'Token ou teamId manquants' });
   }
 
   try {
-    // Recherche le token dans la base de données
     let pushToken = await PushToken.findOne({ token });
 
     if (!pushToken) {
-      // Nouveau token
+      // 🆕 Nouveau token
       pushToken = new PushToken({
         token,
         teamId,
-        userId,
+        userId: userId || null,
         platform,
       });
     } else {
-      // Token existant → MAJ
+      // 🔄 Token existant → mise à jour
       pushToken.teamId = teamId;
-      pushToken.userId = userId;
+      pushToken.userId = userId || null;
       if (platform) pushToken.platform = platform;
     }
 
@@ -36,7 +36,10 @@ router.post('/register-push-token', auth, async (req, res) => {
     res.status(200).json({ message: 'Token mis à jour avec succès' });
   } catch (err) {
     console.error('❌ Erreur lors de la mise à jour du token :', err);
-    res.status(500).json({ error: 'Erreur lors de la mise à jour du token', details: err.message });
+    res.status(500).json({
+      error: 'Erreur lors de la mise à jour du token',
+      details: err.message,
+    });
   }
 });
 
