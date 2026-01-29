@@ -10,6 +10,8 @@ const matchRoutes = require('./routes/matches');
 const predictionRoutes = require('./routes/predictions');
 const leaderboardRoutes = require('./routes/leaderboard');
 const profileRoutes = require('./routes/profile');
+const path = require('path');
+
 
 
 const mongoURI = process.env.MONGO_URI;
@@ -52,8 +54,9 @@ mongoose.connect(mongoURI, {
   })
   .catch(err => console.error('❌ Connexion à MongoDB échouée :', err));
 
-  app.use('/uploads', express.static('uploads'));
-  
+// servir les avatars et toutes les images dans /uploads
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // ✅ Enregistrement des routes
 app.use('/api', pushTokenRoutes);
 app.use('/auth', authRoutes);
