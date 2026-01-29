@@ -84,22 +84,35 @@ export default function Jeu() {
   };
 
   const submitPrediction = async (match) => {
-  const token = await AsyncStorage.getItem('jwtToken');
+  const jwtToken = await AsyncStorage.getItem('jwtToken');
+  const score = scores[match.fixture.id];
 
-  await axios.post(
-    'https://one1sur10.onrender.com/api/predictions',
-    {
-      matchId: match.fixture.id,
-      predictedHome: Number(score.home),
-      predictedAway: Number(score.away),
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
+  if (!score || score.home == null || score.away == null) {
+    alert("Veuillez saisir un score valide");
+    return;
+  }
+
+  try {
+    const response = await axios.post(
+      'https://one1sur10.onrender.com/api/predictions',
+      {
+        matchId: match.fixture.id,
+        predictedHome: Number(score.home),
+        predictedAway: Number(score.away),
       },
-    }
-  );
-};
+      {
+        headers: { Authorization: `Bearer ${jwtToken}` },
+      }
+    );
+    console.log('Prono enregistré ✅', response.data);
+    alert('Pronostic enregistré ✅');
+  } catch (err) {
+    console.error('Erreur prono:', err.response?.data || err.message);
+    alert('Erreur lors de l\'enregistrement du prono');
+  }
+}
+
+  
 
   /* ------------------ UI ------------------ */
 
@@ -163,9 +176,9 @@ export default function Jeu() {
                   keyboardType="numeric"
                   editable={!isRoundStarted}
                   placeholder="0"
-                  onChangeText={(v) =>
-                    handleScoreChange(id, 'home', v)
-                  }
+                  value={scores[id]?.home ?? ''}
+                onChangeText={(v) => handleScoreChange(id, 'home', v)}
+                  
                 />
                 <Text style={{ marginHorizontal: 10 }}>-</Text>
                 <TextInput
@@ -173,9 +186,8 @@ export default function Jeu() {
                   keyboardType="numeric"
                   editable={!isRoundStarted}
                   placeholder="0"
-                  onChangeText={(v) =>
-                    handleScoreChange(id, 'away', v)
-                  }
+                  value={scores[id]?.home ?? ''}
+                onChangeText={(v) => handleScoreChange(id, 'home', v)}
                 />
               </View>
 
