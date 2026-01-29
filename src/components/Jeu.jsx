@@ -186,8 +186,8 @@ export default function Jeu() {
                   keyboardType="numeric"
                   editable={!isRoundStarted}
                   placeholder="0"
-                  value={scores[id]?.home ?? ''}
-                onChangeText={(v) => handleScoreChange(id, 'home', v)}
+                  value={scores[id]?.away ?? ''}
+                onChangeText={(v) => handleScoreChange(id, 'away', v)}
                 />
               </View>
 

@@ -9,10 +9,12 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import ClassementJeu from "../components/ClassementJeu"
 
 export default function AccueilJeu() {
   const navigation = useNavigation();
   const [username, setUsername] = useState('');
+  const [openClassement, setOpenClassement] = useState(true)
 
   // Animations
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -67,6 +69,9 @@ export default function AccueilJeu() {
     );
   };
 
+  const openclassement = ()=>{
+    setOpenClassement(!openClassement)
+  }
   return (
     <View style={styles.container}>
       <Animated.View
@@ -96,10 +101,19 @@ export default function AccueilJeu() {
           <Text style={styles.buttonSecondaryText}>👤 Mon profil</Text>
         </TouchableOpacity>
 
+        <TouchableOpacity
+          style={styles.buttonPrimary}
+          onPress={openclassement}
+        >
+          <Text style={styles.buttonText}>Classement</Text>
+        </TouchableOpacity>
+
         {/* 🔴 Déconnexion */}
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
           <Text style={styles.logoutText}>Se déconnecter</Text>
         </TouchableOpacity>
+
+        {openclassement && <ClassementJeu />}
       </Animated.View>
     </View>
   );
