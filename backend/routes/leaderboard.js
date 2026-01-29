@@ -58,12 +58,16 @@ users.forEach(u => {
 });
 
     const result = Object.entries(leaderboard)
-      .map(([userId, points]) => ({
-        userId,
-        username: userMap[userId] || 'Utilisateur',
-        points,
-      }))
-      .sort((a, b) => b.points - a.points);
+  .map(([userId, points]) => {
+    const user = userMap[userId] || { username: 'Utilisateur', avatar: '/uploads/avatars/default-avatar.png' };
+    return {
+      userId,
+      username: user.username,   // string
+      avatar: user.avatar,       // string
+      points,
+    };
+  })
+  .sort((a, b) => b.points - a.points);
 
     res.json(result);
   } catch (err) {

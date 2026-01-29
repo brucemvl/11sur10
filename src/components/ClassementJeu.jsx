@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, StyleSheet, Image } from 'react-native';
 import axios from 'axios';
 
 export default function Leaderboard() {
@@ -13,6 +13,7 @@ export default function Leaderboard() {
   const fetchLeaderboard = async () => {
     try {
       const res = await axios.get('https://one1sur10.onrender.com/api/leaderboard');
+      console.log(res.data);
       setLeaders(res.data);
     } catch (err) {
       console.error(err);
@@ -23,7 +24,7 @@ export default function Leaderboard() {
 
   if (loading) return <ActivityIndicator size="large" style={{ marginTop: 40 }} />;
 
-  const top3 = data.slice(0, 3);
+  const top3 = leaders.slice(0, 3);
 
   return (
     <View style={styles.container}>
@@ -31,33 +32,37 @@ export default function Leaderboard() {
 
       {/* TOP 3 */}
       <View style={styles.top3Container}>
-        {top3.map((user, index) => (
-          <View key={user.userId} style={[styles.card, styles[`rank${index + 1}`]]}>
-            <Image
-              source={{ uri: `https://one1sur10.onrender.com${user.avatar}` }}
-              style={styles.topAvatar}
-            />
-            <Text style={styles.medal}>
-              {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'}
-            </Text>
-            <Text style={styles.username}>{user.username}</Text>
-            <Text style={styles.points}>{user.points} pts</Text>
-          </View>
-        ))}
-      </View>
+  {top3.map((user, index) => (
+    <View key={user.userId} style={[styles.card, styles[`rank${index + 1}`]]}>
+      <Image
+        source={{ uri: `https://one1sur10.onrender.com${user.avatar || '/uploads/avatars/default-avatar.png'}` }}
+        style={styles.topAvatar}
+      />
+      <Text style={styles.medal}>
+        {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'}
+      </Text>
+      <Text style={styles.username}>{user.username}</Text>  {/* ✅ ici */}
+      <Text style={styles.points}>{user.points} pts</Text>   {/* ✅ ici */}
+    </View>
+  ))}
+</View>
 
 
       <FlatList
-        data={leaders}
-        keyExtractor={(item) => item.userId}
-        renderItem={({ item, index }) => (
-          <View style={styles.row}>
-            <Text style={styles.rank}>{index + 1}.</Text>
-            <Text style={styles.user}>{item.userId}</Text>
-            <Text style={styles.points}>{item.points} pts</Text>
-          </View>
-        )}
+  data={leaders.slice(3)}
+  keyExtractor={(item) => item._id || item.userId}
+  renderItem={({ item, index }) => (
+    <View style={styles.row}>
+      <Text style={styles.rank}>{index + 4}.</Text>
+      <Image
+        source={{ uri: `https://one1sur10.onrender.com${item.avatar || '/uploads/avatars/default-avatar.png'}` }}
+        style={styles.rowAvatar}
       />
+      <Text style={styles.rowUsername}>{item.username}</Text>
+      <Text style={styles.rowPoints}>{item.points} pts</Text>
+    </View>
+  )}
+/>
     </View>
   );
 }
