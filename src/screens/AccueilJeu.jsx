@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -17,10 +17,11 @@ export default function AccueilJeu() {
   const [user, setUser] = useState(null);
   const [openClassement, setOpenClassement] = useState(false);
 
+  const navigation = useNavigation();
+
+  // Animations
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const translateAnim = useRef(new Animated.Value(30)).current;
-
-  const navigation = useNavigation();
 
   // 🔹 Charger les infos utilisateur
   useEffect(() => {
@@ -33,16 +34,14 @@ export default function AccueilJeu() {
           'https://one1sur10.onrender.com/api/profile/me',
           { headers: { Authorization: `Bearer ${token}` } }
         );
-
         setUser(res.data);
       } catch (err) {
-        console.error(err);
+        console.error('Erreur récupération profil :', err);
       }
     };
 
     loadUser();
 
-    // Animations
     Animated.parallel([
       Animated.timing(fadeAnim, {
         toValue: 1,
@@ -69,18 +68,23 @@ export default function AccueilJeu() {
           style: 'destructive',
           onPress: async () => {
             await AsyncStorage.multiRemove(['jwtToken', 'userId', 'username']);
-            navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'Login' }],
+            });
           },
         },
       ]
     );
   };
 
-  const toggleClassement = () => setOpenClassement(!openClassement);
+  const toggleClassement = () => {
+    setOpenClassement(!openClassement);
+  };
 
-  if (!user) return <Text style={{ textAlign: 'center', marginTop: 50 }}>Chargement...</Text>;
+  if (!user) return <Text>Chargement...</Text>;
 
-  // ✅ Fallback avatar
+  // URL avatar avec fallback
   const avatarUrl = user.avatar
     ? `https://one1sur10.onrender.com${user.avatar}`
     : 'https://one1sur10.onrender.com/uploads/avatars/default-avatar.png';
@@ -97,7 +101,10 @@ export default function AccueilJeu() {
       >
         <Text style={styles.title}>⚽ 11 sur 10</Text>
 
-        <Image source={{ uri: avatarUrl }} style={styles.avatar} />
+        <Image
+  source={{ uri: user.avatar }}
+  style={styles.topAvatar}
+/>
 
         <Text style={styles.welcome}>Bienvenue dans le jeu</Text>
         <Text style={styles.username}>{user.username}</Text>
@@ -140,11 +147,30 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 20,
   },
-  title: { fontSize: 36, fontWeight: 'bold', color: '#fff', marginBottom: 10 },
-  welcome: { fontSize: 18, color: '#cbd5e1', marginTop: 10 },
-  username: { fontSize: 22, fontWeight: 'bold', color: '#22c55e', marginBottom: 40, marginTop: 5 },
-  avatar: { width: 120, height: 120, borderRadius: 60, marginBottom: 15 },
-
+  title: {
+    fontSize: 36,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 10,
+  },
+  welcome: {
+    fontSize: 18,
+    color: '#cbd5e1',
+    marginTop: 10,
+  },
+  username: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#22c55e',
+    marginBottom: 40,
+    marginTop: 5,
+  },
+  topAvatar: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginBottom: 12,
+  },
   buttonPrimary: {
     backgroundColor: '#22c55e',
     paddingVertical: 16,
@@ -153,7 +179,11 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
   },
-  buttonText: { color: '#fff', fontSize: 18, fontWeight: 'bold' },
+  buttonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
   buttonSecondary: {
     backgroundColor: '#1e293b',
     paddingVertical: 14,
@@ -162,7 +192,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
   },
-  buttonSecondaryText: { color: '#e5e7eb', fontSize: 16 },
-  logoutButton: { marginTop: 10, paddingVertical: 12 },
-  logoutText: { color: '#ef4444', fontSize: 14, fontWeight: 'bold' },
+  buttonSecondaryText: {
+    color: '#e5e7eb',
+    fontSize: 16,
+  },
+  logoutButton: {
+    marginTop: 10,
+    paddingVertical: 12,
+  },
+  logoutText: {
+    color: '#ef4444',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
 });

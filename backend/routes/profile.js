@@ -73,14 +73,13 @@ router.post(
 router.get('/me', auth, async (req, res) => {
   try {
     const user = await User.findById(req.userId).lean();
-    if (!user) return res.status(404).json({ error: 'Utilisateur non trouvé' });
-
     res.json({
       username: user.username,
-      avatar: user.avatar || '/uploads/avatars/default-avatar.png',
+      avatar: user.avatar
+        ? `https://one1sur10.onrender.com${user.avatar}`
+        : 'https://one1sur10.onrender.com/uploads/avatars/default-avatar.png',
     });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });

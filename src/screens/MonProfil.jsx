@@ -72,36 +72,37 @@ export default function MonProfil() {
   // AVATAR 
 
   const pickAvatar = async () => {
-  const permission =
-    await ImagePicker.requestMediaLibraryPermissionsAsync();
+  try {
+    // 1️⃣ Demander la permission
+    const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (!permission.granted) {
+      return Alert.alert('Permission refusée', 'Accès à la galerie requis');
+    }
 
-  if (!permission.granted) {
-    Alert.alert(
-      'Permission refusée',
-      'Accès à la galerie requis'
-    );
-    return;
-  }
-
-  const result = await ImagePicker.launchImageLibraryAsync({
-  mediaTypes: ImagePicker.MediaType.Images, // 👈 nouveau
+    // 2️⃣ Ouvrir la galerie
+    const result = await ImagePicker.launchImageLibraryAsync({
+  mediaTypes: ImagePicker.MediaTypeOptions.Images, // 👈 CORRECT
   allowsEditing: true,
+  aspect: [1, 1],
   quality: 0.7,
 });
 
-  if (result.canceled) return;
+    if (result.canceled) return;
 
-  try {
-    const token = await getToken();
     const uri = result.assets[0].uri;
 
+    // 3️⃣ Préparer le FormData pour multer
     const formData = new FormData();
     formData.append('avatar', {
       uri,
-      name: 'avatar.jpg',
+      name: `avatar.jpg`,
       type: 'image/jpeg',
     });
 
+    // 4️⃣ Récupérer le token
+    const token = await AsyncStorage.getItem('jwtToken');
+
+    // 5️⃣ Envoyer au backend
     const res = await axios.post(
       'https://one1sur10.onrender.com/api/profile/avatar',
       formData,
@@ -113,13 +114,17 @@ export default function MonProfil() {
       }
     );
 
+    // 6️⃣ Mettre à jour l'avatar affiché
     setAvatar(res.data.avatar);
+
+await AsyncStorage.setItem('avatar', res.data.avatar);
+
     Alert.alert('✅ Succès', 'Avatar mis à jour');
   } catch (err) {
     console.error(err);
     Alert.alert(
       'Erreur',
-      err.response?.data?.error || 'Upload impossible'
+      err.response?.data?.error || 'Impossible de charger l’avatar'
     );
   }
 };
