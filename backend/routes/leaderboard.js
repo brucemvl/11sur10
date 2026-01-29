@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Prediction = require('../models/Prediction');
 const Match = require('../models/Match');
+const User = require('../models/user');
 
-// Points par prono
 const calculatePoints = (prediction, match) => {
   if (!match || match.status !== 'FINISHED') return 0;
 
@@ -24,7 +24,6 @@ const calculatePoints = (prediction, match) => {
   return 0;
 };
 
-// GET classement
 router.get('/', async (req, res) => {
   try {
     const predictions = await Prediction.find().lean();
@@ -43,8 +42,27 @@ router.get('/', async (req, res) => {
       leaderboard[p.userId] = (leaderboard[p.userId] || 0) + points;
     });
 
+    const userIds = Object.keys(leaderboard);
+
+    const users = await User.find(
+  { _id: { $in: userIds } },
+  { username: 1, avatar: 1 }  // récupérer avatar
+).lean();
+
+const userMap = {};
+users.forEach(u => {
+  userMap[u._id] = {
+    username: u.username,
+    avatar: u.avatar || '/uploads/avatars/default-avatar.png',
+  };
+});
+
     const result = Object.entries(leaderboard)
-      .map(([userId, points]) => ({ userId, points }))
+      .map(([userId, points]) => ({
+        userId,
+        username: userMap[userId] || 'Utilisateur',
+        points,
+      }))
       .sort((a, b) => b.points - a.points);
 
     res.json(result);

@@ -8,6 +8,8 @@ const PushToken = require('./models/PushToken');
 const authRoutes = require('./routes/auth.js');
 const matchRoutes = require('./routes/matches');
 const predictionRoutes = require('./routes/predictions');
+const leaderboardRoutes = require('./routes/leaderboard');
+const profileRoutes = require('./routes/profile');
 
 
 const mongoURI = process.env.MONGO_URI;
@@ -50,11 +52,18 @@ mongoose.connect(mongoURI, {
   })
   .catch(err => console.error('❌ Connexion à MongoDB échouée :', err));
 
+  app.use('/uploads', express.static('uploads'));
+  
 // ✅ Enregistrement des routes
 app.use('/api', pushTokenRoutes);
 app.use('/auth', authRoutes);
 app.use('/api/matches', matchRoutes);
 app.use('/api/predictions', predictionRoutes);
+app.use('/api/leaderboard', leaderboardRoutes);
+app.use('/api/profile', profileRoutes);
+
+// rendre les images accessibles
+app.use('/uploads', express.static('uploads'));
 
 // ✅ Route d'envoi de notification à un utilisateur spécifique
 app.post('/send-notification', async (req, res) => {

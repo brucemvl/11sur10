@@ -14,7 +14,7 @@ import ClassementJeu from "../components/ClassementJeu"
 export default function AccueilJeu() {
   const navigation = useNavigation();
   const [username, setUsername] = useState('');
-  const [openClassement, setOpenClassement] = useState(true)
+  const [openClassement, setOpenClassement] = useState(false)
 
   // Animations
   const fadeAnim = useRef(new Animated.Value(0)).current;
