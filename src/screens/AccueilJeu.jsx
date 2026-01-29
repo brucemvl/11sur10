@@ -16,27 +16,28 @@ import axios from 'axios';
 export default function AccueilJeu() {
   const [user, setUser] = useState(null);
   const [openClassement, setOpenClassement] = useState(false);
-
   const navigation = useNavigation();
 
   // Animations
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const translateAnim = useRef(new Animated.Value(30)).current;
 
-  // 🔹 Charger les infos utilisateur
+  // 🔹 Charger user au démarrage
   useEffect(() => {
     const loadUser = async () => {
       try {
         const token = await AsyncStorage.getItem('jwtToken');
-        if (!token) return;
-
         const res = await axios.get(
           'https://one1sur10.onrender.com/api/profile/me',
           { headers: { Authorization: `Bearer ${token}` } }
         );
+
+        // Mettre à jour state et AsyncStorage
         setUser(res.data);
+        await AsyncStorage.setItem('username', res.data.username);
+        await AsyncStorage.setItem('avatar', res.data.avatar);
       } catch (err) {
-        console.error('Erreur récupération profil :', err);
+        console.error('Erreur récupération user:', err);
       }
     };
 
@@ -56,6 +57,22 @@ export default function AccueilJeu() {
     ]).start();
   }, []);
 
+  // 🔹 Charger avatar et username depuis AsyncStorage pour affichage rapide
+  useEffect(() => {
+    const loadFromStorage = async () => {
+      const storedUsername = await AsyncStorage.getItem('username');
+      const storedAvatar = await AsyncStorage.getItem('avatar');
+      if (storedUsername || storedAvatar) {
+        setUser(prev => ({
+          ...prev,
+          username: storedUsername || prev?.username,
+          avatar: storedAvatar || prev?.avatar,
+        }));
+      }
+    };
+    loadFromStorage();
+  }, []);
+
   // 🔹 Déconnexion
   const handleLogout = async () => {
     Alert.alert(
@@ -67,27 +84,17 @@ export default function AccueilJeu() {
           text: 'Se déconnecter',
           style: 'destructive',
           onPress: async () => {
-            await AsyncStorage.multiRemove(['jwtToken', 'userId', 'username']);
-            navigation.reset({
-              index: 0,
-              routes: [{ name: 'Login' }],
-            });
+            await AsyncStorage.multiRemove(['jwtToken', 'userId', 'username', 'avatar']);
+            navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
           },
         },
       ]
     );
   };
 
-  const toggleClassement = () => {
-    setOpenClassement(!openClassement);
-  };
+  const toggleClassement = () => setOpenClassement(!openClassement);
 
   if (!user) return <Text>Chargement...</Text>;
-
-  // URL avatar avec fallback
-  const avatarUrl = user.avatar
-    ? `https://one1sur10.onrender.com${user.avatar}`
-    : 'https://one1sur10.onrender.com/uploads/avatars/default-avatar.png';
 
   return (
     <View style={styles.container}>
@@ -101,14 +108,16 @@ export default function AccueilJeu() {
       >
         <Text style={styles.title}>⚽ 11 sur 10</Text>
 
+        {/* 🔹 Avatar */}
         <Image
-  source={{ uri: user.avatar }}
-  style={styles.topAvatar}
-/>
+          source={{ uri: user.avatar }}
+          style={styles.topAvatar}
+        />
 
         <Text style={styles.welcome}>Bienvenue dans le jeu</Text>
-        <Text style={styles.username}>{user.username}</Text>
+        {user.username ? <Text style={styles.username}>{user.username}</Text> : null}
 
+        {/* 🔹 Boutons */}
         <TouchableOpacity
           style={styles.buttonPrimary}
           onPress={() => navigation.navigate('Jeu')}
@@ -165,12 +174,6 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     marginTop: 5,
   },
-  topAvatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 12,
-  },
   buttonPrimary: {
     backgroundColor: '#22c55e',
     paddingVertical: 16,
@@ -204,5 +207,12 @@ const styles = StyleSheet.create({
     color: '#ef4444',
     fontSize: 14,
     fontWeight: 'bold',
+  },
+  topAvatar: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginVertical: 15,
+    resizeMode: "contain"
   },
 });
