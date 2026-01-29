@@ -96,7 +96,7 @@ export default function AccueilJeu() {
 
         <TouchableOpacity
           style={styles.buttonSecondary}
-          onPress={() => navigation.navigate('Profile')}
+          onPress={() => navigation.navigate('MonProfil')}
         >
           <Text style={styles.buttonSecondaryText}>👤 Mon profil</Text>
         </TouchableOpacity>

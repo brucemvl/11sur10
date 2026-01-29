@@ -26,6 +26,7 @@ import NotifsPlus from '../screens/NotifsPlus';
 import Login from '../screens/Login';
 import Register from '../screens/Register';
 import AccueilJeu from '../screens/AccueilJeu';
+import MonProfil from '../screens/MonProfil';
 import Jeu from '../components/Jeu';
 
 
@@ -115,6 +116,7 @@ export default function AppNavigator() {
       <Stack.Screen name="Register" component={Register} />
       <Stack.Screen name="AccueilJeu" component={AccueilJeu} />
       <Stack.Screen name="Jeu" component={Jeu} />
+      <Stack.Screen name="MonProfil" component={MonProfil} />
       <Stack.Screen name="Notifs">
         {(props) => (
           <Notifs
