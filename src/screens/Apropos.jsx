@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import insta from "../assets/instagram.png"
 import bm from "../assets/bm.png"
 import laposte from "../assets/laposte.png"
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -22,9 +23,22 @@ function Apropos() {
         Linking.openURL(url).catch((err) => console.error("Error opening URL:", err));
       };
 
+      // Vérifie si l'utilisateur est déjà connecté
+  const handleStartGame = async () => {
+    const token = await AsyncStorage.getItem('jwtToken');
+    if (token) {
+      // JWT existant → on saute le login
+      navigation.replace('AccueilJeu');
+    } else {
+      // Pas de JWT → on passe par login
+      navigation.navigate('Login');
+    }
+  };
+
+
     return (
         <View style={{ flexDirection: "column", height: screenHeight, gap: 15,alignItems: "center" }}>
-            <TouchableOpacity style={{position: "absolute", left: 340}} onPress={()=> navigation.navigate("Login")}>
+            <TouchableOpacity style={{position: "absolute", left: 340}} onPress={handleStartGame}>
                 <Image source={laposte} style={{height: 40, width: 40, resizeMode: "contain"}}  />
             </TouchableOpacity>
             <View style={[styles.bloc, isMediumScreen && {width: "86%", gap: 20}]}>

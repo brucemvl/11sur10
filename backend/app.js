@@ -6,6 +6,9 @@ const sendPushNotification = require('./utils/pushNotification');
 const pushTokenRoutes = require('./routes/pushToken.js');
 const PushToken = require('./models/PushToken');
 const authRoutes = require('./routes/auth.js');
+const matchRoutes = require('./routes/matches');
+const predictionRoutes = require('./routes/predictions');
+
 
 const mongoURI = process.env.MONGO_URI;
 
@@ -50,6 +53,8 @@ mongoose.connect(mongoURI, {
 // ✅ Enregistrement des routes
 app.use('/api', pushTokenRoutes);
 app.use('/auth', authRoutes);
+app.use('/api/matches', matchRoutes);
+app.use('/api/predictions', predictionRoutes);
 
 // ✅ Route d'envoi de notification à un utilisateur spécifique
 app.post('/send-notification', async (req, res) => {

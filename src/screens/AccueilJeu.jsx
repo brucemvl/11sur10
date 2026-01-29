@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Animated,
+  Alert, // ✅ IMPORT MANQUANT
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
@@ -39,6 +40,33 @@ export default function AccueilJeu() {
     ]).start();
   }, []);
 
+  // 🔹 Déconnexion
+  const handleLogout = async () => {
+    Alert.alert(
+      'Déconnexion',
+      'Voulez-vous vraiment vous déconnecter ?',
+      [
+        { text: 'Annuler', style: 'cancel' },
+        {
+          text: 'Se déconnecter',
+          style: 'destructive',
+          onPress: async () => {
+            await AsyncStorage.multiRemove([
+              'jwtToken',
+              'userId',
+              'username',
+            ]);
+
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'Login' }], // ✅ retour Home
+            });
+          },
+        },
+      ]
+    );
+  };
+
   return (
     <View style={styles.container}>
       <Animated.View
@@ -52,13 +80,11 @@ export default function AccueilJeu() {
         <Text style={styles.title}>⚽ 11 sur 10</Text>
 
         <Text style={styles.welcome}>Bienvenue dans le jeu</Text>
-        {username ? (
-          <Text style={styles.username}>{username}</Text>
-        ) : null}
+        {username ? <Text style={styles.username}>{username}</Text> : null}
 
         <TouchableOpacity
           style={styles.buttonPrimary}
-          onPress={() => navigation.navigate('Game')}
+          onPress={() => navigation.navigate('Jeu')}
         >
           <Text style={styles.buttonText}>🎮 Lancer une partie</Text>
         </TouchableOpacity>
@@ -69,6 +95,11 @@ export default function AccueilJeu() {
         >
           <Text style={styles.buttonSecondaryText}>👤 Mon profil</Text>
         </TouchableOpacity>
+
+        {/* 🔴 Déconnexion */}
+        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+          <Text style={styles.logoutText}>Se déconnecter</Text>
+        </TouchableOpacity>
       </Animated.View>
     </View>
   );
@@ -77,7 +108,7 @@ export default function AccueilJeu() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0f172a',
+    backgroundColor: '#f3f3f3',
     justifyContent: 'center',
     padding: 20,
   },
@@ -118,9 +149,19 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     width: '100%',
     alignItems: 'center',
+    marginBottom: 20,
   },
   buttonSecondaryText: {
     color: '#e5e7eb',
     fontSize: 16,
+  },
+  logoutButton: {
+    marginTop: 10,
+    paddingVertical: 12,
+  },
+  logoutText: {
+    color: '#ef4444',
+    fontSize: 14,
+    fontWeight: 'bold',
   },
 });

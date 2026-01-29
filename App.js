@@ -34,6 +34,7 @@ export default function App() {
 
    const [showRating, setShowRating] = useState(false);
 
+
   useEffect(() => {
   let mounted = true;
 
