@@ -69,4 +69,20 @@ router.post(
   }
 );
 
+// 🔹 GET profil actuel
+router.get('/me', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).lean();
+    if (!user) return res.status(404).json({ error: 'Utilisateur non trouvé' });
+
+    res.json({
+      username: user.username,
+      avatar: user.avatar || '/uploads/avatars/default-avatar.png',
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
 module.exports = router;

@@ -84,11 +84,10 @@ export default function MonProfil() {
   }
 
   const result = await ImagePicker.launchImageLibraryAsync({
-    mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    allowsEditing: true,
-    aspect: [1, 1],
-    quality: 0.7,
-  });
+  mediaTypes: ImagePicker.MediaType.Images, // 👈 nouveau
+  allowsEditing: true,
+  quality: 0.7,
+});
 
   if (result.canceled) return;
 
@@ -170,7 +169,7 @@ export default function MonProfil() {
 <TouchableOpacity style={styles.avatarButton} onPress={pickAvatar}>
   {avatar ? (
     <Image
-  source={{ uri: `https://one1sur10.onrender.com${user.avatar}` }}
+  source={{ uri: `https://one1sur10.onrender.com${avatar}` }}
   style={styles.avatar}
 />
   ) : (

@@ -5,13 +5,36 @@ import {
   StyleSheet,
   TouchableOpacity,
   Animated,
+  Image,
   Alert, // ✅ IMPORT MANQUANT
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import ClassementJeu from "../components/ClassementJeu"
+import axios from 'axios';
 
 export default function AccueilJeu() {
+    const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const loadUser = async () => {
+      try {
+        const token = await AsyncStorage.getItem('jwtToken');
+        const res = await axios.get(
+          'https://one1sur10.onrender.com/api/profile/me',
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        setUser(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    loadUser();
+  }, []);
+
+  if (!user) return <Text>Chargement...</Text>;
+
   const navigation = useNavigation();
   const [username, setUsername] = useState('');
   const [openClassement, setOpenClassement] = useState(false)
@@ -69,7 +92,7 @@ export default function AccueilJeu() {
     );
   };
 
-  const openclassement = ()=>{
+  const open = ()=>{
     setOpenClassement(!openClassement)
   }
   return (
@@ -83,7 +106,10 @@ export default function AccueilJeu() {
         }}
       >
         <Text style={styles.title}>⚽ 11 sur 10</Text>
-
+<Image
+        source={{ uri: `https://one1sur10.onrender.com${user.avatar || '/uploads/avatars/default-avatar.png'}` }}
+        style={styles.topAvatar}
+      />
         <Text style={styles.welcome}>Bienvenue dans le jeu</Text>
         {username ? <Text style={styles.username}>{username}</Text> : null}
 
@@ -103,7 +129,7 @@ export default function AccueilJeu() {
 
         <TouchableOpacity
           style={styles.buttonPrimary}
-          onPress={openclassement}
+          onPress={open}
         >
           <Text style={styles.buttonText}>Classement</Text>
         </TouchableOpacity>
@@ -113,7 +139,7 @@ export default function AccueilJeu() {
           <Text style={styles.logoutText}>Se déconnecter</Text>
         </TouchableOpacity>
 
-        {openclassement && <ClassementJeu />}
+        {openClassement && <ClassementJeu />}
       </Animated.View>
     </View>
   );

@@ -69,7 +69,7 @@ export default function Leaderboard() {
 
   const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f3f4f6', padding: 20 },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20 },
+  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, color: "black" },
 
   // Top 3
   top3Container: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 30 },
