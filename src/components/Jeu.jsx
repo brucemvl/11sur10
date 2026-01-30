@@ -19,10 +19,12 @@ export default function Jeu() {
   const [matchesByRound, setMatchesByRound] = useState({});
   const [roundIndex, setRoundIndex] = useState(0);
   const [scores, setScores] = useState({});
+  const [existingPredictions, setExistingPredictions] = useState({});
 
   useEffect(() => {
-    loadMatches();
-  }, []);
+  loadMatches();
+  loadMyPredictions();
+}, []);
 
   /* ------------------ DATA ------------------ */
 
@@ -94,7 +96,7 @@ export default function Jeu() {
   }
 
   try {
-    const response = await axios.post(
+    await axios.post(
       'https://one1sur10.onrender.com/api/predictions',
       {
         matchId: match.fixture.id,
@@ -105,13 +107,44 @@ export default function Jeu() {
         headers: { Authorization: `Bearer ${jwtToken}` },
       }
     );
-    console.log('Prono enregistré ✅', response.data);
+
+    setExistingPredictions(prev => ({
+      ...prev,
+      [match.fixture.id]: {
+        home: score.home,
+        away: score.away,
+      },
+    }));
+
     alert('Pronostic enregistré ✅');
   } catch (err) {
     console.error('Erreur prono:', err.response?.data || err.message);
-    alert('Erreur lors de l\'enregistrement du prono');
+    alert("Erreur lors de l'enregistrement du prono");
   }
-}
+};
+
+const loadMyPredictions = async () => {
+  try {
+    const token = await AsyncStorage.getItem('jwtToken');
+    const res = await axios.get(
+      'https://one1sur10.onrender.com/api/predictions/me',
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    const preds = {};
+    res.data.forEach(p => {
+      preds[p.matchId] = {
+        home: p.predictedHome.toString(),
+        away: p.predictedAway.toString(),
+      };
+    });
+
+    setExistingPredictions(preds);
+    setScores(preds); // 🔥 pré-remplit les inputs
+  } catch (err) {
+    console.error('Erreur chargement pronos', err);
+  }
+};
 
   
 
@@ -165,6 +198,7 @@ export default function Jeu() {
         contentContainerStyle={{ padding: 20 }}
         renderItem={({ item }) => {
           const id = item.fixture.id;
+          const hasPrediction = !!existingPredictions[id];
 
           return (
             <View style={styles.card}>
@@ -192,7 +226,11 @@ export default function Jeu() {
                 onChangeText={(v) => handleScoreChange(id, 'away', v)}
                 />
               </View>
-
+{hasPrediction && (
+  <Text style={styles.alreadyPredicted}>
+    ✅ Pronostic enregistré
+  </Text>
+)}
               <TouchableOpacity
                 style={[
                   styles.button,
@@ -201,7 +239,9 @@ export default function Jeu() {
                 disabled={isRoundStarted}
                 onPress={() => submitPrediction(item)}
               >
-                <Text style={styles.buttonText}>Valider</Text>
+<Text style={styles.buttonText}>
+  {hasPrediction ? 'Modifier' : 'Valider'}
+</Text>
               </TouchableOpacity>
             </View>
           );
@@ -280,4 +320,9 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
   },
+  alreadyPredicted: {
+  color: '#16a34a',
+  fontSize: 12,
+  marginBottom: 6,
+}
 });

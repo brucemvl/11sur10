@@ -3,8 +3,9 @@ const router = express.Router();
 const Prediction = require('../models/Prediction');
 const auth = require('../middleware/auth'); // JWT obligatoire
 
+// 🔹 Créer ou modifier un pronostic
 router.post('/', auth, async (req, res) => {
-  const userId = req.userId; // récupéré via JWT
+  const userId = req.userId;
   const { matchId, predictedHome, predictedAway } = req.body;
 
   if (!matchId || predictedHome == null || predictedAway == null) {
@@ -22,6 +23,18 @@ router.post('/', auth, async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Erreur serveur', details: err.message });
+  }
+});
+
+// 🔹 Récupérer MES pronostics
+router.get('/me', auth, async (req, res) => {
+  try {
+    const predictions = await Prediction.find({ userId: req.userId });
+
+    res.json(predictions);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erreur serveur' });
   }
 });
 

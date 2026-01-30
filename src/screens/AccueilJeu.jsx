@@ -96,6 +96,9 @@ export default function AccueilJeu() {
       >
         <Text style={styles.title}>PRONOS PDC 14</Text>
 
+<Text style={styles.welcome}>Bienvenue dans le jeu</Text>
+        <Text style={styles.username}>{user.username}</Text>
+
         <Image
           source={{ uri: user.avatar }}
           style={styles.topAvatar}
@@ -103,8 +106,6 @@ export default function AccueilJeu() {
 
         <Text style={styles.points}>{user.points} pts</Text>
 
-        <Text style={styles.welcome}>Bienvenue dans le jeu</Text>
-        <Text style={styles.username}>{user.username}</Text>
 
         <TouchableOpacity
           style={styles.buttonPrimary}
@@ -161,7 +162,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     color: '#0e3672',
-    marginBottom: 40,
+    marginBottom: 15,
     marginTop: 5,
     fontFamily: "Bangers",
     paddingInline: 5
@@ -205,7 +206,14 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    marginVertical: 15,
+    marginVertical: 5,
     resizeMode: "contain"
   },
+  points: {
+  fontSize: 18,
+  fontWeight: 'bold',
+  color: '#c59e00', // doré
+  fontFamily: "Kanitt",
+  marginBottom: 30
+},
 });
