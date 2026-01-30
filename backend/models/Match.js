@@ -1,19 +1,16 @@
 const mongoose = require('mongoose');
 
 const matchSchema = new mongoose.Schema({
-  fixtureId: { type: Number, required: true, unique: true }, // ID API
-  homeTeam: { type: String, required: true },
-  awayTeam: { type: String, required: true },
-  kickoff: { type: Date, required: true, index: true },
+  fixtureId: { type: Number, required: true, unique: true },
+  homeTeam: String,
+  awayTeam: String,
+  kickoff: Date,
   score: {
-    home: { type: Number, default: null },
-    away: { type: Number, default: null },
+    home: Number,
+    away: Number,
   },
-  status: {
-    type: String,
-    enum: ['SCHEDULED', 'FINISHED'],
-    default: 'SCHEDULED',
-  },
+  status: { type: String, default: 'SCHEDULED' },
+  pointsUpdated: { type: Boolean, default: false }, // 🔹 nouveau champ
 });
 
 module.exports = mongoose.model('Match', matchSchema);

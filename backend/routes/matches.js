@@ -1,28 +1,40 @@
 const express = require('express');
 const router = express.Router();
 const Match = require('../models/Match');
-const axios = require('axios');
 const Prediction = require('../models/Prediction');
+const axios = require('axios');
 
-// 🟢 Récupérer les matchs à venir
-router.get('/', async (req, res) => {
-  try {
-    const matches = await Match.find({
-      kickoff: { $gte: new Date() },
-    }).sort({ kickoff: 1 });
+// 🔹 Fonction de calcul des points
+function calculatePoints(prediction, match) {
+  const { predictedHome, predictedAway } = prediction;
+  const { home: realHome, away: realAway } = match.score;
 
-    res.json(matches);
-  } catch (err) {
-    res.status(500).json({ error: 'Erreur récupération matchs' });
+  let points = 0;
+
+  // Exact score
+  if (predictedHome === realHome && predictedAway === realAway) {
+    points = 3;
   }
-});
+  // Bon résultat mais pas le score exact (victoire/défaite/nul)
+  else if (
+    (predictedHome - predictedAway > 0 && realHome - realAway > 0) || // victoire maison
+    (predictedHome - predictedAway < 0 && realHome - realAway < 0) || // victoire extérieur
+    (predictedHome === predictedAway && realHome === realAway) // nul
+  ) {
+    points = 1;
+  }
 
-// 🔄 Mettre à jour les scores réels et le status des matchs
+  return points;
+}
+
+// 🔄 Route mise à jour matchs et points
 router.post('/update', async (req, res) => {
   try {
-    const { data } = await axios.get('URL_API_LIGUE1'); // ton API
+    // 🔹 Récupérer les matchs depuis l'API externe
+    const { data } = await axios.get('URL_API_LIGUE1'); // Remplace par ton URL API
 
     for (const m of data) {
+      // Mettre à jour ou créer le match
       const match = await Match.findOneAndUpdate(
         { fixtureId: m.fixture.id },
         {
@@ -38,18 +50,22 @@ router.post('/update', async (req, res) => {
               ? 'FINISHED'
               : 'SCHEDULED',
         },
-        { upsert: true, new: true }
+        { upsert: true, new: true } // 🔹 new: true pour récupérer le match après update
       );
 
-      // 🔹 Si le match est fini, calculer les points
-      if (match.status === 'FINISHED') {
+      // 🔹 Si le match est terminé et que les points n'ont pas encore été calculés
+      if (match.status === 'FINISHED' && !match.pointsUpdated) {
         const predictions = await Prediction.find({ matchId: match.fixtureId });
 
         for (const p of predictions) {
-          const points = calculatePoints(p, match); // ta fonction de calcul
+          const points = calculatePoints(p, match);
           p.points = points;
           await p.save();
         }
+
+        // Marquer le match comme points mis à jour
+        match.pointsUpdated = true;
+        await match.save();
 
         console.log(`✅ Points recalculés pour le match ${match.fixtureId}`);
       }
@@ -58,9 +74,7 @@ router.post('/update', async (req, res) => {
     res.json({ success: true, message: 'Matchs mis à jour et points recalculés' });
   } catch (err) {
     console.error(err);
-    res
-      .status(500)
-      .json({ error: 'Erreur mise à jour matchs', details: err.message });
+    res.status(500).json({ error: 'Erreur mise à jour matchs', details: err.message });
   }
 });
 
