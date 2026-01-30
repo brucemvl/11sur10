@@ -31,8 +31,10 @@ function calculatePoints(prediction, match) {
 router.post('/update', async (req, res) => {
   try {
     // 🔹 Récupérer les matchs depuis l'API externe
-    const { data } = await axios.get('URL_API_LIGUE1'); // Remplace par ton URL API
-
+const { data } = await axios.get('https://v3.football.api-sports.io/fixtures/league/61?season=2025', {
+  headers: { "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+            "x-rapidapi-host": "v3.football.api-sports.io", }
+});
     for (const m of data) {
       // Mettre à jour ou créer le match
       const match = await Match.findOneAndUpdate(
