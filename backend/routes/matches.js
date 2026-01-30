@@ -55,20 +55,22 @@ router.post('/update', async (req, res) => {
 
       // 🔹 Si le match est terminé et que les points n'ont pas encore été calculés
       if (match.status === 'FINISHED' && !match.pointsUpdated) {
-        const predictions = await Prediction.find({ matchId: match.fixtureId });
+  const predictions = await Prediction.find({ matchId: match.fixtureId });
 
-        for (const p of predictions) {
-          const points = calculatePoints(p, match);
-          p.points = points;
-          await p.save();
-        }
+  for (const p of predictions) {
+    const points = calculatePoints(
+      { home: match.score.home, away: match.score.away }, // score réel
+      { home: p.predictedHome, away: p.predictedAway }    // pronostic
+    );
+    p.points = points;
+    await p.save();
+  }
 
-        // Marquer le match comme points mis à jour
-        match.pointsUpdated = true;
-        await match.save();
+  match.pointsUpdated = true;
+  await match.save();
 
-        console.log(`✅ Points recalculés pour le match ${match.fixtureId}`);
-      }
+  console.log(`✅ Points recalculés pour le match ${match.fixtureId}`);
+}
     }
 
     res.json({ success: true, message: 'Matchs mis à jour et points recalculés' });
