@@ -115,18 +115,19 @@ export default function AccueilJeu() {
         </TouchableOpacity>
 
         <TouchableOpacity
+          style={styles.buttonPrimary}
+          onPress={() => setOpenClassement(!openClassement)}
+        >
+          <Text style={styles.buttonText}>Classement</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
           style={styles.buttonSecondary}
           onPress={() => navigation.navigate('MonProfil')}
         >
           <Text style={styles.buttonSecondaryText}>👤 Mon profil</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.buttonPrimary}
-          onPress={() => setOpenClassement(!openClassement)}
-        >
-          <Text style={styles.buttonText}>Classement</Text>
-        </TouchableOpacity>
 
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
           <Text style={styles.logoutText}>Se déconnecter</Text>

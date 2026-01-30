@@ -8,6 +8,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   Alert,
+  Image
 } from 'react-native';
 import axios from 'axios';
 import { fetchLigue1Matches } from '../services/apiSport';
@@ -96,30 +97,26 @@ export default function Jeu() {
   }
 
   try {
-    await axios.post(
+    const response = await axios.post(
       'https://one1sur10.onrender.com/api/predictions',
       {
         matchId: match.fixture.id,
         predictedHome: Number(score.home),
         predictedAway: Number(score.away),
+        fixtureDate: match.fixture.date, // 🔥 IMPORTANT
       },
       {
         headers: { Authorization: `Bearer ${jwtToken}` },
       }
     );
 
-    setExistingPredictions(prev => ({
-      ...prev,
-      [match.fixture.id]: {
-        home: score.home,
-        away: score.away,
-      },
-    }));
-
     alert('Pronostic enregistré ✅');
   } catch (err) {
-    console.error('Erreur prono:', err.response?.data || err.message);
-    alert("Erreur lors de l'enregistrement du prono");
+    if (err.response?.status === 403) {
+      alert('⛔ Match déjà commencé');
+    } else {
+      alert('Erreur lors de l\'enregistrement');
+    }
   }
 };
 
@@ -202,11 +199,12 @@ const loadMyPredictions = async () => {
 
           return (
             <View style={styles.card}>
-              <Text style={styles.match}>
-                {item.teams.home.name} vs {item.teams.away.name}
-              </Text>
-
-              <View style={styles.scoreRow}>
+              <View style={styles.match}>
+                <Text>
+                {item.teams.home.name}
+                </Text>
+<Image source={{uri: item.teams.home.logo}} style={styles.logoClub} />
+                <View style={styles.scoreRow}>
                 <TextInput
                   style={styles.input}
                   keyboardType="numeric"
@@ -226,6 +224,14 @@ const loadMyPredictions = async () => {
                 onChangeText={(v) => handleScoreChange(id, 'away', v)}
                 />
               </View>
+<Image source={{uri: item.teams.away.logo}} style={styles.logoClub} />
+
+                <Text>
+                    {item.teams.away.name}
+                    </Text>
+              </View>
+
+              
 {hasPrediction && (
   <Text style={styles.alreadyPredicted}>
     ✅ Pronostic enregistré
@@ -235,6 +241,7 @@ const loadMyPredictions = async () => {
                 style={[
                   styles.button,
                   isRoundStarted && styles.buttonDisabled,
+                  hasPrediction && {backgroundColor: "grey"}
                 ]}
                 disabled={isRoundStarted}
                 onPress={() => submitPrediction(item)}
@@ -290,9 +297,15 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   match: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    flexDirection: "row",
     marginBottom: 10,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  logoClub: {
+height: 35,
+width: 35,
+resizeMode: "contain"
   },
   scoreRow: {
     flexDirection: 'row',
@@ -300,7 +313,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   input: {
-    width: 50,
+    width: 35,
     borderWidth: 1,
     borderColor: '#ddd',
     borderRadius: 8,

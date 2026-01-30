@@ -435,8 +435,8 @@ export default function Aujourdhui({ matchs, onRefresh }) {
                           </View>
                           {isLive ?
                             match.fixture.status.long === "Halftime" ? <Text style={{ color: "white", fontFamily: "Kanitalic", fontSize: 10, backgroundColor: "darkred", padding: 2, borderRadius: 4, marginInline: 3 }}>MT</Text> :
-                              <View style={styles.liveSticker}>
-                                <Text style={styles.liveText}>{match.fixture.status.elapsed}'</Text>
+                              <View style={[styles.liveSticker, match.fixture.status.extra > 0 && {marginInline: 1} ]}>
+                                <Text style={[styles.liveText, match.fixture.status.extra > 0 && {fontSize: 9}]}>{match.fixture.status.elapsed}'{match.fixture.status.extra > 0 ? `+${match.fixture.status.extra}` : null}</Text>
                                 <Animated.Text style={{ color: "white", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim, marginTop: -3 }}>live</Animated.Text>
                               </View> : <Text style={styles.score}> : </Text>}
 
@@ -632,7 +632,8 @@ const styles = StyleSheet.create({
   },
   liveSticker: {
     justifyContent: "space-between",
-    marginInline: 4
+    marginInline: 4,
+    alignItems: "center"
   },
   daysScroll: {
     alignItems: 'center',

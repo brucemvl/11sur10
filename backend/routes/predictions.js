@@ -38,4 +38,28 @@ router.get('/me', auth, async (req, res) => {
   }
 });
 
+// 🔒 BLOQUER APRÈS COUP D’ENVOI
+  const now = new Date();
+  const matchDate = new Date(fixtureDate);
+
+  if (now >= matchDate) {
+    return res.status(403).json({
+      error: 'Match déjà commencé — pronostic verrouillé',
+    });
+  }
+
+  try {
+    const prediction = await Prediction.findOneAndUpdate(
+      { userId, matchId },
+      { predictedHome, predictedAway },
+      { upsert: true, new: true, setDefaultsOnInsert: true }
+    );
+
+    res.status(200).json({ success: true, prediction });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+;
+
 module.exports = router;

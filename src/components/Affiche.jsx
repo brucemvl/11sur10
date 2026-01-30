@@ -195,7 +195,7 @@ const backgroundSource =
                         {match.fixture.status.elapsed > 0 && match.fixture.status.long != "Match Finished" ? 
                         match.fixture.status.long === "Halftime" ? <Text style={{color: "white", fontFamily: "Kanitalic", fontSize: 10, backgroundColor: "darkred", padding: 2, borderRadius: 4}}>Mi-Temps</Text> :
                         <View style={styles.liveSticker}>
-                                        <Text style={styles.liveText}>{match.fixture.status.elapsed}'</Text>
+                                        <Text style={styles.liveText}>{match.fixture.status.elapsed}'{match.fixture.status.extra > 0 ? `+${match.fixture.status.extra}` : null}</Text>
                                         <Animated.Text style={{ color: "white", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
                                       </View> : match.fixture.status.long === "Match Finished" ? <View style={[styles.liveSticker, {width: 105}]}>
                                         <Text style={styles.liveText}>Match Terminé</Text></View> : null}
@@ -260,7 +260,7 @@ const backgroundSource =
                         {match.fixture.status.elapsed > 0 && match.fixture.status.long != "Match Finished" ? 
                         match.fixture.status.long === "Halftime" ? <Text style={{color: "white", fontFamily: "Kanitalic", fontSize: 10, backgroundColor: "darkred", padding: 2, borderRadius: 4}}>Mi-Temps</Text> :
                         <View style={styles.liveSticker}>
-                                        <Text style={styles.liveText}>{match.fixture.status.elapsed}'</Text>
+                                        <Text style={styles.liveText}>{match.fixture.status.elapsed}'{match.fixture.status.extra > 0 ? `+${match.fixture.status.extra}` : null}</Text>
                                         <Animated.Text style={{ color: "white", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
                                       </View> : match.fixture.status.long === "Match Finished" ? <View style={[styles.liveSticker, {width: 105}]}>
                                         <Text style={styles.liveText}>Match Terminé</Text></View> : null}
