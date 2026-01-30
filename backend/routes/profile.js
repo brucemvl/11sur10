@@ -109,7 +109,7 @@ router.get('/me', auth, async (req, res) => {
       username: user.username,
       avatar: user.avatar
         ? `https://one1sur10.onrender.com${user.avatar}`
-        : 'https://one1sur10.onrender.com/uploads/avatars/default-avatar.png',
+        : 'https://one1sur10.onrender.com/uploads/avatars/default-avatar.jpg',
       points,
     });
   } catch (err) {
