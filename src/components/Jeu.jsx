@@ -12,6 +12,7 @@ import {
 import axios from 'axios';
 import { fetchLigue1Matches } from '../services/apiSport';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Precedent from './Precedent';
 
 export default function Jeu() {
   const [loading, setLoading] = useState(true);
@@ -123,6 +124,7 @@ export default function Jeu() {
   return (
     <View style={styles.container}>
       {/* 🔁 Sélecteur de journée */}
+      <Precedent />
       <View style={styles.roundHeader}>
         <TouchableOpacity
           onPress={goPrevRound}
@@ -221,7 +223,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingTop: 15,
+    paddingTop: 65,
   },
   roundTitle: {
     fontSize: 18,

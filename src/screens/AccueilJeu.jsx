@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import {
   View,
   Text,
@@ -7,9 +7,10 @@ import {
   Animated,
   Image,
   Alert,
+  ScrollView
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import ClassementJeu from "../components/ClassementJeu";
 import axios from 'axios';
 
@@ -22,25 +23,23 @@ export default function AccueilJeu() {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const translateAnim = useRef(new Animated.Value(30)).current;
 
-  // 🔹 Charger user au démarrage
+  // 🔹 Fonction UNIQUE pour charger le user
+  const loadUser = async () => {
+    try {
+      const token = await AsyncStorage.getItem('jwtToken');
+      const res = await axios.get(
+        'https://one1sur10.onrender.com/api/profile/me',
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      setUser(res.data);
+    } catch (err) {
+      console.error('Erreur récupération user:', err);
+    }
+  };
+
+  // 🔹 Chargement initial
   useEffect(() => {
-    const loadUser = async () => {
-      try {
-        const token = await AsyncStorage.getItem('jwtToken');
-        const res = await axios.get(
-          'https://one1sur10.onrender.com/api/profile/me',
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-
-        // Mettre à jour state et AsyncStorage
-        setUser(res.data);
-        await AsyncStorage.setItem('username', res.data.username);
-        await AsyncStorage.setItem('avatar', res.data.avatar);
-      } catch (err) {
-        console.error('Erreur récupération user:', err);
-      }
-    };
-
     loadUser();
 
     Animated.parallel([
@@ -57,21 +56,12 @@ export default function AccueilJeu() {
     ]).start();
   }, []);
 
-  // 🔹 Charger avatar et username depuis AsyncStorage pour affichage rapide
-  useEffect(() => {
-    const loadFromStorage = async () => {
-      const storedUsername = await AsyncStorage.getItem('username');
-      const storedAvatar = await AsyncStorage.getItem('avatar');
-      if (storedUsername || storedAvatar) {
-        setUser(prev => ({
-          ...prev,
-          username: storedUsername || prev?.username,
-          avatar: storedAvatar || prev?.avatar,
-        }));
-      }
-    };
-    loadFromStorage();
-  }, []);
+  // 🔥 Recharge à CHAQUE retour sur l’écran (bouton précédent inclus)
+  useFocusEffect(
+    useCallback(() => {
+      loadUser();
+    }, [])
+  );
 
   // 🔹 Déconnexion
   const handleLogout = async () => {
@@ -84,7 +74,7 @@ export default function AccueilJeu() {
           text: 'Se déconnecter',
           style: 'destructive',
           onPress: async () => {
-            await AsyncStorage.multiRemove(['jwtToken', 'userId', 'username', 'avatar']);
+            await AsyncStorage.multiRemove(['jwtToken', 'userId']);
             navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
           },
         },
@@ -92,12 +82,10 @@ export default function AccueilJeu() {
     );
   };
 
-  const toggleClassement = () => setOpenClassement(!openClassement);
-
   if (!user) return <Text>Chargement...</Text>;
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={{justifyContent: "center"}}>
       <Animated.View
         style={{
           opacity: fadeAnim,
@@ -106,18 +94,18 @@ export default function AccueilJeu() {
           alignItems: 'center',
         }}
       >
-        <Text style={styles.title}>⚽ 11 sur 10</Text>
+        <Text style={styles.title}>PRONOS PDC 14</Text>
 
-        {/* 🔹 Avatar */}
         <Image
           source={{ uri: user.avatar }}
           style={styles.topAvatar}
         />
 
-        <Text style={styles.welcome}>Bienvenue dans le jeu</Text>
-        {user.username ? <Text style={styles.username}>{user.username}</Text> : null}
+        <Text style={styles.points}>{user.points} pts</Text>
 
-        {/* 🔹 Boutons */}
+        <Text style={styles.welcome}>Bienvenue dans le jeu</Text>
+        <Text style={styles.username}>{user.username}</Text>
+
         <TouchableOpacity
           style={styles.buttonPrimary}
           onPress={() => navigation.navigate('Jeu')}
@@ -134,7 +122,7 @@ export default function AccueilJeu() {
 
         <TouchableOpacity
           style={styles.buttonPrimary}
-          onPress={toggleClassement}
+          onPress={() => setOpenClassement(!openClassement)}
         >
           <Text style={styles.buttonText}>Classement</Text>
         </TouchableOpacity>
@@ -145,7 +133,7 @@ export default function AccueilJeu() {
 
         {openClassement && <ClassementJeu />}
       </Animated.View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -153,45 +141,50 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f3f3f3',
-    justifyContent: 'center',
-    padding: 20,
+    paddingBlock: 40,
+    paddingInline: 20
   },
   title: {
     fontSize: 36,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#0c1c6a',
     marginBottom: 10,
+    fontFamily: "Kanitalik"
   },
   welcome: {
     fontSize: 18,
-    color: '#cbd5e1',
+    color: '#132741',
     marginTop: 10,
+    fontFamily: "Kanito"
   },
   username: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: '#22c55e',
+    color: '#0e3672',
     marginBottom: 40,
     marginTop: 5,
+    fontFamily: "Bangers",
+    paddingInline: 5
   },
   buttonPrimary: {
     backgroundColor: '#22c55e',
     paddingVertical: 16,
     borderRadius: 14,
     marginBottom: 15,
-    width: '100%',
+    width: '90%',
     alignItems: 'center',
   },
   buttonText: {
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
+    fontFamily: "Kanito"
   },
   buttonSecondary: {
     backgroundColor: '#1e293b',
     paddingVertical: 14,
     borderRadius: 14,
-    width: '100%',
+    width: '90%',
     alignItems: 'center',
     marginBottom: 20,
   },

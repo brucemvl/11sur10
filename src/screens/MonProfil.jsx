@@ -11,6 +11,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
 import { Image } from 'react-native';
+import Precedent from '../components/Precedent';
 
 export default function MonProfil() {
   const [username, setUsername] = useState('');
@@ -115,9 +116,8 @@ export default function MonProfil() {
     );
 
     // 6️⃣ Mettre à jour l'avatar affiché
-    setAvatar(res.data.avatar);
-
-await AsyncStorage.setItem('avatar', res.data.avatar);
+    await AsyncStorage.setItem('avatar', res.data.avatar);
+setAvatar(res.data.avatar);
 
     Alert.alert('✅ Succès', 'Avatar mis à jour');
   } catch (err) {
@@ -131,6 +131,7 @@ await AsyncStorage.setItem('avatar', res.data.avatar);
 
   return (
     <View style={styles.container}>
+        <Precedent />
       <Text style={styles.title}>👤 Mon profil</Text>
 
       {/* USERNAME */}
@@ -196,6 +197,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 20,
+    marginTop: 50
   },
   section: {
     marginTop: 25,

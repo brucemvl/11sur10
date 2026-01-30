@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const auth = require('../middleware/auth');
 const upload = require('../middleware/uploadAvatar');
+const Prediction = require('../models/Prediction');
+const Match = require('../models/Match');
 
 // 🔤 Modifier username
 router.put('/username', auth, async (req, res) => {
@@ -73,13 +75,45 @@ router.post(
 router.get('/me', auth, async (req, res) => {
   try {
     const user = await User.findById(req.userId).lean();
+
+    // 🔢 Calcul des points
+    const predictions = await Prediction.find({ userId: req.userId }).lean();
+    const matches = await Match.find({ status: 'FINISHED' }).lean();
+
+    const matchMap = {};
+    matches.forEach(m => (matchMap[m.fixtureId] = m));
+
+    let points = 0;
+
+    predictions.forEach(p => {
+      const match = matchMap[p.matchId];
+      if (!match) return;
+
+      const exact =
+        p.predictedHome === match.score.home &&
+        p.predictedAway === match.score.away;
+
+      const diffProno = p.predictedHome - p.predictedAway;
+      const diffReal = match.score.home - match.score.away;
+
+      const correctResult =
+        (diffProno > 0 && diffReal > 0) ||
+        (diffProno < 0 && diffReal < 0) ||
+        (diffProno === 0 && diffReal === 0);
+
+      if (exact) points += 3;
+      else if (correctResult) points += 1;
+    });
+
     res.json({
       username: user.username,
       avatar: user.avatar
         ? `https://one1sur10.onrender.com${user.avatar}`
         : 'https://one1sur10.onrender.com/uploads/avatars/default-avatar.png',
+      points,
     });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
