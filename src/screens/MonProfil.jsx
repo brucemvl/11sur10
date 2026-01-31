@@ -71,8 +71,7 @@ export default function MonProfil() {
   };
 
   // AVATAR 
-
-  const pickAvatar = async () => {
+const pickAvatar = async () => {
   try {
     // 1️⃣ Demander la permission
     const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -82,50 +81,59 @@ export default function MonProfil() {
 
     // 2️⃣ Ouvrir la galerie
     const result = await ImagePicker.launchImageLibraryAsync({
-  mediaTypes: ImagePicker.MediaTypeOptions.Images, // 👈 CORRECT
-  allowsEditing: true,
-  aspect: [1, 1],
-  quality: 0.7,
-});
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 0.7,
+    });
 
     if (result.canceled) return;
 
-    const uri = result.assets[0].uri;
+    let uri = result.assets[0].uri;
 
-    // 3️⃣ Préparer le FormData pour multer
+    // 3️⃣ Sur iOS, enlever le "file://"
+    if (uri.startsWith('file://')) {
+      uri = uri.replace('file://', '');
+    }
+
+    // 4️⃣ Préparer le FormData
     const formData = new FormData();
     formData.append('avatar', {
       uri,
-      name: `avatar.jpg`,
+      name: `avatar.jpg`, // tu peux mettre un nom unique si tu veux
       type: 'image/jpeg',
     });
 
-    // 4️⃣ Récupérer le token
+    // 5️⃣ Récupérer le token
     const token = await AsyncStorage.getItem('jwtToken');
 
-    // 5️⃣ Envoyer au backend
-    const res = await axios.post(
+    // 6️⃣ Envoyer au backend avec fetch (plus fiable pour Expo)
+    const response = await fetch(
       'https://one1sur10.onrender.com/api/profile/avatar',
-      formData,
       {
+        method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
         },
+        body: formData,
       }
     );
 
-    // 6️⃣ Mettre à jour l'avatar affiché
-    await AsyncStorage.setItem('avatar', res.data.avatar);
-setAvatar(res.data.avatar);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Erreur upload avatar');
+    }
+
+    // 7️⃣ Mettre à jour l'avatar affiché
+    await AsyncStorage.setItem('avatar', data.avatar);
+    setAvatar(data.avatar);
 
     Alert.alert('✅ Succès', 'Avatar mis à jour');
   } catch (err) {
     console.error(err);
-    Alert.alert(
-      'Erreur',
-      err.response?.data?.error || 'Impossible de charger l’avatar'
-    );
+    Alert.alert('Erreur', err.message || 'Impossible de charger l’avatar');
   }
 };
 

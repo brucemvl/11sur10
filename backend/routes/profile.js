@@ -6,6 +6,8 @@ const auth = require('../middleware/auth');
 const upload = require('../middleware/uploadAvatar');
 const Prediction = require('../models/Prediction');
 const Match = require('../models/Match');
+const fs = require('fs');
+const path = require('path');
 
 // 🔤 Modifier username
 router.put('/username', auth, async (req, res) => {
