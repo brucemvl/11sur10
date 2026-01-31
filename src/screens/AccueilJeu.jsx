@@ -100,14 +100,9 @@ console.log('USER:', res.data);
         <Text style={styles.username}>{user.username}</Text>
 
         <Image
-  source={{
-    uri: user.avatar
-      ? user.avatar.startsWith('http')
-        ? user.avatar
-        : `https://one1sur10.onrender.com${user.avatar}`
-      : 'https://one1sur10.onrender.com/uploads/default-avatar.png',
-  }}
+  source={{ uri: user.avatar }}
   style={styles.topAvatar}
+  onError={(e) => console.log('❌ Image error', e.nativeEvent)}
 />
 
         <Text style={styles.points}>{user.points} pts</Text>

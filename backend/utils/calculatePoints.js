@@ -1,28 +1,32 @@
-function calculatePoints(real, predicted) {
-  if (real.home === predicted.home && real.away === predicted.away) {
+module.exports = function calculatePoints(realScore, predictedScore) {
+  const { home: realHome, away: realAway } = realScore;
+  const { home: predictedHome, away: predictedAway } = predictedScore;
+
+  if (
+    realHome === null ||
+    realAway === null ||
+    predictedHome === null ||
+    predictedAway === null
+  ) {
+    return 0;
+  }
+
+  // 🎯 Score exact
+  if (realHome === predictedHome && realAway === predictedAway) {
     return 3;
   }
 
-  const realDiff = real.home - real.away;
-  const predictedDiff = predicted.home - predicted.away;
+  // ✅ Bon résultat (1N2)
+  const realDiff = realHome - realAway;
+  const predictedDiff = predictedHome - predictedAway;
 
-  if (realDiff === predictedDiff) {
-    return 2;
-  }
-
-  const realWinner =
-    real.home > real.away ? 'HOME' :
-    real.home < real.away ? 'AWAY' : 'DRAW';
-
-  const predictedWinner =
-    predicted.home > predicted.away ? 'HOME' :
-    predicted.home < predicted.away ? 'AWAY' : 'DRAW';
-
-  if (realWinner === predictedWinner) {
+  if (
+    (realDiff > 0 && predictedDiff > 0) ||
+    (realDiff < 0 && predictedDiff < 0) ||
+    (realDiff === 0 && predictedDiff === 0)
+  ) {
     return 1;
   }
 
   return 0;
-}
-
-module.exports = calculatePoints;
+};

@@ -55,7 +55,15 @@ mongoose.connect(mongoURI, {
   .catch(err => console.error('❌ Connexion à MongoDB échouée :', err));
 
 // servir les avatars et toutes les images dans /uploads
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(
+  '/uploads',
+  express.static(path.join(__dirname, 'uploads'), {
+    setHeaders: (res) => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Cache-Control', 'public, max-age=31536000');
+    },
+  })
+);
 
 // ✅ Enregistrement des routes
 app.use('/api', pushTokenRoutes);
