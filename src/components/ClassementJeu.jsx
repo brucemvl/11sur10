@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, ActivityIndicator, StyleSheet, Image } from 'react-native';
 import axios from 'axios';
+import Precedent from './Precedent';
 
 export default function Leaderboard() {
   const [loading, setLoading] = useState(true);
@@ -28,6 +29,7 @@ export default function Leaderboard() {
 
   return (
     <View style={styles.container}>
+        <Precedent />
       <Text style={styles.title}>Classement</Text>
 
       {/* TOP 3 */}
@@ -68,8 +70,8 @@ export default function Leaderboard() {
 }
 
   const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f3f4f6', padding: 20 },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20, color: "black" },
+  container: { flex: 1, backgroundColor: '#f3f4f6', padding: 20, alignItems: "center" },
+  title: { fontSize: 24, fontFamily: "Kanitt", marginBlock: 30, color: "black" },
 
   // Top 3
   top3Container: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 30 },

@@ -29,6 +29,7 @@ import AccueilJeu from '../screens/AccueilJeu';
 import MonProfil from '../screens/MonProfil';
 import HistoriquePronos from '../screens/HistoriquePronos';
 import Jeu from '../components/Jeu';
+import ClassementJeu from '../components/ClassementJeu';
 
 
 
@@ -119,6 +120,7 @@ export default function AppNavigator() {
       <Stack.Screen name="Jeu" component={Jeu} />
       <Stack.Screen name="MonProfil" component={MonProfil} />
       <Stack.Screen name="HistoriquePronos" component={HistoriquePronos} />
+      <Stack.Screen name="ClassementJeu" component={ClassementJeu} />
       <Stack.Screen name="Notifs">
         {(props) => (
           <Notifs

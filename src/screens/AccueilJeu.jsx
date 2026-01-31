@@ -16,7 +16,6 @@ import axios from 'axios';
 
 export default function AccueilJeu() {
   const [user, setUser] = useState(null);
-  const [openClassement, setOpenClassement] = useState(false);
   const navigation = useNavigation();
 
   // Animations
@@ -94,6 +93,14 @@ console.log('USER:', res.data);
           alignItems: 'center',
         }}
       >
+
+        <TouchableOpacity
+          style={styles.buttonSecondary}
+          onPress={() => navigation.navigate('MonProfil')}
+        >
+          <Text style={styles.buttonSecondaryText}>👤 Mon profil</Text>
+        </TouchableOpacity>
+        
         <Text style={styles.title}>PRONOS PDC 14</Text>
 
 <Text style={styles.welcome}>Bienvenue dans le jeu</Text>
@@ -117,7 +124,7 @@ console.log('USER:', res.data);
 
         <TouchableOpacity
           style={styles.buttonPrimary}
-          onPress={() => setOpenClassement(!openClassement)}
+          onPress={() => navigation.navigate('ClassementJeu')}
         >
           <Text style={styles.buttonText}>Classement</Text>
         </TouchableOpacity>
@@ -129,19 +136,12 @@ console.log('USER:', res.data);
           <Text style={styles.buttonText}>Historique</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.buttonSecondary}
-          onPress={() => navigation.navigate('MonProfil')}
-        >
-          <Text style={styles.buttonSecondaryText}>👤 Mon profil</Text>
-        </TouchableOpacity>
+        
 
 
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
           <Text style={styles.logoutText}>Se déconnecter</Text>
         </TouchableOpacity>
-
-        {openClassement && <ClassementJeu />}
       </Animated.View>
     </ScrollView>
   );
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f3f3f3',
-    paddingBlock: 40,
+    paddingTop: 10,
     paddingInline: 20
   },
   title: {
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
   },
   buttonPrimary: {
     backgroundColor: '#22c55e',
-    paddingVertical: 16,
+    paddingVertical: 12,
     borderRadius: 14,
     marginBottom: 15,
     width: '90%',
@@ -192,25 +192,25 @@ const styles = StyleSheet.create({
   },
   buttonSecondary: {
     backgroundColor: '#1e293b',
-    paddingVertical: 14,
-    borderRadius: 14,
-    width: '90%',
+    paddingVertical: 8,
+    borderRadius: 12,
+    width: '20%',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 10,
+    alignSelf: "flex-end"
   },
   buttonSecondaryText: {
     color: '#e5e7eb',
-    fontSize: 16,
+    fontSize: 10,
+    fontFamily: "Kanitus"
   },
   logoutButton: {
-    marginTop: 10,
     paddingVertical: 12,
   },
   logoutText: {
     color: '#ef4444',
     fontSize: 14,
-    fontWeight: 'bold',
-  },
+fontFamily: "Kanito"  },
   topAvatar: {
     width: 100,
     height: 100,

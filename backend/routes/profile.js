@@ -58,19 +58,47 @@ router.put('/password', auth, async (req, res) => {
 });
 
 // 🖼 Upload avatar
-router.post('/avatar', auth, upload.single('avatar'), async (req, res) => {
+router.post('/avatar', auth, async (req, res) => {
   try {
-    const avatarUrl =
-      process.env.NODE_ENV === 'production'
-        ? req.file.path
-        : `/uploads/avatars/${req.file.filename}`;
+    let uploadMiddleware;
+    
+    if (process.env.NODE_ENV === 'production') {
+      if (!process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET || !process.env.CLOUDINARY_CLOUD_NAME) {
+        console.warn('⚠️ Cloudinary non configuré ! Utilisation locale impossible en prod.');
+        return res.status(500).json({ error: 'Cloudinary non configuré' });
+      }
+      uploadMiddleware = cloudUpload.single('avatar');
+      console.log('✅ Upload Cloudinary activé');
+    } else {
+      uploadMiddleware = localUpload.single('avatar');
+      console.log('✅ Upload local activé');
+    }
 
-    await User.findByIdAndUpdate(req.userId, { avatar: avatarUrl });
+    // Exécuter Multer
+    uploadMiddleware(req, res, async function (err) {
+      if (err) {
+        console.error('❌ Erreur Multer:', err);
+        return res.status(500).json({ error: 'Erreur upload avatar' });
+      }
 
-    res.json({ success: true, avatar: avatarUrl });
+      if (!req.file) {
+        return res.status(400).json({ error: 'Aucun fichier reçu' });
+      }
+
+      // URL finale selon environnement
+      const avatarUrl =
+        process.env.NODE_ENV === 'production'
+          ? req.file.path // Cloudinary retourne la vraie URL publique
+          : `/uploads/avatars/${req.file.filename}`; // Local
+
+      await User.findByIdAndUpdate(req.userId, { avatar: avatarUrl });
+
+      console.log(`✅ Avatar uploadé pour user ${req.userId}:`, avatarUrl);
+      res.json({ success: true, avatar: avatarUrl });
+    });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Erreur upload avatar' });
+    console.error('❌ Erreur serveur upload avatar:', err);
+    res.status(500).json({ error: 'Erreur serveur upload avatar' });
   }
 });
 

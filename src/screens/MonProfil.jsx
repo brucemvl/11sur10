@@ -110,22 +110,24 @@ const pickAvatar = async () => {
 
     // 6️⃣ Envoyer au backend avec fetch (plus fiable pour Expo)
     const response = await fetch(
-      'https://one1sur10.onrender.com/api/profile/avatar',
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
-        },
-        body: formData,
-      }
-    );
+  'https://one1sur10.onrender.com/api/profile/avatar',
+  {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      // 🔥 PAS DE 'Content-Type' ici, fetch le gère automatiquement pour FormData
+    },
+    body: formData,
+  }
+);
 
-    const data = await response.json();
+if (!response.ok) {
+  const text = await response.text(); // pour debug
+  console.error('Erreur upload avatar :', text);
+  throw new Error('Impossible de charger l’avatar');
+}
 
-    if (!response.ok) {
-      throw new Error(data.error || 'Erreur upload avatar');
-    }
+const data = await response.json(); // maintenant ça devrait marcher
 
     // 7️⃣ Mettre à jour l'avatar affiché
     await AsyncStorage.setItem('avatar', data.avatar);
@@ -141,7 +143,7 @@ const pickAvatar = async () => {
   return (
     <View  style={styles.container}>
         <Precedent />
-            <ScrollView contentContainerStyle={{paddingBottom: 90}}>
+            <ScrollView contentContainerStyle={{paddingBottom: 100, paddingInline: 20, paddingTop: 20}}>
 
       <Text style={styles.title}>👤 Mon profil</Text>
 
@@ -209,7 +211,7 @@ const pickAvatar = async () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 0,
     backgroundColor: '#f3f4f6',
   },
   title: {

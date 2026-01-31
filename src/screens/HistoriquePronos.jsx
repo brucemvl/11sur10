@@ -107,7 +107,9 @@ export default function HistoriquePronos() {
                 style={styles.logo}
               />
             </View>
-            <Text style={styles.points}>Points gagnés : {item.points}</Text>
+            {item.status === 'FINISHED' ?
+            <Text style={[styles.points, item.points === 0 && {color: "red"}]}>Points gagnés : {item.points}</Text>
+            : null }
             <Text style={styles.status}>
               Statut : {item.status === 'FINISHED' ? 'Terminé' : 'Prévu'}
             </Text>
