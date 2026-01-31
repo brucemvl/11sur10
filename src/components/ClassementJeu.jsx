@@ -27,6 +27,18 @@ export default function Leaderboard() {
 
   const top3 = leaders.slice(0, 3);
 
+  const getAvatarUrl = (avatar) => {
+  if (!avatar) {
+    return 'https://one1sur10.onrender.com/uploads/avatars/default-avatar.jpg';
+  }
+
+  // Si c’est déjà une URL (Cloudinary)
+  if (avatar.startsWith('http')) return avatar;
+
+  // Sinon c’est un chemin local
+  return `https://one1sur10.onrender.com${avatar}`;
+};
+
   return (
     <View style={styles.container}>
         <Precedent />
@@ -37,9 +49,9 @@ export default function Leaderboard() {
   {top3.map((user, index) => (
     <View key={user.userId} style={[styles.card, styles[`rank${index + 1}`]]}>
       <Image
-        source={{ uri: `https://one1sur10.onrender.com${user.avatar || '/uploads/avatars/default-avatar.png'}` }}
-        style={styles.topAvatar}
-      />
+  source={{ uri: getAvatarUrl(user.avatar) }}
+  style={styles.topAvatar}
+/>
       <Text style={styles.medal}>
         {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'}
       </Text>

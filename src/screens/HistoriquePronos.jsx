@@ -19,6 +19,12 @@ export default function HistoriquePronos() {
     fetchHistory();
   }, []);
 
+  const statusLabel = {
+  FINISHED: 'Terminé',
+  SCHEDULED: 'Prévu',
+  LIVE: 'En cours',
+};
+
   const fetchHistory = async () => {
     try {
       const token = await AsyncStorage.getItem('jwtToken');
@@ -50,23 +56,26 @@ export default function HistoriquePronos() {
           if (!match) return null;
 
           return {
-            matchId: p.matchId,
-            homeTeam: match.homeTeam,
-            awayTeam: match.awayTeam,
-            homeLogo: match.homeLogo, // si disponible dans ta BDD
-            awayLogo: match.awayLogo, // sinon remplacer par placeholder
-            predictedHome: p.predictedHome,
-            predictedAway: p.predictedAway,
-            realHome: match.score.home,
-            realAway: match.score.away,
-            points: p.points || 0,
-            status: match.status,
-          };
+  matchId: p.matchId,
+  homeTeam: match.homeTeam,
+  awayTeam: match.awayTeam,
+  homeLogo: match.homeLogo,
+  awayLogo: match.awayLogo,
+  predictedHome: p.predictedHome,
+  predictedAway: p.predictedAway,
+  realHome: match.score.home,
+  realAway: match.score.away,
+  points: p.points || 0,
+  status: match.status,
+  kickoff: match.kickoff, // 🔥 OBLIGATOIRE
+};
+
         })
         .filter(Boolean) // enlever les nulls
         .sort((a, b) => new Date(b.kickoff) - new Date(a.kickoff)); // recent d'abord
 
       setHistory(hist);
+      
     } catch (err) {
       console.error('Erreur chargement historique', err);
     } finally {
@@ -111,8 +120,8 @@ export default function HistoriquePronos() {
             <Text style={[styles.points, item.points === 0 && {color: "red"}]}>Points gagnés : {item.points}</Text>
             : null }
             <Text style={styles.status}>
-              Statut : {item.status === 'FINISHED' ? 'Terminé' : 'Prévu'}
-            </Text>
+  Statut : {statusLabel[item.status] || item.status}
+</Text>
           </View>
         )}
       />
