@@ -31,7 +31,7 @@ export default function AccueilJeu() {
         'https://one1sur10.onrender.com/api/profile/me',
         { headers: { Authorization: `Bearer ${token}` } }
       );
-
+console.log('USER:', res.data);
       setUser(res.data);
     } catch (err) {
       console.error('Erreur récupération user:', err);
@@ -100,9 +100,15 @@ export default function AccueilJeu() {
         <Text style={styles.username}>{user.username}</Text>
 
         <Image
-          source={{ uri: user.avatar }}
-          style={styles.topAvatar}
-        />
+  source={{
+    uri: user.avatar
+      ? user.avatar.startsWith('http')
+        ? user.avatar
+        : `https://one1sur10.onrender.com${user.avatar}`
+      : 'https://one1sur10.onrender.com/uploads/default-avatar.png',
+  }}
+  style={styles.topAvatar}
+/>
 
         <Text style={styles.points}>{user.points} pts</Text>
 

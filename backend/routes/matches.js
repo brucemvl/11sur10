@@ -3,40 +3,26 @@ const router = express.Router();
 const Match = require('../models/Match');
 const Prediction = require('../models/Prediction');
 const axios = require('axios');
+const calculatePoints = require('../utils/calculatePoints');
 
-// 🔹 Fonction de calcul des points
-function calculatePoints(prediction, match) {
-  const { predictedHome, predictedAway } = prediction;
-  const { home: realHome, away: realAway } = match.score;
-
-  let points = 0;
-
-  // Exact score
-  if (predictedHome === realHome && predictedAway === realAway) {
-    points = 3;
-  }
-  // Bon résultat mais pas le score exact (victoire/défaite/nul)
-  else if (
-    (predictedHome - predictedAway > 0 && realHome - realAway > 0) || // victoire maison
-    (predictedHome - predictedAway < 0 && realHome - realAway < 0) || // victoire extérieur
-    (predictedHome === predictedAway && realHome === realAway) // nul
-  ) {
-    points = 1;
-  }
-
-  return points;
-}
-
-// 🔄 Route mise à jour matchs et points
+// 🔄 Mettre à jour matchs + recalcul points
 router.post('/update', async (req, res) => {
   try {
-    // 🔹 Récupérer les matchs depuis l'API externe
-const { data } = await axios.get('https://v3.football.api-sports.io/fixtures?league=61&season=2025', {
-  headers: { "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-            "x-rapidapi-host": "v3.football.api-sports.io", }
-});
-    for (const m of data) {
-      // Mettre à jour ou créer le match
+    const { data } = await axios.get(
+  'https://v3.football.api-sports.io/fixtures?league=61&season=2025',
+  {
+    headers: {
+      'x-rapidapi-key': process.env.FOOTBALL_API_KEY,
+      'x-rapidapi-host': process.env.FOOTBALL_API_HOST,
+    },
+  }
+);
+
+console.log('API KEY:', process.env.FOOTBALL_API_KEY ? 'OK' : '❌ MANQUANTE');
+
+    for (const m of data.response) {
+      const isFinished = m.fixture.status.short === 'FT';
+
       const match = await Match.findOneAndUpdate(
         { fixtureId: m.fixture.id },
         {
@@ -44,41 +30,47 @@ const { data } = await axios.get('https://v3.football.api-sports.io/fixtures?lea
           awayTeam: m.teams.away.name,
           kickoff: m.fixture.date,
           score: {
-            home: m.score.home,
-            away: m.score.away,
+            home: m.goals.home,
+            away: m.goals.away,
           },
-          status:
-            m.score.home != null && m.score.away != null
-              ? 'FINISHED'
-              : 'SCHEDULED',
+          status: isFinished ? 'FINISHED' : 'SCHEDULED',
         },
-        { upsert: true, new: true } // 🔹 new: true pour récupérer le match après update
+        { upsert: true, new: true }
       );
 
-      // 🔹 Si le match est terminé et que les points n'ont pas encore été calculés
-      if (match.status === 'FINISHED' && !match.pointsUpdated) {
-  const predictions = await Prediction.find({ matchId: match.fixtureId });
+      // 🧮 Calcul des points UNE SEULE FOIS
+      if (isFinished && !match.pointsUpdated) {
+        const predictions = await Prediction.find({
+          matchId: match.fixtureId,
+        });
 
-  for (const p of predictions) {
-    const points = calculatePoints(
-      { home: match.score.home, away: match.score.away }, // score réel
-      { home: p.predictedHome, away: p.predictedAway }    // pronostic
-    );
-    p.points = points;
-    await p.save();
-  }
+        for (const p of predictions) {
+          const points = calculatePoints(
+            { home: match.score.home, away: match.score.away },
+            { home: p.predictedHome, away: p.predictedAway }
+          );
 
-  match.pointsUpdated = true;
-  await match.save();
+          p.points = points;
+          await p.save();
+        }
 
-  console.log(`✅ Points recalculés pour le match ${match.fixtureId}`);
-}
+        match.pointsUpdated = true;
+        await match.save();
+
+        console.log(`✅ Points calculés pour match ${match.fixtureId}`);
+      }
     }
 
-    res.json({ success: true, message: 'Matchs mis à jour et points recalculés' });
+    res.json({
+      success: true,
+      message: 'Matchs mis à jour et points recalculés',
+    });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Erreur mise à jour matchs', details: err.message });
+    res.status(500).json({
+      error: 'Erreur mise à jour matchs',
+      details: err.message,
+    });
   }
 });
 

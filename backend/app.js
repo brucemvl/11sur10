@@ -65,8 +65,7 @@ app.use('/api/predictions', predictionRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);
 app.use('/api/profile', profileRoutes);
 
-// rendre les images accessibles
-app.use('/uploads', express.static('uploads'));
+
 
 // ✅ Route d'envoi de notification à un utilisateur spécifique
 app.post('/send-notification', async (req, res) => {
