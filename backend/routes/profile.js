@@ -3,11 +3,13 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const auth = require('../middleware/auth');
-const upload = require('../middleware/uploadAvatar');
 const Prediction = require('../models/Prediction');
 const Match = require('../models/Match');
-const fs = require('fs');
-const path = require('path');
+const localUpload = require('../middleware/uploadAvatar');
+const { upload: cloudUpload } = require('../middleware/cloudinary');
+
+// Choisir le storage selon l'environnement
+const upload = process.env.NODE_ENV === 'production' ? cloudUpload : localUpload;
 
 // 🔤 Modifier username
 router.put('/username', auth, async (req, res) => {
@@ -56,22 +58,21 @@ router.put('/password', auth, async (req, res) => {
 });
 
 // 🖼 Upload avatar
-router.post(
-  '/avatar',
-  auth,
-  upload.single('avatar'),
-  async (req, res) => {
-    try {
-      const avatarUrl = `/uploads/avatars/${req.file.filename}`;
+router.post('/avatar', auth, upload.single('avatar'), async (req, res) => {
+  try {
+    const avatarUrl =
+      process.env.NODE_ENV === 'production'
+        ? req.file.path
+        : `/uploads/avatars/${req.file.filename}`;
 
-      await User.findByIdAndUpdate(req.userId, { avatar: avatarUrl });
+    await User.findByIdAndUpdate(req.userId, { avatar: avatarUrl });
 
-      res.json({ success: true, avatar: avatarUrl });
-    } catch (err) {
-      res.status(500).json({ error: 'Erreur upload avatar' });
-    }
+    res.json({ success: true, avatar: avatarUrl });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erreur upload avatar' });
   }
-);
+});
 
 // 🔹 GET profil actuel
 router.get('/me', auth, async (req, res) => {
@@ -110,8 +111,8 @@ router.get('/me', auth, async (req, res) => {
     res.json({
       username: user.username,
       avatar: user.avatar
-        ? `https://one1sur10.onrender.com${user.avatar}`
-        : 'https://one1sur10.onrender.com/uploads/avatars/default-avatar.jpg',
+  ? user.avatar
+  : 'https://one1sur10.onrender.com/uploads/avatars/default-avatar.jpg',
       points,
     });
   } catch (err) {
