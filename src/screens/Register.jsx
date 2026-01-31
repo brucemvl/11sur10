@@ -109,10 +109,11 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: '#f2f2f2',
+    paddingTop: 50
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
+fontFamily: "Kanitt",
     marginBottom: 30,
     textAlign: 'center',
     color: '#333',
@@ -124,6 +125,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 15,
     fontSize: 16,
+    fontFamily: "Kanitus"
   },
   button: {
     backgroundColor: '#28a745',
@@ -135,7 +137,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 16,
-    fontWeight: 'bold',
+fontFamily: "Kanito"
   },
   link: {
     marginTop: 15,
@@ -144,5 +146,6 @@ const styles = StyleSheet.create({
   linkText: {
     color: '#1e90ff',
     fontSize: 14,
+    fontFamily: "Kanitus"
   },
 });

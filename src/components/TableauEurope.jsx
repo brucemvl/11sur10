@@ -131,10 +131,7 @@ function TableauEurope({ id, currentRound, rounds }) {
         source={id === 2 ? ucl : { uri: `https://media.api-sports.io/football/leagues/${id}.png` }}
         style={id === 2 ? { width: 80, height: 50, objectFit: 'contain' } : { width: 50, height: 50, objectFit: 'contain' }}
       />
-      { id === 2 ?
-            <Ldc2025 /> : null
-      }
-
+      
       <View style={styles.navContainer}>
         <TouchableOpacity onPress={prev} disabled={index === 0} style={{ width: 60, height: 30, alignItems: "center" }} accessible accessibilityRole="button" accessibilityLabel="Précédent" accessibilityHint="Naviguer vers la journée précédente">
           <Text style={[id === 15 ? styles.buttonTextWc : styles.buttonText, index === 0 && { opacity: 0.3 }, isMediumScreen && {fontSize: 28}]}>{'<'}</Text>
@@ -149,6 +146,7 @@ function TableauEurope({ id, currentRound, rounds }) {
                   currentRoundName === "Semi-finals" ? "Demis-finale" :
                     currentRoundName === "Final" ? "Finale" :
                       currentRoundName === "Round of 16" ? "Huitièmes de finale" :
+                      currentRoundName === "Round of 32" && id === 2 ? "Barrages" :
                         currentRoundName === "Knockout Round Play-offs" ? "Barrages" :
                           currentRoundName === "8th Finals" ? "1/8 de finale" :
                             currentRoundName}

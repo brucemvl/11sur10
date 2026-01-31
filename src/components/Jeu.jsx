@@ -14,6 +14,7 @@ import axios from 'axios';
 import { fetchLigue1Matches } from '../services/apiSport';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Precedent from './Precedent';
+import { teamName } from '../datas/teamNames';
 
 export default function Jeu() {
   const [loading, setLoading] = useState(true);
@@ -192,7 +193,7 @@ const loadMyPredictions = async () => {
       <FlatList
         data={matches}
         keyExtractor={(item) => item.fixture.id.toString()}
-        contentContainerStyle={{ padding: 20 }}
+        contentContainerStyle={{ padding: 20, paddingBottom: 100 }}
         renderItem={({ item }) => {
           const id = item.fixture.id;
           const hasPrediction = !!existingPredictions[id];
@@ -200,7 +201,7 @@ const loadMyPredictions = async () => {
           return (
             <View style={styles.card}>
               <View style={styles.match}>
-                <Text>
+                <Text style={styles.teamName}>
                 {item.teams.home.name}
                 </Text>
 <Image source={{uri: item.teams.home.logo}} style={styles.logoClub} />
@@ -214,7 +215,7 @@ const loadMyPredictions = async () => {
                 onChangeText={(v) => handleScoreChange(id, 'home', v)}
                   
                 />
-                <Text style={{ marginHorizontal: 10 }}>-</Text>
+                <Text style={{ marginHorizontal: 5 }}>-</Text>
                 <TextInput
                   style={styles.input}
                   keyboardType="numeric"
@@ -226,7 +227,7 @@ const loadMyPredictions = async () => {
               </View>
 <Image source={{uri: item.teams.away.logo}} style={styles.logoClub} />
 
-                <Text>
+                <Text style={styles.teamName}>
                     {item.teams.away.name}
                     </Text>
               </View>
@@ -300,25 +301,29 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 10,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    gap: 4
+  },
+  teamName:{
+fontFamily: "Bella"
   },
   logoClub: {
-height: 35,
-width: 35,
+height: 32,
+width: 32,
 resizeMode: "contain"
   },
   scoreRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
   },
   input: {
-    width: 35,
+    width: 34,
     borderWidth: 1,
     borderColor: '#ddd',
     borderRadius: 8,
     textAlign: 'center',
     padding: 8,
+    fontFamily: "Kanito"
   },
   button: {
     backgroundColor: '#22c55e',
@@ -332,6 +337,7 @@ resizeMode: "contain"
   buttonText: {
     color: '#fff',
     fontWeight: 'bold',
+    fontFamily: "Kanito"
   },
   alreadyPredicted: {
   color: '#16a34a',

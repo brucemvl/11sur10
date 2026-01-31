@@ -112,7 +112,7 @@ console.log('USER:', res.data);
           style={styles.buttonPrimary}
           onPress={() => navigation.navigate('Jeu')}
         >
-          <Text style={styles.buttonText}>🎮 Lancer une partie</Text>
+          <Text style={styles.buttonText}>Jouer</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -120,6 +120,13 @@ console.log('USER:', res.data);
           onPress={() => setOpenClassement(!openClassement)}
         >
           <Text style={styles.buttonText}>Classement</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.buttonPrimary}
+          onPress={() => navigation.navigate('HistoriquePronos')}
+        >
+          <Text style={styles.buttonText}>Historique</Text>
         </TouchableOpacity>
 
         <TouchableOpacity

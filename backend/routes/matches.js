@@ -74,4 +74,15 @@ console.log('API KEY:', process.env.FOOTBALL_API_KEY ? 'OK' : '❌ MANQUANTE');
   }
 });
 
+// GET tous les matchs
+router.get('/', async (req, res) => {
+  try {
+    const matches = await Match.find().lean();
+    res.json(matches);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erreur récupération matchs' });
+  }
+});
+
 module.exports = router;

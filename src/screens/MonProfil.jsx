@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
+  ScrollView,
 } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -35,7 +36,7 @@ export default function MonProfil() {
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      Alert.alert('✅ Succès', 'Username mis à jour');
+      Alert.alert('✅ Succès', 'Pseudo mis à jour');
       setUsername('');
     } catch (err) {
       Alert.alert(
@@ -138,23 +139,29 @@ const pickAvatar = async () => {
 };
 
   return (
-    <View style={styles.container}>
+    <View  style={styles.container}>
         <Precedent />
+            <ScrollView contentContainerStyle={{paddingBottom: 90}}>
+
       <Text style={styles.title}>👤 Mon profil</Text>
 
       {/* USERNAME */}
-      <Text style={styles.section}>Changer le username</Text>
+      <View style={styles.bloc}>
+      <Text style={styles.section}>Changer le pseudo</Text>
       <TextInput
         style={styles.input}
-        placeholder="Nouveau username"
+        placeholder="Nouveau pseudo"
         value={username}
         onChangeText={setUsername}
       />
       <TouchableOpacity style={styles.button} onPress={updateUsername}>
         <Text style={styles.buttonText}>Modifier</Text>
       </TouchableOpacity>
+      </View>
 
       {/* PASSWORD */}
+            <View style={styles.bloc}>
+
       <Text style={styles.section}>Changer le mot de passe</Text>
       <TextInput
         style={styles.input}
@@ -176,8 +183,11 @@ const pickAvatar = async () => {
       >
         <Text style={styles.buttonText}>Changer le mot de passe</Text>
       </TouchableOpacity>
+      </View>
 
       {/* AVATAR (placeholder UI) */}
+            <View style={styles.bloc}>
+
       <Text style={styles.section}>Avatar</Text>
 
 <TouchableOpacity style={styles.avatarButton} onPress={pickAvatar}>
@@ -187,10 +197,11 @@ const pickAvatar = async () => {
   style={styles.avatar}
 />
   ) : (
-    <Text>📷 Choisir une photo</Text>
+    <Text style={{fontFamily: "Kanitus"}}>📷 Choisir une photo</Text>
   )}
 </TouchableOpacity>
-
+</View>
+</ScrollView>
     </View>
   );
 }
@@ -203,14 +214,20 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    fontWeight: 'bold',
     marginBottom: 20,
-    marginTop: 50
+    marginTop: 50,
+    fontFamily: "Kanitt"
+  },
+  bloc: {
+backgroundColor: "#abd8e7",
+padding: 10,
+borderRadius: 10,
+marginBlock: 8
   },
   section: {
-    marginTop: 25,
-    fontWeight: 'bold',
+    marginTop: 15,
     marginBottom: 8,
+    fontFamily: "Kanito"
   },
   input: {
     backgroundColor: '#fff',
@@ -220,13 +237,15 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#22c55e',
-    padding: 14,
+    padding: 10,
     borderRadius: 10,
     alignItems: 'center',
+    marginTop: 10
   },
   buttonText: {
     color: '#fff',
     fontWeight: 'bold',
+    fontFamily: "Kanito"
   },
   avatarButton: {
     marginTop: 10,

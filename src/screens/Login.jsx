@@ -85,10 +85,10 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 30,
+    marginBottom: 20,
     textAlign: 'center',
     color: '#333',
+    fontFamily: "Kanitt"
   },
   input: {
     backgroundColor: 'white',
@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 15,
     fontSize: 16,
+    fontFamily: "Kanitus"
   },
   button: {
     backgroundColor: '#1e90ff',
@@ -108,8 +109,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 16,
-    fontWeight: 'bold',
-  },
+fontFamily: "Kanito"  },
   link: {
     marginTop: 15,
     alignItems: 'center',
@@ -117,5 +117,6 @@ const styles = StyleSheet.create({
   linkText: {
     color: '#1e90ff',
     fontSize: 14,
+    fontFamily: "Kanitus"
   },
 });
