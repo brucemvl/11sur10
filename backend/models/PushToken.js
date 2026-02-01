@@ -12,7 +12,6 @@ const pushTokenSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       index: true,
-      sparse: true, // permet tokens anonymes AVANT login
     },
 
     teamId: {
