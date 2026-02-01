@@ -55,6 +55,7 @@ export default function HistoriquePronos() {
           const match = matchMap[p.matchId];
           if (!match) return null;
 
+          console.log(match)
           return {
   matchId: p.matchId,
   homeTeam: match.homeTeam,
@@ -90,7 +91,7 @@ export default function HistoriquePronos() {
   return (
     <View style={styles.container}>
       <Precedent />
-      <Text style={styles.title}>📜 Historique des pronostics</Text>
+      <Text style={styles.title}>Historique des pronostics</Text>
 
       <FlatList
         data={history}

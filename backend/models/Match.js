@@ -4,6 +4,8 @@ const matchSchema = new mongoose.Schema({
   fixtureId: { type: Number, required: true, unique: true },
   homeTeam: String,
   awayTeam: String,
+   homeLogo: String, 
+  awayLogo: String, 
   kickoff: Date,
   score: {
     home: Number,

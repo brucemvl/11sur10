@@ -22,6 +22,8 @@ async function updateMatches() {
       {
         homeTeam: m.teams.home.name,
         awayTeam: m.teams.away.name,
+        homeLogo: m.teams.home.logo,
+    awayLogo: m.teams.away.logo,
         kickoff: m.fixture.date,
         score: {
           home: m.goals.home,
