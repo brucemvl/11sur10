@@ -24,18 +24,6 @@ const calculatePoints = (prediction, match) => {
   return 0;
 };
 
-const predict = await Prediction.find({ userId });
-
-let exact = 0;
-let diff = 0;
-let result = 0;
-
-predict.forEach(p => {
-  if (p.points === 3) exact++;
-  else if (p.points === 2) diff++;
-  else if (p.points === 1) result++;
-});
-
 router.get('/', async (req, res) => {
   try {
     const predictions = await Prediction.find().lean();
@@ -77,9 +65,6 @@ users.forEach(u => {
       username: user.username,   // string
       avatar: user.avatar,       // string
       points,
-      exactCount: exact,
-  goalDiffCount: diff,
-  resultCount: result
     };
   })
   .sort((a, b) => b.points - a.points);
