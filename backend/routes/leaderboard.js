@@ -1,78 +1,89 @@
 const express = require('express');
 const router = express.Router();
+
+const User = require('../models/User');
 const Prediction = require('../models/Prediction');
 const Match = require('../models/Match');
-const User = require('../models/user');
-
-const calculatePoints = (prediction, match) => {
-  if (!match || match.status !== 'FINISHED') return 0;
-
-  const exact =
-    prediction.predictedHome === match.score.home &&
-    prediction.predictedAway === match.score.away;
-
-  const pronoDiff = prediction.predictedHome - prediction.predictedAway;
-  const realDiff = match.score.home - match.score.away;
-
-  const correctResult =
-    (pronoDiff > 0 && realDiff > 0) ||
-    (pronoDiff < 0 && realDiff < 0) ||
-    (pronoDiff === 0 && realDiff === 0);
-
-  if (exact) return 3;
-  if (correctResult) return 1;
-  return 0;
-};
 
 router.get('/', async (req, res) => {
   try {
-    const predictions = await Prediction.find().lean();
-    const matches = await Match.find({ status: 'FINISHED' }).lean();
+    // 1️⃣ récupérer tous les utilisateurs
+    const users = await User.find({}, '_id username avatar');
 
-    const matchMap = {};
-    matches.forEach(m => {
-      matchMap[m.fixtureId] = m;
+    // 2️⃣ récupérer tous les matchs terminés
+    const finishedMatches = await Match.find({
+      status: 'finished',
+      homeScore: { $ne: null },
+      awayScore: { $ne: null },
     });
 
-    const leaderboard = {};
+    const leaderboard = [];
 
-    predictions.forEach(p => {
-      const match = matchMap[p.matchId];
-      const points = calculatePoints(p, match);
-      leaderboard[p.userId] = (leaderboard[p.userId] || 0) + points;
-    });
+    for (const user of users) {
+      const predictions = await Prediction.find({
+        userId: user._id,
+      });
 
-    const userIds = Object.keys(leaderboard);
+      let points = 0;
+      let exactScores = 0;
+      let goodDiffs = 0;
+      let goodResults = 0;
 
-    const users = await User.find(
-  { _id: { $in: userIds } },
-  { username: 1, avatar: 1 }  // récupérer avatar
-).lean();
+      for (const prediction of predictions) {
+        const match = finishedMatches.find(
+          (m) => m._id.toString() === prediction.matchId.toString()
+        );
 
-const userMap = {};
-users.forEach(u => {
-  userMap[u._id] = {
-    username: u.username,
-    avatar: u.avatar || '/uploads/avatars/default-avatar.png',
-  };
-});
+        if (!match) continue;
 
-    const result = Object.entries(leaderboard)
-  .map(([userId, points]) => {
-    const user = userMap[userId] || { username: 'Utilisateur', avatar: '/uploads/avatars/default-avatar.png' };
-    return {
-      userId,
-      username: user.username,   // string
-      avatar: user.avatar,       // string
-      points,
-    };
-  })
-  .sort((a, b) => b.points - a.points);
+        const pHome = prediction.homeScore;
+        const pAway = prediction.awayScore;
+        const rHome = match.homeScore;
+        const rAway = match.awayScore;
 
-    res.json(result);
+        // 🎯 SCORE EXACT
+        if (pHome === rHome && pAway === rAway) {
+          points += 5;
+          exactScores++;
+          continue;
+        }
+
+        // 📏 BON ÉCART
+        if (pHome - pAway === rHome - rAway) {
+          points += 3;
+          goodDiffs++;
+          continue;
+        }
+
+        // ⚽ BON RÉSULTAT (vainqueur / nul)
+        if (
+          (pHome > pAway && rHome > rAway) ||
+          (pHome < pAway && rHome < rAway) ||
+          (pHome === pAway && rHome === rAway)
+        ) {
+          points += 1;
+          goodResults++;
+        }
+      }
+
+      leaderboard.push({
+        userId: user._id,
+        username: user.username,
+        avatar: user.avatar,
+        points,
+        exactScores,
+        goodDiffs,
+        goodResults,
+      });
+    }
+
+    // 3️⃣ tri par points décroissants
+    leaderboard.sort((a, b) => b.points - a.points);
+
+    res.json(leaderboard);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Erreur serveur' });
+    console.error('❌ Erreur leaderboard:', err);
+    res.status(500).json({ message: 'Erreur serveur leaderboard' });
   }
 });
 
