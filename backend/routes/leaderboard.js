@@ -7,22 +7,19 @@ const Match = require('../models/Match');
 
 router.get('/', async (req, res) => {
   try {
-    // 1️⃣ récupérer tous les utilisateurs
     const users = await User.find({}, '_id username avatar');
 
-    // 2️⃣ récupérer tous les matchs terminés
+    // ✅ STATUS EN MAJUSCULES
     const finishedMatches = await Match.find({
-      status: 'finished',
-      homeScore: { $ne: null },
-      awayScore: { $ne: null },
+      status: 'FINISHED',
+      'score.home': { $ne: null },
+      'score.away': { $ne: null },
     });
 
     const leaderboard = [];
 
     for (const user of users) {
-      const predictions = await Prediction.find({
-        userId: user._id,
-      });
+      const predictions = await Prediction.find({ userId: user._id });
 
       let points = 0;
       let exactScores = 0;
@@ -31,15 +28,16 @@ router.get('/', async (req, res) => {
 
       for (const prediction of predictions) {
         const match = finishedMatches.find(
-          (m) => m._id.toString() === prediction.matchId.toString()
+          (m) => m.fixtureId === prediction.matchId
         );
 
         if (!match) continue;
 
-        const pHome = prediction.homeScore;
-        const pAway = prediction.awayScore;
-        const rHome = match.homeScore;
-        const rAway = match.awayScore;
+        const pHome = prediction.predictedHome;
+        const pAway = prediction.predictedAway;
+
+        const rHome = match.score.home;
+        const rAway = match.score.away;
 
         // 🎯 SCORE EXACT
         if (pHome === rHome && pAway === rAway) {
@@ -55,7 +53,7 @@ router.get('/', async (req, res) => {
           continue;
         }
 
-        // ⚽ BON RÉSULTAT (vainqueur / nul)
+        // ⚽ BON RÉSULTAT
         if (
           (pHome > pAway && rHome > rAway) ||
           (pHome < pAway && rHome < rAway) ||
@@ -77,9 +75,7 @@ router.get('/', async (req, res) => {
       });
     }
 
-    // 3️⃣ tri par points décroissants
     leaderboard.sort((a, b) => b.points - a.points);
-
     res.json(leaderboard);
   } catch (err) {
     console.error('❌ Erreur leaderboard:', err);
