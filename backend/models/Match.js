@@ -11,7 +11,10 @@ const matchSchema = new mongoose.Schema({
     home: Number,
     away: Number,
   },
-  status: { type: String, default: 'SCHEDULED' },
+  status: { type: String,
+     enum: ['SCHEDULED', 'LIVE', 'FINISHED'],
+  default: 'SCHEDULED',
+ },
   pointsUpdated: { type: Boolean, default: false }, // 🔹 nouveau champ
 });
 

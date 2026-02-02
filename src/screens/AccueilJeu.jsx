@@ -133,7 +133,7 @@ console.log('USER:', res.data);
           style={styles.buttonPrimary}
           onPress={() => navigation.navigate('HistoriquePronos')}
         >
-          <Text style={styles.buttonText}>Historique</Text>
+          <Text style={styles.buttonText}>Mes pronos</Text>
         </TouchableOpacity>
 
         

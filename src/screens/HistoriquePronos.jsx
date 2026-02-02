@@ -91,7 +91,7 @@ export default function HistoriquePronos() {
   return (
     <View style={styles.container}>
       <Precedent />
-      <Text style={styles.title}>Historique des pronostics</Text>
+      <Text style={styles.title}>Mes pronostics</Text>
 
       <FlatList
         data={history}
@@ -100,22 +100,24 @@ export default function HistoriquePronos() {
         renderItem={({ item }) => (
           <View style={styles.card}>
             <View style={styles.matchRow}>
+              
+              <Text style={styles.team}>{item.homeTeam}</Text>
               <Image
                 source={{ uri: item.homeLogo || 'https://via.placeholder.com/32' }}
                 style={styles.logo}
               />
-              <Text style={styles.team}>{item.homeTeam}</Text>
               <Text style={styles.score}>
                 {item.predictedHome} - {item.predictedAway}
               </Text>
               <Text style={styles.scoreReal}>
                 ({item.realHome} - {item.realAway})
               </Text>
-              <Text style={styles.team}>{item.awayTeam}</Text>
               <Image
                 source={{ uri: item.awayLogo || 'https://via.placeholder.com/32' }}
                 style={styles.logo}
               />
+              <Text style={styles.team}>{item.awayTeam}</Text>
+              
             </View>
             {item.status === 'FINISHED' ?
             <Text style={[styles.points, item.points === 0 && {color: "red"}]}>Points gagnés : {item.points}</Text>
@@ -137,10 +139,10 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    fontWeight: 'bold',
     marginTop: 65,
     marginBottom: 20,
     textAlign: 'center',
+    fontFamily: "Kanitt"
   },
   card: {
     backgroundColor: '#fff',
@@ -156,22 +158,26 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   logo: {
-    width: 32,
+    width: "8%",
     height: 32,
     resizeMode: 'contain',
   },
   team: {
-    fontWeight: 'bold',
-    flex: 1,
+fontFamily: "Bella",
     textAlign: 'center',
+    width: "30%",
+    fontSize: 13,
+    
   },
   score: {
     fontWeight: 'bold',
     color: '#2563eb',
+    width: "12%"
   },
   scoreReal: {
     fontSize: 12,
     color: '#6b7280',
+    width: "12%"
   },
   points: {
     fontSize: 14,
