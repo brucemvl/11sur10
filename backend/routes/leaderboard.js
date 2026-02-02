@@ -41,14 +41,14 @@ router.get('/', async (req, res) => {
 
         // 🎯 SCORE EXACT
         if (pHome === rHome && pAway === rAway) {
-          points += 5;
+          points += 3;
           exactScores++;
           continue;
         }
 
         // 📏 BON ÉCART
         if (pHome - pAway === rHome - rAway) {
-          points += 3;
+          points += 2;
           goodDiffs++;
           continue;
         }
