@@ -9,56 +9,68 @@ router.get('/', async (req, res) => {
   try {
     const users = await User.find({}, '_id username avatar');
 
-    // ✅ STATUS EN MAJUSCULES
     const finishedMatches = await Match.find({
       status: 'FINISHED',
       'score.home': { $ne: null },
       'score.away': { $ne: null },
-    });
+    }).lean();
 
     const leaderboard = [];
 
     for (const user of users) {
-      const predictions = await Prediction.find({ userId: user._id });
+      const predictions = await Prediction.find({ userId: user._id }).lean();
 
       let points = 0;
       let exactScores = 0;
       let goodDiffs = 0;
       let goodResults = 0;
 
-      for (const prediction of predictions) {
+      for (const p of predictions) {
         const match = finishedMatches.find(
-          (m) => m.fixtureId === prediction.matchId
+          (m) => m.fixtureId === p.matchId
         );
 
         if (!match) continue;
 
-        const pHome = prediction.predictedHome;
-        const pAway = prediction.predictedAway;
+        const pHome = p.predictedHome;
+        const pAway = p.predictedAway;
 
         const rHome = match.score.home;
         const rAway = match.score.away;
 
-        // 🎯 SCORE EXACT
+        // 🛑 sécurité
+        if (
+          pHome == null || pAway == null ||
+          rHome == null || rAway == null
+        ) continue;
+
+        // 1️⃣ SCORE EXACT (3 pts)
         if (pHome === rHome && pAway === rAway) {
           points += 3;
           exactScores++;
-          continue;
+          continue; // ⛔ stop ici
         }
 
-        // 📏 BON ÉCART
-        if (pHome - pAway === rHome - rAway) {
+        // 2️⃣ BON ÉCART (2 pts)
+        const predictedDiff = pHome - pAway;
+        const realDiff = rHome - rAway;
+
+        if (predictedDiff === realDiff) {
           points += 2;
           goodDiffs++;
           continue;
         }
 
-        // ⚽ BON RÉSULTAT
-        if (
-          (pHome > pAway && rHome > rAway) ||
-          (pHome < pAway && rHome < rAway) ||
-          (pHome === pAway && rHome === rAway)
-        ) {
+        // 3️⃣ BON RÉSULTAT (1 pt)
+        const predictedWinner =
+          pHome > pAway ? 'HOME' :
+          pHome < pAway ? 'AWAY' : 'DRAW';
+
+        const realWinner =
+          rHome > rAway ? 'HOME' :
+          rHome < rAway ? 'AWAY' : 'DRAW';
+
+        if (predictedWinner === realWinner) {
           points += 1;
           goodResults++;
         }
@@ -77,6 +89,7 @@ router.get('/', async (req, res) => {
 
     leaderboard.sort((a, b) => b.points - a.points);
     res.json(leaderboard);
+
   } catch (err) {
     console.error('❌ Erreur leaderboard:', err);
     res.status(500).json({ message: 'Erreur serveur leaderboard' });
