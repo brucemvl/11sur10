@@ -24,13 +24,13 @@ const calculatePoints = (prediction, match) => {
   return 0;
 };
 
-const predictions = await Prediction.find({ userId });
+const predict = await Prediction.find({ userId });
 
 let exact = 0;
 let diff = 0;
 let result = 0;
 
-predictions.forEach(p => {
+predict.forEach(p => {
   if (p.points === 3) exact++;
   else if (p.points === 2) diff++;
   else if (p.points === 1) result++;
