@@ -39,6 +39,8 @@ export default function Leaderboard() {
   return `https://one1sur10.onrender.com${avatar}`;
 };
 
+console.log(leaders)
+
   return (
     <View style={styles.container}>
         <Precedent />
@@ -63,13 +65,14 @@ export default function Leaderboard() {
 
 
       <FlatList
-  data={leaders.slice(3)}
+  data={leaders}
   keyExtractor={(item) => item._id || item.userId}
+  contentContainerStyle={{alignItems: "center"}}
   renderItem={({ item, index }) => (
     <View style={styles.row}>
-      <Text style={styles.rank}>{index + 4}.</Text>
+      <Text style={styles.rank}>{index + 1}.</Text>
       <Image
-        source={{ uri: `https://one1sur10.onrender.com${item.avatar || '/uploads/avatars/default-avatar.png'}` }}
+        source={{ uri: getAvatarUrl(item.avatar) }}
         style={styles.rowAvatar}
       />
       <Text style={styles.rowUsername}>{item.username}</Text>
@@ -87,19 +90,19 @@ export default function Leaderboard() {
 
   // Top 3
   top3Container: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 30 },
-  card: { flex: 1, marginHorizontal: 5, padding: 15, borderRadius: 16, alignItems: 'center' },
+  card: { flex: 1, marginHorizontal: 5, padding: 10, borderRadius: 16, alignItems: 'center' },
   rank1: { backgroundColor: '#facc15' }, // or
   rank2: { backgroundColor: '#e5e7eb' },
-  rank3: { backgroundColor: '#f97316' },
+  rank3: { backgroundColor: '#a74600' },
   medal: { fontSize: 30, marginBottom: 6 },
-  username: { fontSize: 16, fontWeight: 'bold' },
-  points: { marginTop: 4, fontWeight: '600' },
-  topAvatar: { width: 60, height: 60, borderRadius: 30, marginBottom: 8 },
+  username: { fontSize: 16, fontFamily: 'Bangers', paddingInline: 3 },
+  points: { marginTop: 4, fontFamily: 'Kanito' },
+  topAvatar: { width: 60, height: 70, borderRadius: 10, marginBottom: 4 },
 
   // Reste du classement
-  row: { flexDirection: 'row', paddingVertical: 12, borderBottomWidth: 1, borderColor: '#e5e7eb', alignItems: 'center' },
-  rank: { width: 30, fontWeight: 'bold' },
-  rowAvatar: { width: 40, height: 40, borderRadius: 20, marginRight: 10 },
-  rowUsername: { flex: 1 },
-  rowPoints: { fontWeight: 'bold' },
+  row: { flexDirection: 'row', paddingVertical: 2, borderBottomWidth: 1, borderColor: '#d2d2d2', alignItems: 'center', width: "90%" },
+  rank: { width: "8%", fontFamily: "Kanitt" },
+  rowAvatar: { width: 35, height: 35, borderRadius: 20, marginRight: 10, resizeMode: "contain" },
+  rowUsername: { color: "black", fontFamily: "Kanitt", width: "60%" },
+  rowPoints: { fontFamily: "Kanitt" },
 })

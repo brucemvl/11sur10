@@ -29,6 +29,7 @@ export const teamName = {
     "Lithuania" : "Lituanie",
      "New York Red Bulls" : "New York RB",
   "Philadelphia Union" : "Philadelphia",
+  "Stade Brestois 29" : "Stade Brestois"
 };
 
 export const teamNameNotif = {

@@ -96,12 +96,12 @@ export default function HistoriquePronos() {
       <FlatList
         data={history}
         keyExtractor={(item) => item.matchId.toString()}
-        contentContainerStyle={{ padding: 20, paddingBottom: 100 }}
+        contentContainerStyle={{ padding: 10, paddingBottom: 100 }}
         renderItem={({ item }) => (
           <View style={styles.card}>
             <View style={styles.matchRow}>
               
-              <Text style={styles.team}>{item.homeTeam}</Text>
+              <Text style={[styles.team, {textAlign: "center"}]}>{item.homeTeam}</Text>
               <Image
                 source={{ uri: item.homeLogo || 'https://via.placeholder.com/32' }}
                 style={styles.logo}
@@ -116,11 +116,11 @@ export default function HistoriquePronos() {
                 source={{ uri: item.awayLogo || 'https://via.placeholder.com/32' }}
                 style={styles.logo}
               />
-              <Text style={styles.team}>{item.awayTeam}</Text>
+              <Text style={[styles.team, {textAlign: "center"}]}>{item.awayTeam}</Text>
               
             </View>
             {item.status === 'FINISHED' ?
-            <Text style={[styles.points, item.points === 0 && {color: "red"}]}>Points gagnés : {item.points}</Text>
+            <Text style={[styles.points, item.points === 0 && {color: "red"}]}>{item.points > 0 ? "✅ " : "❌ "}Points gagnés : {item.points}</Text>
             : null }
             <Text style={styles.status}>
   Statut : {statusLabel[item.status] || item.status}
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: '#fff',
-    padding: 12,
+    padding: 10,
     borderRadius: 12,
     marginBottom: 15,
   },
@@ -172,20 +172,26 @@ fontFamily: "Bella",
   score: {
     fontWeight: 'bold',
     color: '#2563eb',
-    width: "12%"
+    width: "12%",
+    fontFamily: "Kanito",
+    textAlign: "center"
   },
   scoreReal: {
     fontSize: 12,
     color: '#6b7280',
-    width: "12%"
+    width: "12%",
+    fontFamily: "Kanitus",
+        textAlign: "center"
+
   },
   points: {
     fontSize: 14,
-    fontWeight: 'bold',
+fontFamily: "Kanito",
     color: '#16a34a',
   },
   status: {
     fontSize: 12,
     color: '#6b7280',
+    fontFamily: "Kanitus"
   },
 });

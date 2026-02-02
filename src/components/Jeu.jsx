@@ -202,7 +202,7 @@ const loadMyPredictions = async () => {
             <View style={styles.card}>
               <View style={styles.match}>
                 <Text style={styles.teamName}>
-                {item.teams.home.name}
+                {teamName[item.teams.home.name] || item.teams.home.name}
                 </Text>
 <Image source={{uri: item.teams.home.logo}} style={styles.logoClub} />
                 <View style={styles.scoreRow}>
@@ -228,7 +228,7 @@ const loadMyPredictions = async () => {
 <Image source={{uri: item.teams.away.logo}} style={styles.logoClub} />
 
                 <Text style={styles.teamName}>
-                    {item.teams.away.name}
+                    {teamName[item.teams.away.name] || item.teams.away.name}
                     </Text>
               </View>
 
@@ -308,8 +308,8 @@ const styles = StyleSheet.create({
 fontFamily: "Bella"
   },
   logoClub: {
-height: 32,
-width: 32,
+height: 30,
+width: 30,
 resizeMode: "contain"
   },
   scoreRow: {
