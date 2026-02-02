@@ -58,7 +58,11 @@ console.log(leaders)
         {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'}
       </Text>
       <Text style={styles.username}>{user.username}</Text>  {/* ✅ ici */}
-      <Text style={styles.points}>{user.points} pts</Text>   {/* ✅ ici */}
+      <View style={styles.statsContainer}>
+  <Text style={styles.stat}>✅ {user.exactScores}</Text>
+  <Text style={styles.stat}>⚖️ {user.goodDiffs}</Text>
+  <Text style={styles.stat}>🏆 {user.goodResults}</Text>
+</View>   {/* ✅ ici */}
     </View>
   ))}
 </View>
