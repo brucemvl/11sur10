@@ -12,8 +12,7 @@ const predictionRoutes = require('./routes/predictions');
 const leaderboardRoutes = require('./routes/leaderboard');
 const profileRoutes = require('./routes/profile');
 const path = require('path');
-require('./cron/updateMatches.cron');
-
+const startCrons = require('./cron');
 
 
 
@@ -55,6 +54,7 @@ mongoose.connect(mongoURI, {
   .then(async () => {
     console.log('✅ Connexion à MongoDB réussie !');
     await fixTokensWithoutTeamId();  // Lancer le correctif après la connexion
+    startCrons(); // 🚀 démarre les cron ici
   })
   .catch(err => console.error('❌ Connexion à MongoDB échouée :', err));
 

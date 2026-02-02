@@ -76,6 +76,9 @@ console.log(leaders)
         style={styles.rowAvatar}
       />
       <Text style={styles.rowUsername}>{item.username}</Text>
+      <Text style={styles.statsSmall}>
+    🎯 {item.exactCount || 0} · 📏 {item.goalDiffCount || 0} · ✅ {item.resultCount || 0}
+  </Text>
       <Text style={styles.rowPoints}>{item.points} pts</Text>
     </View>
   )}
