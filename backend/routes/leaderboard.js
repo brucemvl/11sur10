@@ -50,8 +50,17 @@ function analyzePrediction(prediction, match) {
 
 router.get('/', async (req, res) => {
   try {
-    const predictions = await Prediction.find().lean();
-    const matches = await Match.find({ status: 'FINISHED' }).lean();
+const predictions = await Prediction.find()
+  .sort({ createdAt: -1 }) // le plus récent en premier
+  .lean();
+  const uniquePredictions = {};
+predictions.forEach(p => {
+  const key = `${p.userId}_${p.matchId}`;
+  if (!uniquePredictions[key]) {
+    uniquePredictions[key] = p;
+  }
+});
+      const matches = await Match.find({ status: 'FINISHED' }).lean();
 
     // Map fixtureId → match
     const matchMap = {};
@@ -61,8 +70,8 @@ router.get('/', async (req, res) => {
 
     const leaderboard = {};
 
-    predictions.forEach(p => {
-      const match = matchMap[p.matchId];
+Object.values(uniquePredictions).forEach(p => {
+          const match = matchMap[p.matchId];
       const r = analyzePrediction(p, match);
 
       if (!leaderboard[p.userId]) {
