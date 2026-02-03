@@ -1,14 +1,59 @@
 const express = require('express');
 const router = express.Router();
+
 const Prediction = require('../models/Prediction');
 const Match = require('../models/Match');
-const User = require('../models/user');
+const User = require('../models/User');
+
+/**
+ * Règles :
+ * - Score exact → 3 pts
+ * - Bon écart → 2 pts
+ * - Bon résultat → 1 pt
+ * - UN SEUL cas par match
+ */
+function analyzePrediction(prediction, match) {
+  if (!match || match.status !== 'FINISHED') {
+    return { points: 0, exact: 0, diff: 0, result: 0 };
+  }
+
+  const ph = prediction.predictedHome;
+  const pa = prediction.predictedAway;
+  const rh = match.score.home;
+  const ra = match.score.away;
+
+  // 1️⃣ SCORE EXACT
+  if (ph === rh && pa === ra) {
+    return { points: 3, exact: 1, diff: 0, result: 0 };
+  }
+
+  const pronoDiff = ph - pa;
+  const realDiff = rh - ra;
+
+  // 2️⃣ BON ÉCART
+  if (pronoDiff === realDiff) {
+    return { points: 2, exact: 0, diff: 1, result: 0 };
+  }
+
+  // 3️⃣ BON RÉSULTAT
+  const pronoWinner =
+    pronoDiff > 0 ? 'HOME' : pronoDiff < 0 ? 'AWAY' : 'DRAW';
+  const realWinner =
+    realDiff > 0 ? 'HOME' : realDiff < 0 ? 'AWAY' : 'DRAW';
+
+  if (pronoWinner === realWinner) {
+    return { points: 1, exact: 0, diff: 0, result: 1 };
+  }
+
+  return { points: 0, exact: 0, diff: 0, result: 0 };
+}
 
 router.get('/', async (req, res) => {
   try {
     const predictions = await Prediction.find().lean();
     const matches = await Match.find({ status: 'FINISHED' }).lean();
 
+    // Map fixtureId → match
     const matchMap = {};
     matches.forEach(m => {
       matchMap[m.fixtureId] = m;
@@ -18,7 +63,7 @@ router.get('/', async (req, res) => {
 
     predictions.forEach(p => {
       const match = matchMap[p.matchId];
-      if (!match) return;
+      const r = analyzePrediction(p, match);
 
       if (!leaderboard[p.userId]) {
         leaderboard[p.userId] = {
@@ -29,71 +74,33 @@ router.get('/', async (req, res) => {
         };
       }
 
-      const predictedHome = p.predictedHome;
-      const predictedAway = p.predictedAway;
-      const realHome = match.score.home;
-      const realAway = match.score.away;
-
-      // ✅ EXACT SCORE
-      if (predictedHome === realHome && predictedAway === realAway) {
-        leaderboard[p.userId].points += 3;
-        leaderboard[p.userId].exactScores += 1;
-        return;
-      }
-
-      const pronoDiff = predictedHome - predictedAway;
-      const realDiff = realHome - realAway;
-
-      // ⚖️ BON ÉCART (mais pas exact)
-      if (pronoDiff === realDiff) {
-        leaderboard[p.userId].points += 2;
-        leaderboard[p.userId].goodDiffs += 1;
-        return;
-      }
-
-      // 🏆 BON RÉSULTAT (gagnant ou nul)
-      const goodResult =
-        (pronoDiff > 0 && realDiff > 0) ||
-        (pronoDiff < 0 && realDiff < 0) ||
-        (pronoDiff === 0 && realDiff === 0);
-
-      if (goodResult) {
-        leaderboard[p.userId].points += 1;
-        leaderboard[p.userId].goodResults += 1;
-      }
+      leaderboard[p.userId].points += r.points;
+      leaderboard[p.userId].exactScores += r.exact;
+      leaderboard[p.userId].goodDiffs += r.diff;
+      leaderboard[p.userId].goodResults += r.result;
     });
 
-    const userIds = Object.keys(leaderboard);
-
     const users = await User.find(
-      { _id: { $in: userIds } },
+      { _id: { $in: Object.keys(leaderboard) } },
       { username: 1, avatar: 1 }
     ).lean();
 
     const userMap = {};
-    users.forEach(u => {
-      userMap[u._id] = {
-        username: u.username,
-        avatar: u.avatar || '/uploads/avatars/default-avatar.png',
-      };
-    });
+    users.forEach(u => (userMap[u._id] = u));
 
-    const result = userIds
-      .map(userId => ({
+    const result = Object.entries(leaderboard)
+      .map(([userId, stats]) => ({
         userId,
         username: userMap[userId]?.username || 'Utilisateur',
-        avatar: userMap[userId]?.avatar,
-        points: leaderboard[userId].points,
-        exactScores: leaderboard[userId].exactScores,
-        goodDiffs: leaderboard[userId].goodDiffs,
-        goodResults: leaderboard[userId].goodResults,
+        avatar: userMap[userId]?.avatar || '/uploads/avatars/default-avatar.png',
+        ...stats,
       }))
       .sort((a, b) => b.points - a.points);
 
     res.json(result);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Erreur serveur' });
+    res.status(500).json({ error: 'Erreur leaderboard' });
   }
 });
 
