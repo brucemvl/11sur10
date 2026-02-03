@@ -3,7 +3,7 @@ const router = express.Router();
 
 const Prediction = require('../models/Prediction');
 const Match = require('../models/Match');
-const User = require('../models/User');
+const User = require('../models/user');
 
 /**
  * Règles :
