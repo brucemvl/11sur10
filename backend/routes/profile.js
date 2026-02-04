@@ -13,7 +13,9 @@ const upload = process.env.NODE_ENV === 'production' ? cloudUpload : localUpload
 
 // 🔹 Fonction de calcul des points
 function analyzePrediction(prediction, match) {
-  if (!match || match.status !== 'FINISHED') return { points: 0, exact: 0, diff: 0, result: 0 };
+  if (!match || match.status !== 'FINISHED') {
+    return { points: 0, exact: 0, diff: 0, result: 0 };
+  }
 
   const ph = prediction.predictedHome;
   const pa = prediction.predictedAway;
@@ -21,19 +23,24 @@ function analyzePrediction(prediction, match) {
   const ra = match.score.away;
 
   // 1️⃣ Score exact
-  if (ph === rh && pa === ra) return { points: 3, exact: 1, diff: 0, result: 0 };
+  if (ph === rh && pa === ra) {
+    return { points: 3, exact: 1, diff: 0, result: 0 };
+  }
 
+  // Calcul du vainqueur
   const pronoDiff = ph - pa;
   const realDiff = rh - ra;
 
-  // 2️⃣ Bon écart (même différence + au moins un score correct)
-  if (pronoDiff === realDiff && (ph === rh || pa === ra)) return { points: 2, exact: 0, diff: 1, result: 0 };
-
-  // 3️⃣ Bon résultat (1N2)
   const pronoWinner = pronoDiff > 0 ? 'HOME' : pronoDiff < 0 ? 'AWAY' : 'DRAW';
   const realWinner = realDiff > 0 ? 'HOME' : realDiff < 0 ? 'AWAY' : 'DRAW';
-  if (pronoWinner === realWinner) return { points: 1, exact: 0, diff: 0, result: 1 };
 
+  // 2️⃣ Bon écart = même vainqueur mais pas score exact
+  if (pronoWinner === realWinner) {
+    return { points: 2, exact: 0, diff: 1, result: 0 };
+  }
+
+  // 3️⃣ Bon résultat (vainqueur correct)
+  // Ici c'est couvert par 2️⃣, donc aucun autre cas
   return { points: 0, exact: 0, diff: 0, result: 0 };
 }
 
