@@ -1,37 +1,29 @@
 const mongoose = require('mongoose');
 
-const PredictionSchema = new mongoose.Schema(
+const predictionSchema = new mongoose.Schema(
   {
     userId: {
-      type: mongoose.Schema.Types.ObjectId, // ✅ ICI
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true,
     },
-
     matchId: {
-      type: Number,
+      type: Number, // fixtureId
       required: true,
     },
-
     predictedHome: {
       type: Number,
       required: true,
     },
-
     predictedAway: {
       type: Number,
       required: true,
-    },
-
-    points: {
-      type: Number,
-      default: 0,
     },
   },
   { timestamps: true }
 );
 
-// ❗ Empêche plusieurs pronos pour le même match / utilisateur
-PredictionSchema.index({ userId: 1, matchId: 1 }, { unique: true });
+// 🔒 1 seul pronostic par user et par match
+predictionSchema.index({ userId: 1, matchId: 1 }, { unique: true });
 
-module.exports = mongoose.model('Prediction', PredictionSchema);
+module.exports = mongoose.model('Prediction', predictionSchema);

@@ -81,8 +81,8 @@ console.log(leaders)
       />
       <Text style={styles.rowUsername}>{item.username}</Text>
       <Text style={styles.statsSmall}>
-    🎯 {item.exactCount || 0} · 📏 {item.goalDiffCount || 0} · ✅ {item.resultCount || 0}
-  </Text>
+  🎯 {item.exactScores} · 📏 {item.goodDiffs} · ✅ {item.goodResults}
+</Text>
       <Text style={styles.rowPoints}>{item.points} pts</Text>
     </View>
   )}

@@ -10,30 +10,30 @@ module.exports = function calculatePoints(realScore, predictedScore) {
     Number.isNaN(predictedHome) ||
     Number.isNaN(predictedAway)
   ) {
-    return 0;
+    return { points: 0, type: null };
   }
 
   // 🎯 Score exact
   if (realHome === predictedHome && realAway === predictedAway) {
-    return 3;
+    return { points: 3, type: "exact" };
   }
 
   const realDiff = realHome - realAway;
   const predictedDiff = predictedHome - predictedAway;
 
-  // 🎯 Bon écart (différence exacte)
+  // 🎯 Bon écart
   if (realDiff === predictedDiff) {
-    return 2;
+    return { points: 2, type: "diff" };
   }
 
-  // ✅ Bon résultat (1N2)
+  // ✅ Bon résultat
   if (
     (realDiff > 0 && predictedDiff > 0) ||
     (realDiff < 0 && predictedDiff < 0) ||
     (realDiff === 0 && predictedDiff === 0)
   ) {
-    return 1;
+    return { points: 1, type: "result" };
   }
 
-  return 0;
+  return { points: 0, type: null };
 };

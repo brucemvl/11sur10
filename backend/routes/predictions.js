@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Prediction = require('../models/Prediction');
-const Match = require('../models/Match'); // on a besoin de la date du match
+const Match = require('../models/Match');
 const auth = require('../middleware/auth');
 
 // 🔹 Créer ou modifier un pronostic
@@ -9,43 +9,50 @@ router.post('/', auth, async (req, res) => {
   const userId = req.userId;
   const { matchId, predictedHome, predictedAway } = req.body;
 
-  if (!matchId || predictedHome == null || predictedAway == null) {
+  if (
+    matchId == null ||
+    predictedHome == null ||
+    predictedAway == null
+  ) {
     return res.status(400).json({ error: 'Données manquantes' });
   }
 
   try {
-    // 🔹 Récupérer la date du match
     const match = await Match.findOne({ fixtureId: matchId });
-    if (!match) return res.status(404).json({ error: 'Match introuvable' });
+    if (!match) {
+      return res.status(404).json({ error: 'Match introuvable' });
+    }
 
     const now = new Date();
     const matchDate = new Date(match.kickoff);
 
-    // 🔒 Bloquer si le match a commencé
+    // 🔒 Match déjà commencé
     if (now >= matchDate) {
       return res.status(403).json({
         error: 'Match déjà commencé — pronostic verrouillé',
       });
     }
 
-    // 🔹 Créer ou modifier le pronostic
     const prediction = await Prediction.findOneAndUpdate(
       { userId, matchId },
-      { predictedHome, predictedAway },
-      { upsert: true, new: true, setDefaultsOnInsert: true }
+      {
+        predictedHome: Number(predictedHome),
+        predictedAway: Number(predictedAway),
+      },
+      { upsert: true, new: true }
     );
 
-    res.status(200).json({ success: true, prediction });
+    res.json({ success: true, prediction });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Erreur serveur', details: err.message });
+    res.status(500).json({ error: 'Erreur serveur' });
   }
 });
 
 // 🔹 Récupérer MES pronostics
 router.get('/me', auth, async (req, res) => {
   try {
-    const predictions = await Prediction.find({ userId: req.userId });
+    const predictions = await Prediction.find({ userId: req.userId }).lean();
     res.json(predictions);
   } catch (err) {
     console.error(err);
