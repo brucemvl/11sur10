@@ -26,21 +26,15 @@ function analyzePrediction(prediction, match) {
   const realDiff = rh - ra;
 
   // 1️⃣ Score exact
-  if (ph === rh && pa === ra) {
-    return { points: 3, exact: 1, diff: 0, result: 0 };
-  }
+  if (ph === rh && pa === ra) return { points: 3, exact: 1, diff: 0, result: 0 };
 
-  // 2️⃣ Bon résultat (1N2)
+  // 2️⃣ Bon écart (même différence)
+  if (pronoDiff === realDiff) return { points: 2, exact: 0, diff: 1, result: 0 };
+
+  // 3️⃣ Bon résultat (1N2)
   const pronoWinner = pronoDiff > 0 ? 'HOME' : pronoDiff < 0 ? 'AWAY' : 'DRAW';
   const realWinner = realDiff > 0 ? 'HOME' : realDiff < 0 ? 'AWAY' : 'DRAW';
-  if (pronoWinner === realWinner) {
-    return { points: 1, exact: 0, diff: 0, result: 1 };
-  }
-
-  // 3️⃣ Bon écart seulement si ce n’est ni exact ni bon résultat
-  if (pronoDiff === realDiff) {
-    return { points: 2, exact: 0, diff: 1, result: 0 };
-  }
+  if (pronoWinner === realWinner) return { points: 1, exact: 0, diff: 0, result: 1 };
 
   return { points: 0, exact: 0, diff: 0, result: 0 };
 }
