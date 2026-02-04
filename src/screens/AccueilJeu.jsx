@@ -117,11 +117,6 @@ export default function AccueilJeu() {
 
         <Text style={styles.points}>{user.points} pts</Text>
 
-        <View style={styles.statsContainer}>
-          <Text style={styles.statText}>✅ Exact Scores: {user.exactScores}</Text>
-          <Text style={styles.statText}>⚡ Bon Écart: {user.goodDiffs}</Text>
-          <Text style={styles.statText}>🎯 Bon Résultat: {user.goodResults}</Text>
-        </View>
 
         <TouchableOpacity
           style={styles.buttonPrimary}

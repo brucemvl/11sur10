@@ -7,42 +7,12 @@ const Match = require('../models/Match');
 const auth = require('../middleware/auth');
 const localUpload = require('../middleware/uploadAvatar');
 const { upload: cloudUpload } = require('../middleware/cloudinary');
+const analyzePrediction = require("../routes/leaderBoard")
 
 // 🔹 Choisir le storage selon l'environnement
 const upload = process.env.NODE_ENV === 'production' ? cloudUpload : localUpload;
 
-// 🔹 Fonction de calcul des points
-function analyzePrediction(prediction, match) {
-  if (!match || match.status !== 'FINISHED') {
-    return { points: 0, exact: 0, diff: 0, result: 0 };
-  }
 
-  const ph = prediction.predictedHome;
-  const pa = prediction.predictedAway;
-  const rh = match.score.home;
-  const ra = match.score.away;
-
-  // 1️⃣ Score exact
-  if (ph === rh && pa === ra) {
-    return { points: 3, exact: 1, diff: 0, result: 0 };
-  }
-
-  // Calcul du vainqueur
-  const pronoDiff = ph - pa;
-  const realDiff = rh - ra;
-
-  const pronoWinner = pronoDiff > 0 ? 'HOME' : pronoDiff < 0 ? 'AWAY' : 'DRAW';
-  const realWinner = realDiff > 0 ? 'HOME' : realDiff < 0 ? 'AWAY' : 'DRAW';
-
-  // 2️⃣ Bon écart = même vainqueur mais pas score exact
-  if (pronoWinner === realWinner) {
-    return { points: 2, exact: 0, diff: 1, result: 0 };
-  }
-
-  // 3️⃣ Bon résultat (vainqueur correct)
-  // Ici c'est couvert par 2️⃣, donc aucun autre cas
-  return { points: 0, exact: 0, diff: 0, result: 0 };
-}
 
 // 🔤 Modifier username
 router.put('/username', auth, async (req, res) => {
