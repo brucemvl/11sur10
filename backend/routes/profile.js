@@ -110,7 +110,10 @@ router.get('/me', auth, async (req, res) => {
   try {
     const user = await User.findById(req.userId).lean();
     const predictions = await Prediction.find({ userId: req.userId }).lean();
-    const matches = await Match.find({ status: 'FINISHED' }).lean();
+const matches = await Match.find({
+  fixtureId: { $in: predictions.map(p => p.matchId) },
+  status: 'FINISHED'
+}).lean();
 
     const matchMap = {};
     matches.forEach(m => (matchMap[m.fixtureId] = m));
@@ -133,7 +136,7 @@ router.get('/me', auth, async (req, res) => {
 
     console.log('Calcul profil:', { points, exactScores, goodDiffs, goodResults });
     console.log('Pronos:', predictions.map(p => p.matchId));
-console.log('Matches FINISHED:', matches.map(m => m.fixtureId));
+console.log('Matches FINISHED:', matches.map(m => m.fixtureId));r
 
     res.json({
       username: user.username,
