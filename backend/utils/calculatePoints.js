@@ -1,12 +1,14 @@
 module.exports = function calculatePoints(realScore, predictedScore) {
-  const { home: realHome, away: realAway } = realScore;
-  const { home: predictedHome, away: predictedAway } = predictedScore;
+  const realHome = Number(realScore?.home);
+  const realAway = Number(realScore?.away);
+  const predictedHome = Number(predictedScore?.home);
+  const predictedAway = Number(predictedScore?.away);
 
   if (
-    realHome === null ||
-    realAway === null ||
-    predictedHome === null ||
-    predictedAway === null
+    Number.isNaN(realHome) ||
+    Number.isNaN(realAway) ||
+    Number.isNaN(predictedHome) ||
+    Number.isNaN(predictedAway)
   ) {
     return 0;
   }
@@ -16,10 +18,15 @@ module.exports = function calculatePoints(realScore, predictedScore) {
     return 3;
   }
 
-  // ✅ Bon résultat (1N2)
   const realDiff = realHome - realAway;
   const predictedDiff = predictedHome - predictedAway;
 
+  // 🎯 Bon écart (différence exacte)
+  if (realDiff === predictedDiff) {
+    return 2;
+  }
+
+  // ✅ Bon résultat (1N2)
   if (
     (realDiff > 0 && predictedDiff > 0) ||
     (realDiff < 0 && predictedDiff < 0) ||
