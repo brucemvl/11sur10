@@ -132,6 +132,8 @@ router.get('/me', auth, async (req, res) => {
     });
 
     console.log('Calcul profil:', { points, exactScores, goodDiffs, goodResults });
+    console.log('Pronos:', predictions.map(p => p.matchId));
+console.log('Matches FINISHED:', matches.map(m => m.fixtureId));
 
     res.json({
       username: user.username,
