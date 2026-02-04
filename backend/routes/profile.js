@@ -7,7 +7,7 @@ const Match = require('../models/Match');
 const auth = require('../middleware/auth');
 const localUpload = require('../middleware/uploadAvatar');
 const { upload: cloudUpload } = require('../middleware/cloudinary');
-const analyzePrediction = require("../routes/leaderBoard")
+const analyzePrediction = require("../routes/leaderboard")
 
 // 🔹 Choisir le storage selon l'environnement
 const upload = process.env.NODE_ENV === 'production' ? cloudUpload : localUpload;
