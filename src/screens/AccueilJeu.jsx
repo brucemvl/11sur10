@@ -110,8 +110,11 @@ export default function AccueilJeu() {
         <Text style={styles.welcome}>Bienvenue dans le jeu</Text>
         <Text style={styles.username}>{user.username}</Text>
 
-        <Image source={getAvatarSource(user.avatar)} style={styles.topAvatar} />
-
+<Image
+          source={getAvatarSource(user.avatar)}
+          style={styles.topAvatar}
+          defaultSource={require('../../backend/uploads/avatars/default-avatar.png')} // iOS fallback
+        />
         <Text style={styles.points}>{user.points} pts</Text>
 
 

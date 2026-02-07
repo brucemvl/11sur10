@@ -166,14 +166,25 @@ console.log('Matches FINISHED:', matches.map(m => m.fixtureId));
 
     res.json({
       username: user.username,
-      avatar: user.avatar
-        ? user.avatar
-        : 'https://one1sur10.onrender.com/uploads/avatars/default-avatar.jpg',
-      points,
-      exactScores,
-      goodDiffs,
-      goodResults
-    });
+      avatar: (() => {
+    if (!user.avatar) {
+      // Fallback si pas d’avatar
+      return 'https://one1sur10.onrender.com/uploads/avatars/default-avatar.jpg';
+    }
+
+    // Production → Cloudinary (URL complète)
+    if (process.env.NODE_ENV === 'production') {
+      return user.avatar;
+    }
+
+    // Local → chemin relatif
+    return `https://one1sur10.onrender.com${user.avatar}`;
+  })(),
+  points,
+  exactScores,
+  goodDiffs,
+  goodResults
+});
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Erreur serveur' });
