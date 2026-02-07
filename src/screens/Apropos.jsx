@@ -38,9 +38,7 @@ function Apropos() {
 
     return (
         <View style={{ flexDirection: "column", height: screenHeight, gap: 15,alignItems: "center" }}>
-            <TouchableOpacity style={{position: "absolute", left: 340}} onPress={handleStartGame}>
-                <Image source={laposte} style={{height: 40, width: 40, resizeMode: "contain"}}  />
-            </TouchableOpacity>
+            
             <View style={[styles.bloc, isMediumScreen && {width: "86%", gap: 20}]}>
                 <Text style={[styles.titre, isMediumScreen && {fontSize: 30}]}>Bienvenue sur 11/10 !</Text>
                 <Text style={[styles.text, isMediumScreen && {fontSize: 18}]}>Vous pourrez retrouver ici toutes les infos concernant le ballon rond. Les resultats des matchs de la veille? Le classement de votre équipe favorite? Les statistiques des joueurs ou simplement la date du prochain choc? Toutes ces infos sont disponibles sur 11/10.</Text>    
@@ -51,6 +49,9 @@ function Apropos() {
                 </TouchableOpacity>
                 <Text style={[[styles.text, isMediumScreen && {fontSize: 18}], { paddingInline: 40 }]}> Positive ou negative, toute critique est bonne à prendre! </Text>
                 <Text style={[styles.text, isMediumScreen && {fontSize: 18}]}>Bonne visite à Tous!</Text>
+                <TouchableOpacity style={{position: "relative", left: 150, bottom: 40}} onPress={handleStartGame}>
+                <Image source={laposte} style={{height: 40, width: 40, resizeMode: "contain"}}  />
+            </TouchableOpacity>
             </View>
             <View style={styles.footer}>
                         <View style={{paddingInline: 5, alignItems: "center",  flexDirection: "row", width: "100%", justifyContent: "space-between"}}>

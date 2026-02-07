@@ -99,6 +99,33 @@ router.post('/avatar', auth, async (req, res) => {
   }
 });
 
+router.delete('/avatar', auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    if (!user.avatar) {
+      return res.status(400).json({ error: 'Aucun avatar à supprimer' });
+    }
+
+    // 🔥 supprimer le fichier du disque
+    const fs = require('fs');
+    const path = require('path');
+
+    const avatarPath = path.join(__dirname, '..', user.avatar);
+    if (fs.existsSync(avatarPath)) {
+      fs.unlinkSync(avatarPath);
+    }
+
+    // ↩️ reset avatar
+    user.avatar = null;
+    await user.save();
+
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: 'Erreur suppression avatar' });
+  }
+});
+
 // 🔹 GET profil actuel
 router.get('/me', auth, async (req, res) => {
   try {

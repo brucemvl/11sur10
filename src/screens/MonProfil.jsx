@@ -140,6 +140,42 @@ const data = await response.json(); // maintenant ça devrait marcher
   }
 };
 
+const removeAvatar = async () => {
+  Alert.alert(
+    'Supprimer l’avatar',
+    'Revenir à l’avatar par défaut ?',
+    [
+      { text: 'Annuler', style: 'cancel' },
+      {
+        text: 'Supprimer',
+        style: 'destructive',
+        onPress: async () => {
+          try {
+            const token = await AsyncStorage.getItem('jwtToken');
+
+            await axios.delete(
+              'https://one1sur10.onrender.com/api/profile/avatar',
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
+
+            // reset local
+            await AsyncStorage.removeItem('avatar');
+            setAvatar(null);
+
+            Alert.alert('✅ Succès', 'Avatar supprimé');
+          } catch (err) {
+            Alert.alert('Erreur', 'Impossible de supprimer l’avatar');
+          }
+        },
+      },
+    ]
+  );
+};
+
   return (
     <View  style={styles.container}>
         <Precedent />
@@ -202,6 +238,12 @@ const data = await response.json(); // maintenant ça devrait marcher
     <Text style={{fontFamily: "Kanitus"}}>📷 Choisir une photo</Text>
   )}
 </TouchableOpacity>
+  <TouchableOpacity
+    style={styles.deleteAvatar}
+    onPress={removeAvatar}
+  >
+    <Text style={styles.deleteText}>Supprimer la photo</Text>
+  </TouchableOpacity>
 </View>
 </ScrollView>
     </View>
@@ -260,5 +302,16 @@ marginBlock: 8
   width: 100,
   height: 100,
   borderRadius: 50,
+},
+deleteAvatar: {
+  marginTop: 10,
+  backgroundColor: '#d92a2a',
+  padding: 10,
+  borderRadius: 10,
+  alignItems: 'center',
+},
+deleteText: {
+  color: '#ffffff',
+  fontFamily: 'Kanito',
 },
 });

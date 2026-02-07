@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, ActivityIndicator, StyleSheet, Image } from 'react-native';
 import axios from 'axios';
 import Precedent from './Precedent';
+import getAvatarSource from '../../backend/utils/getAvatarSource';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Leaderboard() {
   const [loading, setLoading] = useState(true);
@@ -27,17 +29,6 @@ export default function Leaderboard() {
 
   const top3 = leaders.slice(0, 3);
 
-  const getAvatarUrl = (avatar) => {
-  if (!avatar) {
-    return 'https://one1sur10.onrender.com/uploads/avatars/default-avatar.jpg';
-  }
-
-  // Si c’est déjà une URL (Cloudinary)
-  if (avatar.startsWith('http')) return avatar;
-
-  // Sinon c’est un chemin local
-  return `https://one1sur10.onrender.com${avatar}`;
-};
 
 console.log(leaders)
 
@@ -51,18 +42,14 @@ console.log(leaders)
   {top3.map((user, index) => (
     <View key={user.userId} style={[styles.card, styles[`rank${index + 1}`]]}>
       <Image
-  source={{ uri: getAvatarUrl(user.avatar) }}
+  source={getAvatarSource(user.avatar)}
   style={styles.topAvatar}
 />
       <Text style={styles.medal}>
         {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'}
       </Text>
       <Text style={styles.username}>{user.username}</Text>  {/* ✅ ici */}
-      <View style={styles.statsContainer}>
-  <Text style={styles.stat}>✅ {user.exactScores}</Text>
-  <Text style={styles.stat}>⚖️ {user.goodDiffs}</Text>
-  <Text style={styles.stat}>🏆 {user.goodResults}</Text>
-</View>   {/* ✅ ici */}
+      
     </View>
   ))}
 </View>
@@ -71,45 +58,55 @@ console.log(leaders)
       <FlatList
   data={leaders}
   keyExtractor={(item) => item._id || item.userId}
-  contentContainerStyle={{alignItems: "center"}}
+  contentContainerStyle={{alignItems: "center", width: "105%"}}
   renderItem={({ item, index }) => (
-    <View style={styles.row}>
+    <LinearGradient colors={[ "#fff", "#00000014"]}  style={styles.row}>
       <Text style={styles.rank}>{index + 1}.</Text>
       <Image
-        source={{ uri: getAvatarUrl(item.avatar) }}
+        source={getAvatarSource(item.avatar)}
         style={styles.rowAvatar}
       />
       <Text style={styles.rowUsername}>{item.username}</Text>
-      <Text style={styles.statsSmall}>
-  🎯 {item.exactScores} · 📏 {item.goodDiffs} · ✅ {item.goodResults}
-</Text>
+      
       <Text style={styles.rowPoints}>{item.points} pts</Text>
-    </View>
+      <Text style={styles.statsSmall}>
+  🎯 {item.exactScores} · ⚖️ {item.goodDiffs} · ✅ {item.goodResults}
+</Text>
+    </LinearGradient>
   )}
 />
+
+<View style={styles.regles}>
+    <Text style={styles.reglesText}>🎯- Score exact: +3 points</Text>
+    <Text style={styles.reglesText}>⚖️- Bonne difference de buts: +2 points</Text>
+    <Text style={styles.reglesText}>✅- Bon resultat 1N2: +1 point</Text>
+</View>
     </View>
   );
 }
 
   const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f3f4f6', padding: 20, alignItems: "center" },
+  container: { flex: 1, backgroundColor: '#f3f4f6', padding: 15, alignItems: "center" },
   title: { fontSize: 24, fontFamily: "Kanitt", marginBlock: 30, color: "black" },
 
   // Top 3
   top3Container: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 30 },
-  card: { flex: 1, marginHorizontal: 5, padding: 10, borderRadius: 16, alignItems: 'center' },
+  card: { flex: 1, marginHorizontal: 5, padding: 10, borderRadius: 15, alignItems: 'center', shadowColor: "#000", shadowOffset: {width: 0, height: 5}, shadowRadius: 4, shadowOpacity: 0.8, elevation: 4 },
   rank1: { backgroundColor: '#facc15' }, // or
   rank2: { backgroundColor: '#e5e7eb' },
   rank3: { backgroundColor: '#a74600' },
   medal: { fontSize: 30, marginBottom: 6 },
   username: { fontSize: 16, fontFamily: 'Bangers', paddingInline: 3 },
   points: { marginTop: 4, fontFamily: 'Kanito' },
-  topAvatar: { width: 60, height: 70, borderRadius: 10, marginBottom: 4 },
+  topAvatar: { width: 70, height: 70, borderRadius: 15, marginBottom: 4 },
 
   // Reste du classement
-  row: { flexDirection: 'row', paddingVertical: 2, borderBottomWidth: 1, borderColor: '#d2d2d2', alignItems: 'center', width: "90%" },
-  rank: { width: "8%", fontFamily: "Kanitt" },
-  rowAvatar: { width: 35, height: 35, borderRadius: 20, marginRight: 10, resizeMode: "contain" },
-  rowUsername: { color: "black", fontFamily: "Kanitt", width: "60%" },
-  rowPoints: { fontFamily: "Kanitt" },
+  row: { flexDirection: 'row', paddingBlock: 5, paddingInline: 10, borderBottomWidth: 1, borderColor: '#d2d2d2', alignItems: 'center', width: "100%" },
+  rank: { width: "4%", fontFamily: "Kanitt" },
+  rowAvatar: { width: 32, height: 32, borderRadius: 20, marginRight: 10 },
+  rowUsername: { color: "black", fontFamily: "Kanitt", width: "40%" },
+  rowPoints: { fontFamily: "Kanitt", width: "15%" },
+  statsSmall: { fontSize: 10, fontFamily: "Kanitus"},
+  regles: {flex: 1, alignItems: "center"},
+  reglesText: {color: "black", fontFamily: "Kanito"}
 })

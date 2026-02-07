@@ -12,6 +12,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
+import getAvatarSource from '../../backend/utils/getAvatarSource';
 
 export default function AccueilJeu() {
   const [user, setUser] = useState(null);
@@ -109,11 +110,7 @@ export default function AccueilJeu() {
         <Text style={styles.welcome}>Bienvenue dans le jeu</Text>
         <Text style={styles.username}>{user.username}</Text>
 
-        <Image
-          source={{ uri: user.avatar }}
-          style={styles.topAvatar}
-          onError={(e) => console.log('❌ Image error', e.nativeEvent)}
-        />
+        <Image source={getAvatarSource(user.avatar)} style={styles.topAvatar} />
 
         <Text style={styles.points}>{user.points} pts</Text>
 

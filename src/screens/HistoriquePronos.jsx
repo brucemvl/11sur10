@@ -25,6 +25,33 @@ export default function HistoriquePronos() {
   LIVE: 'En cours',
 };
 
+function analyzePrediction(prediction, match) {
+  if (!match || match.status !== 'FINISHED') {
+    return { points: 0, exact: 0, diff: 0, result: 0 };
+  }
+
+  const ph = prediction.predictedHome;
+  const pa = prediction.predictedAway;
+  const rh = match.score.home;
+  const ra = match.score.away;
+
+  const pronoDiff = ph - pa;
+  const realDiff = rh - ra;
+
+  // 1️⃣ Score exact
+  if (ph === rh && pa === ra) return { points: 3, exact: 1, diff: 0, result: 0 };
+
+  // 2️⃣ Bon écart
+  if (pronoDiff === realDiff) return { points: 2, exact: 0, diff: 1, result: 0 };
+
+  // 3️⃣ Bon résultat (1N2)
+  const pronoWinner = pronoDiff > 0 ? 'HOME' : pronoDiff < 0 ? 'AWAY' : 'DRAW';
+  const realWinner = realDiff > 0 ? 'HOME' : realDiff < 0 ? 'AWAY' : 'DRAW';
+  if (pronoWinner === realWinner) return { points: 1, exact: 0, diff: 0, result: 1 };
+
+  return { points: 0, exact: 0, diff: 0, result: 0 };
+}
+
   const fetchHistory = async () => {
     try {
       const token = await AsyncStorage.getItem('jwtToken');
@@ -51,29 +78,30 @@ export default function HistoriquePronos() {
 
       // 3️⃣ Créer l'historique avec points calculés
       const hist = predictions
-        .map((p) => {
-          const match = matchMap[p.matchId];
-          if (!match) return null;
+  .map((p) => {
+    const match = matchMap[p.matchId];
+    if (!match) return null;
 
-          console.log(match)
-          return {
-  matchId: p.matchId,
-  homeTeam: match.homeTeam,
-  awayTeam: match.awayTeam,
-  homeLogo: match.homeLogo,
-  awayLogo: match.awayLogo,
-  predictedHome: p.predictedHome,
-  predictedAway: p.predictedAway,
-  realHome: match.score.home,
-  realAway: match.score.away,
-  points: p.points || 0,
-  status: match.status,
-  kickoff: match.kickoff, // 🔥 OBLIGATOIRE
-};
+    // 🔥 Calculer les points ici
+    const r = analyzePrediction(p, match);
 
-        })
-        .filter(Boolean) // enlever les nulls
-        .sort((a, b) => new Date(b.kickoff) - new Date(a.kickoff)); // recent d'abord
+    return {
+      matchId: p.matchId,
+      homeTeam: match.homeTeam,
+      awayTeam: match.awayTeam,
+      homeLogo: match.homeLogo,
+      awayLogo: match.awayLogo,
+      predictedHome: p.predictedHome,
+      predictedAway: p.predictedAway,
+      realHome: match.score.home,
+      realAway: match.score.away,
+      points: r.points, // <-- recalculé ici
+      status: match.status,
+      kickoff: match.kickoff,
+    };
+  })
+  .filter(Boolean)
+  .sort((a, b) => new Date(b.kickoff) - new Date(a.kickoff));
 
       setHistory(hist);
       
@@ -146,14 +174,15 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: '#fff',
-    padding: 10,
+    padding: 8,
     borderRadius: 12,
     marginBottom: 15,
+    borderWidth: 1
   },
   matchRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     gap: 4,
     marginBottom: 8,
   },
@@ -170,7 +199,6 @@ fontFamily: "Bella",
     
   },
   score: {
-    fontWeight: 'bold',
     color: '#2563eb',
     width: "12%",
     fontFamily: "Kanito",
