@@ -101,7 +101,8 @@ router.post('/avatar', auth, async (req, res) => {
 
 router.delete('/avatar', auth, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id);
+
+    const user = await User.findById(req.userId);
 
     if (!user.avatar) {
       return res.status(400).json({ error: 'Aucun avatar à supprimer' });
@@ -111,7 +112,11 @@ router.delete('/avatar', auth, async (req, res) => {
     const fs = require('fs');
     const path = require('path');
 
-    const avatarPath = path.join(__dirname, '..', user.avatar);
+const avatarPath = path.join(
+  __dirname,
+  '..',
+  user.avatar.replace(/^\/+/, '')
+);
     if (fs.existsSync(avatarPath)) {
       fs.unlinkSync(avatarPath);
     }
