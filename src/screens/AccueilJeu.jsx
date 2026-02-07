@@ -12,7 +12,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
-import getAvatarSource from '../../backend/utils/getAvatarSource';
+import getAvatarSource from '../utils/getAvatarSource';
 
 export default function AccueilJeu() {
   const [user, setUser] = useState(null);
