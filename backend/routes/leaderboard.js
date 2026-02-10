@@ -37,6 +37,23 @@ function analyzePrediction(prediction, match) {
 // 🔹 Route leaderboard
 router.get('/', async (req, res) => {
   try {
+    // 🔹 Tous les users
+    const users = await User.find({}, { username: 1, avatar: 1 }).lean();
+
+    // 🔹 Init leaderboard avec TOUS les users à 0
+    const leaderboard = {};
+    users.forEach(u => {
+      leaderboard[u._id] = {
+        userId: u._id,
+        username: u.username,
+        avatar: u.avatar || '/uploads/avatars/default-avatar.png',
+        points: 0,
+        exactScores: 0,
+        goodDiffs: 0,
+        goodResults: 0
+      };
+    });
+
     // 🔹 Tous les pronostics
     const predictions = await Prediction.find().lean();
 
@@ -45,39 +62,25 @@ router.get('/', async (req, res) => {
     const matchMap = {};
     matches.forEach(m => (matchMap[m.fixtureId] = m));
 
-    // 🔹 Calcul des stats par utilisateur
-    const leaderboard = {};
-
+    // 🔹 Calcul des points
     predictions.forEach(p => {
       const match = matchMap[p.matchId];
       if (!match) return;
 
       const r = analyzePrediction(p, match);
+      const user = leaderboard[p.userId];
+      if (!user) return;
 
-      if (!leaderboard[p.userId]) {
-        leaderboard[p.userId] = { points: 0, exactScores: 0, goodDiffs: 0, goodResults: 0 };
-      }
-
-      leaderboard[p.userId].points += r.points;
-      leaderboard[p.userId].exactScores += r.exact;
-      leaderboard[p.userId].goodDiffs += r.diff;
-      leaderboard[p.userId].goodResults += r.result;
+      user.points += r.points;
+      user.exactScores += r.exact;
+      user.goodDiffs += r.diff;
+      user.goodResults += r.result;
     });
 
-    // 🔹 Infos utilisateurs
-    const users = await User.find({ _id: { $in: Object.keys(leaderboard) } }, { username: 1, avatar: 1 }).lean();
-    const userMap = {};
-    users.forEach(u => (userMap[u._id] = u));
-
-    // 🔹 Formatage final et tri
-    const result = Object.entries(leaderboard)
-      .map(([userId, stats]) => ({
-        userId,
-        username: userMap[userId]?.username || 'Utilisateur',
-        avatar: userMap[userId]?.avatar || '/uploads/avatars/default-avatar.png',
-        ...stats
-      }))
-      .sort((a, b) => b.points - a.points);
+    // 🔹 Tri final
+    const result = Object.values(leaderboard).sort(
+      (a, b) => b.points - a.points
+    );
 
     res.json(result);
   } catch (err) {
