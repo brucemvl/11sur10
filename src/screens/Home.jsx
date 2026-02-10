@@ -39,7 +39,7 @@ const COMPETITIONS = {
     uel: 'https://v3.football.api-sports.io/fixtures?league=3&season=2025',
      conference: 'https://v3.football.api-sports.io/fixtures?league=848&season=2025',
       arabiesaoudite: 'https://v3.football.api-sports.io/fixtures?league=307&season=2025',
-       miami: 'https://v3.football.api-sports.io/fixtures?team=9568&season=2025',
+       miami: 'https://v3.football.api-sports.io/fixtures?team=9568&season=2026',
         leaguecup: 'https://v3.football.api-sports.io/fixtures?league=48&season=2025',
          dfbpokal: 'https://v3.football.api-sports.io/fixtures?league=81&season=2025'
 };

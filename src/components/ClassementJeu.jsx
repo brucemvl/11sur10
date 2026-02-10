@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, ActivityIndicator, StyleSheet, Image } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, StyleSheet, Image, ScrollView } from 'react-native';
 import axios from 'axios';
 import Precedent from './Precedent';
 import getAvatarSource from '../../backend/utils/getAvatarSource';
@@ -35,6 +35,7 @@ console.log(leaders)
   return (
     <View style={styles.container}>
         <Precedent />
+        <ScrollView contentContainerStyle={styles.scroll}>
       <Text style={styles.title}>Classement</Text>
 
       {/* TOP 3 */}
@@ -60,7 +61,7 @@ console.log(leaders)
   keyExtractor={(item) => item._id || item.userId}
   contentContainerStyle={{alignItems: "center", width: "105%"}}
   renderItem={({ item, index }) => (
-    <LinearGradient colors={[ "#fff", "#00000014"]}  style={styles.row}>
+    <LinearGradient colors={[ "#fff", "#0000000a"]}  style={styles.row}>
       <Text style={styles.rank}>{index + 1}.</Text>
       <Image
         source={getAvatarSource(item.avatar)}
@@ -68,7 +69,7 @@ console.log(leaders)
       />
       <Text style={styles.rowUsername}>{item.username}</Text>
       
-      <Text style={styles.rowPoints}>{item.points} pts</Text>
+      <Text style={styles.rowPoints}>{item.points} {item.points === 1 ? "pt" : "pts"}</Text>
       <Text style={styles.statsSmall}>
   🎯 {item.exactScores} · ⚖️ {item.goodDiffs} · ✅ {item.goodResults}
 </Text>
@@ -81,12 +82,14 @@ console.log(leaders)
     <Text style={styles.reglesText}>⚖️- Bonne difference de buts: +2 points</Text>
     <Text style={styles.reglesText}>✅- Bon resultat 1N2: +1 point</Text>
 </View>
+</ScrollView>
     </View>
   );
 }
 
   const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f3f4f6', padding: 15, alignItems: "center" },
+  container: { flex: 1, backgroundColor: '#f3f4f6', paddingBottom: 50  },
+  scroll: {flex: 1, alignItems: "center", padding: 15  },
   title: { fontSize: 24, fontFamily: "Kanitt", marginBlock: 30, color: "black" },
 
   // Top 3
@@ -104,9 +107,9 @@ console.log(leaders)
   row: { flexDirection: 'row', paddingBlock: 5, paddingInline: 10, borderBottomWidth: 1, borderColor: '#d2d2d2', alignItems: 'center', width: "100%" },
   rank: { width: "4%", fontFamily: "Kanitt" },
   rowAvatar: { width: 32, height: 32, borderRadius: 20, marginRight: 10 },
-  rowUsername: { color: "black", fontFamily: "Kanitt", width: "40%" },
-  rowPoints: { fontFamily: "Kanitt", width: "15%" },
-  statsSmall: { fontSize: 10, fontFamily: "Kanitus"},
+  rowUsername: { color: "black", fontFamily: "Kanitt", width: "38%" },
+  rowPoints: { fontFamily: "Kanitt", width: "15%", textAlign: "left" },
+  statsSmall: { fontSize: 12, fontFamily: "Kanitus", width: "28%"},
   regles: {flex: 1, alignItems: "center"},
   reglesText: {color: "black", fontFamily: "Kanito"}
 })

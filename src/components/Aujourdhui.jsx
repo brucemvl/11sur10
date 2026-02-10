@@ -97,6 +97,7 @@ export default function Aujourdhui({ matchs, onRefresh }) {
     "Coupe de France" : "https://media.api-sports.io/flags/fr.svg",
     "Premier League" : "https://media.api-sports.io/flags/gb-eng.svg",
     "League Cup" : "https://media.api-sports.io/flags/gb-eng.svg",
+    "FA Cup" : "https://media.api-sports.io/flags/gb-eng.svg",
     "La Liga" : "https://media.api-sports.io/flags/es.svg",
     "Copa del Rey" : "https://media.api-sports.io/flags/es.svg",
     "Bundesliga" : "https://media.api-sports.io/flags/de.svg",

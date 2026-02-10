@@ -13,7 +13,7 @@ const apiSports = axios.create({
 export async function fetchLigue1Matches() {
   const res = await apiSports.get('/fixtures', {
     params: {
-      league: 61,
+      league: 2,
       season: 2025,
       status: 'NS',
     },

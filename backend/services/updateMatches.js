@@ -5,7 +5,7 @@ const calculatePoints = require('../utils/calculatePoints');
 
 async function updateMatches() {
   const { data } = await axios.get(
-    'https://v3.football.api-sports.io/fixtures?league=61&season=2025',
+    'https://v3.football.api-sports.io/fixtures?league=2&season=2025',
     {
       headers: {
         'x-rapidapi-key': process.env.FOOTBALL_API_KEY,
@@ -15,8 +15,14 @@ async function updateMatches() {
   );
 
   for (const m of data.response) {
-    const isFinished = m.fixture.status.short === 'FT';
+const statusShort = m.fixture.status.short;
 
+let status = 'SCHEDULED';
+if (statusShort === 'FT') {
+  status = 'FINISHED';
+} else if (['1H', 'HT', '2H', 'ET', 'P'].includes(statusShort)) {
+  status = 'LIVE';
+}
     const match = await Match.findOneAndUpdate(
       { fixtureId: m.fixture.id },
       {
@@ -29,7 +35,7 @@ async function updateMatches() {
           home: m.goals.home,
           away: m.goals.away,
         },
-        status: isFinished ? 'FINISHED' : 'SCHEDULED',
+        status,
       },
       { upsert: true, new: true }
     );

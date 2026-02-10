@@ -7,12 +7,13 @@ import {
   Animated,
   Image,
   Alert,
-  ScrollView
+  ScrollView,
+  ActivityIndicator
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
-import getAvatarSource from '../utils/getAvatarSource';
+import getAvatarSource from '../../backend/utils/getAvatarSource';
 
 export default function AccueilJeu() {
   const [user, setUser] = useState(null);
@@ -87,7 +88,7 @@ export default function AccueilJeu() {
     );
   };
 
-  if (!user) return <Text>Chargement...</Text>;
+  if (!user) return <ActivityIndicator size="large" style={{ marginTop: 40 }} />;
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ justifyContent: 'center' }}>

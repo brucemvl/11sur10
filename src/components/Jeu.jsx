@@ -9,7 +9,8 @@ import {
   ActivityIndicator,
   Alert,
   Image,
-  Animated
+  Animated,
+  ImageBackground
 } from 'react-native';
 import axios from 'axios';
 import { fetchLigue1Matches } from '../services/apiSport';
@@ -17,6 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Precedent from './Precedent';
 import { teamName } from '../datas/teamNames';
 import { useNavigation } from '@react-navigation/native';
+import ucl from "../assets/UCL4.jpg"
 
 export default function Jeu() {
     const navigation = useNavigation();
@@ -208,8 +210,18 @@ const loadMyPredictions = async () => {
         </TouchableOpacity>
 
         <Text style={styles.roundTitle}>
-          Journée {currentRound?.match(/\d+/)[0]}
-        </Text>
+{currentRound.indexOf("Group Stage") !== -1 ? currentRound.replace("Group Stage -", "Matchs de Poule") :
+            currentRound === "Regular Season - 1" ? "1ere Journee" :
+
+              currentRound.indexOf("League Stage") !== -1 ? currentRound.replace("League Stage -", "Journee") :
+                currentRound === "Quarter-finals" ? "Quarts de finale" :
+                  currentRound === "Semi-finals" ? "Demis-finale" :
+                    currentRound === "Final" ? "Finale" :
+                      currentRound === "Round of 16" ? "Huitièmes de finale" :
+                      currentRound === "Round of 32" ? "Barrages" :
+                        currentRound === "Knockout Round Play-offs" ? "Barrages" :
+                          currentRound === "8th Finals" ? "1/8 de finale" :
+                            currentRound}        </Text>
 
         <TouchableOpacity
           onPress={goNextRound}
@@ -237,11 +249,18 @@ const loadMyPredictions = async () => {
           const id = item.fixture.id;
           const hasPrediction = !!existingPredictions[id];
           const isSubmitting = submitting[id];
+          const dateh = new Date(item.fixture.date);
+  const formattedDate = `${dateh.getDate().toString().padStart(2, '0')}/${(dateh.getMonth() + 1).toString().padStart(2, '0')}`;
+  const formattedHour = `${dateh.getHours().toString().padStart(2, '0')}h${dateh.getMinutes().toString().padStart(2, '0')}`;
 
           return (
-            <View style={styles.card}>
+            <ImageBackground style={styles.card} source={ucl}>
+                <View style={styles.dateheure}>
+                <Text style={{fontSize: 8.5, fontFamily: "Kanitalic", color: "white"}}>{formattedDate}</Text>
+                <Text style={{fontSize: 8.5, fontFamily: "Kanitalic", color: "white"}}>{formattedHour}</Text>
+                </View>
               <View style={styles.match}>
-                <Text style={styles.teamName}>
+                <Text style={[styles.teamName, {textAlign: "right"}]}>
                 {teamName[item.teams.home.name] || item.teams.home.name}
                 </Text>
 <Image source={{uri: item.teams.home.logo}} style={styles.logoClub} />
@@ -255,7 +274,7 @@ const loadMyPredictions = async () => {
                 onChangeText={(v) => handleScoreChange(id, 'home', v)}
                   
                 />
-                <Text style={{ marginHorizontal: 5 }}>-</Text>
+                <Text style={{ marginHorizontal: 5, color: "#fff" }}>-</Text>
                 <TextInput
                   style={styles.input}
                   keyboardType="numeric"
@@ -267,7 +286,7 @@ const loadMyPredictions = async () => {
               </View>
 <Image source={{uri: item.teams.away.logo}} style={styles.logoClub} />
 
-                <Text style={styles.teamName}>
+                <Text style={[styles.teamName, {textAlign: "left"}]}>
                     {teamName[item.teams.away.name] || item.teams.away.name}
                     </Text>
               </View>
@@ -318,7 +337,7 @@ const loadMyPredictions = async () => {
   </Animated.Text>
 )}
               </View>
-            </View>
+            </ImageBackground>
           );
         }}
       />
@@ -332,6 +351,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f3f4f6',
+    paddingBottom: 60
   },
   roundHeader: {
     flexDirection: 'row',
@@ -342,7 +362,9 @@ const styles = StyleSheet.create({
   },
   roundTitle: {
     fontSize: 18,
-fontFamily: "Kanitalik"  },
+fontFamily: "Kanitalik" ,
+textAlign: "center"
+  },
   arrow: {
     padding: 10,
     backgroundColor: '#e5e7eb',
@@ -359,10 +381,13 @@ fontFamily: "Kanitalik"  },
   },
   card: {
     backgroundColor: '#ffffff',
-    padding: 15,
+    paddingBottom: 15,
+    paddingInline: 10,
+    paddingTop: 5,
     borderRadius: 14,
     marginBottom: 15,
-    borderWidth: 1
+    borderWidth: 1,
+    overflow: "hidden"
   },
   match: {
     flexDirection: "row",
@@ -373,8 +398,8 @@ fontFamily: "Kanitalik"  },
   },
   teamName:{
 fontFamily: "Bella",
-width: "31%",
-textAlign: "center"
+width: "29%",
+color: "#fff",
   },
   logoClub: {
 height: 30,
@@ -392,7 +417,8 @@ resizeMode: "contain"
     borderRadius: 8,
     textAlign: 'center',
     padding: 8,
-    fontFamily: "Kanito"
+    fontFamily: "Kanito",
+    backgroundColor: "#f3f3f3"
   },
   button: {
     backgroundColor: '#22c55e',
@@ -424,4 +450,13 @@ success: {
   position: "relative",
   right: 55
 },
+dateheure: {
+    width: 50,
+    backgroundColor: "black",
+    borderRadius: 6,
+    alignItems: "center",
+    padding: 1,
+    alignSelf: "center",
+    marginBottom: 5
+  },
 });
