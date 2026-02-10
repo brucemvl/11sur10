@@ -14,10 +14,28 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
 import getAvatarSource from '../../backend/utils/getAvatarSource';
+import { useFonts } from "expo-font";
+
 
 export default function AccueilJeu() {
   const [user, setUser] = useState(null);
   const navigation = useNavigation();
+
+  const [fontsLoaded] = useFonts({
+      "Kanitblack": require("../assets/fonts/Kanit/Kanit-Black.ttf"), 
+      "Bangers": require("../assets/fonts/Bangers/Bangers-Regular.ttf"), 
+      "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"), 
+      "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"), 
+      "Kanitus": require("../assets/fonts/Kanit/Kanit-Light.ttf"), 
+      "Kanitalic": require("../assets/fonts/Kanit/Kanit-MediumItalic.ttf"), 
+      "Kanitalik": require("../assets/fonts/Kanit/Kanit-ExtraBoldItalic.ttf"), 
+      "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf"), 
+      "Carter": require("../assets/fonts/Carter_One/CarterOne-Regular.ttf"), 
+      "Londrina": require("../assets/fonts/Londrina/LondrinaSolid-Light.ttf"), 
+      "Londrinak": require("../assets/fonts/Londrina/LondrinaSolid-Regular.ttf"), 
+      "Bella": require("../assets/fonts/Bella/Belanosima-Regular.ttf"), 
+      "Bellak": require("../assets/fonts/Bella/Belanosima-Bold.ttf"),
+    });
 
   // Animations
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -87,7 +105,7 @@ export default function AccueilJeu() {
       ]
     );
   };
-
+if (!fontsLoaded) return null;
   if (!user) return <ActivityIndicator size="large" style={{ marginTop: 40 }} />;
 
   return (
@@ -114,7 +132,7 @@ export default function AccueilJeu() {
 <Image
           source={getAvatarSource(user.avatar)}
           style={styles.topAvatar}
-          defaultSource={require('../../backend/uploads/avatars/default-avatar.png')} // iOS fallback
+          defaultSource={require('../../backend/uploads/avatars/facteur.jpg')} // iOS fallback
         />
         <Text style={styles.points}>{user.points} pts</Text>
 

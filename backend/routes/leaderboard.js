@@ -46,7 +46,7 @@ router.get('/', async (req, res) => {
       leaderboard[u._id] = {
         userId: u._id,
         username: u.username,
-        avatar: u.avatar || '/uploads/avatars/default-avatar.png',
+        avatar: u.avatar || '/uploads/avatars/facteur.jpg',
         points: 0,
         exactScores: 0,
         goodDiffs: 0,

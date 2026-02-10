@@ -59,7 +59,7 @@ console.log(leaders)
       <FlatList
   data={leaders}
   keyExtractor={(item) => item._id || item.userId}
-  contentContainerStyle={{alignItems: "center", width: "105%"}}
+  contentContainerStyle={{alignItems: "center", width: "100%"}}
   renderItem={({ item, index }) => (
     <LinearGradient colors={[ "#fff", "#0000000a"]}  style={styles.row}>
       <Text style={styles.rank}>{index + 1}.</Text>
@@ -88,8 +88,8 @@ console.log(leaders)
 }
 
   const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f3f4f6', paddingBottom: 50  },
-  scroll: {flex: 1, alignItems: "center", padding: 15  },
+  container: { flex: 1, backgroundColor: '#f3f4f6', paddingBottom: 60  },
+  scroll: {flex: 1, alignItems: "center", padding: 10  },
   title: { fontSize: 24, fontFamily: "Kanitt", marginBlock: 30, color: "black" },
 
   // Top 3
@@ -101,14 +101,14 @@ console.log(leaders)
   medal: { fontSize: 30, marginBottom: 6 },
   username: { fontSize: 16, fontFamily: 'Bangers', paddingInline: 3 },
   points: { marginTop: 4, fontFamily: 'Kanito' },
-  topAvatar: { width: 70, height: 70, borderRadius: 15, marginBottom: 4 },
+  topAvatar: { width: 75, height: 75, borderRadius: 15, marginBottom: 4 },
 
   // Reste du classement
-  row: { flexDirection: 'row', paddingBlock: 5, paddingInline: 10, borderBottomWidth: 1, borderColor: '#d2d2d2', alignItems: 'center', width: "100%" },
+  row: { flexDirection: 'row', paddingBlock: 5, paddingInline: 8, borderBottomWidth: 1, borderColor: '#d2d2d2', alignItems: 'center', width: "100%", borderRadius: 10 },
   rank: { width: "4%", fontFamily: "Kanitt" },
-  rowAvatar: { width: 32, height: 32, borderRadius: 20, marginRight: 10 },
-  rowUsername: { color: "black", fontFamily: "Kanitt", width: "38%" },
-  rowPoints: { fontFamily: "Kanitt", width: "15%", textAlign: "left" },
+  rowAvatar: { width: 35, height: 35, borderRadius: 20, marginRight: 10 },
+  rowUsername: { color: "black", fontFamily: "Kanitt", width: "36%" },
+  rowPoints: { fontFamily: "Kanitt", width: "14%", textAlign: "left"},
   statsSmall: { fontSize: 12, fontFamily: "Kanitus", width: "28%"},
   regles: {flex: 1, alignItems: "center"},
   reglesText: {color: "black", fontFamily: "Kanito"}

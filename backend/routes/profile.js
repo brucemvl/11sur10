@@ -169,7 +169,7 @@ console.log('Matches FINISHED:', matches.map(m => m.fixtureId));
       avatar: (() => {
     if (!user.avatar) {
       // Fallback si pas d’avatar
-      return 'https://one1sur10.onrender.com/uploads/avatars/default-avatar.png';
+      return 'https://one1sur10.onrender.com/uploads/avatars/facteur.jpg';
     }
 
     // Production → Cloudinary (URL complète)

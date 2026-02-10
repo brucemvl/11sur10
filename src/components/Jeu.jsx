@@ -18,7 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Precedent from './Precedent';
 import { teamName } from '../datas/teamNames';
 import { useNavigation } from '@react-navigation/native';
-import ucl from "../assets/UCL4.jpg"
+import ucl from "../assets/UCL44.jpg"
 
 export default function Jeu() {
     const navigation = useNavigation();
@@ -436,7 +436,7 @@ resizeMode: "contain"
     fontFamily: "Kanito"
   },
   alreadyPredicted: {
-  color: '#16a34a',
+  color: '#3ddc77',
   fontSize: 12,
   marginBottom: 6,
   fontFamily: "Kanitus"

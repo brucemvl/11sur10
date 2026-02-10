@@ -1,7 +1,7 @@
 export default function getAvatarSource(avatar) {
   if (!avatar) {
     // fallback local packagé
-    return require('../../backend/uploads/avatars/default-avatar.png');
+    return require('../../backend/uploads/avatars/facteur.jpg');
   }
 
   // URL complète (Cloudinary ou autre)
