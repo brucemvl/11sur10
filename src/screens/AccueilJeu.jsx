@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   buttonSecondaryText: { color: '#e5e7eb', fontSize: 10, fontFamily: 'Kanitus' },
   logoutButton: { paddingVertical: 12 },
   logoutText: { color: '#ef4444', fontSize: 14, fontFamily: 'Kanito' },
-  topAvatar: { width: 100, height: 100, borderRadius: 50, marginVertical: 5, resizeMode: 'contain' },
+  topAvatar: { width: 100, height: 100, borderRadius: 50, marginVertical: 5, resizeMode: 'cover' },
   points: { fontSize: 18, fontWeight: 'bold', color: '#c59e00', fontFamily: 'Kanitt', marginBottom: 10 },
   statsContainer: { marginBottom: 20 },
   statText: { fontSize: 16, color: '#0c1c6a', fontFamily: 'Kanito', marginVertical: 2 }
