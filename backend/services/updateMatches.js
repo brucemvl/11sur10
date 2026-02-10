@@ -40,22 +40,22 @@ if (statusShort === 'FT') {
       { upsert: true, new: true }
     );
 
-    if (isFinished && !match.pointsUpdated) {
-      const predictions = await Prediction.find({
-        matchId: match.fixtureId,
-      });
+    if (status === 'FINISHED' && !match.pointsUpdated) {
+  const predictions = await Prediction.find({
+    matchId: match.fixtureId,
+  });
 
-      for (const p of predictions) {
-        p.points = calculatePoints(
-          { home: match.score.home, away: match.score.away },
-          { home: p.predictedHome, away: p.predictedAway }
-        );
-        await p.save();
-      }
+  for (const p of predictions) {
+    p.points = calculatePoints(
+      { home: match.score.home, away: match.score.away },
+      { home: p.predictedHome, away: p.predictedAway }
+    );
+    await p.save();
+  }
 
-      match.pointsUpdated = true;
-      await match.save();
-    }
+  match.pointsUpdated = true;
+  await match.save();
+}
   }
 
   return 'Matchs mis à jour';
