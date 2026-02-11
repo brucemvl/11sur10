@@ -37,7 +37,7 @@ import ClassementJeu from '../components/ClassementJeu';
 const Stack = createStackNavigator();
 
 export default function AppNavigator() {
-  const [selectedTeamId, setSelectedTeamId] = useState(null);
+const [selectedTeamIds, setSelectedTeamIds] = useState([]);
   const [notificationsEnabled, setNotificationsEnabled] = useState(null);
   const [loading, setLoading] = useState(true); // ← ajout pour loading
   const headerRef = useRef();
@@ -47,10 +47,11 @@ export default function AppNavigator() {
   useEffect(() => {
   const loadInitialData = async () => {
     try {
-      const teamId = await AsyncStorage.getItem('teamId');
-      if (teamId) {
-        setSelectedTeamId(parseInt(teamId, 10));
-        setNotificationsEnabled(true); // ✅ c’est actif si teamId existe
+      const stored = await AsyncStorage.getItem('teamIds');
+      if (stored) {
+        const ids = JSON.parse(stored); // JSON.parse car c’est un tableau
+        setSelectedTeamIds(ids);
+        setNotificationsEnabled(ids.length > 0);
       } else {
         setNotificationsEnabled(false);
       }
@@ -76,8 +77,7 @@ export default function AppNavigator() {
           <Header
             ref={headerRef}
             notifsEnabled={notificationsEnabled}
-            selectedTeamId={selectedTeamId}
-          />
+selectedTeamIds={selectedTeamIds}          />
         ),
         cardStyleInterpolator: ({ current, next }) => {
           const progress = Animated.add(current.progress, next ? next.progress : 0);
@@ -98,7 +98,7 @@ export default function AppNavigator() {
       {...props}
       ref={homeRef}
       notifsEnabled={notificationsEnabled}
-      selectedTeamId={selectedTeamId}
+      selectedTeamIds={selectedTeamIds}
     />
   )}
 </Stack.Screen>
@@ -125,10 +125,10 @@ export default function AppNavigator() {
         {(props) => (
           <Notifs
             {...props}
-            onSave={(id) => setSelectedTeamId(id)}
+            onSave={(ids) => setSelectedTeamIds(ids)}
             onNotifStatusChange={setNotificationsEnabled}
             triggerHeaderShake={() => headerRef.current?.triggerShake()}
-                  onResetTeam={() => setSelectedTeamId(null)} // ✅ ← ajoute cette prop
+                  onResetTeam={() => setSelectedTeamIds(null)} // ✅ ← ajoute cette prop
           />                    
         )}
       </Stack.Screen>
@@ -136,10 +136,10 @@ export default function AppNavigator() {
         {(props) => (
           <NotifsPlus
             {...props}
-            onSave={(id) => setSelectedTeamId(id)}
+            onSave={(id) => setSelectedTeamIds(id)}
             onNotifStatusChange={setNotificationsEnabled}
             triggerHeaderShake={() => headerRef.current?.triggerShake()}
-                  onResetTeam={() => setSelectedTeamId(null)} // ✅ ← ajoute cette prop
+                  onResetTeam={() => setSelectedTeamIds(null)} // ✅ ← ajoute cette prop
           />                    
         )}
       </Stack.Screen>

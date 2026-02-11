@@ -58,7 +58,11 @@ const allTeams = [...teams, ...african]
 function Notifs({ onSave, onNotifStatusChange, triggerHeaderShake }) {
 const [selectedTeams, setSelectedTeams] = useState([]);
   const [savedTeam, setSavedTeam] = useState(null);
-const scaleAnimMap = useRef({}).current;
+
+const scaleAnimMap = useRef(
+  allTeams.reduce((acc, t) => ({ ...acc, [t.id]: new Animated.Value(1) }), {})
+).current;
+
 const [loading, setLoading] = useState(false);
 
 const { width } = useWindowDimensions();
@@ -133,36 +137,73 @@ african.forEach(team => {
 };
 
 
- const handleSelectTeam = (id) => {
+const handleSelectTeam = (id) => {
   if (selectedTeams.includes(id)) {
     setSelectedTeams(prev => prev.filter(t => t !== id));
   } else {
+    if (selectedTeams.length >= 5) {
+      Toast.show({
+        type: 'error',
+        text1: '❌ Limite atteinte',
+        text2: 'Tu ne peux sélectionner que 5 équipes.',
+      });
+      return;
+    }
     setSelectedTeams(prev => [...prev, id]);
   }
-
-  animateText(id);
 };
 
-  const saveTeam = async () => {
-    try {
-      if (selectedTeams.length === 0) return;
-          setLoading(true); // ⬅️ début du chargement
-      await AsyncStorage.setItem('teamIds', JSON.stringify(selectedTeams));
-setSavedTeam(selectedTeams);
-onSave?.(selectedTeams);
-      onNotifStatusChange?.(true);  // ← activer les notifs
-      triggerHeaderShake?.();       // ← lancer l’animation
-      await registerForPushNotificationsAsync();
-Toast.show({
-  type: 'success',
-  text1: '✅ Équipe enregistrée',
-  text2: 'Tu recevras une notif lors des buts !',
-});    } catch (err) {
-      console.error('Erreur enregistrement teamId:', err);
-    } finally {
-    setLoading(false); // ⬅️ fin du chargement
+
+  const saveTeams = async () => {
+  if (selectedTeams.length === 0) return;
+
+  setLoading(true);
+  try {
+    // 1️⃣ Sauvegarde locale
+    await AsyncStorage.setItem('teamIds', JSON.stringify(selectedTeams));
+    setSavedTeam(selectedTeams);
+
+    // 2️⃣ Récupération du token Expo
+    const tokenData = await Notifications.getExpoPushTokenAsync({
+      projectId: Constants?.easConfig?.projectId,
+    });
+
+    const token = tokenData.data;
+
+    // 3️⃣ Envoyer au serveur
+    await axios.post(
+      'https://one1sur10.onrender.com/api/register-push-token',
+      {
+        token: token,
+        teamIds: selectedTeams,
+      },
+      {
+        headers: { 'Content-Type': 'application/json' }
+      }
+    );
+
+    // 4️⃣ Callback pour UI
+    onSave?.(selectedTeams);
+    onNotifStatusChange?.(true);
+    triggerHeaderShake?.();
+
+    Toast.show({
+      type: 'success',
+      text1: '✅ Équipes enregistrées',
+      text2: 'Tu recevras des notifications pour tes équipes !'
+    });
+
+  } catch (err) {
+    console.error("Erreur enregistrement équipes :", err.response?.data || err.message);
+    Toast.show({
+      type: 'error',
+      text1: '❌ Erreur',
+      text2: 'Impossible d’enregistrer tes équipes.'
+    });
+  } finally {
+    setLoading(false);
   }
-}
+};
 
 const disablePushNotifications = async () => {
   try {
@@ -290,7 +331,7 @@ selectedTeams.includes(team.id) && styles.selectedTeamCan,
 
       <TouchableOpacity
       accessible accessibilityRole="button" accessibilityLabel="Enregistrer"  accessibilityHint="Enregistrer l'equipe"
-        onPress={saveTeam}
+        onPress={saveTeams}
               style={{backgroundColor: "#007BFF", height: 40, width: "40%", alignItems: "center", justifyContent: "center", marginBlock: 10, borderRadius: 10}}
 
 disabled={selectedTeams.length === 0}      >
@@ -310,7 +351,7 @@ await AsyncStorage.removeItem('teamIds');
     setSelectedTeams([]);
 setSavedTeam(null);
     onNotifStatusChange?.(false);
-    onSave?.(null); // ← force Header à effacer le logo
+    onSave?.([]); // ← force Header à effacer le logo
     triggerHeaderShake?.();
     await disablePushNotifications();
 Toast.show({

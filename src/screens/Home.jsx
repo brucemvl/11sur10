@@ -44,7 +44,7 @@ const COMPETITIONS = {
          dfbpokal: 'https://v3.football.api-sports.io/fixtures?league=81&season=2025'
 };
 
-const Home = ({ selectedTeamId }) => {
+const Home = ({ selectedTeamIds }) => {
   // ==========================
   // Fonts
   // ==========================
@@ -177,8 +177,8 @@ const Home = ({ selectedTeamId }) => {
           <ActivityIndicator size="large" style={{ marginTop: 30 }} />
         )}
 
-        {selectedTeamId != null && (
-          <Favorite selectedTeamId={selectedTeamId} />
+        {selectedTeamIds != null && (
+          <Favorite selectedTeamId={selectedTeamIds} />
         )}
 
         <TouchableOpacity accessible accessibilityRole="button" accessibilityLabel="Partager l'application"

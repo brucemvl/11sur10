@@ -1,5 +1,5 @@
-import React, { useRef, useImperativeHandle, forwardRef, useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity, Linking, Animated } from 'react-native';
+import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
+import { View, Text, Image, StyleSheet, Animated, TouchableOpacity, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
@@ -9,14 +9,16 @@ import info from "../assets/info.png";
 import cloche from "../assets/cloche3.png";
 import clocheno from "../assets/clocheno2.png";
 
-const Header = forwardRef(({ notifsEnabled, selectedTeamId }, ref) => {
+const { width } = Dimensions.get('window');
+const CIRCLE_RADIUS = 18; // rayon du cercle autour de la cloche
 
+const Header = forwardRef(({ notifsEnabled, selectedTeamIds = [] }, ref) => {
   const navigation = useNavigation();
-  const [selectedTeam, setSelectedTeam] = useState(null);
+  const [teams, setTeams] = useState([]);
+  const fadeAnims = useRef([]).current;
 
-  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const rotateAnim = useRef(new Animated.Value(0)).current;
 
-  // Charge la police
   const [fontsLoaded] = useFonts({
     "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
     "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
@@ -25,9 +27,7 @@ const Header = forwardRef(({ notifsEnabled, selectedTeamId }, ref) => {
     "Permanent": require("../assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf"),
   });
 
-  // Animation du shake sur la cloche
-  const rotateAnim = useRef(new Animated.Value(0)).current;
-
+  // Shake animation
   useImperativeHandle(ref, () => ({
     triggerShake: () => {
       Animated.sequence([
@@ -40,101 +40,101 @@ const Header = forwardRef(({ notifsEnabled, selectedTeamId }, ref) => {
     }
   }));
 
-  const rotate = rotateAnim.interpolate({
-    inputRange: [-25, 25],
-    outputRange: ['-25deg', '25deg'],
-  });
+  const rotate = rotateAnim.interpolate({ inputRange: [-25, 25], outputRange: ['-25deg', '25deg'] });
 
-  // Fetch dynamique du logo
+  // Fetch équipes dynamiquement
   useEffect(() => {
-    if (!selectedTeamId) {
-      setSelectedTeam(null);
-      return;
-    }
+    const fetchTeams = async () => {
+  if (!selectedTeamIds.length) {
+    setTeams([]);
+    return;
+  }
 
-    const fetchTeamById = async () => {
-      try {
-        const response = await fetch(
-          `https://v3.football.api-sports.io/teams?id=${selectedTeamId}`,
-          {
-            method: "GET",
-            headers: {
-              "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-              "x-rapidapi-host": "v3.football.api-sports.io",
-            },
-          }
-        );
+  try {
+    const requests = selectedTeamIds.map(id =>
+      fetch(`https://v3.football.api-sports.io/teams?id=${id}`, {
+        method: "GET",
+        headers: {
+          "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+          "x-rapidapi-host": "v3.football.api-sports.io",
+        },
+      })
+        .then(res => res.json())
+        .catch(err => {
+          console.error(`Erreur fetch équipe ${id}:`, err);
+          return null;
+        })
+    );
 
-        const json = await response.json();
+    const results = await Promise.all(requests);
+    const fetchedTeams = results
+      .map(r => r?.response?.[0]?.team)
+      .filter(Boolean);
 
-        if (json.response?.length > 0) {
-          setSelectedTeam(json.response[0].team);
-        }
-      } catch (error) {
-        console.error("Erreur fetch team:", error);
-      }
-    };
+    setTeams(fetchedTeams);
 
-    fetchTeamById();
-  }, [selectedTeamId]);
+    // Animations fade
+    fetchedTeams.forEach((_, i) => {
+      fadeAnims[i] = new Animated.Value(0);
+      Animated.timing(fadeAnims[i], { toValue: 1, duration: 300, useNativeDriver: true, delay: i * 100 }).start();
+    });
 
-  // Animation fade-in quand le logo change
-  useEffect(() => {
-    if (selectedTeam) {
-      fadeAnim.setValue(0);
-      Animated.timing(fadeAnim, {
-        toValue: 1,
-        duration: 250,
-        useNativeDriver: true,
-      }).start();
-    }
-  }, [selectedTeam]);
+  } catch (err) {
+    console.error("Erreur fetch équipes Header:", err);
+  }
+};
+    fetchTeams();
+  }, [selectedTeamIds]);
 
   if (!fontsLoaded) return <Text>Loading...</Text>;
 
   return (
     <LinearGradient
-      colors={['rgba(100, 160, 236, 1)', 'rgb(24, 29, 91)', 'rgba(0, 0, 0, 1)', "rgba(94, 94, 94, 0)"]}
+      colors={['rgba(100,160,236,1)', 'rgb(24,29,91)', 'rgba(0,0,0,1)', "rgba(94,94,94,0)"]}
       locations={[0, 0.6, 0.92, 1]}
       style={styles.header}
     >
-      <TouchableOpacity onPress={() => navigation.navigate("Apropos")} accessible accessibilityLabel="A Propos" accessibilityRole="button" accessibilityHint='Infos et présentation de lapplication'>
+      <TouchableOpacity onPress={() => navigation.navigate("Apropos")}>
         <Image source={info} style={{ height: 30, width: 30 }} />
       </TouchableOpacity>
 
       <Image source={logo} style={styles.logo} />
 
-      <TouchableOpacity onPress={() => navigation.navigate("Notifs")} accessible accessibilityLabel="Notifications" accessibilityRole="button" accessibilityHint='accéder aux paramètres de notifications'>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <TouchableOpacity onPress={() => navigation.navigate("Notifs")}>
+        <View style={{ width: 50, height: 50, alignItems: 'center', justifyContent: 'center' }}>
+          {/* Cercle des logos */}
+          {teams.map((team, i) => {
+            const angle = (i / teams.length) * 2 * Math.PI - Math.PI / 2; // réparti en cercle
+            const x = CIRCLE_RADIUS * Math.cos(angle);
+            const y = CIRCLE_RADIUS * Math.sin(angle);
 
-          {/* Logo dynamique avec fade-in */}
-          {selectedTeam?.logo && (
-            <Animated.Image
-              source={{ uri: selectedTeam.logo }}
-              style={{
-                opacity: fadeAnim,
-                width: 36,
-                height: 36,
-                position: "absolute",
-                left: 14,
-                bottom: 16,
-                resizeMode: "contain",
-                shadowColor: '#ffffffff', shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.6, shadowRadius: 3, elevation: 5, padding: 4
-              }}
-            />
-          )}
+            return (
+              <Animated.Image
+                key={team.id}
+                source={{ uri: team.logo }}
+                style={{
+                  width: 28,
+                  height: 28,
+                  resizeMode: "contain",
+                  position: 'absolute',
+                  left: 25 + x - 15, // centre + offset
+                  top: 25 + y - 15,
+                  opacity: fadeAnims[i] || 1,
+                }}
+              />
+            );
+          })}
 
-          {/* Icône de cloche */}
+          {/* Cloche au centre */}
           <Animated.Image
             source={notifsEnabled ? cloche : clocheno}
             style={[
-              { height: 38, width: 38, marginRight: 10, shadowColor: '#ffffffff', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.6, shadowRadius: 2, elevation: 5, },
-              { transform: [{ rotate }] },
+              { width: 38, height: 38 },
+              { transform: [{ rotate }] }
             ]}
           />
         </View>
       </TouchableOpacity>
-
     </LinearGradient>
   );
 });
@@ -152,9 +152,9 @@ const styles = StyleSheet.create({
   logo: {
     width: 100,
     height: 80,
-    marginLeft: 30,
+    marginLeft: 40,
     resizeMode: "contain",
-  }
+  },
 });
 
 export default Header;
