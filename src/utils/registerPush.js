@@ -85,25 +85,35 @@ async function registerForPushNotificationsAsync() {
     console.log('📲 Expo Push Token:', token);
 
     // 3️⃣ Récupérer teamId et JWT depuis AsyncStorage
-    const storedTeam = await AsyncStorage.getItem('teamId');
-    const teamId = storedTeam ? Number(storedTeam) : null;
-    const jwtToken = await AsyncStorage.getItem('jwtToken');
+    const storedTeams = await AsyncStorage.getItem('teamIds');
+const teamIds = storedTeams ? JSON.parse(storedTeams) : null;
+const jwtToken = await AsyncStorage.getItem('jwtToken');
 
-    if (!teamId || !jwtToken) {
-      console.warn('⚠️ teamId ou JWT manquant');
-      return;
-    }
+if (!teamIds || !Array.isArray(teamIds) || teamIds.length === 0) {
+  console.warn('⚠️ teamIds manquant');
+  return;
+}
 
-    // 4️⃣ Envoi au backend
-    const response = await axios.post(
-      'https://one1sur10.onrender.com/api/register-push-token',
-      { token, teamId },
-      {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-        },
-      }
-    );
+if (!jwtToken) {
+  console.warn('⚠️ JWT manquant');
+  return;
+}
+
+// 4️⃣ Envoi au backend
+const response = await axios.post(
+  'https://one1sur10.onrender.com/api/register-push-token',
+  {
+    token,
+    teamIds,                 // ✅ tableau correct
+    platform: Platform.OS,   // ✅ utile pour stats/debug
+  },
+  {
+    headers: {
+      Authorization: `Bearer ${jwtToken}`,
+    },
+  }
+);
+
 
     console.log('✅ Token et teamId envoyés au serveur:', response.data);
 

@@ -294,10 +294,12 @@ import thomasson from "../assets/portraits/fiche/thomasson.png"
 import guela from "../assets/portraits/fiche/guela.png"
 import felix from "../assets/portraits/fiche/felix.png"
 import dro from "../assets/portraits/fiche/dro.png"
+import sesko from "../assets/portraits/fiche/sesko.png"
 
 
 
 export const fichesJoueurs = {
+    115589: sesko,
     491087: dro,
     583: felix,
         161747: guela,

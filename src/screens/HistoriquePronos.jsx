@@ -134,12 +134,24 @@ function analyzePrediction(prediction, match) {
                 source={{ uri: item.homeLogo || 'https://via.placeholder.com/32' }}
                 style={styles.logo}
               />
+              <View style={{width: "12%"}}>
               <Text style={styles.score}>
                 {item.predictedHome} - {item.predictedAway}
               </Text>
+              <Text style={[styles.score, {fontSize: 7.5}]}>
+                Mon Prono
+              </Text>
+
+              </View>
+                            <View style={{width: "12%"}}>
+
               <Text style={styles.scoreReal}>
                 ({item.realHome} - {item.realAway})
               </Text>
+              <Text style={[styles.scoreReal, {fontSize: 7.5}]}>
+                Score Exact
+              </Text>
+              </View>
               <Image
                 source={{ uri: item.awayLogo || 'https://via.placeholder.com/32' }}
                 style={styles.logo}
@@ -200,14 +212,12 @@ fontFamily: "Bella",
   },
   score: {
     color: '#2563eb',
-    width: "12%",
     fontFamily: "Kanito",
     textAlign: "center"
   },
   scoreReal: {
     fontSize: 12,
     color: '#6b7280',
-    width: "12%",
     fontFamily: "Kanitus",
         textAlign: "center"
 

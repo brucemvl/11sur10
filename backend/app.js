@@ -27,22 +27,29 @@ const app = express();
 // ✅ Middleware pour parser le JSON AVANT les routes
 app.use(express.json());
 
-async function fixTokensWithoutTeamId(defaultTeamId = '0') {
+async function migrateTeamIdToTeamIds() {
   try {
     const result = await PushToken.updateMany(
-      {
-        $or: [
-          { teamId: { $exists: false } },
-          { teamId: null },
-          { teamId: '' }
-        ]
-      },
-      { $set: { teamId: defaultTeamId } }
+      { teamId: { $exists: true } },
+      [
+        {
+          $set: {
+            teamIds: {
+              $cond: [
+                { $isArray: "$teamIds" },
+                "$teamIds",
+                ["$teamId"]
+              ]
+            }
+          }
+        },
+        { $unset: "teamId" }
+      ]
     );
 
-    console.log(`✅ ${result.modifiedCount} anciens tokens mis à jour avec teamId = ${defaultTeamId}`);
+    console.log(`✅ ${result.modifiedCount} tokens migrés vers teamIds`);
   } catch (err) {
-    console.error('❌ Erreur lors de la mise à jour des tokens :', err.message);
+    console.error('❌ Erreur migration teamIds :', err.message);
   }
 }
 
@@ -53,7 +60,7 @@ mongoose.connect(mongoURI, {
 })
   .then(async () => {
     console.log('✅ Connexion à MongoDB réussie !');
-    await fixTokensWithoutTeamId();  // Lancer le correctif après la connexion
+    await migrateTeamIdToTeamIds();  // Lancer le correctif après la connexion
     startCrons(); // 🚀 démarre les cron ici
   })
   .catch(err => console.error('❌ Connexion à MongoDB échouée :', err));

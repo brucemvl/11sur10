@@ -1,5 +1,3 @@
-const mongoose = require('mongoose');
-
 const pushTokenSchema = new mongoose.Schema(
   {
     token: {
@@ -14,18 +12,15 @@ const pushTokenSchema = new mongoose.Schema(
       index: true,
     },
 
-    teamId: {
-      type: Number,
-      required: false,
+    teamIds: {
+      type: [Number],
+      default: [],
     },
 
     platform: {
       type: String,
       enum: ['ios', 'android'],
-      required: false,
     },
   },
   { timestamps: true }
 );
-
-module.exports = mongoose.model('PushToken', pushTokenSchema);

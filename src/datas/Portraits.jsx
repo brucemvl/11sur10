@@ -242,11 +242,13 @@ import diop from "../assets/portraits/diop.png"
 import guela from "../assets/portraits/guela.png"
 import coman from "../assets/portraits/coman.png"
 import felix from "../assets/portraits/felix.png"
+import sesko from "../assets/portraits/sesko.png"
 
 
 
 
 export const portraitsJoueurs = {
+        115589: sesko,
     583: felix,
     508: coman,
     161747: guela,

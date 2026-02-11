@@ -48,8 +48,9 @@ async function refreshActiveMatches() {
 
     // 🔹 1. Récupérer les équipes suivies
     const groupedTokens = await PushToken.aggregate([
-      { $group: { _id: '$teamId', tokens: { $push: '$token' } } }
-    ]);
+  { $unwind: "$teamIds" },
+  { $group: { _id: "$teamIds", tokens: { $push: "$token" } } }
+]);
 
     const followedTeamIds = new Set(
       groupedTokens.map(g => Number(g._id)).filter(Boolean)
@@ -112,8 +113,9 @@ async function checkMatchScore() {
   try {
     // 1️⃣ Récupérer les équipes suivies + tokens
     const tokenGroups = await PushToken.aggregate([
-      { $group: { _id: '$teamId', tokens: { $push: '$token' } } }
-    ]);
+  { $unwind: "$teamIds" },
+  { $group: { _id: "$teamIds", tokens: { $push: "$token" } } }
+]);
 
     if (tokenGroups.length === 0) return;
 

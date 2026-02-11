@@ -56,7 +56,7 @@ const african = [
 const allTeams = [...teams, ...african]
 
 function Notifs({ onSave, onNotifStatusChange, triggerHeaderShake }) {
-  const [selectedTeam, setSelectedTeam] = useState(null);
+const [selectedTeams, setSelectedTeams] = useState([]);
   const [savedTeam, setSavedTeam] = useState(null);
 const scaleAnimMap = useRef({}).current;
 const [loading, setLoading] = useState(false);
@@ -106,18 +106,16 @@ african.forEach(team => {
 
 
   useEffect(() => {
-    const fetchSavedTeam = async () => {
-      const stored = await AsyncStorage.getItem('teamId');
-      if (stored) {
-        const parsed = parseInt(stored, 10);
-        if (!isNaN(parsed)) {
-          setSavedTeam(parsed);
-          setSelectedTeam(parsed);
-        }
-      }
-    };
-    fetchSavedTeam();
-  }, []);
+  const fetchSavedTeams = async () => {
+    const stored = await AsyncStorage.getItem('teamIds');
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      setSelectedTeams(parsed);
+      setSavedTeam(parsed);
+    }
+  };
+  fetchSavedTeams();
+}, []);
 
   const animateText = (id) => {
   Animated.sequence([
@@ -136,16 +134,22 @@ african.forEach(team => {
 
 
  const handleSelectTeam = (id) => {
-  setSelectedTeam(id);
-  animateText(id); // ← on passe l'id spécifique
+  if (selectedTeams.includes(id)) {
+    setSelectedTeams(prev => prev.filter(t => t !== id));
+  } else {
+    setSelectedTeams(prev => [...prev, id]);
+  }
+
+  animateText(id);
 };
 
   const saveTeam = async () => {
     try {
+      if (selectedTeams.length === 0) return;
           setLoading(true); // ⬅️ début du chargement
-      await AsyncStorage.setItem('teamId', selectedTeam.toString());
-      setSavedTeam(selectedTeam);
-      onSave?.(selectedTeam);
+      await AsyncStorage.setItem('teamIds', JSON.stringify(selectedTeams));
+setSavedTeam(selectedTeams);
+onSave?.(selectedTeams);
       onNotifStatusChange?.(true);  // ← activer les notifs
       triggerHeaderShake?.();       // ← lancer l’animation
       await registerForPushNotificationsAsync();
@@ -203,11 +207,15 @@ useEffect(() => {
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Choisis ton equipe préférée :</Text>
 <Text style={{textAlign:"center", fontFamily: "Kanitalic", color: "rgb(49, 49, 49)", marginBottom: 10}}>et reçois une notification lorsque celle ci marque ou encaisse un but</Text>
-{savedTeam && 
-        <Text style={styles.saved}>
-          ✅ Equipe actuelle : {allTeams.find((t) => t.id === savedTeam)?.name}
-        </Text>
-      }
+{savedTeam && savedTeam.length > 0 && (
+  <Text style={styles.saved}>
+    ✅ Équipes actuelles :{" "}
+    {savedTeam
+      .map(id => allTeams.find(t => t.id === id)?.name)
+      .filter(Boolean)
+      .join(", ")}
+  </Text>
+)}
       {/*
       <View style={{flexDirection: "row", gap: 20, marginBlock: 15}}>
         <TouchableOpacity onPress={openClubs} style={[styles.bouton, selectedClubs && styles.selected]}><Text style={[styles.textbouton, selectedClubs && {color: "white", fontFamily: "Kanitt"}]}>Clubs</Text></TouchableOpacity>
@@ -221,7 +229,7 @@ useEffect(() => {
           key={team.id}
           style={[
             styles.teamButton,
-            selectedTeam === team.id && styles.selectedTeam,
+selectedTeams.includes(team.id) && styles.selectedTeam,
             isMediumScreen && {height: 125, width: "20%"}
           ]}
           onPress={() => handleSelectTeam(team.id)}
@@ -230,7 +238,7 @@ useEffect(() => {
           <Animated.Image
             style={[
               styles.teamLogo,
-              selectedTeam === team.id && { transform: [{ scale: scaleAnimMap[team.id] }]},
+              selectedTeams.includes(team.id) &&  { transform: [{ scale: scaleAnimMap[team.id] }]},
               isMediumScreen && {height: 55, width: 55}
             ]}
             source={{uri: team.logo}}
@@ -257,7 +265,7 @@ useEffect(() => {
           key={team.id}
           style={[
             styles.teamButton,
-            selectedTeam === team.id && styles.selectedTeamCan,
+selectedTeams.includes(team.id) && styles.selectedTeamCan,
                         isMediumScreen && {height: 125, width: "20%"}
 
           ]}
@@ -268,8 +276,7 @@ useEffect(() => {
           <Animated.Image
             style={[
               styles.teamLogo,
-              selectedTeam === team.id && { transform: [{ scale: scaleAnimMap[team.id] }]
- },
+              selectedTeams.includes(team.id) && { transform: [{ scale: scaleAnimMap[team.id] }] },
                isMediumScreen && {height: 55, width: 55}
 
             ]}
@@ -286,8 +293,7 @@ useEffect(() => {
         onPress={saveTeam}
               style={{backgroundColor: "#007BFF", height: 40, width: "40%", alignItems: "center", justifyContent: "center", marginBlock: 10, borderRadius: 10}}
 
-        disabled={selectedTeam === null}
-      >
+disabled={selectedTeams.length === 0}      >
  {loading ? 
     <ActivityIndicator size="small" color="#fff" />
    : 
@@ -300,9 +306,9 @@ useEffect(() => {
   title='Desactiver les Notifs'
   color={"red"}
   onPress={async () => {
-    await AsyncStorage.removeItem('teamId');
-    setSelectedTeam(null);
-    setSavedTeam(null);
+await AsyncStorage.removeItem('teamIds');
+    setSelectedTeams([]);
+setSavedTeam(null);
     onNotifStatusChange?.(false);
     onSave?.(null); // ← force Header à effacer le logo
     triggerHeaderShake?.();

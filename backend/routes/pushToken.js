@@ -7,27 +7,25 @@ const optionalAuth = require('../middleware/optionalAuth');
 
 // 🟢 REGISTER / UPDATE PUSH TOKEN
 router.post('/register-push-token', optionalAuth, async (req, res) => {
-  const { token, teamId, platform } = req.body;
-  const userId = req.userId; // null ou ObjectId
+  const { token, teamIds, platform } = req.body;
+  const userId = req.userId;
 
-  if (!token || teamId == null) {
-    return res.status(400).json({ error: 'Token ou teamId manquants' });
+  if (!token || !Array.isArray(teamIds)) {
+    return res.status(400).json({ error: 'Token ou teamIds manquants' });
   }
 
   try {
     let pushToken = await PushToken.findOne({ token });
 
     if (!pushToken) {
-      // 🆕 Nouveau token
       pushToken = new PushToken({
         token,
-        teamId,
+        teamIds,
         userId: userId || null,
         platform,
       });
     } else {
-      // 🔄 Token existant → mise à jour
-      pushToken.teamId = teamId;
+      pushToken.teamIds = teamIds;
       pushToken.userId = userId || null;
       if (platform) pushToken.platform = platform;
     }
@@ -35,11 +33,8 @@ router.post('/register-push-token', optionalAuth, async (req, res) => {
     await pushToken.save();
     res.status(200).json({ message: 'Token mis à jour avec succès' });
   } catch (err) {
-    console.error('❌ Erreur lors de la mise à jour du token :', err);
-    res.status(500).json({
-      error: 'Erreur lors de la mise à jour du token',
-      details: err.message,
-    });
+    console.error(err);
+    res.status(500).json({ error: 'Erreur serveur' });
   }
 });
 
