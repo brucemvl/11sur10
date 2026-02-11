@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 const pushTokenSchema = new mongoose.Schema(
   {
     token: {
