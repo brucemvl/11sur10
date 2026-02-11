@@ -7,18 +7,15 @@ const pushTokenSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       index: true,
     },
-
     teamIds: {
       type: [Number],
       default: [],
     },
-
     platform: {
       type: String,
       enum: ['ios', 'android'],
@@ -26,3 +23,6 @@ const pushTokenSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// ⚡ Export du modèle Mongoose
+module.exports = mongoose.model('PushToken', pushTokenSchema);
