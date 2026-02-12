@@ -88,7 +88,7 @@ console.log(leaders)
 }
 
   const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f3f4f6', paddingBottom: 60  },
+  container: { flex: 1, backgroundColor: '#f3f4f6', paddingBottom: 70  },
   scroll: {flex: 1, alignItems: "center", padding: 10  },
   title: { fontSize: 24, fontFamily: "Kanitt", marginBlock: 30, color: "black" },
 
@@ -96,7 +96,7 @@ console.log(leaders)
   top3Container: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 30 },
   card: { flex: 1, marginHorizontal: 5, padding: 10, borderRadius: 15, alignItems: 'center', shadowColor: "#000", shadowOffset: {width: 0, height: 5}, shadowRadius: 4, shadowOpacity: 0.8, elevation: 4 },
   rank1: { backgroundColor: '#facc15' }, // or
-  rank2: { backgroundColor: '#e2e3e4' },
+  rank2: { backgroundColor: '#d7dde2' },
   rank3: { backgroundColor: '#bf5a11' },
   medal: { fontSize: 30, marginBottom: 6 },
   username: { fontSize: 16, fontFamily: 'Bangers', paddingInline: 3 },

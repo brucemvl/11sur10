@@ -1,3 +1,10 @@
+require('dotenv').config();
+
+let tokensByTeamCache = {};
+let followedTeamIdsCache = new Set();
+let lastTokenRefresh = 0;
+const TOKEN_CACHE_DURATION = 2 * 60 * 1000; // 2 minutes
+
 const axios = require('axios');
 const cron = require('node-cron');
 const sendPushNotification = require('./utils/pushNotification');
@@ -31,6 +38,31 @@ const scoreMessages = {
   ],
 };
 
+async function refreshTokenCacheIfNeeded() {
+  const now = Date.now();
+
+  if (now - lastTokenRefresh < TOKEN_CACHE_DURATION) {
+    return; // cache encore valide
+  }
+
+  const tokenGroups = await PushToken.aggregate([
+    { $unwind: "$teamIds" },
+    { $group: { _id: "$teamIds", tokens: { $push: "$token" } } }
+  ]);
+
+  tokensByTeamCache = Object.fromEntries(
+    tokenGroups.map(g => [String(g._id), g.tokens])
+  );
+
+  followedTeamIdsCache = new Set(
+    tokenGroups.map(g => Number(g._id)).filter(Boolean)
+  );
+
+  lastTokenRefresh = now;
+
+  console.log("🔄 Token cache refreshed");
+}
+
 function pickRandom(messages) {
   return messages[Math.floor(Math.random() * messages.length)];
 }
@@ -41,22 +73,21 @@ async function refreshAndCheckMatches() {
 
   try {
     // 1️⃣ Récupérer les équipes suivies + tokens
-    const tokenGroups = await PushToken.aggregate([
-      { $unwind: "$teamIds" },
-      { $group: { _id: "$teamIds", tokens: { $push: "$token" } } }
-    ]);
+    await refreshTokenCacheIfNeeded();
 
-    if (!tokenGroups.length) return;
+const tokensByTeam = tokensByTeamCache;
+const followedTeamIds = followedTeamIdsCache;
 
-    const tokensByTeam = Object.fromEntries(tokenGroups.map(g => [String(g._id), g.tokens]));
-    const followedTeamIds = new Set(tokenGroups.map(g => Number(g._id)).filter(Boolean));
+if (!Object.keys(tokensByTeam).length) return;
+
+ 
 
     // 2️⃣ Appel API unique pour tous les matchs live
     const { data } = await axios.get(
       'https://v3.football.api-sports.io/fixtures?live=all',
       {
         headers: {
-          'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
+'x-rapidapi-key': process.env.API_FOOTBALL_KEY,
           'x-rapidapi-host': 'v3.football.api-sports.io',
         },
       }
@@ -184,8 +215,8 @@ previousScores[matchId] = {
       }
     }
 
-for (const matchId of Object.keys(previousScores))
-    if (!currentLiveMatchIds.has(Number(matchId)) && !finishedMatches[matchId]) {
+    for (const matchId of Object.keys(previousScores)) {
+  if (!currentLiveMatchIds.has(Number(matchId)) && !finishedMatches[matchId]) {
 
       const matchData = previousScores[matchId];
 if (!matchData) continue;
@@ -193,8 +224,8 @@ if (!matchData) continue;
 const { homeTeamId, awayTeamId, home, away } = matchData;
 
 const tokens = [];
-if (tokensByTeam[homeTeamId]) tokens.push(...tokensByTeam[String(homeTeamId)]);
-if (tokensByTeam[awayTeamId]) tokens.push(...tokensByTeam[String(awayTeamId)]);
+if (tokensByTeam[homeTeamId]) tokens.push(...tokensByTeam[homeTeamId]);
+if (tokensByTeam[awayTeamId]) tokens.push(...tokensByTeam[awayTeamId]);
 
 const uniqueTokens = Array.from(new Set(tokens));
 if (!uniqueTokens.length) continue;
