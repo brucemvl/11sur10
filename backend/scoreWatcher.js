@@ -87,7 +87,7 @@ if (!Object.keys(tokensByTeam).length) return;
       'https://v3.football.api-sports.io/fixtures?live=all',
       {
         headers: {
-'x-rapidapi-key': process.env.API_FOOTBALL_KEY,
+'x-rapidapi-key': process.env.FOOTBALL_API_KEY,
           'x-rapidapi-host': 'v3.football.api-sports.io',
         },
       }
