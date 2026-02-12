@@ -66,19 +66,19 @@ function NotifsPlus({ onSave, onNotifStatusChange, triggerHeaderShake }) {
   }, []);
 
   // Toggle sélection d’une équipe
-  const toggleTeam = (teamId) => {
-    if (selectedTeams.includes(teamId)) {
-      setSelectedTeams(prev => prev.filter(t => t !== teamId));
+  const handleSelectTeam = (id) => {
+    if (selectedTeams.includes(id)) {
+      setSelectedTeams(prev => prev.filter(t => t !== id));
     } else {
       if (selectedTeams.length >= 5) {
         Toast.show({
           type: 'error',
           text1: '❌ Limite atteinte',
-          text2: 'Tu ne peux sélectionner que 5 équipes maximum.',
+          text2: 'Tu ne peux sélectionner que 5 équipes.',
         });
         return;
       }
-      setSelectedTeams(prev => [...prev, teamId]);
+      setSelectedTeams(prev => [...prev, id]);
     }
   };
 
@@ -202,7 +202,7 @@ setSelected(true)
                 { width: 50, height: 50, alignItems: "center", justifyContent: "center", opacity: 0.3 },
                 selectedTeams.includes(team.id) && styles.selected
               ]}
-              onPress={() => toggleTeam(team.id)}
+              onPress={() => handleSelectTeam(team.id)}
             >
               <Image source={{ uri: team.logo }} style={{ width: 40, height: 40, objectFit: "contain" }} />
             </TouchableOpacity>

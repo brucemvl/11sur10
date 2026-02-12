@@ -168,9 +168,9 @@ if (!fontsLoaded) return null;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f3f3f3', paddingTop: 10, paddingHorizontal: 20 },
-  title: { fontSize: 36, fontWeight: 'bold', color: '#0c1c6a', marginBottom: 10, fontFamily: 'Kanitalik' },
+  title: { fontSize: 36, fontWeight: 'bold', backgroundColor: '#0b1960', marginBottom: 10, fontFamily: 'Kanitalik', color: "#e3e00f", paddingBlock: 6, paddingInline: 12, borderRadius: 12 },
   welcome: { fontSize: 18, color: '#132741', marginTop: 10, fontFamily: 'Kanito' },
-  username: { fontSize: 22, fontWeight: 'bold', color: '#0e3672', marginBottom: 15, marginTop: 5, fontFamily: 'Bangers', paddingHorizontal: 5 },
+  username: { fontSize: 22, fontWeight: 'bold', color: '#0e3672', marginBottom: 15, marginTop: 5, fontFamily: 'Bangers', paddingInline: 5 },
   buttonPrimary: { backgroundColor: '#22c55e', paddingVertical: 12, borderRadius: 14, marginBottom: 15, width: '90%', alignItems: 'center' },
   buttonText: { color: '#fff', fontSize: 18, fontWeight: 'bold', fontFamily: 'Kanito' },
   buttonSecondary: { backgroundColor: '#1e293b', paddingVertical: 8, borderRadius: 12, width: '20%', alignItems: 'center', marginBottom: 10, alignSelf: 'flex-end' },

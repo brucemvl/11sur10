@@ -178,7 +178,8 @@ const Home = ({ selectedTeamIds }) => {
         )}
 
         {selectedTeamIds != null && (
-          <Favorite selectedTeamId={selectedTeamIds} />
+          <Favorite 
+  selectedTeamIds={selectedTeamIds} />
         )}
 
         <TouchableOpacity accessible accessibilityRole="button" accessibilityLabel="Partager l'application"

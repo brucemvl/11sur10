@@ -187,10 +187,11 @@ function Stats({ match, injuries }) {
       minutes: stat.games?.minutes,
     };
   })
-  .filter(p => p.minutes !== null);
+.filter(p => p.minutes > 0)
 
-  const topScorerHome = players.length > 0 ? players.reduce((best, p) => (p.goals > best.goals ? p : best)) : null;
-  const topAssistHome = players.length > 0 ? players.reduce((best, p) => (p.assists > best.assists ? p : best)) : null;
+const topScorerHome =
+  players.sort((a,b) => b.goals - a.goals)[0] || null;
+    const topAssistHome = players.length > 0 ? players.reduce((best, p) => (p.assists > best.assists ? p : best)) : null;
 
   const ratedPlayers = playersHome
   .filter(p => !injuredPlayerIds.has(p.player.id))
@@ -204,7 +205,7 @@ function Stats({ match, injuries }) {
       minutes: stat.games?.minutes,
     };
   })
-  .filter(p => p.rating !== null && p.minutes >= 90);
+  .filter(p => p.rating !== null);
 
   const bestRatedHome = ratedPlayers.length > 0 ? ratedPlayers.reduce((best, p) => (p.rating > best.rating ? p : best)) : null;
 
@@ -221,10 +222,12 @@ function Stats({ match, injuries }) {
       minutes: stat.games?.minutes,
     };
   })
-  .filter(p => p.minutes !== null);
+  .filter(p => p.minutes > 0);
 
-  const topScorerExt = playersExtFiltered.length > 0 ? playersExtFiltered.reduce((best, p) => (p.goals > best.goals ? p : best)) : null;
-  const topAssistExt = playersExtFiltered.length > 0 ? playersExtFiltered.reduce((best, p) => (p.assists > best.assists ? p : best)) : null;
+const topScorerExt =
+  playersExtFiltered.sort((a,b) => b.goals - a.goals)[0] || null;
+
+    const topAssistExt = playersExtFiltered.length > 0 ? playersExtFiltered.reduce((best, p) => (p.assists > best.assists ? p : best)) : null;
 
   const ratedPlayersExt = playersExt
   .filter(p => !injuredPlayerIds.has(p.player.id))
@@ -238,7 +241,7 @@ function Stats({ match, injuries }) {
       minutes: stat.games?.minutes,
     };
   })
-  .filter(p => p.rating !== null && p.minutes >= 90);
+  .filter(p => p.rating !== null);
 
   const bestRatedExt = ratedPlayersExt.length > 0 ? ratedPlayersExt.reduce((best, p) => (p.rating > best.rating ? p : best)) : null;
 

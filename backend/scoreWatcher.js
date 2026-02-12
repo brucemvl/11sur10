@@ -37,6 +37,8 @@ function pickRandom(messages) {
 
 // 🌟 Version combinée et optimisée
 async function refreshAndCheckMatches() {
+  const currentLiveMatchIds = new Set();
+
   try {
     // 1️⃣ Récupérer les équipes suivies + tokens
     const tokenGroups = await PushToken.aggregate([
@@ -64,6 +66,7 @@ async function refreshAndCheckMatches() {
 
     for (const match of liveMatches) {
       const matchId = match.fixture.id;
+      currentLiveMatchIds.add(matchId);
       const homeTeamId = match.teams.home.id;
       const awayTeamId = match.teams.away.id;
       const homeTeamName = teamNameNotif[match.teams.home.name] || match.teams.home.name;
@@ -142,7 +145,12 @@ async function refreshAndCheckMatches() {
             });
           }
 
-          previousScores[matchId] = { home: homeGoals, away: awayGoals };
+previousScores[matchId] = {
+  home: homeGoals,
+  away: awayGoals,
+  homeTeamId,
+  awayTeamId,
+};
         }
 
         // 7️⃣ Événements spécifiques
@@ -175,6 +183,33 @@ async function refreshAndCheckMatches() {
         }
       }
     }
+
+for (const matchId of Object.keys(previousScores))
+    if (!currentLiveMatchIds.has(Number(matchId)) && !finishedMatches[matchId]) {
+
+      const matchData = previousScores[matchId];
+if (!matchData) continue;
+
+const { homeTeamId, awayTeamId, home, away } = matchData;
+
+const tokens = [];
+if (tokensByTeam[homeTeamId]) tokens.push(...tokensByTeam[String(homeTeamId)]);
+if (tokensByTeam[awayTeamId]) tokens.push(...tokensByTeam[String(awayTeamId)]);
+
+const uniqueTokens = Array.from(new Set(tokens));
+if (!uniqueTokens.length) continue;
+
+await sendPushNotification(uniqueTokens, {
+  title: '⏱️ Match terminé',
+  body: `Score final : ${home} - ${away}`,
+  data: { matchId },
+});
+
+    finishedMatches[matchId] = true;
+    delete previousScores[matchId];
+  }
+}
+
   } catch (err) {
     console.error('❌ Erreur dans refreshAndCheckMatches:', err.message);
   }

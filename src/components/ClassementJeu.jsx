@@ -96,8 +96,8 @@ console.log(leaders)
   top3Container: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 30 },
   card: { flex: 1, marginHorizontal: 5, padding: 10, borderRadius: 15, alignItems: 'center', shadowColor: "#000", shadowOffset: {width: 0, height: 5}, shadowRadius: 4, shadowOpacity: 0.8, elevation: 4 },
   rank1: { backgroundColor: '#facc15' }, // or
-  rank2: { backgroundColor: '#e5e7eb' },
-  rank3: { backgroundColor: '#a74600' },
+  rank2: { backgroundColor: '#e2e3e4' },
+  rank3: { backgroundColor: '#bf5a11' },
   medal: { fontSize: 30, marginBottom: 6 },
   username: { fontSize: 16, fontFamily: 'Bangers', paddingInline: 3 },
   points: { marginTop: 4, fontFamily: 'Kanito' },
