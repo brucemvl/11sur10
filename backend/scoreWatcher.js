@@ -11,14 +11,15 @@ const finishedMatches = {};
 const penaltyNotified = {};
 const extraTimeNotified = {};
 const lastNotificationSent = {};
+
 let activeMatches = [];
 
 const NOTIF_COOLDOWN = 60 * 1000; // 1 minute anti-spam
+const TOKEN_CACHE_DURATION = 2 * 60 * 1000; // 2 minutes
 
 let tokensByTeamCache = {};
 let followedTeamIdsCache = new Set();
 let lastTokenRefresh = 0;
-const TOKEN_CACHE_DURATION = 2 * 60 * 1000; // 2 minutes
 
 const teamNameNotif = {
   "Morocco": "Maroc",
@@ -43,11 +44,14 @@ const scoreMessages = {
   ],
 };
 
+// -----------------------------
+// Utils
+// -----------------------------
 function pickRandom(messages) {
   return messages[Math.floor(Math.random() * messages.length)];
 }
 
-// 🔹 Refresh cache tokens toutes les 2 minutes
+// Refresh cache tokens toutes les 2 min
 async function refreshTokenCacheIfNeeded() {
   const now = Date.now();
   if (now - lastTokenRefresh < TOKEN_CACHE_DURATION) return;
@@ -58,22 +62,24 @@ async function refreshTokenCacheIfNeeded() {
   ]);
 
   tokensByTeamCache = Object.fromEntries(
-    tokenGroups.map(g => [String(g._id), g.tokens])
+    tokenGroups.map(g => [String(g._id), Array.from(new Set(g.tokens))])
   );
 
   followedTeamIdsCache = new Set(tokenGroups.map(g => Number(g._id)).filter(Boolean));
   lastTokenRefresh = now;
-  console.log("🔄 Token cache refreshed");
+
+  console.log(`🔄 Token cache refreshed, ${followedTeamIdsCache.size} équipes suivies`);
 }
 
-// 🔁 Rafraîchit la liste des matchs actifs
+// -----------------------------
+// Refresh des matchs actifs
+// -----------------------------
 async function refreshActiveMatches() {
   try {
     console.log("🔄 Rafraîchissement des matchs à suivre...");
-    const stillActive = [...activeMatches];
-    activeMatches = stillActive;
+    activeMatches = activeMatches.filter(m => !finishedMatches[m.matchId]);
 
-    await refreshTokenCacheIfNeeded(); // Met à jour le cache de tokens
+    await refreshTokenCacheIfNeeded();
 
     for (const teamId of followedTeamIdsCache) {
       if (!teamId) continue;
@@ -88,55 +94,54 @@ async function refreshActiveMatches() {
         }
       );
 
-      const matches = data.response;
-      const liveMatches = matches.filter(match =>
-        ['1H', '2H', 'HT', 'ET', 'P'].includes(match.fixture.status.short)
+      const matches = data.response || [];
+      const liveMatches = matches.filter(m =>
+        ['1H', '2H', 'HT', 'ET', 'P'].includes(m.fixture.status.short)
       );
+
+      console.log(`Team ${teamId}: ${matches.length} match(es) récupéré(s), ${liveMatches.length} en live`);
 
       liveMatches.forEach(match => {
         if (finishedMatches[match.fixture.id]) return;
-        const exists = activeMatches.some(m => m.matchId === match.fixture.id);
-        if (!exists) activeMatches.push({ matchId: match.fixture.id });
+        if (!activeMatches.some(m => m.matchId === match.fixture.id)) {
+          activeMatches.push({ matchId: match.fixture.id, teamId });
+        }
       });
     }
 
-    // Supprimer les doublons
+    // Supprimer doublons
     activeMatches = Array.from(
       new Map(activeMatches.map(m => [m.matchId, m])).values()
     );
 
-    console.log(`Team ${teamId}: ${matches.length} match(es) récupéré(s), ${liveMatches.length} en live`);
-
-
     console.log(`✅ ${activeMatches.length} match(s) actif(s) à surveiller.`);
   } catch (err) {
-    console.error('❌ Erreur dans refreshActiveMatches:', err.message);
+    console.error('❌ Erreur refreshActiveMatches:', err.message);
   }
 }
 
-// 🔹 Vérifie scores et événements
+// -----------------------------
+// Vérification des scores et événements
+// -----------------------------
 async function checkMatchScore() {
   try {
     if (!activeMatches.length) {
-  console.log("⏸️ Aucun match actif à surveiller.");
-  return;
-}
+      console.log("⏸️ Aucun match actif à surveiller.");
+      return;
+    }
 
     await refreshTokenCacheIfNeeded();
 
-    // 🔹 Grouper les tokens par matchId
     const matchTokens = {};
     for (const { matchId, teamId } of activeMatches) {
       if (!matchTokens[matchId]) matchTokens[matchId] = new Set();
       (tokensByTeamCache[teamId] || []).forEach(t => matchTokens[matchId].add(t));
     }
 
-    // 🔹 Parcours par matchId
     for (const matchId of Object.keys(matchTokens)) {
       const tokens = Array.from(matchTokens[matchId]);
       if (!tokens.length) continue;
 
-      // 🔹 Appel API par matchId pour infos les plus récentes
       const { data } = await axios.get(
         `https://v3.football.api-sports.io/fixtures?id=${matchId}`,
         { headers: { 'x-rapidapi-key': process.env.FOOTBALL_API_KEY, 'x-rapidapi-host': 'v3.football.api-sports.io' } }
@@ -181,8 +186,6 @@ async function checkMatchScore() {
         });
 
         finishedMatches[matchId] = true;
-
-        // Nettoyage
         delete previousScores[matchId];
         delete penaltyNotified[matchId];
         delete extraTimeNotified[matchId];
@@ -258,7 +261,9 @@ async function checkMatchScore() {
   }
 }
 
-// 🕓 Cron jobs
+// -----------------------------
+// Cron jobs
+// -----------------------------
 cron.schedule('*/5 * * * *', refreshActiveMatches);      // Rafraîchit tous les 5 min
 cron.schedule('*/30 * * * * *', checkMatchScore);       // Vérifie toutes les 30 sec
 
