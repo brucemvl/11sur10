@@ -17,6 +17,7 @@ const previousScores = {};
 const previousEvents = {};
 const finishedMatches = {};
 const penaltyNotified = {};
+const extraTimeNotified = {};
 
 const teamNameNotif = {
   "Morocco": "Maroc",
@@ -111,6 +112,30 @@ async function refreshAndCheckMatches() {
       const awayGoals = match.goals.away ?? 0;
       const status = match.fixture.status.short;
 
+      // 🕒 Début des prolongations
+if (status === 'ET' && !extraTimeNotified[matchId]) {
+
+  await sendPushNotification(uniqueTokens, {
+    title: '⏳ Prolongations',
+    body: `${homeTeamName} ${homeGoals} - ${awayGoals} ${awayTeamName}\nDébut des prolongations !`,
+    data: { screen: 'FicheMatch', matchId },
+  });
+
+  extraTimeNotified[matchId] = true;
+}
+
+// 🎯 Début des tirs au but
+if (status === 'P' && !penaltyNotified[matchId]) {
+
+  await sendPushNotification(uniqueTokens, {
+    title: '🎯 Tirs au but',
+    body: `${homeTeamName} vs ${awayTeamName}\nPlace aux penalties !`,
+    data: { screen: 'FicheMatch', matchId },
+  });
+
+  penaltyNotified[matchId] = true;
+}
+
       const tokens = [];
       if (followedTeamIds.has(homeTeamId)) tokens.push(...(tokensByTeam[homeTeamId] || []));
       if (followedTeamIds.has(awayTeamId)) tokens.push(...(tokensByTeam[awayTeamId] || []));
@@ -125,19 +150,43 @@ async function refreshAndCheckMatches() {
       }
 
       // MATCH TERMINÉ
-      if (['FT', 'AET', 'PEN'].includes(status) && !finishedMatches[matchId]) {
+     if (['FT', 'AET', 'PEN'].includes(status) && !finishedMatches[matchId]) {
 
-        await sendPushNotification(uniqueTokens, {
-          title: '⏱️ Match terminé',
-          body: `Score final : ${homeTeamName} ${homeGoals} - ${awayGoals} ${awayTeamName}`,
-          data: { screen: 'FicheMatch', matchId },
-        });
+  let bodyMessage = `Score final : ${homeTeamName} ${homeGoals} - ${awayGoals} ${awayTeamName}`;
 
-        lastNotificationSent[notifKey] = now;
-        finishedMatches[matchId] = true;
-        delete previousScores[matchId];
-        continue;
-      }
+  // 🏆 Victoire aux tirs au but
+  if (status === 'PEN') {
+
+    const homePen = match.score?.penalty?.home ?? 0;
+    const awayPen = match.score?.penalty?.away ?? 0;
+
+    let winner = null;
+    if (homePen > awayPen) winner = homeTeamName;
+    if (awayPen > homePen) winner = awayTeamName;
+
+    bodyMessage = `🏆 ${winner} remporte la séance de tirs au but (${homePen}-${awayPen}) !`;
+  }
+
+  // 🕒 Victoire après prolongations
+  if (status === 'AET') {
+    bodyMessage = `⏳ Victoire après prolongations\n${homeTeamName} ${homeGoals} - ${awayGoals} ${awayTeamName}`;
+  }
+
+  await sendPushNotification(uniqueTokens, {
+    title: '⏱️ Match terminé',
+    body: bodyMessage,
+    data: { screen: 'FicheMatch', matchId },
+  });
+
+  finishedMatches[matchId] = true;
+
+  delete previousScores[matchId];
+  delete previousEvents[matchId];
+  delete penaltyNotified[matchId];
+  delete extraTimeNotified[matchId];
+
+  continue;
+}
 
       // MATCH EN COURS
       if (['1H', '2H', 'HT', 'ET'].includes(status)) {
@@ -145,8 +194,10 @@ async function refreshAndCheckMatches() {
         const prev = previousScores[matchId] || { home: null, away: null };
         const scoreChanged = prev.home !== homeGoals || prev.away !== awayGoals;
 
-        if (scoreChanged) {
-
+if (
+  scoreChanged &&
+  !(prev.home === null && homeGoals === 0 && awayGoals === 0)
+) {
           const prevTotal = (prev.home ?? 0) + (prev.away ?? 0);
           const currentTotal = homeGoals + awayGoals;
 
@@ -174,6 +225,47 @@ async function refreshAndCheckMatches() {
             homeTeamId,
             awayTeamId,
           };
+
+          for (const event of match.events || []) {
+
+  const { player, team, time, type, detail } = event;
+  if (!player?.name || !team?.name) continue;
+
+  const eventKey = `${matchId}-${type}-${detail || ''}-${team.id}-${player.id}`.toLowerCase();
+  if (previousEvents[eventKey]) continue;
+
+  const minute = time?.elapsed ?? '?';
+  let body = null;
+
+  if (type === 'Goal') {
+    body = `⚽ ${minute}e - But de ${player.name} (${teamNameNotif[team.name] || team.name})`;
+
+    if (detail === 'Own Goal')
+      body = `😱 ${minute}e - CSC de ${player.name}`;
+
+    if (detail === 'Penalty')
+      body = `⚽ ${minute}e - ${player.name} marque sur penalty`;
+
+    if (detail === 'Missed Penalty')
+      body = `❌ ${minute}e - Penalty raté de ${player.name}`;
+  }
+
+  if (type === 'Card' && detail === 'Red Card') {
+    body = `🟥 ${minute}e - Carton rouge pour ${player.name}`;
+  }
+
+  if (body) {
+    await sendPushNotification(uniqueTokens, {
+      title: `${homeTeamName} ${homeGoals} - ${awayGoals} ${awayTeamName}`,
+      body,
+      data: { screen: 'FicheMatch', matchId },
+    });
+
+    previousEvents[eventKey] = true;
+    console.log(`📲 Événement envoyé : ${body}`);
+  }
+}
+
         }
       }
     }
@@ -189,8 +281,8 @@ async function refreshAndCheckMatches() {
   }
 }
 
-// 🕓 Cron job toutes les 15 sec
-cron.schedule('*/15 * * * * *', refreshAndCheckMatches);
+// 🕓 Cron job toutes les 25 sec
+cron.schedule('*/25 * * * * *', refreshAndCheckMatches);
 
 // ▶️ Démarrage initial
 (async () => {
