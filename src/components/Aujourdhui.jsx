@@ -415,7 +415,7 @@ export default function Aujourdhui({ matchs, onRefresh }) {
                     >
                       <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={[styles.match, isMediumScreen && {height: 60}]}>
 
-                        <Image source={{ uri: league.logo }} style={[styles.leagueLogo, isMediumScreen && {height: 30}, match.league.id === 61 && {width: 40}]} />
+                        <Image source={{ uri: league.logo }} style={[styles.leagueLogo, isMediumScreen && {height: 30}]} />
 
                         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "flex-end", width: finished ? "38%" : "35%", gap: isMediumScreen ? 16 : 3 }}>
                           <Text style={[styles.team, {textAlign: "right"}, isMediumScreen && {fontSize: 18}]}>{home}</Text>

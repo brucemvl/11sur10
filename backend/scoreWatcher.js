@@ -73,14 +73,11 @@ async function refreshActiveMatches() {
     const stillActive = [...activeMatches];
     activeMatches = stillActive;
 
-    const groupedTokens = await PushToken.aggregate([
-      { $group: { _id: '$teamId', tokens: { $push: '$token' } } }
-    ]);
+    await refreshTokenCacheIfNeeded(); // Met à jour le cache de tokens
 
-    for (const { _id: teamId, tokens } of groupedTokens) {
+    for (const teamId of followedTeamIdsCache) {
       if (!teamId) continue;
 
-      // 🔹 Appel live=all pour ne rien rater
       const { data } = await axios.get(
         `https://v3.football.api-sports.io/fixtures?team=${teamId}&live=all`,
         {
@@ -92,31 +89,24 @@ async function refreshActiveMatches() {
       );
 
       const matches = data.response;
-
-      // 🔹 On ne garde que les matchs en cours (1H, 2H, HT, ET)
       const liveMatches = matches.filter(match =>
-        ['1H', '2H', 'HT', 'ET'].includes(match.fixture.status.short)
+        ['1H', '2H', 'HT', 'ET', 'P'].includes(match.fixture.status.short)
       );
 
       liveMatches.forEach(match => {
         if (finishedMatches[match.fixture.id]) return;
-
-        const matchExists = activeMatches.some(
-          m => m.matchId === match.fixture.id && m.teamId === teamId
-        );
-
-        if (!matchExists) {
-          activeMatches.push({ matchId: match.fixture.id, teamId });
-        }
+        const exists = activeMatches.some(m => m.matchId === match.fixture.id);
+        if (!exists) activeMatches.push({ matchId: match.fixture.id });
       });
     }
 
-    // ✅ Supprimer les doublons
+    // Supprimer les doublons
     activeMatches = Array.from(
-      new Map(
-        activeMatches.map(m => [`${m.matchId}-${m.teamId}`, m])
-      ).values()
+      new Map(activeMatches.map(m => [m.matchId, m])).values()
     );
+
+    console.log(`Team ${teamId}: ${matches.length} match(es) récupéré(s), ${liveMatches.length} en live`);
+
 
     console.log(`✅ ${activeMatches.length} match(s) actif(s) à surveiller.`);
   } catch (err) {
@@ -128,9 +118,9 @@ async function refreshActiveMatches() {
 async function checkMatchScore() {
   try {
     if (!activeMatches.length) {
-      console.log("⏸️ Aucun match actif à surveiller.");
-      return;
-    }
+  console.log("⏸️ Aucun match actif à surveiller.");
+  return;
+}
 
     await refreshTokenCacheIfNeeded();
 
