@@ -11,6 +11,7 @@ const finishedMatches = {};
 const penaltyNotified = {};
 const extraTimeNotified = {};
 const lastNotificationSent = {};
+let activeMatches = [];
 
 const NOTIF_COOLDOWN = 60 * 1000; // 1 minute anti-spam
 
