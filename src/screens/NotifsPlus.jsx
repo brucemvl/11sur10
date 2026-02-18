@@ -168,7 +168,7 @@ Toast.show({
       <Precedent />
 
       <ScrollView style={styles.container} contentContainerStyle={{alignItems: "center", paddingTop: 50, paddingBottom: 100}}>
-        <Text style={styles.title}>Choisis ton(s) équipe(s) préférée(s) :</Text>
+        <Text style={styles.title}>Choisis ton(tes) équipe(s) préférée(s) :</Text>
         <Text style={styles.subtitle}>
           et reçois une notification lorsque celle-ci marque ou encaisse un but
         </Text>

@@ -301,7 +301,7 @@ const loadMyPredictions = async () => {
 <View style={{flexDirection: "row", gap: "5%"}}>
     <TouchableOpacity
     onPress={()=> {navigation.navigate('FicheMatch', { id: id })}} 
-    style={{width: "25%", backgroundColor: "#5986f0", borderRadius: 10, alignItems: "center", justifyContent: "center"}}>
+    style={{width: "25%", backgroundColor: "#5986f0", borderRadius: 15, alignItems: "center", justifyContent: "center"}}>
         <Text style={{fontFamily: "Kanito", color: "white", textAlign: "center", fontSize: 12}}>
         Voir la fiche match
         </Text>
@@ -384,7 +384,7 @@ textAlign: "center"
     paddingBottom: 15,
     paddingInline: 10,
     paddingTop: 5,
-    borderRadius: 14,
+    borderRadius: 20,
     marginBottom: 15,
     borderWidth: 1,
     overflow: "hidden"
@@ -423,7 +423,7 @@ resizeMode: "contain"
   button: {
     backgroundColor: '#22c55e',
     padding: 12,
-    borderRadius: 10,
+    borderRadius: 15,
     alignItems: 'center',
     width: "70%"
   },
@@ -432,7 +432,6 @@ resizeMode: "contain"
   },
   buttonText: {
     color: '#fff',
-    fontWeight: 'bold',
     fontFamily: "Kanito"
   },
   alreadyPredicted: {

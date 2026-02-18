@@ -172,7 +172,7 @@ export const autres = [
         "country": "Argentine",
         "logo": "https://media.api-sports.io/football/leagues/128.png",
         "flag": "https://media.api-sports.io/flags/ar.svg",
-        "season": 2025,
+        "season": 2026,
     },
 
     {

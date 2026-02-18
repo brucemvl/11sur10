@@ -13,7 +13,7 @@ import goat from "../assets/portraits/messi.webp"
 import darwin from "../assets/portraits/darwin.png"
 import salah from "../assets/portraits/salah.png"
 import kounde from "../assets/portraits/kounde.png"
-import endrick from "../assets/portraits/endrick.jpg"
+import endrick from "../assets/portraits/endrick.png"
 import mbappe from "../assets/portraits/mbappe.png"
 import vini from "../assets/portraits/vini.png"
 import palmer from "../assets/portraits/palmer.png"
@@ -244,11 +244,15 @@ import coman from "../assets/portraits/coman.png"
 import felix from "../assets/portraits/felix.png"
 import sesko from "../assets/portraits/sesko.png"
 import dro from "../assets/portraits/dro.png"
+import woltemade from "../assets/portraits/woltemade.png"
+import stmaximin from "../assets/portraits/stmaximin.png"
 
 
 
 
 export const portraitsJoueurs = {
+        22173: stmaximin,
+        158054: woltemade,
         491087: dro,
         115589: sesko,
     583: felix,

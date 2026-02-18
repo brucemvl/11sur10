@@ -66,6 +66,7 @@ const Evenements = ({ match }) => {
                         </View>
                         :
                         element.detail === "Goal Disallowed - offside" ||
+                        element.detail === "Goal Disallowed - handball" ||
                           element.detail === "Goal cancelled" ||
                           element.detail === "Goal Disallowed" ||
                           element.detail === "Penalty confirmed" || element.detail === "Goal confirmed" || element.detail === "Penalty cancelled" ?
@@ -156,12 +157,13 @@ const Evenements = ({ match }) => {
                           </View>
                         )}
                         {(element.detail === "Goal Disallowed - offside" ||
+                        element.detail === "Goal Disallowed - handball" ||
                           element.detail === "Goal cancelled" ||
                           element.detail === "Goal Disallowed" ||
                           element.detail === "Penalty confirmed" || element.detail === "Goal confirmed" || element.detail === "Penalty cancelled") && (
                             <View style={styles.varContainer}>
 
-                              <Text style={styles.varText}>{element.detail === "Goal Disallowed - offside" ? "❌  But refusé (Hors-Jeu)" : element.detail === "Goal cancelled" || element.detail === "Goal Disallowed" ? "❌   But annulé" : element.detail === "Penalty confirmed" ? "Penalty confirmé !" : element.detail === "Penalty cancelled" ? "❌   Penalty annulé !" : element.detail === "Goal confirmed" ? "But Confirmé !" : element.detail}</Text>
+                              <Text style={styles.varText}>{element.detail === "Goal Disallowed - handball" ? "❌  But refusé (Main)" : element.detail === "Goal Disallowed - offside" ? "❌  But refusé (Hors-Jeu)" : element.detail === "Goal cancelled" || element.detail === "Goal Disallowed" ? "❌   But annulé" : element.detail === "Penalty confirmed" ? "Penalty confirmé !" : element.detail === "Penalty cancelled" ? "❌   Penalty annulé !" : element.detail === "Goal confirmed" ? "But Confirmé !" : element.detail}</Text>
                             </View>
                           )}
                       </View>

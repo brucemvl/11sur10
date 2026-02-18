@@ -20,6 +20,10 @@ import { useFonts } from "expo-font";
 export default function AccueilJeu() {
   const [user, setUser] = useState(null);
   const navigation = useNavigation();
+    const scaleAnim = useRef(new Animated.Value(1)).current;
+    const scaleAnim2 = useRef(new Animated.Value(1)).current;
+    const scaleAnim3 = useRef(new Animated.Value(1)).current;
+  
 
   const [fontsLoaded] = useFonts({
       "Kanitblack": require("../assets/fonts/Kanit/Kanit-Black.ttf"), 
@@ -139,23 +143,62 @@ if (!fontsLoaded) return null;
 
         <TouchableOpacity
           style={styles.buttonPrimary}
-          onPress={() => navigation.navigate('Jeu')}
+          onPress={() => {navigation.navigate('Jeu')
+            Animated.sequence([
+                Animated.timing(scaleAnim, {
+                  toValue: 1.5,
+                  duration: 150,
+                  useNativeDriver: true,
+                }),
+                Animated.timing(scaleAnim, {
+                  toValue: 1,
+                  duration: 150,
+                  useNativeDriver: true,
+                }),
+              ]).start();}
+          }
         >
-          <Text style={styles.buttonText}>Jouer</Text>
+          <Animated.Text style={[styles.buttonText, { transform: [{ scale: scaleAnim }] }] }>Jouer</Animated.Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.buttonPrimary}
-          onPress={() => navigation.navigate('ClassementJeu')}
+          onPress={() => {navigation.navigate('ClassementJeu')
+            Animated.sequence([
+                Animated.timing(scaleAnim2, {
+                  toValue: 1.5,
+                  duration: 150,
+                  useNativeDriver: true,
+                }),
+                Animated.timing(scaleAnim2, {
+                  toValue: 1,
+                  duration: 150,
+                  useNativeDriver: true,
+                }),
+              ]).start();}
+          }
         >
-          <Text style={styles.buttonText}>Classement</Text>
+          <Animated.Text style={[styles.buttonText, { transform: [{ scale: scaleAnim2 }] }] }>Classement</Animated.Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.buttonPrimary}
-          onPress={() => navigation.navigate('HistoriquePronos')}
+          onPress={() => {navigation.navigate('HistoriquePronos')
+            Animated.sequence([
+                Animated.timing(scaleAnim3, {
+                  toValue: 1.5,
+                  duration: 150,
+                  useNativeDriver: true,
+                }),
+                Animated.timing(scaleAnim3, {
+                  toValue: 1,
+                  duration: 150,
+                  useNativeDriver: true,
+                }),
+              ]).start();}
+          }
         >
-          <Text style={styles.buttonText}>Mes pronos</Text>
+          <Animated.Text style={[styles.buttonText, { transform: [{ scale: scaleAnim3 }] }] }>Mes pronos</Animated.Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
@@ -168,17 +211,17 @@ if (!fontsLoaded) return null;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f3f3f3', paddingTop: 10, paddingHorizontal: 20 },
-  title: { fontSize: 36, fontWeight: 'bold', backgroundColor: '#0b1960', marginBottom: 10, fontFamily: 'Kanitalik', color: "#e3e00f", paddingBlock: 6, paddingInline: 12, borderRadius: 12 },
+  title: { fontSize: 36, backgroundColor: '#0b1960', marginBottom: 10, fontFamily: 'Kanitalik', color: "#e3e00f", paddingBlock: 6, paddingInline: 12, borderRadius: 12 },
   welcome: { fontSize: 18, color: '#132741', marginTop: 10, fontFamily: 'Kanito' },
-  username: { fontSize: 22, fontWeight: 'bold', color: '#0e3672', marginBottom: 15, marginTop: 5, fontFamily: 'Bangers', paddingInline: 5 },
-  buttonPrimary: { backgroundColor: '#22c55e', paddingVertical: 12, borderRadius: 14, marginBottom: 15, width: '90%', alignItems: 'center' },
-  buttonText: { color: '#fff', fontSize: 18, fontWeight: 'bold', fontFamily: 'Kanito' },
+  username: { fontSize: 22, color: '#0e3672', marginBottom: 15, marginTop: 5, fontFamily: 'Bangers', paddingInline: 5 },
+  buttonPrimary: { backgroundColor: '#22c55e', paddingVertical: 12, borderRadius: 20, marginBottom: 15, width: '75%', alignItems: 'center' },
+  buttonText: { color: '#fff', fontSize: 18,  fontFamily: 'Kanito' },
   buttonSecondary: { backgroundColor: '#1e293b', paddingVertical: 8, borderRadius: 12, width: '20%', alignItems: 'center', marginBottom: 10, alignSelf: 'flex-end' },
   buttonSecondaryText: { color: '#e5e7eb', fontSize: 10, fontFamily: 'Kanitus' },
   logoutButton: { paddingVertical: 12 },
   logoutText: { color: '#ef4444', fontSize: 14, fontFamily: 'Kanito' },
   topAvatar: { width: 110, height: 110, borderRadius: 55, marginVertical: 5, resizeMode: 'cover' },
-  points: { fontSize: 18, fontWeight: 'bold', color: '#c59e00', fontFamily: 'Kanitt', marginBottom: 10 },
+  points: { fontSize: 18, color: '#c59e00', fontFamily: 'Kanitt', marginBottom: 10 },
   statsContainer: { marginBottom: 20 },
   statText: { fontSize: 16, color: '#0c1c6a', fontFamily: 'Kanito', marginVertical: 2 }
 });

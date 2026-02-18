@@ -1,5 +1,5 @@
 import { View, Text, Image, TouchableOpacity, ActivityIndicator, StyleSheet } from "react-native";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef} from "react";
 import { teamName } from "../datas/teamNames";
 import warning from "../assets/warning.png";
 import { Animated, Easing } from 'react-native';

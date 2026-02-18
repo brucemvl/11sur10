@@ -88,8 +88,8 @@ console.log(leaders)
 }
 
   const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f3f4f6', paddingBottom: 70  },
-  scroll: {flex: 1, alignItems: "center", padding: 10  },
+  container: { flex: 1, backgroundColor: '#f3f4f6'  },
+  scroll: { alignItems: "center", padding: 10, paddingBottom: 100  },
   title: { fontSize: 24, fontFamily: "Kanitt", marginBlock: 30, color: "black" },
 
   // Top 3
@@ -110,6 +110,6 @@ console.log(leaders)
   rowUsername: { color: "black", fontFamily: "Kanitt", width: "36%" },
   rowPoints: { fontFamily: "Kanitt", width: "14%", textAlign: "left"},
   statsSmall: { fontSize: 12, fontFamily: "Kanitus", width: "28%"},
-  regles: {flex: 1, alignItems: "center"},
-  reglesText: {color: "black", fontFamily: "Kanito"}
+  regles: {alignItems: "center", padding: 8},
+  reglesText: {color: "black", fontFamily: "Kanito", fontSize: 13}
 })

@@ -396,7 +396,7 @@ const [rank, setRank] = useState()
                   data={subArray}
                   keyExtractor={(item) => `champ${item.team.id}`}
                   renderItem={({ item }) => (
-                                  <TouchableOpacity onPress={() => navigation.navigate("FicheEquipe", { id: item.team.id, league: item.group === "Ligue 1" || item.group === "Ligue 1 " ? 61 : item.group === "UEFA Champions League" ? 2 : item.group === "Premier League" ? 39 : item.group === "LaLiga" || item.group === "Primera División" ? 140 : item.group.indexOf("Super League 1") !== -1 ? 197 : item.group === "Bundesliga" ? 78 : item.group === "Ligue 2: Regular Season" ? 62 : item.group === "Serie A" ? 135 : item.group === "UEFA Europa League" ? 3 : item.group === "Saudi League" ? 307 : item.group === "Eastern Conference" ? 253 : item.group === "Primeira Liga" ? 94 : item.group === "Ligue 2 " ? 62 : item.group === "National " ? 63 : item.description.indexOf("Africa Cup of Nations") != -1 ? 6 : null })} style={styles.equipe}>
+                                  <View  style={styles.equipe}>
 
                     <View style={styles.equipe}>
                       <Text style={{width: "4%", marginInline: "2%", fontFamily: "Kanitus"}}>{item.rank}</Text>
@@ -408,7 +408,7 @@ const [rank, setRank] = useState()
                       <Text style={{width: "9%", fontFamily: "Kanitus"}}>{item.all.lose}</Text>
                       <Text style={{width: "11%", fontFamily: "Kanitt"}}>{item.points}</Text>
                     </View>
-                    </TouchableOpacity>
+                    </View>
                   )}
                 />
                 </View>

@@ -163,6 +163,7 @@ const Favorite = forwardRef((props, ref) => {
                                         <TouchableOpacity
                                             key={element.fixture.id}
                                             style={styles.carte}
+                                            onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}
                                             onLayout={e => {
                                                 const layoutX = e.nativeEvent.layout.x;  // copie immédiatement
                                                 setPositions(prev => {

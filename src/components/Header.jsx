@@ -100,7 +100,7 @@ const Header = forwardRef(({ notifsEnabled, selectedTeamIds = [] }, ref) => {
 
       <Image source={logo} style={styles.logo} />
 
-      <TouchableOpacity onPress={() => navigation.navigate("Notifs")}>
+      <TouchableOpacity onPress={() => navigation.navigate("NotifsPlus")}>
         <View style={{ width: 50, height: 50, alignItems: 'center', justifyContent: 'center' }}>
           {/* Cercle des logos */}
           {teams.map((team, i) => {

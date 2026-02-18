@@ -81,38 +81,45 @@ async function refreshActiveMatches() {
 
     await refreshTokenCacheIfNeeded();
 
-    for (const teamId of followedTeamIdsCache) {
-      if (!teamId) continue;
+    
 
-      const { data } = await axios.get(
-        `https://v3.football.api-sports.io/fixtures?team=${teamId}&live=all`,
-        {
-          headers: {
-            'x-rapidapi-key': process.env.FOOTBALL_API_KEY,
-            'x-rapidapi-host': 'v3.football.api-sports.io',
-          },
-        }
-      );
+     const { data } = await axios.get(
+  `https://v3.football.api-sports.io/fixtures?live=all`,
+  {
+    headers: {
+      'x-rapidapi-key': process.env.FOOTBALL_API_KEY,
+      'x-rapidapi-host': 'v3.football.api-sports.io',
+    },
+  }
+);
 
-      const matches = data.response || [];
-      const liveMatches = matches.filter(m =>
-        ['1H', '2H', 'HT', 'ET', 'P'].includes(m.fixture.status.short)
-      );
+const liveMatches = (data.response || []).filter(m =>
+  ['1H', '2H', 'HT', 'ET', 'P'].includes(m.fixture.status.short)
+);
 
-      console.log(`Team ${teamId}: ${matches.length} match(es) récupéré(s), ${liveMatches.length} en live`);
+liveMatches.forEach(match => {
+  const homeId = match.teams.home.id;
+  const awayId = match.teams.away.id;
 
-      liveMatches.forEach(match => {
-        if (finishedMatches[match.fixture.id]) return;
-        if (!activeMatches.some(m => m.matchId === match.fixture.id)) {
-          activeMatches.push({ matchId: match.fixture.id, teamId });
-        }
-      });
-    }
+  const followedTeams = [homeId, awayId].filter(id =>
+    followedTeamIdsCache.has(id)
+  );
 
-    // Supprimer doublons
-    activeMatches = Array.from(
-      new Map(activeMatches.map(m => [m.matchId, m])).values()
-    );
+  if (!followedTeams.length) return;
+
+  const existing = activeMatches.find(m => m.matchId === match.fixture.id);
+
+  if (existing) {
+    followedTeams.forEach(id => existing.teamIds.add(id));
+  } else {
+    activeMatches.push({
+      matchId: match.fixture.id,
+      teamIds: new Set(followedTeams)
+    });
+  }
+});
+
+    
 
     console.log(`✅ ${activeMatches.length} match(s) actif(s) à surveiller.`);
   } catch (err) {
@@ -133,10 +140,15 @@ async function checkMatchScore() {
     await refreshTokenCacheIfNeeded();
 
     const matchTokens = {};
-    for (const { matchId, teamId } of activeMatches) {
-      if (!matchTokens[matchId]) matchTokens[matchId] = new Set();
-      (tokensByTeamCache[teamId] || []).forEach(t => matchTokens[matchId].add(t));
-    }
+    for (const { matchId, teamIds } of activeMatches) {
+  if (!matchTokens[matchId]) matchTokens[matchId] = new Set();
+
+  for (const teamId of teamIds) {
+    (tokensByTeamCache[teamId] || []).forEach(t =>
+      matchTokens[matchId].add(t)
+    );
+  }
+}
 
     for (const matchId of Object.keys(matchTokens)) {
       const tokens = Array.from(matchTokens[matchId]);

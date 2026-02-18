@@ -16,7 +16,7 @@ import salah from "../assets/portraits/fiche/salah.webp"
 import kounde from "../assets/portraits/fiche/kounde.png"
 import dejong from "../assets/portraits/fiche/dejong.png"
 import garcia from "../assets/portraits/fiche/garcia.png"
-import endrick from "../assets/portraits/fiche/endrick.webp"
+import endrick from "../assets/portraits/fiche/endrick.png"
 import mbappe from "../assets/portraits/fiche/mbappe.png"
 import vini from "../assets/portraits/fiche/vinicius.png"
 import palmer from "../assets/portraits/fiche/palmer.webp"
@@ -225,7 +225,7 @@ import zeghrova from "../assets/portraits/fiche/zeghrova.png"
 import xavisimmons from "../assets/portraits/fiche/xavisimmons.png"
 import kolomuani from "../assets/portraits/fiche/kolomuani.png"
 import kephren from "../assets/portraits/fiche/kephren.png"
-import tonali from "../assets/portraits/fiche/tonali.webp"
+import tonali from "../assets/portraits/fiche/tonali.png"
 import guimaraes from "../assets/portraits/fiche/guimaraes.webp"
 import zabarnyi from "../assets/portraits/fiche/zabarnyi.png"
 import dimarco from "../assets/portraits/fiche/dimarco.png"
@@ -295,10 +295,12 @@ import guela from "../assets/portraits/fiche/guela.png"
 import felix from "../assets/portraits/fiche/felix.png"
 import dro from "../assets/portraits/fiche/dro.png"
 import sesko from "../assets/portraits/fiche/sesko.png"
+import stmaximin from "../assets/portraits/fiche/stmaximin.png"
 
 
 
 export const fichesJoueurs = {
+    22173: stmaximin,
     115589: sesko,
     491087: dro,
     583: felix,
