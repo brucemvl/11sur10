@@ -17,8 +17,10 @@ import { portraitsJoueurs } from "../datas/Portraits";
 import { allCompetitions } from "../datas/Leagues";
 import { teamName } from "../datas/teamNames";
 import * as Haptics from "expo-haptics"
+import { useTranslation } from 'react-i18next';
 
 function Classement({ id }) {
+  const { t } = useTranslation();
   const { width } = useWindowDimensions();
   const isMediumScreen = width <= 1024 && width > 767;
 
@@ -346,7 +348,7 @@ const [rank, setRank] = useState()
             colors={["rgba(66, 66, 66, 1)", "rgba(165, 165, 165, 1)"]}
             style={selectedClassement ? styles.boutonSelected : styles.bouton}
           >
-            <Text style={selectedClassement ? styles.btnTextSelected : styles.btnText}>Classement</Text>
+            <Text style={selectedClassement ? styles.btnTextSelected : styles.btnText}>{t('standings')}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -355,7 +357,7 @@ const [rank, setRank] = useState()
             colors={["rgba(66, 66, 66, 1)", "rgba(165, 165, 165, 1)"]}
             style={selectedButeurs ? styles.boutonSelected : styles.bouton}
           >
-            <Text style={selectedButeurs ? styles.btnTextSelected : styles.btnText}>Buteurs</Text>
+            <Text style={selectedButeurs ? styles.btnTextSelected : styles.btnText}>{t('top_scorers')}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -364,7 +366,7 @@ const [rank, setRank] = useState()
             colors={["rgba(66, 66, 66, 1)", "rgba(165, 165, 165, 1)"]}
             style={selectedPasseurs ? styles.boutonSelected : styles.bouton}
           >
-            <Text style={selectedPasseurs ? styles.btnTextSelected : styles.btnText}>Passeurs</Text>
+            <Text style={selectedPasseurs ? styles.btnTextSelected : styles.btnText}>{t('top_assist')}</Text>
           </LinearGradient>
         </TouchableOpacity>
       </View>
@@ -542,7 +544,7 @@ console.log(tab)
             colors={["rgba(66, 66, 66, 1)", "rgba(165, 165, 165, 1)"]}
             style={selectedClassement ? styles.boutonSelected : styles.bouton}
           >
-            <Text style={selectedClassement ? styles.btnTextSelected : styles.btnText}>Classement</Text>
+            <Text style={selectedClassement ? styles.btnTextSelected : styles.btnText}>{t('standings')}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -551,7 +553,7 @@ console.log(tab)
             colors={["rgba(66, 66, 66, 1)", "rgba(165, 165, 165, 1)"]}
             style={selectedButeurs ? styles.boutonSelected : styles.bouton}
           >
-            <Text style={selectedButeurs ? styles.btnTextSelected : styles.btnText}>Buteurs</Text>
+            <Text style={selectedButeurs ? styles.btnTextSelected : styles.btnText}>{t('top_scorers')}</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -560,7 +562,7 @@ console.log(tab)
             colors={["rgba(66, 66, 66, 1)", "rgba(165, 165, 165, 1)"]}
             style={selectedPasseurs ? styles.boutonSelected : styles.bouton}
           >
-            <Text style={selectedPasseurs ? styles.btnTextSelected : styles.btnText}>Passeurs</Text>
+            <Text style={selectedPasseurs ? styles.btnTextSelected : styles.btnText}>{t('top_assist')}</Text>
           </LinearGradient>
         </TouchableOpacity>
       </View>
@@ -735,12 +737,16 @@ paddingBottom: 100
   btnText: {
     color: "black",
     fontSize: 15,
-    fontFamily: "Londrina"
+    fontFamily: "Londrina",
+        textAlign: "center"
+
   },
   btnTextSelected: {
     color: "white",
     fontSize: 15,
-    fontFamily: "Londrinak"
+    fontFamily: "Londrinak",
+            textAlign: "center"
+
   },
   gradientContent: {
     borderRadius: 10,

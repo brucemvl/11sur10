@@ -13,6 +13,7 @@ import {
   trackAppOpen,
   handleRatingChoice,
 } from "./src/utils/RateManager";
+import './src/i18n';
 
 
 

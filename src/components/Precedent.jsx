@@ -3,8 +3,11 @@ import { View, Text, Animated, TouchableWithoutFeedback, StyleSheet, Dimensions 
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Haptics from 'expo-haptics';
+import { useTranslation } from 'react-i18next';
+
 
 function Precedent() {
+  const { t } = useTranslation()
   const navigation = useNavigation();
 
   const scaleAnim = useRef(new Animated.Value(1)).current;
@@ -40,7 +43,7 @@ function Precedent() {
     >
       <Animated.View style={[styles.buttonWrapper, { transform: [{ scale: scaleAnim }] }]}>
         <LinearGradient colors={["rgba(120, 169, 234, 0.95)", 'rgb(0, 0, 0)']} style={styles.button}>
-          <Text style={styles.text}>{"<"}  Précédent</Text>
+          <Text style={styles.text}>{"<"}  {t("prec")}</Text>
         </LinearGradient>
       </Animated.View>
     </TouchableWithoutFeedback>

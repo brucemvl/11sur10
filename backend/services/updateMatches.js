@@ -18,9 +18,9 @@ async function updateMatches() {
 const statusShort = m.fixture.status.short;
 
 let status = 'SCHEDULED';
-if (statusShort === 'FT') {
+if (['FT', 'AET'].includes(statusShort)) {
   status = 'FINISHED';
-} else if (['1H', 'HT', '2H', 'ET', 'P'].includes(statusShort)) {
+} else if (['1H', 'HT', '2H'].includes(statusShort)) {
   status = 'LIVE';
 }
     const match = await Match.findOneAndUpdate(
@@ -32,8 +32,8 @@ if (statusShort === 'FT') {
     awayLogo: m.teams.away.logo,
         kickoff: m.fixture.date,
         score: {
-          home: m.goals.home,
-          away: m.goals.away,
+          home: m.score.fulltime.home,
+          away: m.score.fulltime.away,
         },
         status,
       },

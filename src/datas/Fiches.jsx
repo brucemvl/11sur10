@@ -44,7 +44,7 @@ import gravenberch from "../assets/portraits/fiche/gravenberch.webp"
 import gakpo from "../assets/portraits/fiche/gakpo.webp"
 import arnold from "../assets/portraits/fiche/arnold.webp"
 import marmoush from "../assets/portraits/fiche/marmoush.webp"
-import akanji from "../assets/portraits/fiche/akanji.webp"
+import akanji from "../assets/portraits/fiche/akanji.png"
 import cubarsi from "../assets/portraits/fiche/cubarsi.png"
 import kimpembe from "../assets/portraits/fiche/kimpembe.png"
 import leao from "../assets/portraits/fiche/leao.png"
@@ -296,10 +296,14 @@ import felix from "../assets/portraits/fiche/felix.png"
 import dro from "../assets/portraits/fiche/dro.png"
 import sesko from "../assets/portraits/fiche/sesko.png"
 import stmaximin from "../assets/portraits/fiche/stmaximin.png"
+import udol from "../assets/portraits/fiche/udol.png"
+import ryerson from "../assets/portraits/fiche/ryerson.webp"
 
 
 
 export const fichesJoueurs = {
+    20525: udol,
+    24845: ryerson,
     22173: stmaximin,
     115589: sesko,
     491087: dro,

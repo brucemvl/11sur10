@@ -22,6 +22,8 @@ import flag from "../assets/flag.png";
 import flag2 from "../assets/flag3.png";
 import shield from "../assets/shield.png";
 import shield2 from "../assets/shield2.png";
+import { useTranslation } from 'react-i18next';
+
 
 
 
@@ -30,6 +32,7 @@ import shield2 from "../assets/shield2.png";
 function Menu() {
 
   const { width } = useWindowDimensions();
+  const { t } = useTranslation()
       
           const isMediumScreen = width <= 1024 && width > 767;
   const navigation = useNavigation();
@@ -120,7 +123,7 @@ const BUTTON_WIDTH = MENU_WIDTH / 4;
 
       <MenuButton
         index={0}
-        label="ACCUEIL"
+        label={t("home")}
         icon={home}
         icon2={home2}
         style={styles.buttonLeft}
@@ -144,7 +147,7 @@ const BUTTON_WIDTH = MENU_WIDTH / 4;
 
       <MenuButton
         index={2}
-        label="CLUBS"
+        label={"CLUBS"}
         icon={shield}
         icon2={shield2}
         style={styles.button}
@@ -153,7 +156,7 @@ const BUTTON_WIDTH = MENU_WIDTH / 4;
 
       <MenuButton
         index={3}
-        label="SÉLECTIONS"
+        label={t("selections")}
         icon={flag}
         icon2={flag2}
         style={styles.buttonRight}

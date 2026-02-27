@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, ActivityIndicator, StyleSheet, Image, ScrollView } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import Precedent from './Precedent';
 import getAvatarSource from '../../backend/utils/getAvatarSource';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Leaderboard() {
   const [loading, setLoading] = useState(true);
   const [leaders, setLeaders] = useState([]);
+  const navigation = useNavigation();
 
   useEffect(() => {
     fetchLeaderboard();
@@ -61,6 +63,15 @@ console.log(leaders)
   keyExtractor={(item) => item._id || item.userId}
   contentContainerStyle={{alignItems: "center", width: "100%"}}
   renderItem={({ item, index }) => (
+    <TouchableOpacity
+    onPress={() =>
+      navigation.navigate("userPronosScreen", {
+        userId: item.userId,
+        username: item.username,
+      })
+    }
+    activeOpacity={0.8}
+  >
     <LinearGradient colors={[ "#fff", "#0000000a"]}  style={styles.row}>
       <Text style={styles.rank}>{index + 1}.</Text>
       <Image
@@ -74,6 +85,7 @@ console.log(leaders)
   🎯 {item.exactScores} · ⚖️ {item.goodDiffs} · ✅ {item.goodResults}
 </Text>
     </LinearGradient>
+    </TouchableOpacity>
   )}
 />
 

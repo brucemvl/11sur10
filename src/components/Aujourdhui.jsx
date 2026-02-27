@@ -21,12 +21,14 @@ import ligue1 from "../assets/logoligue1.webp";
 import fifaClubWc from "../assets/fifaclubwc2.png";
 import cdm2026 from "../assets/cdm2026.png";
 import { teamName } from '../datas/teamNames';
+import { useTranslation } from 'react-i18next';
 
 
 
 export default function Aujourdhui({ matchs, onRefresh }) {
 
   const daysScrollRef = React.useRef(null);
+  const { t } = useTranslation();
 
   const scrollToDay = (index) => {
     const ITEM_WIDTH = 72; // largeur approximative d’un jour
@@ -49,11 +51,11 @@ export default function Aujourdhui({ matchs, onRefresh }) {
 
   const DAYS = [
     { label: formatDateAndTime(new Date()).formattedDate, offset: -3 },
-    { labelDate: formatDateAndTime(new Date()).formattedDate, label: 'AVANT-HIER', offset: -2 },
-    { labelDate: formatDateAndTime(new Date()).formattedDate, label: 'HIER', offset: -1 },
-    { labelDate: formatDateAndTime(new Date()).formattedDate, label: "AUJOURD'HUI", offset: 0 },
-    { labelDate: formatDateAndTime(new Date()).formattedDate, label: 'DEMAIN', offset: 1 },
-    { labelDate: formatDateAndTime(new Date()).formattedDate, label: 'APRÈS-DEMAIN', offset: 2 },
+    { labelDate: formatDateAndTime(new Date()).formattedDate, label: t('two_days_ago'), offset: -2 },
+    { labelDate: formatDateAndTime(new Date()).formattedDate, label: t('yesterday'), offset: -1 },
+    { labelDate: formatDateAndTime(new Date()).formattedDate, label: t('today'), offset: 0 },
+    { labelDate: formatDateAndTime(new Date()).formattedDate, label: t('tomorrow'), offset: 1 },
+    { labelDate: formatDateAndTime(new Date()).formattedDate, label: t('in_two_days'), offset: 2 },
     { label: formatDateAndTime(new Date()).formattedDate, offset: 3 },
   ];
 
@@ -273,7 +275,7 @@ export default function Aujourdhui({ matchs, onRefresh }) {
   /* ====================== RENDER ====================== */
   return (
     <View style={[styles.container, isMediumScreen && {width: "90%"}]}>
-      <LinearGradient colors={["rgba(255, 255, 255, 0.1)", 'rgba(0, 0, 0, 0.35)']} style={{ alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue", paddingInline: isMediumScreen ? 20 : 2, paddingBlock: isMediumScreen? 10 : 5, width: "100%" }} >
+      <LinearGradient colors={["rgba(255, 255, 255, 0.1)", 'rgba(0, 0, 0, 0.35)']} style={{ alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue", paddingInline: isMediumScreen ? 20 : 3, paddingBlock: isMediumScreen? 10 : 5, width: "100%" }} >
 
         {/* ----------- HEADER DATE ----------- */}
         <View style={styles.dateHeader}>
@@ -477,7 +479,7 @@ export default function Aujourdhui({ matchs, onRefresh }) {
 
 /* ====================== STYLES ====================== */
 const styles = StyleSheet.create({
-  container: { flex: 1, width: "97%", alignItems: "center" },
+  container: { flex: 1, width: "98%", alignItems: "center" },
 
   dateHeader: {
     flexDirection: 'row',
@@ -638,7 +640,7 @@ const styles = StyleSheet.create({
   daysScroll: {
     alignItems: 'center',
     paddingHorizontal: 10,
-    height: 70,
+    height: 65,
     justifyContent: "center",
   },
 

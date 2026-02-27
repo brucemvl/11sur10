@@ -253,6 +253,10 @@ const topScorerExt =
   bestRatedHome ||
   bestRatedExt;
 
+  if (!hasAnyTopPlayer) {
+    return <ActivityIndicator style={{ marginTop: 50 }} />;
+  }
+
     return (
   <View style={styles.container}>
     {messages.length > 0 && (

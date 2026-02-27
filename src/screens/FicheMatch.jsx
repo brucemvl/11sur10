@@ -16,11 +16,12 @@ import Indisponibles from "../components/Indisponibles.jsx"
 import Stats from "../components/Stats.jsx"
 import CompoBasique from '../components/CompoBasique.jsx';
 import * as Haptics from "expo-haptics"
+import { useTranslation } from 'react-i18next';
 
 
 const FicheMatch = () => {
 
-
+const { t } = useTranslation()
     const { width } = useWindowDimensions();
   
       const isMediumScreen = width <= 1024 && width > 767;
@@ -454,16 +455,16 @@ setCompoBasique(true)
                 <Affiche match={match} classement={tab} roundd={roundd} buteurHome={buteurHome} buteurExt={buteurExt} buteurHomeP={buteurHomeP} buteurExtP={buteurExtP} formeHome={formeHome} formeExt={formeExt} />
                 <View style={{flexDirection: "row", marginBottom: 10}}>
                 <TouchableOpacity onPress={openCompos} style={selected7 ? styles.selectedTab : styles.tab} accessible accessibilityRole='button' accessibilityLabel='Compositions' accessibilityHint='afficher les compositions déquipe' accessibilityState={{selected: selected7}}>
-                            <Text style={selected7 ? styles.selectedText : styles.text}>Compos</Text>
+                            <Text style={selected7 ? styles.selectedText : styles.text}>{t("compos")}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={openApercu} style={selected9 ? styles.selectedTab : styles.tab}>
-                            <Text style={selected9 ? styles.selectedText : styles.text}>Apercu</Text>
+                            <Text style={selected9 ? styles.selectedText : styles.text}>{t("apercu")}</Text>
                         </TouchableOpacity>
         <TouchableOpacity onPress={openHisto} style={selected4 ? styles.selectedTab : styles.tab} accessible accessibilityRole='button' accessibilityLabel='Historique' accessibilityHint='afficher lhistorique des rencontres entre les deux équipes' accessibilityState={{selected: selected4}}>
-                            <Text style={selected4 ? styles.selectedText : styles.text}>Historique</Text>
+                            <Text style={selected4 ? styles.selectedText : styles.text}>{t("historique")}</Text>
                         </TouchableOpacity>
                       { match.league.standings === true ?  <TouchableOpacity onPress={openClassement} style={selected5 ? styles.selectedTab : styles.tab} accessible accessibilityRole='button' accessibilityLabel='Classements' accessibilityHint='afficher les classements' accessibilityState={{selected: selected5}}>
-                            <Text style={selected5 ? styles.selectedText : styles.text}>Classement</Text>
+                            <Text style={selected5 ? styles.selectedText : styles.text}>{t("standings")}</Text>
                         </TouchableOpacity> : null }
                         </View>
                         {compos2 && <SchemaAvance id={match.fixture.id} match={match} compoDom={compoDom} compoExt={compoExt} colors={colors} />}
@@ -489,16 +490,16 @@ setCompoBasique(true)
         {match.fixture.status.long === "Not Started" ? 
         
         <TouchableOpacity onPress={openApercu} style={selected8 ? styles.selectedTab : styles.tab}>
-                            <Text style={selected8 ? styles.selectedText : styles.text}>Apercu</Text>
+                            <Text style={selected8 ? styles.selectedText : styles.text}>{t("apercu")}</Text>
                         </TouchableOpacity> : null }
                         {match.events.length > 0 ? <TouchableOpacity onPress={openLive} style={selected3 ? styles.selectedTab : styles.tab} accessible accessibilityRole='button' accessibilityLabel='Temps forts' accessibilityHint='afficher les temps fort du match' accessibilityState={{selected: selected3}}>
-                            <Text style={selected3 ? styles.selectedText : styles.text}>Evenements</Text>
+                            <Text style={selected3 ? styles.selectedText : styles.text}>{t("evenements")}</Text>
                         </TouchableOpacity> : null}
         <TouchableOpacity onPress={openHisto} style={selected6 ? styles.selectedTab : styles.tab} accessible accessibilityRole='button' accessibilityLabel='Historique' accessibilityHint='afficher lhistorique des rencontres entre les deux équipes' accessibilityState={{selected: selected6}}>
-                            <Text style={selected6 ? styles.selectedText : styles.text}>Historique</Text>
+                            <Text style={selected6 ? styles.selectedText : styles.text}>{t("historique")}</Text>
                         </TouchableOpacity>
                       { match.league.standings === true ?  <TouchableOpacity onPress={openClassement} style={selected5 ? styles.selectedTab : styles.tab} accessible accessibilityRole='button' accessibilityLabel='Classements' accessibilityHint='afficher les classements' accessibilityState={{selected: selected5}}>
-                            <Text style={selected5 ? styles.selectedText : styles.text}>Classement</Text>
+                            <Text style={selected5 ? styles.selectedText : styles.text}>{t("standings")}</Text>
                         </TouchableOpacity> : null }
                         </View>
                        {injuries.length === 0 ? apercu &&  <Stats match={match} injuries={injuries}/> : apercu && <View style={{alignItems: "center"}}><Stats match={match} injuries={injuries} /><Indisponibles injuries={injuries} match={match} /></View>}
@@ -525,13 +526,13 @@ setCompoBasique(true)
                             <Text style={selected ? styles.selectedText : styles.text}>Details</Text>
                         </TouchableOpacity> : null }
                     <TouchableOpacity onPress={openHisto} style={selected4 ? styles.selectedTab : styles.tab} accessible accessibilityRole='button' accessibilityLabel='Historique' accessibilityHint='afficher lhistorique des rencontres entre les deux équipes' accessibilityState={{selected: selected4}}>
-                            <Text style={selected4 ? styles.selectedText : styles.text}>Historique</Text>
+                            <Text style={selected4 ? styles.selectedText : styles.text}>{t("historique")}</Text>
                         </TouchableOpacity>
                 {match.events.length > 0 ? <TouchableOpacity onPress={openLive} style={selected3 ? styles.selectedTab : styles.tab} accessible accessibilityRole='button' accessibilityLabel='Temps forts' accessibilityHint='afficher les temps fort du match' accessibilityState={{selected: selected3}}>
-                            <Text style={selected3 ? styles.selectedText : styles.text}>Evenements</Text>
+                            <Text style={selected3 ? styles.selectedText : styles.text}>{t("evenements")}</Text>
                         </TouchableOpacity> : null }
                         { match.league.standings === true ?  <TouchableOpacity onPress={openClassement} style={selected5 ? styles.selectedTab : styles.tab} accessible accessibilityRole='button' accessibilityLabel='Classements' accessibilityHint='afficher les classements' accessibilityState={{selected: selected5}}>
-                            <Text style={selected5 ? styles.selectedText : styles.text}>Classement</Text>
+                            <Text style={selected5 ? styles.selectedText : styles.text}>{t("standings")}</Text>
                         </TouchableOpacity> : null }
                         </View>
                        {match.statistics.length > 0 ?  details && <Details match={match} possession={poss} expectedGoals={xg} tirs={tirs} tirsCadres={tirsCadres} jaune={jaune} rouge={rouge} passes={passes} passesReussies={passesReussies} accuracy={accuracy}/> : null }
@@ -572,22 +573,22 @@ setCompoBasique(true)
                         {match.players.length === 0 ?
                         match.lineups.length === 2 ? 
                         <TouchableOpacity onPress={openCompoBasique} style={selected10 ? styles.selectedTab : styles.tab} accessible accessibilityRole='button' accessibilityLabel='Compositions' accessibilityHint='afficher les compositions déquipe' accessibilityState={{selected: selected10}}>
-                            <Text style={selected10 ? styles.selectedText : styles.text}>Compos</Text>
+                            <Text style={selected10 ? styles.selectedText : styles.text}>{t("compos")}</Text>
                         </TouchableOpacity>
                         :
                         null :
                         <TouchableOpacity onPress={openCompos} style={selected2 ? styles.selectedTab : styles.tab}  accessible accessibilityRole='button' accessibilityLabel='Compositions' accessibilityHint='afficher les compositions déquipe' accessibilityState={{selected: selected2}}>
-                            <Text style={selected2 ? styles.selectedText : styles.text}>Compos</Text>
+                            <Text style={selected2 ? styles.selectedText : styles.text}>{t("compos")}</Text>
                         </TouchableOpacity>}
                         <TouchableOpacity onPress={openLive} style={selected3 ? styles.selectedTab : styles.tab}  accessible accessibilityRole='button' accessibilityLabel='Temps forts' accessibilityHint='afficher les temps fort du match' accessibilityState={{selected: selected3}}>
-                            <Text style={selected3 ? styles.selectedText : styles.text}>Evenements</Text>
+                            <Text style={selected3 ? styles.selectedText : styles.text}>{t("evenements")}</Text>
                         </TouchableOpacity>
                         
                         <TouchableOpacity onPress={openHisto} style={selected4 ? styles.selectedTab : styles.tab}  accessible accessibilityRole='button' accessibilityLabel='Historique' accessibilityHint='afficher lhistorique des rencontres entre les deux équipes' accessibilityState={{selected: selected4}}>
-                            <Text style={selected4 ? styles.selectedText : styles.text}>Historique</Text>
+                            <Text style={selected4 ? styles.selectedText : styles.text}>{t("historique")}</Text>
                         </TouchableOpacity>
                       { match.league.standings === true ?  <TouchableOpacity onPress={openClassement} style={selected5 ? styles.selectedTab : styles.tab}  accessible accessibilityRole='button' accessibilityLabel='Classements' accessibilityHint='afficher les classements' accessibilityState={{selected: selected5}}>
-                            <Text style={selected5 ? styles.selectedText : styles.text}>Classement</Text>
+                            <Text style={selected5 ? styles.selectedText : styles.text}>{t("standings")}</Text>
                         </TouchableOpacity> : null }
                     </ScrollView>
 

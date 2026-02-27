@@ -28,6 +28,7 @@ import Register from '../screens/Register';
 import AccueilJeu from '../screens/AccueilJeu';
 import MonProfil from '../screens/MonProfil';
 import HistoriquePronos from '../screens/HistoriquePronos';
+import userPronosScreen from '../screens/userPronosScreen';
 import Jeu from '../components/Jeu';
 import ClassementJeu from '../components/ClassementJeu';
 
@@ -121,6 +122,7 @@ selectedTeamIds={selectedTeamIds}          />
       <Stack.Screen name="MonProfil" component={MonProfil} />
       <Stack.Screen name="HistoriquePronos" component={HistoriquePronos} />
       <Stack.Screen name="ClassementJeu" component={ClassementJeu} />
+      <Stack.Screen name="userPronosScreen" component={userPronosScreen} />
       <Stack.Screen name="Notifs">
         {(props) => (
           <Notifs

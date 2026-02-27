@@ -49,6 +49,20 @@ router.post('/', auth, async (req, res) => {
   }
 });
 
+// GET pronos d'un utilisateur
+router.get('/user/:userId', async (req, res) => {
+  try {
+    const predictions = await Prediction.find({
+      userId: req.params.userId, // ✅ correction ici
+    }).lean();
+
+    res.json(predictions);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // 🔹 Récupérer MES pronostics
 router.get('/me', auth, async (req, res) => {
   try {
@@ -59,5 +73,7 @@ router.get('/me', auth, async (req, res) => {
     res.status(500).json({ error: 'Erreur serveur' });
   }
 });
+
+
 
 module.exports = router;

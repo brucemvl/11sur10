@@ -246,11 +246,13 @@ import sesko from "../assets/portraits/sesko.png"
 import dro from "../assets/portraits/dro.png"
 import woltemade from "../assets/portraits/woltemade.png"
 import stmaximin from "../assets/portraits/stmaximin.png"
+import udol from "../assets/portraits/udol.png"
 
 
 
 
 export const portraitsJoueurs = {
+        20525: udol,
         22173: stmaximin,
         158054: woltemade,
         491087: dro,

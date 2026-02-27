@@ -139,7 +139,7 @@ const Favorite = forwardRef((props, ref) => {
                         {/* Header équipe */}
                         <Image
                             source={{ uri: `https://media.api-sports.io/football/teams/${teamId}.png` }}
-                            style={{ width: 50, height: 50, resizeMode: "contain", position: "absolute", zIndex: 9, opacity: 0.75 }}
+                            style={{ width: 40, height: 40, resizeMode: "contain", position: "absolute", zIndex: 9, opacity: 0.75 }}
                         />
 
                         {/* Scroll horizontal propre à l'équipe */}
