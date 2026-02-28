@@ -6,12 +6,14 @@ import vert from "../assets/flecheverte.png"
 import rouge from "../assets/flecherouge.png"
 import { portraitsJoueurs } from '../datas/Portraits';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 
 
 const Evenements = ({ match }) => {
 
   const navigation = useNavigation();
+  const {t} = useTranslation()
 
 
   const getPlayerPhoto = (playerId, fixture) => {
@@ -25,7 +27,7 @@ const Evenements = ({ match }) => {
 
   return (
     <View style={styles.evenementsContainer}>
-      <Text style={styles.header}>Temps Forts</Text>
+      <Text style={styles.header}>{t("titreEvent")}</Text>
       <View style={styles.eventsContainer}>
         <FlatList
           contentContainerStyle={{ alignItems: "center" }}

@@ -79,6 +79,7 @@ function FicheJoueur() {
 
   const isSmallScreen = width <= 767;
   const isMediumScreen = width <= 1024 && width > 767;
+  const {t} = useTranslation()
 
   const [joueur, setJoueur] = useState(null);
   const [palmares, setPalmares] = useState(null);
@@ -355,7 +356,7 @@ function FicheJoueur() {
           <View style={styles.palmares}>
             <TouchableOpacity onPress={collapsePalmares} accessible accessibilityLabel='palmarès' accessibilityHint={ openPalmares ? "Masquer le palmarès" : "Afficher le palmarès" } accessibilityState={{ expanded: openPalmares }}>
               <LinearGradient colors={["black", "steelblue"]} style={[styles.palmaresTitle, isMediumScreen && { paddingBlock: 8 }]} accessible={false} >
-                <Text style={[styles.palmaresText, isMediumScreen && { fontSize: 20 }]}>Palmarès</Text>
+                <Text style={[styles.palmaresText, isMediumScreen && { fontSize: 20 }]}>{t("palmares")}</Text>
                 <Animated.Image
                   source={chevron}
                   style={[styles.chevron, { transform: [{ rotate: rotateInterpolate }] }, isMediumScreen && { left: 125 }]} accessible={false} importantForAccessibility="no" />
@@ -559,17 +560,17 @@ function FicheJoueur() {
 
             <View style={styles.stat}>
               <View style={{ backgroundColor: "rgb(8, 4, 82)", borderRadius: 50, width: isMediumScreen ? 65 : 45, height: isMediumScreen ? 65 : 45, alignItems: "center", justifyContent: "center" }}><Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: isMediumScreen ? 22 : 18 }}>{totalMatchs}</Text></View>
-              <Text style={[styles.h5, isMediumScreen && { fontSize: 16 }]}>Matchs Joués</Text>
+              <Text style={[styles.h5, isMediumScreen && { fontSize: 16 }]}>Matchs</Text>
             </View>
 
             <View style={styles.stat}>
               <View style={{ backgroundColor: "steelblue", borderRadius: 50, width: isMediumScreen ? 65 : 45, height: isMediumScreen ? 65 : 45, alignItems: "center", justifyContent: "center" }}><Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: isMediumScreen ? 22 : 18 }}>{totalGoals}</Text></View>
-              <Text style={[styles.h5, { color: "steelblue" }, isMediumScreen && { fontSize: 16 }]}>Buts</Text>
+              <Text style={[styles.h5, { color: "steelblue" }, isMediumScreen && { fontSize: 16 }]}>{t("buts")}</Text>
             </View>
 
             <View style={styles.stat}>
               <View style={{ backgroundColor: "steelblue", borderRadius: 50, width: isMediumScreen ? 65 : 45, height: isMediumScreen ? 65 : 45, alignItems: "center", justifyContent: "center" }}><Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: isMediumScreen ? 22 : 18 }}>{totalPasses}</Text></View>
-              <Text style={[styles.h5, { color: "steelblue" }, isMediumScreen && { fontSize: 16 }]}>Passes Dec</Text>
+              <Text style={[styles.h5, { color: "steelblue" }, isMediumScreen && { fontSize: 16 }]}>{t("passes")}</Text>
             </View>
           </View>
 
@@ -594,15 +595,15 @@ function FicheJoueur() {
                           </View> : null}
                         <View style={styles.ligne}>
                           <Image source={goal} style={styles.icone} />
-                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>Buts: </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}>{element.goals.total}</Text>
+                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>{t("buts")}: </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}>{element.goals.total}</Text>
                         </View>
                         <View style={styles.ligne}>
                           <Image source={target} style={styles.icone} />
-                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>Passes Dec: </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.goals.assists === null ? 0 : element.goals.assists}</Text>
+                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>{t("passes")}: </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.goals.assists === null ? 0 : element.goals.assists}</Text>
                         </View>
                         {joueur.statistics[0].games.position === "Goalkeeper" ? null : <View style={styles.ligne}>
                           <Image source={shoot} style={styles.icone} />
-                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>Tirs (cadrés): </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.shots.total} ({element.shots.on === null ? 0 : element.shots.on})</Text>
+                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>{t("tirs")}: </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.shots.total} ({element.shots.on === null ? 0 : element.shots.on})</Text>
                         </View>}
                         <View style={styles.ligne}>
                           <Image source={shoe} style={styles.icone} />
@@ -619,15 +620,15 @@ function FicheJoueur() {
                         </View>}
                         <View style={styles.ligne}>
                           <Image source={rating} style={styles.icone} />
-                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>Note moyenne: </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.games.rating ? element.games.rating.slice(0, 4) : "-"}</Text>
+                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>{t("moyenne")} </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.games.rating ? element.games.rating.slice(0, 4) : "-"}</Text>
                         </View>
                         <View style={styles.ligne}>
                           <Image source={yellow} style={{ height: 25, width: 25, marginRight: 8, shadowColor: "black", shadowOffset: { width: -1, height: 0 }, shadowOpacity: 0.9 }} />
-                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>Cartons jaune: </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.cards.yellow}</Text>
+                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>{t("jaunes")}: </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.cards.yellow}</Text>
                         </View>
                         <View style={styles.ligne}>
                           <Image source={redcard} style={styles.icone} />
-                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>Cartons Rouge: </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.cards.red}</Text>
+                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>{t("rouges")}: </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.cards.red}</Text>
                         </View>
                       </View>
                       <Image source={element.league.id === 15 ? fifaclubwc : { uri: element.league.logo }} style={styles.logoCompet} />

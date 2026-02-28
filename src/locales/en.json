@@ -49,7 +49,24 @@
         "cuisse": "Thigh",
         "malade": "Illness",
         "fractureCheville": "Ankle fracture",
-        "jambeCassee": "Broken Leg"
+        "jambeCassee": "Broken Leg",
+        "forme": "Fitness",
+        "repos": "Rest",
+        "entorse": "Ankle sprain",
+        "titreNotifs": "Choose your favorite(s) team(s)",
+        "sousTitreNotifs": "and receive a notification when they score or concede a goal",
+        "enregistrer": "Save",
+        "disableNotifications": "Disable Notifications",
+  "notificationsDisabledTitle": "🔕 Notifications disabled",
+  "notificationsDisabledMessage": "You will no longer receive alerts for this team.",
+  "titreCompos": "Lineups",
+  "remplacants": "Substitutes",
+  "titreHisto": "Head to Head",
+  "titreEvent": "Key Moments",
+        "fini": "Match Finished",
+        "palmares": "Trophies"
+
+
 
 
 

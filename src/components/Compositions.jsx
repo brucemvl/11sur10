@@ -26,6 +26,8 @@ import regragui from "../assets/portraits/regragui.png"
 import petkovic from "../assets/portraits/petkovic.png"
 import rosenior from "../assets/portraits/rosenior.png"
 import conte from "../assets/portraits/conte.png"
+import { useTranslation } from 'react-i18next';
+
 
 
 
@@ -37,6 +39,7 @@ const Compositions = ({ match, titulairesDom, homeId, extId, titulairesExt, coac
   const navigation = useNavigation();
   const[coachDomicile, setCoachDom] = useState()
   const[coachExterieur, setCoachExt] = useState()
+  const {t} = useTranslation()
 
 
 useEffect(() => {
@@ -214,7 +217,7 @@ if (match.players.length === 0){
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Compositions d'équipe</Text>
+      <Text style={styles.title}>{t("titreCompos")}</Text>
       <Schema compoDom={compoDom} compoExt={compoExt} colors={colors} match={match} />
 
       <View style={styles.teamsContainer}>
@@ -253,7 +256,7 @@ if (match.players.length === 0){
             </View>
           </LinearGradient>
 
-          <Text style={styles.subTitle}>Remplaçants</Text>
+          <Text style={styles.subTitle}>{t("remplacants")}</Text>
           <LinearGradient colors={["rgb(115, 115, 115)", "rgb(140, 140, 140)", "rgb(165, 165, 165)"]} style={styles.playersList}>
                         <View style={styles.equipeDom}>
             {substituteDom.map((player) => (

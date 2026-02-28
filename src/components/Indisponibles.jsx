@@ -111,7 +111,7 @@ console.log(injuries)
                                             </View> : element.player.reason === "Bruise on the knee" ? <View style={{ flexDirection: "row", gap: 5, alignItems: "baseline" }}>
                                                 <Image source={injury} style={[styles.icone, { position: "relative", top: 3 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Hématome Genou</Text>
                                             </View> : element.player.reason === "Rest" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
-                                                        <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Au Repos</Text>
+                                                        <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>{t("repos")}</Text>
                                                     </View> :
                                                 <View></View>}
                             </LinearGradient>
@@ -212,7 +212,7 @@ console.log(injuries)
                                                     </View> : element.player.reason === "Pubalgia" ? <View style={{ flexDirection: "row", gap: 5, alignItems: "baseline" }}>
                                                         <Image source={injury} style={[styles.icone, { position: "relative", top: 3 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Pubalgie</Text>
                                                     </View> : element.player.reason === "Thigh problems" ? <View style={{ flexDirection: "row", gap: 5, alignItems: "baseline" }}>
-                                                        <Image source={injury} style={[styles.icone, { position: "relative", top: 3 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Cuisse</Text>
+                                                        <Image source={injury} style={[styles.icone, { position: "relative", top: 3 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>{t("cuisse")}</Text>
                                                     </View> : element.player.reason === "Fractured Thumb" ? <View style={{ flexDirection: "row", gap: 5, alignItems: "baseline" }}>
                                                         <Image source={injury} style={[styles.icone, { position: "relative", top: 3 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Fracture du pouce</Text>
                                                     </View> : element.player.reason === "Illness" || element.player.reason === "Mononucleosis" ?
@@ -240,7 +240,7 @@ console.log(injuries)
                                                     </View> : element.player.reason.indexOf("heart") != -1 || element.player.reason.indexOf("Heart") != -1 ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Image source={coeur} style={[styles.icone, { width: 17, height: 18 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Problemes coeur</Text>
                                                     </View> : element.player.reason === "Rest" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
-                                                        <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Au Repos</Text>
+                                                        <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>{t("repos")}</Text>
                                                     </View> : element.player.reason === "Lacking Match Fitness" || element.player.reason === "fitness" || element.player.reason === "Fitness" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>{t("forme")}</Text>
                                                     </View> : element.player.reason === "Personal Reasons" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
@@ -258,7 +258,7 @@ console.log(injuries)
                                                     </View> : element.player.reason === "hamstring strain" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "baseline" }}>
                                                         <Image source={injury} style={[styles.icone, { position: "relative", top: 3 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Claquage ischios</Text>
                                                     </View> : element.player.reason === "Ankle sprain" || element.player.reason === "Sprained ankle" ? <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
-                                                        <Image source={entorse} style={[styles.icone, { width: 22, height: 22 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Entorse</Text>
+                                                        <Image source={entorse} style={[styles.icone, { width: 22, height: 22 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>{t("entorse")}</Text>
                                                     </View> : element.player.reason === "Partial patellar tendon tear" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "baseline" }}>
                                                         <Image source={injury} style={[styles.icone, {position: "relative", top: 3}]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Tendon rotulien</Text>
                                                     </View> : element.player.reason === "Fracture of the fibula" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
@@ -358,7 +358,7 @@ console.log(injuries)
                                                     </View> : element.player.reason === "Concussion" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Image source={commotion} style={[styles.icone, { width: 25, height: 25 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Commotion</Text>
                                                     </View> : element.player.reason === "Rest" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
-                                                        <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Au Repos</Text>
+                                                        <Text style={{ fontFamily: "Kanito", fontSize: 9 }}>{t("repos")}</Text>
                                                     </View> : element.player.reason.indexOf("heart") != -1 || element.player.reason.indexOf("Heart") != -1 ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
                                                         <Image source={coeur} style={[styles.icone, { width: 17, height: 18 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Problemes coeur</Text>
                                                     </View> : element.player.reason === "Lacking Match Fitness" || element.player.reason === "fitness" || element.player.reason === "Fitness" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>
@@ -376,7 +376,7 @@ console.log(injuries)
                                                     </View> : element.player.reason === "hamstring strain" ? <View style={{ flexDirection: "row", gap: 5, alignItems: "baseline" }}>
                                                         <Image source={injury} style={[styles.icone, { position: "relative", top: 3 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Claquage ischios</Text>
                                                     </View> : element.player.reason === "Ankle sprain" || element.player.reason === "Sprained ankle" ? <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
-                                                        <Image source={entorse} style={[styles.icone, { width: 22, height: 22 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Entorse</Text>
+                                                        <Image source={entorse} style={[styles.icone, { width: 22, height: 22 }]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>{t("entorse")}</Text>
                                                     </View> : element.player.reason === "Partial patellar tendon tear" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "baseline" }}>
                                                         <Image source={injury} style={[styles.icone, {position: "relative", top: 3}]} /><Text style={{ fontFamily: "Kanito", fontSize: 9 }}>Tendon rotulien</Text>
                                                     </View> : element.player.reason === "Fracture of the fibula" ? <View style={{ flexDirection: "row", gap: 2, alignItems: "center" }}>

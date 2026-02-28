@@ -20,6 +20,8 @@ import Toast from 'react-native-toast-message';
 import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import * as Haptics from "expo-haptics"
+import { useTranslation } from 'react-i18next';
+
 
 const teams = [
   { id: 85, name: 'Paris Saint Germain', logo: "https://media.api-sports.io/football/teams/85.png" },
@@ -58,6 +60,7 @@ const allTeams = [...teams, ...african]
 function Notifs({ onSave, onNotifStatusChange, triggerHeaderShake }) {
 const [selectedTeams, setSelectedTeams] = useState([]);
   const [savedTeam, setSavedTeam] = useState(null);
+  const {t} = useTranslation()
 
 const scaleAnimMap = useRef(
   allTeams.reduce((acc, t) => ({ ...acc, [t.id]: new Animated.Value(1) }), {})
@@ -246,8 +249,8 @@ useEffect(() => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Choisis ton equipe préférée :</Text>
-<Text style={{textAlign:"center", fontFamily: "Kanitalic", color: "rgb(49, 49, 49)", marginBottom: 10}}>et reçois une notification lorsque celle ci marque ou encaisse un but</Text>
+      <Text style={styles.title}>{t("titreNotifs")}</Text>
+<Text style={{textAlign:"center", fontFamily: "Kanitalic", color: "rgb(49, 49, 49)", marginBottom: 10}}>{t("sousTitreNotifs")}</Text>
 {savedTeam && savedTeam.length > 0 && (
   <Text style={styles.saved}>
     ✅ Équipes actuelles :{" "}

@@ -8,6 +8,8 @@ import registerForPushNotificationsAsync from '../utils/registerPush';
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
 import axios from "axios";
+import { useTranslation } from 'react-i18next';
+
 
 function NotifsPlus({ onSave, onNotifStatusChange, triggerHeaderShake }) {
 
@@ -17,6 +19,7 @@ function NotifsPlus({ onSave, onNotifStatusChange, triggerHeaderShake }) {
   const [loading, setLoading] = useState(false);
   const [savedTeams, setSavedTeams] = useState([]);
   const [selected, setSelected] = useState()
+  const {t} = useTranslation()
 
   const leagues = [
     { id: 61, name: "Ligue 1", logo: "https://media.api-sports.io/football/leagues/61.png" },
@@ -168,10 +171,8 @@ Toast.show({
       <Precedent />
 
       <ScrollView style={styles.container} contentContainerStyle={{alignItems: "center", paddingTop: 50, paddingBottom: 100}}>
-        <Text style={styles.title}>Choisis ton(tes) équipe(s) préférée(s) :</Text>
-        <Text style={styles.subtitle}>
-          et reçois une notification lorsque celle-ci marque ou encaisse un but
-        </Text>
+        <Text style={styles.title}>{t("titreNotifs")}</Text>
+        <Text style={styles.subtitle}>{t("sousTitreNotifs")}</Text>
 
         <View style={{flexDirection: "row", marginBlock: 30, gap: 15}}>
             {leagues.map((element)=> {
@@ -215,27 +216,28 @@ setSelected(true)
           disabled={selectedTeams.length === 0 || loading}
         >
           {loading ? <ActivityIndicator size="small" color="#fff" /> :
-            <Text style={{ fontFamily: "Kanitt", fontSize: 16, color: "white" }}>Enregistrer</Text>
+            <Text style={{ fontFamily: "Kanitt", fontSize: 16, color: "white" }}>{t("enregistrer")}</Text>
           }
         </TouchableOpacity>
 
         <Button
-  title='Desactiver les Notifs'
-  color={"red"}
-  onPress={async () => {
-await AsyncStorage.removeItem('teamIds');
-    setSelectedTeams([]);
-setSavedTeams(null);
-    onNotifStatusChange?.(false);
-    onSave?.([]); // ← force Header à effacer le logo
-    triggerHeaderShake?.();
-    await disablePushNotifications();
-Toast.show({
-  type: 'info',
-  text1: '🔕 Notifications désactivées',
-  text2: 'Tu ne recevras plus d’alertes pour cette équipe.',
-});  }}
-/>
+      title={t('disableNotifications')}
+      color="red"
+      onPress={async () => {
+        await AsyncStorage.removeItem('teamIds');
+        setSelectedTeams([]);
+        setSavedTeams(null);
+        onNotifStatusChange?.(false);
+        onSave?.([]); // ← force Header à effacer le logo
+        triggerHeaderShake?.();
+        await disablePushNotifications();
+        Toast.show({
+          type: 'info',
+          text1: t('notificationsDisabledTitle'),
+          text2: t('notificationsDisabledMessage'),
+        });
+      }}
+    />
       </ScrollView>
     </View>
   );

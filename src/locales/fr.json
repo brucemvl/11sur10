@@ -50,7 +50,25 @@
         "malade": "Malade",
         "fractureCheville": "Fracture Cheville",
         "jambeCassee": "Jambe cassée",
-        "forme": "Manque de forme"
+        "forme": "Manque de forme",
+                "repos": "Au repos",
+                        "entorse": "Entorse",
+                        "titreNotifs": "Choisis ton(tes) équipe(s) préférée(s)",
+        "sousTitreNotifs": "et reçcois une notification lorsque celle(s)-ci marque ou encaisse un but",
+        "enregistrer": "Enregistrer",
+        "disableNotifications": "Désactiver les Notifs",
+  "notificationsDisabledTitle": "🔕 Notifications désactivées",
+  "notificationsDisabledMessage": "Tu ne recevras plus d’alertes pour cette équipe.",
+  "titreCompos": "Compositions d'équipe",
+  "remplacants": "Remplaçants",
+    "titreHisto": "Derniers face-à-face",
+      "titreEvent": "Temps Forts", 
+      "fini": "Match Terminé",
+      "palmares": "Palmarès"
+
+
+
+
 
 
 

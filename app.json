@@ -19,7 +19,7 @@
       "pushNotifications": true,
       "buildNumber": "1",
      "infoPlist": {
-      "CFBundleLocalizations": ["fr"],
+      "CFBundleLocalizations": ["fr", "en"],
   "ITSAppUsesNonExemptEncryption": false,
   "UIBackgroundModes": ["remote-notification"]
 }

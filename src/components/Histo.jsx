@@ -4,11 +4,13 @@ import { LinearGradient } from "expo-linear-gradient";
 import ligue1 from "../assets/logoligue1.webp"
 import { useNavigation } from "@react-navigation/native";
 import { teamName } from "../datas/teamNames";
+import { useTranslation } from "react-i18next";
 
 function Histo({ historique }) {
 
         const navigation = useNavigation();
         const [selected, setSelected] = useState(null)
+        const {t} = useTranslation()
 
         const handleSelected = (id) => {
   setSelected(id);
@@ -22,9 +24,7 @@ function Histo({ historique }) {
 
     return (
 <View style={{padding: 5, alignItems: "center"}}>
-      <Text style={{ fontFamily: "Kanitt", fontSize: 18, marginBottom: 10 }}>
-          Derniers face-à-face
-        </Text>
+      <Text style={{ fontFamily: "Kanitt", fontSize: 18, marginBottom: 10 }}>{t("titreHisto")}</Text>
       <View style={{ padding: 10, alignItems: "center", backgroundColor: "rgba(215, 215, 215, 1)", borderRadius: 15, marginBlock: 10 }}>
         
   

@@ -41,17 +41,14 @@ import sansiro from "../assets/stades/sansiro.jpeg"
 import giuseppe from "../assets/stades/giuseppe.jpg"
 import diego from "../assets/stades/diego.jpg"
 import { teamName } from '../datas/teamNames';
-
-
-
-
-
+import { useTranslation } from 'react-i18next';
 
 
 
 const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP, formeHome, formeExt, onPress, classement }) => {
 
      const { width } = useWindowDimensions();
+     const {t, i18n} = useTranslation()
       
           const isMediumScreen = width <= 1024 && width > 767;
     
@@ -135,7 +132,40 @@ const backgroundSource =
 
   const placeDom = classement?.filter((element)=> element.team.id === homeTeam)
   const placeExt = classement?.filter((element)=> element.team.id === match.teams.away.id)
- console.log(placeDom)
+
+ function getLeagueAndRoundLabel(match) {
+  // 🔹 Si langue anglaise, on retourne simplement le nom du round
+  if (i18n.language === 'en') {
+    return `${match.league.name} - ${match.league.round}`;
+  }
+
+  // 🔹 Sinon, français : on applique la logique existante
+  const league = match.league.name.includes("Friendlies")
+    ? "Amicaux"
+    : match.league.id === 6
+    ? "Coupe d'Afrique des Nations"
+    : match.league.name;
+
+  let round = match.league.round;
+
+  if (round.includes("Qualifying Round")) round = "Match de Qualification";
+  else if (round === "Knockout Round Play-offs" || round === "Play-offs") round = "Barrages";
+  else if (round === "Extra Preliminary Round") round = "Tour Préliminaire";
+  else if (["Regular Season - 1", "League Stage - 1", "Group Stage - 1"].includes(round)) round = "1ere Journée";
+  else if (round === "Round of 16") round = "8eme de finale";
+  else if (round === "Quarter-finals") round = "Quart de finale";
+  else if (round === "Semi-finals") round = "Demi Finale";
+  else if (round === "Final") round = "Finale";
+  else if (round === "3rd place" || round === "3rd Place Final") round = "Match 3eme place";
+  else if (round === "Relegation Round") round = "Barrage";
+  else if (["8th Finals", "1/32-finals", "Round of 64"].includes(round)) round = "32e de Finale";
+  else if (round === "1/128-finals") round = "128e de Finale";
+  else if (round === "1/64-finals") round = "64e de Finale";
+  else if (round === "4th Finals") round = "Quart de Finale";
+  else round = `${roundd}ème Journée`; // fallback
+
+  return `${league} - ${round}`;
+}
   
 
   return (
@@ -171,16 +201,16 @@ const backgroundSource =
                         <View style={{ gap: 5, flexDirection: "row", marginTop: 5 }}>{formeHome?.split('').map((char, index) => (
                             char === 'L' ? (
                                 <View style={styles.defaite} >
-                                    <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>D</Text>
+                                    <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>{t("d")}</Text>
                                 </View>
                             ) :
                                 char === 'W' ? (
                                     <View style={styles.victoire}  >
-                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>V</Text>
+                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>{t("v")}</Text>
                                     </View>
                                 ) : (
                                     <View style={styles.nul} >
-                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>N</Text>
+                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>{t("n")}</Text>
                                     </View>
                                 )
                         ))}</View>
@@ -198,7 +228,7 @@ const backgroundSource =
                                         <Text style={styles.liveText}>{match.fixture.status.elapsed}'{match.fixture.status.extra > 0 ? `+${match.fixture.status.extra}` : null}</Text>
                                         <Animated.Text style={{ color: "white", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
                                       </View> : match.fixture.status.long === "Match Finished" ? <View style={[styles.liveSticker, {width: 105}]}>
-                                        <Text style={styles.liveText}>Match Terminé</Text></View> : null}
+                                        <Text style={styles.liveText}>{t("fini")}</Text></View> : null}
                     </View>
 
                     <TouchableOpacity accessible accessibilityLabel={`logo de ${match.teams.away.name}`} accessibilityHint={`naviguer vers la fiche complète de ${match.teams.away.name}`} style={styles.exterieur} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo })}>
@@ -208,16 +238,16 @@ const backgroundSource =
                         <View style={{ gap: 5, flexDirection: "row", marginTop: 5 }}>{formeExt?.split('').map((char, index) => (
                             char === 'L' ? (
                                 <View style={styles.defaite} >
-                                    <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>D</Text>
+                                    <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>{t("d")}</Text>
                                 </View>
                             ) :
                                 char === 'W' ? (
                                     <View style={styles.victoire} >
-                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>V</Text>
+                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>{t("v")}</Text>
                                     </View>
                                 ) : (
                                     <View style={styles.nul} >
-                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>N</Text>
+                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>{t("n")}</Text>
                                     </View>
                                 )
                         ))}</View>
@@ -236,16 +266,16 @@ const backgroundSource =
                         <View style={{ gap: 5, flexDirection: "row", marginTop: 5 }}>{formeHome?.split('').map((char, index) => (
                             char === 'L' ? (
                                 <View style={styles.defaite}>
-                                    <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>D</Text>
+                                    <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>{t("d")}</Text>
                                 </View>
                             ) :
                                 char === 'W' ? (
                                     <View style={styles.victoire} >
-                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>V</Text>
+                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>{t("v")}</Text>
                                     </View>
                                 ) : (
                                     <View style={styles.nul}>
-                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>N</Text>
+                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>{t("n")}</Text>
                                     </View>
                                 )
                         ))}</View>
@@ -263,7 +293,7 @@ const backgroundSource =
                                         <Text style={styles.liveText}>{match.fixture.status.elapsed}'{match.fixture.status.extra > 0 ? `+${match.fixture.status.extra}` : null}</Text>
                                         <Animated.Text style={{ color: "white", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
                                       </View> : match.fixture.status.long === "Match Finished" ? <View style={[styles.liveSticker, {width: 105}]}>
-                                        <Text style={styles.liveText}>Match Terminé</Text></View> : null}
+                                        <Text style={styles.liveText}>{t("fini")}</Text></View> : null}
                     </View>
 
                     <TouchableOpacity accessible accessibilityLabel={`logo de ${match.teams.away.name}`} accessibilityHint={`naviguer vers la fiche complète de ${match.teams.away.name}`} style={styles.exterieur} onPress={() => navigation.navigate("FicheEquipe", { id: match.teams.away.id, league: match.league.id, img: match.teams.away.logo })}>
@@ -272,23 +302,23 @@ const backgroundSource =
                         <View style={{ gap: 5, flexDirection: "row" }}>{formeExt?.split('').map((char, index) => (
                             char === 'L' ? (
                                 <View style={styles.defaite}>
-                                    <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>D</Text>
+                                    <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>{t("d")}</Text>
                                 </View>
                             ) :
                                 char === 'W' ? (
                                     <View style={styles.victoire} >
-                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>V</Text>
+                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>{t("v")}</Text>
                                     </View>
                                 ) : (
                                     <View style={styles.nul}>
-                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>N</Text>
+                                        <Text key={index} style={{ color: "white", fontFamily: "Kanito" }}>{t("n")}</Text>
                                     </View>
                                 )
                         ))}</View>
                     </TouchableOpacity>
                 </LinearGradient>}
                 <View style={styles.ligue}>
-                <Text style={{ fontFamily: "Kanitt", paddingInline: 9, textAlign: "center" }}>{match.league.name.indexOf("Friendlies") != -1 ? match.league.name.replace("Friendlies", "Amicaux") : match.league.id === 6 ? "Coupe d'Afrique des Nations" : match.league.name} - {match.league.round.indexOf("Qualifying Round") != -1 ? "Match de Qualification" : match.league.round === "Knockout Round Play-offs" || match.league.round === "Play-offs" ? "Barrages" : match.league.round === "Extra Preliminary Round" ? "Tour Preliminaire" : match.league.round === "Regular Season - 1" || match.league.round === "League Stage - 1" || match.league.round === "Group Stage - 1" ? "1ere Journee" : match.league.round === "Round of 16" ? "8eme de finale" : match.league.round === "Quarter-finals" ? "Quart de finale" : match.league.round === "Semi-finals" ? "Demi Finale" : match.league.round === "Final" ? "Finale" : match.league.round === "3rd place" ? "Match 3eme place" : match.league.round === "Relegation Round" ? "Barrage" : match.league.round === "3rd Place Final" ? "Match 3eme place" : match.league.round === "8th Finals" ? "8eme de Finale" : match.league.round === "1/128-finals" ? "128e de Finale" : match.league.round === "1/64-finals" ? "64e de Finale" : match.league.round === "1/32-finals" || match.league.round === "Round of 64" ? "32e de Finale" : match.league.round === "4th Finals" ? "Quart de Finale" : `${roundd}eme Journee`}</Text>
+                <Text style={{ fontFamily: "Kanitt", paddingInline: 9, textAlign: "center" }}>{getLeagueAndRoundLabel(match)}</Text>
             </View>
 {match.league.id === 1168  || match.league.id === 48 || match.league.id === 143 || match.league.id === 307 || match.league.id === 61 || match.league.id === 62 || match.league.id === 135 || match.league.id === 2 || match.league.id === 140 || match.league.id === 78 || match.league.id === 39 || match.league.id === 15 || match.league.id === 5 || match.league.id === 6
  ? 
