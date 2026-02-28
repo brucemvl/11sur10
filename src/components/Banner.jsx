@@ -93,6 +93,8 @@ import banner86 from "../assets/banner87.webp"
 
 import { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet, Animated, useWindowDimensions } from "react-native"
+import { useTranslation } from 'react-i18next';
+
 
 const photosBan = [
   banner3, banner4, banner5, banner6, banner7, banner8, banner9,
@@ -104,6 +106,8 @@ const photosBan = [
 function Banner() {
 
    const { width } = useWindowDimensions();
+     const { t } = useTranslation();
+   
         
             const isMediumScreen = width <= 1024 && width > 767;
 
@@ -150,7 +154,7 @@ function Banner() {
       />
       <View style={styles.bannerText}>
         <Text style={[styles.bannerTitle, isMediumScreen && {fontSize: 42}]}>100% FOOT</Text>
-        <Text style={[styles.bannerSubtitle, isMediumScreen && {fontSize: 24}]}>Vivez le foot simplement</Text>
+        <Text style={[styles.bannerSubtitle, isMediumScreen && {fontSize: 24}]}>{t("slogan")}</Text>
       </View>
     </View>
   );

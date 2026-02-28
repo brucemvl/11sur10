@@ -6,9 +6,12 @@ import { Animated, Easing } from 'react-native';
 import { portraitsJoueurs } from "../datas/Portraits";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
+import { useTranslation } from 'react-i18next';
+
 
 function Stats({ match, injuries }) {
   const navigation = useNavigation();
+    const { t, i18n } = useTranslation()
 
   // 🔹 Animations
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -298,10 +301,10 @@ const topScorerExt =
         {hasAnyTopPlayer && (
 
 <View style={styles.joueurs}>
-    <Text style={{fontFamily: "Kanitt", fontSize: 18, textAlign: "center"}}>Joueurs à surveiller</Text>
+    <Text style={{fontFamily: "Kanitt", fontSize: 18, textAlign: "center"}}>{t("aSurveiller") }</Text>
     <View style={styles.bloc}>
         <LinearGradient colors={["rgba(56, 56, 56, 1)", "white"]} locations={[0.35, 0.99]} style={{height: 35, alignItems: "center", justifyContent: "center"}}>
-        <Text style={styles.title}>Buteurs</Text>
+        <Text style={styles.title}>{t("top_scorers")}</Text>
         </LinearGradient>
 
         <View style={{alignItems: "center", backgroundColor: "white", flexDirection: "row", gap: 25, paddingInline: 5,  paddingBlock: 5}} >
@@ -332,7 +335,7 @@ const topScorerExt =
 
     <View style={styles.bloc}>
         <LinearGradient colors={["rgba(56, 56, 56, 1)", "white"]} locations={[0.35, 0.99]} style={{height: 35, alignItems: "center", justifyContent: "center"}}>
-        <Text style={styles.title}>Passeurs</Text>
+        <Text style={styles.title}>{t("top_assist")}</Text>
         </LinearGradient>
 
         <View style={{alignItems: "center", backgroundColor: "white", flexDirection: "row", gap: 25, paddingInline: 5,  paddingBlock: 5}} >
@@ -363,7 +366,7 @@ const topScorerExt =
 
     <View style={styles.bloc}>
         <LinearGradient colors={["rgba(56, 56, 56, 1)", "white"]} locations={[0.35, 0.99]} style={{height: 35, alignItems: "center", justifyContent: "center"}}>
-        <Text style={styles.title}>Les mieux notés</Text>
+        <Text style={styles.title}>{t("mieuxNotés")}</Text>
         </LinearGradient>
         <View style={{alignItems: "center", backgroundColor: "white", flexDirection: "row", gap: 15, paddingInline: 5, paddingBlock: 5}} >
             <Image source={{uri: match.league.logo}} style={{height: 48, width: 48, resizeMode: "contain"}} />
@@ -373,7 +376,7 @@ const topScorerExt =
                 <Image source={{uri: match.teams.home.logo}} style={styles.logoClub}/>
                 <Image source={portraitsJoueurs[bestRatedHome.id] || {uri: bestRatedHome.photo}} style={styles.photoJoueur} />
                 <Text style={{fontFamily: "Kanito", fontSize: 12, width: "48%"}}>{bestRatedHome.name}</Text>
-                                <Text style={{fontFamily: "Kanitus", fontSize: 9.5, width: 40, textAlign: "center"}}>Note Moyenne:</Text>
+                                <Text style={{fontFamily: "Kanitus", fontSize: 9.5, width: 40, textAlign: "center"}}>{t("moyenne")}</Text>
                 <Text style={{fontFamily: "Kanitalik"}}>{bestRatedHome.rating}</Text>
                 </TouchableOpacity>
                         )}
@@ -382,7 +385,7 @@ const topScorerExt =
 <Image source={{uri: match.teams.away.logo}} style={styles.logoClub}/>
                 <Image source={portraitsJoueurs[bestRatedExt.id] || {uri: bestRatedExt.photo}} style={styles.photoJoueur} />
                 <Text style={{fontFamily: "Kanito", fontSize: 12, width: "48%"}}>{bestRatedExt.name}</Text>
-                <Text style={{fontFamily: "Kanitus", fontSize: 9.5, width: 40, textAlign: "center"}}>Note Moyenne:</Text>
+                <Text style={{fontFamily: "Kanitus", fontSize: 9.5, width: 40, textAlign: "center"}}>{t("moyenne")}</Text>
                 <Text style={{fontFamily: "Kanitalik"}}>{bestRatedExt.rating}</Text>
                 </TouchableOpacity>
                                 )}

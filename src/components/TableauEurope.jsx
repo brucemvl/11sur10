@@ -7,13 +7,14 @@ import Ldc2025 from "./Ldc2025";
 import { LinearGradient } from "expo-linear-gradient";
 import ucl from "../assets/logoucl.png"
 import * as Haptics from 'expo-haptics';
-
+import { useTranslation } from 'react-i18next';
 
 
 
 function TableauEurope({ id, currentRound, rounds }) {
 
   const { width } = useWindowDimensions();
+        const { t, i18n } = useTranslation()
       
           const isMediumScreen = width <= 1024 && width > 767;
 
@@ -117,6 +118,46 @@ function TableauEurope({ id, currentRound, rounds }) {
     match => match.league.round === currentRoundName
   );
 
+  const getRoundLabel = () => {
+  // 🇬🇧 Si anglais → on affiche tel quel
+  if (i18n.language.startsWith("en")) {
+    return currentRoundName;
+  }
+
+  // 🇫🇷 Sinon on applique ta logique FR
+  if (currentRoundName.indexOf("Group Stage") !== -1)
+    return currentRoundName.replace("Group Stage -", "Matchs de Poule");
+
+  if (currentRoundName === "Regular Season - 1")
+    return "1ère Journée";
+
+  if (currentRoundName.indexOf("League Stage") !== -1)
+    return currentRoundName.replace("League Stage -", "Journée");
+
+  if (currentRoundName === "Quarter-finals")
+    return "Quarts de finale";
+
+  if (currentRoundName === "Semi-finals")
+    return "Demi-finales";
+
+  if (currentRoundName === "Final")
+    return "Finale";
+
+  if (currentRoundName === "Round of 16")
+    return "Huitièmes de finale";
+
+  if (currentRoundName === "Round of 32" && id === 2)
+    return "Barrages";
+
+  if (currentRoundName === "Knockout Round Play-offs")
+    return "Barrages";
+
+  if (currentRoundName === "8th Finals")
+    return "1/8 de finale";
+
+  return currentRoundName;
+};
+
   if (!fontsLoaded) return <Text>Loading fonts...</Text>;
   if (!team.length) return <Text>Loading matches...</Text>;
 
@@ -126,7 +167,7 @@ function TableauEurope({ id, currentRound, rounds }) {
       colors={id === 2 ? ['rgb(16, 19, 49)', 'rgba(16, 19, 49, 0.8)'] : ['rgb(50, 183, 255)', 'rgb(16, 19, 49)']}
       style={[styles.container, isMediumScreen && {paddingInline: 20}]}
     >
-      <Text style={id === 15 ? styles.titleWc : styles.title}>Calendrier & Résultats</Text>
+      <Text style={id === 15 ? styles.titleWc : styles.title}>{t("titreTableau")}</Text>
       <Image
         source={id === 2 ? ucl : { uri: `https://media.api-sports.io/football/leagues/${id}.png` }}
         style={id === 2 ? { width: 80, height: 50, objectFit: 'contain' } : { width: 50, height: 50, objectFit: 'contain' }}
@@ -137,20 +178,15 @@ function TableauEurope({ id, currentRound, rounds }) {
           <Text style={[id === 15 ? styles.buttonTextWc : styles.buttonText, index === 0 && { opacity: 0.3 }, isMediumScreen && {fontSize: 28}]}>{'<'}</Text>
         </TouchableOpacity>
 
-        <Animated.Text style={[styles.roundText, { transform: [{ rotate: rotateJourneeInterpolate }] }, isMediumScreen && {fontSize: 22, paddingTop: 10}]}>
-          {currentRoundName.indexOf("Group Stage") !== -1 ? currentRoundName.replace("Group Stage -", "Matchs de Poule") :
-            currentRoundName === "Regular Season - 1" ? "1ere Journee" :
-
-              currentRoundName.indexOf("League Stage") !== -1 ? currentRoundName.replace("League Stage -", "Journee") :
-                currentRoundName === "Quarter-finals" ? "Quarts de finale" :
-                  currentRoundName === "Semi-finals" ? "Demis-finale" :
-                    currentRoundName === "Final" ? "Finale" :
-                      currentRoundName === "Round of 16" ? "Huitièmes de finale" :
-                      currentRoundName === "Round of 32" && id === 2 ? "Barrages" :
-                        currentRoundName === "Knockout Round Play-offs" ? "Barrages" :
-                          currentRoundName === "8th Finals" ? "1/8 de finale" :
-                            currentRoundName}
-        </Animated.Text>
+        <Animated.Text
+  style={[
+    styles.roundText,
+    { transform: [{ rotate: rotateJourneeInterpolate }] },
+    isMediumScreen && { fontSize: 22, paddingTop: 10 }
+  ]}
+>
+  {getRoundLabel()}
+</Animated.Text>
 
         <TouchableOpacity onPress={next} disabled={index === rounds.length - 1} style={{ width: 60, height: 30, alignItems: "center" }} accessible accessibilityRole="button" accessibilityLabel="Suivant" accessibilityHint="Naviguer vers la journée suivante">
           <Text style={[id === 15 ? styles.buttonTextWc : styles.buttonText, index === rounds.length - 1 && { opacity: 0.3 }, isMediumScreen && {fontSize: 28}]}>{'>'}</Text>

@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
+
 
 function Details({
   match, 
@@ -17,6 +19,8 @@ function Details({
 }) {
 
   const navigation = useNavigation()
+    const { t } = useTranslation();
+  
 
   if (match.statistics.length === 0){
     return (
@@ -44,7 +48,7 @@ function Details({
         </LinearGradient>
         <LinearGradient colors={['rgba(21, 60, 130, 0.6)', 'rgba(0, 0, 0, 0.8)']} style={styles.statistiquesItem}>
           <Text style={styles.value}>{tirs[0][0]?.value} ({tirsCadres[0][0]?.value})</Text>
-          <Text style={styles.label}>Tirs (cadrés)</Text>
+          <Text style={styles.label}>{t("tirs")}</Text>
           <Text style={styles.value}>{tirs[1][0]?.value} ({tirsCadres[1][0]?.value})</Text>
         </LinearGradient>
         <LinearGradient colors={['rgba(21, 60, 130, 0.6)', 'rgba(0, 0, 0, 0.8)']} style={styles.statistiquesItem}>
@@ -54,17 +58,17 @@ function Details({
         </LinearGradient>
         <LinearGradient colors={['rgba(21, 60, 130, 0.6)', 'rgba(0, 0, 0, 0.8)']} style={styles.statistiquesItem}>
           <Text style={styles.value}>{passesReussies[0][0]?.value} ({accuracy[0][0]?.value})</Text>
-          <Text style={styles.label}>Passes réussies</Text>
+          <Text style={styles.label}>{t("accuracy")}</Text>
           <Text style={styles.value}>{passesReussies[1][0]?.value} ({accuracy[1][0]?.value})</Text>
         </LinearGradient>
         <LinearGradient colors={['rgba(21, 60, 130, 0.6)', 'rgba(0, 0, 0, 0.8)']} style={styles.statistiquesItem}>
           <Text style={styles.value}>{jaune[0][0]?.value === null ? "0" : jaune[0][0]?.value}</Text>
-          <Text style={styles.label}>Cartons jaune</Text>
+          <Text style={styles.label}>{t("jaunes")}</Text>
           <Text style={styles.value}>{jaune[1][0]?.value === null ? "0" : jaune[1][0]?.value}</Text>
         </LinearGradient>
         <LinearGradient colors={['rgba(21, 60, 130, 0.6)', 'rgba(0, 0, 0, 0.8)']} style={styles.statistiquesItem}>
           <Text style={styles.value}>{rouge[0][0]?.value === null ? "0" : rouge[0][0]?.value}</Text>
-          <Text style={styles.label}>Cartons rouge</Text>
+          <Text style={styles.label}>{t("rouges")}</Text>
           <Text style={styles.value}>{rouge[1][0]?.value === null ? "0" : rouge[1][0]?.value}</Text>
         </LinearGradient>
       </View>

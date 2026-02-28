@@ -7,6 +7,8 @@ import ligue1 from "../assets/logoligue1.webp";
 import ligue2 from "../assets/ligue2.jpg";
 import fifaclubwc from "../assets/fifaclubwc2.png";
 import * as Haptics from 'expo-haptics';
+import { useTranslation } from 'react-i18next';
+
 
 
 
@@ -14,6 +16,9 @@ function Tableau({ id, currentRound, rounds }) {
   const [fontsLoaded] = useFonts({
     "Kanitt": require("../assets/fonts/Kanit/Kanit-Black.ttf"),
   });
+
+    const { t, i18n } = useTranslation()
+  
 
   const { width } = useWindowDimensions();
     
@@ -155,7 +160,7 @@ function Tableau({ id, currentRound, rounds }) {
       colors={id === 15 ? ["#505050", "#000"] : ['rgb(50, 183, 255)', 'rgb(16, 19, 49)']}
       style={[styles.container, isMediumScreen && {paddingInline: 20}]}
     >
-      <Text style={id === 15 ? styles.titleWc : styles.title}>Calendrier & Résultats</Text>
+      <Text style={id === 15 ? styles.titleWc : styles.title}>{t("titreTableau")}</Text>
       <Image
         source={
           id === 62 ? ligue2 : id === 15 ? fifaclubwc :
@@ -170,19 +175,35 @@ function Tableau({ id, currentRound, rounds }) {
           <Animated.Text style={[id === 15 ? styles.buttonTextWc : styles.buttonText, index === 0 && { opacity: 0.3 }, isMediumScreen && {fontSize: 28}, { transform: [{ scale: scaleAnim }] }]}>{'<'}</Animated.Text>
         </TouchableOpacity>
 
-        <Animated.Text style={[id === 15 ? styles.roundTextWc : styles.roundText, { transform: [{ rotate: rotateJourneeInterpolate }] }, isMediumScreen && {fontSize: 22, paddingTop: 10}]}>
-          {currentRoundName?.indexOf("Group Stage") !== -1 ? currentRoundName.replace("Group Stage -", "Matchs de Poule") :
-            currentRoundName === "Regular Season - 1" ? "1ere Journee" :
-
-              currentRoundName?.indexOf("Regular Season") !== -1 ? currentRoundName.replace("Regular Season -", "Journee") :
-                currentRoundName === "Quarter-finals" ? "Quarts de finale" :
-                  currentRoundName === "Semi-finals" ? "Demis-finale" :
-                    currentRoundName === "Final" ? "Finale" :
-                      currentRoundName === "Round of 16" ? "Huitièmes de finale" :
-                        currentRoundName === "Relegation Round" ? "Barrages" :
-                          currentRoundName === "8th Finals" ? "1/8 de finale" :
-                            currentRoundName}
-        </Animated.Text>
+        <Animated.Text
+  style={[
+    id === 15 ? styles.roundTextWc : styles.roundText,
+    { transform: [{ rotate: rotateJourneeInterpolate }] },
+    isMediumScreen && { fontSize: 22, paddingTop: 10 }
+  ]}
+>
+  {i18n.language.startsWith("en")
+    ? currentRoundName
+    : currentRoundName?.indexOf("Group Stage") !== -1
+      ? currentRoundName.replace("Group Stage -", "Matchs de Poule")
+      : currentRoundName === "Regular Season - 1"
+        ? "1ere Journee"
+        : currentRoundName?.indexOf("Regular Season") !== -1
+          ? currentRoundName.replace("Regular Season -", "Journee")
+          : currentRoundName === "Quarter-finals"
+            ? "Quarts de finale"
+            : currentRoundName === "Semi-finals"
+              ? "Demi-finales"
+              : currentRoundName === "Final"
+                ? "Finale"
+                : currentRoundName === "Round of 16"
+                  ? "Huitièmes de finale"
+                  : currentRoundName === "Relegation Round"
+                    ? "Barrages"
+                    : currentRoundName === "8th Finals"
+                      ? "1/8 de finale"
+                      : currentRoundName}
+</Animated.Text>
 
         <TouchableOpacity onPressIn={handlePressInNext} onPressOut={handlePressOutNext} onPress={next} disabled={index === rounds.length - 1} style={{ width: 60, height: 30, alignItems: "center" }} accessible accessibilityRole="button" accessibilityLabel="Suivant" accessibilityHint="Naviguer vers la journée suivante">
           <Animated.Text style={[id === 15 ? styles.buttonTextWc : styles.buttonText, index === rounds.length - 1 && { opacity: 0.3 }, isMediumScreen && {fontSize: 28}, { transform: [{ scale: scaleAnimNext }] }]}>{'>'}</Animated.Text>

@@ -14,7 +14,47 @@
   "compos": "Lineups",
   "evenements": "Events",
   "historique": "Head to head",
-  "apercu": "Match preview"
+  "apercu": "Match preview",
+    "titreTableau": "Fixtures & Results",
+      "CALENDRIER": "FIXTURES",
+      "CLASSEMENT": "STANDINGS",
+              "aSurveiller": "Players to watch",
+                      "mieuxNotés": "Best rated players",
+                              "moyenne": "Average Rating:",
+                              "rang": "Rang",
+        "equipe": "Team",
+        "v": "W",
+        "n": "D",
+        "d": "L",
+        "buts": "Goals",
+        "passes": "Assists",
+        "jaunes": "Yellow Cards",
+        "rouges": "Red cards",
+        "tirs": "Shots (on target)",
+        "accuracy": "Accuracy",
+        "slogan" : "Experience football made simple",
+        "incertain": "They are doubtful",
+        "forfait": "They will miss the match",
+        "genou": "Knee",
+        "mollet": "Calf",
+        "cheville": "Ankle",
+        "ischios": "Hamstring",
+        "rouge": "Red Card",
+        "jaune": "Too much",
+                "muscle": "Muscle",
+                "dos": "Back",
+        "pied": "Foot",
+        "epaule": "Shoulder",
+        "jambe": "Leg",
+        "cuisse": "Thigh",
+        "malade": "Illness",
+        "fractureCheville": "Ankle fracture",
+        "jambeCassee": "Broken Leg"
+
+
+
+
+
 
 
 }

@@ -387,11 +387,11 @@ const [rank, setRank] = useState()
                 <Text style={styles.groupTitle}>{subArray[0].group}</Text>
                 <View style={{margin: 10, borderRadius: 5, backgroundColor: "lightblue"}}>
                 <View style={styles.barreSelec}>
-                  <Text style={styles.barreItem_equipe}>Equipe</Text>
+                  <Text style={styles.barreItem_equipe}>{t("equipe")}</Text>
                   <Text style={styles.barreItem}>J</Text>
-                  <Text style={styles.barreItem}>V</Text>
-                  <Text style={styles.barreItem}>N</Text>
-                  <Text style={styles.barreItem}>D</Text>
+                  <Text style={styles.barreItem}>{t("v")}</Text>
+                  <Text style={styles.barreItem}>{t("n")}</Text>
+                  <Text style={styles.barreItem}>{t("d")}</Text>
                   <Text style={styles.barreItem}>Pts</Text>
                 </View>
                 <FlatList
@@ -582,12 +582,12 @@ console.log(tab)
             style={styles.gradientContent}
           >
             <View style={styles.barre}>
-              <Text style={{ width: "10%", color: "white", fontFamily: "Kanitus", marginLeft: isMediumScreen ? 8 : 4 }}>Rang</Text>
-              <Text style={{ width: "36%", textAlign: "center", marginRight: 2, color: "white", fontFamily: "Kanitus" }}>Equipe</Text>
+              <Text style={{ width: "10%", color: "white", fontFamily: "Kanitus", marginLeft: isMediumScreen ? 8 : 4 }}>{t("rang")}</Text>
+              <Text style={{ width: "36%", textAlign: "center", marginRight: 2, color: "white", fontFamily: "Kanitus" }}>{t("equipe")}</Text>
               <Text style={{ width: "9%", color: "white", fontFamily: "Kanitus" }}>J</Text>
-              <Text style={{ width: "10%", color: "white", fontFamily: "Kanitus" }}>V</Text>
-              <Text style={{ width: "9%", color: "white", fontFamily: "Kanitus" }}>N</Text>
-              <Text style={{ width: "9%", color: "white", fontFamily: "Kanitus" }}>D</Text>
+              <Text style={{ width: "10%", color: "white", fontFamily: "Kanitus" }}>{t("v")}</Text>
+              <Text style={{ width: "9%", color: "white", fontFamily: "Kanitus" }}>{t("n")}</Text>
+              <Text style={{ width: "9%", color: "white", fontFamily: "Kanitus" }}>{t("d")}</Text>
               <Text style={{ width: "9%", color: "white", fontFamily: "Kanitus" }}>GA</Text>
               <Text style={{ width: "8%", color: "white", fontFamily: "Kanitus" }}>Pts</Text>
             </View>
@@ -629,8 +629,8 @@ console.log(tab)
           >
             <View style={styles.barre}>
               <Text style={{ width: isMediumScreen? "60%" : "50%", color: "white", paddingStart: 20, fontFamily: "Kanitus", textAlign: "center" }}>Joueur</Text>
-              <Text style={{ width:  isMediumScreen ? "20%" : "30%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Matchs Joués</Text>
-              <Text style={{ width: isMediumScreen? "20%" : "20%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Buts</Text>
+              <Text style={{ width:  isMediumScreen ? "20%" : "34%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Matchs</Text>
+              <Text style={{ width: isMediumScreen? "20%" : "16%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>{t("buts")}</Text>
 
             </View>
              {
@@ -672,8 +672,8 @@ console.log(tab)
           >
             <View style={styles.barre}>
               <Text style={{ width: isMediumScreen? "60%" : "50%", color: "white", paddingStart: 20, fontFamily: "Kanitus", textAlign: "center" }}>Joueur</Text>
-              <Text style={{ width:  isMediumScreen ? "20%" : "25%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Matchs Joués</Text>
-              <Text style={{ width: isMediumScreen? "20%" : "25%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Passes Dec</Text>
+              <Text style={{ width:  isMediumScreen ? "20%" : "25%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>Matchs</Text>
+              <Text style={{ width: isMediumScreen? "20%" : "25%", color: "white", textAlign: "center", fontFamily: "Kanitus" }}>{t("passes")}</Text>
 
             </View>
                          {
@@ -682,10 +682,10 @@ console.log(tab)
               <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: joueur.player.id })}>
                 <View style={[styles.item, isMediumScreen && {height: 72}]}>
                   <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }} style={{ height: isMediumScreen? 60 : 39, width: "9%", borderRadius: 50, marginInline: isMediumScreen? 25 : 5 }}/>
-                  <Text style={{ fontFamily: "Bella", width: "37%", fontSize: isMediumScreen ? 18 : 14 }}>{joueur.player.id === 37784 ? "Mamadou Sissoko" : joueur.player.name}</Text>
+                  <Text style={{ fontFamily: "Bella", width: "37%", fontSize: isMediumScreen ? 18 : 14 }}>{joueur.player.name}</Text>
                   <Image source={{ uri: joueur.statistics[0].team.logo }} style={[styles.logo, isMediumScreen && {height: 38}]} />
-                  <Text style={[{ fontFamily: "Kanito", width: isMediumScreen ? "27%" : "30%", textAlign: "center" }, isMediumScreen && {fontSize: 18}]}>{joueur.statistics[0].games.appearences}</Text>
-                  <Text style={[{ fontFamily: "Kanitt", width: isMediumScreen ? "18%" : "15%", textAlign: "center" }, isMediumScreen && {fontSize: 18}]}>{joueur.statistics[0].goals.assists}</Text>
+                  <Text style={[{ fontFamily: "Kanito", width: isMediumScreen ? "27%" : "26%", textAlign: "center" }, isMediumScreen && {fontSize: 18}]}>{joueur.statistics[0].games.appearences}</Text>
+                  <Text style={[{ fontFamily: "Kanitt", width: isMediumScreen ? "18%" : "19%", textAlign: "center" }, isMediumScreen && {fontSize: 18}]}>{joueur.statistics[0].goals.assists}</Text>
 
                 </View>
               </TouchableOpacity>

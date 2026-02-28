@@ -5,11 +5,15 @@ import Classement from '../components/Classement';  // Idem pour ClassementChamp
 import { useState, useEffect } from 'react';
 import Precedent from '../components/Precedent';
 import * as Haptics from "expo-haptics"
+import { useTranslation } from 'react-i18next';
+
 
 function FicheChampionnat({ route }) {
     const { id } = route.params;  // Récupère l'ID du championnat depuis les paramètres de navigation
 
     const { width } = useWindowDimensions();
+    const { t } = useTranslation()
+    
       
           const isMediumScreen = width <= 1024 && width > 767;
 
@@ -100,10 +104,10 @@ console.log('rounds:', rounds);
         <ScrollView contentContainerStyle={[styles.blocChamp, isMediumScreen && {padding: 50}]}>
           <View style={{flexDirection: "row", marginBlock: 8, justifyContent: "center", gap: "5%"}}>
   <TouchableOpacity onPress={openCalendrier} accessible accessibilityRole="button" accessibilityLabel="Calendrier" accessibilityState={{ selected: calendrier }}  accessibilityHint="Calendrier des matchs" >
-    <Text style={calendrier ? styles.selected : styles.unSelected}>CALENDRIER</Text>
+    <Text style={calendrier ? styles.selected : styles.unSelected}>{t("CALENDRIER")}</Text>
   </TouchableOpacity>
   <TouchableOpacity onPress={openClassement} accessible accessibilityRole="button" accessibilityLabel="Classement" accessibilityState={{ selected: classement }}  accessibilityHint="Afficher les Classements">
-    <Text style={classement ? styles.selected : styles.unSelected}>CLASSEMENT</Text>
+    <Text style={classement ? styles.selected : styles.unSelected}>{t("CLASSEMENT")}</Text>
   </TouchableOpacity>
 </View>
             {calendrier && <Tableau id={id} currentRound={currentRound} rounds={rounds} journey={journey} />}

@@ -5,6 +5,8 @@ import Classement from '../components/Classement';  // Idem pour ClassementChamp
 import { useState, useEffect } from 'react';
 import Precedent from '../components/Precedent';
 import * as Haptics from "expo-haptics"
+import { useTranslation } from 'react-i18next';
+
 
 function FicheEurope({ route }) {
     const { id } = route.params;  // Récupère l'ID du championnat depuis les paramètres de navigation

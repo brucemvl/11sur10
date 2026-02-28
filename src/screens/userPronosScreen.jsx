@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import Precedent from '../components/Precedent';
+import user from '../../backend/models/user';
 
 export default function UserPronosScreen({ route }) {
   const { userId, username } = route.params;
@@ -70,29 +71,34 @@ export default function UserPronosScreen({ route }) {
       });
 
       const hist = predictions
-        .map((p) => {
-          const match = matchMap[p.matchId];
-          if (!match) return null;
+  .map((p) => {
+    const match = matchMap[p.matchId];
+    if (!match) return null;
 
-          const r = analyzePrediction(p, match);
+    // 🔒 Autoriser uniquement LIVE ou FINISHED
+    if (match.status !== 'LIVE' && match.status !== 'FINISHED') {
+      return null;
+    }
 
-          return {
-            matchId: p.matchId,
-            homeTeam: match.homeTeam,
-            awayTeam: match.awayTeam,
-            homeLogo: match.homeLogo,
-            awayLogo: match.awayLogo,
-            predictedHome: p.predictedHome,
-            predictedAway: p.predictedAway,
-            realHome: match.score.home,
-            realAway: match.score.away,
-            points: r.points,
-            status: match.status,
-            kickoff: match.kickoff,
-          };
-        })
-        .filter(Boolean)
-        .sort((a, b) => new Date(b.kickoff) - new Date(a.kickoff));
+    const r = analyzePrediction(p, match);
+
+    return {
+      matchId: p.matchId,
+      homeTeam: match.homeTeam,
+      awayTeam: match.awayTeam,
+      homeLogo: match.homeLogo,
+      awayLogo: match.awayLogo,
+      predictedHome: p.predictedHome,
+      predictedAway: p.predictedAway,
+      realHome: match.score.home,
+      realAway: match.score.away,
+      points: r.points,
+      status: match.status,
+      kickoff: match.kickoff,
+    };
+  })
+  .filter(Boolean)
+  .sort((a, b) => new Date(b.kickoff) - new Date(a.kickoff));
 
       setHistory(hist);
     } catch (err) {
@@ -107,9 +113,9 @@ export default function UserPronosScreen({ route }) {
   }
 
   return (
-    <View style={styles.container}>
+     <View style={styles.container}>
       <Precedent />
-      <Text style={styles.title}>Pronostics de {username}</Text>
+      <Text style={styles.title}>Pronos de {username}</Text>
 
       <FlatList
         data={history}
@@ -118,38 +124,43 @@ export default function UserPronosScreen({ route }) {
         renderItem={({ item }) => (
           <View style={styles.card}>
             <View style={styles.matchRow}>
-              <Text style={styles.team}>{item.homeTeam}</Text>
-
-              <Image source={{ uri: item.homeLogo }} style={styles.logo} />
-
+              
+              <Text style={[styles.team, {textAlign: "center"}]}>{item.homeTeam}</Text>
+              <Image
+                source={{ uri: item.homeLogo || 'https://via.placeholder.com/32' }}
+                style={styles.logo}
+              />
+              <View style={{width: "12%"}}>
               <Text style={styles.score}>
                 {item.predictedHome} - {item.predictedAway}
               </Text>
+              <Text style={[styles.score, {fontSize: 7.5}]}>
+                Son Prono
+              </Text>
+
+              </View>
+                            <View style={{width: "12%"}}>
 
               <Text style={styles.scoreReal}>
                 ({item.realHome} - {item.realAway})
               </Text>
-
-              <Image source={{ uri: item.awayLogo }} style={styles.logo} />
-
-              <Text style={styles.team}>{item.awayTeam}</Text>
-            </View>
-
-            {item.status === 'FINISHED' && (
-              <Text
-                style={[
-                  styles.points,
-                  item.points === 0 && { color: 'red' },
-                ]}
-              >
-                {item.points > 0 ? '✅ ' : '❌ '}
-                Points gagnés : {item.points}
+              <Text style={[styles.scoreReal, {fontSize: 7.5}]}>
+                Score Exact
               </Text>
-            )}
-
+              </View>
+              <Image
+                source={{ uri: item.awayLogo || 'https://via.placeholder.com/32' }}
+                style={styles.logo}
+              />
+              <Text style={[styles.team, {textAlign: "center"}]}>{item.awayTeam}</Text>
+              
+            </View>
+            {item.status === 'FINISHED' ?
+            <Text style={[styles.points, item.points === 0 && {color: "red"}]}>{item.points > 0 ? "✅ " : "❌ "}Points gagnés : {item.points}</Text>
+            : null }
             <Text style={styles.status}>
-              Statut : {statusLabel[item.status] || item.status}
-            </Text>
+  Statut : {statusLabel[item.status] || item.status}
+</Text>
           </View>
         )}
       />
@@ -158,17 +169,63 @@ export default function UserPronosScreen({ route }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f3f4f6' },
+  container: {
+    flex: 1,
+    backgroundColor: '#f3f4f6',
+  },
   title: {
     fontSize: 22,
     marginTop: 65,
     marginBottom: 20,
     textAlign: 'center',
+    fontFamily: "Kanitt"
   },
   card: {
     backgroundColor: '#fff',
-    padding: 10,
+    padding: 8,
     borderRadius: 12,
     marginBottom: 15,
+    borderWidth: 1
+  },
+  matchRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 4,
+    marginBottom: 8,
+  },
+  logo: {
+    width: "8%",
+    height: 32,
+    resizeMode: 'contain',
+  },
+  team: {
+fontFamily: "Bella",
+    textAlign: 'center',
+    width: "30%",
+    fontSize: 13,
+    
+  },
+  score: {
+    color: '#2563eb',
+    fontFamily: "Kanito",
+    textAlign: "center"
+  },
+  scoreReal: {
+    fontSize: 12,
+    color: '#6b7280',
+    fontFamily: "Kanitus",
+        textAlign: "center"
+
+  },
+  points: {
+    fontSize: 14,
+fontFamily: "Kanito",
+    color: '#16a34a',
+  },
+  status: {
+    fontSize: 12,
+    color: '#6b7280',
+    fontFamily: "Kanitus"
   },
 });

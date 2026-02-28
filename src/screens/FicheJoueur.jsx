@@ -68,6 +68,8 @@ import thauvinselec from "../assets/portraits/selection/thauvin.webp"
 import nkunkuselec from "../assets/portraits/selection/nkunku.webp"
 import matetaselec from "../assets/portraits/selection/mateta.webp"
 import kanteselec from "../assets/portraits/selection/kante.webp"
+import { useTranslation } from 'react-i18next';
+
 
 
 import { fichesJoueurs } from "../datas/Fiches.jsx";
