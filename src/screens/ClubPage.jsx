@@ -8,11 +8,13 @@ import ligue1 from "../assets/logoligue1.webp"
 import ligue2 from "../assets/ligue2.jpg"
 import fifaClubWc from "../assets/fifaclubwc2.png"
 import { SvgUri } from 'react-native-svg';
+import { useTranslation } from 'react-i18next';
 
 
 
 function ClubPage() {
     const navigation = useNavigation();
+    const {t} = useTranslation()
 
     const [fontsLoaded] = useFonts({
         "Kanitt": require("../assets/fonts/Kanit/Kanit-SemiBold.ttf"),
@@ -33,7 +35,7 @@ function ClubPage() {
 
                 {/* Section Compétitions Européennes */}
             <LinearGradient colors={['rgba(11, 38, 126, 0.9)', 'rgba(0, 0, 0, 0.85)']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.title}>
-  <Text style={styles.titleText}>Compétitions Européennes</Text>
+  <Text style={styles.titleText}>{t("europe")}</Text>
 </LinearGradient>
             <LinearGradient colors={["rgba(64, 82, 130, 1)", 'rgba(103, 131, 184, 1)']} style={styles.conteneur} >
                 
@@ -56,7 +58,7 @@ function ClubPage() {
 
             {/* Section Championnats */}
             <LinearGradient colors={['rgba(11, 38, 126, 0.9)', 'rgba(0, 0, 0, 0.85)']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.title}>
-                    <Text style={styles.titleText}>Championnats</Text>
+                    <Text style={styles.titleText}>{t("league")}</Text>
                 </LinearGradient>
             <LinearGradient colors={["rgba(64, 82, 130, 1)", 'rgba(103, 131, 184, 1)']} style={styles.conteneur} >
                 

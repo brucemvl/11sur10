@@ -10,11 +10,13 @@ import ligue1 from "../assets/logoligue1.webp"
 import Squad from "../components/Squad";
 import fifaclubwc from "../assets/fifaclubwc2.png";
 import { teamName } from "../datas/teamNames";
+import { useTranslation } from "react-i18next";
 
 
 function FicheEquipe() {
   const route = useRoute();
   const { id, league, img } = route.params;
+  const {t} = useTranslation()
 
   const { width } = useWindowDimensions();
         
@@ -290,7 +292,7 @@ if (!stats) {
         <View style={styles.stade}>
           <TouchableOpacity onPress={collapseStade}>
             <LinearGradient colors={["black", "steelblue"]} style={[styles.stadeTitle, isMediumScreen && {paddingBlock: 10}]}>
-              <Text style={[styles.stadeText, isMediumScreen && {fontSize: 18}]}>Stade</Text>
+              <Text style={[styles.stadeText, isMediumScreen && {fontSize: 18}]}>{t("stade")}</Text>
               <Animated.Image
                 source={chevron}
                 style={[styles.chevron, { transform: [{ rotate: rotateStadeInterpolate }] }]}
@@ -318,7 +320,7 @@ if (!stats) {
         <View style={styles.stade}>
           <TouchableOpacity onPress={collapseSquad}>
             <LinearGradient colors={["black", "steelblue"]} style={[styles.stadeTitle, isMediumScreen && {paddingBlock: 10}]}>
-              <Text style={[styles.stadeText, isMediumScreen && {fontSize: 18}]}>Effectif</Text>
+              <Text style={[styles.stadeText, isMediumScreen && {fontSize: 18}]}>{t("effectif")}</Text>
               <Animated.Image
                 source={chevron}
                 style={[styles.chevron, { transform: [{ rotate: rotateSquadInterpolate }] }]}
@@ -343,7 +345,7 @@ if (!stats) {
         <View style={[styles.stade, { alignItems: "center" }]}>
           <TouchableOpacity onPress={collapseCalendrier} style={{ width: "100%" }}>
             <LinearGradient colors={["black", "steelblue"]} style={[styles.stadeTitle, isMediumScreen && {paddingBlock: 10}]}>
-              <Text style={[styles.stadeText, isMediumScreen && {fontSize: 18}]}>Calendrier</Text>
+              <Text style={[styles.stadeText, isMediumScreen && {fontSize: 18}]}>{t("calendrier")}</Text>
 
               <Animated.Image
                 source={chevron}
@@ -377,33 +379,33 @@ if (!stats) {
           })}
         </ScrollView>
         <View style={styles.bloc}>
-          <Text style={styles.h3}>Matchs Disputés</Text>
+          <Text style={styles.h3}>{t("disputé")}</Text>
           <Text style={{ fontFamily: "Kanitt", fontSize: 22 }}>{stats?.fixtures?.played.total}</Text>
           <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
             <View style={{ alignItems: "center", width: "33%" }}>
-              <Text style={styles.h4}>Victoires</Text>
+              <Text style={styles.h4}>{t("victoire")}</Text>
               <Text style={{ fontFamily: "Kanitt", color: "green", fontSize: 20 }}>{stats?.fixtures?.wins.total}</Text>
             </View>
             <View style={{ alignItems: "center", width: "33%", borderLeftWidth: 2, borderRightWidth: 2 }}>
-              <Text style={styles.h4}>Defaites</Text>
+              <Text style={styles.h4}>{t("defaite")}</Text>
               <Text style={{ fontFamily: "Kanitt", color: "red", fontSize: 20 }}>{stats?.fixtures?.loses.total}</Text>
             </View>
             <View style={{ alignItems: "center", width: "33%" }}>
-              <Text style={styles.h4}>Nuls</Text>
+              <Text style={styles.h4}>{t("nul")}</Text>
               <Text style={{ fontFamily: "Kanitt", color: "grey", fontSize: 20 }}>{stats?.fixtures?.draws.total}</Text>
             </View>
           </View>
         </View>
         <View style={styles.bloc}>
-          <Text style={styles.h3}>Buts</Text>
+          <Text style={styles.h3}>{t("buts")}</Text>
           <View style={{ flexDirection: "row", justifyContent: "center", width: "100%" }}>
             <View style={{ alignItems: "center", borderRightWidth: 1, paddingRight: 30 }}>
-              <Text style={styles.h4}>Marqués</Text>
+              <Text style={styles.h4}>{t("marqué")}</Text>
               <Text style={{ fontFamily: "Kanitt", color: "green", fontSize: 20 }}>{stats?.goals?.for.total.total}</Text>
               <Text style={{ fontFamily: "Kanitus", fontSize: 11 }}>(Moyenne par match :<Text style={{ fontFamily: "Kanito" }}> {stats.goals.for.average.total}</Text>)</Text>
             </View>
             <View style={{ alignItems: "center", borderLeftWidth: 1, paddingLeft: 30 }}>
-              <Text style={styles.h4}>Encaissés</Text>
+              <Text style={styles.h4}>{t("encaissé")}</Text>
               <Text style={{ fontFamily: "Kanitt", color: "red", fontSize: 20 }}>{stats?.goals?.against.total.total}</Text>
               <Text style={{ fontFamily: "Kanitus", fontSize: 11 }}>(Moyenne par match :<Text style={{ fontFamily: "Kanito" }}>{stats.goals.against.average.total}</Text>)</Text>
 
@@ -412,28 +414,28 @@ if (!stats) {
         </View>
         <View style={styles.bloc}>
 
-          <Text style={styles.h3}>Plus large victoire</Text>
+          <Text style={styles.h3}>{t("largeV")}</Text>
           <View style={{ flexDirection: "row" }}>
             <View style={{ alignItems: "center", borderRightWidth: 1, paddingRight: 40 }}>
-              <Text style={styles.h5}>Domicile</Text>
+              <Text style={styles.h5}>{t("domicile")}</Text>
               <Text style={{ color: "green", fontFamily: "Kanitt" }}>{stats.biggest.wins.home}</Text>
             </View>
             <View style={{ alignItems: "center", borderLeftWidth: 1, paddingLeft: 40 }}>
-              <Text style={styles.h5}>Exterieur</Text>
+              <Text style={styles.h5}>{t("exterieur")}</Text>
               <Text style={{ color: "green", fontFamily: "Kanitt" }}>{stats.biggest.wins.away}</Text>
             </View>
           </View>
 
 
 
-          <Text style={styles.h3}>Plus large defaite</Text>
+          <Text style={styles.h3}>{t("largeD")}</Text>
           <View style={{ flexDirection: "row" }}>
             <View style={{ alignItems: "center", borderRightWidth: 1, paddingRight: 40 }}>
-              <Text style={styles.h5}>Domicile</Text>
+              <Text style={styles.h5}>{t("domicile")}</Text>
               <Text style={{ color: "red", fontFamily: "Kanitt" }}>{stats.biggest.loses.home}</Text>
             </View>
             <View style={{ alignItems: "center", borderLeftWidth: 1, paddingLeft: 40 }}>
-              <Text style={styles.h5}>Exterieur</Text>
+              <Text style={styles.h5}>{t("exterieur")}</Text>
               <Text style={{ color: "red", fontFamily: "Kanitt" }}>{stats.biggest.loses.away}</Text>
             </View>
           </View>
@@ -445,11 +447,11 @@ if (!stats) {
           <Text style={{ fontFamily: "Kanitt", fontSize: 20 }}>{stats.clean_sheet.total}</Text>
           <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
             <View style={{ width: "50%", alignItems: "center" }}>
-              <Text style={styles.h4}>Domicile</Text>
+              <Text style={styles.h4}>{t("domicile")}</Text>
               <Text style={{ fontFamily: "Kanitt" }}>{stats.clean_sheet.home}</Text>
             </View>
             <View style={{ width: "50%", alignItems: "center" }}>
-              <Text style={styles.h4}>Exterieur</Text>
+              <Text style={styles.h4}>{t("exterieur")}</Text>
               <Text style={{ fontFamily: "Kanitt" }}>{stats.clean_sheet.away}</Text>
             </View>
           </View>

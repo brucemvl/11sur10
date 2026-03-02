@@ -7,10 +7,12 @@ import Precedent from '../components/Precedent';
 import Classement from '../components/Classement';
 import cloche from "../assets/cloche3.png"
 import * as Haptics from "expo-haptics"
+import { useTranslation } from 'react-i18next';
 
 
 function FicheSelections() {
   const route = useRoute();
+  const {t} = useTranslation()
 
   const navigation = useNavigation()
 
@@ -125,17 +127,17 @@ const teamName = {
     <Precedent />
 
     <ScrollView contentContainerStyle={[styles.blocFicheSelections, isMediumScreen && {padding: 50}]}>
-      {id === 6 ? <TouchableOpacity onPress={() => navigation.navigate("Notifs", {openCan: true})} style={{marginBlock: 10, flexDirection: "row", alignItems: "center", gap: 5, borderWidth: 2, padding: 5, borderRadius: 10, backgroundColor: "rgba(121, 121, 121, 1)", shadowColor: '#000', shadowOffset: { width: 0, height: 0 }, shadowOpacity: 1, shadowRadius: 6, elevation: 5,}}>
+      {/*{id === 6 ? <TouchableOpacity onPress={() => navigation.navigate("Notifs", {openCan: true})} style={{marginBlock: 10, flexDirection: "row", alignItems: "center", gap: 5, borderWidth: 2, padding: 5, borderRadius: 10, backgroundColor: "rgba(121, 121, 121, 1)", shadowColor: '#000', shadowOffset: { width: 0, height: 0 }, shadowOpacity: 1, shadowRadius: 6, elevation: 5,}}>
         <Image source={cloche} style={{height: 35, width: 35, objectFit: "contain"}}/>
         <Text style={{fontFamily: "Kanitalik", color: "white", fontSize: 12}}>Suivez votre equipe</Text>
       </TouchableOpacity>
-      : null}
+      : null} */}
       <View style={{flexDirection: "row", marginBlock: 8, justifyContent: "center", gap: "5%"}}>
   <TouchableOpacity onPress={openCalendrier} accessible accessibilityRole="button" accessibilityLabel="Calendrier" accessibilityState={{ selected: calendrier }}  accessibilityHint="Calendrier des matchs" >
-          <Text style={calendrier ? styles.selected : styles.unSelected}>Calendrier</Text>
+          <Text style={calendrier ? styles.selected : styles.unSelected}>{t("CALENDRIER")}</Text>
         </TouchableOpacity>
   <TouchableOpacity onPress={openClassement} accessible accessibilityRole="button" accessibilityLabel="Classement" accessibilityState={{ selected: classement }}  accessibilityHint="Afficher les Classements">
-          <Text style={classement ? styles.selected : styles.unSelected}>Classement</Text>
+          <Text style={classement ? styles.selected : styles.unSelected}>{t("CLASSEMENT")}</Text>
         </TouchableOpacity>
       </View>
       

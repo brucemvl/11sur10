@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 const Evenements = ({ match }) => {
 
   const navigation = useNavigation();
-  const {t} = useTranslation()
+  const { t, i18n } = useTranslation()
 
 
   const getPlayerPhoto = (playerId, fixture) => {
@@ -23,6 +23,25 @@ const Evenements = ({ match }) => {
         .find(p => p.player.id === playerId)?.player.photo ||
       "https://example.com/default-player.png"
     );
+  };
+
+  const commentTranslations = {
+    "Elbowing": "(Coup de coude)",
+    "Professional handball": "(Main volontaire)",
+    "Off the ball foul": "(Faute sans ballon)",
+    "Unsportsmanlike conduct": "(Comportement antisportif)",
+    "Handball": "(Main)",
+    "Foul": "(Faute)",
+    "Argument": "(Protestation)",
+    "Violent conduct": "(Comportement violent)",
+    "Simulation": "(Simulation)",
+    "Diving": "(Simulation)",
+    "Professional foul last man": "(Faute dernier défenseur)",
+    "Time wasting": "(Joue la montre)",
+    "Roughing": "expulsé pour un contact brutal",
+    "Tripping": "(Tacle)",
+    "Holding": "(Retient l'adversaire)",
+    "Serious foul": "(Grosse faute)",
   };
 
   return (
@@ -42,10 +61,10 @@ const Evenements = ({ match }) => {
 
                 <View style={isHomeTeam ? styles.domicile : styles.exterieur} key={element.id}>
 
-                  <View style={{ width: "100%", justifyContent: "center"}}>
+                  <View style={{ width: "100%", justifyContent: "center" }}>
                     {element.type === "Goal" && element.detail != "Missed Penalty" ?
                       <View style={{ flexDirection: "row", paddingBlock: 3, paddingInline: 15, height: 40, justifyContent: "space-between", backgroundColor: element.type === "Goal" && element.detail != "Missed Penalty" ? "black" : null }}>
-                        <Text style={{ fontFamily: "Kanitalik", fontSize: 17, color: "white", textShadowColor: "rgba(157, 157, 157, 1)", textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 5 }}>⚽   But !</Text>
+                        <Text style={{ fontFamily: "Kanitalik", fontSize: 17, color: "white", textShadowColor: "rgba(157, 157, 157, 1)", textShadowOffset: { width: 1, height: 1 }, textShadowRadius: 5 }}>⚽   {t("but")} !</Text>
                         <Image source={{ uri: element.team.logo }} style={{ height: 25, width: 25, objectFit: "contain" }} />
 
                       </View>
@@ -58,9 +77,9 @@ const Evenements = ({ match }) => {
                               style={styles.cardIcon}
                             />
                             {element.detail === "Red Card" ?
-                              <Text style={{ fontFamily: "Bangers", fontSize: 15, color: "black", paddingInline: 2 }}>Carton Rouge !</Text>
+                              <Text style={{ fontFamily: "Bangers", fontSize: 15, color: "black", paddingInline: 2 }}>{t("red")} !</Text>
                               :
-                              <Text style={{ fontFamily: "Bangers", fontSize: 14, color: "black", paddingInline: 2 }}>Carton Jaune</Text>
+                              <Text style={{ fontFamily: "Bangers", fontSize: 14, color: "black", paddingInline: 2 }}>{t("yellow")}</Text>
                             }
                           </View>
                           <Image source={{ uri: element.team.logo }} style={{ height: 25, width: 25, objectFit: "contain" }} />
@@ -68,7 +87,7 @@ const Evenements = ({ match }) => {
                         </View>
                         :
                         element.detail === "Goal Disallowed - offside" ||
-                        element.detail === "Goal Disallowed - handball" ||
+                          element.detail === "Goal Disallowed - handball" ||
                           element.detail === "Goal cancelled" ||
                           element.detail === "Goal Disallowed" ||
                           element.detail === "Penalty confirmed" || element.detail === "Goal confirmed" || element.detail === "Penalty cancelled" ?
@@ -92,7 +111,7 @@ const Evenements = ({ match }) => {
 
                               <Image source={subst} style={styles.substitutionIcon} />
 
-                              <Text style={{ fontFamily: "Bangers", fontSize: 14, color: "black", paddingInline: 2 }}>Changement</Text>
+                              <Text style={{ fontFamily: "Bangers", fontSize: 14, color: "black", paddingInline: 2 }}>{t("changement")}</Text>
                             </View>
                             <Image source={{ uri: element.team.logo }} style={{ height: 25, width: 25, objectFit: "contain" }} />
 
@@ -106,21 +125,60 @@ const Evenements = ({ match }) => {
                           <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: element.player.id, team: element.team.id })} style={{ flexDirection: "row", alignItems: "center" }}>
                             <Image source={portraitsJoueurs[element.player.id] || { uri: getPlayerPhoto(element.player.id, match) }} style={{ width: 35, height: 35, borderRadius: 20, marginRight: 5, marginBlock: 4 }} />
                             <Text style={styles.playerName}>{element.player.name}</Text>
-                            {element.comments === "Elbowing" ? <Text style={styles.motif}> (Coup de coude)</Text> : element.comments === "Professional handball" ? <Text style={styles.motif}> (Main volontaire)</Text> : element.comments === "Off the ball foul" ? <Text style={styles.motif}> (Faute sans ballon)</Text> : element.comments === "Handling" ? <Text style={styles.motif}> (Main)</Text> : element.comments === "Unsportsmanlike conduct" ? <Text style={styles.motif}> (Comportement Antisportif)</Text> : element.comments === "Handball" ? <Text style={styles.motif}> (Main)</Text> : element.comments === "Foul" ? <Text style={styles.motif}> (Faute)</Text> : element.comments === "Argument" ? <Text style={styles.motif}> (Protestation)</Text> : element.comments === "Violent conduct" ? <Text style={styles.motif}> (Comportement violent)</Text> : element.comments === "Simulation" || element.comments === "Diving" ? <Text style={styles.motif}> averti pour simulation</Text> : element.comments === "Professional foul last man" ? <Text style={styles.motif}> (Faute dernier defenseur)</Text> : element.comments === "Time wasting" || element.comments === "Delay of game" ? <Text style={styles.motif}> averti pour avoir joué la montre</Text> : element.comments === "Roughing" ? <Text style={styles.motif}> averti pour un contact brutal</Text> : element.comments === "Tripping" ? <Text style={styles.motif}> sanctionné apres un tacle</Text> : element.comments === "Holding" ? <Text style={styles.motif}> averti pour avoir retenu l'adversaire</Text> : element.comments === "Serious foul" ? <Text style={styles.motif}> (Grosse faute)</Text> : null}
+                            {i18n.language.startsWith("en")
+                              ? null
+                              : element.comments === "Elbowing"
+                                ? <Text style={styles.motif}> (Coup de coude)</Text>
+                                : element.comments === "Professional handball"
+                                  ? <Text style={styles.motif}> (Main volontaire)</Text>
+                                  : element.comments === "Off the ball foul"
+                                    ? <Text style={styles.motif}> (Faute sans ballon)</Text>
+                                    : element.comments === "Handling"
+                                      ? <Text style={styles.motif}> (Main)</Text>
+                                      : element.comments === "Unsportsmanlike conduct"
+                                        ? <Text style={styles.motif}> (Comportement antisportif)</Text>
+                                        : element.comments === "Handball"
+                                          ? <Text style={styles.motif}> (Main)</Text>
+                                          : element.comments === "Foul"
+                                            ? <Text style={styles.motif}> (Faute)</Text>
+                                            : element.comments === "Argument"
+                                              ? <Text style={styles.motif}> (Protestation)</Text>
+                                              : element.comments === "Violent conduct"
+                                                ? <Text style={styles.motif}> (Comportement violent)</Text>
+                                                : element.comments === "Simulation" || element.comments === "Diving"
+                                                  ? <Text style={styles.motif}> averti pour simulation</Text>
+                                                  : element.comments === "Professional foul last man"
+                                                    ? <Text style={styles.motif}> (Faute dernier défenseur)</Text>
+                                                    : element.comments === "Time wasting" || element.comments === "Delay of game"
+                                                      ? <Text style={styles.motif}> averti pour avoir joué la montre</Text>
+                                                      : element.comments === "Roughing"
+                                                        ? <Text style={styles.motif}> averti pour un contact brutal</Text>
+                                                        : element.comments === "Tripping"
+                                                          ? <Text style={styles.motif}> sanctionné après un tacle</Text>
+                                                          : element.comments === "Holding"
+                                                            ? <Text style={styles.motif}> averti pour avoir retenu l'adversaire</Text>
+                                                            : element.comments === "Serious foul"
+                                                              ? <Text style={styles.motif}> (Grosse faute)</Text>
+                                                              : null}
                           </TouchableOpacity>
                         )}
                         {element.detail === "Red Card" && (
                           <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: element.player.id, team: element.team.id })} style={{ flexDirection: "row", alignItems: "center", paddingBlock: 5 }}>
                             <Image source={portraitsJoueurs[element.player.id] || { uri: getPlayerPhoto(element.player.id, match) }} style={{ width: 35, height: 35, borderRadius: 20, marginRight: 5 }} />
                             <Text style={styles.playerName}>{element.player.name}</Text>
-                            {element.comments === "Elbowing" ? <Text style={styles.motif}> (Coup de coude)</Text> : element.comments === "Professional handball" ? <Text style={styles.motif}> (Main volontaire)</Text> : element.comments === "Off the ball foul" ? <Text style={styles.motif}> (Faute sans ballon)</Text> : element.comments === "Unsportsmanlike conduct" ? <Text style={styles.motif}> (Comportement Antisportif)</Text> : element.comments === "Handball" ? <Text style={styles.motif}> (Main)</Text> : element.comments === "Foul" ? <Text style={styles.motif}> (Faute)</Text> : element.comments === "Argument" ? <Text style={styles.motif}> (Protestation)</Text> : element.comments === "Violent conduct" ? <Text style={styles.motif}> (Comportement violent)</Text> : element.comments === "Simulation" || element.comments === "Diving" ? <Text style={styles.motif}> (Simulation)</Text> : element.comments === "Professional foul last man" ? <Text style={styles.motif}> (Faute dernier defenseur)</Text> : element.comments === "Time wasting" ? <Text style={styles.motif}> (Joue la montre)</Text> : element.comments === "Roughing" ? <Text style={styles.motif}>  expulsé pour un contact brutal</Text> : element.comments === "Tripping" ? <Text style={styles.motif}> (Tacle)</Text> : element.comments === "Holding" ? <Text style={styles.motif}> (Retient l'adversaire)</Text> : element.comments === "Serious foul" ? <Text style={styles.motif}> (Grosse faute)</Text> : null}
-
+                            {element.comments && (
+                              <Text style={styles.motif}>
+                                {i18n.language.startsWith("en")
+                                  ? ` (${element.comments})`
+                                  : commentTranslations[element.comments] || null}
+                              </Text>
+                            )}
                           </TouchableOpacity>
                         )}
                         {element.type === "Goal" && (
                           element.detail === "Missed Penalty" ? <View style={styles.goalContainer}>
                             <Text style={styles.goalText}>
-                              ❌ Penalty Raté!
+                              ❌ {t("missed")}
                             </Text>
                             {element.assist?.name && (
                               <Text style={styles.assistText}> ({element.assist.name})</Text>
@@ -140,18 +198,18 @@ const Evenements = ({ match }) => {
                           <View style={styles.substitutionContainer}>
                             <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: element.assist.id, team: element.team.id })} style={{ alignItems: "center", justifyContent: "center" }}>
                               <Text style={styles.playerName}>{element.assist.name}</Text>
-                              <View style={{flexDirection: "row", alignItems: "center", gap: 5}}>
-                                <Image source={portraitsJoueurs[element.assist.id] || { uri: getPlayerPhoto(element.assist.id, match) }} style={{height: 30, width: 30, borderRadius: 15}}/>
-                              <Image source={vert} style={{ height: 15, width: 20 }} />
+                              <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
+                                <Image source={portraitsJoueurs[element.assist.id] || { uri: getPlayerPhoto(element.assist.id, match) }} style={{ height: 30, width: 30, borderRadius: 15 }} />
+                                <Image source={vert} style={{ height: 15, width: 20 }} />
                               </View>
                               <Text style={{ color: "rgb(57, 200, 73)", fontFamily: "Kanitalic" }}>IN</Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: element.player.id, team: element.team.id })} style={{ alignItems: "center" }}>
                               <Text style={styles.playerName}>{element.player.name}</Text>
-                                                            <View style={{flexDirection: "row-reverse", alignItems: "center", gap: 5}}>
-                                                                                              <Image source={portraitsJoueurs[element.player.id] || { uri: getPlayerPhoto(element.player.id, match) }} style={{height: 30, width: 30, borderRadius: 15}}/>
+                              <View style={{ flexDirection: "row-reverse", alignItems: "center", gap: 5 }}>
+                                <Image source={portraitsJoueurs[element.player.id] || { uri: getPlayerPhoto(element.player.id, match) }} style={{ height: 30, width: 30, borderRadius: 15 }} />
 
-                              <Image source={rouge} style={{ height: 15, width: 20, transform: [{ rotate: "180deg" }] }} />
+                                <Image source={rouge} style={{ height: 15, width: 20, transform: [{ rotate: "180deg" }] }} />
                               </View>
                               <Text style={{ color: "rgb(201, 38, 38)", fontFamily: "Kanitalic" }}>OUT</Text>
 
@@ -159,13 +217,28 @@ const Evenements = ({ match }) => {
                           </View>
                         )}
                         {(element.detail === "Goal Disallowed - offside" ||
-                        element.detail === "Goal Disallowed - handball" ||
+                          element.detail === "Goal Disallowed - handball" ||
                           element.detail === "Goal cancelled" ||
                           element.detail === "Goal Disallowed" ||
                           element.detail === "Penalty confirmed" || element.detail === "Goal confirmed" || element.detail === "Penalty cancelled") && (
                             <View style={styles.varContainer}>
 
-                              <Text style={styles.varText}>{element.detail === "Goal Disallowed - handball" ? "❌  But refusé (Main)" : element.detail === "Goal Disallowed - offside" ? "❌  But refusé (Hors-Jeu)" : element.detail === "Goal cancelled" || element.detail === "Goal Disallowed" ? "❌   But annulé" : element.detail === "Penalty confirmed" ? "Penalty confirmé !" : element.detail === "Penalty cancelled" ? "❌   Penalty annulé !" : element.detail === "Goal confirmed" ? "But Confirmé !" : element.detail}</Text>
+                              <Text style={styles.varText}> {i18n.language.startsWith("en")
+                                ? element.detail
+                                : element.detail === "Goal Disallowed - handball"
+                                  ? "❌ But refusé (Main)"
+                                  : element.detail === "Goal Disallowed - offside"
+                                    ? "❌ But refusé (Hors-Jeu)"
+                                    : element.detail === "Goal cancelled" || element.detail === "Goal Disallowed"
+                                      ? "❌ But annulé"
+                                      : element.detail === "Penalty confirmed"
+                                        ? "Penalty confirmé !"
+                                        : element.detail === "Penalty cancelled"
+                                          ? "❌ Penalty annulé !"
+                                          : element.detail === "Goal confirmed"
+                                            ? "But confirmé !"
+                                            : element.detail}
+                              </Text>
                             </View>
                           )}
                       </View>
@@ -209,7 +282,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "black",
-    overflow: "hidden" ,
+    overflow: "hidden",
     marginRight: 20
   },
   exterieur: {
@@ -221,7 +294,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "black",
-    overflow: "hidden" ,
+    overflow: "hidden",
     marginLeft: 20
 
 

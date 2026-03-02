@@ -64,7 +64,32 @@
     "titreHisto": "Derniers face-à-face",
       "titreEvent": "Temps Forts", 
       "fini": "Match Terminé",
-      "palmares": "Palmarès"
+      "palmares": "Palmarès",
+       "stade": "Stade",
+        "effectif": "Effectif",
+        "calendrier": "Calendrier",
+        "disputé": "Matchs Disputés",
+        "victoire": "Victoires",
+        "defaite": "Defaites",
+        "nul": "Nuls",
+        "marqué": "Marqués",
+        "encaissé": "Encaissés",
+        "largeV": "Plus large victoire",
+        "largeD": "Plus large defaite",
+        "domicile": "Domicile",
+        "exterieur": "Exterieur",
+                "joueur": "Joueur",
+                        "league": "Championnats",
+                                "europe": "Compétitions Européennes",
+                                "but": "But",
+                "yellow": "Carton jaune",
+                                "red": "Carton rouge",
+                                "changement": "Changement",
+                                                                "missed": "Penalty Raté!"
+
+
+
+
 
 
 

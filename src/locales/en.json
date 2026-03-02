@@ -64,7 +64,31 @@
   "titreHisto": "Head to Head",
   "titreEvent": "Key Moments",
         "fini": "Match Finished",
-        "palmares": "Trophies"
+        "palmares": "Trophies",
+        "stade": "Stadium",
+        "effectif": "Squad",
+        "calendrier": "Fixtures",
+        "disputé": "Matchs Played",
+        "victoire": "Wins",
+        "defaite": "Loses",
+        "nul": "Draws",
+        "marqué": "Scored",
+        "encaissé": "Conceded",
+        "largeV": "Biggest Win",
+        "largeD": "Biggest Loss",
+        "domicile": "Home",
+        "exterieur": "Away",
+        "joueur": "Player",
+        "league": "Leagues",
+        "europe": "Europeans Cups",
+                "but": "Goal",
+                "yellow": "Yellow Card",
+                                "red": "Red Card",
+                                "changement": "Substitution",
+                                "missed": "Missed Penalty!"
+
+
+
 
 
 

@@ -586,7 +586,7 @@ function FicheJoueur() {
                       <View style={styles.statList}>
                         <View style={styles.ligne}>
                           <Image source={terrain} style={styles.icone} />
-                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>Matchs joués: </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.games.appearences}</Text>
+                          <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>Matchs: </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.games.appearences}</Text>
                         </View>
                         {joueur.statistics[0].games.position === "Goalkeeper" ?
                           <View style={styles.ligne}>

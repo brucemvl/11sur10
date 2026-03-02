@@ -10,6 +10,7 @@ import { useTranslation } from 'react-i18next';
 
 function FicheEurope({ route }) {
     const { id } = route.params;  // Récupère l'ID du championnat depuis les paramètres de navigation
+    const {t} = useTranslation()
     
     
     const { width } = useWindowDimensions();
@@ -101,10 +102,10 @@ function FicheEurope({ route }) {
             <ScrollView contentContainerStyle={[styles.blocChamp, isMediumScreen && {padding: 50}]}>
 <View style={{flexDirection: "row", marginBlock: 8, justifyContent: "center", gap: "5%"}}>
   <TouchableOpacity onPress={openCalendrier} accessible accessibilityRole="button" accessibilityLabel="Calendrier" accessibilityState={{ selected: calendrier }}  accessibilityHint="Calendrier des matchs" >
-    <Text style={calendrier ? styles.selected : styles.unSelected}>Calendrier</Text>
+    <Text style={calendrier ? styles.selected : styles.unSelected}>{t("CALENDRIER")}</Text>
   </TouchableOpacity>
   <TouchableOpacity onPress={openClassement} accessible accessibilityRole="button" accessibilityLabel="Classement" accessibilityState={{ selected: classement }}  accessibilityHint="Afficher les Classements">
-    <Text style={classement ? styles.selected : styles.unSelected}>Classement</Text>
+    <Text style={classement ? styles.selected : styles.unSelected}>{t("CLASSEMENT")}</Text>
   </TouchableOpacity>
 </View>
             {calendrier && <TableauEurope id={id} currentRound={currentRound} rounds={rounds} journey={journey} />}

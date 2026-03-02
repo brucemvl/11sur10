@@ -156,7 +156,7 @@ export default function UserPronosScreen({ route }) {
               
             </View>
             {item.status === 'FINISHED' ?
-            <Text style={[styles.points, item.points === 0 && {color: "red"}]}>{item.points > 0 ? "✅ " : "❌ "}Points gagnés : {item.points}</Text>
+            <Text style={[styles.points, item.points === 0 && {color: "#e21f1f"}]}>{item.points > 0 ? "✅ " : "❌ "}Points gagnés : {item.points}</Text>
             : null }
             <Text style={styles.status}>
   Statut : {statusLabel[item.status] || item.status}
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     fontFamily: "Kanitt"
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: '#3c6089',
     padding: 8,
     borderRadius: 12,
     marginBottom: 15,
@@ -204,28 +204,30 @@ fontFamily: "Bella",
     textAlign: 'center',
     width: "30%",
     fontSize: 13,
+    color: "white"
     
   },
   score: {
-    color: '#2563eb',
+    color: '#a1bbf3',
     fontFamily: "Kanito",
     textAlign: "center"
   },
   scoreReal: {
     fontSize: 12,
-    color: '#6b7280',
+    color: '#dedfe1',
     fontFamily: "Kanitus",
         textAlign: "center"
 
   },
   points: {
     fontSize: 14,
-fontFamily: "Kanito",
-    color: '#16a34a',
+fontFamily: "Kanitt",
+    color: '#1ab553',
+    shadowColor: "white", shadowOffset: {width: 0, height: 0}, shadowOpacity: 0.5, shadowRadius: 5
   },
   status: {
     fontSize: 12,
-    color: '#6b7280',
+    color: '#ffffff',
     fontFamily: "Kanitus"
   },
 });
