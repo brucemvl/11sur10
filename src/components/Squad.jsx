@@ -2,6 +2,8 @@ import { useNavigation } from "@react-navigation/native";
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from "react-native"
 import {portraitsJoueurs} from "../datas/Portraits.jsx";
 import {coachImages} from "../screens/FicheCoach.jsx"
+import { useTranslation } from 'react-i18next';
+
 
 
 import { LinearGradient } from "expo-linear-gradient";
@@ -10,6 +12,8 @@ import { LinearGradient } from "expo-linear-gradient";
 function Squad({ squad, coach }) {
 
     const navigation = useNavigation();
+        const { t, i18n } = useTranslation()
+    
 
     if (!squad){
         return <Text>Loading...</Text>
@@ -27,7 +31,7 @@ function Squad({ squad, coach }) {
 
         <View style={styles.poste}>
             <LinearGradient colors={["rgba(48, 88, 120, 1)", "rgba(199, 222, 240, 1)"]}  style={{ borderTopLeftRadius: 15, borderTopRightRadius: 15}}>
-            <Text style={styles.titre}>Gardiens</Text>
+            <Text style={styles.titre}>{t("gardiens")}</Text>
             </LinearGradient>
             <View style={{padding: 6}}>
             <ScrollView horizontal contentContainerStyle={{ flexDirection: "row", gap: 24, height: 160, alignItems: "center", paddingInline: 10}}>
@@ -47,7 +51,7 @@ function Squad({ squad, coach }) {
 
         <View style={styles.poste}>
             <LinearGradient colors={["rgba(48, 88, 120, 1)", "rgba(199, 222, 240, 1)"]}  style={{ borderTopLeftRadius: 15, borderTopRightRadius: 15}}>
-            <Text style={styles.titre}>Defenseurs</Text>
+            <Text style={styles.titre}>{t("defenseurs")}</Text>
             </LinearGradient>   
                         <View style={{padding: 6}}>
          <ScrollView horizontal contentContainerStyle={{ flexDirection: "row", gap: 22, height: 160, alignItems: "center", paddingInline: 10}}>
@@ -67,7 +71,7 @@ function Squad({ squad, coach }) {
 
         <View style={styles.poste}>
 <LinearGradient colors={["rgba(48, 88, 120, 1)", "rgba(199, 222, 240, 1)"]}  style={{ borderTopLeftRadius: 15, borderTopRightRadius: 15}}>
-            <Text style={styles.titre}>Milieux</Text>
+            <Text style={styles.titre}>{t("milieux")}</Text>
             </LinearGradient>  
                         <View style={{padding: 6}}>
           <ScrollView horizontal contentContainerStyle={{ flexDirection: "row", gap: 22, height: 160, alignItems: "center", paddingInline: 10}}>
@@ -86,7 +90,7 @@ function Squad({ squad, coach }) {
 
         <View style={styles.poste}>
 <LinearGradient colors={["rgba(48, 88, 120, 1)", "rgba(199, 222, 240, 1)"]}  style={{ borderTopLeftRadius: 15, borderTopRightRadius: 15}}>
-            <Text style={styles.titre}>Attaquants</Text>
+            <Text style={styles.titre}>{t("attaquants")}</Text>
             </LinearGradient>     
                         <View style={{padding: 6}}>
        <ScrollView horizontal contentContainerStyle={{ flexDirection: "row", gap: 22, height: 160, alignItems: "center", paddingInline: 10}}>

@@ -296,12 +296,16 @@ import felix from "../assets/portraits/fiche/felix.png"
 import dro from "../assets/portraits/fiche/dro.png"
 import sesko from "../assets/portraits/fiche/sesko.png"
 import stmaximin from "../assets/portraits/fiche/stmaximin.png"
+import bernal from "../assets/portraits/fiche/bernal.png"
 import udol from "../assets/portraits/fiche/udol.png"
+import llorente from "../assets/portraits/fiche/llorente.png"
 import ryerson from "../assets/portraits/fiche/ryerson.webp"
 
 
 
 export const fichesJoueurs = {
+    753: llorente,
+    433396: bernal,
     20525: udol,
     24845: ryerson,
     22173: stmaximin,

@@ -126,7 +126,7 @@ const Evenements = ({ match }) => {
                             <Image source={portraitsJoueurs[element.player.id] || { uri: getPlayerPhoto(element.player.id, match) }} style={{ width: 35, height: 35, borderRadius: 20, marginRight: 5, marginBlock: 4 }} />
                             <Text style={styles.playerName}>{element.player.name}</Text>
                             {i18n.language.startsWith("en")
-                              ? null
+                              ? <Text style={styles.motif}> ({element.comments})</Text>
                               : element.comments === "Elbowing"
                                 ? <Text style={styles.motif}> (Coup de coude)</Text>
                                 : element.comments === "Professional handball"
@@ -190,7 +190,7 @@ const Evenements = ({ match }) => {
                                 {element.player.name} {element.detail === "Penalty" ? <Text style={{ fontFamily: "Kanitalic" }}>(Pen.)</Text> : element.detail === "Own Goal" ? <Text style={{ fontFamily: "Kanitalic", color: "red" }}>(csc)</Text> : null}
                               </Text>
                               {element.assist?.name && (
-                                <Text style={styles.assistText}>(Passe Dec: <Text style={{ fontFamily: "Kanitt", fontSize: 11 }}>{element.assist.name}</Text>)</Text>
+                                <Text style={styles.assistText}>({t("passedec")}: <Text style={{ fontFamily: "Kanitt", fontSize: 11 }}>{element.assist.name}</Text>)</Text>
                               )}
                             </TouchableOpacity>
                         )}

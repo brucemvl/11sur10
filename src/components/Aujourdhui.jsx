@@ -72,7 +72,7 @@ export default function Aujourdhui({ matchs, onRefresh }) {
   /* -------------------- MATCHS DU JOUR -------------------- */
   const matchesOfDay = useMemo(() => {
     return matchs.filter(
-      m => m.fixture.date.slice(0, 10) === currentDate
+      m => m.fixture.date.slice(0, 10) === currentDate && m.fixture.status.long != "Match Postponed"
     );
   }, [matchs, currentDate]);
 

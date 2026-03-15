@@ -635,7 +635,7 @@ const styles = StyleSheet.create({
     },
     text: {
 fontFamily: "Kanitus",
-fontSize: 15,
+fontSize: 14.2,
     },
     selectedTab: {
         
@@ -654,7 +654,7 @@ fontSize: 15,
 
     },
     selectedText: {
-fontSize: 15,
+fontSize: 14.5,
         color: '#fff',
                 fontFamily: "Kanito", 
 

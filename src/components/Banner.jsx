@@ -44,7 +44,7 @@ import banner45 from "../assets/banner46.jpg"
 import banner46 from "../assets/banner47.webp"
 import banner47 from "../assets/banner48.webp"
 import banner48 from "../assets/banner49.webp"
-import banner49 from "../assets/banner50.jpg"
+import banner49 from "../assets/banner50.webp"
 import banner50 from "../assets/banner51.webp"
 import banner51 from "../assets/banner52.webp"
 import banner52 from "../assets/banner53.webp"
@@ -79,6 +79,9 @@ import banner83 from "../assets/banner84.webp"
 import banner84 from "../assets/banner85.webp"
 import banner85 from "../assets/banner86.webp"
 import banner86 from "../assets/banner87.webp"
+import banner87 from "../assets/banner88.webp"
+import banner88 from "../assets/banner89.webp"
+import banner89 from "../assets/banner90.webp"
 
 
 
@@ -99,7 +102,7 @@ import { useTranslation } from 'react-i18next';
 const photosBan = [
   banner3, banner4, banner5, banner6, banner7, banner8, banner9,
   banner10, banner11, banner12, banner13, banner14, banner15, banner16, banner17, banner18, banner19, banner20, banner21, banner22, banner23, banner24, banner25, banner26, banner27, banner28, banner29, banner30, banner31, banner32, banner33, banner34, banner35, banner36, banner37, banner38, banner39, banner40, banner41, banner42, banner43, banner44, banner45, banner46, banner47, banner48, banner49, banner50, banner51,banner52, banner53, banner54, banner58, banner59, banner60, banner61,
-  banner62, banner63, banner64, banner65, banner66, banner67, banner68, banner69, banner70, banner71, banner72, banner73, banner74, banner75, banner76, banner77, banner78, banner79, banner80, banner81, banner82, banner83, banner84, banner85, banner86
+  banner62, banner63, banner64, banner65, banner66, banner67, banner68, banner69, banner70, banner71, banner72, banner73, banner74, banner75, banner76, banner77, banner78, banner79, banner80, banner81, banner82, banner83, banner84, banner85, banner86, banner87, banner88, banner89
 ];
 
 
