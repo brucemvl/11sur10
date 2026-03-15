@@ -30,7 +30,7 @@ router.post('/register', async (req, res) => {
     const token = jwt.sign(
       { userId: user._id },
       process.env.JWT_SECRET,
-      { expiresIn: '30d' }
+      { expiresIn: '365d' }
     );
 
     res.json({ token, userId: user._id });

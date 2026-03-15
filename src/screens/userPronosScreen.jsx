@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import Precedent from '../components/Precedent';
-import user from '../../backend/models/user';
 
 export default function UserPronosScreen({ route }) {
   const { userId, username } = route.params;

@@ -47,24 +47,34 @@ export default function AccueilJeu() {
 
   // 🔹 Fonction pour nettoyer le cache et recharger l'utilisateur
   const refreshUser = async () => {
-    try {
-      await AsyncStorage.removeItem('userCache');
-      console.log('✅ Cache utilisateur supprimé');
+  try {
+    const token = await AsyncStorage.getItem('jwtToken');
 
-      const token = await AsyncStorage.getItem('jwtToken');
-      const res = await axios.get(
-        'https://one1sur10.onrender.com/api/profile/me',
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-
-      console.log('USER rafraîchi:', res.data);
-      setUser(res.data);
-      // Sauvegarde locale optionnelle
-      await AsyncStorage.setItem('userCache', JSON.stringify(res.data));
-    } catch (err) {
-      console.error('❌ Erreur rafraîchissement user:', err);
+    if (!token) {
+      console.log("❌ Aucun token trouvé");
+      navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
+      return;
     }
-  };
+
+    const res = await axios.get(
+      'https://one1sur10.onrender.com/api/profile/me',
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    console.log('USER rafraîchi:', res.data);
+    setUser(res.data);
+    await AsyncStorage.setItem('userCache', JSON.stringify(res.data));
+
+  } catch (err) {
+    console.error('❌ Erreur rafraîchissement user:', err);
+
+    if (err.response?.status === 401) {
+      console.log("⚠️ Token expiré → déconnexion");
+      await AsyncStorage.multiRemove(['jwtToken', 'userId', 'userCache']);
+      navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
+    }
+  }
+};
 
   // 🔹 Chargement initial
   useEffect(() => {

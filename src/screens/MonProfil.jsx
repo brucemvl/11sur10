@@ -127,7 +127,7 @@ if (!response.ok) {
   throw new Error('Impossible de charger l’avatar');
 }
 
-const data = await response.json(); // maintenant ça devrait marcher
+const data = await response.json();
 
     // 7️⃣ Mettre à jour l'avatar affiché
     await AsyncStorage.setItem('avatar', data.avatar);
