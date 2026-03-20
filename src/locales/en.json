@@ -90,7 +90,9 @@
         "defenseurs": "Defenders",
         "milieux": "Midfielders",
         "attaquants": "Attackers",
-        "passedec": "Assist"
+        "passedec": "Assist",
+                        "no_match_today": "No match today"
+
 
 
 

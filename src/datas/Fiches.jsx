@@ -299,11 +299,15 @@ import stmaximin from "../assets/portraits/fiche/stmaximin.png"
 import bernal from "../assets/portraits/fiche/bernal.png"
 import udol from "../assets/portraits/fiche/udol.png"
 import llorente from "../assets/portraits/fiche/llorente.png"
+import golovin from "../assets/portraits/fiche/golovin.png"
+import clauss from "../assets/portraits/fiche/clauss.png"
 import ryerson from "../assets/portraits/fiche/ryerson.webp"
 
 
 
 export const fichesJoueurs = {
+    25008: clauss,
+        109: golovin,
     753: llorente,
     433396: bernal,
     20525: udol,

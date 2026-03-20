@@ -370,52 +370,56 @@ export default function Aujourdhui({ matchs, onRefresh }) {
 
         {/* ----------- LISTE MATCHS ----------- */}
         <ScrollView
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={async () => {
-                setRefreshing(true);
-                await onRefresh();
-                setRefreshing(false);
-              }}
-            />
-          }
-        >
-          {leagues.map(leagueId => {
-            const leagueMatches = matchesOfDay.filter(
-              m => m.league.id === leagueId
-            );
-            const league = leagueMatches[0].league;
+  refreshControl={
+    <RefreshControl
+      refreshing={refreshing}
+      onRefresh={async () => {
+        setRefreshing(true);
+        await onRefresh();
+        setRefreshing(false);
+      }}
+    />
+  }
+>
+  {matchesOfDay.length === 0 ? (
+    <View style={styles.emptyContainer}>
+      <Text style={styles.emptyText}>{t("no_match_today")}</Text>
+    </View>
+  ) : (
+    leagues.map(leagueId => {
+      const leagueMatches = matchesOfDay.filter(
+        m => m.league.id === leagueId
+      );
+      const league = leagueMatches[0].league;
 
+      return (
+        <View key={leagueId} style={styles.leagueBlock}>
+          <View style={styles.leagueHeader}>
+            <View style={{ borderRadius: 8, overflow: "hidden" }}>
+              <SvgUri uri={flags[league.name]} width={22} height={20} />
+            </View>
+            <Text style={styles.leagueName}>{league.name}</Text>
+          </View>
 
+          {leagueMatches.map(match => {
+            const home = teamName[match.teams.home.name] || match.teams.home.name;
+            const away = teamName[match.teams.away.name] || match.teams.away.name;
+            const hideScore = noSpoil && match.league.id === 2 &&
+              ['1H', '2H', 'HT', 'ET'].includes(match.fixture.status.short);
+            const isLive = match.fixture.status.elapsed > 0 && match.fixture.status.long != "Match Finished";
+            const finished = match.fixture.status.long === "Match Finished";
 
             return (
-              <View key={leagueId} style={styles.leagueBlock}>
-                <View style={styles.leagueHeader}>
-                  <View style={{ borderRadius: 8, overflow: "hidden" }}>
-                    <SvgUri uri={flags[league.name]} width={22} height={20} />
-                  </View>
-                  <Text style={styles.leagueName}>{league.name}</Text>
-                </View>
-
-                {leagueMatches.map(match => {
-                  const home = teamName[match.teams.home.name] || match.teams.home.name;
-                  const away = teamName[match.teams.away.name] || match.teams.away.name;
-                  const hideScore = noSpoil && match.league.id === 2 &&
-                    ['1H', '2H', 'HT', 'ET'].includes(match.fixture.status.short);
-                  const isLive = match.fixture.status.elapsed > 0 && match.fixture.status.long != "Match Finished"
-                  const finished = match.fixture.status.long === "Match Finished"
-
-                  return (
-                    <TouchableOpacity
-                      key={match.fixture.id}
-                      style={styles.matchCard}
-                      onPress={() =>
-                        navigation.navigate('FicheMatch', { matchId: match.fixture.id })
-                      }
-                      accessible accessibilityHint={`naviguer vers la fiche du match: ${match.teams.home.name} ${match.teams.away.name}`}
-                    >
-                      <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={[styles.match, isMediumScreen && {height: 60}]}>
+              <TouchableOpacity
+                key={match.fixture.id}
+                style={styles.matchCard}
+                onPress={() =>
+                  navigation.navigate('FicheMatch', { matchId: match.fixture.id })
+                }
+                accessible
+                accessibilityHint={`naviguer vers la fiche du match: ${match.teams.home.name} ${match.teams.away.name}`}
+              >
+                <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={[styles.match, isMediumScreen && {height: 60}]}>
 
                         <Image source={{ uri: league.logo }} style={[styles.leagueLogo, isMediumScreen && {height: 30}]} />
 
@@ -465,13 +469,14 @@ export default function Aujourdhui({ matchs, onRefresh }) {
                           </View>
                         }
                       </LinearGradient>
-                    </TouchableOpacity>
-                  );
-                })}
-              </View>
+              </TouchableOpacity>
             );
           })}
-        </ScrollView>
+        </View>
+      );
+    })
+  )}
+</ScrollView>
       </LinearGradient>
     </View>
   );
@@ -666,4 +671,14 @@ const styles = StyleSheet.create({
   },
   dayTextActive: {
   },
+  emptyContainer: {
+  alignItems: "center",
+  justifyContent: "center",
+  paddingVertical: 40,
+},
+emptyText: {
+  color: "#fff",
+  fontFamily: "Permanent",
+  textAlign: "center",
+},
 });

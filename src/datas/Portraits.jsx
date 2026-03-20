@@ -247,11 +247,17 @@ import dro from "../assets/portraits/dro.png"
 import woltemade from "../assets/portraits/woltemade.png"
 import stmaximin from "../assets/portraits/stmaximin.png"
 import udol from "../assets/portraits/udol.png"
+import balogun from "../assets/portraits/balogun.png"
+import clauss from "../assets/portraits/clauss.png"
+import golovin from "../assets/portraits/golovin.png"
 
 
 
 
 export const portraitsJoueurs = {
+    25008: clauss,
+    109: golovin,
+    138835: balogun,
         20525: udol,
         22173: stmaximin,
         158054: woltemade,
