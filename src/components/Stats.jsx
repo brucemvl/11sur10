@@ -262,7 +262,7 @@ const topScorerExt =
 
     return (
   <View style={styles.container}>
-    {messages.length > 0 && (
+    {messages.length > 0 && match.league.id != 10 &&(
   <Animated.View
     style={{
       opacity: fadeAnim,

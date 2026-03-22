@@ -398,7 +398,7 @@ export default function Aujourdhui({ matchs, onRefresh }) {
             <View style={{ borderRadius: 8, overflow: "hidden" }}>
               <SvgUri uri={flags[league.name]} width={22} height={20} />
             </View>
-            <Text style={styles.leagueName}>{league.name}</Text>
+            <Text style={styles.leagueName}>{league.name === "Friendlies" ? "Amicaux" : league.name}</Text>
           </View>
 
           {leagueMatches.map(match => {
