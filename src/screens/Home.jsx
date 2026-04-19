@@ -20,6 +20,8 @@ import Banner from "../components/Banner";
 import Aujourdhui from "../components/Aujourdhui";
 import Favorite from "../components/Favorite";
 import share from "../assets/share.png"
+import { LinearGradient } from "expo-linear-gradient";
+
 
 const API_KEY = "5ff22ea19db11151a018c36f7fd0213b";
 
@@ -74,6 +76,11 @@ const Home = ({ selectedTeamIds }) => {
   const scrollRef = useRef(null);
     const scrollY = new Animated.Value(0);
   
+    const aujourdhuiOpacity = scrollY.interpolate({
+  inputRange: [0, 100, 120],
+  outputRange: [1, 1, 0.8],
+  extrapolate: "clamp",
+});
 
   useEffect(() => {
     const subscription = DeviceEventEmitter.addListener(
@@ -195,7 +202,7 @@ const scale = scrollY.interpolate({
           { useNativeDriver: false }
         )}
         scrollEventThrottle={6}
-        style={{marginTop: 10}}
+        style={{marginTop: 5}}
     >
       <Animated.View
         style={{
@@ -207,13 +214,18 @@ const scale = scrollY.interpolate({
       >
         <Banner />
         </Animated.View>
-<Filtres style={{ backgroundColor: "#f3f3f3", zIndex: 10, marginBlock: 10 }} />
+<LinearGradient colors={["#f3f3f3", "#f3f3f33d"]} locations={[0.9, 1]} style={{marginBlock: 10, zIndex: 10}}>
+<Filtres style={{ backgroundColor: "#f3f3f3"}} />
 
+  
+  
+</LinearGradient>
         {matchs.length > 0 ? (
           <Aujourdhui matchs={matchs} onRefresh={onRefresh} />
         ) : (
           <ActivityIndicator size="large" style={{ marginTop: 30 }} />
         )}
+        
 
         {selectedTeamIds != null && (
           <Favorite 
