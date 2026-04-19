@@ -91,7 +91,11 @@ const getMatchData = async () => {
     setMatch(matchData[0]);
 
     const injuriesData = await fetchData(`https://v3.football.api-sports.io/injuries?fixture=${id}`);
-    setInjuries(injuriesData);
+
+    const uniqueInjuries = Array.from(
+  new Map(injuriesData.map(item => [item.player.id, item])).values()
+);
+    setInjuries(uniqueInjuries);
 
   } catch (error) {
     console.error("Erreur lors de la récupération des données du match ou blessures", error);
