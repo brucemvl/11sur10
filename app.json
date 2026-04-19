@@ -7,7 +7,6 @@
     "icon": "./src/assets/logoapp7.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    "jsEngine": "jsc",
     "splash": {
       "image": "./src/assets/logopnn.png",
       "resizeMode": "contain",

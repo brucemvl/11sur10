@@ -484,7 +484,7 @@ export default function Aujourdhui({ matchs, onRefresh }) {
 
 /* ====================== STYLES ====================== */
 const styles = StyleSheet.create({
-  container: { flex: 1, width: "98%", alignItems: "center" },
+  container: { flex: 1, width: "100%", alignItems: "center", paddingInline: "1%" },
 
   dateHeader: {
     flexDirection: 'row',

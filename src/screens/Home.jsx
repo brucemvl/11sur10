@@ -10,6 +10,7 @@ import {
   useWindowDimensions,
   ActivityIndicator,
   DeviceEventEmitter,
+  Animated
 } from "react-native";
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { useFonts } from "expo-font";
@@ -71,6 +72,8 @@ const Home = ({ selectedTeamIds }) => {
   // ==========================
   const { width } = useWindowDimensions();
   const scrollRef = useRef(null);
+    const scrollY = new Animated.Value(0);
+  
 
   useEffect(() => {
     const subscription = DeviceEventEmitter.addListener(
@@ -81,6 +84,24 @@ const Home = ({ selectedTeamIds }) => {
     );
     return () => subscription.remove();
   }, []);
+
+  const fadeOut = scrollY.interpolate({
+  inputRange: [0, 100],
+  outputRange: [1, 0],
+  extrapolate: "clamp",
+});
+
+const translateY = scrollY.interpolate({
+  inputRange: [0, 100],
+  outputRange: [0, -40],
+  extrapolate: "clamp",
+});
+
+const scale = scrollY.interpolate({
+  inputRange: [0, 100],
+  outputRange: [1, 0.90],
+  extrapolate: "clamp",
+});
 
   
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -163,15 +184,30 @@ const Home = ({ selectedTeamIds }) => {
   if (!fontsLoaded) return null;
 
   return (
-    <ScrollView
+    <Animated.ScrollView
       ref={scrollRef}
       refreshControl={
         <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
       }
+      stickyHeaderIndices={[1]} // 👈 index du composant Filtres
+      onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+          { useNativeDriver: false }
+        )}
+        scrollEventThrottle={6}
+        style={{marginTop: 10}}
     >
-      <View style={styles.blocpage}>
+      <Animated.View
+        style={{
+          alignItems: "center",
+          width: "100%",
+          opacity: fadeOut,
+          transform: [{ translateY }, { scale }],
+        }}
+      >
         <Banner />
-        <Filtres />
+        </Animated.View>
+<Filtres style={{ backgroundColor: "#f3f3f3", zIndex: 10, marginBlock: 10 }} />
 
         {matchs.length > 0 ? (
           <Aujourdhui matchs={matchs} onRefresh={onRefresh} />
@@ -190,13 +226,13 @@ const Home = ({ selectedTeamIds }) => {
     paddingTop: 10,
     paddingHorizontal: 18,
     alignSelf: 'center',
+    marginBottom: 120
   }}
 >
   <Image source={share} style={{height: 30, width: 30, resizeMode: "contain"}}/>
 </TouchableOpacity>
-      </View>
       
-    </ScrollView>
+    </Animated.ScrollView>
   );
 };
 
