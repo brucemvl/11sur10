@@ -4,8 +4,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 
-import logo from '../assets/logoblanc.png';
-import info from "../assets/info.png";
+import logo from '../assets/logo.png';
+import info from "../assets/info2.png";
 import cloche from "../assets/cloche3.png";
 import clocheno from "../assets/clocheno2.png";
 
@@ -90,7 +90,7 @@ const Header = forwardRef(({ notifsEnabled, selectedTeamIds = [] }, ref) => {
 
   return (
     <LinearGradient
-      colors={['rgba(100,160,236,1)', 'rgb(24,29,91)', 'rgba(0,0,0,1)', "rgba(94,94,94,0)"]}
+      colors={['rgba(100,160,236,1)', 'rgba(235, 235, 235, 0.82)', "#F3F3F3", "#F3F3F3"]}
       locations={[0, 0.6, 0.92, 1]}
       style={styles.header}
     >
@@ -146,12 +146,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: '4%',
     flexGrow: 1,
-    height: 125,
-    paddingTop: 30,
+    height: 100,
+    paddingTop: 45,
   },
   logo: {
-    width: 100,
-    height: 80,
+    width: 90,
+    height: 70,
     marginLeft: 40,
     resizeMode: "contain",
   },

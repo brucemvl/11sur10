@@ -151,8 +151,12 @@ function Tableau({ id, currentRound, rounds }) {
     match => match.league.round === currentRoundName
   );
 
-  if (!fontsLoaded) return <Text>Loading fonts...</Text>;
-  if (!team.length) return           <Text>Loading</Text>
+  if (!fontsLoaded) return <View style={styles.loaderContainer}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>;
+  if (!team.length) return           <View style={styles.loaderContainer}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
   ;
 
   return (
@@ -280,6 +284,11 @@ const styles = StyleSheet.create({
     color: "rgb(234, 186, 56)",
     fontSize: 16,
     fontFamily: "Kanitalik",
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

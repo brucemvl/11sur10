@@ -205,7 +205,7 @@ setSelected(true)
               ]}
               onPress={() => handleSelectTeam(team.id)}
             >
-              <Image source={{ uri: team.logo }} style={{ width: 40, height: 40, objectFit: "contain" }} />
+              <Image source={{ uri: team.logo }} style={{ width: 35, height: 35, objectFit: "contain" }} />
             </TouchableOpacity>
           ))}
         </View>
@@ -266,6 +266,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.6,
     shadowRadius: 3.5,
     elevation: 5,
+    backgroundColor: "green",
+    borderRadius: 10,
+    
   }
 });
 

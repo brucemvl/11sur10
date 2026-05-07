@@ -169,7 +169,7 @@ function Banner() {
 
 const styles = StyleSheet.create({
   banner: {
-    height: 170,
+    height: 180,
     borderRadius: 15,
     width: "96%",
     position: "relative",
