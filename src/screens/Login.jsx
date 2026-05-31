@@ -116,7 +116,7 @@ fontFamily: "Kanito"  },
   },
   linkText: {
     color: '#1e90ff',
-    fontSize: 14,
+    fontSize: 16,
     fontFamily: "Kanitus"
   },
 });

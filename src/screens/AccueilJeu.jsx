@@ -139,7 +139,7 @@ if (!fontsLoaded) return null;
           <Text style={styles.buttonSecondaryText}>👤 Mon profil</Text>
         </TouchableOpacity>
 
-        <Text style={styles.title}>PRONOS PDC 14</Text>
+        <Text style={styles.title}>PRONOS CDM 2026</Text>
         <Text style={styles.welcome}>Bienvenue dans le jeu</Text>
         <Text style={styles.username}>{user.username}</Text>
 
@@ -221,7 +221,7 @@ if (!fontsLoaded) return null;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f3f3f3', paddingTop: 10, paddingHorizontal: 20 },
-  title: { fontSize: 36, backgroundColor: '#0b1960', marginBottom: 10, fontFamily: 'Kanitalik', color: "#e3e00f", paddingBlock: 6, paddingInline: 12, borderRadius: 12 },
+  title: { fontSize: 36, backgroundColor: '#000000', marginBottom: 10, fontFamily: 'Kanitalik', color: "#fff",  paddingBlock: 6, paddingInline: 12, borderRadius: 12 },
   welcome: { fontSize: 18, color: '#132741', marginTop: 10, fontFamily: 'Kanito' },
   username: { fontSize: 22, color: '#0e3672', marginBottom: 15, marginTop: 5, fontFamily: 'Bangers', paddingInline: 5 },
   buttonPrimary: { backgroundColor: '#22c55e', paddingVertical: 12, borderRadius: 20, marginBottom: 15, width: '75%', alignItems: 'center' },

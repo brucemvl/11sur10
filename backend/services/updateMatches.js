@@ -5,7 +5,7 @@ const calculatePoints = require('../utils/calculatePoints');
 
 async function updateMatches() {
   const { data } = await axios.get(
-    'https://v3.football.api-sports.io/fixtures?league=2&season=2025',
+    'https://v3.football.api-sports.io/fixtures?league=1&season=2026',
     {
       headers: {
         'x-rapidapi-key': process.env.FOOTBALL_API_KEY,
