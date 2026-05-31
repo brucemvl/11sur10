@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema(
     },
     avatar: {
   type: String, 
-  default: '/uploads/avatars/facteur.jpg',
+  default: '/uploads/avatars/default-avatar.png',
 },
   },
   { timestamps: true }

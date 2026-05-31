@@ -7,6 +7,7 @@ import { useFonts } from 'expo-font';
 import ligue1 from "../assets/logoligue1.webp";
 import ligue2 from "../assets/ligue2.jpg";
 import can from "../assets/logocan.png";
+import cdm from "../assets/cdm2026.png";
 import ucl from "../assets/logoucl.png";
 import plus from "../assets/plus.png";
 
@@ -51,19 +52,19 @@ function Filtres() {
             contentContainerStyle={styles.competitions}
         >
             {/* SELECTIONS */}
-            {/*}
+            
             {selections.map(({ id, logo, name }) =>
-                id === 6 &&
+                id === 1 &&
                 renderItem({
                     id,
                     logo,
                     name,
-                    bgColor: 'rgba(128, 0, 0, 1)',
-                                            localImage: id === 6 ? can : null,
+                    bgColor: 'rgb(212, 177, 50)',
+                                            localImage: id === 1 ? cdm : null,
                     onPress: () => navigation.navigate('FicheSelections', { id })
                 })
             )}
-                /*}
+                
 
             {/* EUROPE */}
             {europe.map(({ id, logo, name }) =>

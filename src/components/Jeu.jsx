@@ -18,7 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Precedent from './Precedent';
 import { teamName } from '../datas/teamNames';
 import { useNavigation } from '@react-navigation/native';
-import ucl from "../assets/UCL44.jpg"
+import ucl from "../assets/cdm26.webp"
 
 export default function Jeu() {
     const navigation = useNavigation();
