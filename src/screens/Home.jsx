@@ -14,12 +14,17 @@ import {
 } from "react-native";
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { useFonts } from "expo-font";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from "@react-navigation/native";
+
+
 
 import Filtres from "../components/Filtres";
 import Banner from "../components/Banner";
 import Aujourdhui from "../components/Aujourdhui";
 import Favorite from "../components/Favorite";
 import share from "../assets/share.png"
+import cdm from "../assets/cdm26.jpg"
 import { LinearGradient } from "expo-linear-gradient";
 
 
@@ -68,6 +73,9 @@ const Home = ({ selectedTeamIds }) => {
     "Bellak": require("../assets/fonts/Bella/Belanosima-Bold.ttf"),
   });
 
+      const navigation = useNavigation()
+  
+
   // ==========================
   // Layout
   // ==========================
@@ -108,6 +116,25 @@ const scale = scrollY.interpolate({
   outputRange: [1, 0.90],
   extrapolate: "clamp",
 });
+
+const scaleAnim = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(scaleAnim, {
+          toValue: 1.2,
+          duration: 800,
+          useNativeDriver: true,
+        }),
+        Animated.timing(scaleAnim, {
+          toValue: 1,
+          duration: 800,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  }, []);
 
   
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -186,6 +213,17 @@ const scale = scrollY.interpolate({
   }
 };
 
+const handleStartGame = async () => {
+    const token = await AsyncStorage.getItem('jwtToken');
+    if (token) {
+      // JWT existant → on saute le login
+      navigation.replace('AccueilJeu');
+    } else {
+      // Pas de JWT → on passe par login
+      navigation.navigate('Login');
+    }
+  };
+
 
   if (!fontsLoaded) return null;
 
@@ -202,6 +240,7 @@ const scale = scrollY.interpolate({
         )}
         scrollEventThrottle={6}
         style={{marginTop: 5}}
+        contentContainerStyle={{}}
     >
       <Animated.View
         style={{
@@ -219,6 +258,11 @@ const scale = scrollY.interpolate({
   
   
 </LinearGradient>
+
+<TouchableOpacity style={{width: "98%", marginBlock: 5, backgroundColor: "#000000", borderRadius: 15,  padding: 5, gap: 10, alignSelf: "center", alignItems: "center", justifyContent: "center"}} onPress={handleStartGame}>
+                  <Animated.Text style={{color: "#c7c00c", fontFamily: "Bangers", fontSize: 18, transform: [{ scale: scaleAnim }]}}>Pronos CDM 2026</Animated.Text>
+                  <Image source={cdm} style={{height: 40, width: 40}}/>
+              </TouchableOpacity>
         {matchs.length > 0 ? (
           <Aujourdhui matchs={matchs} onRefresh={onRefresh} />
         ) : (

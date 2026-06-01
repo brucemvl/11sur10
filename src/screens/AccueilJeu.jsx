@@ -140,17 +140,19 @@ if (!fontsLoaded) return null;
         </TouchableOpacity>
 
         <Text style={styles.title}>PRONOS CDM 2026</Text>
-        <Text style={styles.welcome}>Bienvenue dans le jeu</Text>
+
+        <View style={{backgroundColor: "#000", borderRadius: 15, padding: 10, alignItems: "center", width: "80%", gap: 10, marginBlock: 10}}>
         <Text style={styles.username}>{user.username}</Text>
 
 <Image
           source={getAvatarSource(user.avatar)}
           style={styles.topAvatar}
-          defaultSource={require('../../backend/uploads/avatars/facteur.jpg')} // iOS fallback
+          defaultSource={require('../../backend/uploads/avatars/default-avatar.png')} // iOS fallback
         />
+        <View style={{backgroundColor: "#c59e00", width: "25%", borderRadius: 20, alignItems: "center", justifyContent: "center"}}>
         <Text style={styles.points}>{user.points} pts</Text>
-
-
+</View>
+</View>
         <TouchableOpacity
           style={styles.buttonPrimary}
           onPress={() => {navigation.navigate('Jeu')
@@ -221,17 +223,17 @@ if (!fontsLoaded) return null;
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f3f3f3', paddingTop: 10, paddingHorizontal: 20 },
-  title: { fontSize: 36, backgroundColor: '#000000', marginBottom: 10, fontFamily: 'Kanitalik', color: "#fff",  paddingBlock: 6, paddingInline: 12, borderRadius: 12 },
+  title: { fontSize: 36, backgroundColor: '#000000',  fontFamily: 'Kanitalik', color: "#c59e00",  paddingBlock: 6, paddingInline: 12, borderRadius: 12 },
   welcome: { fontSize: 18, color: '#132741', marginTop: 10, fontFamily: 'Kanito' },
-  username: { fontSize: 22, color: '#0e3672', marginBottom: 15, marginTop: 5, fontFamily: 'Bangers', paddingInline: 5 },
+  username: { fontSize: 22, color: '#c59e00',   fontFamily: 'Bangers', paddingInline: 5 },
   buttonPrimary: { backgroundColor: '#22c55e', paddingVertical: 12, borderRadius: 20, marginBottom: 15, width: '75%', alignItems: 'center' },
   buttonText: { color: '#fff', fontSize: 18,  fontFamily: 'Kanito' },
   buttonSecondary: { backgroundColor: '#1e293b', paddingVertical: 8, borderRadius: 12, width: '20%', alignItems: 'center', marginBottom: 10, alignSelf: 'flex-end' },
   buttonSecondaryText: { color: '#e5e7eb', fontSize: 10, fontFamily: 'Kanitus' },
   logoutButton: { paddingVertical: 12 },
   logoutText: { color: '#ef4444', fontSize: 14, fontFamily: 'Kanito' },
-  topAvatar: { width: 110, height: 110, borderRadius: 55, marginVertical: 5, resizeMode: 'cover' },
-  points: { fontSize: 18, color: '#c59e00', fontFamily: 'Kanitt', marginBottom: 10 },
+  topAvatar: { width: 110, height: 110, borderRadius: 55,  resizeMode: 'cover', borderWidth: 2, borderColor: '#c59e00' },
+  points: { fontSize: 18, color: '#000', fontFamily: 'Kanitt'},
   statsContainer: { marginBottom: 20 },
   statText: { fontSize: 16, color: '#0c1c6a', fontFamily: 'Kanito', marginVertical: 2 }
 });
