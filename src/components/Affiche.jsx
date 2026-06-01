@@ -255,7 +255,7 @@ const backgroundSource =
                 </ImageBackground>
                 :
 
-                <LinearGradient colors={match.league.id === 531 || match.league.id === 526 ? ['rgb(0, 0, 0)', 'rgba(80, 80, 80, 0.7)'] : match.league.id === 15 || match.league.id === 1168 || match.league.id === 556 ? ['rgb(80, 80, 80)', 'rgba(0, 0, 0, 0.9)'] : [
+                <LinearGradient colors={match.league.id === 531 || match.league.id === 526  ? ['rgb(0, 0, 0)', 'rgba(80, 80, 80, 0.7)'] : match.league.id === 15 || match.league.id === 1168 || match.league.id === 556  ? ['rgb(80, 80, 80)', 'rgba(0, 0, 0, 0.9)'] :  match.league.id === 1 ? ['rgb(156, 127, 30)', 'rgba(0, 0, 0, 0.9)'] : [
         'rgba(153, 190, 215, 1)',
         'rgba(42, 109, 164, 0.9)',
         'rgba(30, 30, 30, 0.85)'
@@ -282,7 +282,7 @@ const backgroundSource =
                     </TouchableOpacity>
 
                     <View style={styles.score}>
-                        <Image source={match.league.id === 61 ? ligue1 : match.league.id === 2 ? ucl : match.league.id === 15 ? fifaclubwc : match.league.id === 62 ? ligue2 : match.league.id === 32 ? cdm2026 : { uri: match.league.logo }} style={{ height: 40, width: 40, objectFit: "contain", marginBlock: 1 }} />
+                        <Image source={match.league.id === 61 ? ligue1 : match.league.id === 2 ? ucl : match.league.id === 15 ? fifaclubwc : match.league.id === 62 ? ligue2 : match.league.id === 1 ? cdm2026 : { uri: match.league.logo }} style={{ height: 40, width: 40, objectFit: "contain", marginBlock: 1 }} />
 
                         <Text style={styles.scoreText}>
                             {match.goals.home} - {match.goals.away}
