@@ -34,8 +34,8 @@ const API_KEY = "5ff22ea19db11151a018c36f7fd0213b";
 const COMPETITIONS = {
   ucl: "https://v3.football.api-sports.io/fixtures?league=2&season=2025",
      wc: "https://v3.football.api-sports.io/fixtures?league=1&season=2026",
-    /* tropheechampions: "https://v3.football.api-sports.io/fixtures?league=526&season=2025",
-    supercoupeespagne: "https://v3.football.api-sports.io/fixtures?league=556&season=2025", */
+     tropheechampions: "https://v3.football.api-sports.io/fixtures?league=526&season=2026",
+   /* supercoupeespagne: "https://v3.football.api-sports.io/fixtures?league=556&season=2025", 
   france: "https://v3.football.api-sports.io/fixtures?league=61&season=2025",
   england: "https://v3.football.api-sports.io/fixtures?league=39&season=2025",
   spain: "https://v3.football.api-sports.io/fixtures?league=140&season=2025",
@@ -43,7 +43,7 @@ const COMPETITIONS = {
   italy: "https://v3.football.api-sports.io/fixtures?league=135&season=2025",
   cdf: 'https://v3.football.api-sports.io/fixtures?league=66&season=2025',
    fac: 'https://v3.football.api-sports.io/fixtures?league=45&season=2025',
-   copa: 'https://v3.football.api-sports.io/fixtures?league=143&season=2025',
+   copa: 'https://v3.football.api-sports.io/fixtures?league=143&season=2025', */
     uel: 'https://v3.football.api-sports.io/fixtures?league=3&season=2025',
      conference: 'https://v3.football.api-sports.io/fixtures?league=848&season=2025',
       arabiesaoudite: 'https://v3.football.api-sports.io/fixtures?league=307&season=2025',

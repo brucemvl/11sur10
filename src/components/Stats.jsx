@@ -257,7 +257,7 @@ const topScorerExt =
   bestRatedExt;
 
   if (!hasAnyTopPlayer) {
-    return <ActivityIndicator style={{ marginTop: 50 }} />;
+    return <Text style={{fontFamily: "Permanent", marginTop: 50}}>Aucune info dispo</Text>;
   }
 
     return (
