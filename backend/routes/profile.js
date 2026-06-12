@@ -191,4 +191,24 @@ console.log('Matches FINISHED:', matches.map(m => m.fixtureId));
   }
 });
 
+
+router.get('/user/:id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).lean();
+
+    if (!user) {
+      return res.status(404).json({ error: 'Utilisateur introuvable' });
+    }
+
+    res.json({
+      _id: user._id,
+      username: user.username,
+      avatar: user.avatar,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
 module.exports = router;

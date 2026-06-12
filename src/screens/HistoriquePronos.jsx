@@ -10,6 +10,8 @@ import {
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Precedent from '../components/Precedent';
+import { teamName } from '../datas/teamNames';
+
 
 export default function HistoriquePronos() {
   const [loading, setLoading] = useState(true);
@@ -21,7 +23,7 @@ export default function HistoriquePronos() {
 
   const statusLabel = {
   FINISHED: 'Terminé',
-  SCHEDULED: 'Prévu',
+  SCHEDULED: 'A Venir',
   LIVE: 'En cours',
 };
 
@@ -129,7 +131,7 @@ function analyzePrediction(prediction, match) {
           <View style={styles.card}>
             <View style={styles.matchRow}>
               
-              <Text style={[styles.team, {textAlign: "center"}]}>{item.homeTeam}</Text>
+              <Text style={[styles.team, {textAlign: "center"}]}>{teamName[item.homeTeam] || item.homeTeam}</Text>
               <Image
                 source={{ uri: item.homeLogo || 'https://via.placeholder.com/32' }}
                 style={styles.logo}
@@ -156,7 +158,7 @@ function analyzePrediction(prediction, match) {
                 source={{ uri: item.awayLogo || 'https://via.placeholder.com/32' }}
                 style={styles.logo}
               />
-              <Text style={[styles.team, {textAlign: "center"}]}>{item.awayTeam}</Text>
+              <Text style={[styles.team, {textAlign: "center"}]}>{teamName[item.awayTeam] || item.awayTeam}</Text>
               
             </View>
             {item.status === 'FINISHED' ?

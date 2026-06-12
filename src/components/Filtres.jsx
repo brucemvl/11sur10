@@ -39,7 +39,7 @@ function Filtres() {
             <View style={[styles.lien, { backgroundColor: bgColor }]}>
                 <Image
                     source={localImage ? localImage : { uri: logo }}
-                    style={[styles.logo, id === 61 && {width: "80%", height: "80%"}]}
+                    style={[styles.logo, id === 61 && {width: "80%", height: "80%"}, id === 1 && {width: "85%", height: "85%"}]}
                 />
             </View>
         </TouchableOpacity>

@@ -15,8 +15,10 @@ export default function UserPronosScreen({ route }) {
 
   const [loading, setLoading] = useState(true);
   const [history, setHistory] = useState([]);
+  const [user, setUser] = useState()
 
   useEffect(() => {
+    fetchUser()
     fetchUserHistory();
   }, []);
 
@@ -49,6 +51,22 @@ export default function UserPronosScreen({ route }) {
 
     return { points: 0 };
   }
+
+
+  const fetchUser = async () => {
+  try {
+    const res = await axios.get(
+      `https://one1sur10.onrender.com/api/users/user/${username}`
+    );
+
+    setUser(res.data);
+    console.log("User récupéré :", res.data);
+
+  } catch (err) {
+    console.error('Erreur chargement user', err);
+  }
+};
+
 
   const fetchUserHistory = async () => {
     try {
@@ -114,6 +132,9 @@ export default function UserPronosScreen({ route }) {
   return (
      <View style={styles.container}>
       <Precedent />
+      <View style={{marginTop: 65}}>
+<Text>{user.username}</Text>
+      </View>
       <Text style={styles.title}>Pronos de {username}</Text>
 
       <FlatList

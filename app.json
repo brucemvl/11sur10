@@ -2,7 +2,7 @@
   "expo": {
     "name": "11sur10",
     "slug": "11sur10",
-    "version": "2.8.1",
+    "version": "2.8.2",
     "orientation": "portrait",
     "icon": "./src/assets/logoapp7.png",
     "userInterfaceStyle": "light",
@@ -25,7 +25,7 @@
     
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/logoapp7.png",
+        "foregroundImage": "./src/assets/logandroid.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.onzesur10.app",

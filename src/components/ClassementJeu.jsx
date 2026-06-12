@@ -43,6 +43,16 @@ console.log(leaders)
       {/* TOP 3 */}
       <View style={styles.top3Container}>
   {top3.map((user, index) => (
+    <TouchableOpacity
+    onPress={() =>
+      navigation.navigate("userPronosScreen", {
+        userId: user.userId,
+        username: user.username,
+      })
+    }
+    activeOpacity={0.8}
+    style={{flex: 1}}
+  >
     <View key={user.userId} style={[styles.card, styles[`rank${index + 1}`]]}>
       <Image
   source={getAvatarSource(user.avatar)}
@@ -54,6 +64,7 @@ console.log(leaders)
       <Text style={styles.username}>{user.username}</Text>  {/* ✅ ici */}
       
     </View>
+    </TouchableOpacity>
   ))}
 </View>
 
@@ -101,12 +112,12 @@ console.log(leaders)
 
   const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f3f4f6'  },
-  scroll: { alignItems: "center", padding: 10, paddingBottom: 100  },
+  scroll: { alignItems: "center", padding: 8, paddingBottom: 100  },
   title: { fontSize: 24, fontFamily: "Kanitt", marginBlock: 30, color: "black" },
 
   // Top 3
   top3Container: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 30 },
-  card: { flex: 1, marginHorizontal: 5, padding: 10, borderRadius: 15, alignItems: 'center', shadowColor: "#000", shadowOffset: {width: 0, height: 5}, shadowRadius: 4, shadowOpacity: 0.8, elevation: 4 },
+  card: {  marginHorizontal: 5, padding: 10, borderRadius: 15, alignItems: 'center', shadowColor: "#000", shadowOffset: {width: 0, height: 5}, shadowRadius: 4, shadowOpacity: 0.8, elevation: 4 },
   rank1: { backgroundColor: '#facc15' }, // or
   rank2: { backgroundColor: '#d7dde2' },
   rank3: { backgroundColor: '#bf5a11' },
@@ -117,11 +128,11 @@ console.log(leaders)
 
   // Reste du classement
   row: { flexDirection: 'row', paddingBlock: 5, paddingInline: 8, borderBottomWidth: 1, borderColor: '#d2d2d2', alignItems: 'center', width: "100%", borderRadius: 10 },
-  rank: { width: "4%", fontFamily: "Kanitt" },
+  rank: { width: "5%", fontFamily: "Kanitt" },
   rowAvatar: { width: 35, height: 35, borderRadius: 20, marginRight: 10 },
   rowUsername: { color: "black", fontFamily: "Kanitt", width: "36%" },
   rowPoints: { fontFamily: "Kanitt", width: "14%", textAlign: "left"},
   statsSmall: { fontSize: 12, fontFamily: "Kanitus", width: "28%"},
   regles: {alignItems: "center", padding: 8},
-  reglesText: {color: "black", fontFamily: "Kanito", fontSize: 13}
+  reglesText: {color: "black", fontFamily: "Kanito", fontSize: 14}
 })
