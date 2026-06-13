@@ -15,6 +15,7 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
 import getAvatarSource from '../../backend/utils/getAvatarSource';
 import { useFonts } from "expo-font";
+import cdm2026 from "../assets/cdm2026.png"
 
 
 export default function AccueilJeu() {
@@ -140,8 +141,8 @@ if (!fontsLoaded) return null;
         </TouchableOpacity>
 
         <Text style={styles.title}>PRONOS CDM 2026</Text>
-
-        <View style={{backgroundColor: "#000", borderRadius: 15, padding: 10, alignItems: "center", width: "80%", gap: 10, marginBlock: 10}}>
+<Image source={cdm2026} style={{width: 50, height: 50}}/>
+        <View style={{backgroundColor: "#000", borderRadius: 15, padding: 10, alignItems: "center", width: "80%", gap: 10, marginBottom: 10}}>
         <Text style={styles.username}>{user.username}</Text>
 
 <Image

@@ -9,9 +9,12 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import Precedent from '../components/Precedent';
+import { LinearGradient } from 'expo-linear-gradient';
+import getAvatarSource from '../../backend/utils/getAvatarSource';
+
 
 export default function UserPronosScreen({ route }) {
-  const { userId, username } = route.params;
+  const { userId, username, exactScores, goodDiffs, goodResults, points } = route.params;
 
   const [loading, setLoading] = useState(true);
   const [history, setHistory] = useState([]);
@@ -56,7 +59,7 @@ export default function UserPronosScreen({ route }) {
   const fetchUser = async () => {
   try {
     const res = await axios.get(
-      `https://one1sur10.onrender.com/api/users/user/${username}`
+      `https://one1sur10.onrender.com/api/profile/user/${userId}`
     );
 
     setUser(res.data);
@@ -125,6 +128,8 @@ export default function UserPronosScreen({ route }) {
     }
   };
 
+  console.log(exactScores)
+
   if (loading) {
     return <ActivityIndicator size="large" style={{ marginTop: 40 }} />;
   }
@@ -132,15 +137,25 @@ export default function UserPronosScreen({ route }) {
   return (
      <View style={styles.container}>
       <Precedent />
-      <View style={{marginTop: 65}}>
-<Text>{user.username}</Text>
-      </View>
+      <LinearGradient colors={["#000000", "#000"]} locations={[0,  0.8]} style={{marginTop: 65,  width: "96%", borderRadius: 20, flexDirection: "row", alignItems: "center", padding: 16}}>
+<Image source={getAvatarSource(user?.avatar)} style={{height: 130, width: 100, borderWidth: 4, borderColor: "#c7c00c", borderRadius: 14}} />
+<View style={{width: "70%", alignItems: "center", gap: 10}}>
+<Text style={{color: "#c7c00c", fontFamily: "Bangers", fontSize: 20, padding: 2}}>{user?.username}</Text>
+<Text style={{color: "#c7c00c", fontFamily: "Bangers", fontSize: 20, padding: 2}}>Score : {points}</Text>
+<View style={styles.statsSmall}>
+  <View style={styles.stat}><Text style={styles.text}>🎯 {exactScores}</Text></View>
+  <View style={styles.stat}><Text style={styles.text}>⚖️ {goodDiffs}</Text></View>
+  <View style={styles.stat}><Text style={styles.text}>✅ {goodResults}</Text></View>
+</View>
+</View>
+      </LinearGradient>
       <Text style={styles.title}>Pronos de {username}</Text>
 
       <FlatList
         data={history}
         keyExtractor={(item) => item.matchId.toString()}
         contentContainerStyle={{ padding: 10, paddingBottom: 100 }}
+        style={{width: "100%"}}
         renderItem={({ item }) => (
           <View style={styles.card}>
             <View style={styles.matchRow}>
@@ -192,10 +207,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f3f4f6',
+    alignItems: "center"
   },
   title: {
     fontSize: 22,
-    marginTop: 65,
+    marginTop: 15,
     marginBottom: 20,
     textAlign: 'center',
     fontFamily: "Kanitt"
@@ -250,4 +266,20 @@ fontFamily: "Kanitt",
     color: '#ffffff',
     fontFamily: "Kanitus"
   },
+  statsSmall: {
+    flexDirection: "row",
+    gap: 15
+  },
+  stat: {
+    backgroundColor: "#c7c00c",
+    paddingBlock: 8,
+    paddingInline: 14,
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  text: {
+    fontFamily: "Kanitt",
+    fontSize: 16
+  }
 });

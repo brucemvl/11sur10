@@ -108,7 +108,7 @@ backgroundColor: "midnightblue",
 padding: 20,
 marginBottom: 40,
 borderRadius: 15,
-width: "80%",
+width: "85%",
   },
   input: {
     height: 48,
@@ -118,7 +118,8 @@ width: "80%",
     paddingHorizontal: 10,
     textAlign: 'center',
     fontFamily:"Kanitus",
-    backgroundColor: "white"
+    backgroundColor: "white",
+    borderRadius: 8
   },
   
 });

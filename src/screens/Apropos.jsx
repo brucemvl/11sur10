@@ -24,16 +24,7 @@ function Apropos() {
       };
 
       // Vérifie si l'utilisateur est déjà connecté
-  const handleStartGame = async () => {
-    const token = await AsyncStorage.getItem('jwtToken');
-    if (token) {
-      // JWT existant → on saute le login
-      navigation.replace('AccueilJeu');
-    } else {
-      // Pas de JWT → on passe par login
-      navigation.navigate('Login');
-    }
-  };
+  
 
 
     return (
@@ -49,9 +40,7 @@ function Apropos() {
                 </TouchableOpacity>
                 <Text style={[[styles.text, isMediumScreen && {fontSize: 18}], { paddingInline: 40 }]}> Positive ou negative, toute critique est bonne à prendre! </Text>
                 <Text style={[styles.text, isMediumScreen && {fontSize: 18}]}>Bonne visite à Tous!</Text>
-                <TouchableOpacity style={{position: "relative", left: 150, bottom: 40}} onPress={handleStartGame}>
-                <Image source={laposte} style={{height: 40, width: 40, resizeMode: "contain"}}  />
-            </TouchableOpacity>
+                
             </View>
             <View style={styles.footer}>
                         <View style={{paddingInline: 5, alignItems: "center",  flexDirection: "row", width: "100%", justifyContent: "space-between"}}>

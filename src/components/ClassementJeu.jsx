@@ -48,6 +48,9 @@ console.log(leaders)
       navigation.navigate("userPronosScreen", {
         userId: user.userId,
         username: user.username,
+        exactScores: user.exactScores,
+        goodDiffs: user.goodDiffs,
+        goodResults: user.goodResults
       })
     }
     activeOpacity={0.8}
@@ -79,6 +82,10 @@ console.log(leaders)
       navigation.navigate("userPronosScreen", {
         userId: item.userId,
         username: item.username,
+        exactScores: item.exactScores,
+        goodDiffs: item.goodDiffs,
+        goodResults: item.goodResults,
+        points: item.points
       })
     }
     activeOpacity={0.8}

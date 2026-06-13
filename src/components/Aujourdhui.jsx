@@ -425,7 +425,7 @@ export default function Aujourdhui({ matchs, onRefresh }) {
 
                         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "flex-end", width: finished ? "38%" : "35%", gap: isMediumScreen ? 16 : 3 }}>
                           <Text style={[styles.team, {textAlign: "right"}, isMediumScreen && {fontSize: 18}]}>{home}</Text>
-                          <Image source={{ uri: match.teams.home.logo }} style={[styles.teamLogo, isMediumScreen && {width: 36, height: 36}]} />
+                          <Image source={{ uri: match.teams.home.logo }} style={[styles.teamLogo, isMediumScreen && {width: 36, height: 36}, match.league.id === 1 && {borderRadius: 25}]} />
                         </View>
 
                         <LinearGradient
@@ -458,7 +458,7 @@ export default function Aujourdhui({ matchs, onRefresh }) {
                         </LinearGradient>
 
                         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "flex-start", width: finished ? "38%" : "33%", gap: isMediumScreen ? 16 : 3 }}>
-                          <Image source={{ uri: match.teams.away.logo }} style={[styles.teamLogo, isMediumScreen && {width: 36, height: 36}]} />
+                          <Image source={{ uri: match.teams.away.logo }} style={[styles.teamLogo, isMediumScreen && {width: 36, height: 36}, match.league.id === 1 && {borderRadius: 25}]} />
                           <Text style={[styles.team, {textAlign: "left"}, isMediumScreen && {fontSize: 18}]}>{away}</Text>
                         </View>
 
