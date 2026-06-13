@@ -260,7 +260,7 @@ const handleStartGame = async () => {
 </LinearGradient>
 
 <TouchableOpacity style={{width: "98%", marginBlock: 5, backgroundColor: "#000000", borderRadius: 15,  padding: 5, gap: 10, alignSelf: "center", alignItems: "center", justifyContent: "center"}} onPress={handleStartGame}>
-                  <Animated.Text style={{color: "#c7c00c", fontFamily: "Bangers", fontSize: 18, transform: [{ scale: scaleAnim }]}}>Pronos CDM 2026</Animated.Text>
+                  <Animated.Text style={{color: "#c7c00c", padding: 2, fontFamily: "Bangers", fontSize: 18, transform: [{ scale: scaleAnim }]}}>Pronos CDM 2026</Animated.Text>
                   <Image source={cdm} style={{height: 40, width: 40}}/>
               </TouchableOpacity>
         {matchs.length > 0 ? (

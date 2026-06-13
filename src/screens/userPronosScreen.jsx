@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -6,15 +6,18 @@ import {
   StyleSheet,
   ActivityIndicator,
   Image,
+  Animated
 } from 'react-native';
 import axios from 'axios';
 import Precedent from '../components/Precedent';
 import { LinearGradient } from 'expo-linear-gradient';
 import getAvatarSource from '../../backend/utils/getAvatarSource';
+import { teamName } from '../datas/teamNames';
+
 
 
 export default function UserPronosScreen({ route }) {
-  const { userId, username, exactScores, goodDiffs, goodResults, points } = route.params;
+  const { userId, username, exactScores, goodDiffs, goodResults, points, bestExactScoreUser } = route.params;
 
   const [loading, setLoading] = useState(true);
   const [history, setHistory] = useState([]);
@@ -30,6 +33,25 @@ export default function UserPronosScreen({ route }) {
     SCHEDULED: 'Prévu',
     LIVE: 'En cours',
   };
+
+  const scaleAnim = useRef(new Animated.Value(1)).current;
+  
+    useEffect(() => {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(scaleAnim, {
+            toValue: 1.1,
+            duration: 800,
+            useNativeDriver: true,
+          }),
+          Animated.timing(scaleAnim, {
+            toValue: 1,
+            duration: 800,
+            useNativeDriver: true,
+          }),
+        ])
+      ).start();
+    }, []);
 
   function analyzePrediction(prediction, match) {
     if (!match || match.status !== 'FINISHED') {
@@ -129,6 +151,7 @@ export default function UserPronosScreen({ route }) {
   };
 
   console.log(exactScores)
+  console.log(bestExactScoreUser)
 
   if (loading) {
     return <ActivityIndicator size="large" style={{ marginTop: 40 }} />;
@@ -147,6 +170,7 @@ export default function UserPronosScreen({ route }) {
   <View style={styles.stat}><Text style={styles.text}>⚖️ {goodDiffs}</Text></View>
   <View style={styles.stat}><Text style={styles.text}>✅ {goodResults}</Text></View>
 </View>
+{bestExactScoreUser?.userId === user?._id && <Animated.Text style={{color: "#d8271a", fontFamily: "Bangers", padding: 2,  transform: [{ scale: scaleAnim }]}}>🎯 Expert du score exact 🎯</Animated.Text>}
 </View>
       </LinearGradient>
       <Text style={styles.title}>Pronos de {username}</Text>
@@ -160,7 +184,7 @@ export default function UserPronosScreen({ route }) {
           <View style={styles.card}>
             <View style={styles.matchRow}>
               
-              <Text style={[styles.team, {textAlign: "center"}]}>{item.homeTeam}</Text>
+              <Text style={[styles.team, {textAlign: "center"}]}>{teamName[item.homeTeam] || item.homeTeam}</Text>
               <Image
                 source={{ uri: item.homeLogo || 'https://via.placeholder.com/32' }}
                 style={styles.logo}
@@ -187,7 +211,7 @@ export default function UserPronosScreen({ route }) {
                 source={{ uri: item.awayLogo || 'https://via.placeholder.com/32' }}
                 style={styles.logo}
               />
-              <Text style={[styles.team, {textAlign: "center"}]}>{item.awayTeam}</Text>
+              <Text style={[styles.team, {textAlign: "center"}]}>{teamName[item.awayTeam] || item.awayTeam}</Text>
               
             </View>
             {item.status === 'FINISHED' ?

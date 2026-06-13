@@ -9,6 +9,7 @@ import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
 import axios from "axios";
 import { useTranslation } from 'react-i18next';
+import cdm2026 from "../assets/cdm2026.png"
 
 
 function NotifsPlus({ onSave, onNotifStatusChange, triggerHeaderShake }) {
@@ -27,13 +28,13 @@ function NotifsPlus({ onSave, onNotifStatusChange, triggerHeaderShake }) {
     { id: 140, name: "La Liga", logo: "https://media.api-sports.io/football/leagues/140.png" },
     { id: 78, name: "Bundesliga", logo: "https://media.api-sports.io/football/leagues/78.png" },
     { id: 135, name: "Serie A", logo: "https://media.api-sports.io/football/leagues/135.png" },
-    { id: 94, name: "Primeira Liga", logo: "https://media.api-sports.io/football/leagues/94.png" },
+    { id: 1, name: "CDM", logo:  cdm2026 },
   ];
 
   const fetchTeams = async () => {
     try {
       const response = await fetch(
-        `https://v3.football.api-sports.io/teams?league=${league}&season=2025`,
+        `https://v3.football.api-sports.io/teams?league=${league}&season=${league === 1 ? 2026 : 2025}`,
         {
           method: "GET",
           headers: {
@@ -185,7 +186,7 @@ setLeague(element.id)
 setSelected(true)
     }
     return(
-            <TouchableOpacity style={[{width: 50, height: 50, alignItems: "center", justifyContent: "center", opacity: 0.3}, isSelected && styles.selected]} onPress={choix}><Image source={{uri: element.logo}} style={{width: element.id === 61 ? 60 : 40, height: element.id === 61 ? 60 : 40, objectFit: "contain"}} /></TouchableOpacity>)})}
+            <TouchableOpacity style={[{width: 50, height: 50, alignItems: "center", justifyContent: "center", opacity: 0.3}, isSelected && styles.selected]} onPress={choix}><Image source={element.id === 1 ? cdm2026 : {uri: element.logo}} style={{width: element.id === 61 || element.id === 1  ? 60 : 40, height: element.id === 61 ? 60 : 40, objectFit: "contain"}} /></TouchableOpacity>)})}
         </View>
 
         {selectedTeams.length > 0 && (

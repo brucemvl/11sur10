@@ -31,8 +31,17 @@ export default function Leaderboard() {
 
   const top3 = leaders.slice(0, 3);
 
+  const bestExactScoreUser =
+  leaders.length > 0
+    ? leaders.reduce((best, current) =>
+        current.exactScores > best.exactScores
+          ? current
+          : best
+      )
+    : null;
 
-console.log(leaders)
+
+console.log(bestExactScoreUser)
 
   return (
     <View style={styles.container}>
@@ -50,7 +59,10 @@ console.log(leaders)
         username: user.username,
         exactScores: user.exactScores,
         goodDiffs: user.goodDiffs,
-        goodResults: user.goodResults
+        goodResults: user.goodResults,
+                points: user.points,
+
+        bestExactScoreUser: bestExactScoreUser
       })
     }
     activeOpacity={0.8}
@@ -85,12 +97,14 @@ console.log(leaders)
         exactScores: item.exactScores,
         goodDiffs: item.goodDiffs,
         goodResults: item.goodResults,
-        points: item.points
+        points: item.points,
+                bestExactScoreUser: bestExactScoreUser
+
       })
     }
     activeOpacity={0.8}
   >
-    <LinearGradient colors={[ "#fff", "#0000000a"]}  style={styles.row}>
+    <LinearGradient colors={[ "#fff", "#0000002b"]}  style={styles.row}>
       <Text style={styles.rank}>{index + 1}.</Text>
       <Image
         source={getAvatarSource(item.avatar)}
@@ -131,10 +145,10 @@ console.log(leaders)
   medal: { fontSize: 30, marginBottom: 6 },
   username: { fontSize: 16, fontFamily: 'Bangers', paddingInline: 3 },
   points: { marginTop: 4, fontFamily: 'Kanito' },
-  topAvatar: { width: 75, height: 75, borderRadius: 15, marginBottom: 4 },
+  topAvatar: { width: 95, height: 75, borderRadius: 15, marginBottom: 4 },
 
   // Reste du classement
-  row: { flexDirection: 'row', paddingBlock: 5, paddingInline: 8, borderBottomWidth: 1, borderColor: '#d2d2d2', alignItems: 'center', width: "100%", borderRadius: 10 },
+  row: { flexDirection: 'row', paddingBlock: 5, paddingInline: 6, borderBottomWidth: 1, borderColor: '#d2d2d2', alignItems: 'center', width: "100%", borderRadius: 10 },
   rank: { width: "5%", fontFamily: "Kanitt" },
   rowAvatar: { width: 35, height: 35, borderRadius: 20, marginRight: 10 },
   rowUsername: { color: "black", fontFamily: "Kanitt", width: "36%" },
