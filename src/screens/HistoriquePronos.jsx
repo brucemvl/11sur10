@@ -131,7 +131,7 @@ function analyzePrediction(prediction, match) {
           <View style={styles.card}>
             <View style={styles.matchRow}>
               
-              <Text style={[styles.team, {textAlign: "center"}]}>{teamName[item.homeTeam] || item.homeTeam}</Text>
+              <Text style={[styles.team, {textAlign: "right"}]}>{teamName[item.homeTeam] || item.homeTeam}</Text>
               <Image
                 source={{ uri: item.homeLogo || 'https://via.placeholder.com/32' }}
                 style={styles.logo}
@@ -158,7 +158,7 @@ function analyzePrediction(prediction, match) {
                 source={{ uri: item.awayLogo || 'https://via.placeholder.com/32' }}
                 style={styles.logo}
               />
-              <Text style={[styles.team, {textAlign: "center"}]}>{teamName[item.awayTeam] || item.awayTeam}</Text>
+              <Text style={[styles.team, {textAlign: "left"}]}>{teamName[item.awayTeam] || item.awayTeam}</Text>
               
             </View>
             {item.status === 'FINISHED' ?
@@ -204,6 +204,7 @@ const styles = StyleSheet.create({
     width: "8%",
     height: 32,
     resizeMode: 'contain',
+    marginInline: 4
   },
   team: {
 fontFamily: "Bella",

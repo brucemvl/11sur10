@@ -29,7 +29,8 @@ export const teamName = {
     "Lithuania" : "Lituanie",
      "New York Red Bulls" : "New York RB",
   "Philadelphia Union" : "Philadelphia",
-  "Stade Brestois 29" : "Stade Brestois"
+  "Stade Brestois 29" : "Stade Brestois",
+  "Argentina" : "Argentine"
 };
 
 export const teamNameNotif = {

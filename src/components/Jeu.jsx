@@ -362,7 +362,7 @@ const styles = StyleSheet.create({
   },
   roundTitle: {
     fontSize: 18,
-fontFamily: "Kanitalik" ,
+fontFamily: "Kanitt" ,
 textAlign: "center"
   },
   arrow: {

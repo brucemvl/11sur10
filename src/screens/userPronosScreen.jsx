@@ -184,7 +184,7 @@ export default function UserPronosScreen({ route }) {
           <View style={styles.card}>
             <View style={styles.matchRow}>
               
-              <Text style={[styles.team, {textAlign: "center"}]}>{teamName[item.homeTeam] || item.homeTeam}</Text>
+              <Text style={[styles.team, {textAlign: "right"}]}>{teamName[item.homeTeam] || item.homeTeam}</Text>
               <Image
                 source={{ uri: item.homeLogo || 'https://via.placeholder.com/32' }}
                 style={styles.logo}
@@ -211,11 +211,11 @@ export default function UserPronosScreen({ route }) {
                 source={{ uri: item.awayLogo || 'https://via.placeholder.com/32' }}
                 style={styles.logo}
               />
-              <Text style={[styles.team, {textAlign: "center"}]}>{teamName[item.awayTeam] || item.awayTeam}</Text>
+              <Text style={[styles.team, {textAlign: "left"}]}>{teamName[item.awayTeam] || item.awayTeam}</Text>
               
             </View>
             {item.status === 'FINISHED' ?
-            <Text style={[styles.points, item.points === 0 && {color: "#e21f1f"}]}>{item.points > 0 ? "✅ " : "❌ "}Points gagnés : {item.points}</Text>
+            <Text style={[styles.points, item.points === 0 && {color: "#e21f1f"}]}>{item.points > 0 ? "✅ " : "❌ "}{item.points > 0 && "+"}{item.points}{item.points === 1 ? " pt" : " pts"}</Text>
             : null }
             <Text style={styles.status}>
   Statut : {statusLabel[item.status] || item.status}
@@ -258,6 +258,7 @@ const styles = StyleSheet.create({
     width: "8%",
     height: 32,
     resizeMode: 'contain',
+    marginInline: 4
   },
   team: {
 fontFamily: "Bella",
@@ -292,11 +293,11 @@ fontFamily: "Kanitt",
   },
   statsSmall: {
     flexDirection: "row",
-    gap: 15
+    gap: 12
   },
   stat: {
     backgroundColor: "#c7c00c",
-    paddingBlock: 8,
+    paddingBlock: 6,
     paddingInline: 14,
     borderRadius: 20,
     alignItems: "center",
