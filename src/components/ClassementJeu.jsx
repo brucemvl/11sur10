@@ -110,7 +110,7 @@ console.log(bestExactScoreUser)
         source={getAvatarSource(item.avatar)}
         style={styles.rowAvatar}
       />
-      <Text style={styles.rowUsername}>{item.username}</Text>
+      <Text style={styles.rowUsername}>{item.username.slice(0,1).toUpperCase() + item.username.slice(1,item.username.length)}</Text>
       
       <Text style={styles.rowPoints}>{item.points} {item.points === 1 ? "pt" : "pts"}</Text>
       <Text style={styles.statsSmall}>
@@ -134,7 +134,7 @@ console.log(bestExactScoreUser)
   const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f3f4f6'  },
   scroll: { alignItems: "center", padding: 8, paddingBottom: 100  },
-  title: { fontSize: 24, fontFamily: "Kanitt", marginBlock: 30, color: "black" },
+  title: { fontSize: 24, fontFamily: "Kanitt", marginBlock: 20, color: "black" },
 
   // Top 3
   top3Container: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 30 },

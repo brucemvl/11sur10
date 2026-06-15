@@ -10,6 +10,7 @@ import heure from "../assets/heure.png"
 import ligue1 from "../assets/logoligue1.webp"
 import fifaClubWc from "../assets/fifaclubwc2.png"
 import logoUcl from "../assets/logoucl.png"
+import cdm2026 from "../assets/cdm2026.png"
 import { teamName } from "../datas/teamNames";
 import { InteractionManager } from "react-native";
 
@@ -75,7 +76,7 @@ const Favorite = forwardRef((props, ref) => {
                 await Promise.all(
                     selectedTeamIds.map(async (teamId) => {
                         const response = await fetch(
-                            `https://v3.football.api-sports.io/fixtures?season=2025&team=${teamId}`,
+                            `https://v3.football.api-sports.io/fixtures?season=2026&team=${teamId}`,
                             {
                                 method: "GET",
                                 headers: {
@@ -182,7 +183,7 @@ const Favorite = forwardRef((props, ref) => {
                                                     return newPositions;
                                                 });
                                             }}
-                                        >                                                       <LinearGradient style={styles.affiche} colors={element.league.id === 2 ? ["rgb(10, 20, 40)", "rgb(24, 36, 70)"] : element.league.id === 6 ? ["rgba(172, 101, 31, 1)", "rgba(128, 0, 0, 1)"] : element.league.standings === false ? ["rgba(123, 131, 151, 1)", "rgba(255, 255, 255, 1)"] : ["#fff", "rgb(146, 146, 146)"]} locations={[0.5, 0.9]}>
+                                        >                                                       <LinearGradient style={styles.affiche} colors={element.league.id === 1 ? [ "rgb(181, 163, 48)", "rgba(1, 1, 3, 0.89)"] : element.league.id === 2 ? ["rgb(10, 20, 40)", "rgb(24, 36, 70)"] : element.league.id === 6 ? ["rgba(172, 101, 31, 1)", "rgba(128, 0, 0, 1)"] : element.league.standings === false ? ["rgba(123, 131, 151, 1)", "rgba(255, 255, 255, 1)"] : ["#fff", "rgb(146, 146, 146)"]} locations={[0.5, 0.9]}>
                                                 <View style={{ flexDirection: "row", gap: 5, borderBottomWidth: 1, paddingBottom: 5, borderBottomColor: element.league.id === 2 ? "white" : "black" }}>
                                                     <Image source={element.league.id === 2 ? calendarWhite : calendar} style={styles.icone} />
                                                     <Text style={element.league.id === 2 ? styles.textUcl : styles.text}>{formattedDate}  -  {formattedHour}</Text>
@@ -206,7 +207,7 @@ const Favorite = forwardRef((props, ref) => {
 
                                                     </View>
                                                 </View>
-                                                <Image source={element.league.id === 2 ? logoUcl : element.league.id === 61 ? ligue1 : element.league.id === 15 ? fifaClubWc : { uri: element.league.logo }} style={styles.league} />
+                                                <Image source={element.league.id === 1 ? cdm2026 : element.league.id === 2 ? logoUcl : element.league.id === 61 ? ligue1 : element.league.id === 15 ? fifaClubWc : { uri: element.league.logo }} style={styles.league} />
 
                                             </LinearGradient>
                                         </TouchableOpacity>

@@ -332,7 +332,7 @@ const [rank, setRank] = useState()
       console.log(passeurs)
     
       if (!rank || !buteurs || !passeurs){
-        return <Text>loading</Text>
+        return <ActivityIndicator size="large" style={{marginTop: 20}}/>
       }
 
       
@@ -522,7 +522,7 @@ const [rank, setRank] = useState()
   if (loading) {
     return (
       <View style={styles.loaderContainer}>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" style={{marginTop: 20}} />
       </View>
     );
   }

@@ -164,7 +164,7 @@ export default function UserPronosScreen({ route }) {
 <Image source={getAvatarSource(user?.avatar)} style={{height: 130, width: 100, borderWidth: 4, borderColor: "#c7c00c", borderRadius: 14}} />
 <View style={{width: "70%", alignItems: "center", gap: 10}}>
 <Text style={{color: "#c7c00c", fontFamily: "Bangers", fontSize: 20, padding: 2}}>{user?.username}</Text>
-<Text style={{color: "#c7c00c", fontFamily: "Bangers", fontSize: 20, padding: 2}}>Score : {points}</Text>
+<Text style={{color: "#c7c00c", fontFamily: "Kanito", fontSize: 20, padding: 2}}>Score : {points}</Text>
 <View style={styles.statsSmall}>
   <View style={styles.stat}><Text style={styles.text}>🎯 {exactScores}</Text></View>
   <View style={styles.stat}><Text style={styles.text}>⚖️ {goodDiffs}</Text></View>
