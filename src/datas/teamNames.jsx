@@ -41,4 +41,5 @@ export const teamNameNotif = {
   "Barcelona" : "FC Barcelone",
   "Central African Republic" : "Centrafrique",
   "Cape Verde Islands" : "Cap Vert",
+  "England" : "Angleterre"
 }
