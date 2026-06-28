@@ -33,35 +33,86 @@ let pointsSystem = {
 };
 
 if (
+  stage === "Round of 32" ||
   stage === "Round of 16" ||
   stage === "Quarter-finals" ||
   stage === "Semi-finals" ||
   stage === "Final"
 ) {
   pointsSystem = {
-    result: 2,
-    diff: 3,
-    exact: 5,
+    result: 1,
+    diff: 2,
+    exact: 4,
   };
 }
-    const match = await Match.findOneAndUpdate(
-      { fixtureId: m.fixture.id },
-      {
-        homeTeam: m.teams.home.name,
-        awayTeam: m.teams.away.name,
-        homeLogo: m.teams.home.logo,
-    awayLogo: m.teams.away.logo,
-        kickoff: m.fixture.date,
-        score: {
-          home: m.score.fulltime.home,
-          away: m.score.fulltime.away,
-        },
-        status,
-        stage,
-    pointsSystem,
-      },
-      { upsert: true, new: true }
-    );
+if ( stage === "Round of 16" ||
+  stage === "Quarter-finals" ||
+  stage === "Semi-finals" ||
+  stage === "Final") {
+  pointsSystem = {
+    result: 2,
+    diff: 4,
+    exact: 6,
+  };
+}
+if ( 
+  stage === "Quarter-finals" ||
+  stage === "Semi-finals" ||
+  stage === "Final") {
+  pointsSystem = {
+    result: 3,
+    diff: 5,
+    exact: 7,
+  };
+}
+if ( 
+  
+  stage === "Semi-finals" ||
+  stage === "Final") {
+  pointsSystem = {
+    result: 5,
+    diff: 7,
+    exact: 10,
+  };
+}
+if ( 
+  
+  
+  stage === "Final") {
+  pointsSystem = {
+    result: 6,
+    diff: 8,
+    exact: 15,
+  };
+}
+    const existingMatch = await Match.findOne({
+  fixtureId: m.fixture.id,
+});
+
+const matchData = {
+  homeTeam: m.teams.home.name,
+  awayTeam: m.teams.away.name,
+  homeLogo: m.teams.home.logo,
+  awayLogo: m.teams.away.logo,
+  kickoff: m.fixture.date,
+  score: {
+    home: m.score.fulltime.home,
+    away: m.score.fulltime.away,
+  },
+  status,
+};
+
+// On définit le stage et le barème uniquement lors de la création
+if (!existingMatch) {
+  matchData.stage = stage;
+  matchData.pointsSystem = pointsSystem;
+}
+
+const match = await Match.findOneAndUpdate(
+  { fixtureId: m.fixture.id },
+  matchData,
+  { upsert: true, new: true }
+);
 
     if (status === 'FINISHED' && !match.pointsUpdated) {
   const predictions = await Prediction.find({
@@ -69,12 +120,15 @@ if (
   });
 
   for (const p of predictions) {
-    p.points = calculatePoints(
-      { home: match.score.home, away: match.score.away },
-      { home: p.predictedHome, away: p.predictedAway },
-      match.pointsSystem
-    );
-    await p.save();
+    const result = calculatePoints(
+  { home: match.score.home, away: match.score.away },
+  { home: p.predictedHome, away: p.predictedAway },
+  match.pointsSystem
+);
+
+p.points = result.points;
+
+await p.save();
   }
 
   match.pointsUpdated = true;
