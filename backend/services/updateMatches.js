@@ -33,11 +33,8 @@ let pointsSystem = {
 };
 
 if (
-  stage === "Round of 32" ||
-  stage === "Round of 16" ||
-  stage === "Quarter-finals" ||
-  stage === "Semi-finals" ||
-  stage === "Final"
+  stage === "Round of 32" 
+  
 ) {
   pointsSystem = {
     result: 1,
@@ -45,10 +42,8 @@ if (
     exact: 4,
   };
 }
-if ( stage === "Round of 16" ||
-  stage === "Quarter-finals" ||
-  stage === "Semi-finals" ||
-  stage === "Final") {
+if ( stage === "Round of 16" 
+  ) {
   pointsSystem = {
     result: 2,
     diff: 4,
@@ -56,9 +51,8 @@ if ( stage === "Round of 16" ||
   };
 }
 if ( 
-  stage === "Quarter-finals" ||
-  stage === "Semi-finals" ||
-  stage === "Final") {
+  stage === "Quarter-finals" 
+  ) {
   pointsSystem = {
     result: 3,
     diff: 5,
@@ -67,8 +61,8 @@ if (
 }
 if ( 
   
-  stage === "Semi-finals" ||
-  stage === "Final") {
+  stage === "Semi-finals" 
+  ) {
   pointsSystem = {
     result: 5,
     diff: 7,
@@ -103,7 +97,7 @@ const matchData = {
 };
 
 // On définit le stage et le barème uniquement lors de la création
-if (!existingMatch) {
+if (!match.pointsSystem) {
   matchData.stage = stage;
   matchData.pointsSystem = pointsSystem;
 }
