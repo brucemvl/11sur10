@@ -23,6 +23,27 @@ if (['FT', 'AET'].includes(statusShort)) {
 } else if (['1H', 'HT', '2H'].includes(statusShort)) {
   status = 'LIVE';
 }
+
+const stage = m.league.round;
+
+let pointsSystem = {
+  result: 1,
+  diff: 2,
+  exact: 3,
+};
+
+if (
+  stage === "Round of 16" ||
+  stage === "Quarter-finals" ||
+  stage === "Semi-finals" ||
+  stage === "Final"
+) {
+  pointsSystem = {
+    result: 2,
+    diff: 3,
+    exact: 5,
+  };
+}
     const match = await Match.findOneAndUpdate(
       { fixtureId: m.fixture.id },
       {
@@ -36,6 +57,8 @@ if (['FT', 'AET'].includes(statusShort)) {
           away: m.score.fulltime.away,
         },
         status,
+        stage,
+    pointsSystem,
       },
       { upsert: true, new: true }
     );
@@ -48,7 +71,8 @@ if (['FT', 'AET'].includes(statusShort)) {
   for (const p of predictions) {
     p.points = calculatePoints(
       { home: match.score.home, away: match.score.away },
-      { home: p.predictedHome, away: p.predictedAway }
+      { home: p.predictedHome, away: p.predictedAway },
+      match.pointsSystem
     );
     await p.save();
   }

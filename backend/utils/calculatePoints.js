@@ -1,5 +1,12 @@
-module.exports = function calculatePoints(realScore, predictedScore) {
-  const realHome = Number(realScore?.home);
+module.exports = function calculatePoints(
+  realScore,
+  predictedScore,
+  pointsSystem = {
+    result: 1,
+    diff: 2,
+    exact: 3,
+  }
+) {  const realHome = Number(realScore?.home);
   const realAway = Number(realScore?.away);
   const predictedHome = Number(predictedScore?.home);
   const predictedAway = Number(predictedScore?.away);
@@ -15,7 +22,7 @@ module.exports = function calculatePoints(realScore, predictedScore) {
 
   // 🎯 Score exact
   if (realHome === predictedHome && realAway === predictedAway) {
-    return { points: 3, type: "exact" };
+    return { points: pointsSystem.exact, type: "exact" };
   }
 
   const realDiff = realHome - realAway;
@@ -23,7 +30,7 @@ module.exports = function calculatePoints(realScore, predictedScore) {
 
   // 🎯 Bon écart
   if (realDiff === predictedDiff) {
-    return { points: 2, type: "diff" };
+    return { points: pointsSystem.diff, type: "diff" };
   }
 
   // ✅ Bon résultat
@@ -32,7 +39,7 @@ module.exports = function calculatePoints(realScore, predictedScore) {
     (realDiff < 0 && predictedDiff < 0) ||
     (realDiff === 0 && predictedDiff === 0)
   ) {
-    return { points: 1, type: "result" };
+    return { points: pointsSystem.result, type: "result" };
   }
 
   return { points: 0, type: null };
