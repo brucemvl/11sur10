@@ -3,6 +3,7 @@ const router = express.Router();
 const Match = require('../models/Match');
 const updateMatches = require('../services/updateMatches');
 
+console.log("🔥 MATCH ROUTES LOADED");
 // 🔄 Mettre à jour matchs + recalcul points
 router.post('/update', async (req, res) => {
   try {
