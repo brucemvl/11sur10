@@ -111,9 +111,15 @@ if (
 
 const match = await Match.findOneAndUpdate(
   { fixtureId: m.fixture.id },
-  matchData,
-  { upsert: true, new: true }
+  { $set: matchData },
+  {
+    upsert: true,
+    new: true,
+    runValidators: true,
+  }
 );
+
+console.log("Après update :", match.toObject());
 
     if (status === 'FINISHED' && !match.pointsUpdated) {
   const predictions = await Prediction.find({
