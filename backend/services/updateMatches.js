@@ -15,143 +15,69 @@ async function updateMatches() {
   );
 
   for (const m of data.response) {
-const statusShort = m.fixture.status.short;
+    const statusShort = m.fixture.status.short;
 
-let status = 'SCHEDULED';
-if (['FT', 'AET'].includes(statusShort)) {
-  status = 'FINISHED';
-} else if (['1H', 'HT', '2H'].includes(statusShort)) {
-  status = 'LIVE';
-}
+    let status = 'SCHEDULED';
+    if (['FT', 'AET'].includes(statusShort)) status = 'FINISHED';
+    else if (['1H', 'HT', '2H'].includes(statusShort)) status = 'LIVE';
 
-const stage = m.league.round;
+    const stage = m.league.round;
 
-let pointsSystem = {
-  result: 1,
-  diff: 2,
-  exact: 3,
-};
+    let pointsSystem = {
+      result: 1,
+      diff: 2,
+      exact: 3,
+    };
 
-if (
-  stage === "Round of 32" 
-  
-) {
-  pointsSystem = {
-    result: 1,
-    diff: 2,
-    exact: 4,
-  };
-}
-if ( stage === "Round of 16" 
-  ) {
-  pointsSystem = {
-    result: 2,
-    diff: 4,
-    exact: 6,
-  };
-}
-if ( 
-  stage === "Quarter-finals" 
-  ) {
-  pointsSystem = {
-    result: 3,
-    diff: 5,
-    exact: 7,
-  };
-}
-if ( 
-  
-  stage === "Semi-finals" 
-  ) {
-  pointsSystem = {
-    result: 5,
-    diff: 7,
-    exact: 10,
-  };
-}
-if ( 
-  
-  
-  stage === "Final") {
-  pointsSystem = {
-    result: 6,
-    diff: 8,
-    exact: 15,
-  };
-}
-   const existingMatch = await Match.findOne({
-  fixtureId: m.fixture.id,
-});
+    if (stage === "Round of 32") pointsSystem = { result: 1, diff: 2, exact: 4 };
+    if (stage === "Round of 16") pointsSystem = { result: 2, diff: 4, exact: 6 };
+    if (stage === "Quarter-finals") pointsSystem = { result: 3, diff: 5, exact: 7 };
+    if (stage === "Semi-finals") pointsSystem = { result: 5, diff: 7, exact: 10 };
+    if (stage === "Final") pointsSystem = { result: 6, diff: 8, exact: 15 };
 
-console.log(existingMatch?.pointsSystem);
-console.log(pointsSystem);
-
-const matchData = {
-  homeTeam: m.teams.home.name,
-  awayTeam: m.teams.away.name,
-  homeLogo: m.teams.home.logo,
-  awayLogo: m.teams.away.logo,
-  kickoff: m.fixture.date,
-  score: {
-    home: m.score.fulltime.home,
-    away: m.score.fulltime.away,
-  },
-  status,
-};
-
-// uniquement à la création
-if (
-  !existingMatch ||
-  !existingMatch.pointsSystem ||
-  existingMatch.pointsSystem.exact === undefined
-) {
-  matchData.stage = stage;
-  matchData.pointsSystem = pointsSystem;
-}
-
-await Match.updateOne(
-  { fixtureId: m.fixture.id },
-  {
-    $set: {
-      stage,
-      "pointsSystem.result": pointsSystem.result,
-      "pointsSystem.diff": pointsSystem.diff,
-      "pointsSystem.exact": pointsSystem.exact,
-    },
-  }
-);
-
-const match = await Match.findOne({ fixtureId: m.fixture.id }).lean();
-
-console.log(match);
-
-console.log("Après update :", match.toObject());
+    const match = await Match.findOneAndUpdate(
+      { fixtureId: m.fixture.id },
+      {
+        $set: {
+          homeTeam: m.teams.home.name,
+          awayTeam: m.teams.away.name,
+          homeLogo: m.teams.home.logo,
+          awayLogo: m.teams.away.logo,
+          kickoff: m.fixture.date,
+          score: {
+            home: m.score.fulltime.home,
+            away: m.score.fulltime.away,
+          },
+          status,
+          stage,
+          pointsSystem,
+        },
+      },
+      { upsert: true, new: true }
+    );
 
     if (status === 'FINISHED' && !match.pointsUpdated) {
-  const predictions = await Prediction.find({
-    matchId: match.fixtureId,
-  });
+      const predictions = await Prediction.find({
+        matchId: match.fixtureId,
+      });
 
-  for (const p of predictions) {
-    const result = calculatePoints(
-  { home: match.score.home, away: match.score.away },
-  { home: p.predictedHome, away: p.predictedAway },
-  match.pointsSystem
-);
+      for (const p of predictions) {
+        const result = calculatePoints(
+          { home: match.score.home, away: match.score.away },
+          { home: p.predictedHome, away: p.predictedAway },
+          match.pointsSystem
+        );
 
-p.points = result.points;
+        p.points = result.points;
+        await p.save();
+      }
 
-await p.save();
-  }
-
-  match.pointsUpdated = true;
-  await match.save();
-}
+      match.pointsUpdated = true;
+      await match.save();
+    }
   }
 
   return 'Matchs mis à jour';
 }
-
-
 
 module.exports = updateMatches;
