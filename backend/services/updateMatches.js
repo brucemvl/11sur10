@@ -100,14 +100,8 @@ const matchData = {
 };
 
 // uniquement à la création
-if (
-  !existingMatch ||
-  !existingMatch.pointsSystem ||
-  existingMatch.pointsSystem.exact === undefined
-) {
-  matchData.stage = stage;
-  matchData.pointsSystem = pointsSystem;
-}
+matchData.stage = stage;
+matchData.pointsSystem = pointsSystem;
 
 const match = await Match.findOneAndUpdate(
   { fixtureId: m.fixture.id },
