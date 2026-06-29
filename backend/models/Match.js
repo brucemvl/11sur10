@@ -15,7 +15,15 @@ const matchSchema = new mongoose.Schema({
      enum: ['SCHEDULED', 'LIVE', 'FINISHED'],
   default: 'SCHEDULED',
  },
-  pointsUpdated: { type: Boolean, default: false }, // 🔹 nouveau champ
+  pointsUpdated: { type: Boolean, default: false },
+  
+  stage: String,
+
+pointsSystem: {
+  result: { type: Number, default: 1 },
+  diff: { type: Number, default: 2 },
+  exact: { type: Number, default: 3 },
+},
 });
 
 module.exports = mongoose.model('Match', matchSchema);

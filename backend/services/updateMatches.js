@@ -100,25 +100,20 @@ const matchData = {
 };
 
 // uniquement à la création
-matchData.stage = stage;
-matchData.pointsSystem = pointsSystem;
-console.log(matchData);
+if (
+  !existingMatch ||
+  !existingMatch.pointsSystem ||
+  existingMatch.pointsSystem.exact === undefined
+) {
+  matchData.stage = stage;
+  matchData.pointsSystem = pointsSystem;
+}
 
 const match = await Match.findOneAndUpdate(
   { fixtureId: m.fixture.id },
-  { $set: matchData },
-  {
-    upsert: true,
-    new: true,
-    runValidators: true,
-  }
+  matchData,
+  { upsert: true, new: true }
 );
-
-console.log(match.toObject());
-
-const check = await Match.findOne({ fixtureId: m.fixture.id });
-
-console.log(check.toObject());
 
     if (status === 'FINISHED' && !match.pointsUpdated) {
   const predictions = await Prediction.find({
