@@ -148,12 +148,12 @@ console.log(bestExactScoreUser)
   topAvatar: { width: 95, height: 75, borderRadius: 10, marginBottom: 4, borderWidth: 1 },
 
   // Reste du classement
-  row: { flexDirection: 'row', paddingBlock: 5, paddingInline: 6, borderBottomWidth: 1, borderColor: '#d2d2d2', alignItems: 'center', width: "100%", borderRadius: 10 },
+  row: { flexDirection: 'row', paddingBlock: 5, paddingInline: 4, borderBottomWidth: 1, borderColor: '#d2d2d2', alignItems: 'center', width: "100%", borderRadius: 10 },
   rank: { width: "5%", fontFamily: "Kanitt" },
   rowAvatar: { width: 35, height: 35, borderRadius: 20, marginRight: 10 },
-  rowUsername: { color: "black", fontFamily: "Kanitt", width: "36%" },
-  rowPoints: { fontFamily: "Kanitt", width: "14%", textAlign: "left"},
-  statsSmall: { fontSize: 12, fontFamily: "Kanitus", width: "28%"},
+  rowUsername: { color: "black", fontFamily: "Kanitt", width: "34%" },
+  rowPoints: { fontFamily: "Kanitt", width: "15%", textAlign: "left"},
+  statsSmall: { fontSize: 11.8, fontFamily: "Kanitus", width: "30%"},
   regles: {alignItems: "center", padding: 8},
   reglesText: {color: "black", fontFamily: "Kanito", fontSize: 14}
 })

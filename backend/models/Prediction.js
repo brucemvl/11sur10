@@ -23,6 +23,19 @@ const predictionSchema = new mongoose.Schema(
   type: Number,
   default: 0,
 },
+reactions: [
+    {
+      userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+      },
+      emoji: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
   },
   
   { timestamps: true }

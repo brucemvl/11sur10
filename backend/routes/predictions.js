@@ -54,7 +54,9 @@ router.get('/user/:userId', async (req, res) => {
   try {
     const predictions = await Prediction.find({
       userId: req.params.userId, // ✅ correction ici
-    }).lean();
+    })
+    .populate("reactions.userId", "username avatar")
+    .lean();
 
     res.json(predictions);
   } catch (err) {
@@ -71,6 +73,51 @@ router.get('/me', auth, async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
+//REACTIONS
+router.post("/:predictionId/reaction", auth, async (req, res) => {
+  try {
+    const { emoji } = req.body;
+
+    if (!emoji) {
+      return res.status(400).json({ error: "Emoji requis" });
+    }
+
+    const prediction = await Prediction.findById(req.params.predictionId);
+
+    if (!prediction) {
+      return res.status(404).json({ error: "Pronostic introuvable" });
+    }
+
+    // Cherche si l'utilisateur a déjà réagi
+    const existingReaction = prediction.reactions.find(
+      r => r.userId.toString() === req.userId
+    );
+
+    if (existingReaction) {
+      // On remplace simplement son emoji
+      existingReaction.emoji = emoji;
+    } else {
+      // Première réaction
+      prediction.reactions.push({
+        userId: req.userId,
+        emoji,
+      });
+    }
+
+    await prediction.save();
+
+    // Recharge avec les infos des utilisateurs
+    const updatedPrediction = await Prediction.findById(prediction._id)
+      .populate("reactions.userId", "username avatar");
+
+    res.json(updatedPrediction);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Erreur serveur" });
   }
 });
 

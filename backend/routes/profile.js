@@ -165,6 +165,7 @@ const matches = await Match.find({
 console.log('Matches FINISHED:', matches.map(m => m.fixtureId));
 
     res.json({
+      _id: user._id,
       username: user.username,
       avatar: (() => {
     if (!user.avatar) {

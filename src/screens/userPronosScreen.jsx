@@ -6,14 +6,16 @@ import {
   StyleSheet,
   ActivityIndicator,
   Image,
-  Animated
+  Animated,
+  TouchableOpacity,
+  Modal
 } from 'react-native';
 import axios from 'axios';
 import Precedent from '../components/Precedent';
 import { LinearGradient } from 'expo-linear-gradient';
 import getAvatarSource from '../../backend/utils/getAvatarSource';
 import { teamName } from '../datas/teamNames';
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 export default function UserPronosScreen({ route }) {
@@ -23,10 +25,71 @@ export default function UserPronosScreen({ route }) {
   const [history, setHistory] = useState([]);
   const [user, setUser] = useState()
 
-  useEffect(() => {
+  const [reactionUsers, setReactionUsers] = useState([]);
+const [reactionModal, setReactionModal] = useState(false);
+const [selectedEmoji, setSelectedEmoji] = useState("");
+
+
+const [openedPrediction, setOpenedPrediction] = useState(null);
+
+const [myUserId, setMyUserId] = useState(null);
+
+const fetchMe = async () => {
+    const token = await AsyncStorage.getItem("token");
+
+    const res = await axios.get(
+        "https://one1sur10.onrender.com/api/profile/me",
+        {
+            headers:{
+                Authorization:`Bearer ${token}`
+            }
+        }
+    );
+
+    setMyUserId(res.data._id);
+};
+
+useEffect(() => {
     fetchUser()
     fetchUserHistory();
+    fetchMe()
   }, []);
+
+
+const ReactionChip = ({emoji,count})=>{
+
+const scale = useRef(new Animated.Value(0)).current;
+
+useEffect(()=>{
+
+Animated.spring(scale,{
+toValue:1,
+useNativeDriver:true
+}).start();
+
+},[]);
+
+return(
+
+<Animated.View
+    style={[
+      styles.reactionChip,
+      {
+        transform: [{ scale }]
+      }
+    ]}
+  >
+    <Text style={styles.reactionText}>
+      {emoji} {count}
+    </Text>
+  </Animated.View>
+
+
+);
+
+}
+
+  
 
   const statusLabel = {
     FINISHED: 'Terminé',
@@ -137,6 +200,8 @@ export default function UserPronosScreen({ route }) {
       points: r.points,
       status: match.status,
       kickoff: match.kickoff,
+      predictionId: p._id,
+reactions: p.reactions || [],
     };
   })
   .filter(Boolean)
@@ -150,12 +215,97 @@ export default function UserPronosScreen({ route }) {
     }
   };
 
-  console.log(exactScores)
-  console.log(bestExactScoreUser)
+
+  const openReactionBar = (predictionId) => {
+    setOpenedPrediction(prev =>
+        prev === predictionId ? null : predictionId
+    );
+};
+
+const showReactionUsers=(emoji,reactions)=>{
+
+const users=reactions.filter(r=>r.emoji===emoji);
+
+setSelectedEmoji(emoji); 
+setReactionUsers(users);
+
+setReactionModal(true);
+
+}
+
+const sendReaction = async (emoji) => {
+const token = await AsyncStorage.getItem("token");
+    try{
+
+        await axios.post(
+
+`https://one1sur10.onrender.com/api/predictions/${openedPrediction}/reaction`,
+
+{
+    emoji
+},
+
+{
+headers:{
+Authorization:`Bearer ${token}`
+}
+}
+
+);
+
+
+    }catch(err){
+
+        console.log(err);
+
+    }
+
+    setHistory(old =>
+old.map(pred=>{
+
+if(pred.predictionId!==openedPrediction)
+return pred;
+
+const reactions=[...pred.reactions];
+
+const existing=reactions.find(
+r=>r.userId?._id === myUserId
+);
+
+if(existing){
+
+existing.emoji=emoji;
+
+}else{
+
+reactions.push({
+    emoji,
+    userId:{
+        _id: myUserId
+    }
+});
+
+}
+
+return{
+...pred,
+reactions
+};
+
+})
+);
+
+setOpenedPrediction(null);
+
+setTimeout(fetchUserHistory, 1000);
+
+}
 
   if (loading) {
     return <ActivityIndicator size="large" style={{ marginTop: 40 }} />;
   }
+
+  
 
   return (
      <View style={styles.container}>
@@ -180,7 +330,14 @@ export default function UserPronosScreen({ route }) {
         keyExtractor={(item) => item.matchId.toString()}
         contentContainerStyle={{ padding: 10, paddingBottom: 100 }}
         style={{width: "100%"}}
-        renderItem={({ item }) => (
+        renderItem={({ item }) => {
+          const grouped = item.reactions.reduce((acc, r) => {
+  acc[r.emoji] = (acc[r.emoji] || 0) + 1;
+  return acc;
+}, {});
+
+          return(
+          
           <View style={styles.card}>
             <View style={styles.matchRow}>
               
@@ -220,9 +377,95 @@ export default function UserPronosScreen({ route }) {
             <Text style={styles.status}>
   Statut : {statusLabel[item.status] || item.status}
 </Text>
+<View style={styles.reactionBar}>
+
+  {Object.entries(grouped).map(([emoji, count]) => (
+<TouchableOpacity
+    key={emoji}
+    onLongPress={() => showReactionUsers(emoji, item.reactions)}
+>
+        <ReactionChip
+    emoji={emoji}
+    count={count}
+/>
+    </TouchableOpacity>
+  ))}
+
+  <TouchableOpacity
+    onPress={() => openReactionBar(item.predictionId)}
+    style={styles.addReaction}
+  >
+    <Text style={{ fontSize: 22 }}>😊</Text>
+  </TouchableOpacity>
+
+</View>
+{openedPrediction === item.predictionId && (
+
+<View style={styles.emojiBar}>
+
+{["😂","😭","😱","🔥","👏","🤯","😎"].map(e => (
+
+<TouchableOpacity
+key={e}
+onPress={() => sendReaction(e)}
+>
+
+<Text style={{fontSize:30}}>
+{e}
+</Text>
+
+</TouchableOpacity>
+
+))}
+
+</View>
+
+)}
           </View>
-        )}
+        )}}
       />
+
+      <Modal
+visible={reactionModal}
+transparent
+animationType="slide"
+>
+
+<View style={styles.modalContainer}>
+
+<Text style={styles.modalTitle}>
+{selectedEmoji}
+</Text>
+
+<FlatList
+
+data={reactionUsers}
+
+keyExtractor={item=>item.userId._id}
+
+renderItem={({item})=>(
+
+<View style={styles.userRow}>
+
+<Image
+source={getAvatarSource(item.userId.avatar)}
+style={styles.avatar}
+/>
+
+<Text>
+{item.userId.username}
+</Text>
+
+</View>
+
+)}
+
+/>
+
+</View>
+
+</Modal>
+      
     </View>
   );
 }
@@ -244,7 +487,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#3c6089',
     padding: 8,
     borderRadius: 12,
-    marginBottom: 15,
+    marginBottom: 20,
     borderWidth: 1
   },
   matchRow: {
@@ -306,5 +549,41 @@ fontFamily: "Kanitt",
   text: {
     fontFamily: "Kanitt",
     fontSize: 16
-  }
+  },
+ reactionBar: {
+  flexDirection: "row",
+  alignItems: "center",
+  marginTop: 8,
+  flexWrap: "wrap",
+},
+
+reactionChip: {
+  backgroundColor: "#ffffff",
+  borderRadius: 20,
+  paddingHorizontal: 10,
+  paddingVertical: 5,
+  marginRight: 6,
+  marginBottom: 4,
+},
+
+reactionText: {
+  fontSize: 16,
+},
+
+addReaction: {
+  paddingHorizontal: 8,
+  marginLeft: "auto"
+  
+  
+
+},
+emojiBar: {
+  flexDirection: "row",
+  justifyContent: "space-around",
+  alignItems: "center",
+  marginTop: 10,
+  paddingVertical: 10,
+  backgroundColor: "#23476c",
+  borderRadius: 15,
+},
 });
