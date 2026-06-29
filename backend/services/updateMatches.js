@@ -109,7 +109,7 @@ if (
   matchData.pointsSystem = pointsSystem;
 }
 
-const match = await Match.updateOne(
+await Match.updateOne(
   { fixtureId: m.fixture.id },
   {
     $set: {
