@@ -100,7 +100,11 @@ const matchData = {
 };
 
 // uniquement à la création
-if (!existingMatch) {
+if (
+  !existingMatch ||
+  !existingMatch.pointsSystem ||
+  existingMatch.pointsSystem.exact === undefined
+) {
   matchData.stage = stage;
   matchData.pointsSystem = pointsSystem;
 }
