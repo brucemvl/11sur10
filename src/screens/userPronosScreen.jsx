@@ -234,72 +234,63 @@ setReactionModal(true);
 }
 
 const sendReaction = async (emoji) => {
-const token = await AsyncStorage.getItem("token");
-    try{
+    const token = await AsyncStorage.getItem("jwtToken");
+console.log("TOKEN =", token);
+    try {
 
         await axios.post(
+            `https://one1sur10.onrender.com/api/predictions/${openedPrediction}/reaction`,
+            { emoji },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
 
-`https://one1sur10.onrender.com/api/predictions/${openedPrediction}/reaction`,
+        setOpenedPrediction(null);
 
-{
-    emoji
-},
+        setHistory(old =>
+            old.map(pred => {
 
-{
-headers:{
-Authorization:`Bearer ${token}`
-}
-}
+                if (pred.predictionId !== openedPrediction)
+                    return pred;
 
-);
+                const reactions = [...pred.reactions];
 
+                const existing = reactions.find(
+                    r =>
+                        (typeof r.userId === "object"
+                            ? r.userId._id
+                            : r.userId) === myUserId
+                );
 
-    }catch(err){
+                if (existing) {
+                    existing.emoji = emoji;
+                } else {
+                    reactions.push({
+                        emoji,
+                        userId: {
+                            _id: myUserId,
+                        },
+                    });
+                }
 
+                return {
+                    ...pred,
+                    reactions,
+                };
+            })
+        );
+
+        setTimeout(() => {
+    fetchUserHistory();
+}, 500);
+
+    } catch (err) {
         console.log(err);
-
     }
-
-    setHistory(old =>
-old.map(pred=>{
-
-if(pred.predictionId!==openedPrediction)
-return pred;
-
-const reactions=[...pred.reactions];
-
-const existing=reactions.find(
-r=>r.userId?._id === myUserId
-);
-
-if(existing){
-
-existing.emoji=emoji;
-
-}else{
-
-reactions.push({
-    emoji,
-    userId:{
-        _id: myUserId
-    }
-});
-
-}
-
-return{
-...pred,
-reactions
 };
-
-})
-);
-
-setOpenedPrediction(null);
-
-setTimeout(fetchUserHistory, 1000);
-
-}
 
   if (loading) {
     return <ActivityIndicator size="large" style={{ marginTop: 40 }} />;
@@ -426,43 +417,56 @@ onPress={() => sendReaction(e)}
       />
 
       <Modal
-visible={reactionModal}
-transparent
-animationType="slide"
+    visible={reactionModal}
+    transparent
+    animationType="fade"
+    onRequestClose={() => setReactionModal(false)}
 >
 
-<View style={styles.modalContainer}>
+    <TouchableOpacity
+        style={styles.modalOverlay}
+        activeOpacity={1}
+        onPress={() => setReactionModal(false)}
+    >
 
-<Text style={styles.modalTitle}>
-{selectedEmoji}
-</Text>
+        <TouchableOpacity
+            activeOpacity={1}
+            style={styles.modalCard}
+        >
 
-<FlatList
+            <Text style={styles.modalTitle}>
+                {selectedEmoji} Réactions
+            </Text>
 
-data={reactionUsers}
+            <FlatList
+                data={reactionUsers}
+                keyExtractor={(item) => item.userId._id}
+                renderItem={({ item }) => (
+                    <View style={styles.userRow}>
+                        <Image
+                            source={getAvatarSource(item.userId.avatar)}
+                            style={styles.avatar}
+                        />
 
-keyExtractor={item=>item.userId._id}
+                        <Text style={styles.username}>
+                            {item.userId.username}
+                        </Text>
+                    </View>
+                )}
+            />
 
-renderItem={({item})=>(
+            <TouchableOpacity
+                onPress={() => setReactionModal(false)}
+                style={styles.closeButton}
+            >
+                <Text style={{color:"white"}}>
+                    Fermer
+                </Text>
+            </TouchableOpacity>
 
-<View style={styles.userRow}>
+        </TouchableOpacity>
 
-<Image
-source={getAvatarSource(item.userId.avatar)}
-style={styles.avatar}
-/>
-
-<Text>
-{item.userId.username}
-</Text>
-
-</View>
-
-)}
-
-/>
-
-</View>
+    </TouchableOpacity>
 
 </Modal>
       
@@ -586,4 +590,51 @@ emojiBar: {
   backgroundColor: "#23476c",
   borderRadius: 15,
 },
+modalOverlay:{
+    flex:1,
+    backgroundColor:"rgba(0,0,0,0.45)",
+    justifyContent:"center",
+    alignItems:"center"
+},
+
+modalCard:{
+    width:"80%",
+    maxHeight:"60%",
+    backgroundColor:"white",
+    borderRadius:20,
+    padding:20
+},
+
+modalTitle:{
+    fontSize:20,
+    fontWeight:"bold",
+    marginBottom:15,
+    textAlign:"center"
+},
+
+userRow:{
+    flexDirection:"row",
+    alignItems:"center",
+    marginVertical:8
+},
+
+avatar:{
+    width:40,
+    height:40,
+    borderRadius:20,
+    marginRight:10
+},
+
+username:{
+    fontSize:16,
+    fontFamily: "Kanito"
+},
+
+closeButton:{
+    marginTop:20,
+    backgroundColor:"#23476c",
+    padding:12,
+    borderRadius:12,
+    alignItems:"center"
+}
 });

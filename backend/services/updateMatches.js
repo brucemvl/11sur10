@@ -79,7 +79,7 @@ if (
     exact: 15,
   };
 }
-    const existingMatch = await Match.findOne({
+   const existingMatch = await Match.findOne({
   fixtureId: m.fixture.id,
 });
 
@@ -96,8 +96,8 @@ const matchData = {
   status,
 };
 
-// On définit le stage et le barème uniquement lors de la création
-if (!match.pointsSystem) {
+// uniquement à la création
+if (!existingMatch) {
   matchData.stage = stage;
   matchData.pointsSystem = pointsSystem;
 }
