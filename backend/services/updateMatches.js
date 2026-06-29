@@ -102,12 +102,17 @@ const matchData = {
 // uniquement à la création
 matchData.stage = stage;
 matchData.pointsSystem = pointsSystem;
+console.log(matchData);
 
 const match = await Match.findOneAndUpdate(
   { fixtureId: m.fixture.id },
   matchData,
   { upsert: true, new: true }
 );
+
+const check = await Match.findOne({ fixtureId: m.fixture.id });
+
+console.log(check.toObject());
 
     if (status === 'FINISHED' && !match.pointsUpdated) {
   const predictions = await Prediction.find({
