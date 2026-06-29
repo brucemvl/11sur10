@@ -140,7 +140,7 @@ function FicheEquipe() {
   useEffect(() => {
     const fetchLeagues = async () => {
       try {
-        const response = await fetch(`https://v3.football.api-sports.io/leagues?season=2025&team=${id}`, {
+        const response = await fetch(`https://v3.football.api-sports.io/leagues?season=2026&team=${id}`, {
           method: "GET",
           headers: {
             "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
@@ -162,7 +162,7 @@ function FicheEquipe() {
   useEffect(() => {
 
     // Fetch home team statistics
-    fetch(`https://v3.football.api-sports.io/teams/statistics?season=2025&team=${id}&league=${compet}`, {
+    fetch(`https://v3.football.api-sports.io/teams/statistics?season=2026&team=${id}&league=${compet}`, {
       method: "GET",
       headers: {
         "x-rapidapi-host": "v3.football.api-sports.io",
@@ -203,7 +203,7 @@ function FicheEquipe() {
   useEffect(() => {
     const fetchCalendrier = async () => {
       try {
-        const response = await fetch(`https://v3.football.api-sports.io/fixtures?season=2025&team=${id}`, {
+        const response = await fetch(`https://v3.football.api-sports.io/fixtures?season=2026&team=${id}`, {
           method: "GET",
           headers: {
             "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",

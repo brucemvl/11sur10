@@ -83,6 +83,9 @@ if (
   fixtureId: m.fixture.id,
 });
 
+console.log(existingMatch?.pointsSystem);
+console.log(pointsSystem);
+
 const matchData = {
   homeTeam: m.teams.home.name,
   awayTeam: m.teams.away.name,
@@ -132,5 +135,7 @@ await p.save();
 
   return 'Matchs mis à jour';
 }
+
+
 
 module.exports = updateMatches;

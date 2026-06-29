@@ -32,7 +32,7 @@ function Tableau({ id, currentRound, rounds }) {
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const scaleAnimNext = useRef(new Animated.Value(1)).current;
 
-  const season = id === 253 || id === 71 || id === 128 ? 2026 : 2025
+  const season = id === 253 || id === 71 || id === 128 ? 2027 : 2026
 
   const handlePressIn = () => {
     Animated.spring(scaleAnim, {

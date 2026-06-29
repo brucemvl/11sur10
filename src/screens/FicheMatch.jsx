@@ -114,7 +114,7 @@ useEffect(() => {
     try {
 
 
-    const season = 2025; // saison par défaut si rien trouvé
+    const season = 2026; // saison par défaut si rien trouvé
 
 
       const res = await fetch(
@@ -142,7 +142,7 @@ useEffect(() => {
 
   const getTeamStats = async () => {
     try {
-      const stats = await fetchData(`https://v3.football.api-sports.io/teams/statistics?season=2025&team=${homeId}&league=${leagueMatch}`);
+      const stats = await fetchData(`https://v3.football.api-sports.io/teams/statistics?season=2026&team=${homeId}&league=${leagueMatch}`);
       setHomeStats(stats);
     } catch (error) {
       console.error("Erreur stats équipe domicile", error);
@@ -157,7 +157,7 @@ useEffect(() => {
 
   const getTeamStats = async () => {
     try {
-      const stats = await fetchData(`https://v3.football.api-sports.io/teams/statistics?season=2025&team=${extId}&league=${leagueMatch}`);
+      const stats = await fetchData(`https://v3.football.api-sports.io/teams/statistics?season=2026&team=${extId}&league=${leagueMatch}`);
       setExtStats(stats);
     } catch (error) {
       console.error("Erreur stats équipe extérieure", error);

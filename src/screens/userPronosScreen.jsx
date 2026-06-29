@@ -386,7 +386,7 @@ console.log("TOKEN =", token);
     onPress={() => openReactionBar(item.predictionId)}
     style={styles.addReaction}
   >
-    <Text style={{ fontSize: 22 }}>😊</Text>
+    <Text style={{ fontSize: 22, color: "white", fontFamily: "Kanitt" }}>😊+</Text>
   </TouchableOpacity>
 
 </View>
@@ -576,7 +576,9 @@ reactionText: {
 
 addReaction: {
   paddingHorizontal: 8,
-  marginLeft: "auto"
+  marginLeft: "auto",
+  backgroundColor: "#0c4574",
+  borderRadius: 10
   
   
 
