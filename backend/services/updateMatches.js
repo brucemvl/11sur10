@@ -106,9 +106,15 @@ console.log(matchData);
 
 const match = await Match.findOneAndUpdate(
   { fixtureId: m.fixture.id },
-  matchData,
-  { upsert: true, new: true }
+  { $set: matchData },
+  {
+    upsert: true,
+    new: true,
+    runValidators: true,
+  }
 );
+
+console.log(match.toObject());
 
 const check = await Match.findOne({ fixtureId: m.fixture.id });
 
