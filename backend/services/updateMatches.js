@@ -109,15 +109,21 @@ if (
   matchData.pointsSystem = pointsSystem;
 }
 
-const match = await Match.findOneAndUpdate(
+const match = await Match.updateOne(
   { fixtureId: m.fixture.id },
-  { $set: matchData },
   {
-    upsert: true,
-    new: true,
-    runValidators: true,
+    $set: {
+      stage,
+      "pointsSystem.result": pointsSystem.result,
+      "pointsSystem.diff": pointsSystem.diff,
+      "pointsSystem.exact": pointsSystem.exact,
+    },
   }
 );
+
+const match = await Match.findOne({ fixtureId: m.fixture.id }).lean();
+
+console.log(match);
 
 console.log("Après update :", match.toObject());
 
