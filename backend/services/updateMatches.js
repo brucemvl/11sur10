@@ -18,7 +18,7 @@ async function updateMatches() {
     const statusShort = m.fixture.status.short;
 
     let status = 'SCHEDULED';
-    if (['FT', 'AET'].includes(statusShort)) status = 'FINISHED';
+    if (['FT', 'AET', 'PEN'].includes(statusShort)) status = 'FINISHED';
     else if (['1H', 'HT', '2H'].includes(statusShort)) status = 'LIVE';
 
     const stage = m.league.round;
