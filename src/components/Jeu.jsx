@@ -62,18 +62,24 @@ export default function Jeu() {
   };
 
   const rounds = Object.keys(matchesByRound).sort((a, b) => {
-    const getRoundNumber = (r) => parseInt(r.match(/\d+/)[0], 10);
-    return getRoundNumber(a) - getRoundNumber(b);
+    const getRoundNumber = (r) => {
+  const match = r.match(/\d+/);
+  return match ? parseInt(match[0], 10) : 9999;
+};
+
+const rounds = Object.keys(matchesByRound || {}).sort((a, b) => {
+  return getRoundNumber(a) - getRoundNumber(b);
+});
   });
 
-  const currentRound = rounds[roundIndex];
-  const matches = matchesByRound[currentRound] || [];
+  const currentRound = rounds[roundIndex] || null;
+const matches = currentRound ? matchesByRound[currentRound] || [] : [];
 
   /* ------------------ ROUND STATUS ------------------ */
 
-  const isRoundStarted = matches.some(
-    (m) => new Date(m.fixture.date) < new Date()
-  );
+  const isRoundStarted = matches?.some(
+  (m) => new Date(m.fixture?.date) < new Date()
+) || false;
 
   /* ------------------ NAVIGATION ------------------ */
 

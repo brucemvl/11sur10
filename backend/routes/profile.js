@@ -10,12 +10,31 @@ const { upload: cloudUpload } = require('../middleware/cloudinary');
 
 // 🔹 Choisir le storage selon l'environnement
 const upload = process.env.NODE_ENV === 'production' ? cloudUpload : localUpload;
+function getPointsSystem(match) {
+  const stage = match.league?.round;
+
+  let pointsSystem = {
+    result: 1,
+    diff: 2,
+    exact: 3,
+  };
+
+  if (stage === "Round of 32") pointsSystem = { result: 1, diff: 2, exact: 4 };
+  if (stage === "Round of 16") pointsSystem = { result: 2, diff: 4, exact: 6 };
+  if (stage === "Quarter-finals") pointsSystem = { result: 3, diff: 5, exact: 7 };
+  if (stage === "Semi-finals") pointsSystem = { result: 5, diff: 7, exact: 10 };
+  if (stage === "Final") pointsSystem = { result: 6, diff: 8, exact: 15 };
+
+  return pointsSystem;
+}
 
 // 🔹 Fonction de calcul des points
 function analyzePrediction(prediction, match) {
   if (!match || match.status !== 'FINISHED') {
     return { points: 0, exact: 0, diff: 0, result: 0 };
   }
+
+  const system = match.pointsSystem || getPointsSystem(match);
 
   const ph = prediction.predictedHome;
   const pa = prediction.predictedAway;
@@ -25,16 +44,23 @@ function analyzePrediction(prediction, match) {
   const pronoDiff = ph - pa;
   const realDiff = rh - ra;
 
-  // 1️⃣ Score exact
-  if (ph === rh && pa === ra) return { points: 3, exact: 1, diff: 0, result: 0 };
+  // exact
+  if (ph === rh && pa === ra) {
+    return { points: system.exact, exact: 1, diff: 0, result: 0 };
+  }
 
-  // 2️⃣ Bon écart (même différence)
-  if (pronoDiff === realDiff) return { points: 2, exact: 0, diff: 1, result: 0 };
+  // diff
+  if (pronoDiff === realDiff) {
+    return { points: system.diff, exact: 0, diff: 1, result: 0 };
+  }
 
-  // 3️⃣ Bon résultat (1N2)
+  // result
   const pronoWinner = pronoDiff > 0 ? 'HOME' : pronoDiff < 0 ? 'AWAY' : 'DRAW';
   const realWinner = realDiff > 0 ? 'HOME' : realDiff < 0 ? 'AWAY' : 'DRAW';
-  if (pronoWinner === realWinner) return { points: 1, exact: 0, diff: 0, result: 1 };
+
+  if (pronoWinner === realWinner) {
+    return { points: system.result, exact: 0, diff: 0, result: 1 };
+  }
 
   return { points: 0, exact: 0, diff: 0, result: 0 };
 }

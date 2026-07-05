@@ -153,6 +153,33 @@ return(
         matchMap[m.fixtureId] = m;
       });
 
+      const calculate = (p, match) => {
+  const system = match.pointsSystem || {
+    result: 1,
+    diff: 2,
+    exact: 3,
+  };
+
+  const ph = p.predictedHome;
+  const pa = p.predictedAway;
+  const rh = match.score.home;
+  const ra = match.score.away;
+
+  if (ph === rh && pa === ra) return system.exact;
+
+  const pd = ph - pa;
+  const rd = rh - ra;
+
+  if (pd === rd) return system.diff;
+
+  const pw = pd > 0 ? "HOME" : pd < 0 ? "AWAY" : "DRAW";
+  const rw = rd > 0 ? "HOME" : rd < 0 ? "AWAY" : "DRAW";
+
+  if (pw === rw) return system.result;
+
+  return 0;
+};
+
       const hist = predictions
   .map((p) => {
     const match = matchMap[p.matchId];
@@ -173,7 +200,7 @@ return(
   predictedAway: p.predictedAway,
   realHome: match.score.home,
   realAway: match.score.away,
-  points: p.points ?? 0,   // 👈 IMPORTANT
+  points: calculate(p, match),   // 👈 IMPORTANT
   status: match.status,
   kickoff: match.kickoff,
   predictionId: p._id,
@@ -370,14 +397,14 @@ console.log("TOKEN =", token);
 
 <View style={styles.emojiBar}>
 
-{["😂","😭","😱","🔥","👏","🤯","😎"].map(e => (
+{["😂","😭","😱","🔥","👏","🤯","😎", "🖕", "😤"].map(e => (
 
 <TouchableOpacity
 key={e}
 onPress={() => sendReaction(e)}
 >
 
-<Text style={{fontSize:30}}>
+<Text style={{fontSize:26}}>
 {e}
 </Text>
 

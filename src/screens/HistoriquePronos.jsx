@@ -27,92 +27,89 @@ export default function HistoriquePronos() {
   LIVE: 'En cours',
 };
 
-function analyzePrediction(prediction, match) {
-  if (!match || match.status !== 'FINISHED') {
-    return { points: 0, exact: 0, diff: 0, result: 0 };
-  }
 
-  const ph = prediction.predictedHome;
-  const pa = prediction.predictedAway;
-  const rh = match.score.home;
-  const ra = match.score.away;
-
-  const pronoDiff = ph - pa;
-  const realDiff = rh - ra;
-
-  // 1️⃣ Score exact
-  if (ph === rh && pa === ra) return { points: 3, exact: 1, diff: 0, result: 0 };
-
-  // 2️⃣ Bon écart
-  if (pronoDiff === realDiff) return { points: 2, exact: 0, diff: 1, result: 0 };
-
-  // 3️⃣ Bon résultat (1N2)
-  const pronoWinner = pronoDiff > 0 ? 'HOME' : pronoDiff < 0 ? 'AWAY' : 'DRAW';
-  const realWinner = realDiff > 0 ? 'HOME' : realDiff < 0 ? 'AWAY' : 'DRAW';
-  if (pronoWinner === realWinner) return { points: 1, exact: 0, diff: 0, result: 1 };
-
-  return { points: 0, exact: 0, diff: 0, result: 0 };
-}
 
   const fetchHistory = async () => {
-    try {
-      const token = await AsyncStorage.getItem('jwtToken');
+  try {
+    const token = await AsyncStorage.getItem('jwtToken');
 
-      // 1️⃣ Récupérer les pronostics de l'utilisateur
-      const predRes = await axios.get(
-        'https://one1sur10.onrender.com/api/predictions/me',
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+    const predRes = await axios.get(
+      'https://one1sur10.onrender.com/api/predictions/me',
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
 
-      const predictions = predRes.data;
+    const predictions = predRes.data;
 
-      // 2️⃣ Pour chaque pronostic, récupérer le match correspondant
-      const matchesRes = await axios.get(
-        'https://one1sur10.onrender.com/api/matches',
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+    const matchesRes = await axios.get(
+      'https://one1sur10.onrender.com/api/matches',
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
 
-      const allMatches = matchesRes.data; // tableau de tous les matchs
-      const matchMap = {};
-      allMatches.forEach((m) => {
-        matchMap[m.fixtureId] = m;
-      });
+    const allMatches = matchesRes.data || [];
 
-      // 3️⃣ Créer l'historique avec points calculés
-      const hist = predictions
-  .map((p) => {
-    const match = matchMap[p.matchId];
-    if (!match) return null;
+    const matchMap = {};
+    allMatches.forEach((m) => {
+      matchMap[m.fixtureId] = m;
+    });
 
-    // 🔥 Calculer les points ici
-    const r = analyzePrediction(p, match);
+    // ✅ SAFE calculate function
+    const calculate = (p, match) => {
+      const system = match?.pointsSystem || {
+        result: 1,
+        diff: 2,
+        exact: 3,
+      };
 
-    return {
-      matchId: p.matchId,
-      homeTeam: match.homeTeam,
-      awayTeam: match.awayTeam,
-      homeLogo: match.homeLogo,
-      awayLogo: match.awayLogo,
-      predictedHome: p.predictedHome,
-      predictedAway: p.predictedAway,
-      realHome: match.score.home,
-      realAway: match.score.away,
-      points: r.points, // <-- recalculé ici
-      status: match.status,
-      kickoff: match.kickoff,
+      const ph = p.predictedHome;
+      const pa = p.predictedAway;
+      const rh = match?.score?.home ?? 0;
+      const ra = match?.score?.away ?? 0;
+
+      if (ph === rh && pa === ra) return system.exact;
+
+      const pd = ph - pa;
+      const rd = rh - ra;
+
+      if (pd === rd) return system.diff;
+
+      const pw = pd > 0 ? "HOME" : pd < 0 ? "AWAY" : "DRAW";
+      const rw = rd > 0 ? "HOME" : rd < 0 ? "AWAY" : "DRAW";
+
+      if (pw === rw) return system.result;
+
+      return 0;
     };
-  })
-  .filter(Boolean)
-  .sort((a, b) => new Date(b.kickoff) - new Date(a.kickoff));
 
-      setHistory(hist);
-      
-    } catch (err) {
-      console.error('Erreur chargement historique', err);
-    } finally {
-      setLoading(false);
-    }
-  };
+    const hist = predictions
+      .map((p) => {
+        const match = matchMap[p.matchId];
+        if (!match) return null;
+
+        return {
+          matchId: p.matchId,
+          homeTeam: match.homeTeam,
+          awayTeam: match.awayTeam,
+          homeLogo: match.homeLogo,
+          awayLogo: match.awayLogo,
+          predictedHome: p.predictedHome,
+          predictedAway: p.predictedAway,
+          realHome: match?.score?.home ?? 0,
+          realAway: match?.score?.away ?? 0,
+          points: calculate(p, match),
+          status: match.status,
+          kickoff: match.kickoff,
+        };
+      })
+      .filter(Boolean)
+      .sort((a, b) => new Date(b.kickoff) - new Date(a.kickoff));
+
+    setHistory(hist);
+  } catch (err) {
+    console.error('Erreur chargement historique', err);
+  } finally {
+    setLoading(false);
+  }
+};
 
   if (loading) {
     return <ActivityIndicator size="large" style={{ marginTop: 40 }} />;
