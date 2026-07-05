@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Prediction = require("../models/Prediction");
 const Match = require("../models/Match");
+require("dotenv").config();
 
 function calculatePoints(pred, match) {
   if (!match || match.status !== "FINISHED") {
@@ -24,7 +25,7 @@ function calculatePoints(pred, match) {
 }
 
 async function run() {
-  await mongoose.connect("YOUR_MONGO_URL");
+  await mongoose.connect(process.env.MONGO_URI);
 
   const predictions = await Prediction.find();
   const matches = await Match.find({ status: "FINISHED" });
