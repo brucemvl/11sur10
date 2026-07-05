@@ -7,17 +7,6 @@ const User = require('../models/user');
 
 const calculatePoints = require('../utils/calculatePoints');
 
-const result = calculatePoints(
-  { home: match.score.home, away: match.score.away },
-  { home: p.predictedHome, away: p.predictedAway },
-  match.pointsSystem
-);
-
-user.points += p.points;
-
-if (result.type === "exact") user.exactScores++;
-if (result.type === "diff") user.goodDiffs++;
-if (result.type === "result") user.goodResults++;
 
 
 
@@ -54,14 +43,30 @@ router.get('/', async (req, res) => {
       const match = matchMap[p.matchId];
       if (!match) return;
 
-      const r = analyzePrediction(p, match);
       const user = leaderboard[p.userId];
-      if (!user) return;
+if (!user) return;
 
-      user.points += p.points || 0;
-      user.exactScores += r.exact;
-      user.goodDiffs += r.diff;
-      user.goodResults += r.result;
+const result = calculatePoints(
+  { home: match.score.home, away: match.score.away },
+  { home: p.predictedHome, away: p.predictedAway },
+  match.pointsSystem
+);
+
+if (user.username === "akeron75") {
+  console.log(
+    "Match :", p.matchId,
+    "Points enregistrés :", p.points,
+    "Barème :", match.pointsSystem
+  );
+}
+
+// On additionne les points déjà enregistrés
+user.points += p.points || 0;
+
+// On compte les types de pronostics
+if (result.type === "exact") user.exactScores++;
+if (result.type === "diff") user.goodDiffs++;
+if (result.type === "result") user.goodResults++;
     });
 
     // 🔹 Tri final
