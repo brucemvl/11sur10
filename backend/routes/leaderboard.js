@@ -5,34 +5,21 @@ const Prediction = require('../models/Prediction');
 const Match = require('../models/Match');
 const User = require('../models/user');
 
-// 🔹 Fonction de calcul des points (réutilisée de profile.js)
-function analyzePrediction(prediction, match) {
-  if (!match || match.status !== 'FINISHED') {
-    return { points: 0, exact: 0, diff: 0, result: 0 };
-  }
+const calculatePoints = require('../utils/calculatePoints');
 
-  const ph = prediction.predictedHome;
-  const pa = prediction.predictedAway;
-  const rh = match.score.home;
-  const ra = match.score.away;
+const result = calculatePoints(
+  { home: match.score.home, away: match.score.away },
+  { home: p.predictedHome, away: p.predictedAway },
+  match.pointsSystem
+);
 
-  // 1️⃣ Score exact
-  if (ph === rh && pa === ra) return { points: 3, exact: 1, diff: 0, result: 0 };
+user.points += p.points;
 
-  const pronoDiff = ph - pa;
-  const realDiff = rh - ra;
+if (result.type === "exact") user.exactScores++;
+if (result.type === "diff") user.goodDiffs++;
+if (result.type === "result") user.goodResults++;
 
-  // 2️⃣ Bon écart
-  if (pronoDiff === realDiff) return { points: 2, exact: 0, diff: 1, result: 0 };
 
-  // 3️⃣ Bon résultat (1N2)
-  const pronoWinner = pronoDiff > 0 ? 'HOME' : pronoDiff < 0 ? 'AWAY' : 'DRAW';
-  const realWinner = realDiff > 0 ? 'HOME' : realDiff < 0 ? 'AWAY' : 'DRAW';
-
-  if (pronoWinner === realWinner) return { points: 1, exact: 0, diff: 0, result: 1 };
-
-  return { points: 0, exact: 0, diff: 0, result: 0 };
-}
 
 // 🔹 Route leaderboard
 router.get('/', async (req, res) => {
@@ -71,7 +58,7 @@ router.get('/', async (req, res) => {
       const user = leaderboard[p.userId];
       if (!user) return;
 
-      user.points += r.points;
+      user.points += p.points || 0;
       user.exactScores += r.exact;
       user.goodDiffs += r.diff;
       user.goodResults += r.result;
