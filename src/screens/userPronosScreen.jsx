@@ -116,29 +116,7 @@ return(
       ).start();
     }, []);
 
-  function analyzePrediction(prediction, match) {
-    if (!match || match.status !== 'FINISHED') {
-      return { points: 0 };
-    }
-
-    const ph = prediction.predictedHome;
-    const pa = prediction.predictedAway;
-    const rh = match.score.home;
-    const ra = match.score.away;
-
-    const pronoDiff = ph - pa;
-    const realDiff = rh - ra;
-
-    if (ph === rh && pa === ra) return { points: 3 };
-    if (pronoDiff === realDiff) return { points: 2 };
-
-    const pronoWinner = pronoDiff > 0 ? 'HOME' : pronoDiff < 0 ? 'AWAY' : 'DRAW';
-    const realWinner = realDiff > 0 ? 'HOME' : realDiff < 0 ? 'AWAY' : 'DRAW';
-
-    if (pronoWinner === realWinner) return { points: 1 };
-
-    return { points: 0 };
-  }
+  
 
 
   const fetchUser = async () => {
@@ -185,24 +163,22 @@ return(
       return null;
     }
 
-    const r = analyzePrediction(p, match);
-
     return {
-      matchId: p.matchId,
-      homeTeam: match.homeTeam,
-      awayTeam: match.awayTeam,
-      homeLogo: match.homeLogo,
-      awayLogo: match.awayLogo,
-      predictedHome: p.predictedHome,
-      predictedAway: p.predictedAway,
-      realHome: match.score.home,
-      realAway: match.score.away,
-      points: r.points,
-      status: match.status,
-      kickoff: match.kickoff,
-      predictionId: p._id,
-reactions: p.reactions || [],
-    };
+  matchId: p.matchId,
+  homeTeam: match.homeTeam,
+  awayTeam: match.awayTeam,
+  homeLogo: match.homeLogo,
+  awayLogo: match.awayLogo,
+  predictedHome: p.predictedHome,
+  predictedAway: p.predictedAway,
+  realHome: match.score.home,
+  realAway: match.score.away,
+  points: p.points ?? 0,   // 👈 IMPORTANT
+  status: match.status,
+  kickoff: match.kickoff,
+  predictionId: p._id,
+  reactions: p.reactions || [],
+};
   })
   .filter(Boolean)
   .sort((a, b) => new Date(b.kickoff) - new Date(a.kickoff));
