@@ -61,8 +61,12 @@ if (user.username === "akeron75") {
 }
 
 // On additionne les points déjà enregistrés
-user.points += p.points || 0;
-
+if (typeof p.points === "number") {
+  user.points += p.points;
+} else {
+  // Ancien pronostic : on recalcule les points
+  user.points += result.points;
+}
 // On compte les types de pronostics
 if (result.type === "exact") user.exactScores++;
 if (result.type === "diff") user.goodDiffs++;
