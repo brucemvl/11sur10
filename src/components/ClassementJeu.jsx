@@ -10,6 +10,9 @@ export default function Leaderboard() {
   const [loading, setLoading] = useState(true);
   const [leaders, setLeaders] = useState([]);
   const navigation = useNavigation();
+  const [matches, setMatches] = useState()
+
+
 
   useEffect(() => {
     fetchLeaderboard();
@@ -27,9 +30,71 @@ export default function Leaderboard() {
     }
   };
 
+  useEffect(() => {
+    const fetchFixtures = async () => {
+      try {
+        const response = await fetch(
+          `https://v3.football.api-sports.io/fixtures?league=1&season=2026`,
+          {
+            method: "GET",
+            headers: {
+              "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+              "x-rapidapi-host": "v3.football.api-sports.io",
+            },
+          }
+        );
+        const json = await response.json();
+        setMatches(json.response);
+      } catch (error) {
+        console.error("Erreur lors du chargement des matchs :", error);
+      }
+    };
+
+    fetchFixtures();
+  }, []);
+
   if (loading) return <ActivityIndicator size="large" style={{ marginTop: 40 }} />;
 
   const top3 = leaders.slice(0, 3);
+
+
+  const currentStage = matches?.[matches.length - 3]?.league?.round;
+
+  const now = new Date();
+
+const currentMatch = matches.find(
+  m => new Date(m.fixture.date) > now
+);
+
+const currentRound = currentMatch?.league.round;
+
+function getPointsSystem(round) {
+  switch (round) {
+    case "Round of 32":
+      return { result: 1, diff: 2, exact: 4 };
+
+    case "Round of 16":
+      return { result: 2, diff: 4, exact: 6 };
+
+    case "Quarter-finals":
+      return { result: 3, diff: 5, exact: 7 };
+
+    case "Semi-finals":
+      return { result: 5, diff: 7, exact: 10 };
+
+      case "3rd place":
+      return { result: 5, diff: 7, exact: 10 };
+
+    case "Final":
+      return { result: 6, diff: 10, exact: 15 };
+
+    default:
+      return { result: 1, diff: 2, exact: 3 };
+  }
+}
+
+    console.log(currentRound)
+const currentSystem = getPointsSystem(currentRound);
 
   const bestExactScoreUser =
   leaders.length > 0
@@ -122,9 +187,10 @@ console.log(bestExactScoreUser)
 />
 
 <View style={styles.regles}>
-    <Text style={styles.reglesText}>🎯- Score exact: +3 points</Text>
-    <Text style={styles.reglesText}>⚖️- Bonne difference de buts: +2 points</Text>
-    <Text style={styles.reglesText}>✅- Bon resultat 1N2: +1 point</Text>
+    <Text style={styles.reglesText}>🎯 Score exact : +{currentSystem.exact}</Text>
+    <Text style={styles.reglesText}>⚖️ Bonne difference de buts : +{currentSystem.diff}</Text>
+    <Text style={styles.reglesText}>✅ Bon résultat : +{currentSystem.result}</Text>
+    
 </View>
 </ScrollView>
     </View>
