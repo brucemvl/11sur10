@@ -58,7 +58,6 @@ export default function Leaderboard() {
   const top3 = leaders.slice(0, 3);
 
 
-  const currentStage = matches?.[matches.length - 3]?.league?.round;
 
   const now = new Date();
 
@@ -93,7 +92,6 @@ function getPointsSystem(round) {
   }
 }
 
-    console.log(currentRound)
 const currentSystem = getPointsSystem(currentRound);
 
   const bestExactScoreUser =
@@ -106,7 +104,6 @@ const currentSystem = getPointsSystem(currentRound);
     : null;
 
 
-console.log(bestExactScoreUser)
 
   return (
     <View style={styles.container}>

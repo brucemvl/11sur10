@@ -5,7 +5,7 @@ export const championnats = [
         "country": "France",
         "logo": "https://media.api-sports.io/football/leagues/61.png",
         "flag": "https://media.api-sports.io/flags/fr.svg",
-        "season": 2025,
+        "season": 2026,
     },
 
     {
@@ -14,7 +14,7 @@ export const championnats = [
         "country": "England",
         "logo": "https://media.api-sports.io/football/leagues/39.png",
         "flag": "https://media.api-sports.io/flags/gb.svg",
-        "season": 2025,
+        "season": 2026,
     },
 
 
@@ -24,7 +24,7 @@ export const championnats = [
         "country": "Spain",
         "logo": "https://media.api-sports.io/football/leagues/140.png",
         "flag": "https://media.api-sports.io/flags/es.svg",
-        "season": 2025,
+        "season": 2026,
     },
 
     {
@@ -33,7 +33,7 @@ export const championnats = [
         "country": "Germany",
         "logo": "https://media.api-sports.io/football/leagues/78.png",
         "flag": "https://media.api-sports.io/flags/de.svg",
-        "season": 2025
+        "season": 2026
     },
 
     {
@@ -42,7 +42,7 @@ export const championnats = [
         "country": "Italy",
         "logo": "https://media.api-sports.io/football/leagues/135.png",
         "flag": "https://media.api-sports.io/flags/it.svg",
-        "season": 2025,
+        "season": 2026,
     },
 
     
@@ -52,7 +52,7 @@ export const championnats = [
         "country": "Portugal",
         "logo": "https://media.api-sports.io/football/leagues/94.png",
         "flag": "https://media.api-sports.io/flags/pt.svg",
-        "season": 2025,
+        "season": 2026,
     },
 
     {
@@ -61,7 +61,7 @@ export const championnats = [
         "country": "Pays-Bas",
         "logo": "https://media.api-sports.io/football/leagues/88.png",
         "flag": "https://media.api-sports.io/flags/nl.svg",
-        "season": 2025,
+        "season": 2026,
     },
 
     {
@@ -69,7 +69,7 @@ export const championnats = [
         "name": "Jupiler League",
         "country": "Belgique",
         "logo": "https://media.api-sports.io/football/leagues/144.png",
-        "season": 2025,
+        "season": 2026,
     },
 
     {
@@ -78,7 +78,7 @@ export const championnats = [
         "country": "Grece",
         "logo": "https://media.api-sports.io/football/leagues/197.png",
         "flag": "https://media.api-sports.io/flags/gr.svg",
-        "season": 2025,
+        "season": 2026,
     },
 
     {
@@ -87,7 +87,7 @@ export const championnats = [
         "country": "France",
         "logo": "https://media.api-sports.io/football/leagues/62.png",
         "flag": "https://media.api-sports.io/flags/fr.svg",
-        "season": 2025,
+        "season": 2026,
     },
 
     {
@@ -95,7 +95,7 @@ export const championnats = [
         "name": "National 1",
         "country": "France",
         "logo": "https://media.api-sports.io/football/leagues/63.png",
-        "season": 2025,
+        "season": 2026,
     },
 
 
@@ -195,7 +195,7 @@ export const europe = [
         "name": "UEFA Champions League",
         "country": "World",
         "logo": "https://media.api-sports.io/football/leagues/2.png",
-        "season": 2025,
+        "season": 2026,
     },
 
     {
@@ -203,14 +203,14 @@ export const europe = [
         "name": "UEFA Europa League",
         "country": "World",
         "logo": "https://media.api-sports.io/football/leagues/3.png",
-        "season": 2025,
+        "season": 2026,
     },
     {
         "id": 848,
         "name": "UEL Conference",
         "country": "World",
         "logo": "https://media.api-sports.io/football/leagues/848.png",
-        "season": 2025,
+        "season": 2026,
     },
 
 
@@ -224,7 +224,7 @@ export const national2 = [
         "name": "National 2 A",
         "country": "France",
         "logo": "https://media.api-sports.io/football/leagues/67.png",
-        "season": 2025,
+        "season": 2026,
     },
 
     {
@@ -232,7 +232,7 @@ export const national2 = [
         "name": "National 2 B",
         "country": "France",
         "logo": "https://media.api-sports.io/football/leagues/68.png",
-        "season": 2025,
+        "season": 2026,
     },
 
     {
@@ -240,7 +240,7 @@ export const national2 = [
         "name": "National 2 C",
         "country": "France",
         "logo": "https://media.api-sports.io/football/leagues/69.png",
-        "season": 2025,
+        "season": 2026,
     }
 ]
 
@@ -250,7 +250,7 @@ export const national3 = [
         "name": "National 3 A",
         "country": "France",
         "logo": "https://media.api-sports.io/football/leagues/461.png",
-        "season": 2025, 
+        "season": 2026, 
     },
 
     {
@@ -258,7 +258,7 @@ export const national3 = [
         "name": "National 3 B",
         "country": "France",
         "logo": "https://media.api-sports.io/football/leagues/462.png",
-        "season": 2025, 
+        "season": 2026, 
     },
 
     {
@@ -266,7 +266,7 @@ export const national3 = [
         "name": "National 3 C",
         "country": "France",
         "logo": "https://media.api-sports.io/football/leagues/463.png",
-        "season": 2025, 
+        "season": 2026, 
     },
 
     {
@@ -274,7 +274,7 @@ export const national3 = [
         "name": "National 3 D",
         "country": "France",
         "logo": "https://media.api-sports.io/football/leagues/464.png",
-        "season": 2025, 
+        "season": 2026, 
     },
 
     {
@@ -282,7 +282,7 @@ export const national3 = [
         "name": "National 3 E",
         "country": "France",
         "logo": "https://media.api-sports.io/football/leagues/465.png",
-        "season": 2025, 
+        "season": 2026, 
     },
 
     {
@@ -290,7 +290,7 @@ export const national3 = [
         "name": "National 3 F",
         "country": "France",
         "logo": "https://media.api-sports.io/football/leagues/466.png",
-        "season": 2025, 
+        "season": 2026, 
     },
 
     {
@@ -298,7 +298,7 @@ export const national3 = [
         "name": "National 3 G",
         "country": "France",
         "logo": "https://media.api-sports.io/football/leagues/1029.png",
-        "season": 2025, 
+        "season": 2026, 
     },
 
     {
@@ -306,7 +306,7 @@ export const national3 = [
         "name": "National 3 H",
         "country": "France",
         "logo": "https://media.api-sports.io/football/leagues/467.png",
-        "season": 2025, 
+        "season": 2026, 
     },
 
 ]

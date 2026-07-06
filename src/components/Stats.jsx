@@ -7,6 +7,7 @@ import { portraitsJoueurs } from "../datas/Portraits";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { useTranslation } from 'react-i18next';
+import cdm2026 from "../assets/cdm2026.png"
 
 
 function Stats({ match, injuries }) {
@@ -29,10 +30,10 @@ function Stats({ match, injuries }) {
     const fetchData = async () => {
       try {
         const urls = [
-          `https://v3.football.api-sports.io/teams/statistics?season=2025&team=${match.teams.home.id}&league=${match.league.id}`,
-          `https://v3.football.api-sports.io/teams/statistics?season=2025&team=${match.teams.away.id}&league=${match.league.id}`,
-          `https://v3.football.api-sports.io/players?league=${match.league.id}&season=2025&team=${match.teams.home.id}`,
-          `https://v3.football.api-sports.io/players?league=${match.league.id}&season=2025&team=${match.teams.away.id}`,
+          `https://v3.football.api-sports.io/teams/statistics?season=2026&team=${match.teams.home.id}&league=${match.league.id}`,
+          `https://v3.football.api-sports.io/teams/statistics?season=2026&team=${match.teams.away.id}&league=${match.league.id}`,
+          `https://v3.football.api-sports.io/players?league=${match.league.id}&season=2026&team=${match.teams.home.id}`,
+          `https://v3.football.api-sports.io/players?league=${match.league.id}&season=2026&team=${match.teams.away.id}`,
         ];
 
         const headers = {
@@ -308,7 +309,7 @@ const topScorerExt =
         </LinearGradient>
 
         <View style={{alignItems: "center", backgroundColor: "white", flexDirection: "row", gap: 25, paddingInline: 5,  paddingBlock: 5}} >
-            <Image source={{uri: match.league.logo}} style={{height: 48, width: 48, resizeMode: "contain"}} />
+            <Image source={match.league.id === 1 ? cdm2026 : {uri: match.league.logo}} style={{height: 48, width: 48, resizeMode: "contain"}} />
             <View>
                         {topScorerHome && (
 
@@ -339,7 +340,7 @@ const topScorerExt =
         </LinearGradient>
 
         <View style={{alignItems: "center", backgroundColor: "white", flexDirection: "row", gap: 25, paddingInline: 5,  paddingBlock: 5}} >
-            <Image source={{uri: match.league.logo}} style={{height: 48, width: 48, resizeMode: "contain"}} />
+            <Image source={match.league.id === 1 ? cdm2026 : {uri: match.league.logo}} style={{height: 48, width: 48, resizeMode: "contain"}} />
             <View>
                         {topAssistHome && (
 
@@ -369,7 +370,7 @@ const topScorerExt =
         <Text style={styles.title}>{t("mieuxNotés")}</Text>
         </LinearGradient>
         <View style={{alignItems: "center", backgroundColor: "white", flexDirection: "row", gap: 15, paddingInline: 5, paddingBlock: 5}} >
-            <Image source={{uri: match.league.logo}} style={{height: 48, width: 48, resizeMode: "contain"}} />
+            <Image source={match.league.id === 1 ? cdm2026 : {uri: match.league.logo}} style={{height: 48, width: 48, resizeMode: "contain"}} />
             <View>
                         {bestRatedHome && (
             <TouchableOpacity onPress={() => navigation.navigate('FicheJoueur', { id: bestRatedHome.id})} style={[styles.ligne, {borderBottomWidth: 2, gap: 5}]}>
