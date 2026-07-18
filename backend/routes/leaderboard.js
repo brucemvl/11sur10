@@ -52,13 +52,6 @@ const result = calculatePoints(
   match.pointsSystem
 );
 
-if (user.username === "akeron75") {
-  console.log(
-    "Match :", p.matchId,
-    "Points enregistrés :", p.points,
-    "Barème :", match.pointsSystem
-  );
-}
 
 // On additionne les points déjà enregistrés
 if (typeof p.points === "number") {

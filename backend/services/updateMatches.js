@@ -33,6 +33,7 @@ async function updateMatches() {
     if (stage === "Round of 16") pointsSystem = { result: 2, diff: 4, exact: 6 };
     if (stage === "Quarter-finals") pointsSystem = { result: 3, diff: 5, exact: 7 };
     if (stage === "Semi-finals") pointsSystem = { result: 5, diff: 7, exact: 10 };
+    if (stage === "3rd Place Final") pointsSystem = { result: 5, diff: 7, exact: 10 };
     if (stage === "Final") pointsSystem = { result: 6, diff: 10, exact: 15 };
 
     const match = await Match.findOneAndUpdate(
