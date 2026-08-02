@@ -87,7 +87,7 @@ useEffect(() => {
 
                                                 </View>
                                             </View>
-                                            <Image source={element.league.id === 2 ? logoUcl : element.league.id === 61 ? ligue1 : element.league.id === 15 ? fifaClubWc : { uri: element.league.logo }} style={styles.league} />
+                                            <Image source={element.league.id === 2 ? logoUcl : element.league.id === 15 ? fifaClubWc : { uri: element.league.logo }} style={styles.league} />
 
                                         </LinearGradient>
                                     </TouchableOpacity>

@@ -275,7 +275,7 @@ export default function Aujourdhui({ matchs, onRefresh }) {
   /* ====================== RENDER ====================== */
   return (
     <View style={[styles.container, isMediumScreen && {width: "90%"}]}>
-      <LinearGradient colors={["rgba(255, 255, 255, 0.1)", 'rgba(0, 0, 0, 0.35)']} style={{ alignItems: 'center', borderRadius: 15, backgroundColor: "steelblue", paddingInline: isMediumScreen ? 20 : 3, paddingBlock: isMediumScreen? 10 : 5, width: "100%" }} >
+      <LinearGradient colors={['rgba(255,255,255,0.08)', 'rgba(255,255,255,0.02)']} style={{ alignItems: 'center', borderRadius: 15, backgroundColor: "#385497", paddingInline: isMediumScreen ? 20 : 0, paddingBlock: isMediumScreen? 10 : 5, width: "100%" }} >
 
         {/* ----------- HEADER DATE ----------- */}
         <View style={styles.dateHeader}>
@@ -419,18 +419,19 @@ export default function Aujourdhui({ matchs, onRefresh }) {
                 accessible
                 accessibilityHint={`naviguer vers la fiche du match: ${match.teams.home.name} ${match.teams.away.name}`}
               >
-                <LinearGradient colors={['rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.25)']} style={[styles.match, isMediumScreen && {height: 60}]}>
+                <LinearGradient colors={['rgba(255, 255, 255, 0.28)', 'rgba(0, 0, 0, 0.54)']} style={[styles.match, isMediumScreen && {height: 60}]}>
 
                         <Image source={ league.id === 1 ? cdm2026 : {uri : league.logo }} style={[styles.leagueLogo, isMediumScreen && {height: 30}]} />
 
-                        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "flex-end", width: finished ? "38%" : "35%", gap: isMediumScreen ? 16 : 3 }}>
-                          <Text style={[styles.team, {textAlign: "right"}, isMediumScreen && {fontSize: 18}]}>{home}</Text>
+                        <View style={{ flexDirection: "column", alignItems: "center",   width: finished ? "35%" : "32%", gap: isMediumScreen ? 16 : 3 }}>
                           <Image source={{ uri: match.teams.home.logo }} style={[styles.teamLogo, isMediumScreen && {width: 36, height: 36}, match.league.id === 1 && {borderRadius: 25}]} />
+                                                  <Text style={[styles.team, {textAlign: "center"}, isMediumScreen && {fontSize: 18}]}>{home}</Text>
+
                         </View>
 
                         <LinearGradient
                           colors={['rgba(0,0,0,0.85)', 'rgba(110,85,20,1)', 'rgba(0,0,0,0.85)']}
-                          style={[styles.scoreBox, isLive && { width: "18%" }, finished && { width: "15%" }, isMediumScreen && {height: 42, marginInline: 4}]}
+                          style={[styles.scoreBox, isLive && { width: "24%" }, finished && { width: "22%" }, isMediumScreen && {height: 42, marginInline: 4}]}
                         >
                           <View style={[match.goals.home > match.goals.away ? isLive ? styles.liveView : styles.winner : match.goals.home < match.goals.away ? isLive ? styles.liveView : styles.looser : finished ? styles.neutre : {alignItems: "center", justifyContent: "center"}, isMediumScreen && {height: 32}]}>
                             <Text style={styles.score}>
@@ -457,15 +458,15 @@ export default function Aujourdhui({ matchs, onRefresh }) {
                           </View>
                         </LinearGradient>
 
-                        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "flex-start", width: finished ? "38%" : "33%", gap: isMediumScreen ? 16 : 3 }}>
+                        <View style={{ flexDirection: "column", alignItems: "center",  width: finished ? "35%" : "32%", gap: isMediumScreen ? 16 : 3 }}>
                           <Image source={{ uri: match.teams.away.logo }} style={[styles.teamLogo, isMediumScreen && {width: 36, height: 36}, match.league.id === 1 && {borderRadius: 25}]} />
-                          <Text style={[styles.team, {textAlign: "left"}, isMediumScreen && {fontSize: 18}]}>{away}</Text>
+                          <Text style={[styles.team, {textAlign: "center"}, isMediumScreen && {fontSize: 18}]}>{away}</Text>
                         </View>
 
                         {isLive || finished ? null :
                           <View style={[styles.rdv, isMediumScreen && {height: 38, borderRadius: 10}]}>
-                            <Text style={{ fontFamily: "Kanitalic", fontSize: isMediumScreen? 12 : 10.5, color: "white" }}>{formatDateAndTime(match.fixture.date).formattedDate}</Text>
-                            <Text style={{ fontFamily: "Kanitalic", fontSize: isMediumScreen? 12 : 10.5, color: "white" }}>{formatDateAndTime(match.fixture.date).formattedHour}</Text>
+                            <Text style={{ fontFamily: "Kanitalic", fontSize: isMediumScreen? 12 : 10.5, color: '#E2E8F0' }}>{formatDateAndTime(match.fixture.date).formattedDate}</Text>
+                            <Text style={{ fontFamily: "Kanitalic", fontSize: isMediumScreen? 12 : 10.5, color: '#E2E8F0'}}>{formatDateAndTime(match.fixture.date).formattedHour}</Text>
                           </View>
                         }
                       </LinearGradient>
@@ -544,7 +545,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   leagueLogo: {
-    width: "7%",
+    width: "8%",
     height: 25,
     resizeMode: "contain",
   },
@@ -556,39 +557,47 @@ const styles = StyleSheet.create({
 
   matchCard: {
 
-    marginBlock: 4,
+    marginVertical: 6, borderRadius: 22,  width: "100%", alignItems: "center", justifyContent: "center"
   },
   match: {
     flexDirection: 'row',
-    justifyContent: "space-around",
-    alignItems: 'center',
-    width: "100%",
-    backgroundColor: "aliceblue",
-    borderRadius: 10,
-    paddingBlock: 6,
-    paddingInline: 2,
-    height: 48
+     alignItems: 'center',
+      justifyContent: 'space-between',
+      width: "99%",
+        paddingVertical: 12,
+         paddingHorizontal: 10,
+          minHeight: 72,
+           backgroundColor: 'rgba(255,255,255,0.08)',
+            borderWidth: 1,
+             borderColor: 'rgba(255,255,255,0.10)',
+              borderRadius: 22,
+               shadowColor: '#000',
+                shadowOffset: { width: 0, height: 6 },
+                 shadowOpacity: 0.18, shadowRadius: 12,
+                  elevation: 5,
   },
   team: {
-    color: '#000000ff',
-    fontFamily: "Bella",
-    fontSize: 13.5,
+    color: '#FFFFFF', fontFamily: 'Bella', fontSize: 13.5, lineHeight: 16,
 
   },
   teamLogo: {
-    height: 29,
-    width: 29,
+    height: 32,
+    width: 32,
     resizeMode: "contain"
   },
   scoreBox: {
-    paddingVertical: 3,
-    borderRadius: 8,
-    justifyContent: "center",
-    alignItems: "center",
-    marginInline: 3,
-    flexDirection: "row",
-    width: "13%",
-    height: 36
+    flexDirection: 'row',
+     alignItems: 'center',
+      justifyContent: 'center',
+       gap: 4,
+        paddingHorizontal: 8,
+         paddingVertical: 6,
+          width: "15%",
+           height: 42,
+            borderRadius: 16,
+             backgroundColor: 'rgba(0,0,0,0.45)',
+              borderWidth: 1,
+               borderColor: 'rgba(255,255,255,0.10)',
   },
   score: {
     color: '#fff',
@@ -596,33 +605,17 @@ const styles = StyleSheet.create({
     fontSize: 16, 
   },
   rdv: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: "10%",
-    backgroundColor: "black",
-    borderRadius: 5,
+    alignItems: 'center', justifyContent: 'center', width: "13%", paddingVertical: 6, backgroundColor: 'rgba(255,255,255,0.10)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.10)', borderRadius: 14,
   },
   winner: {
-    backgroundColor: "green",
-    borderRadius: 4,
-    alignItems: "center",
-    justifyContent: "center",
-    width: "32%",
+    backgroundColor: '#22C55E', borderRadius: 10, alignItems: 'center', justifyContent: 'center', width: 24, height: 28,
   },
   looser: {
-    backgroundColor: "red",
-    borderRadius: 4,
-    alignItems: "center",
-    justifyContent: "center",
-    width: "32%"
+    backgroundColor: '#EF4444', borderRadius: 10, alignItems: 'center', justifyContent: 'center', width: 24, height: 28,
 
   },
   neutre: {
-    backgroundColor: "grey",
-    borderRadius: 4,
-    alignItems: "center",
-    justifyContent: "center",
-    width: "32%"
+    backgroundColor: '#64748B', borderRadius: 10, alignItems: 'center', justifyContent: 'center', width: 24, height: 28,
   },
   liveView: {
     alignItems: "center",

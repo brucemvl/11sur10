@@ -51,7 +51,8 @@ const COMPETITIONS = {
        miami: 'https://v3.football.api-sports.io/fixtures?team=9568&season=2026',
         leaguecup: 'https://v3.football.api-sports.io/fixtures?league=48&season=2026',
          dfbpokal: 'https://v3.football.api-sports.io/fixtures?league=81&season=2026',
-         amicaux: 'https://v3.football.api-sports.io/fixtures?league=10&season=2026'
+         amicaux: 'https://v3.football.api-sports.io/fixtures?league=10&season=2026',
+         uefasupercup: 'https://v3.football.api-sports.io/fixtures?league=531&season=2026'
 };
 
 const Home = ({ selectedTeamIds }) => {
