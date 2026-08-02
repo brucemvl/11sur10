@@ -178,6 +178,7 @@ const styles = StyleSheet.create({
     marginInline: 5,
     borderRadius: 15,
     marginBottom: 110,
+    width: "96%"
   },
   header: {
     fontSize: 20,

@@ -62,12 +62,24 @@ function Tableau({ id, currentRound, rounds }) {
     }).start();
   };
 
-  const [rotateJournee, setRotateJournee] = useState(new Animated.Value(0));
+  const roundOpacity = useRef(new Animated.Value(1)).current; 
+  const roundTranslate = useRef(new Animated.Value(0)).current; 
+  const tableOpacity = useRef(new Animated.Value(1)).current;
 
-  const rotateJourneeInterpolate = rotateJournee.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0deg', '360deg'],
-  });
+   const animateTransition = (dir) => {
+     const offset = dir === 'right' ? 40 : -40;
+      roundOpacity.setValue(0);
+       roundTranslate.setValue(offset);
+        tableOpacity.setValue(0);
+          
+         Animated.parallel([ Animated.timing(roundOpacity, { toValue: 1, duration: 300, useNativeDriver: true, }),
+           Animated.timing(roundTranslate, { toValue: 0, duration: 300, useNativeDriver: true, }), ]).start();
+            
+           Animated.parallel([ Animated.timing(tableOpacity, { toValue: 1, duration: 350, useNativeDriver: true, }),
+              ]).start();
+             };
+
+  
 
   // 🔁 Met à jour l'index à partir du round actuel au montage
   useEffect(() => {
@@ -101,30 +113,15 @@ function Tableau({ id, currentRound, rounds }) {
     fetchFixtures();
   }, [id]);
 
-  const animateSlide = (dir) => {
-    slideAnim.setValue(dir === "right" ? 300 : -300);
-    Animated.spring(slideAnim, {
-      toValue: 0,
-      friction: 6,
-      tension: 60,
-      useNativeDriver: true,
-    }).start();
-  };
+  
 
   const prev = () => {
     if (index > 0) {
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
       setDirection("left");
-      animateSlide("left");
+      animateTransition('left');;
       setIndex(index - 1);
-      Animated.timing(rotateJournee, {
-        toValue: 1, // Valeur cible de la rotation
-        duration: 300,
-        useNativeDriver: true,
-      }).start(() => {
-        // Réinitialiser la valeur de la rotation à 0 après l'animation
-        rotateJournee.setValue(0);
-      });
+      
     }
   };
 
@@ -132,16 +129,9 @@ function Tableau({ id, currentRound, rounds }) {
     if (index < rounds.length - 1) {
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
       setDirection("right");
-      animateSlide("right");
+      animateTransition('right');
       setIndex(index + 1);
-      Animated.timing(rotateJournee, {
-        toValue: 1, // Valeur cible de la rotation
-        duration: 300,
-        useNativeDriver: true,
-      }).start(() => {
-        // Réinitialiser la valeur de la rotation à 0 après l'animation
-        rotateJournee.setValue(0);
-      });
+      
     }
   };
 
@@ -161,7 +151,7 @@ function Tableau({ id, currentRound, rounds }) {
 
   return (
     <LinearGradient
-      colors={id === 15 ? ["#505050", "#000"] : ['rgb(50, 183, 255)', 'rgb(16, 19, 49)']}
+      colors={id === 15 ? ["#505050", "#000"] : ["rgb(50, 183, 255)", '#0f57aa', '#0F172A']}
       style={[styles.container, isMediumScreen && {paddingInline: 20}]}
     >
       <Text style={id === 15 ? styles.titleWc : styles.title}>{t("titreTableau")}</Text>
@@ -182,7 +172,7 @@ function Tableau({ id, currentRound, rounds }) {
         <Animated.Text
   style={[
     id === 15 ? styles.roundTextWc : styles.roundText,
-    { transform: [{ rotate: rotateJourneeInterpolate }] },
+    { transform: [ { translateX: roundTranslate } ] },
     isMediumScreen && { fontSize: 22, paddingTop: 10 }
   ]}
 >
@@ -214,7 +204,7 @@ function Tableau({ id, currentRound, rounds }) {
         </TouchableOpacity>
       </View>
 
-      <Animated.View style={{ transform: [{ translateX: slideAnim }], width: "100%" }}>
+      <Animated.View style={{ opacity: tableOpacity, width: "100%" }}>
         {filteredMatches.map(match => (
           <Match
             key={match.fixture.id}
@@ -237,9 +227,8 @@ function Tableau({ id, currentRound, rounds }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBlock: 15,
-    paddingHorizontal: 4,
-    borderRadius: 15,
+    padding: 10,
+    borderRadius: 25,
     alignItems: "center",
     marginHorizontal: 10
   },

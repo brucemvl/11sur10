@@ -6,59 +6,54 @@ import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { teamName } from '../datas/teamNames';
 
-function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id, date}) {
+function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id, date }) {
 
   const { width } = useWindowDimensions();
-      
-          const isMediumScreen = width <= 1024 && width > 767;
 
-    const [fontsLoaded] = useFonts({
-        "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
-        
-      });
+  const isMediumScreen = width <= 1024 && width > 767;
 
-      const navigation = useNavigation();
+  const [fontsLoaded] = useFonts({
+    "Kanito": require("../assets/fonts/Kanit/Kanit-Medium.ttf"),
+
+  });
+
+  const navigation = useNavigation();
 
   const dateh = new Date(date);
   const formattedDate = `${dateh.getDate().toString().padStart(2, '0')}/${(dateh.getMonth() + 1).toString().padStart(2, '0')}`;
   const formattedHour = `${dateh.getHours().toString().padStart(2, '0')}h${dateh.getMinutes().toString().padStart(2, '0')}`;
 
 
-  return (
-   
-                  <LinearGradient colors={['rgba(0, 0, 0, 0.09)', 'rgba(255, 255, 255, 0.1)', 'rgba(0, 0, 0, 0.4)']} style={{borderRadius: 10, marginVertical: 4, backgroundColor: "white", borderWidth: 1, borderColor: "black"}} >
-                     <TouchableOpacity
-      style={styles.match}
-      onPress={() => navigation.navigate('FicheMatch', { id })}  // Naviguer vers la fiche du match
-      accessible accessibilityHint={`naviguer vers la fiche du match`}
-    >
-
-      <View style={styles.dateheure}>
-        <Text style={{fontSize: isMediumScreen ? 10 : 8.5, fontFamily: "Kanitalic", color: "white"}}>{formattedDate}</Text>
-        <Text style={{fontSize: isMediumScreen ? 10 : 8.5, fontFamily: "Kanitalic", color: "white"}}>{formattedHour}</Text>
+  return (<TouchableOpacity onPress={() => navigation.navigate('FicheMatch', { id })} accessibilityRole="button" accessibilityHint="Naviguer vers la fiche du match" >
+    <LinearGradient colors={['rgba(255,255,255,0.12)', 'rgba(255,255,255,0.06)',]} style={styles.card} >
+      <View style={styles.dateBadge}>
+        <Text style={styles.dateText}>{formattedDate}</Text>
+        <Text style={styles.timeText}>{formattedHour}</Text>
+      </View>
+      <View style={styles.teamBlock}>
+        <Image style={styles.logo} source={{ uri: logoDom }} />
+        <Text numberOfLines={2} style={[styles.teamName, isMediumScreen && { fontSize: 15 }]} > {teamName[equipeDom] || equipeDom} </Text>
       </View>
 
-      <Text style={[styles.equipeDom, isMediumScreen && {fontSize: 15}]}>{teamName[equipeDom] || equipeDom}</Text>
-      <Image style={[styles.logoDom, isMediumScreen && {height: 35}]} source={{ uri: logoDom }} />
+      <View style={styles.scoreContainer}>
+        {scoreDom === null ?
+          <View style={styles.pendingBadge}>
+            <Text style={styles.pendingText}>VS</Text> </View>
+          :
+          <View style={styles.scoreRow}> <View style={[styles.scoreBadge, scoreDom > scoreExt ? styles.scoreWinner : scoreDom === scoreExt ? styles.scoreDraw : styles.scoreLoser,]} >
+            <Text style={styles.scoreText}>{scoreDom}</Text>
+          </View>
+            <View style={[styles.scoreBadge, scoreExt > scoreDom ? styles.scoreWinner : scoreDom === scoreExt ? styles.scoreDraw : styles.scoreLoser,]} >
+              <Text style={styles.scoreText}>{scoreExt}</Text>
+            </View>
+          </View>} </View>
 
-      {scoreDom === scoreExt ? (
-        <View style={styles.matchScore}>
-          <Text style={[scoreDom === null ? styles.notStarted : styles.nul, isMediumScreen && {width: 25, height: 30, fontSize: 18}]}>{scoreDom === null ? "-" : scoreDom}</Text>
-          <Text style={[scoreExt === null ? styles.notStarted : styles.nul, isMediumScreen && {width: 25, height: 30, fontSize: 18}]}>{scoreExt === null ? "-" : scoreExt}</Text>
-        </View>
-      ) : (
-        <View style={styles.matchScore}>
-          <Text style={[scoreDom > scoreExt ? styles.winner : styles.looser, isMediumScreen && {width: 25, height: 30, fontSize: 18}]}>{scoreDom}</Text>
-          <Text style={[scoreExt > scoreDom ? styles.winner : styles.looser, isMediumScreen && {width: 25, height: 30, fontSize: 18}]}>{scoreExt}</Text>
-        </View>
-      )}
-
-      <Image style={[styles.logoExt, isMediumScreen && {height: 35}]} source={{ uri: logoExt }} />
-      <Text style={[styles.equipeExt, isMediumScreen && {fontSize: 15}]}>{teamName[equipeExt] || equipeExt}</Text>
-      </TouchableOpacity>
-      </LinearGradient>
-    
-  );
+      <View style={styles.teamBlock}>
+        <Image style={styles.logo} source={{ uri: logoExt }} />
+        <Text numberOfLines={2} style={[styles.teamName, isMediumScreen && { fontSize: 15 }]} > {teamName[equipeExt] || equipeExt} </Text>
+      </View>
+    </LinearGradient>
+  </TouchableOpacity>);
 }
 
 Match.propTypes = {
@@ -71,98 +66,99 @@ Match.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  match: {
+  card: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingBlock: 7,
-    width: "100%",
-    justifyContent: "center",
-    paddingInline: 3
+    justifyContent: 'space-between',
+    paddingVertical: 14,
+    paddingHorizontal: 12,
+    marginVertical: 6,
+    borderRadius: 22,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.12)',
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.18,
+    shadowRadius: 12,
+    elevation: 6,
   },
-  dateheure: {
-    alignItems: 'flex-start',
-    width: "9%",
-    backgroundColor: "black",
-    borderRadius: 6,
-    alignItems: "center",
-    padding: 1
-  },
-  equipeDom: {
-    fontSize: 13,
-    width: "26%",
-textAlign: "center",
-fontFamily: "Bella"
-
-  },
-  logoDom: {
-    width: "9%",
-    height: 30,
-    marginRight: 10,
-    objectFit: "contain"
-  },
-  matchScore: {
-    flexDirection: 'row',
+  dateBadge: {
+    width: 54,
     alignItems: 'center',
-    gap: 5,
-    width: "14%",
-    justifyContent: "space-evenly"
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0,0,0,0.35)',
+    borderRadius: 14,
+    paddingVertical: 6,
   },
-  nul: {
+  dateText: {
+    fontSize: 11,
+    color: '#FFFFFF',
+    fontFamily: 'Kanitalic',
+  },
+  timeText: {
+    fontSize: 10,
+    color: '#C7D2FE',
+    marginTop: 2,
+    fontFamily: 'Kanitalic',
+  },
+  teamBlock: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    paddingHorizontal: 6,
+  },
+  logo: {
+    width: 34,
+    height: 34,
+    resizeMode: 'contain',
+  },
+  teamName: {
+    
+    textAlign: 'center',
+    color: '#FFFFFF',
+    fontFamily: 'Bella',
+    lineHeight: 16,
+  },
+  scoreContainer: {
+    width: 84,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  scoreRow: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  scoreBadge: {
+    minWidth: 32,
+    height: 36,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  scoreWinner: { backgroundColor: '#22C55E', },
+  scoreLoser: { backgroundColor: '#EF4444', },
+  scoreDraw: { backgroundColor: '#64748B', },
+  scoreText: {
+    color: '#FFFFFF',
     fontSize: 16,
-    backgroundColor: 'grey',
-    color: "white",
-    height: 25,
-    width: 21,
-    borderRadius: 5,
-    textAlign: "center",
-    fontFamily: "Kanitt"
-
+    fontFamily: 'Kanitt',
   },
-  notStarted: {
-fontSize: 16,
-    backgroundColor: 'black',
-    color: "white",
-    height: 25,
-    width: 21,
-    borderRadius: 5,
-    textAlign: "center",
-    fontFamily: "Kanitt"
+  pendingBadge: {
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 14,
+    backgroundColor: 'rgba(255,255,255,0.12)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.12)',
   },
-  winner: {
-    fontSize: 16,
-    backgroundColor: '#32b642',
-    color: "white",
-    height: 25,
-    width: 21,
-    borderRadius: 5,
-    textAlign: "center",
-    fontFamily: "Kanitt"
-
+  pendingText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    letterSpacing: 1,
+    fontFamily: 'Kanitt',
   },
-  looser: {
-    fontSize: 16,
-    backgroundColor: 'red',
-    color: "white",
-    height: 25,
-    width: 21,
-    borderRadius: 5,
-textAlign: "center",
-fontFamily: "Kanitt"
-
-  },
-  logoExt: {
-    width: "9%",
-    height: 30,
-    marginLeft: 10,
-    objectFit: "contain",
-  },
-  equipeExt: {
-    fontSize: 13,
-    width: "28%",
-textAlign: "center",
-fontFamily: "Bella"
-},
-
 });
 
 export default Match;

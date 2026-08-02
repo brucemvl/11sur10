@@ -158,7 +158,8 @@ const styles = StyleSheet.create({
     paddingTop: 50,
             paddingBottom: 140,
             flexGrow: 1,
-            alignItems: "center"
+            alignItems: "center",
+            width: "100%"
 
   },
   

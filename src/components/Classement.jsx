@@ -62,7 +62,7 @@ function Classement({ id }) {
 
       const comp = allCompetitions.find((c) => c.id === id);
 
-    const season = comp?.season ?? 2025; // saison par défaut si rien trouvé
+    const season = comp?.season ?? 2026; // saison par défaut si rien trouvé
 
 
       const res = await fetch(
@@ -95,7 +95,7 @@ function Classement({ id }) {
 
     const comp = allCompetitions.find((c) => c.id === id);
 
-    const season = comp?.season ?? 2025; // saison par défaut si rien trouvé
+    const season = comp?.season ?? 2026; // saison par défaut si rien trouvé
 
     try {
       const res = await fetch(
@@ -125,7 +125,7 @@ function Classement({ id }) {
 
 
     // Si non trouvée → fallback
-    const season = comp?.season ?? 2025;
+    const season = comp?.season ?? 2026;
 
     try {
       const res = await fetch(

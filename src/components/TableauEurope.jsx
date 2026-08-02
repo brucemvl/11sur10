@@ -49,7 +49,7 @@ function TableauEurope({ id, currentRound, rounds }) {
     const fetchFixtures = async () => {
       try {
         const response = await fetch(
-          `https://v3.football.api-sports.io/fixtures?league=${id}&season=2025`,
+          `https://v3.football.api-sports.io/fixtures?league=${id}&season=2026`,
           {
             method: "GET",
             headers: {
