@@ -34,6 +34,7 @@ import nations from "../assets/trophees/nations.png"
 import fifa from "../assets/trophees/fifa.png"
 import clubwc from "../assets/trophees/cdmclub.png"
 import messi from "../assets/trophees/messi.jpg"
+import wc from "../assets/cdm2026.png"
 
 import dembeleselec from "../assets/portraits/selection/dembouz.webp"
 import doueselec from "../assets/portraits/selection/doue.webp"
@@ -85,7 +86,7 @@ function FicheJoueur() {
 
   const [joueur, setJoueur] = useState(null);
   const [palmares, setPalmares] = useState(null);
-  const [annee, setAnnee] = useState(2025)
+  const [annee, setAnnee] = useState(2026)
   const [opaque, setOpaque] = useState(false)
   const [opaque2, setOpaque2] = useState(true)
 
@@ -147,13 +148,13 @@ function FicheJoueur() {
 
 
   const prec = () => {
-    if (annee > 2025 - 4) {
+    if (annee > 2026 - 4) {
       setAnnee((prev) => prev - 1)
     }
-    if (annee === 2022) {
+    if (annee === 2023) {
       setOpaque(true)
     }
-    if (annee === 2025) {
+    if (annee === 2026) {
       setOpaque2(false)
     }
 
@@ -168,13 +169,13 @@ function FicheJoueur() {
   }
 
   const next = () => {
-    if (annee < 2025) {
+    if (annee < 2026) {
       setAnnee((next) => next + 1)
     }
-    if (annee === 2021) {
+    if (annee === 2022) {
       setOpaque(false)
     }
-    if (annee === 2024) {
+    if (annee === 2025) {
       setOpaque2(true)
     }
 
@@ -633,7 +634,7 @@ function FicheJoueur() {
                           <Text style={[styles.cle, isMediumScreen && { fontSize: 18 }]}>{t("rouges")}: </Text><Text style={[styles.valeur, isMediumScreen && { fontSize: 20 }]}> {element.cards.red}</Text>
                         </View>
                       </View>
-                      <Image source={element.league.id === 15 ? fifaclubwc : { uri: element.league.logo }} style={styles.logoCompet} />
+                      <Image source={element.league.id === 15 ? fifaclubwc : element.league.id === 1 ? wc : { uri: element.league.logo }} style={styles.logoCompet} />
                     </View>
                   </View>
                   : null

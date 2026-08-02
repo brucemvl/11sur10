@@ -371,7 +371,7 @@ if (!stats) {
         </View>
 
         <Text style></Text>
-        <Text style={styles.season}>2025/2026</Text>
+        <Text style={styles.season}>2026/2027</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={true} style={styles.leagues}>
           {leagues.map((element) => {
             if (element.league.name === "Friendlies Clubs") return null; const isSelected = selectedId === element.league.id;

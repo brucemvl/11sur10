@@ -51,7 +51,7 @@ function Filtres() {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.competitions}
         >
-            {/* SELECTIONS */}
+            {/* SELECTIONS 
             
             {selections.map(({ id, logo, name }) =>
                 id === 1 &&
@@ -64,7 +64,7 @@ function Filtres() {
                     onPress: () => navigation.navigate('FicheSelections', { id })
                 })
             )}
-                
+              */}  
 
             {/* EUROPE */}
             {europe.map(({ id, logo, name }) =>
@@ -117,7 +117,7 @@ function Filtres() {
 
 const styles = StyleSheet.create({
     competitions: {
-        paddingVertical: 2,
+        paddingVertical: 6,
         alignItems: "center",
     },
 
@@ -125,6 +125,10 @@ const styles = StyleSheet.create({
     touch: {
         height: 82,
         width: 82,
+        shadowColor: "#000",
+        shadowOpacity: 0.5,
+        shadowRadius: 3,
+        shadowOffset: {width: 0, height: 1}
         
     },
 
@@ -136,12 +140,13 @@ const styles = StyleSheet.create({
     // Le cercle intérieur
     lien: {
         flex: 1,
-        borderWidth: 6,
+        borderWidth: 3,
         borderColor: 'rgb(11, 19, 81)',
         borderRadius: 999,
         justifyContent: "center",
         alignItems: "center",
-        overflow: "hidden"
+        overflow: "hidden",
+        
     },
 
     // Logo au centre

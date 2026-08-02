@@ -32,9 +32,10 @@ const API_KEY = "5ff22ea19db11151a018c36f7fd0213b";
 
 // 📌 Liste des compétitions (facile à maintenir)
 const COMPETITIONS = {
-  ucl: "https://v3.football.api-sports.io/fixtures?league=2&season=2025",
-     wc: "https://v3.football.api-sports.io/fixtures?league=1&season=2026",
+  /*ucl: "https://v3.football.api-sports.io/fixtures?league=2&season=2026",*/
+    /* wc: "https://v3.football.api-sports.io/fixtures?league=1&season=2026",*/
      tropheechampions: "https://v3.football.api-sports.io/fixtures?league=526&season=2026",
+     amicauxclub: "https://v3.football.api-sports.io/fixtures?league=667&season=2026",
    /* supercoupeespagne: "https://v3.football.api-sports.io/fixtures?league=556&season=2026", 
   france: "https://v3.football.api-sports.io/fixtures?league=61&season=2026",
   england: "https://v3.football.api-sports.io/fixtures?league=39&season=2026",
@@ -43,13 +44,13 @@ const COMPETITIONS = {
   italy: "https://v3.football.api-sports.io/fixtures?league=135&season=2026",
   cdf: 'https://v3.football.api-sports.io/fixtures?league=66&season=2026',
    fac: 'https://v3.football.api-sports.io/fixtures?league=45&season=2026',
-   copa: 'https://v3.football.api-sports.io/fixtures?league=143&season=2026', */
-    uel: 'https://v3.football.api-sports.io/fixtures?league=3&season=2025',
-     conference: 'https://v3.football.api-sports.io/fixtures?league=848&season=2025',
-      arabiesaoudite: 'https://v3.football.api-sports.io/fixtures?league=307&season=2025',
+   copa: 'https://v3.football.api-sports.io/fixtures?league=143&season=2026', 
+    uel: 'https://v3.football.api-sports.io/fixtures?league=3&season=2026',
+     conference: 'https://v3.football.api-sports.io/fixtures?league=848&season=2026', */
+      arabiesaoudite: 'https://v3.football.api-sports.io/fixtures?league=307&season=2026',
        miami: 'https://v3.football.api-sports.io/fixtures?team=9568&season=2026',
-        leaguecup: 'https://v3.football.api-sports.io/fixtures?league=48&season=2025',
-         dfbpokal: 'https://v3.football.api-sports.io/fixtures?league=81&season=2025',
+        leaguecup: 'https://v3.football.api-sports.io/fixtures?league=48&season=2026',
+         dfbpokal: 'https://v3.football.api-sports.io/fixtures?league=81&season=2026',
          amicaux: 'https://v3.football.api-sports.io/fixtures?league=10&season=2026'
 };
 

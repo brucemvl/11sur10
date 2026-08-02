@@ -149,6 +149,8 @@ const backgroundSource =
   let round = match.league.round;
 
   if (round.includes("Qualifying Round")) round = "Match de Qualification";
+
+  else if (round.includes("Friendlies")) round = "Match Amical";
   else if (round === "Knockout Round Play-offs" || round === "Play-offs") round = "Barrages";
   else if (round === "Extra Preliminary Round") round = "Tour Préliminaire";
   else if (["Regular Season - 1", "League Stage - 1", "Group Stage - 1"].includes(round)) round = "1ere Journée";
