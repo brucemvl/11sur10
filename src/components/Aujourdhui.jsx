@@ -419,7 +419,7 @@ export default function Aujourdhui({ matchs, onRefresh }) {
                 accessible
                 accessibilityHint={`naviguer vers la fiche du match: ${match.teams.home.name} ${match.teams.away.name}`}
               >
-                <LinearGradient colors={['rgba(255, 255, 255, 0.28)', 'rgba(0, 0, 0, 0.54)']} style={[styles.match, isMediumScreen && {height: 60}]}>
+                <LinearGradient colors={['rgba(255, 255, 255, 0.4)', 'rgba(0, 0, 0, 0.6)']} style={[styles.match, isMediumScreen && {height: 60}]}>
 
                         <Image source={ league.id === 1 ? cdm2026 : {uri : league.logo }} style={[styles.leagueLogo, isMediumScreen && {height: 30}]} />
 
@@ -465,8 +465,8 @@ export default function Aujourdhui({ matchs, onRefresh }) {
 
                         {isLive || finished ? null :
                           <View style={[styles.rdv, isMediumScreen && {height: 38, borderRadius: 10}]}>
-                            <Text style={{ fontFamily: "Kanitalic", fontSize: isMediumScreen? 12 : 10.5, color: '#E2E8F0' }}>{formatDateAndTime(match.fixture.date).formattedDate}</Text>
-                            <Text style={{ fontFamily: "Kanitalic", fontSize: isMediumScreen? 12 : 10.5, color: '#E2E8F0'}}>{formatDateAndTime(match.fixture.date).formattedHour}</Text>
+                            <Text style={{ fontFamily: "Kanitalic", fontSize: isMediumScreen? 12 : 10.5, color: '#ffffff' }}>{formatDateAndTime(match.fixture.date).formattedDate}</Text>
+                            <Text style={{ fontFamily: "Kanitalic", fontSize: isMediumScreen? 12 : 10.5, color: '#ffffff'}}>{formatDateAndTime(match.fixture.date).formattedHour}</Text>
                           </View>
                         }
                       </LinearGradient>
@@ -605,7 +605,7 @@ const styles = StyleSheet.create({
     fontSize: 16, 
   },
   rdv: {
-    alignItems: 'center', justifyContent: 'center', width: "13%", paddingVertical: 6, backgroundColor: 'rgba(255,255,255,0.10)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.10)', borderRadius: 14,
+    alignItems: 'center', justifyContent: 'center', width: "13%", paddingVertical: 6, backgroundColor: 'rgba(0, 0, 0, 0.15)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.10)', borderRadius: 14,
   },
   winner: {
     backgroundColor: '#22C55E', borderRadius: 10, alignItems: 'center', justifyContent: 'center', width: 24, height: 28,
