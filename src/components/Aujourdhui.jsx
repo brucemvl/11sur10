@@ -381,11 +381,11 @@ export default function Aujourdhui({ matchs, onRefresh }) {
     />
   }
 >
-  {matchesOfDay.length === 0 ? (
+  {matchesOfDay.length === 0 ? 
     <View style={styles.emptyContainer}>
       <Text style={styles.emptyText}>{t("no_match_today")}</Text>
     </View>
-  ) : (
+   : 
     leagues.map(leagueId => {
       const leagueMatches = matchesOfDay.filter(
         m => m.league.id === leagueId
@@ -476,7 +476,7 @@ export default function Aujourdhui({ matchs, onRefresh }) {
         </View>
       );
     })
-  )}
+  }
 </ScrollView>
       </LinearGradient>
     </View>
@@ -593,11 +593,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 8,
          paddingVertical: 6,
           width: "15%",
-           height: 42,
+           height: 46,
             borderRadius: 16,
              backgroundColor: 'rgba(0,0,0,0.45)',
               borderWidth: 1,
-               borderColor: 'rgba(255,255,255,0.10)',
+               borderColor: 'rgba(255, 255, 255, 0.3)',
   },
   score: {
     color: '#fff',
@@ -633,7 +633,8 @@ const styles = StyleSheet.create({
   liveSticker: {
     justifyContent: "space-between",
     marginInline: 4,
-    alignItems: "center"
+    alignItems: "center",
+    gap: 4
   },
   daysScroll: {
     alignItems: 'center',

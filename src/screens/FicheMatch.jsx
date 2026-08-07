@@ -57,6 +57,8 @@ const { t } = useTranslation()
     const [selected9, setSelected9] = useState(false);
         const [selected10, setSelected10] = useState(false);
 
+      
+
 
 
 
@@ -623,44 +625,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     ficheSelecteur: {
-        flexDirection: 'row',
-        marginBottom: 10,
-        paddingBlock: 15
+        flexDirection: "row", marginBottom: 18, paddingVertical: 16, paddingHorizontal: 4,
     },
     tab: {
-        backgroundColor: "lightgrey",
-        width: 86,
-        height: 40,
-        borderRadius: 5,
-        marginInline: 4,
-        alignItems: "center",
-        justifyContent: "center"
+        backgroundColor: "#393d48", width: 86, paddingHorizontal: 4, height: 42, borderRadius: 21, marginRight: 10, alignItems: "center", justifyContent: "center", borderWidth: 1, borderColor: "#1F2937",
 
     },
     text: {
-fontFamily: "Kanitus",
-fontSize: 14.2,
+color: "#D1D5DB", fontSize: 14, fontFamily: "Kanitus",
     },
     selectedTab: {
         
-        backgroundColor: '#007BFF',
-        width: 92,
-        height: 42,
-        borderRadius: 5,
-        shadowColor: '#000',
-    shadowOffset: { width: 0, height: 8 },
-     shadowOpacity: 0.6,
-     shadowRadius: 3.5,
-     elevation: 5,
-        marginInline: 4,
-        alignItems: "center",
-        justifyContent: "center"
+        backgroundColor: "#2563EB", width: 92, paddingHorizontal: 4, height: 42, borderRadius: 21, marginRight: 10, alignItems: "center", justifyContent: "center", shadowColor: "#2563EB", shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.35, shadowRadius: 6, elevation: 6,
 
     },
     selectedText: {
-fontSize: 14.5,
-        color: '#fff',
-                fontFamily: "Kanito", 
+color: "#FFFFFF", fontSize: 14, fontFamily: "Kanito",
 
     },
     match: {
