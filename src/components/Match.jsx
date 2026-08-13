@@ -24,7 +24,8 @@ function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id,
   const formattedHour = `${dateh.getHours().toString().padStart(2, '0')}h${dateh.getMinutes().toString().padStart(2, '0')}`;
 
 
-  return (<TouchableOpacity onPress={() => navigation.navigate('FicheMatch', { id })} accessibilityRole="button" accessibilityHint="Naviguer vers la fiche du match" >
+  return (
+  <TouchableOpacity onPress={() => navigation.navigate('FicheMatch', { id })} accessible accessibilityRole="button" accessibilityHint="Naviguer vers la fiche du match" >
     <LinearGradient colors={['rgba(255, 255, 255, 0.4)', 'rgba(0, 0, 0, 0.1)',]} style={styles.card} >
       <View style={styles.dateBadge}>
         <Text style={styles.dateText}>{formattedDate}</Text>
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
     marginVertical: 6,
     borderRadius: 22,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.12)',
+    borderColor: 'rgba(255, 255, 255, 0.2)',
     backgroundColor: 'rgba(255, 255, 255, 0.15)',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 6 },

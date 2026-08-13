@@ -4,10 +4,17 @@ import ligue1 from "../assets/logoligue1.webp";
 import { LinearGradient } from 'expo-linear-gradient';
 import { SvgUri } from 'react-native-svg';
 import { teamName } from '../datas/teamNames';
+import { useWindowDimensions } from 'react-native';
 
 const apiKey = process.env.API_KEY;
 
 function LivePage({ navigation }) {
+
+  const { width } = useWindowDimensions();
+  
+    const isSmallScreen = width <= 767;
+    const isMediumScreen = width > 767 && width <= 1024;
+
   const [lives, setLives] = useState([]);
   const [isRefreshing, setIsRefreshing] = useState(false); // État pour gérer le rafraîchissement
 
@@ -131,60 +138,54 @@ function LivePage({ navigation }) {
           :
           leagues.map((league) =>
             <View style={{ marginBottom: 10 }} key={"ligue" + league}>
-              <Text style={{ fontFamily: "Kanitus", color: "white", marginLeft: 10 }}>{countryTranslations[league] || league}</Text>
-              {lives.map((live) => live.league.country === league ?
+              <Text style={{ fontFamily: "Kanitus", color: "white", marginLeft: 10, marginBottom: 8 }}>{countryTranslations[league] || league}</Text>
+              {lives.map((live) => 
+              live.league.country === league ?
                 <TouchableOpacity
-                  style={styles.matchContainer}
                   onPress={() => navigation.navigate('FicheMatch', { id: live.fixture.id })} key={live.fixture.id}
+                  accessible accessibilityRole="button" accessibilityHint="Naviguer vers la fiche du match"
+                  style={{marginBottom: 5}}
                 >
-                  <View style={styles.match}>
-                    {live.league.logo === "https://media.api-sports.io/football/leagues/61.png" ? <Image
-                      source={ligue1}
-                      style={styles.competitionLogo}
-                      resizeMode="contain"
-                    />
-                      :
-                      <Image
-                        source={{ uri: live.league.logo }}
-                        style={styles.competitionLogo}
-                        resizeMode="contain"
-                      />}
-                    <View style={styles.teamContainerDom}>
-                      <Image
-                        source={{ uri: live.teams.home.logo }}
-                        style={styles.teamLogo}
-                        resizeMode="contain"
-                      />
-                      <Text style={styles.teamName}>{teamName[live.teams.home.name] || live.teams.home.name}</Text>
-                    </View>
-                    <View style={styles.scoreContainer}>
-                      
-                        <View style={styles.score}>
-                          <Text
-                            style={
-                              live.goals.home > live.goals.away ?  styles.winner : live.goals.home < live.goals.away ? styles.loser : styles.scoreText
-                            }
-                          >
-                            {live.goals.home}
-                          </Text>
-                          <View style={styles.liveSticker}>
-                            <Text style={styles.liveText}>{live.fixture.status.elapsed}'</Text>
-                            <Animated.Text style={{ color: "darkred", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim }}>live</Animated.Text>
-                          </View>
+                  <LinearGradient colors={['rgba(255, 255, 255, 0.4)', 'rgba(0, 0, 0, 0.1)',]} style={styles.match} >
+                    <Image source={ {uri: live.league.logo}} style={[styles.leagueLogo, isMediumScreen && {height: 30}]} />
+                    <View style={{ flexDirection: "column", alignItems: "center",   width: "32%", gap: isMediumScreen ? 16 : 3 }}>
+                                              <Image source={{ uri: live.teams.home.logo }} style={[styles.teamLogo, isMediumScreen && {width: 36, height: 36}, live.league.id === 1 && {borderRadius: 25}]} />
+                                                                      <Text style={[styles.team, {textAlign: "center"}, isMediumScreen && {fontSize: 18}]}>{live.teams.home.name}</Text>
+                    
+                                            </View>
 
-                          <Text style={live.goals.home < live.goals.away ?  styles.winner : live.goals.home > live.goals.away ? styles.loser : styles.scoreText}>{live.goals.away}</Text>
-                        </View>
-                      
-                    </View>
-                    <View style={styles.teamContainer}>
-                      <Image
-                        source={{ uri: live.teams.away.logo }}
-                        style={styles.teamLogo}
-                        resizeMode="contain"
-                      />
-                      <Text style={styles.teamName}>{teamName[live.teams.away.name] || live.teams.away.name}</Text>
-                    </View>
-                  </View>
+                    <LinearGradient
+                                              colors={['rgba(0,0,0,0.85)', 'rgba(110,85,20,1)', 'rgba(0,0,0,0.85)']}
+                                              style={[styles.scoreBox,  isMediumScreen && {height: 42, marginInline: 4}]}
+                                            >
+                                              <View style={[styles.liveView, isMediumScreen && {height: 32}]}>
+                                                <Text style={styles.score}>
+                                                  {
+                                                   
+                                                        live.goals.home}
+                                                </Text>
+                                              </View>
+                                              {
+                                                live.fixture.status.long === "Halftime" ? <Text style={{ color: "white", fontFamily: "Kanitalic", fontSize: 10, backgroundColor: "darkred", padding: 2, borderRadius: 4, marginInline: 3 }}>MT</Text> :
+                                                  <View style={[styles.liveSticker, live.fixture.status.extra > 0 && {marginInline: 1} ]}>
+                                                    <Text style={[styles.liveText, live.fixture.status.extra > 0 && {fontSize: 9}]}>{live.fixture.status.elapsed}'{live.fixture.status.extra > 0 ? `+${live.fixture.status.extra}` : null}</Text>
+                                                    <Animated.Text style={{ color: "white", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim, marginTop: -3 }}>live</Animated.Text>
+                                                  </View> }
+                    
+                                              <View style={[styles.liveView, isMediumScreen && {height: 32}]}>
+                                                <Text style={styles.score}>
+                                                  {live.goals.away}
+                                                </Text>
+                                              </View>
+                                            </LinearGradient>
+
+
+                    <View style={{ flexDirection: "column", alignItems: "center",  width: "32%", gap: isMediumScreen ? 16 : 3 }}>
+                                              <Image source={{ uri: live.teams.away.logo }} style={[styles.teamLogo, isMediumScreen && {width: 36, height: 36}, live.league.id === 1 && {borderRadius: 25}]} />
+                                              <Text style={[styles.team, {textAlign: "center"}, isMediumScreen && {fontSize: 18}]}>{live.teams.away.name}</Text>
+                                            </View>
+
+                  </LinearGradient>
                 </TouchableOpacity>
                 : null
               )}
@@ -201,7 +202,7 @@ const styles = StyleSheet.create({
     paddingBlock: 15,
     paddingInline: 4,
     borderRadius: 15,
-    backgroundColor: "rgb(99, 164, 221)",
+    backgroundColor: "rgb(90, 150, 202)",
     width: '100%',
     marginTop: 10,
     shadowColor: '#000', // shadow color
@@ -258,105 +259,83 @@ const styles = StyleSheet.create({
   live__tableau: {
     borderRadius: 10
   },
-  matchContainer: {
-    flexDirection: "row",
-    overflow: 'hidden',
-    alignItems: 'center',
-    backgroundColor: '#F4F0F0',
-    paddingBlock: 6,
-    paddingInline: 1,
-    marginBlock: 4,
-    borderRadius: 10
+  
+  leagueLogo: {
+    width: "8%",
+    height: 25,
+    resizeMode: "contain",
   },
-  competitionLogo: {
-    height: 30,
-    width: "9%",
-    objectFit: 'contain',
+
+  leagueName: {
+    color: '#fff',
+    fontFamily: 'Kanitus'
   },
-  teamContainer: {
+
+  
+  match: {
     flexDirection: 'row',
-    alignItems: 'center',
-    width: "35%",
-    gap: 2,
-    marginInline: 1,
-    justifyContent: "start"
+     alignItems: 'center',
+      justifyContent: 'space-between',
+      width: "99%",
+        paddingVertical: 12,
+         paddingHorizontal: 10,
+          minHeight: 72,
+           backgroundColor: 'rgba(255,255,255,0.08)',
+            borderWidth: 1,
+             borderColor: 'rgba(255, 255, 255, 0.3)',
+              borderRadius: 22,
+               shadowColor: '#000',
+                shadowOffset: { width: 0, height: 6 },
+                 shadowOpacity: 0.18, shadowRadius: 12,
+                  elevation: 5,
   },
-  teamContainerDom: {
-    alignItems: 'center',
-    width: "34%",
-    flexDirection: "row-reverse",
-    gap: 2,
-    marginInline: 1,
-    justifyContent: "center"
+  team: {
+    color: '#FFFFFF', fontFamily: 'Bella', fontSize: 13.5, lineHeight: 16,
+
   },
   teamLogo: {
-    height: 30,
-    width: "22%",
-    objectFit: 'contain',
-    alignItems: "center",
-    marginInline: 3
+    height: 32,
+    width: 32,
+    resizeMode: "contain"
   },
-  teamName: {
-    fontSize: 12,
-    fontFamily: "Bella",
-    width: "76%",
-    textAlign: "center"
-  },
-  scoreContainer: {
-    alignItems: 'center',
-    width: "22%",
-    marginInline: 1
-  },
-  liveSticker: {
-    alignItems: "center",
-    marginInline: 5
-  },
-  liveText: {
-    color: "white",
-    fontFamily: "Kanitalic",
-    fontSize: 12,
-    backgroundColor: "darkred",
-    paddingInline: 4,
-    borderRadius: 5
+  scoreBox: {
+    flexDirection: 'row',
+     alignItems: 'center',
+      justifyContent: 'center',
+       gap: 4,
+        paddingHorizontal: 8,
+         paddingVertical: 6,
+          width: "22%",
+           height: 46,
+            borderRadius: 16,
+             backgroundColor: 'rgba(0,0,0,0.45)',
+              borderWidth: 1,
+               borderColor: 'rgba(255, 255, 255, 0.3)',
   },
   score: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    color: '#fff',
+    fontFamily: 'Kanitt',
+    fontSize: 16, 
   },
-  scoreText: {
-    flex: 1,
-    backgroundColor: 'grey',
-    color: 'white',
-    borderRadius: 5,
-    height: 30,
-    width: 20,
-    fontFamily: "Kanito",
+  liveView: {
     alignItems: "center",
-    textAlign: "center",
-    paddingTop: 4
+    justifyContent: "center",
+    width: "30%"
   },
-  winner: {
-    flex: 1,
-    backgroundColor: '#32b642',
-    color: 'white',
-    borderRadius: 5,
-    height: 30,
-    fontFamily: "Kanito",
+  liveText: {
+    color: "darkred",
+    fontFamily: "Kanitalic",
+    paddingInline: 2,
+    borderRadius: 4,
+    fontSize: 11,
+    backgroundColor: "white"
+  },
+  liveSticker: {
+    justifyContent: "space-between",
+    marginInline: 4,
     alignItems: "center",
-    textAlign: "center",
-    paddingTop: 4
-  },
-  loser: {
-    flex: 1,
-    backgroundColor: '#ff2e2e',
-    color: 'white',
-    borderRadius: 5,
-    height: 30,
-    fontFamily: "Kanito",
-    alignItems: "center",
-    textAlign: "center",
-    paddingTop: 4
-  },
+    gap: 4
+  }
 });
 
 export default LivePage;

@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     lien: {
         flex: 1,
         borderWidth: 3,
-        borderColor: 'rgb(11, 19, 81)',
+        borderColor: 'rgba(11, 19, 81, 0.8)',
         borderRadius: 999,
         justifyContent: "center",
         alignItems: "center",

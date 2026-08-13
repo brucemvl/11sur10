@@ -275,12 +275,12 @@ export default function Aujourdhui({ matchs, onRefresh }) {
   /* ====================== RENDER ====================== */
   return (
     <View style={[styles.container, isMediumScreen && {width: "90%"}]}>
-      <LinearGradient colors={['rgba(255,255,255,0.08)', 'rgba(255,255,255,0.02)']} style={{ alignItems: 'center', borderRadius: 15, backgroundColor: "#385497", paddingInline: isMediumScreen ? 20 : 0, paddingBlock: isMediumScreen? 10 : 5, width: "100%" }} >
+      <LinearGradient colors={['rgba(255,255,255,0.08)', 'rgba(0, 0, 0, 0.24)']} style={{ alignItems: 'center', borderRadius: 15, backgroundColor: "#1e61ad", paddingInline: isMediumScreen ? 20 : 0, paddingBlock: isMediumScreen? 10 : 5, width: "100%" }} >
 
         {/* ----------- HEADER DATE ----------- */}
         <View style={styles.dateHeader}>
           <TouchableWithoutFeedback disabled={dayIndex === 0} onPress={() => changeDay(-1)} onPressIn={onPressIn} onPressOut={onPressOut} accessible accessibilityRole='button' accessibilityLabel='précédent' accessibilityHint='naviguer vers le jour précédent' >
-            <Animated.View style={{ opacity: dayIndex === 0 ? 0.3 : 1, backgroundColor: "rgba(11, 19, 81, 1)", borderRadius: 10, width: 32, height: 32, alignItems: "center", justifyContent: "center", transform: [{ scale: scaleAnim }] }}>
+            <Animated.View style={{ opacity: dayIndex === 0 ? 0.3 : 1, backgroundColor: "rgba(11, 19, 81, 1)", borderRadius: 10, width: 32, borderWidth: 1, borderColor: 'rgba(255, 255, 255, 0.4)', height: 32, alignItems: "center", justifyContent: "center", transform: [{ scale: scaleAnim }] }}>
               <Text style={styles.arrow}>◀</Text>
             </Animated.View>
           </TouchableWithoutFeedback>
@@ -325,7 +325,7 @@ export default function Aujourdhui({ matchs, onRefresh }) {
 
                 >
                   <Animated.View style={[styles.dayItem, { backgroundColor }]}>
-                    {getDateLabel(day.offset, day.labelDate) && (
+                    {getDateLabel(day.offset, day.labelDate) && 
                       <Animated.Text style={[
                         styles.dayText,
                         { transform: [{ scale }], opacity, fontSize: 9, fontFamily: "Kanitalik" },
@@ -333,7 +333,7 @@ export default function Aujourdhui({ matchs, onRefresh }) {
                       ]}>
                         {getDateLabel(day.offset, day.labelDate)}
                       </Animated.Text>
-                    )}
+                    }
 
                     <Animated.Text style={[
                       styles.dayText,
@@ -348,14 +348,14 @@ export default function Aujourdhui({ matchs, onRefresh }) {
           </ScrollView>
 
           <TouchableWithoutFeedback disabled={dayIndex === 6} onPress={() => changeDay(1)} onPressIn={onPressIn2} onPressOut={onPressOut2} accessible accessibilityRole='button' accessibilityLabel='suivant' accessibilityHint='naviguer vers le jour suivant' >
-            <Animated.View style={{opacity: dayIndex === 6 ? 0.3 : 1, backgroundColor: "rgba(11, 19, 81, 1)", borderRadius: 10, width: 32, height: 32, alignItems: "center", justifyContent: "center", transform: [{ scale: scaleAnim2 }] }}>
+            <Animated.View style={{opacity: dayIndex === 6 ? 0.3 : 1, backgroundColor: "rgba(11, 19, 81, 1)", borderRadius: 10, borderWidth: 1, borderColor: 'rgba(255, 255, 255, 0.4)', width: 32, height: 32, alignItems: "center", justifyContent: "center", transform: [{ scale: scaleAnim2 }] }}>
               <Text style={styles.arrow}>▶</Text>
             </Animated.View>
           </TouchableWithoutFeedback>
         </View>
 
         {/* ----------- TOGGLE SPOIL ----------- */}
-        {showNoSpoil && (
+        {showNoSpoil && 
           <TouchableOpacity onPress={toggleSpoil} style={styles.spoilContainer}>
             <Animated.View
               style={[
@@ -366,7 +366,7 @@ export default function Aujourdhui({ matchs, onRefresh }) {
               <Text style={[styles.spoilText, noSpoil && { color: "red" }]}>{noSpoil ? "No spoil" : "Spoil"}</Text>
             </Animated.View>
           </TouchableOpacity>
-        )}
+        }
 
         {/* ----------- LISTE MATCHS ----------- */}
         <ScrollView
