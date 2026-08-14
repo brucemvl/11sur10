@@ -117,14 +117,14 @@ function Filtres() {
 
 const styles = StyleSheet.create({
     competitions: {
-        paddingVertical: 6,
+        paddingVertical: 5,
         alignItems: "center",
     },
 
     // Hitbox du bouton
     touch: {
-        height: 82,
-        width: 82,
+        height: 76,
+        width: 76,
         shadowColor: "#000",
         shadowOpacity: 0.5,
         shadowRadius: 3,

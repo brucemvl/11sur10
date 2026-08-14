@@ -242,7 +242,6 @@ const handleStartGame = async () => {
         )}
         scrollEventThrottle={6}
         style={{marginTop: 5}}
-        contentContainerStyle={{}}
     >
       <Animated.View
         style={{
@@ -254,7 +253,7 @@ const handleStartGame = async () => {
       >
         <Banner />
         </Animated.View>
-<LinearGradient colors={["#f3f3f3", "#f3f3f33d"]} locations={[0.9, 1]} style={{marginBlock: 10, zIndex: 10}}>
+<LinearGradient colors={["#f3f3f3", "#f3f3f33d"]} locations={[0.9, 1]} style={{marginBlock: 8, zIndex: 10}}>
 <Filtres style={{ backgroundColor: "#f3f3f3"}} />
 
   
@@ -303,7 +302,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "100%",
     marginBlock: 10,
-    gap: 8,
+    gap: 0,
     marginBottom: 120
   },
 });

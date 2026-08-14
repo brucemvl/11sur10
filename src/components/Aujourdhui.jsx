@@ -61,6 +61,9 @@ export default function Aujourdhui({ matchs, onRefresh }) {
 
   const [dayIndex, setDayIndex] = useState(3); // AUJOURD'HUI
 
+    const [filter, setFilter] = useState('all');
+
+
 
   /* -------------------- DATE COURANTE -------------------- */
   const currentDate = useMemo(() => {
@@ -71,15 +74,36 @@ export default function Aujourdhui({ matchs, onRefresh }) {
 
   /* -------------------- MATCHS DU JOUR -------------------- */
   const matchesOfDay = useMemo(() => {
-    return matchs.filter(
-      m => m.fixture.date.slice(0, 10) === currentDate && m.fixture.status.long != "Match Postponed"
-    );
-  }, [matchs, currentDate]);
+  return matchs.filter(
+    m =>
+      m.fixture.date.slice(0, 10) === currentDate &&
+      m.fixture.status.long !== 'Match Postponed'
+  );
+}, [matchs, currentDate]);
+
+const filteredMatches = useMemo(() => {
+   return matchesOfDay.filter((m) => {
+     const status = m.fixture.status.short;
+      
+     if (filter === 'live') {
+         return ['1H', '2H', 'HT', 'ET', 'BT', 'P'].includes(status);
+         } 
+         
+         if (filter === 'upcoming') {
+           return ['NS', 'TBD'].includes(status);
+           } 
+           
+           if (filter === 'finished') {
+             return ['FT', 'AET', 'PEN'].includes(status);
+             } return true;
+              });
+             }, [matchesOfDay, filter]);
 
   /* -------------------- LIGUES -------------------- */
   const leagues = useMemo(() => {
-    return [...new Set(matchesOfDay.map(m => m.league.id))];
-  }, [matchesOfDay]);
+     return [...new Set(filteredMatches.map(m => m.league.id))]; 
+
+  }, [filteredMatches]);
 
 
 
@@ -93,6 +117,7 @@ export default function Aujourdhui({ matchs, onRefresh }) {
   const [refreshing, setRefreshing] = useState(false);
   const [noSpoil, setNoSpoil] = useState(true);
   const [toggleAnim] = useState(new Animated.Value(0));
+
 
   const flags = {
     "Ligue 1" : "https://media.api-sports.io/flags/fr.svg",
@@ -275,7 +300,7 @@ export default function Aujourdhui({ matchs, onRefresh }) {
   /* ====================== RENDER ====================== */
   return (
     <View style={[styles.container, isMediumScreen && {width: "90%"}]}>
-      <LinearGradient colors={['rgba(255,255,255,0.08)', 'rgba(0, 0, 0, 0.24)']} style={{ alignItems: 'center', borderRadius: 15, backgroundColor: "#1e61ad", paddingInline: isMediumScreen ? 20 : 0, paddingBlock: isMediumScreen? 10 : 5, width: "100%" }} >
+      <LinearGradient colors={['rgba(255,255,255,0.08)', 'rgba(0, 0, 0, 0.24)']} style={{ alignItems: 'center', borderRadius: 20, backgroundColor: "#1e61ad", paddingInline: isMediumScreen ? 20 : 0, paddingBlock: isMediumScreen? 10 : 4, width: "100%" }} >
 
         {/* ----------- HEADER DATE ----------- */}
         <View style={styles.dateHeader}>
@@ -368,6 +393,17 @@ export default function Aujourdhui({ matchs, onRefresh }) {
           </TouchableOpacity>
         }
 
+
+        {/* FILTRES */}
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.filtersRow} >
+           {[ { key: 'all', label: 'Tous' }, { key: 'live', label: 'En cours' },
+             { key: 'upcoming', label: 'À venir' },
+              { key: 'finished', label: 'Terminés' }, ].map((item) => ( 
+              <TouchableOpacity key={item.key} onPress={() => { Haptics.selectionAsync(); setFilter(item.key); }} style={[ styles.filterChip, filter === item.key && styles.filterChipActive, ]} >
+                 <Text style={[ styles.filterText, filter === item.key && styles.filterTextActive, ]} > {item.label} </Text>
+                  </TouchableOpacity> )
+                )} </ScrollView>
+
         {/* ----------- LISTE MATCHS ----------- */}
         <ScrollView
   refreshControl={
@@ -381,13 +417,13 @@ export default function Aujourdhui({ matchs, onRefresh }) {
     />
   }
 >
-  {matchesOfDay.length === 0 ? 
+  {filteredMatches.length === 0 ? 
     <View style={styles.emptyContainer}>
       <Text style={styles.emptyText}>{t("no_match_today")}</Text>
     </View>
    : 
     leagues.map(leagueId => {
-      const leagueMatches = matchesOfDay.filter(
+      const leagueMatches = filteredMatches.filter(
         m => m.league.id === leagueId
       );
       const league = leagueMatches[0].league;
@@ -675,4 +711,8 @@ emptyText: {
   fontFamily: "Permanent",
   textAlign: "center",
 },
+filtersRow: { paddingVertical: 6, paddingHorizontal: 6, gap: 8, },
+ filterChip: { paddingHorizontal: 14, paddingVertical: 8, borderRadius: 18, backgroundColor: 'rgba(255,255,255,0.12)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.18)', }, filterChipActive: { backgroundColor: '#FFFFFF', },
+ filterText: { color: '#FFFFFF', fontFamily: 'Kanito', fontSize: 13, },
+  filterTextActive: { color: '#0B1351', fontFamily: 'Kanitt', },
 });
