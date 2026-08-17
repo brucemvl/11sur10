@@ -81,7 +81,7 @@ function Classement({ id }) {
       if (!json.response?.length) throw new Error("Aucun classement trouvé");
 
       setTab(
-        id === 15 || id === 1 
+        id === 15 || id === 1
           ? json.response[0].league.standings
           : json.response[0].league.standings[0]
       );
@@ -234,7 +234,7 @@ const [rank, setRank] = useState()
 
       const comp = allCompetitions.find((c) => c.id === id);
 
-    const season = comp?.season ?? 2025; // saison par défaut si rien trouvé
+    const season = comp?.season ?? 2026; // saison par défaut si rien trouvé
 
 
       const res = await fetch(
@@ -263,7 +263,7 @@ const [rank, setRank] = useState()
 
     const comp = allCompetitions.find((c) => c.id === id);
 
-    const season = comp?.season ?? 2025; // saison par défaut si rien trouvé
+    const season = comp?.season ?? 2026; // saison par défaut si rien trouvé
 
     try {
       const res = await fetch(
@@ -293,7 +293,7 @@ const [rank, setRank] = useState()
 
 
     // Si non trouvée → fallback
-    const season = comp?.season ?? 2025;
+    const season = comp?.season ?? 2026;
 
     try {
       const res = await fetch(

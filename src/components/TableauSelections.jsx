@@ -32,7 +32,7 @@ const animateSlide = (dir = 'right') => {
  useEffect(() => {
   const fetchFixtures = async () => {
     try {
-      const response = await fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&season=${id === 29 ? '2023' : id === 34 || id === 1 ? "2026" : id === 6 ? "2025" : '2024'}`, {
+      const response = await fetch(`https://v3.football.api-sports.io/fixtures?league=${id}&season=${id === 29 ? '2023' : id === 34 || id === 1 ? "2026" : id === 6 ? "2025" : '2026'}`, {
         method: 'GET',
         headers: {
           'x-rapidapi-key': '5ff22ea19db11151a018c36f7fd0213b',
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginInline: 5,
-    borderRadius: 15,
+    borderRadius: 25,
     marginBottom: 110,
     width: "96%"
   },

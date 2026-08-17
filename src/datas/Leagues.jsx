@@ -396,7 +396,7 @@ export const selections = [
                     "id": 5,
                     "name": "UEFA Nations League",
                     "logo": "https://media.api-sports.io/football/leagues/5.png",
-                    "season": 2024,
+                    "season": 2026,
                     },
 
                     {

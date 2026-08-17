@@ -42,7 +42,7 @@ const [calendrier, setCalendrier] = useState(true)
           setClassement(true)
         }
 
-              const season = id === 34 || id === 1 ? "2026" : id === 29 ? "2023" : id === 6 ? "2025" : "2024";
+              const season = id === 34 || id === 1 ? "2026" : id === 29 ? "2023" : id === 6 ? "2025" : "2026";
 
 
        useEffect(() => {

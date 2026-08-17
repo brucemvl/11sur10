@@ -250,11 +250,13 @@ import udol from "../assets/portraits/udol.png"
 import balogun from "../assets/portraits/balogun.png"
 import clauss from "../assets/portraits/clauss.png"
 import golovin from "../assets/portraits/golovin.png"
+import digne from "../assets/portraits/digne.png"
 
 
 
 
 export const portraitsJoueurs = {
+    2724: digne,
     25008: clauss,
     109: golovin,
     138835: balogun,

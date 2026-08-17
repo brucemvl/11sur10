@@ -25,6 +25,7 @@ import bein from "../assets/logos/bein.png"
 import m6 from "../assets/logos/m6.png"
 import tf1 from "../assets/logos/tf1.png"
 import dazn from "../assets/logos/dazn.png"
+import disney from "../assets/logos/disney.png"
 import fifaclubwc from "../assets/fifaclubwc2.png"
 import red from "../assets/redcard.png"
 import parc from "../assets/stades/parc.jpg"
@@ -164,6 +165,7 @@ const backgroundSource =
   else if (round === "1/128-finals") round = "128e de Finale";
   else if (round === "1/64-finals") round = "64e de Finale";
   else if (round === "4th Finals") round = "Quart de Finale";
+  else if (round === "1") round = "1ere Journée";
   else round = `${roundd}ème Journée`; // fallback
 
   return `${league} - ${round}`;
@@ -326,7 +328,7 @@ const backgroundSource =
  ? 
  <View style={{flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
     <Text style={{fontFamily: "Kanitus"}}>Match diffusé sur</Text>
-    <Image source={ match.league.id === 61 ? ligue1plus : match.league.id === 135 || match.league.id === 15 || match.league.id === 140 ? dazn : match.league.id === 2 || match.league.id === 39 || match.league.id === 307 ? canal :  match.league.id === 62 || match.league.id === 78 || match.league.id === 1168 || match.league.id === 48 || match.league.id === 6 || match.league.id === 1 ? bein : match.league.id === 5 ? tf1 : match.league.id === 143 ? lequipe : null} style={match.league.id === 61 ? {height: 25, width: 40, objectFit: "contain", marginLeft: 2}:  match.league.id === 6 || match.league.id === 48 || match.league.id === 1 || match.league.id === 78  || match.league.id === 1168 ? {height: 25, width: 65, objectFit: "contain", marginLeft: 5} : match.league.id === 39 || match.league.id === 2 || match.league.id === 143 ? {height: 25, width: 50, objectFit: "contain", marginLeft: 2} : {height: 25, width: 40, objectFit: "contain", marginLeft: 2} }/>{match.teams.home.id === 2 || match.teams.away.id === 2 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitus"}}> et</Text><Image source={m6} style={{height: 20, objectFit: "contain", width: 35}} /></View> : match.fixture.id === 1399365 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitus"}}>et</Text><Image source={tf1} style={{height: 20, objectFit: "contain", width: 40, marginLeft: 8}} /></View> : null}</View> : null}
+    <Image source={ match.league.id === 61 ? ligue1plus : match.league.id === 135 || match.league.id === 15 || match.league.id === 140 ? dazn : match.league.id === 2 || match.league.id === 39 || match.league.id === 307 ? canal :  match.league.id === 62 || match.league.id === 78 || match.league.id === 1168 || match.league.id === 48 || match.league.id === 6 || match.league.id === 1 ? bein : match.league.id === 5 ? tf1 : match.league.id === 143 ? lequipe : null} style={match.league.id === 61 ? {height: 25, width: 40, objectFit: "contain", marginLeft: 2}:  match.league.id === 6 || match.league.id === 48 || match.league.id === 1 || match.league.id === 78  || match.league.id === 1168  ? {height: 25, width: 65, objectFit: "contain", marginLeft: 5} : match.league.id === 39 || match.league.id === 2 || match.league.id === 143 ? {height: 25, width: 50, objectFit: "contain", marginLeft: 2} : match.league.id === 140 ? {height: 25, width: 25, marginLeft: 4} : {height: 25, width: 40, objectFit: "contain", marginLeft: 2} }/>{match.teams.home.id === 2 || match.teams.away.id === 2  ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitus"}}> et</Text><Image source={m6} style={{height: 20, objectFit: "contain", width: 35}} /></View> : match.league.id === 140 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitus"}}> et</Text><Image source={disney} style={{height: 35, objectFit: "contain", width: 45, marginLeft: 4}} /></View> : match.fixture.id === 1399365 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitus"}}>et</Text><Image source={tf1} style={{height: 20, objectFit: "contain", width: 40, marginLeft: 8}} /></View> : null}</View> : null}
             <View style={styles.buts}>
 {/*
                 <View style={styles.equipeDomicile}>

@@ -34,7 +34,7 @@ const API_KEY = "5ff22ea19db11151a018c36f7fd0213b";
 const COMPETITIONS = {
   ucl: "https://v3.football.api-sports.io/fixtures?league=2&season=2026",
     // wc: "https://v3.football.api-sports.io/fixtures?league=1&season=2026",
-     tropheechampions: "https://v3.football.api-sports.io/fixtures?league=526&season=2026",
+    // tropheechampions: "https://v3.football.api-sports.io/fixtures?league=526&season=2026",
      amicauxclub: "https://v3.football.api-sports.io/fixtures?league=667&season=2026",
    // supercoupeespagne: "https://v3.football.api-sports.io/fixtures?league=556&season=2026", 
   france: "https://v3.football.api-sports.io/fixtures?league=61&season=2026",
@@ -52,6 +52,7 @@ const COMPETITIONS = {
         leaguecup: 'https://v3.football.api-sports.io/fixtures?league=48&season=2026',
          dfbpokal: 'https://v3.football.api-sports.io/fixtures?league=81&season=2026',
          amicaux: 'https://v3.football.api-sports.io/fixtures?league=10&season=2026',
+         nations: 'https://v3.football.api-sports.io/fixtures?league=5&season=2026',
          // uefasupercup: 'https://v3.football.api-sports.io/fixtures?league=531&season=2026'
 };
 

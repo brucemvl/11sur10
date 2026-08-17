@@ -1,5 +1,5 @@
 import haaland from "../assets/portraits/fiche/haaland.webp"
-import gyokeres from "../assets/portraits/fiche/gyokeres.png"
+import gyokeres from "../assets/portraits/fiche/gyokeres.avif"
 import zaire from "../assets/portraits/fiche/zaire.png"
 import yamal from "../assets/portraits/fiche/yamal.png"
 import dembele from "../assets/portraits/fiche/dembele.png"
@@ -301,11 +301,13 @@ import udol from "../assets/portraits/fiche/udol.png"
 import llorente from "../assets/portraits/fiche/llorente.png"
 import golovin from "../assets/portraits/fiche/golovin.png"
 import clauss from "../assets/portraits/fiche/clauss.png"
+import digne from "../assets/portraits/fiche/digne.png"
 import ryerson from "../assets/portraits/fiche/ryerson.webp"
 
 
 
 export const fichesJoueurs = {
+    2724: digne,
     25008: clauss,
         109: golovin,
     753: llorente,
