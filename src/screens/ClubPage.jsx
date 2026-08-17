@@ -2,10 +2,10 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView, useWindowDimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';  // Pour le dégradé
 import { useNavigation } from '@react-navigation/native'; // Pour la navigation
-import { championnats, europe, autres, national, national2, national3 } from '../datas/Leagues'; // Import des données
+import { championnats, europe, autres, national, national2, national3, inferieur } from '../datas/Leagues'; // Import des données
 import { useFonts } from 'expo-font';  // Importer le hook useFonts d'Expo
 import ligue1 from "../assets/logoligue1.webp"
-import ligue2 from "../assets/ligue2.jpg"
+import ligue3 from "../assets/logos/ligue3.webp"
 import fifaClubWc from "../assets/fifaclubwc2.png"
 import { SvgUri } from 'react-native-svg';
 import { useTranslation } from 'react-i18next';
@@ -74,7 +74,7 @@ function ClubPage() {
                         >
                             <Text style={[styles.filtreTitle, isMediumScreen && styles.filtreTitleTablet]}>{name}</Text>
                             <View style={styles.logoContainer}>
-                            {logo === "https://media.api-sports.io/football/leagues/62.png" ? <Image source={ligue2} style={styles.logo} /> : <Image source={{ uri: logo }} style={styles.logo} />}
+                            {logo === "https://media.api-sports.io/football/leagues/63.png" ? <Image source={ligue3} style={styles.logo} /> : <Image source={{ uri: logo }} style={styles.logo} />}
                             </View>
                         </TouchableOpacity>
                     ))}
@@ -84,6 +84,30 @@ function ClubPage() {
                     <Text style={[{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 8}, isMediumScreen && {fontSize: 18}]}>Reste du monde</Text>
                     <View style={{flexDirection: "row", flexWrap: "wrap", gap: isMediumScreen ? 0 : 6, justifyContent: "center"}}>  
                       {autres.map(({ name, id, logo, country, flag }) => (
+                        <View style={{alignItems: "center", marginBottom: 15, width: "32%"}}>
+                        <TouchableOpacity
+                            key={"lien autre" + id}
+                            style={[styles.lien, isMediumScreen && styles.lienTablet]}
+                            onPress={() => navigation.navigate('FicheChampionnat', { id })}
+                            accessible accessibilityLabel={`acceder au championnat ${name}`}
+
+                        >
+                            <Text style={[styles.filtreTitle, isMediumScreen && styles.filtreTitleTablet]}>{name}</Text>
+                            <View style={styles.logoContainer}>
+                            <Image source={id === 15 ? fifaClubWc : { uri: logo }} style={styles.logo} />
+                            </View>
+                        </TouchableOpacity>
+                            <SvgUri uri={flag} width={30} height={20} style={{position: "relative", bottom: 14, transform:[{rotateZ: "-10deg"}], marginBottom: -10}}/>
+                        <Text style={{fontFamily: "Kanitalic", color: "white", width: "100%", textAlign: "center"}}>{country === "Turkey" ? "Turquie" : country === "Saudi Arabia" ? "Arabie Saoudite" : country}</Text>
+                        </View>
+                    ))}
+                    </View>
+                    </View>
+
+                    <View style={{flexDirection: "column"}}>
+                    <Text style={[{textAlign: "center", fontFamily: "Kanitus", color: "white", marginBlock: 8}, isMediumScreen && {fontSize: 18}]}>Divisions infeieures</Text>
+                    <View style={{flexDirection: "row", flexWrap: "wrap", gap: isMediumScreen ? 0 : 6, justifyContent: "center"}}>  
+                      {inferieur.map(({ name, id, logo, country, flag }) => (
                         <View style={{alignItems: "center", marginBottom: 15, width: "32%"}}>
                         <TouchableOpacity
                             key={"lien autre" + id}

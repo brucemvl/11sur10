@@ -1,3 +1,5 @@
+import ligue3 from "../assets/logos/ligue3.webp"
+
 export const championnats = [
     {
         "id": 61,
@@ -92,7 +94,7 @@ export const championnats = [
 
     {
         "id": 63,
-        "name": "National 1",
+        "name": "Ligue 3",
         "country": "France",
         "logo": "https://media.api-sports.io/football/leagues/63.png",
         "season": 2026,
@@ -184,6 +186,56 @@ export const autres = [
         "season": 2025,
     },
 
+
+
+]
+
+export const inferieur = [
+
+    {
+        "id": 141,
+        "name": "La Liga 2",
+        "country": "Spain",
+        "logo": "https://media.api-sports.io/football/leagues/141.png",
+        "season": 2026,
+        "flag": "https://media.api-sports.io/flags/es.svg",
+    },
+
+    {
+        "id": 136,
+        "name": "Serie B",
+        "country": "Italy",
+        "logo": "https://media.api-sports.io/football/leagues/136.png",
+        "season": 2026,
+        "flag": "https://media.api-sports.io/flags/it.svg",
+    },
+
+     {
+        "id": 40,
+        "name": "Championship",
+        "country": "England",
+        "logo": "https://media.api-sports.io/football/leagues/40.png",
+        "season": 2026,
+        "flag": "https://media.api-sports.io/flags/gb-eng.svg",
+    },
+
+     {
+        "id": 41,
+        "name": "League One",
+        "country": "England",
+        "logo": "https://media.api-sports.io/football/leagues/41.png",
+        "season": 2026,
+        "flag": "https://media.api-sports.io/flags/gb-eng.svg",
+    },
+
+     {
+        "id": 180,
+        "name": "Championship",
+        "country": "Scotland",
+        "logo": "https://media.api-sports.io/football/leagues/180.png",
+        "season": 2026,
+        "flag": "https://media.api-sports.io/flags/gb-sct.svg",
+    },
 
 
 ]
