@@ -179,11 +179,11 @@ function Tableau({ id, currentRound, rounds }) {
   {i18n.language.startsWith("en")
     ? currentRoundName
     : currentRoundName?.indexOf("Group Stage") !== -1
-      ? currentRoundName.replace("Group Stage -", "Matchs de Poule")
+      ? currentRoundName?.replace("Group Stage -", "Matchs de Poule")
       : currentRoundName === "Regular Season - 1"
         ? "1ere Journee"
         : currentRoundName?.indexOf("Regular Season") !== -1
-          ? currentRoundName.replace("Regular Season -", "Journee")
+          ? currentRoundName?.replace("Regular Season -", "Journee")
           : currentRoundName === "Quarter-finals"
             ? "Quarts de finale"
             : currentRoundName === "Semi-finals"

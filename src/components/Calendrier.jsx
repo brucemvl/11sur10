@@ -110,6 +110,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 }, // shadow offset
         shadowOpacity: 0.7, // shadow opacity
         shadowRadius: 5,
+        
 
     },
     affiche: {
@@ -122,7 +123,9 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         elevation: 5,
         alignItems: "center",
-        padding: 4
+        padding: 4,
+        borderWidth: 1,
+        borderColor: "rgba(255, 255, 255, 0.4)"
     },
     dateheure: {
         alignItems: "center",

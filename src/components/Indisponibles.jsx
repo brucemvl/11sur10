@@ -459,9 +459,11 @@ const styles = StyleSheet.create({
         gap: 5,
         borderRadius: 15,
         elevation: 5,
-        padding: 5,
+        padding: 4,
         alignItems: "center",
-        height: 110
+        height: 110,
+        borderWidth: 1,
+        borderColor: "rgba(255, 255, 255, 0.36)"
     },
     photo: {
         width: 50,

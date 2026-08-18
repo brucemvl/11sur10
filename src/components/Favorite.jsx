@@ -245,7 +245,9 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         elevation: 5,
         alignItems: "center",
-        padding: 4
+        padding: 4,
+        borderWidth: 1,
+        borderColor: "rgba(255, 255, 255, 0.3)"
     },
     dateheure: {
         alignItems: "center",

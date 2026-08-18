@@ -140,7 +140,9 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         gap: 10,
         borderRadius: 15,
-        elevation: 5
+        elevation: 5,
+        borderWidth: 1,
+        borderColor: "rgba(255, 255, 255, 0.36)"
         
         
     },
