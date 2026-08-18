@@ -52,9 +52,7 @@ function Histo({ historique }) {
               >
                 <Image
                   source={
-                    element.league.logo === "https://media.api-sports.io/football/leagues/61.png"
-                      ? ligue1
-                      : { uri: element.league.logo }
+                    { uri: element.league.logo }
                   }
                   style={{
                     width: "8%",

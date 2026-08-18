@@ -19,6 +19,7 @@ import { useFonts } from 'expo-font';
 
 import ligue1 from "../assets/logoligue1.webp";
 import fifaClubWc from "../assets/fifaclubwc2.png";
+import ucl from "../assets/logoucl.png";
 import cdm2026 from "../assets/cdm2026.png";
 import { teamName } from '../datas/teamNames';
 import { useTranslation } from 'react-i18next';
@@ -457,7 +458,7 @@ const filteredMatches = useMemo(() => {
               >
                 <LinearGradient colors={['rgba(255, 255, 255, 0.4)', 'rgba(0, 0, 0, 0.6)']} style={[styles.match, isMediumScreen && {height: 60}]}>
 
-                        <Image source={ league.id === 1 ? cdm2026 : {uri : league.logo }} style={[styles.leagueLogo, isMediumScreen && {height: 30}]} />
+                        <Image source={ league.id === 1 ? cdm2026 : league.id === 2 ? ucl : {uri : league.logo }} style={[styles.leagueLogo, isMediumScreen && {height: 30}, league.id === 2 && {height:35}]} />
 
                         <View style={{ flexDirection: "column", alignItems: "center",   width: finished ? "35%" : "32%", gap: isMediumScreen ? 16 : 3 }}>
                           <Image source={{ uri: match.teams.home.logo }} style={[styles.teamLogo, isMediumScreen && {width: 36, height: 36}, match.league.id === 1 && {borderRadius: 25}]} />
@@ -478,7 +479,9 @@ const filteredMatches = useMemo(() => {
                             </Text>
                           </View>
                           {isLive ?
-                            match.fixture.status.long === "Halftime" ? <Text style={{ color: "white", fontFamily: "Kanitalic", fontSize: 10, backgroundColor: "darkred", padding: 2, borderRadius: 4, marginInline: 3 }}>MT</Text> :
+                            match.fixture.status.long === "Halftime" ?
+                             <Text style={{ color: "white", fontFamily: "Kanitalic", fontSize: 10, backgroundColor: "darkred", padding: 2, borderRadius: 4, marginInline: 3 }}>MT</Text>
+                              :
                               <View style={[styles.liveSticker, match.fixture.status.extra > 0 && {marginInline: 1} ]}>
                                 <Text style={[styles.liveText, match.fixture.status.extra > 0 && {fontSize: 9}]}>{match.fixture.status.elapsed}'{match.fixture.status.extra > 0 ? `+${match.fixture.status.extra}` : null}</Text>
                                 <Animated.Text style={{ color: "white", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim, marginTop: -3 }}>live</Animated.Text>
@@ -582,7 +585,7 @@ const styles = StyleSheet.create({
   },
   leagueLogo: {
     width: "8%",
-    height: 25,
+    height: 30,
     resizeMode: "contain",
   },
 
@@ -605,7 +608,7 @@ const styles = StyleSheet.create({
           minHeight: 72,
            backgroundColor: 'rgba(255,255,255,0.08)',
             borderWidth: 1,
-             borderColor: 'rgba(255,255,255,0.10)',
+             borderColor: 'rgba(255, 255, 255, 0.25)',
               borderRadius: 22,
                shadowColor: '#000',
                 shadowOffset: { width: 0, height: 6 },
@@ -687,7 +690,8 @@ const styles = StyleSheet.create({
     height: "90%",
     justifyContent: "center",
     width: 68,
-    justifyContent: "space-around"
+    justifyContent: "space-around",
+    
   },
 
   dayItemActive: {

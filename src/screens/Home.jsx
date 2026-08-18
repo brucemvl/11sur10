@@ -35,7 +35,7 @@ const COMPETITIONS = {
   ucl: "https://v3.football.api-sports.io/fixtures?league=2&season=2026",
     // wc: "https://v3.football.api-sports.io/fixtures?league=1&season=2026",
     // tropheechampions: "https://v3.football.api-sports.io/fixtures?league=526&season=2026",
-     amicauxclub: "https://v3.football.api-sports.io/fixtures?league=667&season=2026",
+    // amicauxclub: "https://v3.football.api-sports.io/fixtures?league=667&season=2026",
    // supercoupeespagne: "https://v3.football.api-sports.io/fixtures?league=556&season=2026", 
   france: "https://v3.football.api-sports.io/fixtures?league=61&season=2026",
   england: "https://v3.football.api-sports.io/fixtures?league=39&season=2026",

@@ -79,7 +79,7 @@ const BUTTON_WIDTH = MENU_WIDTH / 4;
         <View style={styles.buttonContent}>
           <Text style={isActive ? styles.selectedText : styles.text}>{label}</Text>
 
-          {/* 🟢 ICÔNE AVEC GLOW */}
+          
           <View>
             <Image
               source={isActive ? icon2 : icon}
