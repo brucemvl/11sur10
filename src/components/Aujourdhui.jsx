@@ -301,7 +301,7 @@ const filteredMatches = useMemo(() => {
   /* ====================== RENDER ====================== */
   return (
     <View style={[styles.container, isMediumScreen && {width: "90%"}]}>
-      <LinearGradient colors={['rgba(255,255,255,0.08)', 'rgba(0, 0, 0, 0.24)']} style={{ alignItems: 'center', borderRadius: 20, backgroundColor: "#1e61ad", paddingInline: isMediumScreen ? 20 : 0, paddingBlock: isMediumScreen? 10 : 4, width: "100%" }} >
+      <LinearGradient colors={['rgba(255,255,255,0.08)', 'rgba(0, 0, 0, 0.24)']} style={{ alignItems: 'center', borderRadius: 20, backgroundColor: "#1e61ad", paddingInline: isMediumScreen ? 20 : 2, paddingBlock: isMediumScreen? 10 : 4, width: "100%" }} >
 
         {/* ----------- HEADER DATE ----------- */}
         <View style={styles.dateHeader}>
@@ -456,7 +456,7 @@ const filteredMatches = useMemo(() => {
                 accessible
                 accessibilityHint={`naviguer vers la fiche du match: ${match.teams.home.name} ${match.teams.away.name}`}
               >
-                <LinearGradient colors={['rgba(255, 255, 255, 0.4)', 'rgba(0, 0, 0, 0.6)']} style={[styles.match, isMediumScreen && {height: 60}]}>
+                <LinearGradient colors={['rgba(255, 255, 255, 0.55)', 'rgba(0, 0, 0, 0.6)']} style={[styles.match, isMediumScreen && {height: 60}]}>
 
                         <Image source={ league.id === 1 ? cdm2026 : league.id === 2 ? ucl : {uri : league.logo }} style={[styles.leagueLogo, isMediumScreen && {height: 30}, league.id === 2 && {height:35}]} />
 
@@ -604,7 +604,7 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       width: "99%",
         paddingVertical: 12,
-         paddingHorizontal: 10,
+         paddingHorizontal: 8,
           minHeight: 72,
            backgroundColor: 'rgba(255,255,255,0.08)',
             borderWidth: 1,

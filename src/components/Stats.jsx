@@ -258,7 +258,7 @@ const topScorerExt =
   bestRatedExt;
 
   if (!hasAnyTopPlayer) {
-    return <Text style={{fontFamily: "Permanent", marginTop: 50}}>Aucune info dispo</Text>;
+    return <Text style={{fontFamily: "Permanent", marginBlock: 20}}>Aucune info dispo sur les stats</Text>;
   }
 
     return (

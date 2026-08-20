@@ -2,7 +2,7 @@
   "expo": {
     "name": "11sur10",
     "slug": "11sur10",
-    "version": "2.8.7",
+    "version": "2.8.8",
     "orientation": "portrait",
     "icon": "./src/assets/logoapp7.png",
     "userInterfaceStyle": "light",
@@ -16,13 +16,17 @@
       "bundleIdentifier": "com.onzesur10.app",
       "supportsTablet": true,
       "buildNumber": "1",
-     "infoPlist": {
-      "CFBundleLocalizations": ["fr", "en"],
-  "ITSAppUsesNonExemptEncryption": false,
-  "UIBackgroundModes": ["remote-notification"]
-}
+      "infoPlist": {
+        "CFBundleLocalizations": [
+          "fr",
+          "en"
+        ],
+        "ITSAppUsesNonExemptEncryption": false,
+        "UIBackgroundModes": [
+          "remote-notification"
+        ]
+      }
     },
-    
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/logandroid.png",
@@ -30,13 +34,12 @@
       },
       "package": "com.onzesur10.app",
       "versionCode": 2,
-      
       "permissions": [
-    "NOTIFICATIONS",
-    "WAKE_LOCK",
-    "RECEIVE_BOOT_COMPLETED"
-  ],
-  "googleServicesFile": "./google-services.json"
+        "NOTIFICATIONS",
+        "WAKE_LOCK",
+        "RECEIVE_BOOT_COMPLETED"
+      ],
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
@@ -52,12 +55,14 @@
         }
       ],
       "expo-build-properties",
-      ["expo-notifications",
-      {
-    "icon": "./src/assets/logoapp7.png",
-    "color": "#ffffff"
-  }
-]
+      [
+        "expo-notifications",
+        {
+          "icon": "./src/assets/logoapp7.png",
+          "color": "#ffffff"
+        }
+      ],
+      "expo-localization"
     ],
     "extra": {
       "eas": {

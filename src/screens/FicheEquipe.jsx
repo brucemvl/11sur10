@@ -254,7 +254,13 @@ if (!stats) {
   console.log(coach)
 
   if (!equipe) {
-    return           <ActivityIndicator size="large" color="#0000ff" />
+    return  (        
+    <View >
+            <Precedent />
+
+       <ActivityIndicator size="large" color="#0000ff" style={{marginTop: 160}} />
+    </View>
+    )
     ;
   }
 
