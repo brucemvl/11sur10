@@ -62,7 +62,8 @@
           "color": "#ffffff"
         }
       ],
-      "expo-localization"
+      "expo-localization",
+      "expo-asset"
     ],
     "extra": {
       "eas": {
