@@ -482,6 +482,9 @@ const filteredMatches = useMemo(() => {
                             match.fixture.status.long === "Halftime" ?
                              <Text style={{ color: "white", fontFamily: "Kanitalic", fontSize: 10, backgroundColor: "darkred", padding: 2, borderRadius: 4, marginInline: 3 }}>MT</Text>
                               :
+                              match.fixture.status.long === "Penalty in progress" ? 
+                                                           <Text style={{ color: "white", fontFamily: "Kanitalic", fontSize: 10, backgroundColor: "darkred", padding: 2, borderRadius: 4, marginInline: 3 }}>Tirs au but</Text>
+:
                               <View style={[styles.liveSticker, match.fixture.status.extra > 0 && {marginInline: 1} ]}>
                                 <Text style={[styles.liveText, match.fixture.status.extra > 0 && {fontSize: 9}]}>{match.fixture.status.elapsed}'{match.fixture.status.extra > 0 ? `+${match.fixture.status.extra}` : null}</Text>
                                 <Animated.Text style={{ color: "white", fontFamily: "Kanitalic", fontSize: 10, opacity: fadeAnim, marginTop: -3 }}>live</Animated.Text>
@@ -587,6 +590,10 @@ const styles = StyleSheet.create({
     width: "8%",
     height: 30,
     resizeMode: "contain",
+    shadowColor: '#ffffff',
+                shadowOffset: { width: 0, height: 0 },
+                 shadowOpacity: 0.48, shadowRadius: 1,
+                  elevation: 5,
   },
 
   leagueName: {
@@ -608,7 +615,7 @@ const styles = StyleSheet.create({
           minHeight: 72,
            backgroundColor: 'rgba(255,255,255,0.08)',
             borderWidth: 1,
-             borderColor: 'rgba(255, 255, 255, 0.25)',
+             borderColor: 'rgba(255, 255, 255, 0.3)',
               borderRadius: 22,
                shadowColor: '#000',
                 shadowOffset: { width: 0, height: 6 },
