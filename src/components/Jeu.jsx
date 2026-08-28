@@ -18,7 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Precedent from './Precedent';
 import { teamName } from '../datas/teamNames';
 import { useNavigation } from '@react-navigation/native';
-import ucl from "../assets/cdm20266.webp"
+import ucl from "../assets/UCL2.jpg"
 
 export default function Jeu() {
     const navigation = useNavigation();
@@ -266,10 +266,13 @@ const loadMyPredictions = async () => {
                 <Text style={{fontSize: 8.5, fontFamily: "Kanitalic", color: "white"}}>{formattedHour}</Text>
                 </View>
               <View style={styles.match}>
+                              <View style={styles.team}>
+<Image source={{uri: item.teams.home.logo}} style={styles.logoClub} />
+
                 <Text style={[styles.teamName, {textAlign: "right"}]}>
                 {teamName[item.teams.home.name] || item.teams.home.name}
                 </Text>
-<Image source={{uri: item.teams.home.logo}} style={styles.logoClub} />
+</View>
                 <View style={styles.scoreRow}>
                 <TextInput
                   style={styles.input}
@@ -290,11 +293,13 @@ const loadMyPredictions = async () => {
                 onChangeText={(v) => handleScoreChange(id, 'away', v)}
                 />
               </View>
+              <View style={styles.team}>
 <Image source={{uri: item.teams.away.logo}} style={styles.logoClub} />
 
                 <Text style={[styles.teamName, {textAlign: "left"}]}>
                     {teamName[item.teams.away.name] || item.teams.away.name}
                     </Text>
+                    </View>
               </View>
 
               
@@ -387,9 +392,7 @@ textAlign: "center"
   },
   card: {
     backgroundColor: '#ffffff',
-    paddingBottom: 15,
-    paddingInline: 10,
-    paddingTop: 5,
+    padding: 15,
     borderRadius: 20,
     marginBottom: 15,
     borderWidth: 1,
@@ -400,16 +403,21 @@ textAlign: "center"
     marginBottom: 15,
     alignItems: "center",
     justifyContent: "center",
-    gap: 4
+    gap: 10
+  },
+  team: {
+flexDirection: "column",
+alignItems: "center",
+width: "33%",
+gap: 5
   },
   teamName:{
 fontFamily: "Bella",
-width: "29%",
 color: "#fff",
   },
   logoClub: {
-height: 30,
-width: 30,
+height: 40,
+width: 40,
 resizeMode: "contain"
   },
   scoreRow: {
@@ -431,7 +439,9 @@ resizeMode: "contain"
     padding: 12,
     borderRadius: 15,
     alignItems: 'center',
-    width: "70%"
+    width: "70%",
+    borderWidth: 1,
+    borderColor: '#224918a8',
   },
   buttonDisabled: {
     backgroundColor: '#9ca3af',
