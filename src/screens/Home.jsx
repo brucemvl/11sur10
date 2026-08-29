@@ -10,7 +10,8 @@ import {
   useWindowDimensions,
   ActivityIndicator,
   DeviceEventEmitter,
-  Animated
+  Animated,
+  ImageBackground
 } from "react-native";
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { useFonts } from "expo-font";
@@ -24,7 +25,7 @@ import Banner from "../components/Banner";
 import Aujourdhui from "../components/Aujourdhui";
 import Favorite from "../components/Favorite";
 import share from "../assets/share.png"
-import cdm from "../assets/cdm26.jpg"
+import ucl from "../assets/UCL3.jpg"
 import { LinearGradient } from "expo-linear-gradient";
 
 
@@ -262,9 +263,10 @@ const handleStartGame = async () => {
 </LinearGradient>
 
 
-<TouchableOpacity style={{width: "98%", marginBlock: 5, backgroundColor: "#000000", borderRadius: 15,  padding: 5, gap: 10, alignSelf: "center", alignItems: "center", justifyContent: "center"}} onPress={handleStartGame}>
-                  <Animated.Text style={{color: "#c7c00c", padding: 2, fontFamily: "Bangers", fontSize: 18, transform: [{ scale: scaleAnim }]}}>Pronos CDM 2026</Animated.Text>
-                  <Image source={cdm} style={{height: 40, width: 40}}/>
+<TouchableOpacity style={{width: "98%", marginBlock: 5,   alignSelf: "center"}} onPress={handleStartGame}>
+  <ImageBackground source={ucl} style={{alignItems: "center", justifyContent: "center", borderRadius: 20, overflow: "hidden", height: 110}}>
+                  <Animated.Text style={{color: "#ffffff", padding: 2, fontFamily: "Bangers", fontSize: 18, transform: [{ scale: scaleAnim }]}}>Pronos LDC 2026/2027</Animated.Text>
+                  </ImageBackground>
               </TouchableOpacity>
               
         {matchs.length > 0 ? 

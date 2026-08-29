@@ -166,7 +166,7 @@ const currentSystem = getPointsSystem(currentRound);
     }
     activeOpacity={0.8}
   >
-    <LinearGradient colors={[ "#fff", "#0000002b"]}  style={styles.row}>
+    <LinearGradient colors={[ "#fff", "#a2a2a2", "#00000040"]}   style={styles.row}>
       <Text style={styles.rank}>{index + 1}.</Text>
       <Image
         source={getAvatarSource(item.avatar)}
@@ -201,17 +201,17 @@ const currentSystem = getPointsSystem(currentRound);
 
   // Top 3
   top3Container: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 30 },
-  card: { borderWidth: 1, marginHorizontal: 5, padding: 10, borderRadius: 15, alignItems: 'center', shadowColor: "#000", shadowOffset: {width: 0, height: 5}, shadowRadius: 4, shadowOpacity: 0.8, elevation: 4 },
-  rank1: { backgroundColor: '#facc15' }, // or
-  rank2: { backgroundColor: '#d7dde2' },
-  rank3: { backgroundColor: '#bf5a11' },
+  card: { borderWidth: 1, borderColor: "#00000061", marginHorizontal: 5, padding: 10, borderRadius: 15, alignItems: 'center', shadowColor: "#000", shadowOffset: {width: 0, height: 5}, shadowRadius: 4, shadowOpacity: 0.8, elevation: 4 },
+  rank1: { backgroundColor: '#e9bc0c' }, // or
+  rank2: { backgroundColor: '#d2d7dc' },
+  rank3: { backgroundColor: '#bf5911c8' },
   medal: { fontSize: 30, marginBottom: 6 },
   username: { fontSize: 16, fontFamily: 'Bangers', paddingInline: 3 },
   points: { marginTop: 4, fontFamily: 'Kanito' },
-  topAvatar: { width: 95, height: 75, borderRadius: 10, marginBottom: 4, borderWidth: 1 },
+  topAvatar: { width: 95, height: 75, borderRadius: 10, marginBottom: 4, borderWidth: 1, borderColor: "#00000061" },
 
   // Reste du classement
-  row: { flexDirection: 'row', paddingBlock: 5, paddingInline: 4, borderBottomWidth: 1, borderColor: '#d2d2d2', alignItems: 'center', width: "100%", borderRadius: 10 },
+  row: { flexDirection: 'row', paddingBlock: 6, paddingInline: 4, borderBottomWidth: 1, borderColor: '#d2d2d2', alignItems: 'center', width: "100%", borderRadius: 10 },
   rank: { width: "5%", fontFamily: "Kanitt" },
   rowAvatar: { width: 35, height: 35, borderRadius: 20, marginRight: 10 },
   rowUsername: { color: "black", fontFamily: "Kanitt", width: "34%" },

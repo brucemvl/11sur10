@@ -42,7 +42,7 @@ function Precedent() {
       onPressOut={onPressOut}
     >
       <Animated.View style={[styles.buttonWrapper, { transform: [{ scale: scaleAnim }] }]}>
-        <LinearGradient colors={["rgba(120, 169, 234, 0.95)", 'rgb(0, 0, 0)']} style={styles.button}>
+        <LinearGradient colors={["rgba(120, 169, 234, 0.8)", 'rgb(0, 0, 0)']} style={styles.button}>
           <Text style={styles.text}>{"<"}  {t("prec")}</Text>
         </LinearGradient>
       </Animated.View>
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   button: {
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 20,
+    borderRadius: 24,
     width: 105,
     height: 48,
     borderWidth: 1,
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "white",
-    fontFamily: "Kanitt",
+    fontFamily: "Kanitus",
     textAlign: "center",
   },
 });

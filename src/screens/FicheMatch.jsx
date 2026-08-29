@@ -371,11 +371,11 @@ setCompoBasique(true)
 
     // If no match data available
     if (!match) {
-        return <ActivityIndicator size="large" color="#0000ff" />;
+        return <ActivityIndicator size="large" color="#0000ff" style={{marginTop: 180}} />;
     }
 
     if (!historique ) {
-        return <ActivityIndicator size="large" color="#0000ff" />;
+        return <ActivityIndicator size="large" color="#0000ff" style={{marginTop: 180}} />;
     }
 
     
