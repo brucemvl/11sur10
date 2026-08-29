@@ -261,12 +261,16 @@ import barco from "../assets/portraits/barco.png"
 import fofana from "../assets/portraits/fofana.png"
 import gittens from "../assets/portraits/gittens.png"
 import emegha from "../assets/portraits/emegha.png"
+import ngumoa from "../assets/portraits/ngumoa.png"
+import simeone from "../assets/portraits/simeone.png"
 
 
 
 
 
 export const portraitsJoueurs = {
+    323935: simeone,
+    452685: ngumoa,
     203762: emegha,
         319572: barco,
     286894: gittens,

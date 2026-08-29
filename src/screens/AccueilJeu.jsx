@@ -249,8 +249,8 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "Kanitalik",
     color: "#fff",
-    fontSize: 42,
-    lineHeight: 45,
+    fontSize: 32,
+    lineHeight: 35,
     letterSpacing: 1,
   },
 
@@ -262,8 +262,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 2,
   },
-
-  
 
   competitionLogo: {
     width: 56,

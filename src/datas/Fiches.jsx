@@ -68,10 +68,10 @@ import ugarte from "../assets/portraits/ugarte.png"
 import lisandro from "../assets/portraits/lisandro.png"
 import szoboszlai from "../assets/portraits/fiche/szoboszlai.webp"
 import chiesa from "../assets/portraits/fiche/chiesa.webp"
-import kerkez from "../assets/portraits/fiche/kerkez.png"
+import kerkez from "../assets/portraits/fiche/kerkez.webp"
 import konate from "../assets/portraits/fiche/konate.webp"
-import vandijk from "../assets/portraits/fiche/vandijk.png"
-import alisson from "../assets/portraits/fiche/alisson.png"
+import vandijk from "../assets/portraits/fiche/vandijk.webp"
+import alisson from "../assets/portraits/fiche/alisson.webp"
 import frimpong from "../assets/portraits/fiche/frimpong.webp"
 import bradley from "../assets/portraits/fiche/bradley.webp"
 import reijnders from "../assets/portraits/fiche/reijnders.webp"
@@ -309,11 +309,13 @@ import cuisance from "../assets/portraits/fiche/cuisance.png"
 import ryerson from "../assets/portraits/fiche/ryerson.webp"
 import barco from "../assets/portraits/fiche/barco.webp"
 import emegha from "../assets/portraits/fiche/emegha.webp"
+import ngumoa from "../assets/portraits/fiche/ngumoa.webp"
 
 
 
 export const fichesJoueurs = {
         203762: emegha,
+    452685: ngumoa,
 
     319572: barco,
         409: bentaleb,

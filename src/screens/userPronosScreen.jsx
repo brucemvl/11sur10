@@ -304,19 +304,86 @@ console.log("TOKEN =", token);
   return (
      <View style={styles.container}>
       <Precedent />
-      <LinearGradient colors={["#000000", "#000"]} locations={[0,  0.8]} style={{marginTop: 65,  width: "96%", borderRadius: 20, flexDirection: "row", alignItems: "center", padding: 16}}>
-<Image source={getAvatarSource(user?.avatar)} style={{height: 130, width: 100, borderWidth: 4, borderColor: "#c7c00c", borderRadius: 14}} />
-<View style={{width: "70%", alignItems: "center", gap: 10}}>
-<Text style={{color: "#c7c00c", fontFamily: "Bangers", fontSize: 20, padding: 2}}>{user?.username}</Text>
-<Text style={{color: "#c7c00c", fontFamily: "Kanito", fontSize: 20, padding: 2}}>Score : {points}</Text>
-<View style={styles.statsSmall}>
-  <View style={styles.stat}><Text style={styles.text}>🎯 {exactScores}</Text></View>
-  <View style={styles.stat}><Text style={styles.text}>⚖️ {goodDiffs}</Text></View>
-  <View style={styles.stat}><Text style={styles.text}>✅ {goodResults}</Text></View>
-</View>
-{bestExactScoreUser?.userId === user?._id && <Animated.Text style={{color: "#d8271a", fontFamily: "Bangers", padding: 2,  transform: [{ scale: scaleAnim }]}}>🎯 Expert du score exact 🎯</Animated.Text>}
-</View>
-      </LinearGradient>
+      <LinearGradient
+  colors={["#16355f", "#0e1e3b", "#000000"]}
+  locations={[0, 0.55, 1]}
+  style={styles.profileHeader}
+>
+  
+
+  {/* AVATAR */}
+  <View style={styles.avatarWrapper}>
+    <View style={styles.avatarRing}>
+      <Image
+        source={getAvatarSource(user?.avatar)}
+        style={styles.profileAvatar}
+      />
+    </View>
+
+    {/* Badge score */}
+    <View style={styles.scoreBadge}>
+      <Text style={styles.scoreValue}>{points}</Text>
+      <Text style={styles.scoreLabel}>PTS</Text>
+    </View>
+  </View>
+
+  {/* INFOS */}
+  <View style={styles.profileInfo}>
+
+    <Text
+      style={styles.profileUsername}
+      numberOfLines={1}
+      adjustsFontSizeToFit
+    >
+      {user?.username}
+    </Text>
+
+    <View style={styles.statsRow}>
+
+      <View style={styles.statCard}>
+        <Text style={styles.statEmoji}>🎯</Text>
+        <View>
+          <Text style={styles.statValue}>{exactScores}</Text>
+          <Text style={styles.statLabel}>Exact</Text>
+        </View>
+      </View>
+
+      <View style={styles.statCard}>
+        <Text style={styles.statEmoji}>⚖️</Text>
+        <View>
+          <Text style={styles.statValue}>{goodDiffs}</Text>
+          <Text style={styles.statLabel}>Diff</Text>
+        </View>
+      </View>
+
+      <View style={styles.statCard}>
+        <Text style={styles.statEmoji}>✅</Text>
+        <View>
+          <Text style={styles.statValue}>{goodResults}</Text>
+          <Text style={styles.statLabel}>Résultat</Text>
+        </View>
+      </View>
+
+    </View>
+
+    {/* Badge expert */}
+    {bestExactScoreUser?.userId === user?._id && (
+      <Animated.View
+        style={[
+          styles.expertBadge,
+          {
+            transform: [{ scale: scaleAnim }],
+          },
+        ]}
+      >
+        <Text style={styles.expertBadgeText}>
+          🎯 Expert du score exact
+        </Text>
+      </Animated.View>
+    )}
+
+  </View>
+</LinearGradient>
       <Text style={styles.title}>Pronos de {username}</Text>
 
       <FlatList
@@ -545,14 +612,212 @@ fontFamily: "Kanitt",
     flexDirection: "row",
     gap: 12
   },
-  stat: {
-    backgroundColor: "#c7c00c",
-    paddingBlock: 6,
-    paddingInline: 14,
-    borderRadius: 20,
-    alignItems: "center",
-    justifyContent: "center"
+  profileHeader: {
+  marginTop: 65,
+  width: "96%",
+  minHeight: 190,
+  borderRadius: 26,
+  padding: 12,
+
+  flexDirection: "row",
+  alignItems: "center",
+
+  overflow: "hidden",
+
+  shadowColor: "#000",
+  shadowOpacity: 0.35,
+  shadowRadius: 15,
+  shadowOffset: {
+    width: 0,
+    height: 8,
   },
+
+  elevation: 8,
+},
+
+headerGlow: {
+  position: "absolute",
+  width: 180,
+  height: 180,
+  borderRadius: 90,
+
+  right: -70,
+  top: -80,
+
+  backgroundColor: "rgba(61, 93, 255, 0.18)",
+},
+
+avatarWrapper: {
+  width: 110,
+  alignItems: "center",
+  justifyContent: "center",
+  position: "relative",
+},
+
+avatarRing: {
+  width: 104,
+  height: 104,
+  borderRadius: 52,
+
+  padding: 2,
+
+  backgroundColor: "#e8e8e8",
+
+  shadowColor: "#000",
+  shadowOpacity: 0.35,
+  shadowRadius: 8,
+  shadowOffset: {
+    width: 0,
+    height: 4,
+  },
+
+  elevation: 6,
+},
+
+profileAvatar: {
+  width: "100%",
+  height: "100%",
+  borderRadius: 48,
+  resizeMode: "cover",
+},
+
+scoreBadge: {
+  position: "absolute",
+
+  bottom: -19,
+  right: -10,
+
+  minWidth: 58,
+  height: 58,
+
+  borderRadius: 29,
+
+  backgroundColor: "#dcc70e",
+
+  borderWidth: 3,
+  borderColor: "#0b1230",
+
+  alignItems: "center",
+  justifyContent: "center",
+
+  shadowColor: "#000",
+  shadowOpacity: 0.35,
+  shadowRadius: 6,
+  shadowOffset: {
+    width: 0,
+    height: 3,
+  },
+
+  elevation: 6,
+},
+
+scoreValue: {
+  color: "#111",
+  fontFamily: "Kanitt",
+  fontSize: 17,
+  lineHeight: 19,
+},
+
+scoreLabel: {
+  color: "#111",
+  fontFamily: "Kanito",
+  fontSize: 8,
+  letterSpacing: 1,
+},
+
+profileInfo: {
+  flex: 1,
+  marginLeft: 15,
+  alignItems: "center",
+  justifyContent: "center",
+},
+
+profileUsername: {
+  color: "#fff",
+
+  fontFamily: "Bangers",
+  fontSize: 27,
+
+  letterSpacing: 0.6,
+
+  marginBottom: 12,
+
+  maxWidth: "100%",
+  padding: 2
+},
+
+statsRow: {
+  width: "100%",
+
+  flexDirection: "row",
+
+  justifyContent: "space-between",
+
+  gap: 6,
+},
+
+statCard: {
+  flex: 1,
+
+  minHeight: 52,
+
+  backgroundColor: "rgba(255,255,255,0.09)",
+
+  borderWidth: 1,
+  borderColor: "rgba(255,255,255,0.12)",
+
+  borderRadius: 14,
+
+  paddingHorizontal: 6,
+  paddingVertical: 7,
+
+  flexDirection: "row",
+
+  alignItems: "center",
+  justifyContent: "center",
+
+  gap: 5,
+},
+
+statEmoji: {
+  fontSize: 16,
+},
+
+statValue: {
+  color: "#fff",
+
+  fontFamily: "Kanitt",
+  fontSize: 16,
+
+  lineHeight: 17,
+},
+
+statLabel: {
+  color: "rgba(255,255,255,0.55)",
+
+  fontFamily: "Kanito",
+  fontSize: 8,
+
+  textTransform: "uppercase",
+},
+
+expertBadge: {
+  marginTop: 11,
+
+  borderRadius: 20,
+
+  paddingHorizontal: 12,
+  paddingVertical: 5,
+},
+
+expertBadgeText: {
+  color: "#dcc70e",
+
+  fontFamily: "Bangers",
+  fontSize: 13,
+
+  letterSpacing: 0.3,
+},
   text: {
     fontFamily: "Kanitt",
     fontSize: 16

@@ -84,7 +84,7 @@ if (currentJson.response && currentJson.response.length > 0) {
 }, [id]);
 
  if (loading) {
-  return           <ActivityIndicator size="large" color="#0000ff" />
+  return           <ActivityIndicator size="large" color="#0000ff" style={{marginTop: 180}} />
   ;
 }
 

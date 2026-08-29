@@ -211,8 +211,8 @@ const currentSystem = getPointsSystem(currentRound);
   topAvatar: { width: 95, height: 75, borderRadius: 10, marginBottom: 4, borderWidth: 1, borderColor: "#00000061" },
 
   // Reste du classement
-  row: { flexDirection: 'row', paddingBlock: 6, paddingInline: 4, borderBottomWidth: 1, borderColor: '#d2d2d2', alignItems: 'center', width: "100%", borderRadius: 10 },
-  rank: { width: "5%", fontFamily: "Kanitt" },
+  row: { flexDirection: 'row', paddingBlock: 8, paddingInline: 4, borderBottomWidth: 1, borderColor: '#d2d2d2', alignItems: 'center', width: "100%", borderRadius: 10 },
+  rank: { width: "5%", fontFamily: "Kanitalik" },
   rowAvatar: { width: 35, height: 35, borderRadius: 20, marginRight: 10 },
   rowUsername: { color: "black", fontFamily: "Kanitt", width: "34%" },
   rowPoints: { fontFamily: "Kanitt", width: "15%", textAlign: "left"},
