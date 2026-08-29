@@ -93,7 +93,7 @@ import greenwood from "../assets/portraits/fiche/greenwood.png"
 import ascencio from "../assets/portraits/ascencio.png"
 import watkins from "../assets/portraits/watkins.png"
 import malen from "../assets/portraits/malen.png"
-import rogers from "../assets/portraits/rogers.png"
+import rogers from "../assets/portraits/fiche/rogers.webp"
 import rice from "../assets/portraits/fiche/rice.png"
 import raya from "../assets/portraits/fiche/raya.png"
 import martinelli from "../assets/portraits/fiche/martinelli.png"
@@ -302,11 +302,24 @@ import llorente from "../assets/portraits/fiche/llorente.png"
 import golovin from "../assets/portraits/fiche/golovin.png"
 import clauss from "../assets/portraits/fiche/clauss.png"
 import digne from "../assets/portraits/fiche/digne.png"
+import haraldsson from "../assets/portraits/fiche/haraldsson.png"
+import embappe from "../assets/portraits/fiche/embappe.png"
+import bentaleb from "../assets/portraits/fiche/bentaleb.png"
+import cuisance from "../assets/portraits/fiche/cuisance.png"
 import ryerson from "../assets/portraits/fiche/ryerson.webp"
+import barco from "../assets/portraits/fiche/barco.webp"
+import emegha from "../assets/portraits/fiche/emegha.webp"
 
 
 
 export const fichesJoueurs = {
+        203762: emegha,
+
+    319572: barco,
+        409: bentaleb,
+    25634: cuisance,
+        67889: haraldsson,
+    386287: embappe,
     2724: digne,
     25008: clauss,
         109: golovin,

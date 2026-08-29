@@ -25,7 +25,7 @@ import Banner from "../components/Banner";
 import Aujourdhui from "../components/Aujourdhui";
 import Favorite from "../components/Favorite";
 import share from "../assets/share.png"
-import ucl from "../assets/UCL3.jpg"
+import ucl from "../assets/UCL3333.jpg"
 import { LinearGradient } from "expo-linear-gradient";
 
 
@@ -264,7 +264,7 @@ const handleStartGame = async () => {
 
 
 <TouchableOpacity style={{width: "98%", marginBlock: 5,   alignSelf: "center"}} onPress={handleStartGame}>
-  <ImageBackground source={ucl} style={{alignItems: "center", justifyContent: "center", borderRadius: 20, overflow: "hidden", height: 110}}>
+  <ImageBackground source={ucl} style={{alignItems: "center", justifyContent: "center", borderRadius: 20, overflow: "hidden", padding: 22}}>
                   <Animated.Text style={{color: "#ffffff", padding: 2, fontFamily: "Bangers", fontSize: 18, transform: [{ scale: scaleAnim }]}}>Pronos LDC 2026/2027</Animated.Text>
                   </ImageBackground>
               </TouchableOpacity>

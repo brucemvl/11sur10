@@ -285,9 +285,10 @@ const styles = StyleSheet.create({
 
   playerCard: {
     width: "100%",
-    backgroundColor: "#fff",
+    backgroundColor: "#101827",
     borderRadius: 22,
-    padding: 14,
+    paddingBlock: 14,
+    paddingInline: 24,
     marginBottom: 16,
     shadowColor: "#000",
     shadowOpacity: 0.07,
@@ -299,6 +300,7 @@ const styles = StyleSheet.create({
   playerInfo: {
     flexDirection: "row",
     alignItems: "center",
+    gap: 10
   },
 
   topAvatar: {
@@ -307,8 +309,8 @@ const styles = StyleSheet.create({
     borderRadius: 36,
     resizeMode: "cover",
     borderWidth: 3,
-    borderColor: "#c59e00",
-    backgroundColor: "#eee",
+    borderColor: "#dcdcdc",
+    
   },
 
   playerIdentity: {
@@ -326,7 +328,7 @@ const styles = StyleSheet.create({
 
   username: {
     fontFamily: "Bangers",
-    color: "#172033",
+    color: "#dcdcdc",
     fontSize: 26,
     letterSpacing: 0.4,
   },

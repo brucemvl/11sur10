@@ -252,13 +252,30 @@ import clauss from "../assets/portraits/clauss.png"
 import golovin from "../assets/portraits/golovin.png"
 import digne from "../assets/portraits/digne.png"
 import thauvin from "../assets/portraits/thauvin.png"
+import haraldsson from "../assets/portraits/haraldsson.png"
+import embappe from "../assets/portraits/embappe.png"
+import bentaleb from "../assets/portraits/bentaleb.png"
+import cuisance from "../assets/portraits/cuisance.png"
+import estevao from "../assets/portraits/estevao.png"
+import barco from "../assets/portraits/barco.png"
+import fofana from "../assets/portraits/fofana.png"
+import gittens from "../assets/portraits/gittens.png"
+import emegha from "../assets/portraits/emegha.png"
+
 
 
 
 
 export const portraitsJoueurs = {
+    203762: emegha,
+        319572: barco,
+    286894: gittens,
+    409: bentaleb,
+        25634: cuisance,
+    425733: estevao,
         1922: thauvin,
-    
+    67889: haraldsson,
+    386287: embappe,
     2724: digne,
     25008: clauss,
     109: golovin,
