@@ -3,7 +3,7 @@ import gyokeres from "../assets/portraits/fiche/gyokeres.avif"
 import zaire from "../assets/portraits/fiche/zaire.png"
 import yamal from "../assets/portraits/fiche/yamal.png"
 import dembele from "../assets/portraits/fiche/dembele.png"
-import bellingham from "../assets/portraits/fiche/bellingham.png"
+import bellingham from "../assets/portraits/fiche/bellingham.webp"
 import barcola from "../assets/portraits/fiche/barcola.png"
 import rodrygo from "../assets/portraits/fiche/rodrygo.png"
 import guller from "../assets/portraits/fiche/guller.webp"
@@ -17,8 +17,8 @@ import kounde from "../assets/portraits/fiche/kounde.png"
 import dejong from "../assets/portraits/fiche/dejong.png"
 import garcia from "../assets/portraits/fiche/garcia.png"
 import endrick from "../assets/portraits/fiche/endrick.png"
-import mbappe from "../assets/portraits/fiche/mbappe.png"
-import vini from "../assets/portraits/fiche/vinicius.png"
+import mbappe from "../assets/portraits/fiche/mbappe.webp"
+import vini from "../assets/portraits/fiche/vinicius.webp"
 import palmer from "../assets/portraits/fiche/palmer.webp"
 import messi from "../assets/trophees/messi.jpg"
 import griezmann from "../assets/portraits/fiche/griezmann.png"
@@ -65,7 +65,7 @@ import carvajal from "../assets/portraits/fiche/carvajal.webp"
 import militao from "../assets/portraits/fiche/militao.webp"
 import ekitike from "../assets/portraits/fiche/ekitike.webp"
 import ugarte from "../assets/portraits/ugarte.png"
-import lisandro from "../assets/portraits/lisandro.png"
+import lisandro from "../assets/portraits/fiche/lisandro.png"
 import szoboszlai from "../assets/portraits/fiche/szoboszlai.webp"
 import chiesa from "../assets/portraits/fiche/chiesa.webp"
 import kerkez from "../assets/portraits/fiche/kerkez.webp"
@@ -131,7 +131,6 @@ import biereth from "../assets/portraits/fiche/biereth.png"
 import akliouche from "../assets/portraits/fiche/akliouche.png"
 import benseghir from "../assets/portraits/fiche/benseghir.png"
 import bastoni from "../assets/portraits/fiche/bastoni.png"
-import martinez from "../assets/portraits/fiche/martinez.png"
 import gnabry from "../assets/portraits/fiche/gnabry.png"
 import kane from "../assets/portraits/fiche/kane.png"
 import sane from "../assets/portraits/fiche/sane.png"
@@ -306,6 +305,9 @@ import haraldsson from "../assets/portraits/fiche/haraldsson.png"
 import embappe from "../assets/portraits/fiche/embappe.png"
 import bentaleb from "../assets/portraits/fiche/bentaleb.png"
 import cuisance from "../assets/portraits/fiche/cuisance.png"
+import brunner from "../assets/portraits/fiche/brunner.png"
+import diomande from "../assets/portraits/fiche/diomande.webp"
+import tielemans from "../assets/portraits/fiche/tielemans.png"
 import ryerson from "../assets/portraits/fiche/ryerson.webp"
 import barco from "../assets/portraits/fiche/barco.webp"
 import emegha from "../assets/portraits/fiche/emegha.webp"
@@ -314,8 +316,11 @@ import ngumoa from "../assets/portraits/fiche/ngumoa.webp"
 
 
 export const fichesJoueurs = {
+    2926: tielemans,
+    386276: brunner,
         203762: emegha,
     452685: ngumoa,
+    513776: diomande,
 
     319572: barco,
         409: bentaleb,
@@ -537,7 +542,6 @@ export const fichesJoueurs = {
   22236: leao,
   226: dumfries,
   31009: bastoni,
-  217: martinez,
   30558: barella,
   745: isco,
   9971: antony,

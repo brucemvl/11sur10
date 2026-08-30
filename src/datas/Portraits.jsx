@@ -15,7 +15,7 @@ import salah from "../assets/portraits/salah.png"
 import kounde from "../assets/portraits/kounde.png"
 import endrick from "../assets/portraits/endrick.png"
 import mbappe from "../assets/portraits/mbappe.png"
-import vini from "../assets/portraits/vini.png"
+import vini from "../assets/portraits/vinicius.png"
 import palmer from "../assets/portraits/palmer.png"
 import griezmann from "../assets/portraits/griezmann.png"
 import nkunku from "../assets/portraits/nkunku.png"
@@ -58,7 +58,7 @@ import sorloth from "../assets/portraits/sorloth.png"
 import alvarez from "../assets/portraits/alvarez.png"
 import schik from "../assets/portraits/schik.png"
 import wirtz from "../assets/portraits/wirtz.png"
-import camavinga from "../assets/portraits/camavinga.jpg"
+import camavinga from "../assets/portraits/camavinga.png"
 import modric from "../assets/portraits/modric.png"
 import valverde from "../assets/portraits/valverde.png"
 import rudiger from "../assets/portraits/rudiger.jpg"
@@ -129,7 +129,6 @@ import savinho from "../assets/portraits/savinho.png"
 import guirassy from "../assets/portraits/guirassy.png"
 import kane from "../assets/portraits/kane.png"
 import biereth from "../assets/portraits/biereth.png"
-import martinez from "../assets/portraits/martinez.png"
 import benseghir from "../assets/portraits/benseghir.png"
 import akliouche from "../assets/portraits/akliouche.png"
 import cristiano from "../assets/portraits/cristiano.png"
@@ -263,12 +262,18 @@ import gittens from "../assets/portraits/gittens.png"
 import emegha from "../assets/portraits/emegha.png"
 import ngumoa from "../assets/portraits/ngumoa.png"
 import simeone from "../assets/portraits/simeone.png"
+import brunner from "../assets/portraits/brunner.png"
+import tielemans from "../assets/portraits/tielemans.png"
+import diomande from "../assets/portraits/diomande.png"
 
 
 
 
 
 export const portraitsJoueurs = {
+        386276: brunner,
+        2926: tielemans,
+    513776: diomande,
     323935: simeone,
     452685: ngumoa,
     203762: emegha,
@@ -378,7 +383,6 @@ export const portraitsJoueurs = {
     161948: delap,
     10329: pedro,
     269: nkunku,
-    217: martinez,
     283026: biereth,
     184: kane,
     21393: guirassy,
