@@ -265,8 +265,8 @@ const styles = StyleSheet.create({
   },
   bloc: {
 backgroundColor: "#abd8e7",
-padding: 10,
-borderRadius: 10,
+padding: 16,
+borderRadius: 20,
 marginBlock: 8
   },
   section: {

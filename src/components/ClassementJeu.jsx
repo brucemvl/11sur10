@@ -112,37 +112,56 @@ const currentSystem = getPointsSystem(currentRound);
       <Text style={styles.title}>Classement</Text>
 
       {/* TOP 3 */}
-      <View style={styles.top3Container}>
-  {top3.map((user, index) => (
-    <TouchableOpacity
-    onPress={() =>
-      navigation.navigate("userPronosScreen", {
-        userId: user.userId,
-        username: user.username,
-        exactScores: user.exactScores,
-        goodDiffs: user.goodDiffs,
-        goodResults: user.goodResults,
-                points: user.points,
+      <View style={styles.podium}>
+  {[top3[1], top3[0], top3[2]].map((user, index) => {
+  if (!user) return null;
 
-        bestExactScoreUser: bestExactScoreUser
-      })
-    }
-    activeOpacity={0.8}
-    style={{flex: 1}}
-  >
-    <View key={user.userId} style={[styles.card, styles[`rank${index + 1}`]]}>
-      <Image
-  source={getAvatarSource(user.avatar)}
-  style={styles.topAvatar}
-/>
-      <Text style={styles.medal}>
-        {index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉'}
-      </Text>
-      <Text style={styles.username}>{user.username}</Text>  {/* ✅ ici */}
-      
-    </View>
+  const originalIndex = top3.indexOf(user);
+
+  return (
+    <TouchableOpacity
+      key={user.userId}
+      onPress={() =>
+        navigation.navigate("userPronosScreen", {
+          userId: user.userId,
+          username: user.username,
+          exactScores: user.exactScores,
+          goodDiffs: user.goodDiffs,
+          goodResults: user.goodResults,
+          points: user.points,
+          bestExactScoreUser: bestExactScoreUser,
+        })
+      }
+      activeOpacity={0.8}
+      style={styles.podiumItem}
+    >
+      <View
+        style={[
+          styles.card,
+          styles[`rank${originalIndex + 1}`],
+          
+        ]}
+      >
+        <Image
+          source={getAvatarSource(user.avatar)}
+          style={styles.topAvatar}
+        />
+
+        <Text style={styles.medal}>
+          {originalIndex === 0
+            ? "🥇"
+            : originalIndex === 1
+            ? "🥈"
+            : "🥉"}
+        </Text>
+
+        <Text style={styles.username} numberOfLines={1}>
+          {user.username}
+        </Text>
+      </View>
     </TouchableOpacity>
-  ))}
+  );
+})}
 </View>
 
 
@@ -196,14 +215,27 @@ const currentSystem = getPointsSystem(currentRound);
 
   const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f3f4f6'  },
-  scroll: { alignItems: "center", padding: 8, paddingBottom: 100  },
+  scroll: { alignItems: "center", padding: 8, paddingBottom: 100 , gap: 20 },
   title: { fontSize: 24, fontFamily: "Kanitt", marginBlock: 20, color: "black" },
 
   // Top 3
-  top3Container: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 30 },
-  card: { borderWidth: 1, borderColor: "#00000061", marginHorizontal: 5, padding: 10, borderRadius: 15, alignItems: 'center', shadowColor: "#000", shadowOffset: {width: 0, height: 5}, shadowRadius: 4, shadowOpacity: 0.8, elevation: 4 },
-  rank1: { backgroundColor: '#e9bc0c' }, // or
-  rank2: { backgroundColor: '#d2d7dc' },
+  card: {height: 160, borderWidth: 1, borderColor: "#00000061", marginHorizontal: 5, padding: 10, borderRadius: 15, alignItems: 'center', shadowColor: "#000", shadowOffset: {width: 0, height: 5}, shadowRadius: 4, shadowOpacity: 0.8, elevation: 4, justifyContent: "space-between" },
+  podium: {
+  flexDirection: "row",
+  alignItems: "flex-end",
+  justifyContent: "center",
+  width: "100%",
+  paddingHorizontal: 10,
+},
+
+podiumItem: {
+  flex: 1,
+  alignItems: "center",
+  justifyContent: "flex-end",
+},
+
+  rank1: { backgroundColor: '#e9bc0c', height: 200 }, // or
+  rank2: { backgroundColor: '#d2d7dc', height: 180 },
   rank3: { backgroundColor: '#bf5911c8' },
   medal: { fontSize: 30, marginBottom: 6 },
   username: { fontSize: 16, fontFamily: 'Bangers', paddingInline: 3 },

@@ -408,12 +408,13 @@ textAlign: "center"
   team: {
 flexDirection: "column",
 alignItems: "center",
-width: "33%",
-gap: 5
+width: "35%",
+gap: 5,
   },
   teamName:{
 fontFamily: "Bella",
 color: "#fff",
+textAlign: "center"
   },
   logoClub: {
 height: 40,

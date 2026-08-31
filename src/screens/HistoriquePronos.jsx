@@ -112,7 +112,7 @@ export default function HistoriquePronos() {
 };
 
   if (loading) {
-    return <ActivityIndicator size="large" style={{ marginTop: 40 }} />;
+    return <ActivityIndicator size="large" style={{ marginTop: 140 }} />;
   }
 
   return (
@@ -127,12 +127,14 @@ export default function HistoriquePronos() {
         renderItem={({ item }) => (
           <View style={styles.card}>
             <View style={styles.matchRow}>
-              
+              <View style={{flexDirection: "column-reverse",  justifyContent: "center", width: "33%", alignItems: "center"}}>
               <Text style={[styles.team, {textAlign: "right"}]}>{teamName[item.homeTeam] || item.homeTeam}</Text>
               <Image
                 source={{ uri: item.homeLogo || 'https://via.placeholder.com/32' }}
                 style={styles.logo}
               />
+              </View>
+
               <View style={{width: "12%"}}>
               <Text style={styles.score}>
                 {item.predictedHome} - {item.predictedAway}
@@ -142,6 +144,7 @@ export default function HistoriquePronos() {
               </Text>
 
               </View>
+              
                             <View style={{width: "12%"}}>
 
               <Text style={styles.scoreReal}>
@@ -151,12 +154,14 @@ export default function HistoriquePronos() {
                 Score Exact
               </Text>
               </View>
+              <View style={{flexDirection: "column-reverse", justifyContent: "center",  width: "33%", alignItems: "center"}}>
+              <Text style={[styles.team, {textAlign: "left"}]}>{teamName[item.awayTeam] || item.awayTeam}</Text>
+
               <Image
                 source={{ uri: item.awayLogo || 'https://via.placeholder.com/32' }}
                 style={styles.logo}
               />
-              <Text style={[styles.team, {textAlign: "left"}]}>{teamName[item.awayTeam] || item.awayTeam}</Text>
-              
+              </View>
             </View>
             {item.status === 'FINISHED' ?
             <Text style={[styles.points, item.points === 0 && {color: "red"}]}>{item.points > 0 ? "✅ " : "❌ "}Points gagnés : {item.points}</Text>
@@ -184,29 +189,29 @@ const styles = StyleSheet.create({
     fontFamily: "Kanitt"
   },
   card: {
-    backgroundColor: '#fff',
-    padding: 8,
-    borderRadius: 12,
+    backgroundColor: '#dbdbdbd3',
+    padding: 10,
+    borderRadius: 22,
     marginBottom: 15,
-    borderWidth: 1
+    borderWidth: 1,
+    borderColor: "#0000003c"
   },
   matchRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     gap: 4,
     marginBottom: 8,
   },
   logo: {
-    width: "8%",
-    height: 32,
+    height: 42,
+    width: 42,
     resizeMode: 'contain',
     marginInline: 4
   },
   team: {
 fontFamily: "Bella",
     textAlign: 'center',
-    width: "30%",
     fontSize: 13,
     
   },
@@ -230,6 +235,7 @@ fontFamily: "Kanito",
   status: {
     fontSize: 12,
     color: '#6b7280',
-    fontFamily: "Kanitus"
+    fontFamily: "Kanitus",
+    marginTop: 10
   },
 });
