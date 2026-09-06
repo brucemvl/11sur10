@@ -1,74 +1,83 @@
 {
-  "expo": {
-    "name": "11sur10",
-    "slug": "11sur10",
-    "version": "2.8.9",
-    "orientation": "portrait",
-    "icon": "./src/assets/logoapp7.png",
-    "userInterfaceStyle": "light",
-    "newArchEnabled": true,
-    "splash": {
+"expo": {
+"name": "11sur10",
+"slug": "11sur10",
+"version": "2.8.9",
+"orientation": "portrait",
+"icon": "./src/assets/logoapp7.png",
+"userInterfaceStyle": "light",
+
+"ios": {
+  "bundleIdentifier": "com.onzesur10.app",
+  "supportsTablet": true,
+  "buildNumber": "1",
+  "infoPlist": {
+    "CFBundleLocalizations": [
+      "fr",
+      "en"
+    ],
+    "ITSAppUsesNonExemptEncryption": false,
+    "UIBackgroundModes": [
+      "remote-notification"
+    ]
+  }
+},
+
+"android": {
+  "adaptiveIcon": {
+    "foregroundImage": "./src/assets/logandroid.png",
+    "backgroundColor": "#ffffff"
+  },
+  "package": "com.onzesur10.app",
+  "versionCode": 2,
+  "permissions": [
+    "NOTIFICATIONS",
+    "WAKE_LOCK",
+    "RECEIVE_BOOT_COMPLETED"
+  ],
+  "googleServicesFile": "./google-services.json"
+},
+
+"web": {
+  "favicon": "./src/assets/favicon.png"
+},
+
+"plugins": [
+  [
+    "expo-font",
+    {
+      "fonts": [
+        "./src/assets/fonts/Kanit/Kanit-Black.ttf",
+        "./src/assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf"
+      ]
+    }
+  ],
+  "expo-build-properties",
+  [
+    "expo-notifications",
+    {
+      "icon": "./src/assets/logoapp7.png",
+      "color": "#ffffff"
+    }
+  ],
+  "expo-localization",
+  "expo-asset",
+  [
+    "expo-splash-screen",
+    {
       "image": "./src/assets/logopnn.png",
+      "imageWidth": 200,
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
-    },
-    "ios": {
-      "bundleIdentifier": "com.onzesur10.app",
-      "supportsTablet": true,
-      "buildNumber": "1",
-      "infoPlist": {
-        "CFBundleLocalizations": [
-          "fr",
-          "en"
-        ],
-        "ITSAppUsesNonExemptEncryption": false,
-        "UIBackgroundModes": [
-          "remote-notification"
-        ]
-      }
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./src/assets/logandroid.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "com.onzesur10.app",
-      "versionCode": 2,
-      "permissions": [
-        "NOTIFICATIONS",
-        "WAKE_LOCK",
-        "RECEIVE_BOOT_COMPLETED"
-      ],
-      "googleServicesFile": "./google-services.json"
-    },
-    "web": {
-      "favicon": "./src/assets/favicon.png"
-    },
-    "plugins": [
-      [
-        "expo-font",
-        {
-          "fonts": [
-            "./src/assets/fonts/Kanit/Kanit-Black.ttf",
-            "./src/assets/fonts/Permanent_Marker/PermanentMarker-Regular.ttf"
-          ]
-        }
-      ],
-      "expo-build-properties",
-      [
-        "expo-notifications",
-        {
-          "icon": "./src/assets/logoapp7.png",
-          "color": "#ffffff"
-        }
-      ],
-      "expo-localization",
-      "expo-asset"
-    ],
-    "extra": {
-      "eas": {
-        "projectId": "d459ac30-203a-4346-86f2-2b4cb8813c67"
-      }
     }
+  ]
+],
+
+"extra": {
+  "eas": {
+    "projectId": "d459ac30-203a-4346-86f2-2b4cb8813c67"
   }
+}
+
+}
 }
