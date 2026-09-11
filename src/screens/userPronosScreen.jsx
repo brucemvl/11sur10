@@ -16,6 +16,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import getAvatarSource from '../../backend/utils/getAvatarSource';
 import { teamName } from '../datas/teamNames';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { BlurView } from 'expo-blur';
 
 
 export default function UserPronosScreen({ route }) {
@@ -389,8 +390,8 @@ console.log("TOKEN =", token);
       <FlatList
         data={history}
         keyExtractor={(item) => item.matchId.toString()}
-        contentContainerStyle={{ padding: 10, paddingBottom: 100 }}
-        style={{width: "100%"}}
+        contentContainerStyle={{ paddingTop: 20, paddingInline: 10, paddingBottom: 100 }}
+        style={{width: "100%", backgroundColor: "#07111f"}}
         renderItem={({ item }) => {
           const grouped = item.reactions.reduce((acc, r) => {
   acc[r.emoji] = (acc[r.emoji] || 0) + 1;
@@ -399,14 +400,32 @@ console.log("TOKEN =", token);
 
           return(
           
-          <View style={styles.card}>
+          <View style={styles.cardWrapper}>
+  <BlurView
+    intensity={35}
+    tint="dark"
+    style={styles.cardBlur}
+  >
+    <LinearGradient
+      colors={[
+        "rgba(255,255,255,0.14)",
+        "rgba(255,255,255,0.055)",
+        "rgba(20, 45, 80, 0.4)"
+      ]}
+      locations={[0, 0.45, 1]}
+      style={styles.card}
+    >
+    <View pointerEvents="none" style={styles.liquidGlowOne} />
+<View pointerEvents="none" style={styles.liquidGlowTwo} />
             <View style={styles.matchRow}>
-              
-              <Text style={[styles.team, {textAlign: "right"}]}>{teamName[item.homeTeam] || item.homeTeam}</Text>
-              <Image
+              <View style={{flexDirection: "column", width: "30%", alignItems: "center", gap: 6}}>
+                <Image
                 source={{ uri: item.homeLogo || 'https://via.placeholder.com/32' }}
                 style={styles.logo}
               />
+              <Text style={[styles.team, {textAlign: "right"}]}>{teamName[item.homeTeam] || item.homeTeam}</Text>
+              
+              </View>
               <View style={{width: "12%"}}>
               <Text style={styles.score}>
                 {item.predictedHome} - {item.predictedAway}
@@ -425,12 +444,14 @@ console.log("TOKEN =", token);
                 Score Exact
               </Text>
               </View>
-              <Image
+                            <View style={{flexDirection: "column", width: "30%", alignItems: "center", gap: 6}}>
+<Image
                 source={{ uri: item.awayLogo || 'https://via.placeholder.com/32' }}
                 style={styles.logo}
               />
               <Text style={[styles.team, {textAlign: "left"}]}>{teamName[item.awayTeam] || item.awayTeam}</Text>
-              
+               
+              </View>
             </View>
             {item.status === 'FINISHED' ?
             <Text style={[styles.points, item.points === 0 && {color: "#e21f1f"}]}>{item.points > 0 ? "✅ " : "❌ "}{item.points > 0 && "+"}{item.points}{item.points === 1 ? " pt" : " pts"}</Text>
@@ -482,7 +503,9 @@ onPress={() => sendReaction(e)}
 </View>
 
 )}
-          </View>
+           </LinearGradient>
+  </BlurView>
+</View>
         )}}
       />
 
@@ -557,30 +580,79 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: "Kanitt"
   },
-  card: {
-    backgroundColor: '#3c6089',
-    padding: 8,
-    borderRadius: 12,
-    marginBottom: 20,
-    borderWidth: 1
-  },
+  cardWrapper: {
+  width: "100%",
+  marginBottom: 18,
+
+  borderRadius: 24,
+
+  
+},
+
+cardBlur: {
+  borderRadius: 24,
+  overflow: "hidden",
+
+  borderWidth: 1,
+  borderColor: "rgba(255,255,255,0.16)",
+},
+
+card: {
+  width: "100%",
+
+  padding: 14,
+
+  borderRadius: 24,
+
+  borderWidth: 1,
+  borderColor: "rgba(255,255,255,0.07)",
+
+  overflow: "hidden",
+},
+liquidGlowOne: {
+  position: "absolute",
+
+  width: 150,
+  height: 150,
+
+  borderRadius: 75,
+
+  backgroundColor: "rgba(70,150,255,0.10)",
+
+  top: -90,
+  right: -50,
+},
+
+liquidGlowTwo: {
+  position: "absolute",
+
+  width: 110,
+  height: 110,
+
+  borderRadius: 55,
+
+  backgroundColor: "rgba(255,255,255,0.055)",
+
+  bottom: -70,
+  left: -35,
+},
   matchRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     gap: 4,
     marginBottom: 8,
+    width: "100%"
   },
   logo: {
-    width: "8%",
-    height: 32,
+    height: 36,
+    width: 36,
     resizeMode: 'contain',
     marginInline: 4
   },
   team: {
 fontFamily: "Bella",
     textAlign: 'center',
-    width: "30%",
     fontSize: 13,
     color: "white"
     
@@ -601,17 +673,14 @@ fontFamily: "Bella",
     fontSize: 14,
 fontFamily: "Kanitt",
     color: '#1ab553',
-    shadowColor: "white", shadowOffset: {width: 0, height: 0}, shadowOpacity: 0.5, shadowRadius: 5
+    marginTop: 10
   },
   status: {
     fontSize: 12,
     color: '#ffffff',
     fontFamily: "Kanitus"
   },
-  statsSmall: {
-    flexDirection: "row",
-    gap: 12
-  },
+  
   profileHeader: {
   marginTop: 65,
   width: "96%",
@@ -830,35 +899,78 @@ expertBadgeText: {
 },
 
 reactionChip: {
-  backgroundColor: "#ffffff",
-  borderRadius: 20,
+  backgroundColor: "rgba(255,255,255,0.13)",
+
+  borderWidth: 1,
+  borderColor: "rgba(255,255,255,0.18)",
+
+  borderRadius: 18,
+
   paddingHorizontal: 10,
   paddingVertical: 5,
+
   marginRight: 6,
   marginBottom: 4,
+
+  shadowColor: "#000",
+  shadowOpacity: 0.15,
+  shadowRadius: 5,
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
 },
 
 reactionText: {
-  fontSize: 16,
+  fontSize: 15,
+  color: "#fff",
+  fontFamily: "Kanitt",
 },
 
 addReaction: {
-  paddingHorizontal: 8,
-  marginLeft: "auto",
-  backgroundColor: "#0c4574",
-  borderRadius: 10
-  
-  
+  paddingHorizontal: 10,
+  paddingVertical: 5,
 
+  marginLeft: "auto",
+
+  backgroundColor: "rgba(255,255,255,0.10)",
+
+  borderRadius: 14,
+
+  borderWidth: 1,
+  borderColor: "rgba(255,255,255,0.18)",
+
+  shadowColor: "#000",
+  shadowOpacity: 0.15,
+  shadowRadius: 5,
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
 },
 emojiBar: {
   flexDirection: "row",
   justifyContent: "space-around",
   alignItems: "center",
+
   marginTop: 10,
   paddingVertical: 10,
-  backgroundColor: "#23476c",
-  borderRadius: 15,
+  paddingHorizontal: 6,
+
+  backgroundColor: "rgba(5,20,40,0.45)",
+
+  borderRadius: 18,
+
+  borderWidth: 1,
+  borderColor: "rgba(255,255,255,0.12)",
+
+  shadowColor: "#000",
+  shadowOpacity: 0.2,
+  shadowRadius: 10,
+  shadowOffset: {
+    width: 0,
+    height: 5,
+  },
 },
 modalOverlay:{
     flex:1,
