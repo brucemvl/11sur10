@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: 'rgba(0,0,0,0.35)',
     borderRadius: 14,
-    paddingVertical: 6,
+    paddingBlock: 6,
   },
   dateText: {
     fontSize: 11,

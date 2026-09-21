@@ -194,7 +194,7 @@ function FicheJoueur() {
 
     return <View>
       <Precedent />
-      <Text style={{ textAlign: "center", marginTop: 100, fontFamily: "Kanitt", fontSize: 14 }}>Aucune Donnée dispo</Text>;
+      <Text style={{ textAlign: "center", flex: 1, justifyContent: "center", marginTop: 200, fontFamily: "Kanitt", fontSize: 14 }}>Aucune Donnée dispo</Text>;
     </View>
   }
 

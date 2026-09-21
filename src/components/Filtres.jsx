@@ -117,7 +117,7 @@ function Filtres() {
 
 const styles = StyleSheet.create({
     competitions: {
-        paddingVertical: 5,
+        paddingBlock: 5,
         alignItems: "center",
     },
 

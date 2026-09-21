@@ -92,8 +92,8 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: 'white',
-    paddingHorizontal: 15,
-    paddingVertical: 12,
+    paddingInline: 15,
+    paddingBlock: 12,
     borderRadius: 10,
     marginBottom: 15,
     fontSize: 16,
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#1e90ff',
-    paddingVertical: 15,
+    paddingBlock: 15,
     borderRadius: 10,
     alignItems: 'center',
     marginTop: 5,

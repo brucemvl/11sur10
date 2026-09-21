@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
         backgroundColor: "black",
         alignItems: "flex-start",
         width: "100%",
-        paddingVertical: 15,
+        paddingBlock: 15,
         height: 340,
         position: "absolute",
         bottom: 1

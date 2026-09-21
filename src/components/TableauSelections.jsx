@@ -142,6 +142,7 @@ const teamName = {
             currentRoundName === "Final" ? "Finale" :
             currentRoundName.indexOf("Group Stage") != -1 ? currentRoundName.replace("Group Stage", "Phase de Groupe") :
             currentRoundName === "Round of 16" ? "Huitièmes de finale" :
+            currentRoundName === "1" ? "Journee " + currentRoundName:
             currentRoundName}
         </Text>
 <TouchableOpacity onPress={next} disabled={index === rounds.length - 1} style={{width: 30, height: 30, alignItems: "center"}} accessible accessibilityRole="button" accessibilityLabel="Suivant" accessibilityHint="Naviguer vers la journée suivante">

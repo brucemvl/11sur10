@@ -432,7 +432,7 @@ const filteredMatches = useMemo(() => {
       return (
         <View key={leagueId} style={styles.leagueBlock}>
           <View style={styles.leagueHeader}>
-            <View style={{ borderRadius: 8, overflow: "hidden" }}>
+            <View style={{ borderRadius: 6, overflow: "hidden" }}>
               <SvgUri uri={flags[league.name]} width={22} height={20} />
             </View>
             <Text style={styles.leagueName}>{league.name === "Friendlies" ? "Amicaux" : league.name === "Friendlies Clubs" ? "Amicaux Clubs" : league.name}</Text>
@@ -610,8 +610,8 @@ const styles = StyleSheet.create({
      alignItems: 'center',
       justifyContent: 'space-between',
       width: "99%",
-        paddingVertical: 12,
-         paddingHorizontal: 8,
+        paddingBlock: 12,
+         paddingInline: 8,
           minHeight: 72,
            backgroundColor: 'rgba(255,255,255,0.08)',
             borderWidth: 1,
@@ -637,7 +637,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
        gap: 4,
         paddingHorizontal: 8,
-         paddingVertical: 6,
+         paddingBlock: 6,
           width: "15%",
            height: 46,
             borderRadius: 16,
@@ -651,7 +651,7 @@ const styles = StyleSheet.create({
     fontSize: 16, 
   },
   rdv: {
-    alignItems: 'center', justifyContent: 'center', width: "13%", paddingVertical: 6, backgroundColor: 'rgba(0, 0, 0, 0.15)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.10)', borderRadius: 14,
+    alignItems: 'center', justifyContent: 'center', width: "13%", paddingBlock: 6, backgroundColor: 'rgba(0, 0, 0, 0.15)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.10)', borderRadius: 14,
   },
   winner: {
     backgroundColor: '#22C55E', borderRadius: 10, alignItems: 'center', justifyContent: 'center', width: 24, height: 28,
@@ -684,14 +684,14 @@ const styles = StyleSheet.create({
   },
   daysScroll: {
     alignItems: 'center',
-    paddingHorizontal: 10,
+    paddingInline: 10,
     height: 65,
     justifyContent: "center",
   },
 
   dayItem: {
-    paddingHorizontal: 4,
-    paddingVertical: 6,
+    paddingInline: 4,
+    paddingBlock: 6,
     borderRadius: 15,
     marginHorizontal: 2,
     height: "90%",
@@ -723,7 +723,14 @@ emptyText: {
   textAlign: "center",
 },
 filtersRow: { paddingVertical: 6, paddingHorizontal: 6, gap: 8, },
- filterChip: { paddingHorizontal: 14, paddingVertical: 8, borderRadius: 18, backgroundColor: 'rgba(255,255,255,0.12)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.18)', }, filterChipActive: { backgroundColor: '#FFFFFF', },
+ filterChip: {
+   padding: 10,
+     borderRadius: 22,
+      backgroundColor: 'rgba(255,255,255,0.12)',
+       borderWidth: 1, borderColor: 'rgba(255,255,255,0.18)',
+       },
+       
+       filterChipActive: { backgroundColor: '#FFFFFF', },
  filterText: { color: '#FFFFFF', fontFamily: 'Kanito', fontSize: 13, },
   filterTextActive: { color: '#0B1351', fontFamily: 'Kanitt', },
 });

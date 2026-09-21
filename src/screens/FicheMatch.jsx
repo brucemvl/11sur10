@@ -625,7 +625,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     ficheSelecteur: {
-        flexDirection: "row", marginBottom: 18, paddingVertical: 16, paddingHorizontal: 4,
+        flexDirection: "row", marginBottom: 18, paddingBlock: 16, paddingHorizontal: 4,
     },
     tab: {
         backgroundColor: "#393d48", width: 86, paddingHorizontal: 4, height: 42, borderRadius: 21, marginRight: 10, alignItems: "center", justifyContent: "center", borderWidth: 1, borderColor: "#1F2937",

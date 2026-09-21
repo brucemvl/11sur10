@@ -390,8 +390,8 @@ console.log("TOKEN =", token);
       <FlatList
         data={history}
         keyExtractor={(item) => item.matchId.toString()}
-        contentContainerStyle={{ paddingTop: 20, paddingInline: 10, paddingBottom: 100 }}
-        style={{width: "100%", backgroundColor: "#07111f"}}
+        contentContainerStyle={{ paddingTop: 20, paddingInline: 10, paddingBottom: 100}}
+        style={{width: "100%", backgroundColor: "#07111f", borderRadius: 24}}
         renderItem={({ item }) => {
           const grouped = item.reactions.reduce((acc, r) => {
   acc[r.emoji] = (acc[r.emoji] || 0) + 1;
@@ -418,7 +418,7 @@ console.log("TOKEN =", token);
     <View pointerEvents="none" style={styles.liquidGlowOne} />
 <View pointerEvents="none" style={styles.liquidGlowTwo} />
             <View style={styles.matchRow}>
-              <View style={{flexDirection: "column", width: "30%", alignItems: "center", gap: 6}}>
+              <View style={{flexDirection: "column", width: "33%", alignItems: "center", gap: 6, justifyContent: "center"}}>
                 <Image
                 source={{ uri: item.homeLogo || 'https://via.placeholder.com/32' }}
                 style={styles.logo}
@@ -444,7 +444,7 @@ console.log("TOKEN =", token);
                 Score Exact
               </Text>
               </View>
-                            <View style={{flexDirection: "column", width: "30%", alignItems: "center", gap: 6}}>
+                            <View style={{flexDirection: "column", width: "33%", alignItems: "center", gap: 6}}>
 <Image
                 source={{ uri: item.awayLogo || 'https://via.placeholder.com/32' }}
                 style={styles.logo}
@@ -571,21 +571,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f3f4f6',
-    alignItems: "center"
+    alignItems: "center",
+    paddingInline: 4
   },
   title: {
     fontSize: 22,
-    marginTop: 15,
-    marginBottom: 20,
+    marginBlock: 12,
     textAlign: 'center',
     fontFamily: "Kanitt"
   },
   cardWrapper: {
   width: "100%",
   marginBottom: 18,
-
   borderRadius: 24,
-
   
 },
 
@@ -600,7 +598,7 @@ cardBlur: {
 card: {
   width: "100%",
 
-  padding: 14,
+  padding: 10,
 
   borderRadius: 24,
 
@@ -653,7 +651,6 @@ liquidGlowTwo: {
   team: {
 fontFamily: "Bella",
     textAlign: 'center',
-    fontSize: 13,
     color: "white"
     
   },
@@ -837,8 +834,8 @@ statCard: {
 
   borderRadius: 14,
 
-  paddingHorizontal: 6,
-  paddingVertical: 7,
+  paddingInline: 6,
+  paddingBlock: 7,
 
   flexDirection: "row",
 
@@ -875,8 +872,8 @@ expertBadge: {
 
   borderRadius: 20,
 
-  paddingHorizontal: 12,
-  paddingVertical: 5,
+  paddingInline: 12,
+  paddingBlock: 5,
 },
 
 expertBadgeText: {
