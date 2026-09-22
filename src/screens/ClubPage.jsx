@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
     },
     
     title: {
-        paddingVertical: 9,
+        paddingBlock: 9,
   paddingHorizontal: 18,
   borderRadius: 18,
   alignItems: "center",

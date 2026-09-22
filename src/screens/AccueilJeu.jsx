@@ -203,8 +203,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 6,
     backgroundColor: "#172033",
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingInline: 12,
+    paddingBlock: 8,
     borderRadius: 14,
   },
 
@@ -337,7 +337,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     backgroundColor: "#f7edc8",
     paddingHorizontal: 10,
-    paddingVertical: 3,
+    paddingBlock: 3,
     borderRadius: 10,
     marginTop: 3,
   },
@@ -372,7 +372,7 @@ const styles = StyleSheet.create({
   playInner: {
     minHeight: 105,
     paddingHorizontal: 20,
-    paddingVertical: 17,
+    paddingBlock: 17,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",

@@ -903,8 +903,8 @@ reactionChip: {
 
   borderRadius: 18,
 
-  paddingHorizontal: 10,
-  paddingVertical: 5,
+  paddingInline: 10,
+  paddingBlock: 5,
 
   marginRight: 6,
   marginBottom: 4,
@@ -926,7 +926,7 @@ reactionText: {
 
 addReaction: {
   paddingHorizontal: 10,
-  paddingVertical: 5,
+  paddingBlock: 5,
 
   marginLeft: "auto",
 

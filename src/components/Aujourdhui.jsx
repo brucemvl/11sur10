@@ -715,14 +715,14 @@ const styles = StyleSheet.create({
   emptyContainer: {
   alignItems: "center",
   justifyContent: "center",
-  paddingVertical: 40,
+  paddingBlock: 40,
 },
 emptyText: {
   color: "#fff",
   fontFamily: "Permanent",
   textAlign: "center",
 },
-filtersRow: { paddingVertical: 6, paddingHorizontal: 6, gap: 8, },
+filtersRow: { paddingBlock: 6, paddingHorizontal: 6, gap: 8, },
  filterChip: {
    padding: 10,
      borderRadius: 22,

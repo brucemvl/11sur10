@@ -146,8 +146,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Kanitt',
   },
   pendingBadge: {
-    paddingHorizontal: 14,
-    paddingVertical: 8,
+    paddingInline: 14,
+    paddingBlock: 8,
     borderRadius: 14,
     backgroundColor: 'rgba(255,255,255,0.12)',
     borderWidth: 1,

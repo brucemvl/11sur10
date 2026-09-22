@@ -217,7 +217,7 @@ function TableauEurope({ id, currentRound, rounds }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 15,
+    paddingBlock: 15,
     paddingInline: 4,
     borderRadius: 25,
     alignItems: "center",
