@@ -393,10 +393,11 @@ textAlign: "center"
   card: {
     backgroundColor: '#ffffff',
     padding: 15,
-    borderRadius: 20,
+    borderRadius: 24,
     marginBottom: 15,
     borderWidth: 1,
-    overflow: "hidden"
+    overflow: "hidden",
+    
   },
   match: {
     flexDirection: "row",

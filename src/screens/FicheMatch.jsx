@@ -628,7 +628,7 @@ const styles = StyleSheet.create({
         flexDirection: "row", marginBottom: 18, paddingBlock: 16, paddingHorizontal: 4,
     },
     tab: {
-        backgroundColor: "#393d48", width: 86, paddingHorizontal: 4, height: 42, borderRadius: 21, marginRight: 10, alignItems: "center", justifyContent: "center", borderWidth: 1, borderColor: "#1F2937",
+        backgroundColor: "#393d48", width: 86, paddingHorizontal: 4, height: 42, borderRadius: 21, marginRight: 6, alignItems: "center", justifyContent: "center", borderWidth: 1, borderColor: "#1F2937",
 
     },
     text: {
@@ -636,7 +636,7 @@ color: "#D1D5DB", fontSize: 14, fontFamily: "Kanitus",
     },
     selectedTab: {
         
-        backgroundColor: "#2563EB", width: 92, paddingHorizontal: 4, height: 42, borderRadius: 21, marginRight: 10, alignItems: "center", justifyContent: "center", shadowColor: "#2563EB", shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.35, shadowRadius: 6, elevation: 6,
+        backgroundColor: "#2563EB", width: 92, paddingHorizontal: 4, height: 42, borderRadius: 21, marginRight: 6, alignItems: "center", justifyContent: "center", shadowColor: "#2563EB", shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.35, shadowRadius: 6, elevation: 6,
 
     },
     selectedText: {

@@ -71,7 +71,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 10,
+    paddingBlock: 10,
+    paddingInline: 8,
     marginVertical: 6,
     borderRadius: 22,
     borderWidth: 1,
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 6,
-    paddingHorizontal: 6,
+    paddinginline: 2,
   },
   logo: {
     width: 34,

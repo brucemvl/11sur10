@@ -458,7 +458,7 @@ const filteredMatches = useMemo(() => {
               >
                 <LinearGradient colors={['rgba(255, 255, 255, 0.55)', 'rgba(0, 0, 0, 0.6)']} style={[styles.match, isMediumScreen && {height: 60}]}>
 
-                        <Image source={ league.id === 1 ? cdm2026 : league.id === 2 ? ucl : {uri : league.logo }} style={[styles.leagueLogo, isMediumScreen && {height: 30}, league.id === 2 && {height:35}]} />
+                        <Image source={ league.id === 1 ? cdm2026 : league.id === 2 ? ucl : {uri : league.logo }} style={[styles.leagueLogo, isMediumScreen && {height: 30}, league.id === 2 && {height:35}, league.id === 5 && {borderRadius: 14}]} />
 
                         <View style={{ flexDirection: "column", alignItems: "center",   width: finished ? "35%" : "32%", gap: isMediumScreen ? 16 : 3 }}>
                           <Image source={{ uri: match.teams.home.logo }} style={[styles.teamLogo, isMediumScreen && {width: 36, height: 36}, match.league.id === 1 && {borderRadius: 25}]} />

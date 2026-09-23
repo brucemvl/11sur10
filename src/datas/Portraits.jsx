@@ -266,12 +266,14 @@ import brunner from "../assets/portraits/brunner.png"
 import tielemans from "../assets/portraits/tielemans.png"
 import diomande from "../assets/portraits/diomande.png"
 import godts from "../assets/portraits/godts.png"
+import nunes from "../assets/portraits/nunes.png"
 
 
 
 
 
 export const portraitsJoueurs = {
+    41621: nunes,
     340153: godts,
         386276: brunner,
         2926: tielemans,
