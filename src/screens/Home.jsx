@@ -11,12 +11,15 @@ import {
   ActivityIndicator,
   DeviceEventEmitter,
   Animated,
-  ImageBackground
+  ImageBackground,
+  Easing
 } from "react-native";
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { useFonts } from "expo-font";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from "@react-navigation/native";
+import ball from "../assets/football.png"
+
 
 
 
@@ -54,7 +57,9 @@ const COMPETITIONS = {
 
         leaguecup: 'https://v3.football.api-sports.io/fixtures?league=48&season=2026',
          dfbpokal: 'https://v3.football.api-sports.io/fixtures?league=81&season=2026',
-         amicaux: 'https://v3.football.api-sports.io/fixtures?league=10&season=2026',
+                  africa: 'https://v3.football.api-sports.io/fixtures?league=29&season=2027',
+
+         amicaux: 'https://v3.football.api-sports.io/fixtures?league=36&season=2027',
          // uefasupercup: 'https://v3.football.api-sports.io/fixtures?league=531&season=2026'
 };
 
@@ -229,6 +234,24 @@ const handleStartGame = async () => {
     }
   };
 
+  const rotateAnim = useRef(new Animated.Value(0)).current;
+  
+  useEffect(() => {
+    Animated.loop(
+      Animated.timing(rotateAnim, {
+        toValue: 1,
+        duration: 1000,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      })
+    ).start();
+  }, []);
+  
+  const rotate = rotateAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "360deg"],
+  });
+  
 
   if (!fontsLoaded) return null;
 
@@ -273,7 +296,19 @@ const handleStartGame = async () => {
         {matchs.length > 0 ? 
           <Aujourdhui matchs={matchs} onRefresh={onRefresh} />
          : 
-          <ActivityIndicator size="large" style={{ marginTop: 30 }} />
+          <View
+        style={{
+          marginBlock: 30,
+          alignItems: "center",
+        }}
+      >
+        <Animated.Image
+          source={ball}
+          style={{
+            transform: [{ rotate }],
+          }}
+        />
+      </View>
       }
         
 

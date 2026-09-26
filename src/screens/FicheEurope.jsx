@@ -1,11 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity, useWindowDimensions } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity, useWindowDimensions, Image, Animated, Easing } from 'react-native';
 import TableauEurope from '../components/TableauEurope';  // Assurez-vous que Tableau est compatible avec React Native
 import Classement from '../components/Classement';  // Idem pour ClassementChampionnat
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Precedent from '../components/Precedent';
 import * as Haptics from "expo-haptics"
 import { useTranslation } from 'react-i18next';
+import ball from "../assets/football.png"
+
 
 
 function FicheEurope({ route }) {
@@ -81,10 +83,44 @@ function FicheEurope({ route }) {
     
       fetchData();
     }, [id]);
+
+    const rotateAnim = useRef(new Animated.Value(0)).current;
+    
+    useEffect(() => {
+      Animated.loop(
+        Animated.timing(rotateAnim, {
+          toValue: 1,
+          duration: 1000,
+          easing: Easing.linear,
+          useNativeDriver: true,
+        })
+      ).start();
+    }, []);
+    
+    const rotate = rotateAnim.interpolate({
+      inputRange: [0, 1],
+      outputRange: ["0deg", "360deg"],
+    });
     
      if (loading) {
-      return           <ActivityIndicator size="large" color="#0000ff" />
-      ;
+      return (
+          <View
+            style={{
+              marginTop: 180,
+              alignItems: "center",
+            }}
+          >
+            <Animated.Image
+              source={ball}
+              style={{
+                height: 36,
+                width: 36,
+                transform: [{ rotate }],
+              }}
+            />
+          </View>
+        );
+      
     }
     
     if (error) {

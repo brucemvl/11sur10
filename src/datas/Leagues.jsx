@@ -373,10 +373,10 @@ export const selections = [
     },
 */
     {
-        "id": 29,
-        "name": "Zone Afrique",
+        "id": 36,
+        "name": "Qualif CAN",
         "logo": "https://media.api-sports.io/football/leagues/29.png",
-        "season": 2023,
+        "season": 2027,
         },
         {
             "id": 32,
