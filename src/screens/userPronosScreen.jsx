@@ -575,8 +575,8 @@ const styles = StyleSheet.create({
     paddingInline: 4
   },
   title: {
-    fontSize: 22,
-    marginBlock: 12,
+    fontSize: 20,
+    marginBlock: 8,
     textAlign: 'center',
     fontFamily: "Kanitt"
   },
@@ -598,7 +598,7 @@ cardBlur: {
 card: {
   width: "100%",
 
-  padding: 10,
+  padding: 8,
 
   borderRadius: 24,
 
@@ -639,7 +639,7 @@ liquidGlowTwo: {
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: 4,
-    marginBottom: 8,
+    marginBottom: 6,
     width: "100%"
   },
   logo: {
@@ -670,7 +670,7 @@ fontFamily: "Bella",
     fontSize: 14,
 fontFamily: "Kanitt",
     color: '#1ab553',
-    marginTop: 10
+    marginTop: 6
   },
   status: {
     fontSize: 12,
@@ -679,11 +679,12 @@ fontFamily: "Kanitt",
   },
   
   profileHeader: {
-  marginTop: 65,
+  marginTop: 55,
   width: "96%",
-  minHeight: 190,
+  minHeight: 170,
   borderRadius: 26,
-  padding: 12,
+  paddingInline: 12,
+  paddingBlock: 6,
 
   flexDirection: "row",
   alignItems: "center",
@@ -701,17 +702,7 @@ fontFamily: "Kanitt",
   elevation: 8,
 },
 
-headerGlow: {
-  position: "absolute",
-  width: 180,
-  height: 180,
-  borderRadius: 90,
 
-  right: -70,
-  top: -80,
-
-  backgroundColor: "rgba(61, 93, 255, 0.18)",
-},
 
 avatarWrapper: {
   width: 110,
@@ -891,7 +882,7 @@ expertBadgeText: {
  reactionBar: {
   flexDirection: "row",
   alignItems: "center",
-  marginTop: 8,
+  marginTop: 4,
   flexWrap: "wrap",
 },
 

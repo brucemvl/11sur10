@@ -51,20 +51,20 @@ function Filtres() {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.competitions}
         >
-            {/* SELECTIONS 
+             
             
             {selections.map(({ id, logo, name }) =>
-                id === 1 &&
+                id === 5 &&
                 renderItem({
                     id,
                     logo,
                     name,
-                    bgColor: 'rgb(212, 177, 50)',
+                    bgColor: 'rgb(243, 243, 243)',
                                             localImage: id === 1 ? cdm : null,
                     onPress: () => navigation.navigate('FicheSelections', { id })
                 })
             )}
-              */}  
+               
 
             {/* EUROPE */}
             {europe.map(({ id, logo, name }) =>

@@ -10,7 +10,8 @@ import {
   Alert,
   Image,
   Animated,
-  ImageBackground
+  ImageBackground,
+  Easing
 } from 'react-native';
 import axios from 'axios';
 import { fetchLigue1Matches } from '../services/apiSport';
@@ -19,6 +20,8 @@ import Precedent from './Precedent';
 import { teamName } from '../datas/teamNames';
 import { useNavigation } from '@react-navigation/native';
 import ucl from "../assets/UCL44.jpg"
+import ball from "../assets/football.png"
+
 
 export default function Jeu() {
     const navigation = useNavigation();
@@ -107,6 +110,7 @@ const matches = currentRound ? matchesByRound[currentRound] || [] : [];
   const matchId = match.fixture.id;
 
   setSubmitting(prev => ({ ...prev, [matchId]: true }));
+  startLoadingAnimation();
 
   const jwtToken = await AsyncStorage.getItem('jwtToken');
   const score = scores[matchId];
@@ -130,6 +134,8 @@ const matches = currentRound ? matchesByRound[currentRound] || [] : [];
         headers: { Authorization: `Bearer ${jwtToken}` },
       }
     );
+
+    stopLoadingAnimation();
 
     // 🔥 MAJ immédiate
 setExistingPredictions(prev => ({
@@ -158,6 +164,7 @@ setTimeout(() => {
 setSubmitting(prev => ({ ...prev, [matchId]: false }));
 
   } catch (err) {
+    stopLoadingAnimation();
     setSubmitting(prev => ({ ...prev, [matchId]: false }));
 
     if (err.response?.status === 403) {
@@ -191,6 +198,31 @@ const loadMyPredictions = async () => {
   }
 };
 
+
+const rotateAnim = useRef(new Animated.Value(0)).current;
+
+const startLoadingAnimation = () => {
+  rotateAnim.setValue(0);
+
+  Animated.loop(
+    Animated.timing(rotateAnim, {
+      toValue: 1,
+      duration: 800,
+      easing: Easing.linear,
+      useNativeDriver: true,
+    })
+  ).start();
+};
+
+const stopLoadingAnimation = () => {
+  rotateAnim.stopAnimation();
+  rotateAnim.setValue(0);
+};
+
+const rotate = rotateAnim.interpolate({
+  inputRange: [0, 1],
+  outputRange: ["0deg", "360deg"],
+});
   
 
   /* ------------------ UI ------------------ */
@@ -321,18 +353,29 @@ const loadMyPredictions = async () => {
   style={[
     styles.button,
     (isRoundStarted || isSubmitting) && styles.buttonDisabled,
-    hasPrediction && { backgroundColor: "grey" }
+    hasPrediction && { backgroundColor: "#b3b3b3" }
   ]}
   disabled={isRoundStarted || isSubmitting}
   onPress={() => submitPrediction(item)}
 >
+  {isSubmitting ?
+  <View>
+<Animated.Image
+        source={ball}
+        style={{
+          height: 20,
+          width: 20,
+          transform: [{ rotate }],
+        }}
+      />
+  </View> :
   <Text style={styles.buttonText}>
-    {isSubmitting
-      ? 'Enregistrement...'
-      : hasPrediction
+    
+        {hasPrediction
         ? 'Modifier'
         : 'Valider'}
   </Text>
+        }
 </TouchableOpacity>
 {success[id] && (
   <Animated.Text

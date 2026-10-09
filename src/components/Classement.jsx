@@ -18,6 +18,8 @@ import { allCompetitions } from "../datas/Leagues";
 import { teamName } from "../datas/teamNames";
 import * as Haptics from "expo-haptics"
 import { useTranslation } from 'react-i18next';
+import ball from "../assets/football.png"
+
 
 function Classement({ id }) {
   const { t } = useTranslation();
@@ -55,6 +57,24 @@ function Classement({ id }) {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const rotateAnim = useRef(new Animated.Value(0)).current;
+      
+      useEffect(() => {
+        Animated.loop(
+          Animated.timing(rotateAnim, {
+            toValue: 1,
+            duration: 1000,
+            easing: Easing.linear,
+            useNativeDriver: true,
+          })
+        ).start();
+      }, []);
+      
+      const rotate = rotateAnim.interpolate({
+        inputRange: [0, 1],
+        outputRange: ["0deg", "360deg"],
+      });
 
 
   const fetchClassement = async () => {
@@ -330,9 +350,27 @@ const [rank, setRank] = useState()
   console.log(rank)
       console.log(buteurs)
       console.log(passeurs)
+
+      
     
       if (!rank || !buteurs || !passeurs){
-        return <ActivityIndicator size="large" style={{marginTop: 20}}/>
+        return  (
+            <View
+              style={{
+                marginTop: 180,
+                alignItems: "center",
+              }}
+            >
+              <Animated.Image
+                source={ball}
+                style={{
+                  height: 36,
+                  width: 36,
+                  transform: [{ rotate }],
+                }}
+              />
+            </View>
+          );
       }
 
       
@@ -520,11 +558,22 @@ const [rank, setRank] = useState()
 
   // 🟡 AFFICHAGE DYNAMIQUE
   if (loading) {
-    return (
-      <View style={styles.loaderContainer}>
-        <ActivityIndicator size="large" style={{marginTop: 20}} />
-      </View>
-    );
+    return  (
+            <View
+              style={{
+                marginTop: 180,
+                alignItems: "center",
+              }}
+            >
+              <Animated.Image
+                source={ball}
+                style={{
+                  
+                  transform: [{ rotate }],
+                }}
+              />
+            </View>
+          );
   }
 
 

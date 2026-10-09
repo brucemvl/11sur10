@@ -120,7 +120,6 @@ const rotate = rotateAnim.interpolate({
       />
     </View>
   );
-  ;
 }
 
 if (error) {

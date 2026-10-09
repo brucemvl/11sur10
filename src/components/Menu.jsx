@@ -103,7 +103,8 @@ const BUTTON_WIDTH = MENU_WIDTH / 4;
         style={[
           styles.bubble,
           {
-            width: "24.2%",
+            width: "20.2%",
+            marginLeft: "2%",
             transform: [
               {
                 translateX: translateX.interpolate({
@@ -173,9 +174,9 @@ const styles = StyleSheet.create({
     bottom: 20,
     left: "8%",
     width: "84%",
-    backgroundColor: "rgb(31, 160, 57)",
+    backgroundColor: "rgba(31, 160, 57, 0.88)",
     borderRadius: 30,
-    paddingBlock: 10,
+    paddingBlock: 5,
     borderWidth: 2,
     borderColor: "white",
     shadowColor: "#000",
@@ -188,7 +189,7 @@ const styles = StyleSheet.create({
 
   bubble: {
     position: "absolute",
-    height: 60,
+    height: 40,
     backgroundColor: "rgba(255, 255, 255, 0.55)",
     borderRadius: 30,
   },
@@ -214,23 +215,23 @@ const styles = StyleSheet.create({
 
   buttonContent: {
     alignItems: "center",
-    gap: 6,
+    gap: 2,
   },
 
   text: {
     color: "white",
     fontFamily: "Kanitt",
-    fontSize: 11,
+    fontSize: 10,
   },
   selectedText: {
 color: "green",
     fontFamily: "Kanitt",
-    fontSize: 11,
+    fontSize: 10,
   },
 
   img: {
-    width: 24,
-    height: 24,
+    width: 20,
+    height: 20,
   },
 
   /* ✨ GLOW */
