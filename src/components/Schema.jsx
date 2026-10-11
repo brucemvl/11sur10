@@ -6,6 +6,7 @@ import red from "../assets/redcard.png"
 import psg from "../assets/maillots/psg.png"
 import { useNavigation } from '@react-navigation/native';
 import {portraitsJoueurs} from "../datas/Portraits"
+import PlayerOnField from './PlayersOnField';
 
 function Schema({ compoDom, compoExt, match, colors }) {
 
@@ -46,6 +47,8 @@ function Schema({ compoDom, compoExt, match, colors }) {
 
     const linesDom = organizePlayersByLine(compoDom);
     const linesExt = organizePlayersByLine(compoExt);
+
+    
 
 
     // Fonction pour calculer la position horizontale des joueurs dans chaque ligne
@@ -97,19 +100,7 @@ console.log(compoDom)
                     <View style={[styles.field, { width: fieldWidth, height: fieldHeight }]}>
 
                         {/* Gardien */}
-                        {linesDom.G.map((player, index) => (
-                            <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id, team: compoDom.team.id })} style={[generatePositionStyle(index, linesDom.G.length, 1), { alignItems: "center", width: 54, shadowColor: "black", shadowOpacity: 0.8, shadowRadius: 2, shadowOffset: {width: 0, height: 4} }]}>
-<View style={styles.infos}>{match.players[0].players.map((joueur) => joueur.player.id === player.id ? range.map((x) => joueur.statistics[0].goals.total >= x ? <Text key={x} style={{ fontSize: 9, marginInline: -3 }}>⚽</Text> : null) : null)}
-                                {match.players[0].players.map((joueur) => joueur.player.id === player.id ? joueur.statistics[0].cards.yellow > 0 ? <Image source={yellow} style={styles.card} /> : joueur.statistics[0].cards.red > 0 ? <Image source={red} style={styles.card} /> : null : null)}
-                                </View>          
-                                { match.fixture.status.long === "Match Finished" ? match.players[0].players.map((joueur) => joueur.player.id === player.id ? <View style={joueur.statistics[0].games.rating >= noteMax ? [styles.note, {backgroundColor: "gold"}] : styles.note}><Text style={joueur.statistics[0].games.rating >= noteMax ? styles.mvp : styles.rate}>{joueur.statistics[0].games.rating}</Text></View> : null ) : null}
-
-                                                      <View style={[styles.player, { backgroundColor: "#f0f0f0", borderColor: "#" + colors.goalDomBorder }]}>
-                               { match.players[0].players.map((joueur) => joueur.player.id === player.id ? <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }}  style={styles.player}/> : null )}
-                                </View>
-                                <Text style={styles.playerName}>{playerName[player.id] ||  player.name.split(' ').slice(-1).join(' ')}</Text>
-                            </TouchableOpacity>
-                        ))}
+                        {linesDom.G.map((player, index) => ( <PlayerOnField key={player.id} player={player} teamId={compoDom.team.id} positionStyle={generatePositionStyle( index, linesDom.G.length, 1 )} borderColor={"#" + colors.goalDomBorder} displayName={playerName[player.id]} /> ))}
                         {/* Défenseurs */}
                         {linesDom.D.map((player, index) => (
                             <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id, team: compoDom.team.id })} style={[generatePositionStyle(index, linesDom.D.length, 2), { alignItems: "center", width: 50, shadowColor: "black", shadowOpacity: 0.8, shadowRadius: 2, shadowOffset: {width: 0, height: 4} }]}>
@@ -118,10 +109,7 @@ console.log(compoDom)
                                 </View>
                                 { match.fixture.status.long === "Match Finished" ? match.players[0].players.map((joueur) => joueur.player.id === player.id ? <View style={joueur.statistics[0].games.rating >= noteMax ? [styles.note, {backgroundColor: "gold"}] : styles.note}><Text style={joueur.statistics[0].games.rating >= noteMax ? styles.mvp : styles.rate}>{joueur.statistics[0].games.rating}</Text></View> : null ) : null}
 
-                                <View style={[styles.player, { backgroundColor: "#f0f0f0", borderColor: "#" + colors.borderDom }]}>
-                               { match.players[0].players.map((joueur) => joueur.player.id === player.id ? <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }}  style={styles.player}/> : null )}
-                                </View>
-                                <Text style={styles.playerName}>{playerName[player.id] || player.name.split(' ').slice(-1).join(' ')}</Text>
+                                <PlayerOnField key={player.id} player={player} teamId={compoDom.team.id} displayName={playerName[player.id]} />
                             </TouchableOpacity>
                         ))}
                         {/* Milieux */}
@@ -132,10 +120,8 @@ console.log(compoDom)
                                 </View>
                                 { match.fixture.status.long === "Match Finished" ? match.players[0].players.map((joueur) => joueur.player.id === player.id ? <View style={joueur.statistics[0].games.rating >= noteMax ? [styles.note, {backgroundColor: "gold"}] : styles.note}><Text style={joueur.statistics[0].games.rating >= noteMax ? styles.mvp : styles.rate}>{joueur.statistics[0].games.rating}</Text></View> : null ) : null}
 
-                                <View style={[styles.player, { backgroundColor: "#f0f0f0", borderColor: "#" + colors.borderDom }]}>
-                               { match.players[0].players.map((joueur) => joueur.player.id === player.id ? <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }}  style={styles.player}/> : null )}
-                                </View>
-                                <Text style={styles.playerName}>{playerName[player.id] ||  player.name.split(' ').slice(-1).join(' ')}</Text>
+                                                               <PlayerOnField key={player.id} player={player} borderColor={"#" + colors.borderDom} teamId={compoDom.team.id} displayName={playerName[player.id]} />
+
                             </TouchableOpacity>
                         ))}
                         {/* Attaquants */}
@@ -146,10 +132,7 @@ console.log(compoDom)
                                 </View>
                                 { match.fixture.status.long === "Match Finished" ? match.players[0].players.map((joueur) => joueur.player.id === player.id ? <View style={joueur.statistics[0].games.rating >= noteMax ? [styles.note, {backgroundColor: "gold"}] : styles.note}><Text style={joueur.statistics[0].games.rating >= noteMax ? styles.mvp : styles.rate}>{joueur.statistics[0].games.rating}</Text></View> : null ) : null}
 
-                                <View style={[styles.player, { backgroundColor: "#f0f0f0", borderColor: "#" + colors.borderDom }]}>
-                               { match.players[0].players.map((joueur) => joueur.player.id === player.id ? <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }}  style={styles.player}/> : null )}
-                                </View>
-                                <Text style={styles.playerName}>{playerName[player.id] ||  player.name.split(' ').slice(-1).join(' ')}</Text>
+                                <PlayerOnField key={player.id} player={player} borderColor={"#" + colors.borderDom} teamId={compoDom.team.id} displayName={playerName[player.id]} />
                             </TouchableOpacity>
                         ))}
                     </View>
@@ -165,10 +148,8 @@ console.log(compoDom)
                                 </View>
                                 { match.fixture.status.long === "Match Finished" ? match.players[1].players.map((joueur) => joueur.player.id === player.id ? <View style={joueur.statistics[0].games.rating >= noteMax ? [styles.note, {backgroundColor: "gold"}] : styles.note}><Text style={joueur.statistics[0].games.rating >= noteMax ? styles.mvp : styles.rate}>{joueur.statistics[0].games.rating}</Text></View> : null ) : null}
 
-                                <View style={[styles.player, { backgroundColor: "#f0f0f0", borderColor: "#" + colors.borderExt }]}>
-                               { match.players[1].players.map((joueur) => joueur.player.id === player.id ? <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }}  style={styles.player}/> : null )}
-                                </View>
-                                <Text style={styles.playerName}>{playerName[player.id] ||  player.name.split(' ').slice(-1).join(' ')}</Text>
+                                                                <PlayerOnField key={player.id} player={player} borderColor={"#" + colors.borderExt} teamId={compoExt.team.id} displayName={playerName[player.id]} />
+
                             </TouchableOpacity>
                         ))}
                         {/* Milieux */}
@@ -179,10 +160,8 @@ console.log(compoDom)
                             </View>
                             { match.fixture.status.long === "Match Finished" ? match.players[1].players.map((joueur) => joueur.player.id === player.id ? <View style={joueur.statistics[0].games.rating >= noteMax ? [styles.note, {backgroundColor: "gold"}] : styles.note}><Text style={joueur.statistics[0].games.rating >= noteMax ? styles.mvp : styles.rate}>{joueur.statistics[0].games.rating}</Text></View> : null ) : null}
 
-                                <View style={[styles.player, { backgroundColor: "#f0f0f0", borderColor: "#" + colors.borderExt }]}>
-                               { match.players[1].players.map((joueur) => joueur.player.id === player.id ? <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }}  style={styles.player}/> : null )}
-                                </View>
-                                <Text style={styles.playerName}>{playerName[player.id] ||  player.name.split(' ').slice(-1).join(' ')}</Text>
+                                                                                                <PlayerOnField key={player.id} player={player} borderColor={"#" + colors.borderExt} teamId={compoExt.team.id} displayName={playerName[player.id]} />
+
                             </TouchableOpacity>
                         ))}
                         {/* Défenseurs */}
@@ -192,10 +171,8 @@ console.log(compoDom)
                                 {match.players[1].players.map((joueur) => joueur.player.id === player.id ? joueur.statistics[0].cards.yellow > 0 ? <Image source={yellow} style={styles.card} /> : joueur.statistics[0].cards.red > 0 ? <Image source={red} style={styles.card} /> : null : null)}
                                 </View>
                                 { match.fixture.status.long === "Match Finished" ? match.players[1].players.map((joueur) => joueur.player.id === player.id ? <View style={joueur.statistics[0].games.rating >= noteMax ? [styles.note, {backgroundColor: "gold"}] : styles.note}><Text style={joueur.statistics[0].games.rating >= noteMax ? styles.mvp : styles.rate}>{joueur.statistics[0].games.rating}</Text></View> : null ) : null}
-                                <View style={[styles.player, { backgroundColor: "#f0f0f0", borderColor: "#" + colors.borderExt }]}>
-                               { match.players[1].players.map((joueur) => joueur.player.id === player.id ? <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }}  style={styles.player}/> : null )}
-                                </View>
-                                <Text style={styles.playerName}>{playerName[player.id] ||  player.name.split(' ').slice(-1).join(' ')}</Text>
+                                                                                                <PlayerOnField key={player.id} player={player} borderColor={"#" + colors.borderExt} teamId={compoExt.team.id} displayName={playerName[player.id]} />
+
                             </TouchableOpacity>
                         ))}
                         {/* Gardien */}
@@ -203,10 +180,8 @@ console.log(compoDom)
                             <TouchableOpacity key={index} onPress={() => navigation.navigate('FicheJoueur', { id: player.id, team: compoExt.team.id })} style={[generatePositionStyle(index, linesExt.G.length, 1), { alignItems: "center", width: 55, shadowColor: "black", shadowOpacity: 0.8, shadowRadius: 2, shadowOffset: {width: 0, height: 4} }]}>
                                 <View style={styles.infos}>{match.players[1].players.map((joueur) => joueur.player.id === player.id ? joueur.statistics[0].cards.yellow > 0 ? <Image source={yellow} style={styles.card} /> : joueur.statistics[0].cards.red > 0 ? <Image source={red} style={styles.card} /> : null : null)}</View>
                                 { match.fixture.status.long === "Match Finished" ? match.players[1].players.map((joueur) => joueur.player.id === player.id ? <View style={joueur.statistics[0].games.rating >= noteMax ? [styles.note, {backgroundColor: "gold"}] : styles.note}><Text style={joueur.statistics[0].games.rating >= noteMax ? styles.mvp : styles.rate}>{joueur.statistics[0].games.rating}</Text></View> : null ) : null}
-                                <View style={[styles.player, { backgroundColor: "#f0f0f0", borderColor: "#" + colors.goalExtBorder }]}>
-                                { match.players[1].players.map((joueur) => joueur.player.id === player.id ? <Image source={portraitsJoueurs[joueur.player.id] || { uri: joueur.player.photo }}  style={styles.player}/> : null )}
-                                </View>
-                                <Text style={styles.playerName}>{playerName[player.id] ||  player.name.split(' ').slice(-1).join(' ')}</Text>
+                                                                                                <PlayerOnField key={player.id} player={player} borderColor={"#" + colors.goalExtBorder} teamId={compoExt.team.id} displayName={playerName[player.id]} />
+
                             </TouchableOpacity>
                         ))}
                     </View>
@@ -263,8 +238,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         position: "absolute",
         zIndex: 1,
-        bottom: 40,
-        left: 30,
+        bottom: 44,
+        left: 32,
         height: 12,
         alignItems: "center",
     },
@@ -272,10 +247,10 @@ const styles = StyleSheet.create({
 position: "absolute",
 zIndex: 1,
 backgroundColor: "grey",
-top: 19,
+top: 26,
 right: 32,
-height: 16,
-width: 17,
+padding: 1,
+
 borderRadius: 5,
 alignItems: "center"
     },
@@ -284,7 +259,7 @@ alignItems: "center"
         width: 17
     },
     rate: {
-        fontSize: 10,
+        fontSize: 9,
         color: "white",
         fontFamily: "Kanito"
     },
@@ -292,7 +267,22 @@ alignItems: "center"
         fontFamily: "Kanito",
         fontSize: 10,
         color: "black"
-    }
+    },
+    player: {
+  width: 38,
+  height: 38,
+  borderRadius: 19,
+  borderWidth: 2,
+  overflow: "hidden",
+  alignItems: "center",
+  justifyContent: "center",
+},
+
+playerPhoto: {
+  width: "100%",
+  height: "100%",
+  borderRadius: 19,
+},
 });
 
 export default Schema;

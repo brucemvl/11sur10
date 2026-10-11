@@ -724,13 +724,13 @@ emptyText: {
 },
 filtersRow: { paddingBlock: 6, paddingHorizontal: 6, gap: 8, },
  filterChip: {
-   padding: 10,
+   padding: 8,
      borderRadius: 22,
       backgroundColor: 'rgba(255,255,255,0.12)',
        borderWidth: 1, borderColor: 'rgba(255,255,255,0.18)',
        },
        
        filterChipActive: { backgroundColor: '#FFFFFF', },
- filterText: { color: '#FFFFFF', fontFamily: 'Kanito', fontSize: 13, },
+ filterText: { color: '#FFFFFF', fontFamily: 'Kanito', fontSize: 12, },
   filterTextActive: { color: '#0B1351', fontFamily: 'Kanitt', },
 });

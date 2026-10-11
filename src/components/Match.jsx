@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingBlock: 10,
     paddingInline: 8,
-    marginVertical: 6,
+    marginVertical: 4,
     borderRadius: 22,
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.2)',
@@ -137,6 +137,8 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: "#ffffff1d"
   },
   scoreWinner: { backgroundColor: '#22C55E', },
   scoreLoser: { backgroundColor: '#EF4444', },
