@@ -83,7 +83,7 @@ useEffect(() => {
   const coachImages = {
   12629: maresca,
   6801: alonso,
-  68: genesio,
+  25653: genesio,
   1595: simeone,
   4720: amorim,
   18: emery,

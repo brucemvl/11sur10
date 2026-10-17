@@ -268,12 +268,16 @@ import diomande from "../assets/portraits/diomande.png"
 import godts from "../assets/portraits/godts.png"
 import nunes from "../assets/portraits/nunes.png"
 import saud from "../assets/portraits/saud.png"
+import amoura from "../assets/portraits/amoura.png"
+import wahi from "../assets/portraits/wahi.png"
 
 
 
 
 
 export const portraitsJoueurs = {
+        200139: amoura,
+    162707: wahi,
     41621: nunes,
     44594: saud,
     340153: godts,

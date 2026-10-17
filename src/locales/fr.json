@@ -91,7 +91,14 @@
         "milieux": "Milieux",
         "attaquants": "Attaquants",
                 "passedec": "Passe Dec",
-                "no_match_today": "Aucun match ce jour"
+                "no_match_today": "Aucun match ce jour",
+                "Tous" : "Tous",
+
+"En cours" : "En cours",
+
+"À venir" : "À venir",
+
+"Terminés" : "Terminés"
 
 
 

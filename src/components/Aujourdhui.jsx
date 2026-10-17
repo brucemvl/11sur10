@@ -397,9 +397,9 @@ const filteredMatches = useMemo(() => {
 
         {/* FILTRES */}
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.filtersRow} >
-           {[ { key: 'all', label: 'Tous' }, { key: 'live', label: 'En cours' },
-             { key: 'upcoming', label: 'À venir' },
-              { key: 'finished', label: 'Terminés' }, ].map((item) => ( 
+           {[ { key: 'all', label: t("Tous") }, { key: 'live', label: t("En cours") },
+             { key: 'upcoming', label: t("À venir") },
+              { key: 'finished', label: t("Terminés") }, ].map((item) => ( 
               <TouchableOpacity key={item.key} onPress={() => { Haptics.selectionAsync(); setFilter(item.key); }} style={[ styles.filterChip, filter === item.key && styles.filterChipActive, ]} >
                  <Text style={[ styles.filterText, filter === item.key && styles.filterTextActive, ]} > {item.label} </Text>
                   </TouchableOpacity> )

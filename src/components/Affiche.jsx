@@ -44,6 +44,15 @@ import diego from "../assets/stades/diego.jpg"
 import { teamName } from '../datas/teamNames';
 import { useTranslation } from 'react-i18next';
 
+const buteursNames = {
+    44 : "Rodri",
+    1323: "Dani Olmo",
+    182219 : "Alex Baena",
+    377122: "Endrick"
+
+
+}
+
 
 
 const Affiche = ({ match, roundd, buteurHome, buteurExt, buteurHomeP, buteurExtP, formeHome, formeExt, onPress, classement }) => {
@@ -349,7 +358,7 @@ const backgroundSource =
     <TouchableOpacity accessible accessibilityLabel={`Afficher la fiche complète de ${evenement.player.name}`} accessibilityHint={evenement.detail === "Red Card" ? `carton rouge pour ${evenement.player.name} à la ${evenement.time.elapsed}ème minute` : `but de ${evenement.player.name} à la ${evenement.time.elapsed}ème minute`} onPress={() => navigation.navigate("FicheJoueur", { id: evenement.player.id, team: evenement.team.id })} style={{flexDirection: "row", alignItems: "center"}}>
         {evenement.detail === "Red Card" ? <View style={{flexDirection: "row", alignItems: "center"}}><Image source={red} style={{height: 22, width: 22, objectFit: "contain"}} /><Text style={[styles.text, {fontSize: isMediumScreen ? 14 : 11.5}]}>{evenement.player.name}, </Text><Text style={{fontFamily: "Kanitalik", fontSize: isMediumScreen ? 14 : 11.5}}>{evenement.time.elapsed}'{evenement.time.extra ? `+ ${evenement.time.extra}`:null}</Text></View> : null}
         :
-        {evenement.type === "Goal" && evenement.detail != "Missed Penalty" && evenement.comments != "Penalty Shootout" ? <View style={{alignItems: "center"}}><Text style={styles.text}><Text style={styles.goalIcon}>⚽</Text> <Text style={{fontSize: isMediumScreen ? 14 : 11.5}}> {evenement.player.name === "R. Lewandowski" ? "Lewandowski" : evenement.player.name}, </Text> <Text style={{fontFamily: "Kanitalik", fontSize: isMediumScreen ? 14 : 11.5}}>{evenement.time.elapsed}'{evenement.time.extra  ? `+ ${evenement.time.extra}` : null}</Text> {evenement.detail === "Own Goal" ? <Text style={styles.csc}>(csc)</Text> : null} {evenement.detail === "Penalty" ? <Text style={styles.penalty}>(pen)</Text> : null}</Text></View> : null}
+        {evenement.type === "Goal" && evenement.detail != "Missed Penalty" && evenement.comments != "Penalty Shootout" ? <View style={{alignItems: "center"}}><Text style={styles.text}><Text style={styles.goalIcon}>⚽</Text> <Text style={{fontSize: isMediumScreen ? 14 : 11.5}}> {buteursNames[evenement.player.id] || evenement.player.name}, </Text> <Text style={{fontFamily: "Kanitalik", fontSize: isMediumScreen ? 14 : 11.5}}>{evenement.time.elapsed}'{evenement.time.extra  ? `+ ${evenement.time.extra}` : null}</Text> {evenement.detail === "Own Goal" ? <Text style={styles.csc}>(csc)</Text> : null} {evenement.detail === "Penalty" ? <Text style={styles.penalty}>(pen)</Text> : null}</Text></View> : null}
     </TouchableOpacity> : null : null)}
 
 </View>
@@ -359,7 +368,7 @@ const backgroundSource =
     <TouchableOpacity accessible accessibilityLabel={`Afficher la fiche complète de ${evenement.player.name}`} accessibilityHint={evenement.detail === "Red Card" ? `carton rouge pour ${evenement.player.name} à la ${evenement.time.elapsed}ème minute` : `but de ${evenement.player.name} à la ${evenement.time.elapsed}ème minute`} onPress={() => navigation.navigate("FicheJoueur", { id: evenement.player.id, team: evenement.team.id })} style={{flexDirection: "row", alignItems: "start", justifyContent: "flex-end"}}>
         {evenement.detail === "Red Card" ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={[styles.text, {fontSize: isMediumScreen ? 14 : 11.5}]}>{evenement.player.name}, </Text><Text style={{fontFamily: "Kanitalik", fontSize: isMediumScreen ? 14 : 11.5}}>{evenement.time.elapsed}'{evenement.time.extra ? `+ ${evenement.time.extra}` : null}</Text><Image source={red} style={{height: 22, width: 22, objectFit: "contain"}} /></View> : null}
         :
-        {evenement.type === "Goal" && evenement.detail != "Missed Penalty" && evenement.comments != "Penalty Shootout" ? <View><Text style={styles.text}> <Text style={{fontSize: isMediumScreen ? 14 : 11.5}}> {evenement.player.name === "R. Lewandowski" ? "Lewandowski" : evenement.player.name}, </Text>{evenement.detail === "Own Goal" ? <Text style={styles.csc}>(csc)</Text> : null} {evenement.detail === "Penalty" ? <Text style={styles.penalty}>(pen) </Text> : null} <Text style={{fontFamily: "Kanitalik", fontSize: isMediumScreen ? 14 : 11.5}}>{evenement.time.elapsed}'{evenement.time.extra ? `+ ${evenement.time.extra}` : null}</Text> <Text style={styles.goalIcon}>⚽</Text></Text></View> : null}
+        {evenement.type === "Goal" && evenement.detail != "Missed Penalty" && evenement.comments != "Penalty Shootout" ? <View><Text style={styles.text}> <Text style={{fontSize: isMediumScreen ? 14 : 11.5}}> {buteursNames[evenement.player.id] || evenement.player.name}, </Text>{evenement.detail === "Own Goal" ? <Text style={styles.csc}>(csc)</Text> : null} {evenement.detail === "Penalty" ? <Text style={styles.penalty}>(pen) </Text> : null} <Text style={{fontFamily: "Kanitalik", fontSize: isMediumScreen ? 14 : 11.5}}>{evenement.time.elapsed}'{evenement.time.extra ? `+ ${evenement.time.extra}` : null}</Text> <Text style={styles.goalIcon}>⚽</Text></Text></View> : null}
     </TouchableOpacity> : null : null)}
 
 </View>
