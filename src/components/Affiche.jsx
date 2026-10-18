@@ -7,10 +7,12 @@ import ligue1 from "../assets/logoligue1.webp"
 import ligue2 from "../assets/ligue2.jpg"
 import cdm2026 from "../assets/cdm2026.png"
 import ucl from "../assets/logoucl.png"
-import stade from "../assets/stadewhite.png"
-import calendrier from "../assets/datewhite.png"
-import heure from "../assets/heurewhite.png"
-import loc from "../assets/locwhite.png"
+import stade from "../assets/stade.png"
+import round from "../assets/calendrier.png"
+import heure from "../assets/heure.png"
+import calendrier from "../assets/date.png"
+import tv from "../assets/screen2.png"
+import loc from "../assets/loc.png"
 import ucl2 from "../assets/UCL2.jpg"
 import grass from "../assets/grass.jpg"
 import pl from "../assets/PL.jpg"
@@ -43,6 +45,8 @@ import giuseppe from "../assets/stades/giuseppe.jpg"
 import diego from "../assets/stades/diego.jpg"
 import { teamName } from '../datas/teamNames';
 import { useTranslation } from 'react-i18next';
+import { SvgUri } from 'react-native-svg';
+
 
 const buteursNames = {
     44 : "Rodri",
@@ -52,6 +56,21 @@ const buteursNames = {
 
 
 }
+
+const flags = {
+    "Ligue 1" : "https://media.api-sports.io/flags/fr.svg",
+    "Coupe de France" : "https://media.api-sports.io/flags/fr.svg",
+    "Premier League" : "https://media.api-sports.io/flags/gb-eng.svg",
+    "League Cup" : "https://media.api-sports.io/flags/gb-eng.svg",
+    "FA Cup" : "https://media.api-sports.io/flags/gb-eng.svg",
+    "La Liga" : "https://media.api-sports.io/flags/es.svg",
+    "Copa del Rey" : "https://media.api-sports.io/flags/es.svg",
+    "Bundesliga" : "https://media.api-sports.io/flags/de.svg",
+    "DFB Pokal" : "https://media.api-sports.io/flags/de.svg",
+    "Serie A" : "https://media.api-sports.io/flags/it.svg",
+    "Pro League" : "https://media.api-sports.io/flags/sa.svg",
+    "Major League Soccer" : "https://media.api-sports.io/flags/us.svg",
+  }
 
 
 
@@ -143,10 +162,10 @@ const backgroundSource =
   const placeDom = classement?.filter((element)=> element.team.id === homeTeam)
   const placeExt = classement?.filter((element)=> element.team.id === match.teams.away.id)
 
- function getLeagueAndRoundLabel(match) {
+ function getRoundLabel(match) {
   // 🔹 Si langue anglaise, on retourne simplement le nom du round
   if (i18n.language === 'en') {
-    return `${match.league.name} - ${match.league.round}`;
+    return `${match.league.round}`;
   }
 
   // 🔹 Sinon, français : on applique la logique existante
@@ -177,33 +196,13 @@ const backgroundSource =
   else if (round === "1") round = "1ere Journée";
   else round = `${roundd}ème Journée`; // fallback
 
-  return `${league} - ${round}`;
+  return `${round}`;
 }
   
 
   return (
         <View style={styles.container}>
             
-            <LinearGradient colors={ [ 'rgba(0, 0, 0, 1)', 'rgba(0, 0, 0, 1)', '#f0f0f0']} locations={[0, 0.85, 1]} style={styles.datelieu}>
-                <View style={{ flexDirection: "row", gap: 5 }}>
-                    <Image source={calendrier} style={styles.icone} />
-                    <Text style={styles.textEntete}>{formattedDate} - {formattedHour}</Text>
-                    <Image source={heure} style={styles.icone} />
-                </View>
-                {match.fixture.venue.name === null ? null :
-                <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
-                    <Image source={stade} style={styles.icone} />
-                    <Text style={styles.textEntete}>{match.fixture.venue.name === "Estadio Santiago Bernabéu" ? "Santiago Bernabeu" : match.fixture.venue.name} , {match.fixture.venue.city}</Text>
-                    <Image source={loc} style={styles.icone} />
-                </View>
-}
-                {match.fixture.referee === null ? null : 
-                <View style={{ flexDirection: "row", gap: 5, alignItems: "center" }}>
-                    <Image source={arbitre} style={[styles.icone, {backgroundColor: "white", borderRadius: 50}]} />
-                    <Text style={styles.textEntete}>{match.fixture.referee}</Text>
-                </View>
-                }
-                </LinearGradient>
             {match.league.id === 2 || match.league.id === 61 || match.league.id === 39 || match.league.id === 140 || match.league.id === 78 || match.league.id === 135 || match.league.id === 6 ?
                 <ImageBackground source={backgroundSource} style={[styles.afficheUcl, isMediumScreen && {height: 260}]} imageStyle={{ borderRadius: 16, filter: match.league.id === 61 || match.league.id === 135 ? "brightness(0.5)" : match.league.id === 39 ? "brightness(0.4)" : match.league.id === 140 || match.league. id === 6 ? "brightness(0.32)" : match.league.id === 78 ? "brightness(0.45)" : "brightness(0.9)" }}>
                    
@@ -330,14 +329,56 @@ const backgroundSource =
                         ))}</View>
                     </TouchableOpacity>
                 </LinearGradient>}
-                <View style={styles.ligue}>
-                <Text style={{ fontFamily: "Kanitt", paddingInline: 9, textAlign: "center" }}>{getLeagueAndRoundLabel(match)}</Text>
-            </View>
+
+<View style={{marginTop: 5, marginBottom: 15, flexDirection: "row", justifyContent: "space-between"}}>
+                <View style={{ gap: 4, width: "50%"}}>
+                    <View style={styles.badge}>
+                        <SvgUri uri={flags[match.league.name]} width={22} height={20} />
+<Text style={styles.badgeText}>{match.league.name}</Text>
+                    </View>
+                    <View style={styles.badge}>
+                        <Image source={round} style={styles.icone} />
+<Text style={styles.badgeText}>{getRoundLabel(match)}</Text>
+                    </View>
+                    <View style={styles.badge}>
+                        <Image source={calendrier} style={styles.icone} />
+<Text style={styles.badgeText}>{formattedDate}</Text>
+                    </View>
+                    <View style={styles.badge}>
+                        <Image source={heure} style={styles.icone} />
+<Text style={styles.badgeText}>{formattedHour}</Text>
+                    </View>
+                    
+    </View>
+    <View style={{gap: 4, width: "50%"}}>
+    {match.fixture.venue.name === null ? null :
+    <View style={{gap: 4}}>
+                <View style={[styles.badge, {alignSelf: "flex-end", flexDirection: "row-reverse"}]}>
+                    <Image source={stade} style={styles.icone} />
+                    <Text style={styles.badgeText}>{match.fixture.venue.name === "Estadio Santiago Bernabéu" ? "Santiago Bernabeu" : match.fixture.venue.name}</Text>
+                    </View>
+                    <View style={[styles.badge, {alignSelf: "flex-end", flexDirection: "row-reverse"}]}>
+                    <Image source={loc} style={styles.icone} />
+                    <Text style={styles.badgeText}>{match.fixture.venue.city}</Text>
+                    </View>
+                </View>
+}
 {match.league.id === 1 || match.league.id === 1168  || match.league.id === 48 || match.league.id === 143 || match.league.id === 307 || match.league.id === 61 || match.league.id === 62 || match.league.id === 135 || match.league.id === 2 || match.league.id === 140 || match.league.id === 78 || match.league.id === 39 || match.league.id === 15 || match.league.id === 5 || match.league.id === 6
  ? 
- <View style={{flexDirection: "row", alignItems: "center", justifyContent: "center"}}>
-    <Text style={{fontFamily: "Kanitus"}}>Match diffusé sur</Text>
-    <Image source={ match.league.id === 61 ? ligue1plus : match.league.id === 135 || match.league.id === 15 || match.league.id === 140 ? dazn : match.league.id === 2 || match.league.id === 39 || match.league.id === 307 ? canal :  match.league.id === 62 || match.league.id === 78 || match.league.id === 1168 || match.league.id === 48 || match.league.id === 6 || match.league.id === 1 ? bein : match.league.id === 5 ? tf1 : match.league.id === 143 ? lequipe : null} style={match.league.id === 61 ? {height: 25, width: 40, objectFit: "contain", marginLeft: 2}:  match.league.id === 6 || match.league.id === 48 || match.league.id === 1 || match.league.id === 78  || match.league.id === 1168  ? {height: 25, width: 65, objectFit: "contain", marginLeft: 5} : match.league.id === 39 || match.league.id === 2 || match.league.id === 143 ? {height: 25, width: 50, objectFit: "contain", marginLeft: 2} : match.league.id === 140 ? {height: 25, width: 25, marginLeft: 4} : {height: 25, width: 40, objectFit: "contain", marginLeft: 2} }/>{match.teams.home.id === 2 || match.teams.away.id === 2  ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitus"}}> et</Text><Image source={m6} style={{height: 20, objectFit: "contain", width: 35}} /></View> : match.league.id === 140 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitus"}}> et</Text><Image source={disney} style={{height: 35, objectFit: "contain", width: 45, marginLeft: 4}} /></View> : match.fixture.id === 1399365 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitus"}}>et</Text><Image source={tf1} style={{height: 20, objectFit: "contain", width: 40, marginLeft: 8}} /></View> : null}</View> : null}
+ <View style={[styles.badge, {alignSelf: "flex-end", flexDirection: "row-reverse"}]}>
+    <Image source={tv} style={styles.icone}/>
+    <Image source={ match.league.id === 61 ? ligue1plus : match.league.id === 135 || match.league.id === 15 || match.league.id === 140 ? dazn : match.league.id === 2 || match.league.id === 39 || match.league.id === 307 ? canal :  match.league.id === 62 || match.league.id === 78 || match.league.id === 1168 || match.league.id === 48 || match.league.id === 6 || match.league.id === 1 ? bein : match.league.id === 5 ? tf1 : match.league.id === 143 ? lequipe : null} style={match.league.id === 61 ? {height: 22, width: 40, objectFit: "contain", marginLeft: 2}:  match.league.id === 6 || match.league.id === 48 || match.league.id === 1 || match.league.id === 78  || match.league.id === 1168  ? {height: 22, width: 65, objectFit: "contain", marginLeft: 5} : match.league.id === 39 || match.league.id === 2 || match.league.id === 143 ? {height: 22, width: 50, objectFit: "contain", marginLeft: 2} : match.league.id === 140 ? {height: 22, width: 25, marginLeft: 4} : {height: 22, width: 40, objectFit: "contain", marginLeft: 2} }/>{match.teams.home.id === 2 || match.teams.away.id === 2  ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitus"}}> et</Text><Image source={m6} style={{height: 22, objectFit: "contain", width: 35}} /></View> : match.league.id === 140 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitus"}}> et</Text><Image source={disney} style={{height: 22, objectFit: "contain", width: 45, marginLeft: 4}} /></View> : match.fixture.id === 1399365 ? <View style={{flexDirection: "row", alignItems: "center"}}><Text style={{fontFamily: "Kanitus"}}>et</Text><Image source={tf1} style={{height: 22, objectFit: "contain", width: 40, marginLeft: 8}} /></View> : null}
+    </View> : null}
+    {match.fixture.referee === null ? null : 
+                <View style={[styles.badge, {alignSelf: "flex-end",  flexDirection: "row-reverse"}]}>
+                    <Image source={arbitre} style={styles.icone} />
+                    <Text style={styles.badgeText}>{match.fixture.referee}</Text>
+                </View>
+                }
+                </View>
+                </View>
+                
+
             <View style={styles.buts}>
 {/*
                 <View style={styles.equipeDomicile}>
@@ -397,9 +438,9 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     container: {
-        paddingBlock: 5,
+        paddingBlock: 10,
         paddingInline: 10,
-        alignItems: 'center',
+        alignItems: "center",
         width: "100%"
     },
     ligue: {
@@ -418,8 +459,8 @@ const styles = StyleSheet.create({
 
     },
     icone: {
-        height: 18,
-        width: 18,
+        height: 20,
+        width: 20,
         objectFit: "contain"
     },
     afficheUcl: {
@@ -554,6 +595,24 @@ fontFamily: "Kanito",
         borderRadius: 5,
         textAlign: "center"
       },
+      badge: {
+  backgroundColor: "#69869074",
+  borderRadius: 18,
+  paddingVertical: 8,
+  paddingHorizontal: 12,
+  alignSelf: "flex-start",
+  alignItems: "center",
+  flexDirection: "row",
+  gap: 6,
+  borderWidth: 1,
+  borderColor: "#24234525"
+},
+
+badgeText: {
+  fontFamily: "Kanito",
+  color: "#000",
+  fontSize: 12,
+},
 });
 
 export default Affiche;
