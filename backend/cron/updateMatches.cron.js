@@ -3,7 +3,7 @@ const updateMatches = require('../services/updateMatches');
 
 console.log('⏱ Cron updateMatches initialisé');
 
-cron.schedule('*/10 * * * *', async () => {
+cron.schedule('*/15 * * * *', async () => {
   console.log(`${new Date().toISOString()} ⏱ Mise à jour matchs`);
   try {
     await updateMatches();

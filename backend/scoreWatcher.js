@@ -276,8 +276,8 @@ async function checkMatchScore() {
 // -----------------------------
 // Cron jobs
 // -----------------------------
-cron.schedule('*/5 * * * *', refreshActiveMatches);      // Rafraîchit tous les 5 min
-cron.schedule('*/30 * * * * *', checkMatchScore);       // Vérifie toutes les 30 sec
+cron.schedule('*/6 * * * *', refreshActiveMatches);      // Rafraîchit tous les 5 min
+cron.schedule('*/40 * * * * *', checkMatchScore);       // Vérifie toutes les 30 sec
 
 // ▶️ Démarrage initial
 (async () => {
