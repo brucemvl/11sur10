@@ -20,6 +20,8 @@ import { useFonts } from 'expo-font';
 import ligue1 from "../assets/logoligue1.webp";
 import fifaClubWc from "../assets/fifaclubwc2.png";
 import ucl from "../assets/logoucl.png";
+import arrow from "../assets/arrow.png";
+import arrow2 from "../assets/arrow2.png";
 import cdm2026 from "../assets/cdm2026.png";
 import { teamName } from '../datas/teamNames';
 import { useTranslation } from 'react-i18next';
@@ -143,6 +145,24 @@ const filteredMatches = useMemo(() => {
   });
 
   const [activeAnim] = useState(new Animated.Value(0));
+
+  const [collapsedLeagues, setCollapsedLeagues] = useState(new Set());
+
+const toggleLeague = (leagueId) => {
+  Haptics.selectionAsync();
+
+  setCollapsedLeagues(prev => {
+    const next = new Set(prev);
+
+    if (next.has(leagueId)) {
+      next.delete(leagueId); // Réafficher les matchs
+    } else {
+      next.add(leagueId); // Masquer les matchs
+    }
+
+    return next;
+  });
+};
 
 
 
@@ -431,14 +451,37 @@ const filteredMatches = useMemo(() => {
 
       return (
         <View key={leagueId} style={styles.leagueBlock}>
-          <View style={styles.leagueHeader}>
-            <View style={{ borderRadius: 6, overflow: "hidden" }}>
-              <SvgUri uri={flags[league.name]} width={22} height={20} />
-            </View>
-            <Text style={styles.leagueName}>{league.name === "Friendlies" ? "Amicaux" : league.name === "Friendlies Clubs" ? "Amicaux Clubs" : league.name}</Text>
-          </View>
+          <TouchableOpacity
+  style={styles.leagueHeader}
+  onPress={() => toggleLeague(leagueId)}
+  activeOpacity={0.7}
+  accessibilityRole="button"
+  accessibilityLabel={`Afficher ou masquer les matchs de ${league.name}`}
+>
+  <View style={{ borderRadius: 6, overflow: "hidden" }}>
+    <SvgUri
+      uri={flags[league.name]}
+      width={22}
+      height={20}
+    />
+  </View>
 
-          {leagueMatches.map(match => {
+  <Text style={styles.leagueName}>
+    {league.name === "Friendlies"
+      ? "Amicaux"
+      : league.name === "Friendlies Clubs"
+        ? "Amicaux Clubs"
+        : league.name}
+  </Text>
+
+  <View style={styles.leagueArrowContainer}>
+    <Image 
+      source={collapsedLeagues.has(leagueId) ? arrow2 : arrow}
+    />
+  </View>
+</TouchableOpacity>
+
+          {!collapsedLeagues.has(leagueId) && leagueMatches.map(match => {
             const home = teamName[match.teams.home.name] || match.teams.home.name;
             const away = teamName[match.teams.away.name] || match.teams.away.name;
             const hideScore = noSpoil && match.league.id === 2 &&
@@ -584,7 +627,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    paddingHorizontal: 5,
+    paddingHorizontal: 10,
+    marginBottom: 4
   },
   leagueLogo: {
     width: "8%",
@@ -733,4 +777,13 @@ filtersRow: { paddingBlock: 6, paddingHorizontal: 6, gap: 8, },
        filterChipActive: { backgroundColor: '#FFFFFF', },
  filterText: { color: '#FFFFFF', fontFamily: 'Kanito', fontSize: 12, },
   filterTextActive: { color: '#0B1351', fontFamily: 'Kanitt', },
+  leagueArrowContainer: {
+  marginLeft: "auto",
+  width: 28,
+  height: 28,
+  alignItems: "center",
+  justifyContent: "center",
+},
+
+
 });
