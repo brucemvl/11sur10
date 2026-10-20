@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Animated,
   RefreshControl,
+   Easing,
   useWindowDimensions,
   TouchableWithoutFeedback,
 } from 'react-native';
@@ -20,11 +21,46 @@ import { useFonts } from 'expo-font';
 import ligue1 from "../assets/logoligue1.webp";
 import fifaClubWc from "../assets/fifaclubwc2.png";
 import ucl from "../assets/logoucl.png";
-import arrow from "../assets/arrow.png";
+import arrow from "../assets/Vector.png";
 import arrow2 from "../assets/arrow2.png";
 import cdm2026 from "../assets/cdm2026.png";
 import { teamName } from '../datas/teamNames';
 import { useTranslation } from 'react-i18next';
+
+function LeagueArrow({ collapsed, source }) {
+  const rotateAnim = useRef(
+    new Animated.Value(collapsed ? 1 : 0)
+  ).current;
+
+  useEffect(() => {
+    Animated.spring(rotateAnim, {
+      toValue: collapsed ? 1 : 0,
+      stiffness: 220,
+      damping: 12,
+      mass: 0.7,
+      useNativeDriver: true,
+    }).start();
+  }, [collapsed, rotateAnim]);
+
+  const rotate = rotateAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '180deg'],
+  });
+
+  return (
+    <Animated.Image
+      source={source}
+      style={{
+        width: 16,
+        height: 16,
+        resizeMode: 'contain',
+        transform: [
+          { rotate },
+        ],
+      }}
+    />
+  );
+}
 
 
 
@@ -475,10 +511,11 @@ const toggleLeague = (leagueId) => {
   </Text>
 
   <View style={styles.leagueArrowContainer}>
-    <Image 
-      source={collapsedLeagues.has(leagueId) ? arrow2 : arrow}
-    />
-  </View>
+  <LeagueArrow
+    source={arrow}
+    collapsed={collapsedLeagues.has(leagueId)}
+  />
+</View>
 </TouchableOpacity>
 
           {!collapsedLeagues.has(leagueId) && leagueMatches.map(match => {

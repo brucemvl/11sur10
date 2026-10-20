@@ -13,6 +13,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
 import { Image } from 'react-native';
 import Precedent from '../components/Precedent';
+import { File } from "expo-file-system";
+import * as ImageManipulator from 'expo-image-manipulator';
+
 
 export default function MonProfil() {
   const [username, setUsername] = useState('');
@@ -74,69 +77,92 @@ export default function MonProfil() {
   // AVATAR 
 const pickAvatar = async () => {
   try {
-    // 1️⃣ Demander la permission
-    const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    const permission =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+
     if (!permission.granted) {
-      return Alert.alert('Permission refusée', 'Accès à la galerie requis');
+      Alert.alert('Permission refusée', 'Accès à la galerie requis');
+      return;
     }
 
-    // 2️⃣ Ouvrir la galerie
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ['images'],
       allowsEditing: true,
       aspect: [1, 1],
       quality: 0.7,
     });
 
-    if (result.canceled) return;
+    if (result.canceled || !result.assets?.length) return;
 
-    let uri = result.assets[0].uri;
+    // URI de la nouvelle image sélectionnée
+    const uri = result.assets[0].uri;
 
-    // 3️⃣ Sur iOS, enlever le "file://"
-    if (uri.startsWith('file://')) {
-      uri = uri.replace('file://', '');
-    }
-
-    // 4️⃣ Préparer le FormData
-    const formData = new FormData();
-    formData.append('avatar', {
+    // Compression de l'image
+    const manipulated = await ImageManipulator.manipulateAsync(
       uri,
-      name: `avatar.jpg`, // tu peux mettre un nom unique si tu veux
-      type: 'image/jpeg',
-    });
+      [],
+      {
+        compress: 0.7,
+        format: ImageManipulator.SaveFormat.JPEG,
+      }
+    );
 
-    // 5️⃣ Récupérer le token
+    // Création du fichier avec Expo FileSystem
+    const file = new File(manipulated.uri);
+
+    // FormData pour l'upload
+    const formData = new FormData();
+
+    formData.append('avatar', file);
+
     const token = await AsyncStorage.getItem('jwtToken');
 
-    // 6️⃣ Envoyer au backend avec fetch (plus fiable pour Expo)
+    if (!token) {
+      Alert.alert('Erreur', 'Session expirée, reconnectez-vous.');
+      return;
+    }
+
     const response = await fetch(
-  'https://one1sur10.onrender.com/api/profile/avatar',
-  {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      // 🔥 PAS DE 'Content-Type' ici, fetch le gère automatiquement pour FormData
-    },
-    body: formData,
-  }
-);
+      'https://one1sur10.onrender.com/api/profile/avatar',
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      }
+    );
 
-if (!response.ok) {
-  const text = await response.text(); // pour debug
-  console.error('Erreur upload avatar :', text);
-  throw new Error('Impossible de charger l’avatar');
-}
+    const text = await response.text();
 
-const data = await response.json();
+    if (!response.ok) {
+      console.error('Erreur upload avatar :', text);
+      throw new Error(`Erreur HTTP ${response.status}`);
+    }
 
-    // 7️⃣ Mettre à jour l'avatar affiché
-    await AsyncStorage.setItem('avatar', data.avatar);
-    setAvatar(data.avatar);
+    const data = JSON.parse(text);
 
-    Alert.alert('✅ Succès', 'Avatar mis à jour');
+    // Adapte selon la réponse réelle de ton backend
+    const avatarUrl =
+      typeof data.avatar === 'string'
+        ? data.avatar
+        : data.avatar?.url;
+
+    if (!avatarUrl) {
+      console.error('Réponse serveur :', data);
+      throw new Error("L'URL de l'avatar est absente.");
+    }
+
+    await AsyncStorage.setItem('avatar', avatarUrl);
+    setAvatar(avatarUrl);
+
+    Alert.alert('Succès', 'Avatar mis à jour');
   } catch (err) {
-    console.error(err);
-    Alert.alert('Erreur', err.message || 'Impossible de charger l’avatar');
+    console.error('Erreur changement avatar :', err);
+    Alert.alert(
+      'Erreur',
+      err.message || 'Impossible de charger l’avatar'
+    );
   }
 };
 
