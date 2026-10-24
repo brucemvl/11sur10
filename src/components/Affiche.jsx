@@ -597,7 +597,7 @@ fontFamily: "Kanito",
       },
       badge: {
   backgroundColor: "#69869074",
-  borderRadius: 18,
+  borderRadius: 12,
   paddingVertical: 8,
   paddingHorizontal: 12,
   alignSelf: "flex-start",
