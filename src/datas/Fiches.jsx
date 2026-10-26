@@ -270,7 +270,7 @@ import grimaldo from "../assets/portraits/fiche/grimaldo.png"
 import tolisso from "../assets/portraits/fiche/tolisso.png"
 import malickfofana from "../assets/portraits/fiche/malickfofana.png"
 import kalimuendo from "../assets/portraits/fiche/kalimuendo.png"
-import gordon from "../assets/portraits/fiche/gordon.webp"
+import gordon from "../assets/portraits/fiche/gordon.png"
 import sinayoko from "../assets/portraits/fiche/sinayoko.png"
 import mahrez from "../assets/portraits/fiche/mahrez.png"
 import amoura from "../assets/portraits/fiche/amoura.png"
@@ -311,6 +311,9 @@ import tielemans from "../assets/portraits/fiche/tielemans.png"
 import godts from "../assets/portraits/fiche/godts.png"
 import saud from "../assets/portraits/fiche/saud.png"
 import wahi from "../assets/portraits/fiche/wahi.png"
+import nuamah from "../assets/portraits/fiche/nuamah.png"
+import espart from "../assets/portraits/fiche/espart.png"
+import openda from "../assets/portraits/fiche/openda.png"
 import ryerson from "../assets/portraits/fiche/ryerson.webp"
 import barco from "../assets/portraits/fiche/barco.webp"
 import emegha from "../assets/portraits/fiche/emegha.webp"
@@ -320,6 +323,9 @@ import nunes from "../assets/portraits/fiche/nunes.webp"
 
 
 export const fichesJoueurs = {
+    350856: nuamah,
+    86: openda,
+    568001: espart,
     162707: wahi,
     44594: saud,
     41621: nunes,

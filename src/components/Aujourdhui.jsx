@@ -36,7 +36,7 @@ function LeagueArrow({ collapsed, source }) {
     Animated.spring(rotateAnim, {
       toValue: collapsed ? 1 : 0,
       stiffness: 220,
-      damping: 12,
+      damping: 10,
       mass: 0.7,
       useNativeDriver: true,
     }).start();
@@ -200,7 +200,23 @@ const toggleLeague = (leagueId) => {
   });
 };
 
+const [expandedLeagues, setExpandedLeagues] = useState(new Set());
 
+const toggleExpandedLeague = (leagueId) => {
+  Haptics.selectionAsync();
+
+  setExpandedLeagues(prev => {
+    const next = new Set(prev);
+
+    if (next.has(leagueId)) {
+      next.delete(leagueId);
+    } else {
+      next.add(leagueId);
+    }
+
+    return next;
+  });
+};
 
 
   /* -------------------- ANIMATION SPOIL -------------------- */
@@ -372,7 +388,7 @@ const toggleLeague = (leagueId) => {
             ref={daysScrollRef}
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.daysScroll}
-            style={{ borderRadius: 20, backgroundColor: "rgba(235, 235, 235, 1)" }}
+            style={{ borderRadius: 20, backgroundColor: "rgb(235, 235, 235)" }}
           >
             {DAYS.map((day, index) => {
               const scale = activeAnim.interpolate({
@@ -485,6 +501,12 @@ const toggleLeague = (leagueId) => {
       );
       const league = leagueMatches[0].league;
 
+      const isExpanded = expandedLeagues.has(leagueId);
+
+const displayedMatches = isExpanded
+  ? leagueMatches
+  : leagueMatches.slice(0, 6);
+
       return (
         <View key={leagueId} style={styles.leagueBlock}>
           <TouchableOpacity
@@ -518,7 +540,7 @@ const toggleLeague = (leagueId) => {
 </View>
 </TouchableOpacity>
 
-          {!collapsedLeagues.has(leagueId) && leagueMatches.map(match => {
+          {!collapsedLeagues.has(leagueId) && displayedMatches.map(match => {
             const home = teamName[match.teams.home.name] || match.teams.home.name;
             const away = teamName[match.teams.away.name] || match.teams.away.name;
             const hideScore = noSpoil && match.league.id === 2 &&
@@ -595,6 +617,20 @@ const toggleLeague = (leagueId) => {
               </TouchableOpacity>
             );
           })}
+          {!collapsedLeagues.has(leagueId) && leagueMatches.length > 6 && (
+  <TouchableOpacity
+    style={styles.showMoreButton}
+    onPress={() => toggleExpandedLeague(leagueId)}
+    activeOpacity={0.7}
+  >
+    <Text style={styles.showMoreText}>
+      {isExpanded
+        ? "Masquer les matchs supplémentaires"
+        : `Voir les ${leagueMatches.length - 6} autres matchs`}
+    </Text>
+
+  </TouchableOpacity>
+)}
         </View>
       );
     })
@@ -821,6 +857,31 @@ filtersRow: { paddingBlock: 6, paddingHorizontal: 6, gap: 8, },
   alignItems: "center",
   justifyContent: "center",
 },
+showMoreButton: {
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "center",
+  gap: 8,
+  alignSelf: "center",
+  paddingVertical: 9,
+  paddingHorizontal: 16,
+  marginTop: 5,
+  marginBottom: 8,
+  borderRadius: 18,
+  backgroundColor: "rgba(255, 255, 255, 0.12)",
+  borderWidth: 1,
+  borderColor: "rgba(255, 255, 255, 0.2)",
+},
 
+showMoreText: {
+  color: "#fff",
+  fontFamily: "Kanito",
+  fontSize: 12,
+},
+
+showMoreArrow: {
+  color: "#fff",
+  fontSize: 18,
+},
 
 });

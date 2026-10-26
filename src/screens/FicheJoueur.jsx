@@ -296,7 +296,12 @@ function FicheJoueur() {
     <View>
       <Precedent />
       <View style={isMediumScreen ? {flexDirection: "row", paddingInline: 8} : null}>
-      {isMediumScreen ? <LinearGradient colors={["black", "steelblue"]} style={styles.infosJoueurTablet}>
+      {isMediumScreen ? 
+      <LinearGradient
+        colors={["#000000", "#0e1e3b", "#16355f" ]}
+        locations={[0, 0.55, 1]}
+        style={styles.profileHeader}
+      >
             {team === 2 ?
               <Image source={
 
@@ -327,7 +332,13 @@ function FicheJoueur() {
       <ScrollView contentContainerStyle={styles.blocJoueur}>
         <View style={[styles.article, isMediumScreen && { width: "94%", gap: 10, flexDirection: "row" }]}>
           {isMediumScreen ? null : 
-          <LinearGradient colors={["black", "steelblue"]} style={styles.infosJoueur}>
+          <LinearGradient
+            colors={["#000000", "#0e1e3b", "#16355f"]}
+            locations={[0, 0.55, 1]}
+            style={styles.infosJoueur}
+          >
+            <View pointerEvents="none" style={styles.liquidGlowOne} />
+            <View pointerEvents="none" style={styles.liquidGlowTwo} />
             {team === 2 ?
               <Image source={
 
@@ -559,22 +570,36 @@ function FicheJoueur() {
             {opaque2 === true ? <TouchableOpacity style={{ opacity: 0.2, marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center" }}><Text style={{ fontSize: isMediumScreen ? 28 : 24, fontFamily: "Kanitt" }}>{">"}</Text></TouchableOpacity> : <TouchableOpacity onPress={next} style={{ marginBlock: 10, width: 50, height: 50, alignItems: "center", justifyContent: "center" }}><Text style={{ fontSize: isMediumScreen ? 28 : 24, fontFamily: "Kanitt" }}>{">"}</Text></TouchableOpacity>}
           </View>
 
-          <View style={{ width: "70%", gap: 20, marginBlock: 10, flexDirection: "row", justifyContent: "space-evenly" }}>
+          <View style={{  gap: 14, marginBlock: 10, flexDirection: "row", justifyContent: "space-evenly" }}>
 
-            <View style={styles.stat}>
-              <View style={{ backgroundColor: "rgb(8, 4, 82)", borderRadius: 50, width: isMediumScreen ? 65 : 45, height: isMediumScreen ? 65 : 45, alignItems: "center", justifyContent: "center" }}><Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: isMediumScreen ? 22 : 18 }}>{totalMatchs}</Text></View>
-              <Text style={[styles.h5, isMediumScreen && { fontSize: 16 }]}>Matchs</Text>
-            </View>
+            
+              <View style={{ backgroundColor: "#50a9cd", borderRadius: 16, flexDirection: "row", alignItems: "center", justifyContent: "center", paddingInline: 12, paddingBlock: 8, borderWidth: 1, borderColor: "#1a213a4e" }}>
+                <Image source={terrain} style={styles.icone}/>
+                <View>
+                <Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: isMediumScreen ? 22 : 18 }}>{totalMatchs}</Text>
+                <Text style={[styles.h5, isMediumScreen && { fontSize: 16 }]}>Matchs</Text>
+                </View>
+                </View>
+              
+            
 
-            <View style={styles.stat}>
-              <View style={{ backgroundColor: "steelblue", borderRadius: 50, width: isMediumScreen ? 65 : 45, height: isMediumScreen ? 65 : 45, alignItems: "center", justifyContent: "center" }}><Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: isMediumScreen ? 22 : 18 }}>{totalGoals}</Text></View>
-              <Text style={[styles.h5, { color: "steelblue" }, isMediumScreen && { fontSize: 16 }]}>{t("buts")}</Text>
-            </View>
+              <View style={{ backgroundColor: "#50a9cd", borderRadius: 16, flexDirection: "row", alignItems: "center", justifyContent: "center", paddingInline: 12, paddingBlock: 8, borderWidth: 1, borderColor: "#1a213a4e" }}>
+                <Image source={goal} style={styles.icone}/>
+                <View>
+                <Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: isMediumScreen ? 22 : 18 }}>{totalGoals}</Text>
+                <Text style={[styles.h5, { color: "white" }, isMediumScreen && { fontSize: 16 }]}>{t("buts")}</Text>
+                </View>
+                </View>
+              
 
-            <View style={styles.stat}>
-              <View style={{ backgroundColor: "steelblue", borderRadius: 50, width: isMediumScreen ? 65 : 45, height: isMediumScreen ? 65 : 45, alignItems: "center", justifyContent: "center" }}><Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: isMediumScreen ? 22 : 18 }}>{totalPasses}</Text></View>
-              <Text style={[styles.h5, { color: "steelblue" }, isMediumScreen && { fontSize: 16 }]}>{t("passes")}</Text>
-            </View>
+              <View style={{ backgroundColor: "#50a9cd", borderRadius: 16, alignItems: "center", flexDirection: "row", justifyContent: "center", paddingInline: 12, paddingBlock: 8, borderWidth: 1, borderColor: "#1a213a4e" }}>
+                <Image source={target} style={styles.icone}/>
+                <View>
+                <Text style={{ fontFamily: "Kanitalik", color: "white", fontSize: isMediumScreen ? 22 : 18 }}>{totalPasses}</Text>
+                <Text style={[styles.h5, { color: "white" }, isMediumScreen && { fontSize: 16 }]}>{t("passes")}</Text>
+                </View>
+                </View>
+              
           </View>
 
           <View style={styles.stats}>
@@ -665,7 +690,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   infosJoueur: {
-    borderRadius: 15,
+    borderRadius: 24,
     flexDirection: 'row',
     paddingInline: 10,
     width: '100%',
@@ -673,15 +698,17 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     justifyContent: "center",
     height: 220,
-    alignItems: "center"
+    alignItems: "center",
+    overflow: "hidden",
   },
   infosJoueurTablet: {
 height: "75%",
 width: "38%",
 flexDirection: "column",
 alignItems: "center",
-borderRadius: 15,
-marginTop: 70
+borderRadius: 24,
+marginTop: 70,
+overflow: "hidden",
   },
   fiche: {
     height: 200,
@@ -848,13 +875,39 @@ marginTop: 70
     fontSize: 16,
     color: "rgb(8, 4, 82)"
   },
-  stat: {
-    alignItems: "center"
-  },
+  
   h5: {
-    fontFamily: "Kanitalik",
-    color: "rgb(8, 4, 82)",
-  }
+    fontFamily: "Kanitus",
+    color: "rgb(255, 255, 255)",
+    fontSize: 11
+  },
+  liquidGlowOne: {
+  position: "absolute",
+
+  width: 150,
+  height: 150,
+
+  borderRadius: 75,
+
+  backgroundColor: "rgba(70,150,255,0.10)",
+
+  top: -90,
+  right: -50,
+},
+
+liquidGlowTwo: {
+  position: "absolute",
+
+  width: 110,
+  height: 110,
+
+  borderRadius: 55,
+
+  backgroundColor: "rgba(255,255,255,0.055)",
+
+  bottom: -70,
+  left: -35,
+}
 });
 
 export default FicheJoueur;

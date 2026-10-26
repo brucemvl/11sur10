@@ -20,7 +20,7 @@ import Precedent from './Precedent';
 import { teamName } from '../datas/teamNames';
 import { useNavigation } from '@react-navigation/native';
 import ucl from "../assets/UCL44.jpg"
-import ball from "../assets/football.png"
+import ball from "../assets/footballl.png"
 
 
 export default function Jeu() {

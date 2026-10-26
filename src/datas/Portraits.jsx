@@ -270,12 +270,18 @@ import nunes from "../assets/portraits/nunes.png"
 import saud from "../assets/portraits/saud.png"
 import amoura from "../assets/portraits/amoura.png"
 import wahi from "../assets/portraits/wahi.png"
+import espart from "../assets/portraits/espart.png"
+import nuamah from "../assets/portraits/nuamah.png"
+import openda from "../assets/portraits/openda.png"
 
 
 
 
 
 export const portraitsJoueurs = {
+    86: openda,
+        568001: espart,
+    350856: nuamah,
         200139: amoura,
     162707: wahi,
     41621: nunes,
