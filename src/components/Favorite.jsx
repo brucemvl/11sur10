@@ -12,7 +12,6 @@ import fifaClubWc from "../assets/fifaclubwc2.png"
 import logoUcl from "../assets/logoucl.png"
 import cdm2026 from "../assets/cdm2026.png"
 import { teamName } from "../datas/teamNames";
-import { InteractionManager } from "react-native";
 
 const teams = [
     { id: 85, name: 'Paris Saint Germain', logo: "https://media.api-sports.io/football/teams/85.png" },
@@ -35,97 +34,88 @@ const Favorite = forwardRef((props, ref) => {
 
     const [calendrier, setCalendrier] = useState([]);
     const navigation = useNavigation();
-    const scrollViewRef = useRef(null);
-    const [positions, setPositions] = useState({});
-    const [firstUpcomingIndex, setFirstUpcomingIndex] = useState(null);
     const [calendriers, setCalendriers] = useState({});
     const scrollRefs = useRef({});
-    const [firstUpcomingMatchIds, setFirstUpcomingMatchIds] = useState({});
-
-
-    useEffect(() => {
-        const now = new Date();
-        const index = calendrier
-            .slice()
-            .sort((a, b) => new Date(a.fixture.date) - new Date(b.fixture.date))
-            .findIndex(match => new Date(match.fixture.date) >= now);
-
-        setFirstUpcomingIndex(index);
-    }, [calendrier]);
+const [firstUpcomingIndexes, setFirstUpcomingIndexes] = useState({});
 
     useEffect(() => {
-        if (firstUpcomingIndex !== null && positions[firstUpcomingIndex]) {
-            scrollViewRef.current?.scrollTo({
-                x: positions[firstUpcomingIndex].x,
-                animated: true
-            });
-        }
-    }, [positions, firstUpcomingIndex]);
+    let cancelled = false;
 
+    if (!selectedTeamIds || selectedTeamIds.length === 0) {
+        setCalendriers({});
+        setFirstUpcomingIndexes({});
+        return;
+    }
 
-    useEffect(() => {
-        if (!selectedTeamIds || selectedTeamIds.length === 0) {
-            setCalendriers({});
-            return;
-        }
+    const fetchAllCalendars = async () => {
+        try {
+            const results = {};
+            const upcomingIndexes = {};
 
-        const fetchAllCalendars = async () => {
-            try {
-                const results = {};
-
-                await Promise.all(
-                    selectedTeamIds.map(async (teamId) => {
-                        const response = await fetch(
-                            `https://v3.football.api-sports.io/fixtures?season=2026&team=${teamId}`,
-                            {
-                                method: "GET",
-                                headers: {
-                                    "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
-                                    "x-rapidapi-host": "v3.football.api-sports.io",
-                                },
-                            }
-                        );
-
-                        const json = await response.json();
-
-                        const sorted = json.response
-                            ? json.response.sort(
-                                (a, b) =>
-                                    new Date(a.fixture.date) - new Date(b.fixture.date)
-                            )
-                            : [];
-
-                        results[teamId] = sorted;
-
-                        // 🔥 Scroll auto vers prochain match
-                        const now = new Date();
-                        const firstUpcomingMatch = sorted.find(m => new Date(m.fixture.date) >= now);
-                        const firstUpcomingMatchId = firstUpcomingMatch?.fixture?.id;
-
-                        setFirstUpcomingMatchIds(prev => ({ ...prev, [teamId]: firstUpcomingMatchId }));
-
-                        if (firstUpcomingMatch) {
-                            // attendre que le ScrollView soit rendu
-                            InteractionManager.runAfterInteractions(() => {
-                                scrollRefs.current[teamId]?.scrollTo({
-                                    x: positions[firstUpcomingMatch.fixture.id] || 0,
-                                    animated: true,
-                                });
-                            });
+            await Promise.all(
+                selectedTeamIds.map(async (teamId) => {
+                    const response = await fetch(
+                        `https://v3.football.api-sports.io/fixtures?season=2026&team=${teamId}`,
+                        {
+                            method: "GET",
+                            headers: {
+                                "x-rapidapi-key": "5ff22ea19db11151a018c36f7fd0213b",
+                                "x-rapidapi-host": "v3.football.api-sports.io",
+                            },
                         }
-                    })
-                );
+                    );
 
-                setCalendriers(results);
+                    if (!response.ok) {
+                        throw new Error(`Erreur API : ${response.status}`);
+                    }
 
+                    const json = await response.json();
 
-            } catch (error) {
-                console.error("Erreur fetch calendrier:", error);
+                    const sorted = (json.response || []).slice().sort(
+                        (a, b) =>
+                            new Date(a.fixture.date) -
+                            new Date(b.fixture.date)
+                    );
+
+                    // On exclut les matchs qui ne seront pas affichés.
+                    const displayedMatches = sorted.filter(
+                        match => match.league.id !== 15
+                    );
+
+                    const now = Date.now();
+
+                    const upcomingIndex = displayedMatches.findIndex(
+                        match =>
+                            new Date(match.fixture.date).getTime() >= now
+                    );
+
+                    results[teamId] = displayedMatches;
+                    upcomingIndexes[teamId] =
+                        upcomingIndex >= 0 ? upcomingIndex : null;
+                })
+            );
+
+            if (cancelled) return;
+
+            setCalendriers(results);
+            setFirstUpcomingIndexes(upcomingIndexes);
+
+        } catch (error) {
+            if (!cancelled) {
+                console.error("Erreur fetch calendrier :", error);
             }
-        };
+        }
+    };
 
-        fetchAllCalendars();
-    }, [JSON.stringify(selectedTeamIds)]);
+    fetchAllCalendars();
+
+    return () => {
+        cancelled = true;
+    };
+}, [JSON.stringify(selectedTeamIds)]);
+
+
+   
 
 
 
@@ -145,13 +135,30 @@ const Favorite = forwardRef((props, ref) => {
 
                         {/* Scroll horizontal propre à l'équipe */}
                         <ScrollView
-                            ref={ref => (scrollRefs.current[teamId] = ref)}
-                            horizontal
-                            snapToInterval={188}
-                            decelerationRate="fast"
-                            showsHorizontalScrollIndicator={false}
-                            contentContainerStyle={{ gap: 18, padding: 12 }}
-                        >
+    ref={node => {
+        scrollRefs.current[teamId] = node;
+    }}
+    horizontal
+    snapToInterval={188}
+    decelerationRate="fast"
+    showsHorizontalScrollIndicator={false}
+    contentContainerStyle={{
+        gap: 18,
+        padding: 12,
+    }}
+    onContentSizeChange={() => {
+        const index = firstUpcomingIndexes[teamId];
+
+        if (index == null) return;
+
+        requestAnimationFrame(() => {
+            scrollRefs.current[teamId]?.scrollTo({
+                x: index * 188,
+                animated: true,
+            });
+        });
+    }}
+>
                             {teamMatches.map((element) => {
                                 const date = element.fixture.date;
                                 const dateh = new Date(date);
@@ -166,23 +173,11 @@ const Favorite = forwardRef((props, ref) => {
                                             style={styles.carte}
                                             onPress={() => navigation.navigate('FicheMatch', { id: element.fixture.id })}
                                             onLayout={e => {
-                                                const layoutX = e.nativeEvent.layout.x;  // copie immédiatement
-                                                setPositions(prev => {
-                                                    const newPositions = { ...prev, [element.fixture.id]: layoutX };
-                                                    const matchIdToScroll = firstUpcomingMatchIds[teamId];
+    const layoutX = e.nativeEvent.layout.x;
+    const matchId = element.fixture.id;
 
-                                                    if (matchIdToScroll && newPositions[matchIdToScroll] !== undefined) {
-                                                        InteractionManager.runAfterInteractions(() => {
-                                                            scrollRefs.current[teamId]?.scrollTo({
-                                                                x: newPositions[matchIdToScroll],
-                                                                animated: true,
-                                                            });
-                                                        });
-                                                    }
-
-                                                    return newPositions;
-                                                });
-                                            }}
+    
+}}
                                         >                                                       <LinearGradient style={styles.affiche} colors={element.league.id === 1 ? ["rgb(181, 163, 48)", "rgba(1, 1, 3, 0.89)"] : element.league.id === 2 ? ["rgb(10, 20, 40)", "rgb(24, 36, 70)"] : element.league.id === 6 ? ["rgba(172, 101, 31, 1)", "rgba(128, 0, 0, 1)"] : element.league.standings === false ? ["rgba(123, 131, 151, 1)", "rgba(255, 255, 255, 1)"] : ["#fff", "rgb(146, 146, 146)"]} locations={[0.5, 0.9]}>
                                                 <View style={{ flexDirection: "row", gap: 5, borderBottomWidth: 1, paddingBottom: 5, borderBottomColor: element.league.id === 2 ? "white" : "black" }}>
                                                     <Image source={element.league.id === 2 ? calendarWhite : calendar} style={styles.icone} />

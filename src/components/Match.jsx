@@ -33,7 +33,7 @@ function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id,
       </View>
       <View style={styles.teamBlock}>
         <Image style={styles.logo} source={{ uri: logoDom }} />
-        <Text numberOfLines={2} style={[styles.teamName, isMediumScreen && { fontSize: 15 }]} > {teamName[equipeDom] || equipeDom} </Text>
+        <Text numberOfLines={1} style={[styles.teamName, isMediumScreen && { fontSize: 15 }]} > {teamName[equipeDom] || equipeDom} </Text>
       </View>
 
       <View style={styles.scoreContainer}>
@@ -47,11 +47,12 @@ function Match({ equipeDom, equipeExt, logoDom, logoExt, scoreDom, scoreExt, id,
             <View style={[styles.scoreBadge, scoreExt > scoreDom ? styles.scoreWinner : scoreDom === scoreExt ? styles.scoreDraw : styles.scoreLoser,]} >
               <Text style={styles.scoreText}>{scoreExt}</Text>
             </View>
-          </View>} </View>
+          </View>}
+           </View>
 
       <View style={styles.teamBlock}>
         <Image style={styles.logo} source={{ uri: logoExt }} />
-        <Text numberOfLines={2} style={[styles.teamName, isMediumScreen && { fontSize: 15 }]} > {teamName[equipeExt] || equipeExt} </Text>
+        <Text numberOfLines={1} style={[styles.teamName, isMediumScreen && { fontSize: 15 }]} > {teamName[equipeExt] || equipeExt} </Text>
       </View>
     </LinearGradient>
   </TouchableOpacity>);
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingBlock: 10,
-    paddingInline: 8,
+    paddingInline: 6,
     marginVertical: 4,
     borderRadius: 22,
     borderWidth: 1,
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   dateBadge: {
-    width: 54,
+    width: 50,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(0,0,0,0.35)',

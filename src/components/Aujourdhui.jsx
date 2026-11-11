@@ -540,7 +540,7 @@ const displayedMatches = isExpanded
 </View>
 </TouchableOpacity>
 
-          {!collapsedLeagues.has(leagueId) && displayedMatches.map(match => {
+          {(leagueId === 2 || !collapsedLeagues.has(leagueId)) && displayedMatches.map(match => {
             const home = teamName[match.teams.home.name] || match.teams.home.name;
             const away = teamName[match.teams.away.name] || match.teams.away.name;
             const hideScore = noSpoil && match.league.id === 2 &&
@@ -617,7 +617,7 @@ const displayedMatches = isExpanded
               </TouchableOpacity>
             );
           })}
-          {!collapsedLeagues.has(leagueId) && leagueMatches.length > 6 && (
+          {(leagueId === 2 || !collapsedLeagues.has(leagueId)) && leagueMatches.length > 6 && (
   <TouchableOpacity
     style={styles.showMoreButton}
     onPress={() => toggleExpandedLeague(leagueId)}

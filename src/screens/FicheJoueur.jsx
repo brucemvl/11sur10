@@ -752,7 +752,7 @@ overflow: "hidden",
     objectFit: "contain"
   },
   palmares: {
-    marginBottom: 20,
+    marginBottom: 10,
     width: '100%',
   },
   palmaresTitle: {

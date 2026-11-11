@@ -91,7 +91,14 @@
         "milieux": "Midfielders",
         "attaquants": "Attackers",
         "passedec": "Assist",
-                        "no_match_today": "No match today"
+                        "no_match_today": "No match today",
+                        "Tous" : "All",
+
+"En cours" : "In Progress",
+
+"À venir" : "Upcoming",
+
+"Terminés" : "Finished"
 
 
 

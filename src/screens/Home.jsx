@@ -53,7 +53,7 @@ const COMPETITIONS = {
      conference: 'https://v3.football.api-sports.io/fixtures?league=848&season=2026', 
       arabiesaoudite: 'https://v3.football.api-sports.io/fixtures?league=307&season=2026',
        miami: 'https://v3.football.api-sports.io/fixtures?team=9568&season=2026',
-          fac: 'https://v3.football.api-sports.io/fixtures?league=45&season=2026',
+          // fac: 'https://v3.football.api-sports.io/fixtures?league=45&season=2026',
 
         leaguecup: 'https://v3.football.api-sports.io/fixtures?league=48&season=2026',
          dfbpokal: 'https://v3.football.api-sports.io/fixtures?league=81&season=2026',
