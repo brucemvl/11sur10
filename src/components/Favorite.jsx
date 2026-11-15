@@ -147,7 +147,7 @@ const [firstUpcomingIndexes, setFirstUpcomingIndexes] = useState({});
         padding: 12,
     }}
     onContentSizeChange={() => {
-        const index = firstUpcomingIndexes[teamId];
+        const index = firstUpcomingIndexes[teamId] - 1;
 
         if (index == null) return;
 

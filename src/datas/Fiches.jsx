@@ -314,6 +314,7 @@ import wahi from "../assets/portraits/fiche/wahi.png"
 import nuamah from "../assets/portraits/fiche/nuamah.png"
 import espart from "../assets/portraits/fiche/espart.png"
 import openda from "../assets/portraits/fiche/openda.png"
+import mcginn from "../assets/portraits/fiche/mcginn.png"
 import ryerson from "../assets/portraits/fiche/ryerson.webp"
 import barco from "../assets/portraits/fiche/barco.webp"
 import emegha from "../assets/portraits/fiche/emegha.webp"
@@ -323,6 +324,7 @@ import nunes from "../assets/portraits/fiche/nunes.webp"
 
 
 export const fichesJoueurs = {
+        19191: mcginn,
     350856: nuamah,
     86: openda,
     568001: espart,

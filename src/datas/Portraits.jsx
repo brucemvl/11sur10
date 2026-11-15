@@ -273,12 +273,18 @@ import wahi from "../assets/portraits/wahi.png"
 import espart from "../assets/portraits/espart.png"
 import nuamah from "../assets/portraits/nuamah.png"
 import openda from "../assets/portraits/openda.png"
+import mbaye from "../assets/portraits/mbaye.png"
+import mcginn from "../assets/portraits/mcginn.png"
+import goretzka from "../assets/portraits/goretzka.png"
 
 
 
 
 
 export const portraitsJoueurs = {
+    511: goretzka,
+    19191: mcginn,
+    446249: mbaye,
     86: openda,
         568001: espart,
     350856: nuamah,
