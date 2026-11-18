@@ -391,7 +391,7 @@ console.log("TOKEN =", token);
         data={history}
         keyExtractor={(item) => item.matchId.toString()}
         contentContainerStyle={{ paddingTop: 20, paddingInline: 10, paddingBottom: 100}}
-        style={{width: "100%", backgroundColor: "#07111f", borderRadius: 24}}
+        style={{width: "98%", backgroundColor: "#07111f", borderRadius: 24}}
         renderItem={({ item }) => {
           const grouped = item.reactions.reduce((acc, r) => {
   acc[r.emoji] = (acc[r.emoji] || 0) + 1;
@@ -572,7 +572,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f3f4f6',
     alignItems: "center",
-    paddingInline: 4
   },
   title: {
     fontSize: 20,

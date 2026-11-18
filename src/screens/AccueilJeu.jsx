@@ -127,14 +127,13 @@ export default function AccueilJeu() {
     <ScrollView style={styles.container} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false} >
        <Animated.View style={[styles.page, { opacity: fadeAnim, transform: [{ translateY: translateAnim }], },]} >
          {/* HEADER */}
-          <View style={styles.header}> 
-            <TouchableOpacity style={styles.profileButton} onPress={() => navigation.navigate("MonProfil")} activeOpacity={0.8} >
+          
+                   {/* HERO */} 
+                  <View style={styles.heroCard}>
+                    <TouchableOpacity style={styles.profileButton} onPress={() => navigation.navigate("MonProfil")} activeOpacity={0.8} >
                <Text style={styles.profileIcon}>👤</Text>
                 <Text style={styles.profileText}>Profil</Text>
                  </TouchableOpacity>
-                  </View>
-                   {/* HERO */} 
-                  <View style={styles.heroCard}>
                      <Text style={styles.title}> PRONOS </Text> 
                      <Text style={styles.competitionTitle}> LIGUE DES CHAMPIONS </Text>
                         <Image source={cdm2026} style={styles.competitionLogo} />
@@ -167,10 +166,14 @@ export default function AccueilJeu() {
                                                   </View>
                                                    <View style={styles.playArrow}> 
                                                     <Text style={styles.arrowText}>→</Text>
-                                                     </View> </Animated.View> 
+                                                     </View>
+                                                      </Animated.View> 
                                                      </TouchableOpacity>
                                                      
-                                                      {/* SECONDARY ACTIONS */} <View style={styles.secondaryGrid}> <TouchableOpacity style={styles.menuCard} activeOpacity={0.8} onPress={() => { Animated.sequence([Animated.timing(scaleAnim2, { toValue: 0.96, duration: 100, useNativeDriver: true, }), Animated.timing(scaleAnim2, { toValue: 1, duration: 120, useNativeDriver: true, }),]).start(); navigation.navigate("ClassementJeu"); }} > <Animated.View style={[styles.menuCardInner, { transform: [{ scale: scaleAnim2 }], },]} > <Text style={styles.menuIcon}> 🏆 </Text> <Text style={styles.menuTitle}> Classement </Text> <Text style={styles.menuSubtitle}> Voir ma position </Text> </Animated.View> </TouchableOpacity> <TouchableOpacity style={styles.menuCard} activeOpacity={0.8} onPress={() => { Animated.sequence([Animated.timing(scaleAnim3, { toValue: 0.96, duration: 100, useNativeDriver: true, }), Animated.timing(scaleAnim3, { toValue: 1, duration: 120, useNativeDriver: true, }),]).start(); navigation.navigate("HistoriquePronos"); }} > <Animated.View style={[styles.menuCardInner, { transform: [{ scale: scaleAnim3 }], },]} > <Text style={styles.menuIcon}> 📋 </Text> <Text style={styles.menuTitle}> Mes pronos </Text> <Text style={styles.menuSubtitle}> Voir mon historique </Text> </Animated.View> </TouchableOpacity> </View> {/* SEPARATOR */} <View style={styles.separator} /> {/* LOGOUT */} <TouchableOpacity style={styles.logoutButton} onPress={handleLogout} activeOpacity={0.7} > <Text style={styles.logoutIcon}> ↪ </Text> <Text style={styles.logoutText}> Se déconnecter </Text> </TouchableOpacity>  </Animated.View> </ScrollView>
+                                                      {/* SECONDARY ACTIONS */}
+                                                      
+                                                       <View style={styles.secondaryGrid}> 
+                                                        <TouchableOpacity style={styles.menuCard} activeOpacity={0.8} onPress={() => { Animated.sequence([Animated.timing(scaleAnim2, { toValue: 0.96, duration: 100, useNativeDriver: true, }), Animated.timing(scaleAnim2, { toValue: 1, duration: 120, useNativeDriver: true, }),]).start(); navigation.navigate("ClassementJeu"); }} > <Animated.View style={[styles.menuCardInner, { transform: [{ scale: scaleAnim2 }], },]} > <Text style={styles.menuIcon}> 🏆 </Text> <Text style={styles.menuTitle}> Classement </Text> <Text style={styles.menuSubtitle}> Voir ma position </Text> </Animated.View> </TouchableOpacity> <TouchableOpacity style={styles.menuCard} activeOpacity={0.8} onPress={() => { Animated.sequence([Animated.timing(scaleAnim3, { toValue: 0.96, duration: 100, useNativeDriver: true, }), Animated.timing(scaleAnim3, { toValue: 1, duration: 120, useNativeDriver: true, }),]).start(); navigation.navigate("HistoriquePronos"); }} > <Animated.View style={[styles.menuCardInner, { transform: [{ scale: scaleAnim3 }], },]} > <Text style={styles.menuIcon}> 📋 </Text> <Text style={styles.menuTitle}> Mes pronos </Text> <Text style={styles.menuSubtitle}> Voir mon historique </Text> </Animated.View> </TouchableOpacity> </View> {/* SEPARATOR */} <View style={styles.separator} /> {/* LOGOUT */} <TouchableOpacity style={styles.logoutButton} onPress={handleLogout} activeOpacity={0.7} > <Text style={styles.logoutIcon}> ↪ </Text> <Text style={styles.logoutText}> Se déconnecter </Text> </TouchableOpacity>  </Animated.View> </ScrollView>
   );
 }
 
@@ -182,8 +185,6 @@ const styles = StyleSheet.create({
   },
 
   content: {
-    paddingHorizontal: 18,
-    paddingTop: 18,
     paddingBottom: 150,
   },
 
@@ -202,10 +203,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 6,
-    backgroundColor: "#172033",
+    backgroundColor: "#7277805d",
     paddingInline: 12,
     paddingBlock: 8,
-    borderRadius: 14,
+    borderRadius: 18,
+    alignSelf: "flex-end",
+    borderColor: "#ffffff71",
+    borderWidth: 1
   },
 
   profileIcon: {
@@ -222,8 +226,9 @@ const styles = StyleSheet.create({
   heroCard: {
     width: "100%",
     backgroundColor: "#101827",
-    borderRadius: 28,
-    paddingTop: 24,
+borderBottomLeftRadius: 28,
+    borderBottomRightRadius: 28,
+        paddingTop: 24,
     paddingBottom: 22,
     paddingHorizontal: 20,
     alignItems: "center",
@@ -282,7 +287,7 @@ const styles = StyleSheet.create({
   /* ========================= PLAYER CARD ========================= */
 
   playerCard: {
-    width: "100%",
+    width: "96%",
     backgroundColor: "#101827",
     borderRadius: 22,
     paddingBlock: 14,
@@ -358,7 +363,7 @@ const styles = StyleSheet.create({
   /* ========================= PLAY ========================= */
 
   playCard: {
-    width: "100%",
+    width: "96%",
     backgroundColor: "#22c55e",
     borderRadius: 24,
     marginBottom: 14,
@@ -419,7 +424,7 @@ const styles = StyleSheet.create({
   /* ========================= SECONDARY MENU ========================= */
 
   secondaryGrid: {
-    width: "100%",
+    width: "96%",
     flexDirection: "row",
     gap: 12,
   },
