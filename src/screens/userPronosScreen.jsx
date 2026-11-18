@@ -679,10 +679,8 @@ fontFamily: "Kanitt",
   },
   
   profileHeader: {
-  marginTop: 55,
-  width: "96%",
+  width: "100%",
   minHeight: 170,
-  borderRadius: 26,
   paddingInline: 12,
   paddingBlock: 6,
 
@@ -700,6 +698,11 @@ fontFamily: "Kanitt",
   },
 
   elevation: 8,
+  paddingTop: 58,
+    paddingBottom: 28,
+    paddingHorizontal: 22,
+    borderBottomLeftRadius: 28,
+    borderBottomRightRadius: 28,
 },
 
 
